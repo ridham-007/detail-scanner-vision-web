@@ -206,7 +206,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         </div>
       )}
 
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-50">
         <Button
           onClick={handleToggleClick}
           variant={isScanning ? "destructive" : "default"}
