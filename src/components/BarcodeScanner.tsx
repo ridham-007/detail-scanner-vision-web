@@ -141,8 +141,9 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
     
     const track = streamRef.current.getVideoTracks()[0];
     try {
+      // Use type assertion for torch constraint as it's not in standard MediaTrackConstraints
       await track.applyConstraints({
-        advanced: [{ torch: !flashOn }]
+        advanced: [{ torch: !flashOn } as any]
       });
       setFlashOn(!flashOn);
       toast({
