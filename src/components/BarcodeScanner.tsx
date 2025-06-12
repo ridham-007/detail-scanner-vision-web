@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader } from '@zxing/library';
 import { Camera, CameraOff, Flashlight, FlashlightOff } from 'lucide-react';
@@ -14,6 +15,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
   const videoRef = useRef<HTMLVideoElement>(null);
   const codeReader = useRef<BrowserMultiFormatReader | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const scanningRef = useRef<boolean>(false);
   const [hasFlash, setHasFlash] = useState(false);
   const [flashOn, setFlashOn] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -48,8 +50,8 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
 
   const startScanning = async () => {
     console.log('startScanning called');
-    if (!codeReader.current || !videoRef.current) {
-      console.error('Scanner or video ref not available');
+    if (!codeReader.current || !videoRef.current || scanningRef.current) {
+      console.error('Scanner not available or already scanning');
       return;
     }
 
@@ -67,6 +69,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
       console.log('Camera stream obtained');
       streamRef.current = stream;
       videoRef.current.srcObject = stream;
+      scanningRef.current = true;
       
       const track = stream.getVideoTracks()[0];
       const capabilities = track.getCapabilities();
@@ -75,26 +78,46 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         console.log('Flash capability detected');
       }
 
-      // Wait for video to be ready
-      videoRef.current.onloadedmetadata = () => {
-        console.log('Video metadata loaded, starting barcode detection...');
+      // Wait for video to load and then start scanning
+      const startBarcodeDetection = () => {
+        console.log('Starting barcode detection...');
         
-        if (codeReader.current && videoRef.current) {
-          codeReader.current.decodeFromVideoDevice(undefined, videoRef.current, (result, error) => {
-            if (result) {
-              console.log('Barcode detected:', result.getText());
-              onScan(result.getText());
-              toast({
-                title: "Barcode Scanned Successfully!",
-                description: `Code: ${result.getText()}`,
-              });
+        if (codeReader.current && videoRef.current && scanningRef.current) {
+          // Use decodeOnceFromVideoDevice for better control
+          const scanLoop = async () => {
+            while (scanningRef.current && videoRef.current && codeReader.current) {
+              try {
+                const result = await codeReader.current.decodeOnceFromVideoDevice(undefined, videoRef.current);
+                if (result && scanningRef.current) {
+                  console.log('Barcode detected:', result.getText());
+                  onScan(result.getText());
+                  toast({
+                    title: "Barcode Scanned Successfully!",
+                    description: `Code: ${result.getText()}`,
+                  });
+                  break; // Stop scanning after successful scan
+                }
+              } catch (error: any) {
+                // NotFoundException is expected when no barcode is found
+                if (error.name !== 'NotFoundException') {
+                  console.log('Scanner error:', error.name);
+                }
+                // Continue scanning
+                await new Promise(resolve => setTimeout(resolve, 100));
+              }
             }
-            if (error && error.name !== 'NotFoundException') {
-              console.log('Scanner error:', error.name);
-            }
-          });
+          };
+          
+          scanLoop();
         }
       };
+
+      // Start detection when video is ready
+      if (videoRef.current.readyState >= 2) {
+        startBarcodeDetection();
+      } else {
+        videoRef.current.addEventListener('loadeddata', startBarcodeDetection, { once: true });
+      }
 
       toast({
         title: "Camera Started",
@@ -103,6 +126,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
 
     } catch (error) {
       console.error('Camera access error:', error);
+      scanningRef.current = false;
       let errorMessage = "Unable to access camera. ";
       
       if (error instanceof Error) {
@@ -128,6 +152,8 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
 
   const stopScanning = () => {
     console.log('Stopping scanner...');
+    scanningRef.current = false;
+    
     if (codeReader.current) {
       codeReader.current.reset();
     }
@@ -146,9 +172,8 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
     
     const track = streamRef.current.getVideoTracks()[0];
     try {
-      // Use proper type casting for torch constraint
       await track.applyConstraints({
-        advanced: [{ torch: !flashOn } as any]
+        advanced: [{ torch: !flashOn } as MediaTrackConstraintSet]
       });
       setFlashOn(!flashOn);
       toast({
