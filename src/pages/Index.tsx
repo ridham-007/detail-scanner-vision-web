@@ -5,6 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { AlertCircle, Scan, Smartphone } from 'lucide-react';
 import BarcodeScanner from '@/components/BarcodeScanner';
 import ProductDetails from '@/components/ProductDetails';
+import ApiKeyInput from '@/components/ApiKeyInput';
 import ThemeToggle from '@/components/ThemeToggle';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { useProductLookup } from '@/hooks/useProductLookup';
@@ -12,7 +13,7 @@ import { useProductLookup } from '@/hooks/useProductLookup';
 const IndexContent = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
-  const { lookupProduct, isLoading } = useProductLookup();
+  const { lookupProduct, isLoading, apiKey, setApiKey } = useProductLookup();
 
   const handleScan = async (barcode: string) => {
     console.log('Barcode scanned:', barcode);
@@ -38,12 +39,15 @@ const IndexContent = () => {
               <Scan className="h-6 w-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">Barcode Scanner</h1>
-              <p className="text-muted-foreground">Scan products to get detailed information</p>
+              <h1 className="text-3xl font-bold">AI-Powered Barcode Scanner</h1>
+              <p className="text-muted-foreground">Scan products for AI-enhanced details, ratings, and buying suggestions</p>
             </div>
           </div>
           <ThemeToggle />
         </div>
+
+        {/* API Key Input */}
+        <ApiKeyInput apiKey={apiKey} onApiKeyChange={setApiKey} />
 
         {/* Scanner Section */}
         <Card className="mb-8">
@@ -82,15 +86,15 @@ const IndexContent = () => {
         {/* Product Details Section */}
         <div>
           <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-            Product Details
+            Product Analysis & Buying Guide
           </h2>
           <ProductDetails product={currentProduct} isLoading={isLoading} />
         </div>
 
         {/* Footer */}
         <div className="mt-12 text-center text-sm text-muted-foreground">
-          <p>Scan any product barcode to get instant details and information.</p>
-          <p className="mt-1">Supports UPC, EAN, and other common barcode formats.</p>
+          <p>Scan any product barcode to get instant AI-powered analysis, ratings, and buying recommendations.</p>
+          <p className="mt-1">Supports UPC, EAN, and other common barcode formats with ChatGPT integration.</p>
         </div>
       </div>
     </div>

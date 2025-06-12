@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Package, DollarSign, Building, Calendar, Shield } from 'lucide-react';
+import { Package, DollarSign, Building, Calendar, Shield, Star, StarHalf, ShoppingCart, MapPin } from 'lucide-react';
 
 interface ProductData {
   barcode: string;
@@ -23,12 +23,42 @@ interface ProductData {
   allergens?: string;
   expiryDate?: string;
   batchNumber?: string;
+  rating?: number;
+  reviewCount?: number;
+  buyingSuggestions?: Array<{
+    store: string;
+    price: string;
+    availability: string;
+    url?: string;
+  }>;
+  aiRecommendation?: string;
 }
 
 interface ProductDetailsProps {
   product: ProductData | null;
   isLoading: boolean;
 }
+
+const StarRating: React.FC<{ rating: number; size?: number }> = ({ rating, size = 16 }) => {
+  const stars = [];
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
+
+  for (let i = 0; i < fullStars; i++) {
+    stars.push(<Star key={i} size={size} className="fill-yellow-400 text-yellow-400" />);
+  }
+
+  if (hasHalfStar) {
+    stars.push(<StarHalf key="half" size={size} className="fill-yellow-400 text-yellow-400" />);
+  }
+
+  const emptyStars = 5 - Math.ceil(rating);
+  for (let i = 0; i < emptyStars; i++) {
+    stars.push(<Star key={`empty-${i}`} size={size} className="text-gray-300" />);
+  }
+
+  return <div className="flex items-center gap-1">{stars}</div>;
+};
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product, isLoading }) => {
   if (isLoading) {
@@ -67,6 +97,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, isLoading }) =
           <div className="space-y-1">
             <CardTitle className="text-xl">{product.name}</CardTitle>
             <p className="text-sm text-muted-foreground">by {product.brand}</p>
+            {product.rating && (
+              <div className="flex items-center gap-2 mt-2">
+                <StarRating rating={product.rating} />
+                <span className="text-sm font-medium">{product.rating.toFixed(1)}</span>
+                {product.reviewCount && (
+                  <span className="text-sm text-muted-foreground">({product.reviewCount} reviews)</span>
+                )}
+              </div>
+            )}
           </div>
           <Badge variant="secondary" className="ml-2">
             <Package size={12} className="mr-1" />
@@ -101,6 +140,52 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, isLoading }) =
             <span className="text-sm">{product.manufacturer}</span>
           </div>
         </div>
+
+        {product.aiRecommendation && (
+          <>
+            <Separator />
+            <div className="space-y-2">
+              <h4 className="font-semibold flex items-center gap-2">
+                <Star size={16} className="text-blue-600" />
+                AI Recommendation
+              </h4>
+              <p className="text-sm bg-blue-50 dark:bg-blue-950 p-3 rounded-lg">
+                {product.aiRecommendation}
+              </p>
+            </div>
+          </>
+        )}
+
+        {product.buyingSuggestions && product.buyingSuggestions.length > 0 && (
+          <>
+            <Separator />
+            <div className="space-y-3">
+              <h4 className="font-semibold flex items-center gap-2">
+                <ShoppingCart size={16} className="text-green-600" />
+                Where to Buy
+              </h4>
+              <div className="space-y-2">
+                {product.buyingSuggestions.map((suggestion, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <MapPin size={14} className="text-muted-foreground" />
+                      <span className="font-medium">{suggestion.store}</span>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-semibold text-green-600">${suggestion.price}</div>
+                      <div className={`text-xs ${
+                        suggestion.availability === 'In Stock' ? 'text-green-600' :
+                        suggestion.availability === 'Limited' ? 'text-yellow-600' : 'text-red-600'
+                      }`}>
+                        {suggestion.availability}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
 
         <Separator />
 
