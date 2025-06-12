@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader } from '@zxing/library';
 import { Camera, CameraOff, Flashlight, FlashlightOff } from 'lucide-react';
@@ -17,13 +16,16 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
   const streamRef = useRef<MediaStream | null>(null);
   const [hasFlash, setHasFlash] = useState(false);
   const [flashOn, setFlashOn] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const { toast } = useToast();
 
-  console.log('BarcodeScanner render - isScanning:', isScanning);
+  console.log('BarcodeScanner render - isScanning:', isScanning, 'isInitialized:', isInitialized);
 
   useEffect(() => {
     console.log('Initializing BarcodeScanner...');
     codeReader.current = new BrowserMultiFormatReader();
+    setIsInitialized(true);
+    
     return () => {
       console.log('Cleaning up BarcodeScanner...');
       if (codeReader.current) {
@@ -37,21 +39,22 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
 
   useEffect(() => {
     console.log('isScanning changed:', isScanning);
-    if (isScanning && videoRef.current && codeReader.current) {
+    if (isScanning && videoRef.current && codeReader.current && isInitialized) {
       startScanning();
     } else if (!isScanning) {
       stopScanning();
     }
-  }, [isScanning]);
+  }, [isScanning, isInitialized]);
 
   const startScanning = async () => {
+    console.log('startScanning called');
     if (!codeReader.current || !videoRef.current) {
       console.error('Scanner or video ref not available');
       return;
     }
 
     try {
-      console.log('Starting camera...');
+      console.log('Requesting camera access...');
       
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { 
@@ -61,10 +64,9 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         }
       });
       
+      console.log('Camera stream obtained');
       streamRef.current = stream;
       videoRef.current.srcObject = stream;
-      
-      console.log('Camera started successfully');
       
       const track = stream.getVideoTracks()[0];
       const capabilities = track.getCapabilities();
@@ -73,30 +75,26 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         console.log('Flash capability detected');
       }
 
-      await new Promise((resolve) => {
-        if (videoRef.current) {
-          videoRef.current.onloadedmetadata = () => {
-            console.log('Video metadata loaded');
-            resolve(true);
-          };
-        }
-      });
-
-      console.log('Starting barcode detection...');
-      
-      codeReader.current.decodeFromVideoDevice(undefined, videoRef.current, (result, error) => {
-        if (result) {
-          console.log('Barcode detected:', result.getText());
-          onScan(result.getText());
-          toast({
-            title: "Barcode Scanned Successfully!",
-            description: `Code: ${result.getText()}`,
+      // Wait for video to be ready
+      videoRef.current.onloadedmetadata = () => {
+        console.log('Video metadata loaded, starting barcode detection...');
+        
+        if (codeReader.current && videoRef.current) {
+          codeReader.current.decodeFromVideoDevice(undefined, videoRef.current, (result, error) => {
+            if (result) {
+              console.log('Barcode detected:', result.getText());
+              onScan(result.getText());
+              toast({
+                title: "Barcode Scanned Successfully!",
+                description: `Code: ${result.getText()}`,
+              });
+            }
+            if (error && error.name !== 'NotFoundException') {
+              console.log('Scanner error:', error.name);
+            }
           });
         }
-        if (error && error.name !== 'NotFoundException') {
-          console.log('Scanner error:', error.name);
-        }
-      });
+      };
 
       toast({
         title: "Camera Started",
@@ -123,6 +121,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         variant: "destructive",
       });
       
+      // Reset scanning state on error
       onToggleScanning();
     }
   };
@@ -148,7 +147,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
     const track = streamRef.current.getVideoTracks()[0];
     try {
       await track.applyConstraints({
-        advanced: [{ torch: !flashOn } as any]
+        advanced: [{ torch: !flashOn }]
       });
       setFlashOn(!flashOn);
       toast({
@@ -166,8 +165,10 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
   };
 
   const handleToggleClick = () => {
-    console.log('Toggle button clicked, current isScanning:', isScanning);
-    onToggleScanning();
+    console.log('Toggle button clicked, current isScanning:', isScanning, 'isInitialized:', isInitialized);
+    if (isInitialized) {
+      onToggleScanning();
+    }
   };
 
   return (
@@ -210,7 +211,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
           variant={isScanning ? "destructive" : "default"}
           size="sm"
           className="flex items-center gap-2 shadow-lg"
-          disabled={false}
+          disabled={!isInitialized}
         >
           {isScanning ? <CameraOff size={16} /> : <Camera size={16} />}
           {isScanning ? 'Stop' : 'Start'} Scan
@@ -234,7 +235,9 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
           <div className="text-center p-6">
             <Camera size={48} className="mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">Ready to Scan</p>
-            <p className="text-sm text-muted-foreground">Click "Start Scan" to begin</p>
+            <p className="text-sm text-muted-foreground">
+              {!isInitialized ? 'Initializing...' : 'Click "Start Scan" to begin'}
+            </p>
           </div>
         </div>
       )}
