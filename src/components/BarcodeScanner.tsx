@@ -147,7 +147,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
   };
 
   return (
-    <div className="relative w-full h-64 sm:h-72 lg:h-80 bg-muted rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-border/50">
+    <div className="relative w-full h-64 bg-muted rounded-lg overflow-hidden">
       <video
         ref={videoRef}
         autoPlay
@@ -156,72 +156,66 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         className="w-full h-full object-cover"
       />
       
-      {/* Enhanced scanning overlay */}
+      {/* Scanning overlay with improved visibility */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-3 sm:inset-4 border-2 border-primary/70 rounded-xl bg-transparent shadow-lg">
-          {/* Enhanced corner indicators */}
-          <div className="absolute -top-1 -left-1 w-6 h-6 sm:w-8 sm:h-8 border-t-4 border-l-4 border-destructive rounded-tl-xl shadow-md"></div>
-          <div className="absolute -top-1 -right-1 w-6 h-6 sm:w-8 sm:h-8 border-t-4 border-r-4 border-destructive rounded-tr-xl shadow-md"></div>
-          <div className="absolute -bottom-1 -left-1 w-6 h-6 sm:w-8 sm:h-8 border-b-4 border-l-4 border-destructive rounded-bl-xl shadow-md"></div>
-          <div className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-8 sm:h-8 border-b-4 border-r-4 border-destructive rounded-br-xl shadow-md"></div>
+        <div className="absolute inset-4 border-2 border-primary/80 rounded-lg bg-transparent">
+          {/* Corner indicators */}
+          <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-destructive rounded-tl-lg"></div>
+          <div className="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-destructive rounded-tr-lg"></div>
+          <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-destructive rounded-bl-lg"></div>
+          <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-destructive rounded-br-lg"></div>
         </div>
         
-        {/* Enhanced animated scanning line */}
+        {/* Animated scanning line */}
         {isScanning && (
-          <div className="absolute inset-3 sm:inset-4 overflow-hidden rounded-xl">
-            <div className="w-full h-1 bg-gradient-to-r from-transparent via-destructive to-transparent opacity-90 animate-pulse shadow-lg"></div>
+          <div className="absolute inset-4 overflow-hidden rounded-lg">
+            <div className="w-full h-1 bg-gradient-to-r from-transparent via-destructive to-transparent opacity-80 animate-pulse"></div>
           </div>
         )}
       </div>
 
       {/* Enhanced status indicator */}
       {isScanning && (
-        <div className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-background/95 text-foreground px-3 py-2 rounded-full text-xs sm:text-sm font-medium border border-border/50 shadow-lg backdrop-blur-sm">
+        <div className="absolute top-4 left-4 bg-background/90 text-foreground px-3 py-1 rounded-full text-sm font-medium border">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-destructive rounded-full animate-pulse shadow-sm"></div>
-            <span className="hidden sm:inline">Scanning for barcode...</span>
-            <span className="sm:hidden">Scanning...</span>
+            <div className="w-2 h-2 bg-destructive rounded-full animate-pulse"></div>
+            Scanning...
           </div>
         </div>
       )}
 
-      {/* Enhanced controls */}
-      <div className="absolute bottom-3 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 sm:gap-3">
-        <button
+      {/* Controls */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+        <Button
           onClick={onToggleScanning}
-          className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium shadow-xl transition-all duration-200 transform hover:scale-105 text-sm sm:text-base ${
-            isScanning 
-              ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90' 
-              : 'bg-primary text-primary-foreground hover:bg-primary/90'
-          }`}
+          variant={isScanning ? "destructive" : "default"}
+          size="sm"
+          className="flex items-center gap-2 shadow-lg"
         >
           {isScanning ? <CameraOff size={16} /> : <Camera size={16} />}
-          <span className="hidden sm:inline">{isScanning ? 'Stop' : 'Start'} Scan</span>
-          <span className="sm:hidden">{isScanning ? 'Stop' : 'Start'}</span>
-        </button>
+          {isScanning ? 'Stop' : 'Start'} Scan
+        </Button>
         
         {hasFlash && isScanning && (
-          <button
+          <Button
             onClick={toggleFlash}
-            className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 rounded-full font-medium shadow-xl bg-background/95 hover:bg-background text-foreground border border-border/50 backdrop-blur-sm transition-all duration-200 transform hover:scale-105 text-sm sm:text-base"
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-2 shadow-lg bg-background/90"
           >
             {flashOn ? <FlashlightOff size={16} /> : <Flashlight size={16} />}
-            <span className="hidden sm:inline">Flash</span>
-          </button>
+            Flash
+          </Button>
         )}
       </div>
 
-      {/* Enhanced instructions overlay when not scanning */}
+      {/* Instructions overlay when not scanning */}
       {!isScanning && (
-        <div className="absolute inset-0 bg-gradient-to-br from-background/95 to-muted/95 backdrop-blur-sm flex items-center justify-center">
-          <div className="text-center p-4 sm:p-6 max-w-sm">
-            <div className="p-4 bg-primary/10 rounded-full w-fit mx-auto mb-4 border border-primary/20">
-              <Camera size={32} className="sm:w-12 sm:h-12 text-primary" />
-            </div>
-            <p className="text-lg sm:text-xl font-semibold mb-2">Ready to Scan</p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Click "Start Scan" to activate your camera and begin scanning barcodes
-            </p>
+        <div className="absolute inset-0 bg-background/90 flex items-center justify-center">
+          <div className="text-center p-6">
+            <Camera size={48} className="mx-auto mb-4 text-muted-foreground" />
+            <p className="text-lg font-medium mb-2">Ready to Scan</p>
+            <p className="text-sm text-muted-foreground">Click "Start Scan" to begin</p>
           </div>
         </div>
       )}
