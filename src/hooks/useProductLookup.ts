@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 interface ProductData {
@@ -32,35 +32,7 @@ interface ProductData {
 
 export const useProductLookup = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKey, setApiKey] = useState('');
   const { toast } = useToast();
-
-  useEffect(() => {
-    // Try to get API key from environment variable first, then fallback to localStorage
-    const envApiKey = import.meta.env.VITE_OPENAI_API_KEY;
-    const storedApiKey = localStorage.getItem('openai_api_key');
-    
-    if (envApiKey) {
-      setApiKey(envApiKey);
-    } else if (storedApiKey) {
-      setApiKey(storedApiKey);
-    }
-  }, []);
-
-  const updateApiKey = (key: string) => {
-    setApiKey(key);
-    // Store in localStorage as backup
-    if (key.trim()) {
-      localStorage.setItem('openai_api_key', key);
-    } else {
-      localStorage.removeItem('openai_api_key');
-    }
-  };
-
-  const getApiKey = (): string => {
-    // Prioritize environment variable over user input
-    return import.meta.env.VITE_OPENAI_API_KEY || apiKey;
-  };
 
   const enhanceProductWithAI = async (basicProduct: ProductData, userApiKey: string): Promise<ProductData> => {
     try {
@@ -206,9 +178,9 @@ Respond in JSON format:
       }
 
       // Enhance with AI if API key is available
-      const currentApiKey = getApiKey();
-      if (currentApiKey.trim()) {
-        const enhancedProduct = await enhanceProductWithAI(basicProduct, currentApiKey);
+      const envApiKey = import.meta.env.VITE_OPENAI_API_KEY;
+      if (envApiKey?.trim()) {
+        const enhancedProduct = await enhanceProductWithAI(basicProduct, envApiKey);
         return enhancedProduct;
       } else {
         // Add basic suggestions without AI
@@ -220,7 +192,7 @@ Respond in JSON format:
             { store: 'Amazon', price: basicProduct.price, availability: 'In Stock' },
             { store: 'Local Store', price: (parseFloat(basicProduct.price.replace('$', '')) * 0.9).toFixed(2), availability: 'Check Availability' }
           ],
-          aiRecommendation: 'Connect OpenAI API for detailed analysis and recommendations.'
+          aiRecommendation: 'Product details from public databases. Enhanced features available with OpenAI API key.'
         };
       }
 
@@ -304,5 +276,5 @@ Respond in JSON format:
     };
   };
 
-  return { lookupProduct, isLoading, apiKey, setApiKey: updateApiKey };
+  return { lookupProduct, isLoading };
 };

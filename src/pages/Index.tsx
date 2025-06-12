@@ -5,7 +5,6 @@ import { Separator } from '@/components/ui/separator';
 import { AlertCircle, Scan, Smartphone } from 'lucide-react';
 import BarcodeScanner from '@/components/BarcodeScanner';
 import ProductDetails from '@/components/ProductDetails';
-import ApiKeyInput from '@/components/ApiKeyInput';
 import ThemeToggle from '@/components/ThemeToggle';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { useProductLookup } from '@/hooks/useProductLookup';
@@ -13,7 +12,7 @@ import { useProductLookup } from '@/hooks/useProductLookup';
 const IndexContent = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
-  const { lookupProduct, isLoading, apiKey, setApiKey } = useProductLookup();
+  const { lookupProduct, isLoading } = useProductLookup();
 
   const handleScan = async (barcode: string) => {
     console.log('Barcode scanned:', barcode);
@@ -45,9 +44,6 @@ const IndexContent = () => {
           </div>
           <ThemeToggle />
         </div>
-
-        {/* API Key Input */}
-        <ApiKeyInput apiKey={apiKey} onApiKeyChange={setApiKey} />
 
         {/* Scanner Section */}
         <Card className="mb-8">
