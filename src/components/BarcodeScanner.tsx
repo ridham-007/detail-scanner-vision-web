@@ -19,9 +19,13 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
   const [flashOn, setFlashOn] = useState(false);
   const { toast } = useToast();
 
+  console.log('BarcodeScanner render - isScanning:', isScanning);
+
   useEffect(() => {
+    console.log('Initializing BarcodeScanner...');
     codeReader.current = new BrowserMultiFormatReader();
     return () => {
+      console.log('Cleaning up BarcodeScanner...');
       if (codeReader.current) {
         codeReader.current.reset();
       }
@@ -32,6 +36,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
   }, []);
 
   useEffect(() => {
+    console.log('isScanning changed:', isScanning);
     if (isScanning && videoRef.current && codeReader.current) {
       startScanning();
     } else if (!isScanning) {
@@ -40,12 +45,14 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
   }, [isScanning]);
 
   const startScanning = async () => {
-    if (!codeReader.current || !videoRef.current) return;
+    if (!codeReader.current || !videoRef.current) {
+      console.error('Scanner or video ref not available');
+      return;
+    }
 
     try {
       console.log('Starting camera...');
       
-      // Request camera permission with optimized constraints
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { 
           facingMode: { ideal: 'environment' },
@@ -59,23 +66,24 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
       
       console.log('Camera started successfully');
       
-      // Check if device has flash
       const track = stream.getVideoTracks()[0];
       const capabilities = track.getCapabilities();
       if (capabilities && 'torch' in capabilities) {
         setHasFlash(true);
+        console.log('Flash capability detected');
       }
 
-      // Wait for video to be ready
       await new Promise((resolve) => {
         if (videoRef.current) {
-          videoRef.current.onloadedmetadata = () => resolve(true);
+          videoRef.current.onloadedmetadata = () => {
+            console.log('Video metadata loaded');
+            resolve(true);
+          };
         }
       });
 
       console.log('Starting barcode detection...');
       
-      // Start barcode detection
       codeReader.current.decodeFromVideoDevice(undefined, videoRef.current, (result, error) => {
         if (result) {
           console.log('Barcode detected:', result.getText());
@@ -85,7 +93,6 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
             description: `Code: ${result.getText()}`,
           });
         }
-        // Only log non-trivial errors
         if (error && error.name !== 'NotFoundException') {
           console.log('Scanner error:', error.name);
         }
@@ -116,7 +123,6 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         variant: "destructive",
       });
       
-      // Reset scanning state on error
       onToggleScanning();
     }
   };
@@ -141,7 +147,6 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
     
     const track = streamRef.current.getVideoTracks()[0];
     try {
-      // Use type assertion for torch constraint as it's not in standard MediaTrackConstraints
       await track.applyConstraints({
         advanced: [{ torch: !flashOn } as any]
       });
@@ -160,6 +165,11 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
     }
   };
 
+  const handleToggleClick = () => {
+    console.log('Toggle button clicked, current isScanning:', isScanning);
+    onToggleScanning();
+  };
+
   return (
     <div className="relative w-full h-64 bg-muted rounded-lg overflow-hidden">
       <video
@@ -170,17 +180,14 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         className="w-full h-full object-cover"
       />
       
-      {/* Scanning overlay */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-4 border-2 border-primary/80 rounded-lg bg-transparent">
-          {/* Corner indicators */}
           <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-destructive rounded-tl-lg"></div>
           <div className="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-destructive rounded-tr-lg"></div>
           <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-destructive rounded-bl-lg"></div>
           <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-destructive rounded-br-lg"></div>
         </div>
         
-        {/* Animated scanning line */}
         {isScanning && (
           <div className="absolute inset-4 overflow-hidden rounded-lg">
             <div className="w-full h-1 bg-gradient-to-r from-transparent via-destructive to-transparent opacity-80 animate-pulse"></div>
@@ -188,7 +195,6 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         )}
       </div>
 
-      {/* Status indicator */}
       {isScanning && (
         <div className="absolute top-4 left-4 bg-background/90 text-foreground px-3 py-1 rounded-full text-sm font-medium border">
           <div className="flex items-center gap-2">
@@ -198,13 +204,13 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         </div>
       )}
 
-      {/* Controls */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
         <Button
-          onClick={onToggleScanning}
+          onClick={handleToggleClick}
           variant={isScanning ? "destructive" : "default"}
           size="sm"
           className="flex items-center gap-2 shadow-lg"
+          disabled={false}
         >
           {isScanning ? <CameraOff size={16} /> : <Camera size={16} />}
           {isScanning ? 'Stop' : 'Start'} Scan
@@ -223,7 +229,6 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         )}
       </div>
 
-      {/* Instructions overlay when not scanning */}
       {!isScanning && (
         <div className="absolute inset-0 bg-background/90 flex items-center justify-center">
           <div className="text-center p-6">
