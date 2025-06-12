@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -34,39 +35,43 @@ export const useProductLookup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const enhanceProductWithAI = async (basicProduct: ProductData, userApiKey: string): Promise<ProductData> => {
+  const getProductFromChatGPT = async (barcode: string, apiKey: string): Promise<ProductData> => {
     try {
-      const prompt = `Analyze this product and provide detailed information:
-      
-Product: ${basicProduct.name}
-Brand: ${basicProduct.brand}
-Category: ${basicProduct.category}
-Barcode: ${basicProduct.barcode}
+      const prompt = `Based on this barcode number: ${barcode}, please provide complete product information. If you can identify the product from the barcode, provide real details. If not, provide realistic placeholder data for a common consumer product.
 
-Please provide:
-1. Current market rating (0-5 stars)
-2. Estimated review count
-3. Top 3 buying suggestions with stores, prices, and availability
-4. Brief AI recommendation (pros/cons, value assessment)
-
-Respond in JSON format:
+Please provide a comprehensive response in the following JSON format:
 {
-  "rating": number,
-  "reviewCount": number,
+  "name": "Product Name",
+  "brand": "Brand Name",
+  "price": "X.XX",
+  "currency": "USD",
+  "description": "Detailed product description",
+  "category": "Product Category",
+  "manufacturer": "Manufacturer Name",
+  "countryOfOrigin": "Country",
+  "weight": "Weight/Size",
+  "dimensions": "Dimensions if applicable",
+  "nutritionalInfo": "Nutritional information if food product",
+  "ingredients": "Ingredients list if applicable",
+  "allergens": "Allergen information if applicable",
+  "rating": 4.2,
+  "reviewCount": 150,
   "buyingSuggestions": [
     {
       "store": "Store Name",
-      "price": "$X.XX",
-      "availability": "In Stock/Limited/Out of Stock"
+      "price": "X.XX",
+      "availability": "In Stock"
     }
   ],
-  "aiRecommendation": "Brief recommendation text"
-}`;
+  "aiRecommendation": "Your analysis and buying recommendation"
+}
+
+Make the response realistic and detailed. Include at least 3 buying suggestions with different stores and slightly varied prices.`;
 
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${userApiKey}`,
+          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -74,7 +79,7 @@ Respond in JSON format:
           messages: [
             {
               role: 'system',
-              content: 'You are a product analysis expert. Provide accurate, helpful product information and buying advice.'
+              content: 'You are a product information expert. Provide detailed, accurate product information based on barcodes. If you cannot identify the exact product from a barcode, provide realistic placeholder data for a common consumer product that would typically have that barcode format.'
             },
             {
               role: 'user',
@@ -82,139 +87,57 @@ Respond in JSON format:
             }
           ],
           temperature: 0.3,
-          max_tokens: 1000,
+          max_tokens: 1500,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('OpenAI API request failed');
+        throw new Error('ChatGPT API request failed');
       }
 
       const data = await response.json();
       const aiResponse = JSON.parse(data.choices[0].message.content);
 
       return {
-        ...basicProduct,
-        rating: aiResponse.rating,
-        reviewCount: aiResponse.reviewCount,
-        buyingSuggestions: aiResponse.buyingSuggestions,
-        aiRecommendation: aiResponse.aiRecommendation,
+        barcode,
+        ...aiResponse,
       };
 
     } catch (error) {
-      console.error('AI enhancement error:', error);
-      // Return basic product with fallback data if AI fails
-      return {
-        ...basicProduct,
-        rating: 3.5,
-        reviewCount: 150,
-        buyingSuggestions: [
-          { store: 'Amazon', price: basicProduct.price, availability: 'In Stock' },
-          { store: 'Walmart', price: (parseFloat(basicProduct.price.replace('$', '')) * 0.95).toFixed(2), availability: 'In Stock' },
-          { store: 'Target', price: (parseFloat(basicProduct.price.replace('$', '')) * 1.05).toFixed(2), availability: 'Limited' }
-        ],
-        aiRecommendation: 'Good value product. Consider checking multiple stores for best price.'
-      };
+      console.error('ChatGPT API error:', error);
+      throw error;
     }
   };
 
   const lookupProduct = async (barcode: string): Promise<ProductData | null> => {
     setIsLoading(true);
-    console.log('Looking up product with barcode:', barcode);
+    console.log('Looking up product with barcode via ChatGPT:', barcode);
 
     try {
-      // First try Open Food Facts API
-      const openFoodFactsResponse = await fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
-      const openFoodFactsData = await openFoodFactsResponse.json();
-
-      let basicProduct: ProductData;
-
-      if (openFoodFactsData.status === 1 && openFoodFactsData.product) {
-        const product = openFoodFactsData.product;
-        console.log('Product found in Open Food Facts:', product);
-
-        basicProduct = {
-          barcode,
-          name: product.product_name || product.product_name_en || 'Unknown Product',
-          brand: product.brands || 'Unknown Brand',
-          price: '4.99',
-          currency: 'USD',
-          description: product.generic_name || product.description || 'No description available',
-          category: product.categories_tags?.join(', ') || 'Uncategorized',
-          image: product.image_url || product.image_front_url,
-          manufacturer: product.manufacturing_places || product.brands || 'Unknown',
-          countryOfOrigin: product.countries || 'Unknown',
-          weight: product.quantity,
-          ingredients: product.ingredients_text || product.ingredients_text_en,
-          allergens: product.allergens,
-          nutritionalInfo: product.nutrition_grades,
-        };
-      } else {
-        // Fallback: try UPC Item DB API
-        const upcResponse = await fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${barcode}`);
-        const upcData = await upcResponse.json();
-
-        if (upcData.code === 'OK' && upcData.items && upcData.items.length > 0) {
-          const item = upcData.items[0];
-          console.log('Product found in UPC Item DB:', item);
-
-          basicProduct = {
-            barcode,
-            name: item.title || 'Unknown Product',
-            brand: item.brand || 'Unknown Brand',
-            price: item.lowest_recorded_price?.toString() || '9.99',
-            currency: item.currency || 'USD',
-            description: item.description || 'No description available',
-            category: item.category || 'Uncategorized',
-            image: item.images?.[0],
-            manufacturer: item.brand || 'Unknown',
-            countryOfOrigin: 'Unknown',
-          };
-        } else {
-          // Generate mock data as final fallback
-          console.log('Product not found in databases, generating mock data');
-          basicProduct = generateMockProduct(barcode);
-        }
-      }
-
-      // Enhance with AI if API key is available
       const envApiKey = import.meta.env.VITE_OPENAI_API_KEY;
-      if (envApiKey?.trim()) {
-        const enhancedProduct = await enhanceProductWithAI(basicProduct, envApiKey);
-        return enhancedProduct;
-      } else {
-        // Add basic suggestions without AI
-        return {
-          ...basicProduct,
-          rating: 3.5,
-          reviewCount: 100,
-          buyingSuggestions: [
-            { store: 'Amazon', price: basicProduct.price, availability: 'In Stock' },
-            { store: 'Local Store', price: (parseFloat(basicProduct.price.replace('$', '')) * 0.9).toFixed(2), availability: 'Check Availability' }
-          ],
-          aiRecommendation: 'Product details from public databases. Enhanced features available with OpenAI API key.'
-        };
+      
+      if (!envApiKey?.trim()) {
+        toast({
+          title: "API Key Required",
+          description: "OpenAI API key is required to fetch product details.",
+          variant: "destructive",
+        });
+        return generateMockProduct(barcode);
       }
+
+      const product = await getProductFromChatGPT(barcode, envApiKey);
+      return product;
 
     } catch (error) {
       console.error('Product lookup error:', error);
       toast({
         title: "Lookup Error",
-        description: "Unable to fetch product details. Showing sample data.",
+        description: "Unable to fetch product details from ChatGPT. Showing sample data.",
         variant: "destructive",
       });
       
       // Return mock data as fallback
-      const mockProduct = generateMockProduct(barcode);
-      return {
-        ...mockProduct,
-        rating: 3.0,
-        reviewCount: 50,
-        buyingSuggestions: [
-          { store: 'Sample Store', price: mockProduct.price, availability: 'Unknown' }
-        ],
-        aiRecommendation: 'Sample data shown. Add OpenAI API key for real analysis.'
-      };
+      return generateMockProduct(barcode);
     } finally {
       setIsLoading(false);
     }
@@ -235,8 +158,14 @@ Respond in JSON format:
         weight: "1 Gallon (3.78L)",
         ingredients: "Organic Milk, Vitamin D3",
         allergens: "Contains: Milk",
-        expiryDate: "2024-07-15",
-        batchNumber: "FF2024156"
+        rating: 4.3,
+        reviewCount: 287,
+        buyingSuggestions: [
+          { store: 'Amazon Fresh', price: '4.99', availability: 'In Stock' },
+          { store: 'Walmart', price: '4.79', availability: 'In Stock' },
+          { store: 'Target', price: '5.19', availability: 'Limited' }
+        ],
+        aiRecommendation: 'High-quality organic milk with excellent nutritional value. Best price at Walmart.'
       },
       {
         name: "Premium Dark Chocolate",
@@ -250,8 +179,14 @@ Respond in JSON format:
         weight: "200g",
         ingredients: "Cocoa mass, sugar, cocoa butter, vanilla extract",
         allergens: "May contain: Nuts, Milk",
-        expiryDate: "2025-02-28",
-        batchNumber: "CW2024089"
+        rating: 4.6,
+        reviewCount: 412,
+        buyingSuggestions: [
+          { store: 'Amazon', price: '8.99', availability: 'In Stock' },
+          { store: 'Whole Foods', price: '9.49', availability: 'In Stock' },
+          { store: 'Local Gourmet Shop', price: '8.75', availability: 'In Stock' }
+        ],
+        aiRecommendation: 'Excellent premium chocolate with authentic Belgian taste. Great value for the quality.'
       },
       {
         name: "Wireless Bluetooth Headphones",
@@ -263,7 +198,15 @@ Respond in JSON format:
         manufacturer: "TechSound Inc.",
         countryOfOrigin: "China",
         dimensions: "18cm x 16cm x 8cm",
-        weight: "285g"
+        weight: "285g",
+        rating: 4.1,
+        reviewCount: 1203,
+        buyingSuggestions: [
+          { store: 'Best Buy', price: '89.99', availability: 'In Stock' },
+          { store: 'Amazon', price: '84.99', availability: 'In Stock' },
+          { store: 'Target', price: '92.99', availability: 'Limited' }
+        ],
+        aiRecommendation: 'Solid mid-range headphones with good battery life. Amazon offers the best price.'
       }
     ];
 
