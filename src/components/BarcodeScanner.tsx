@@ -43,7 +43,9 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
     if (!codeReader.current || !videoRef.current) return;
 
     try {
-      // Request camera permission with better constraints
+      console.log('Starting camera...');
+      
+      // Request camera permission with optimized constraints
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { 
           facingMode: { ideal: 'environment' },
@@ -55,12 +57,25 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
       streamRef.current = stream;
       videoRef.current.srcObject = stream;
       
+      console.log('Camera started successfully');
+      
       // Check if device has flash
       const track = stream.getVideoTracks()[0];
       const capabilities = track.getCapabilities();
-      setHasFlash(!!(capabilities as any).torch);
+      if (capabilities && 'torch' in capabilities) {
+        setHasFlash(true);
+      }
 
-      // Start barcode detection with better error handling
+      // Wait for video to be ready
+      await new Promise((resolve) => {
+        if (videoRef.current) {
+          videoRef.current.onloadedmetadata = () => resolve(true);
+        }
+      });
+
+      console.log('Starting barcode detection...');
+      
+      // Start barcode detection
       codeReader.current.decodeFromVideoDevice(undefined, videoRef.current, (result, error) => {
         if (result) {
           console.log('Barcode detected:', result.getText());
@@ -69,12 +84,10 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
             title: "Barcode Scanned Successfully!",
             description: `Code: ${result.getText()}`,
           });
-          // Stop scanning after successful scan
-          onToggleScanning();
         }
-        // Only log errors that aren't "NotFoundException" (normal when no barcode is visible)
+        // Only log non-trivial errors
         if (error && error.name !== 'NotFoundException') {
-          console.log('Scanner error (non-critical):', error.name);
+          console.log('Scanner error:', error.name);
         }
       });
 
@@ -109,6 +122,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
   };
 
   const stopScanning = () => {
+    console.log('Stopping scanner...');
     if (codeReader.current) {
       codeReader.current.reset();
     }
@@ -127,9 +141,8 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
     
     const track = streamRef.current.getVideoTracks()[0];
     try {
-      // Use proper constraint format for torch
       await track.applyConstraints({
-        advanced: [{ torch: !flashOn } as any]
+        advanced: [{ torch: !flashOn }]
       });
       setFlashOn(!flashOn);
       toast({
@@ -156,7 +169,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         className="w-full h-full object-cover"
       />
       
-      {/* Scanning overlay with improved visibility */}
+      {/* Scanning overlay */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-4 border-2 border-primary/80 rounded-lg bg-transparent">
           {/* Corner indicators */}
@@ -174,7 +187,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
         )}
       </div>
 
-      {/* Enhanced status indicator */}
+      {/* Status indicator */}
       {isScanning && (
         <div className="absolute top-4 left-4 bg-background/90 text-foreground px-3 py-1 rounded-full text-sm font-medium border">
           <div className="flex items-center gap-2">
