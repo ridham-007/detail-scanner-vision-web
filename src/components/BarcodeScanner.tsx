@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader } from '@zxing/library';
 import { Camera, CameraOff, Flashlight, FlashlightOff } from 'lucide-react';
@@ -90,20 +89,29 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
                 const result = await codeReader.current.decodeOnceFromVideoDevice(undefined, videoRef.current);
                 if (result && scanningRef.current) {
                   console.log('Barcode detected:', result.getText());
+                  
+                  // Stop scanning immediately after detection
+                  scanningRef.current = false;
+                  
                   onScan(result.getText());
                   toast({
                     title: "Barcode Scanned Successfully!",
                     description: `Code: ${result.getText()}`,
                   });
-                  break; // Stop scanning after successful scan
+                  
+                  // Stop the scanning process
+                  onToggleScanning();
+                  break;
                 }
               } catch (error: any) {
                 // NotFoundException is expected when no barcode is found
                 if (error.name !== 'NotFoundException') {
                   console.log('Scanner error:', error.name);
                 }
-                // Continue scanning
-                await new Promise(resolve => setTimeout(resolve, 100));
+                // Continue scanning only if still active
+                if (scanningRef.current) {
+                  await new Promise(resolve => setTimeout(resolve, 100));
+                }
               }
             }
           };
