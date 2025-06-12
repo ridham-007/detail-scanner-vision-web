@@ -146,8 +146,9 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isScanning, onT
     
     const track = streamRef.current.getVideoTracks()[0];
     try {
+      // Use proper type casting for torch constraint
       await track.applyConstraints({
-        advanced: [{ torch: !flashOn }]
+        advanced: [{ torch: !flashOn } as any]
       });
       setFlashOn(!flashOn);
       toast({
