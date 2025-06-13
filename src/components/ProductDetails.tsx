@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Package, DollarSign, Building, Calendar, Shield, Star, StarHalf, ShoppingCart, MapPin } from 'lucide-react';
+import { Package, DollarSign, Building, Calendar, Shield, Star, StarHalf, ShoppingCart, MapPin, Award } from 'lucide-react';
 
 interface ProductData {
   barcode: string;
@@ -32,6 +31,8 @@ interface ProductData {
     url?: string;
   }>;
   aiRecommendation?: string;
+  nutritionGrade?: string;
+  source?: string;
 }
 
 interface ProductDetailsProps {
@@ -107,10 +108,23 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, isLoading }) =
               </div>
             )}
           </div>
-          <Badge variant="secondary" className="ml-2">
-            <Package size={12} className="mr-1" />
-            {product.category}
-          </Badge>
+          <div className="flex flex-col gap-2">
+            <Badge variant="secondary" className="ml-2">
+              <Package size={12} className="mr-1" />
+              {product.category}
+            </Badge>
+            {product.nutritionGrade && (
+              <Badge variant={product.nutritionGrade === 'a' || product.nutritionGrade === 'b' ? 'default' : 'destructive'} className="ml-2">
+                <Award size={12} className="mr-1" />
+                Nutri-Score: {product.nutritionGrade.toUpperCase()}
+              </Badge>
+            )}
+            {product.source && (
+              <Badge variant="outline" className="ml-2 text-xs">
+                {product.source}
+              </Badge>
+            )}
+          </div>
         </div>
       </CardHeader>
       
@@ -172,7 +186,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, isLoading }) =
                       <span className="font-medium">{suggestion.store}</span>
                     </div>
                     <div className="text-right">
-                      <div className="font-semibold text-green-600">${suggestion.price}</div>
+                      <div className="font-semibold text-green-600">{suggestion.price}</div>
                       <div className={`text-xs ${
                         suggestion.availability === 'In Stock' ? 'text-green-600' :
                         suggestion.availability === 'Limited' ? 'text-yellow-600' : 'text-red-600'
@@ -222,6 +236,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, isLoading }) =
               <h4 className="font-semibold">Description</h4>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {product.description}
+              </p>
+            </div>
+          </>
+        )}
+
+        {product.nutritionalInfo && (
+          <>
+            <Separator />
+            <div className="space-y-2">
+              <h4 className="font-semibold">Nutritional Information</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {product.nutritionalInfo}
               </p>
             </div>
           </>

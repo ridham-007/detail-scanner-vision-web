@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -29,114 +28,137 @@ interface ProductData {
     url?: string;
   }>;
   aiRecommendation?: string;
+  nutritionGrade?: string;
+  source?: string;
 }
 
 export const useProductLookup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const getProductFromChatGPT = async (barcode: string, apiKey: string): Promise<ProductData> => {
+  const getProductFromOpenFoodFacts = async (barcode: string): Promise<ProductData | null> => {
     try {
-      const prompt = `Based on this barcode number: ${barcode}, please provide complete product information. If you can identify the product from the barcode, provide real details. If not, provide realistic placeholder data for a common consumer product.
-
-Please provide a comprehensive response in the following JSON format:
-{
-  "name": "Product Name",
-  "brand": "Brand Name",
-  "price": "X.XX",
-  "currency": "USD",
-  "description": "Detailed product description",
-  "category": "Product Category",
-  "manufacturer": "Manufacturer Name",
-  "countryOfOrigin": "Country",
-  "weight": "Weight/Size",
-  "dimensions": "Dimensions if applicable",
-  "nutritionalInfo": "Nutritional information if food product",
-  "ingredients": "Ingredients list if applicable",
-  "allergens": "Allergen information if applicable",
-  "rating": 4.2,
-  "reviewCount": 150,
-  "buyingSuggestions": [
-    {
-      "store": "Store Name",
-      "price": "X.XX",
-      "availability": "In Stock"
-    }
-  ],
-  "aiRecommendation": "Your analysis and buying recommendation"
-}
-
-Make the response realistic and detailed. Include at least 3 buying suggestions with different stores and slightly varied prices.`;
-
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
+      console.log('Fetching from Open Food Facts for barcode:', barcode);
+      const url = `https://world.openfoodfacts.org/api/v0/product/${barcode}.json`;
+      const response = await fetch(url, { 
+        method: 'GET',
         headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'gpt-4',
-          messages: [
-            {
-              role: 'system',
-              content: 'You are a product information expert. Provide detailed, accurate product information based on barcodes. If you cannot identify the exact product from a barcode, provide realistic placeholder data for a common consumer product that would typically have that barcode format.'
-            },
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          temperature: 0.3,
-          max_tokens: 1500,
-        }),
+          'Accept': 'application/json',
+        }
       });
 
-      if (!response.ok) {
-        throw new Error('ChatGPT API request failed');
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log('Open Food Facts response:', data);
+        
+        if (data.status === 1) { // Product found
+          const product = data.product || {};
+          
+          return {
+            barcode,
+            name: product.product_name || product.product_name_en || 'Unknown Product',
+            brand: product.brands || 'Unknown Brand',
+            price: 'N/A', // Open Food Facts doesn't provide pricing
+            currency: 'USD',
+            description: product.generic_name || product.product_name || 'No description available',
+            category: product.categories || 'Unknown Category',
+            image: product.image_url || product.image_front_url,
+            manufacturer: product.brands || product.manufacturing_places || 'Unknown Manufacturer',
+            countryOfOrigin: product.countries || product.origins || 'Unknown',
+            weight: product.quantity || product.net_weight,
+            ingredients: product.ingredients_text || product.ingredients_text_en || 'Not available',
+            allergens: product.allergens || product.allergens_tags?.join(', '),
+            nutritionalInfo: this.formatNutritionalInfo(product.nutriments),
+            nutritionGrade: product.nutrition_grades || product.nutriscore_grade,
+            rating: product.popularity ? Math.min(5, (product.popularity / 20)) : undefined,
+            reviewCount: product.popularity || undefined,
+            source: 'Open Food Facts',
+            buyingSuggestions: [
+              { store: 'Local Grocery Store', price: 'Check in store', availability: 'Check availability' },
+              { store: 'Online Retailers', price: 'Compare prices', availability: 'Various options' }
+            ],
+            aiRecommendation: this.generateRecommendation(product)
+          };
+        }
       }
-
-      const data = await response.json();
-      const aiResponse = JSON.parse(data.choices[0].message.content);
-
-      return {
-        barcode,
-        ...aiResponse,
-      };
-
     } catch (error) {
-      console.error('ChatGPT API error:', error);
+      console.error('Open Food Facts API error:', error);
       throw error;
     }
+    return null;
+  };
+
+  const formatNutritionalInfo = (nutriments: any): string => {
+    if (!nutriments) return 'Not available';
+    
+    const info = [];
+    if (nutriments.energy_kcal_100g) info.push(`Energy: ${nutriments.energy_kcal_100g} kcal/100g`);
+    if (nutriments.fat_100g) info.push(`Fat: ${nutriments.fat_100g}g/100g`);
+    if (nutriments.carbohydrates_100g) info.push(`Carbs: ${nutriments.carbohydrates_100g}g/100g`);
+    if (nutriments.proteins_100g) info.push(`Protein: ${nutriments.proteins_100g}g/100g`);
+    if (nutriments.salt_100g) info.push(`Salt: ${nutriments.salt_100g}g/100g`);
+    
+    return info.length > 0 ? info.join(', ') : 'Not available';
+  };
+
+  const generateRecommendation = (product: any): string => {
+    const recommendations = [];
+    
+    if (product.nutriscore_grade) {
+      const grade = product.nutriscore_grade.toUpperCase();
+      if (grade === 'A' || grade === 'B') {
+        recommendations.push('This product has a good nutritional score.');
+      } else if (grade === 'D' || grade === 'E') {
+        recommendations.push('Consider alternatives with better nutritional value.');
+      }
+    }
+    
+    if (product.ecoscore_grade) {
+      recommendations.push(`Environmental impact: ${product.ecoscore_grade.toUpperCase()}`);
+    }
+    
+    if (product.nova_group) {
+      const novaLevel = parseInt(product.nova_group);
+      if (novaLevel >= 3) {
+        recommendations.push('This is a processed food. Consider fresh alternatives when possible.');
+      }
+    }
+    
+    return recommendations.length > 0 
+      ? recommendations.join(' ') 
+      : 'Product information available from Open Food Facts database.';
   };
 
   const lookupProduct = async (barcode: string): Promise<ProductData | null> => {
     setIsLoading(true);
-    console.log('Looking up product with barcode via ChatGPT:', barcode);
+    console.log('Looking up product with barcode via Open Food Facts:', barcode);
 
     try {
-      const envApiKey = import.meta.env.VITE_OPENAI_API_KEY;
+      const product = await getProductFromOpenFoodFacts(barcode);
       
-      if (!envApiKey?.trim()) {
+      if (product) {
         toast({
-          title: "API Key Required",
-          description: "OpenAI API key is required to fetch product details.",
+          title: "Product Found!",
+          description: `Found ${product.name} in Open Food Facts database`,
+        });
+        return product;
+      } else {
+        toast({
+          title: "Product Not Found",
+          description: "Product not found in Open Food Facts. Showing sample data.",
           variant: "destructive",
         });
         return generateMockProduct(barcode);
       }
 
-      const product = await getProductFromChatGPT(barcode, envApiKey);
-      return product;
-
     } catch (error) {
       console.error('Product lookup error:', error);
       toast({
         title: "Lookup Error",
-        description: "Unable to fetch product details from ChatGPT. Showing sample data.",
+        description: "Unable to fetch product details. Showing sample data.",
         variant: "destructive",
       });
       
-      // Return mock data as fallback
       return generateMockProduct(barcode);
     } finally {
       setIsLoading(false);
