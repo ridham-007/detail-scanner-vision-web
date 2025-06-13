@@ -68,7 +68,7 @@ export const useProductLookup = () => {
             weight: product.quantity || product.net_weight,
             ingredients: product.ingredients_text || product.ingredients_text_en || 'Not available',
             allergens: product.allergens || product.allergens_tags?.join(', '),
-            nutritionalInfo: this.formatNutritionalInfo(product.nutriments),
+            nutritionalInfo: formatNutritionalInfo(product.nutriments),
             nutritionGrade: product.nutrition_grades || product.nutriscore_grade,
             rating: product.popularity ? Math.min(5, (product.popularity / 20)) : undefined,
             reviewCount: product.popularity || undefined,
@@ -77,7 +77,7 @@ export const useProductLookup = () => {
               { store: 'Local Grocery Store', price: 'Check in store', availability: 'Check availability' },
               { store: 'Online Retailers', price: 'Compare prices', availability: 'Various options' }
             ],
-            aiRecommendation: this.generateRecommendation(product)
+            aiRecommendation: generateRecommendation(product)
           };
         }
       }
@@ -89,7 +89,7 @@ export const useProductLookup = () => {
   };
 
   const formatNutritionalInfo = (nutriments: any): string => {
-    if (!nutriments) return 'Not available';
+    if (!nutriments || typeof nutriments !== 'object') return 'Not available';
     
     const info = [];
     if (nutriments.energy_kcal_100g) info.push(`Energy: ${nutriments.energy_kcal_100g} kcal/100g`);
@@ -102,6 +102,10 @@ export const useProductLookup = () => {
   };
 
   const generateRecommendation = (product: any): string => {
+    if (!product || typeof product !== 'object') {
+      return 'Product information available from Open Food Facts database.';
+    }
+
     const recommendations = [];
     
     if (product.nutriscore_grade) {
