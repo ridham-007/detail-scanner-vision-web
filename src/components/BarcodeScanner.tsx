@@ -294,14 +294,6 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
 
   return (
     <div className="relative w-full h-64 bg-muted rounded-lg overflow-hidden">
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        muted
-        className="w-full h-full object-cover"
-      />
-
       <div className="absolute inset-0">
         <div className="absolute inset-4 border-2 border-primary/80 rounded-lg bg-transparent">
           <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-destructive rounded-tl-lg"></div>
@@ -378,7 +370,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
             size="sm"
             className="flex items-center gap-2 shadow-lg"
           >
-            {/* {isScanning ? <CameraOff size={16} /> : <Camera size={16} />} */}
+            {isScanning ? <CameraOff size={16} /> : <Camera size={16} />}
             {isScanning ? "Stop" : "Start"} Scan
           </Button>
         </div>
