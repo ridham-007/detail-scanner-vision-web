@@ -1,11 +1,10 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { AlertCircle, Scan, Smartphone, Sparkles, Target, Zap } from 'lucide-react';
 import BarcodeScanner from '@/components/BarcodeScanner';
 import ProductDetails from '@/components/ProductDetails';
-import ThemeToggle from '@/components/ThemeToggle';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
@@ -16,7 +15,6 @@ const IndexContent = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const { lookupProduct, isLoading } = useProductLookup();
-  const scannerRef = useRef<HTMLDivElement>(null);
 
   const handleScan = async (barcode: string) => {
     console.log('Barcode scanned:', barcode);

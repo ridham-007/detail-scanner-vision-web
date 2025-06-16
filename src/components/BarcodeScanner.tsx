@@ -378,7 +378,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
             size="sm"
             className="flex items-center gap-2 shadow-lg"
           >
-            {isScanning ? <CameraOff size={16} /> : <Camera size={16} />}
+            {/* {isScanning ? <CameraOff size={16} /> : <Camera size={16} />} */}
             {isScanning ? "Stop" : "Start"} Scan
           </Button>
         </div>
