@@ -302,7 +302,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
         className="w-full h-full object-cover"
       />
 
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0">
         <div className="absolute inset-4 border-2 border-primary/80 rounded-lg bg-transparent">
           <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-destructive rounded-tl-lg"></div>
           <div className="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-destructive rounded-tr-lg"></div>
