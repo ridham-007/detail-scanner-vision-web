@@ -80,58 +80,24 @@ export const useProductLookup = () => {
 
       toast({
         title: "Product Not Found",
-        description: "Product not found in database. Showing sample data.",
+        description: "This product is not available in our database.",
         variant: "destructive",
       });
       
-      return generateMockProduct(barcode);
+      return null;
 
     } catch (error) {
       console.error('Product lookup error:', error);
       toast({
         title: "Lookup Error",
-        description: "Unable to fetch product details. Showing sample data.",
+        description: "Unable to fetch product details. Please try again.",
         variant: "destructive",
       });
       
-      return generateMockProduct(barcode);
+      return null;
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const generateMockProduct = (barcode: string): ProductData => {
-    return {
-      barcode,
-      name: "Sample Product",
-      health_score: 75,
-      unit: "100g",
-      nutrition_per_100g: {
-        calories_kcal: 250,
-        total_fat_g: 12,
-        saturated_fat_g: 3,
-        trans_fat_g: 0,
-        cholesterol_mg: 0,
-        carbohydrates_g: 30,
-        sugar_g: 5,
-        fiber_g: 2,
-        protein_g: 8,
-        salt_mg: 500,
-        vitamin_a_iu: 100,
-        vitamin_c_mg: 10,
-        calcium_mg: 50,
-        iron_mg: 2,
-        potassium_mg: 200,
-        magnesium_mg: 25,
-        zinc_mg: 1,
-        allergens: ["Contains nuts"],
-        additives: ["E150"]
-      },
-      positives: ["Good source of fiber", "Low in sugar"],
-      concerns: ["High in sodium"],
-      recommendations: ["Consume in moderation", "Part of balanced diet"],
-      images: []
-    };
   };
 
   return { lookupProduct, isLoading };
