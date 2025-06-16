@@ -107,7 +107,7 @@ const IndexContent = () => {
               onScan={handleScan}
               isScanning={isScanning}
               onToggleScanning={toggleScanning}
-              onDetected={onDetected}
+              // onDetected={onDetected}
             />
 
             <div className="mt-6 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200/50 dark:border-blue-700/30">
