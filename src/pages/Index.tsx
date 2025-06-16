@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { AlertCircle, Scan, Smartphone, Sparkles, Target, Zap } from 'lucide-react';
@@ -16,6 +16,7 @@ const IndexContent = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const { lookupProduct, isLoading } = useProductLookup();
+  const scannerRef = useRef<HTMLDivElement>(null);
 
   const handleScan = async (barcode: string) => {
     console.log('Barcode scanned:', barcode);
@@ -31,11 +32,21 @@ const IndexContent = () => {
     }
   };
 
+  // Handle scan detection
+  const onDetected = (data: any) => {
+    if (data?.codeResult?.code) {
+      const scannedCode = data.codeResult.code;
+      console.log('Scanned:', scannedCode);
+      setIsScanning(false); // stop scanning
+      handleScan(scannedCode);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background transition-colors duration-300 relative">
       <AnimatedBackground />
       <Header />
-      
+
       <main className="container mx-auto px-4 py-8 max-w-6xl relative z-10">
         {/* Hero Section */}
         <div className="text-center mb-12 animate-fade-in">
@@ -47,7 +58,7 @@ const IndexContent = () => {
             Scan. Analyze. Discover.
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Transform any barcode into instant insights with our advanced AI scanner. 
+            Transform any barcode into instant insights with our advanced AI scanner.
             Get nutritional analysis, smart recommendations, and detailed product information in seconds.
           </p>
         </div>
@@ -61,7 +72,7 @@ const IndexContent = () => {
             <h3 className="font-semibold text-lg mb-2">Smart Scanning</h3>
             <p className="text-sm text-muted-foreground">Advanced camera recognition for instant barcode detection</p>
           </div>
-          
+
           <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 border border-purple-200/50 dark:border-purple-700/50 hover-scale animate-fade-in delay-100">
             <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Target className="h-6 w-6 text-white" />
@@ -69,7 +80,7 @@ const IndexContent = () => {
             <h3 className="font-semibold text-lg mb-2">AI Analysis</h3>
             <p className="text-sm text-muted-foreground">Comprehensive product analysis powered by artificial intelligence</p>
           </div>
-          
+
           <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 border border-green-200/50 dark:border-green-700/50 hover-scale animate-fade-in delay-200">
             <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Zap className="h-6 w-6 text-white" />
@@ -94,12 +105,13 @@ const IndexContent = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-8">
-            <BarcodeScanner 
+            <BarcodeScanner
               onScan={handleScan}
               isScanning={isScanning}
               onToggleScanning={toggleScanning}
+              onDetected={onDetected}
             />
-            
+
             <div className="mt-6 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200/50 dark:border-blue-700/30">
               <div className="flex items-start gap-4">
                 <div className="p-2 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex-shrink-0">
@@ -140,7 +152,7 @@ const IndexContent = () => {
               AI-Powered Product Analysis
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our advanced AI analyzes your scanned products to provide comprehensive insights, 
+              Our advanced AI analyzes your scanned products to provide comprehensive insights,
               nutritional breakdowns, and personalized recommendations.
             </p>
           </div>
