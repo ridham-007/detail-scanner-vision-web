@@ -4,7 +4,6 @@ import { Scan, Brain } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
-import FoodScanner from '@/components/FoodScanner';
 import QuizzesPage from './QuizzesPage';
 
 const IndexPage: React.FC = () => {
@@ -41,10 +40,6 @@ const IndexPage: React.FC = () => {
               AI Quizzes
             </TabsTrigger>
           </TabsList>
-
-          <TabsContent value="scanner" className="space-y-6">
-            <FoodScanner />
-          </TabsContent>
 
           <TabsContent value="quizzes" className="space-y-6">
             <QuizzesPage />
