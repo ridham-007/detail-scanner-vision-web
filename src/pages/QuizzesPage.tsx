@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -53,7 +52,7 @@ const QuizzesPage = () => {
         .from('quizzes')
         .select(`
           id, title, description, difficulty, created_at,
-          profiles (full_name)
+          profiles!creator_id (full_name)
         `)
         .eq('is_published', true)
         .order('created_at', { ascending: false });
@@ -73,7 +72,7 @@ const QuizzesPage = () => {
         .from('quizzes')
         .select(`
           id, title, description, difficulty, created_at,
-          profiles (full_name)
+          profiles!creator_id (full_name)
         `)
         .eq('creator_id', user.id)
         .order('created_at', { ascending: false });
@@ -215,7 +214,7 @@ const QuizzesPage = () => {
         <TabsContent value="all-quizzes" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {quizzes.map((quiz) => (
-              <QuizCard key={quiz.i} quiz={quiz} onPlay={playQuiz} />
+              <QuizCard key={quiz.id} quiz={quiz} onPlay={playQuiz} />
             ))}
           </div>
           {quizzes.length === 0 && (

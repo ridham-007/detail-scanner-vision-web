@@ -2,10 +2,22 @@
 -- Create enum for difficulty levels
 CREATE TYPE quiz_difficulty AS ENUM ('easy', 'medium', 'hard');
 
--- Create quizzes table
+-- Create user profiles table for leaderboard (create this first)
+CREATE TABLE public.profiles (
+    id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
+    email TEXT,
+    full_name TEXT,
+    avatar_url TEXT,
+    total_score INTEGER DEFAULT 0,
+    quizzes_completed INTEGER DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Create quizzes table with proper foreign key to profiles
 CREATE TABLE public.quizzes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    creator_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+    creator_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
     title TEXT NOT NULL,
     description TEXT,
     difficulty quiz_difficulty NOT NULL,
@@ -26,18 +38,6 @@ CREATE TABLE public.quiz_questions (
     wrong_answer_3 TEXT NOT NULL,
     question_order INTEGER NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
--- Create user profiles table for leaderboard
-CREATE TABLE public.profiles (
-    id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
-    email TEXT,
-    full_name TEXT,
-    avatar_url TEXT,
-    total_score INTEGER DEFAULT 0,
-    quizzes_completed INTEGER DEFAULT 0,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Create quiz attempts table for scoring

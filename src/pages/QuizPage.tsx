@@ -71,7 +71,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizId, onBack }) => {
         .from('quizzes')
         .select(`
           id, title, description, difficulty,
-          profiles (full_name)
+          profiles!creator_id (full_name)
         `)
         .eq('id', quizId)
         .single();
