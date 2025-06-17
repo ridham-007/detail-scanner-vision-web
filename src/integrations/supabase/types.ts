@@ -9,7 +9,157 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          quizzes_completed: number | null
+          total_score: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          quizzes_completed?: number | null
+          total_score?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          quizzes_completed?: number | null
+          total_score?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      quiz_attempts: {
+        Row: {
+          completed_at: string | null
+          id: string
+          quiz_id: string
+          score: number
+          time_taken: number | null
+          total_questions: number
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          id?: string
+          quiz_id: string
+          score?: number
+          time_taken?: number | null
+          total_questions?: number
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          id?: string
+          quiz_id?: string
+          score?: number
+          time_taken?: number | null
+          total_questions?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_attempts_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quiz_questions: {
+        Row: {
+          correct_answer: string
+          created_at: string | null
+          id: string
+          question_order: number
+          question_text: string
+          quiz_id: string
+          wrong_answer_1: string
+          wrong_answer_2: string
+          wrong_answer_3: string
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string | null
+          id?: string
+          question_order: number
+          question_text: string
+          quiz_id: string
+          wrong_answer_1: string
+          wrong_answer_2: string
+          wrong_answer_3: string
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string | null
+          id?: string
+          question_order?: number
+          question_text?: string
+          quiz_id?: string
+          wrong_answer_1?: string
+          wrong_answer_2?: string
+          wrong_answer_3?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_questions_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quizzes: {
+        Row: {
+          created_at: string | null
+          creator_id: string
+          description: string | null
+          difficulty: Database["public"]["Enums"]["quiz_difficulty"]
+          id: string
+          is_published: boolean | null
+          prompt: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          creator_id: string
+          description?: string | null
+          difficulty: Database["public"]["Enums"]["quiz_difficulty"]
+          id?: string
+          is_published?: boolean | null
+          prompt: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          creator_id?: string
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["quiz_difficulty"]
+          id?: string
+          is_published?: boolean | null
+          prompt?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +168,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      quiz_difficulty: "easy" | "medium" | "hard"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +283,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      quiz_difficulty: ["easy", "medium", "hard"],
+    },
   },
 } as const

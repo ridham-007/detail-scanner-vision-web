@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Scan, Sparkles, Brain } from 'lucide-react';
 import { gsap } from 'gsap';
 import ThemeToggle from './ThemeToggle';
+import AuthButton from './AuthButton';
 
 const Header = () => {
   const logoRef = useRef<HTMLDivElement>(null);
@@ -63,11 +64,14 @@ const Header = () => {
                 ref={subtitleRef}
                 className="text-xs md:text-sm text-muted-foreground"
               >
-                Smart Food Intelligence
+                Smart Food Intelligence & Quizzes
               </p>
             </div>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-4">
+            <AuthButton />
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>
