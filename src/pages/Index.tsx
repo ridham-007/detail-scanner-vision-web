@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Scan, Brain } from 'lucide-react';
@@ -5,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import QuizzesPage from './QuizzesPage';
+import FoodScannerPage from './FoodScannerPage';
 
 const IndexPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("scanner");
@@ -40,6 +42,10 @@ const IndexPage: React.FC = () => {
               AI Quizzes
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="scanner" className="space-y-6">
+            <FoodScannerPage />
+          </TabsContent>
 
           <TabsContent value="quizzes" className="space-y-6">
             <QuizzesPage />
