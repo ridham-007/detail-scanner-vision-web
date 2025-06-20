@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,9 +17,7 @@ interface Quiz {
   description: string;
   difficulty: 'easy' | 'medium' | 'hard';
   created_at: string;
-  profiles: {
-    full_name: string;
-  } | null;
+  creator_id: string;
 }
 
 interface LeaderboardEntry {
@@ -50,10 +49,7 @@ const QuizzesPage = () => {
     try {
       const { data, error } = await supabase
         .from('quizzes')
-        .select(`
-          id, title, description, difficulty, created_at,
-          profiles!creator_id (full_name)
-        `)
+        .select('id, title, description, difficulty, created_at, creator_id')
         .eq('is_published', true)
         .order('created_at', { ascending: false });
 
@@ -70,10 +66,7 @@ const QuizzesPage = () => {
     try {
       const { data, error } = await supabase
         .from('quizzes')
-        .select(`
-          id, title, description, difficulty, created_at,
-          profiles!creator_id (full_name)
-        `)
+        .select('id, title, description, difficulty, created_at, creator_id')
         .eq('creator_id', user.id)
         .order('created_at', { ascending: false });
 

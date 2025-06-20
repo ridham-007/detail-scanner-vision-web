@@ -24,7 +24,7 @@ interface Quiz {
   title: string;
   description: string;
   difficulty: string;
-  profiles: { full_name: string } | null;
+  creator_id: string;
 }
 
 interface QuizPageProps {
@@ -69,10 +69,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizId, onBack }) => {
     try {
       const { data: quizData, error: quizError } = await supabase
         .from('quizzes')
-        .select(`
-          id, title, description, difficulty,
-          profiles!creator_id (full_name)
-        `)
+        .select('id, title, description, difficulty, creator_id')
         .eq('id', quizId)
         .single();
 
