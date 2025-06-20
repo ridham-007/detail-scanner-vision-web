@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -50,6 +49,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizId, onBack }) => {
   });
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>(new Array(10).fill(false));
   const [startTime, setStartTime] = useState<Date | null>(null);
+  const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
 
   useEffect(() => {
     fetchQuizData();
@@ -64,6 +64,16 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizId, onBack }) => {
       handleNextQuestion();
     }
   }, [timeLeft, gameOver, showResult]);
+
+  // Shuffle answers when current question changes
+  useEffect(() => {
+    if (questions[currentQuestion]) {
+      const q = questions[currentQuestion];
+      const answers = [q.correct_answer, q.wrong_answer_1, q.wrong_answer_2, q.wrong_answer_3];
+      const shuffled = [...answers].sort(() => Math.random() - 0.5);
+      setShuffledAnswers(shuffled);
+    }
+  }, [currentQuestion, questions]);
 
   const fetchQuizData = async () => {
     try {
@@ -93,13 +103,6 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizId, onBack }) => {
         variant: "destructive"
       });
     }
-  };
-
-  const getCurrentAnswers = () => {
-    if (!questions[currentQuestion]) return [];
-    const q = questions[currentQuestion];
-    return [q.correct_answer, q.wrong_answer_1, q.wrong_answer_2, q.wrong_answer_3]
-      .sort(() => Math.random() - 0.5);
   };
 
   const handleAnswerSelect = (answer: string) => {
@@ -310,7 +313,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizId, onBack }) => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          {getCurrentAnswers().map((answer, index) => (
+          {shuffledAnswers.map((answer, index) => (
             <Button
               key={index}
               variant={selectedAnswer === answer ? "default" : "outline"}
