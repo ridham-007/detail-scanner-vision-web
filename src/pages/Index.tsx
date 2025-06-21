@@ -1,21 +1,12 @@
 
-import React, { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Scan, Brain } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Brain } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import FoodScannerPage from './FoodScannerPage';
 
 const IndexPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState("scanner");
-  const navigate = useNavigate();
-
-  const handleQuizzesTabClick = () => {
-    navigate('/quizzes');
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
@@ -36,22 +27,9 @@ const IndexPage: React.FC = () => {
           </div>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="max-w-4xl mx-auto">
-          <TabsList className="grid w-full grid-cols-2 mb-8">
-            <TabsTrigger value="scanner" className="flex items-center gap-2">
-              <Scan className="h-4 w-4" />
-              Food Scanner
-            </TabsTrigger>
-            <TabsTrigger value="quizzes" className="flex items-center gap-2" onClick={handleQuizzesTabClick}>
-              <Brain className="h-4 w-4" />
-              AI Quizzes
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="scanner" className="space-y-6">
-            <FoodScannerPage />
-          </TabsContent>
-        </Tabs>
+        <div className="max-w-4xl mx-auto">
+          <FoodScannerPage />
+        </div>
       </main>
       <Footer />
     </div>

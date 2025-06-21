@@ -1,7 +1,7 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Scan, Sparkles, Brain } from 'lucide-react';
 import { gsap } from 'gsap';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import AuthButton from './AuthButton';
 
@@ -9,6 +9,8 @@ const Header = () => {
   const logoRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -49,11 +51,12 @@ const Header = () => {
             <div 
               ref={logoRef}
               className="relative p-3 bg-gradient-to-br from-emerald-500 via-blue-500 to-purple-600 rounded-xl shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+              onClick={() => navigate('/')}
             >
               <Brain className="h-6 w-6 text-white" />
               <Sparkles className="sparkle absolute -top-1 -right-1 h-4 w-4 text-yellow-400" />
             </div>
-            <div>
+            <div className="cursor-pointer" onClick={() => navigate('/')}>
               <h1 
                 ref={titleRef}
                 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent"
@@ -68,9 +71,31 @@ const Header = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <AuthButton />
-            <ThemeToggle />
+          
+          <div className="flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-6">
+              <button
+                onClick={() => navigate('/')}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  location.pathname === '/' ? 'text-primary' : 'text-muted-foreground'
+                }`}
+              >
+                Scanner
+              </button>
+              <button
+                onClick={() => navigate('/quizzes')}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  location.pathname === '/quizzes' ? 'text-primary' : 'text-muted-foreground'
+                }`}
+              >
+                Quizzes
+              </button>
+            </nav>
+            
+            <div className="flex items-center gap-4">
+              <AuthButton />
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </div>
