@@ -51,12 +51,36 @@ export const useProductLookup = () => {
         return null;
       }
 
+      // Safely cast and validate the nutrition data
+      const nutritionData = data.nutrition_per_100g as any;
+      const defaultNutrition = {
+        calories_kcal: null,
+        total_fat_g: null,
+        saturated_fat_g: null,
+        trans_fat_g: null,
+        cholesterol_mg: null,
+        carbohydrates_g: null,
+        sugar_g: null,
+        fiber_g: null,
+        protein_g: null,
+        salt_mg: null,
+        vitamin_a_iu: null,
+        vitamin_c_mg: null,
+        calcium_mg: null,
+        iron_mg: null,
+        potassium_mg: null,
+        magnesium_mg: null,
+        zinc_mg: null,
+        allergens: [],
+        additives: []
+      };
+
       return {
         barcode: data.barcode,
         name: data.name,
         health_score: data.health_score || 0,
         unit: data.unit || '',
-        nutrition_per_100g: data.nutrition_per_100g || {},
+        nutrition_per_100g: nutritionData && typeof nutritionData === 'object' ? { ...defaultNutrition, ...nutritionData } : defaultNutrition,
         positives: data.positives || [],
         concerns: data.concerns || [],
         recommendations: data.recommendations || [],
