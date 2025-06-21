@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface ProductData {
   barcode: string;
@@ -38,10 +39,63 @@ export const useProductLookup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const lookupProduct = async (barcode: string): Promise<ProductData | null> => {
-    setIsLoading(true);
-    console.log('Looking up product with barcode:', barcode);
+  const fetchFromSupabase = async (barcode: string): Promise<ProductData | null> => {
+    try {
+      const { data, error } = await supabase
+        .from('scanned_products')
+        .select('*')
+        .eq('barcode', barcode)
+        .single();
 
+      if (error || !data) {
+        return null;
+      }
+
+      return {
+        barcode: data.barcode,
+        name: data.name,
+        health_score: data.health_score || 0,
+        unit: data.unit || '',
+        nutrition_per_100g: data.nutrition_per_100g || {},
+        positives: data.positives || [],
+        concerns: data.concerns || [],
+        recommendations: data.recommendations || [],
+        images: data.images || []
+      };
+    } catch (error) {
+      console.error('Error fetching from Supabase:', error);
+      return null;
+    }
+  };
+
+  const saveToSupabase = async (productData: ProductData): Promise<void> => {
+    try {
+      const { error } = await supabase
+        .from('scanned_products')
+        .upsert({
+          barcode: productData.barcode,
+          name: productData.name,
+          health_score: productData.health_score,
+          unit: productData.unit,
+          nutrition_per_100g: productData.nutrition_per_100g,
+          positives: productData.positives,
+          concerns: productData.concerns,
+          recommendations: productData.recommendations,
+          images: productData.images,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) {
+        console.error('Error saving to Supabase:', error);
+      } else {
+        console.log('Product data cached successfully');
+      }
+    } catch (error) {
+      console.error('Error saving to Supabase:', error);
+    }
+  };
+
+  const fetchFromAPI = async (barcode: string): Promise<ProductData | null> => {
     try {
       const response = await fetch(`https://barcode-scanner-webn.onrender.com/api/product/${barcode}`, {
         method: 'GET',
@@ -69,13 +123,47 @@ export const useProductLookup = () => {
             images: productData.images || []
           };
 
-          toast({
-            title: "Product Found!",
-            description: `Found ${product.name}`,
-          });
+          // Save to Supabase for future use
+          await saveToSupabase(product);
           
           return product;
         }
+      }
+      return null;
+    } catch (error) {
+      console.error('API lookup error:', error);
+      return null;
+    }
+  };
+
+  const lookupProduct = async (barcode: string): Promise<ProductData | null> => {
+    setIsLoading(true);
+    console.log('Looking up product with barcode:', barcode);
+
+    try {
+      // First, try to fetch from Supabase cache
+      console.log('Checking Supabase cache...');
+      const cachedProduct = await fetchFromSupabase(barcode);
+      
+      if (cachedProduct) {
+        console.log('Found product in cache');
+        toast({
+          title: "Product Found (Cached)!",
+          description: `Found ${cachedProduct.name}`,
+        });
+        return cachedProduct;
+      }
+
+      // If not found in cache, fetch from external API
+      console.log('Product not in cache, fetching from API...');
+      const apiProduct = await fetchFromAPI(barcode);
+      
+      if (apiProduct) {
+        toast({
+          title: "Product Found!",
+          description: `Found ${apiProduct.name}`,
+        });
+        return apiProduct;
       }
 
       toast({

@@ -160,6 +160,51 @@ export type Database = {
         }
         Relationships: []
       }
+      scanned_products: {
+        Row: {
+          barcode: string
+          concerns: string[] | null
+          created_at: string | null
+          health_score: number | null
+          id: string
+          images: string[] | null
+          name: string
+          nutrition_per_100g: Json | null
+          positives: string[] | null
+          recommendations: string[] | null
+          unit: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          barcode: string
+          concerns?: string[] | null
+          created_at?: string | null
+          health_score?: number | null
+          id?: string
+          images?: string[] | null
+          name: string
+          nutrition_per_100g?: Json | null
+          positives?: string[] | null
+          recommendations?: string[] | null
+          unit?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          barcode?: string
+          concerns?: string[] | null
+          created_at?: string | null
+          health_score?: number | null
+          id?: string
+          images?: string[] | null
+          name?: string
+          nutrition_per_100g?: Json | null
+          positives?: string[] | null
+          recommendations?: string[] | null
+          unit?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
