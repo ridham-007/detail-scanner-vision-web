@@ -2,14 +2,19 @@
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Scan, Brain } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
-import QuizzesPage from './QuizzesPage';
 import FoodScannerPage from './FoodScannerPage';
 
 const IndexPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("scanner");
+  const navigate = useNavigate();
+
+  const handleQuizzesTabClick = () => {
+    navigate('/quizzes');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
@@ -37,7 +42,7 @@ const IndexPage: React.FC = () => {
               <Scan className="h-4 w-4" />
               Food Scanner
             </TabsTrigger>
-            <TabsTrigger value="quizzes" className="flex items-center gap-2">
+            <TabsTrigger value="quizzes" className="flex items-center gap-2" onClick={handleQuizzesTabClick}>
               <Brain className="h-4 w-4" />
               AI Quizzes
             </TabsTrigger>
@@ -45,10 +50,6 @@ const IndexPage: React.FC = () => {
 
           <TabsContent value="scanner" className="space-y-6">
             <FoodScannerPage />
-          </TabsContent>
-
-          <TabsContent value="quizzes" className="space-y-6">
-            <QuizzesPage />
           </TabsContent>
         </Tabs>
       </main>
