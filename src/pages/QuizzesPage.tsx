@@ -37,7 +37,6 @@ const QuizzesPage = () => {
   const [myQuizzes, setMyQuizzes] = useState<Quiz[]>([]);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [currentQuiz, setCurrentQuiz] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -159,20 +158,8 @@ const QuizzesPage = () => {
   };
 
   const playQuiz = (quizId: string) => {
-    if (!user) {
-      toast({
-        title: "Login Required",
-        description: "Please sign in with Google to play quizzes and appear on the leaderboard.",
-        variant: "destructive"
-      });
-      return;
-    }
     navigate(`/quiz/${quizId}`);
   };
-
-  if (currentQuiz) {
-    return <QuizPage quizId={currentQuiz} onBack={() => setCurrentQuiz(null)} />;
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">

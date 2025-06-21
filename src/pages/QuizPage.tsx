@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Clock, Heart, Lightbulb, Users, Trophy, ArrowLeft, Share2 } from 'lucide-react';
+import { Clock, Heart, Lightbulb, Users, Trophy, ArrowLeft, Share2, LogIn } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -38,7 +38,7 @@ interface QuizPageProps {
 const QuizPage: React.FC = () => {
   const { quizId } = useParams<{ quizId: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -160,7 +160,7 @@ const QuizPage: React.FC = () => {
 
       toast({
         title: "Quiz Completed!",
-        description: `Your score: ${score}/100 points`,
+        description: `Your score: ${score}/100 points has been saved to the leaderboard`,
       });
     } catch (error) {
       console.error('Error saving quiz attempt:', error);
@@ -252,6 +252,30 @@ const QuizPage: React.FC = () => {
                 <p className="text-muted-foreground">
                   You answered {Math.floor(score/10)} out of {questions.length} questions correctly!
                 </p>
+                
+                {!user && (
+                  <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                      Want to save your score?
+                    </h3>
+                    <p className="text-sm text-blue-700 dark:text-blue-300 mb-3">
+                      Sign in to save your score and appear on the leaderboard!
+                    </p>
+                    <Button onClick={signInWithGoogle} className="bg-gradient-to-r from-blue-600 to-purple-600">
+                      <LogIn className="h-4 w-4 mr-2" />
+                      Sign in with Google
+                    </Button>
+                  </div>
+                )}
+                
+                {user && (
+                  <div className="bg-green-50 dark:bg-green-950 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                    <p className="text-green-700 dark:text-green-300">
+                      ✅ Your score has been saved to the leaderboard!
+                    </p>
+                  </div>
+                )}
+
                 <div className="flex gap-2 justify-center">
                   <Button onClick={onBack} variant="outline">
                     <ArrowLeft className="h-4 w-4 mr-2" />
@@ -302,6 +326,34 @@ const QuizPage: React.FC = () => {
             </div>
             <Progress value={(currentQuestion / questions.length) * 100} />
           </div>
+
+          {/* Login reminder for score saving */}
+          {!user && (
+            <Card className="bg-amber-50 dark:bg-amber-950 border-amber-200 dark:border-amber-800">
+              <CardContent className="pt-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <LogIn className="h-5 w-5 text-amber-600" />
+                    <div>
+                      <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                        Playing as guest
+                      </p>
+                      <p className="text-xs text-amber-600 dark:text-amber-400">
+                        Sign in to save your score to the leaderboard
+                      </p>
+                    </div>
+                  </div>
+                  <Button 
+                    onClick={signInWithGoogle} 
+                    size="sm" 
+                    className="bg-gradient-to-r from-emerald-600 to-blue-600"
+                  >
+                    Sign In
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Lifelines */}
           <div className="flex gap-2 justify-center">

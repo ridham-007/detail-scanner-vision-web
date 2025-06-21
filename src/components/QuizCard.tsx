@@ -1,12 +1,9 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, User, Play } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
 
 interface Quiz {
   id: string;
@@ -24,8 +21,6 @@ interface QuizCardProps {
 
 const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay }) => {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const { toast } = useToast();
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -37,15 +32,6 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay }) => {
   };
 
   const handlePlay = () => {
-    if (!user) {
-      toast({
-        title: "Login Required",
-        description: "Please sign in with Google to play quizzes and appear on the leaderboard.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
     if (onPlay) {
       onPlay(quiz.id);
     } else {
