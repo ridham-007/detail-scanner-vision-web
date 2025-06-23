@@ -56,7 +56,7 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
           total_questions,
           time_taken,
           completed_at,
-          profiles!quiz_attempts_user_id_fkey (
+          profiles!quiz_attempts_user_id_profiles_id_fkey (
             full_name,
             avatar_url
           )
