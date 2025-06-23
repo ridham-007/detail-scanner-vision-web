@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Clock, Heart, Lightbulb, Users, Trophy, ArrowLeft, Share2, LogIn } from 'lucide-react';
+import { Clock, Heart, Lightbulb, Users, Trophy, ArrowLeft, Share2, LogIn, Volume2, VolumeX } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -12,6 +12,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import QuizLeaderboardModal from '@/components/QuizLeaderboardModal';
+import { soundEffects } from '@/utils/soundEffects';
 
 interface Question {
   id: string;
@@ -58,6 +59,7 @@ const QuizPage: React.FC = () => {
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   const onBack = () => {
     navigate('/quizzes');
@@ -70,12 +72,21 @@ const QuizPage: React.FC = () => {
 
   useEffect(() => {
     if (!gameOver && timeLeft > 0) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      const timer = setTimeout(() => {
+        setTimeLeft(timeLeft - 1);
+        
+        // Play warning sound when time is running low
+        if (soundEnabled && timeLeft <= 5 && timeLeft > 1) {
+          soundEffects.playWarning();
+        } else if (soundEnabled && timeLeft > 5) {
+          soundEffects.playTick();
+        }
+      }, 1000);
       return () => clearTimeout(timer);
     } else if (timeLeft === 0 && !showResult) {
       handleNextQuestion();
     }
-  }, [timeLeft, gameOver, showResult]);
+  }, [timeLeft, gameOver, showResult, soundEnabled]);
 
   // Shuffle answers when current question changes
   useEffect(() => {
@@ -119,10 +130,23 @@ const QuizPage: React.FC = () => {
 
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer);
+    if (soundEnabled) {
+      soundEffects.playButtonClick();
+    }
   };
 
   const handleNextQuestion = async () => {
     const isCorrect = selectedAnswer === questions[currentQuestion]?.correct_answer;
+    
+    // Play sound based on answer correctness
+    if (soundEnabled) {
+      if (isCorrect) {
+        soundEffects.playCorrectAnswer();
+      } else {
+        soundEffects.playWrongAnswer();
+      }
+    }
+
     if (isCorrect) {
       setScore(score + 10);
     }
@@ -133,6 +157,11 @@ const QuizPage: React.FC = () => {
 
     if (currentQuestion === questions.length - 1) {
       setGameOver(true);
+      if (soundEnabled) {
+        setTimeout(() => {
+          soundEffects.playQuizComplete();
+        }, 500);
+      }
       await saveQuizAttempt();
     } else {
       setCurrentQuestion(currentQuestion + 1);
@@ -172,18 +201,27 @@ const QuizPage: React.FC = () => {
   const useFiftyFifty = () => {
     if (!lifelines.fiftyFifty) return;
     setLifelines(prev => ({ ...prev, fiftyFifty: false }));
+    if (soundEnabled) {
+      soundEffects.playButtonClick();
+    }
     // Logic to remove 2 wrong answers would go here
   };
 
   const useSkipQuestion = () => {
     if (!lifelines.skipQuestion) return;
     setLifelines(prev => ({ ...prev, skipQuestion: false }));
+    if (soundEnabled) {
+      soundEffects.playButtonClick();
+    }
     handleNextQuestion();
   };
 
   const useExtraTime = () => {
     if (!lifelines.extraTime) return;
     setLifelines(prev => ({ ...prev, extraTime: false }));
+    if (soundEnabled) {
+      soundEffects.playButtonClick();
+    }
     setTimeLeft(timeLeft + 15);
   };
 
@@ -315,6 +353,14 @@ const QuizPage: React.FC = () => {
               <Badge variant="outline">{quiz.difficulty.toUpperCase()}</Badge>
             </div>
             <div className="flex gap-2">
+              <Button 
+                onClick={() => setSoundEnabled(!soundEnabled)}
+                variant="outline"
+                size="sm"
+                className="shrink-0"
+              >
+                {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+              </Button>
               {user && (
                 <Button 
                   onClick={() => setShowLeaderboard(true)}
