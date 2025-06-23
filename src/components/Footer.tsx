@@ -3,11 +3,13 @@ import React, { useEffect, useRef } from 'react';
 import { Heart, Github, Star, Brain, Zap, Award, Users } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useNavigate } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     gsap.from(footerRef.current?.querySelectorAll('.footer-section'), {
@@ -89,9 +91,24 @@ const Footer = () => {
               for smarter eating
             </p>
             <div className="flex space-x-4 md:space-x-6 text-sm text-muted-foreground">
-              <button className="hover:text-foreground transition-colors">Privacy</button>
-              <button className="hover:text-foreground transition-colors">Terms</button>
-              <button className="hover:text-foreground transition-colors">Support</button>
+              <button 
+                onClick={() => navigate('/privacy')}
+                className="hover:text-foreground transition-colors"
+              >
+                Privacy
+              </button>
+              <button 
+                onClick={() => navigate('/terms')}
+                className="hover:text-foreground transition-colors"
+              >
+                Terms
+              </button>
+              <button 
+                onClick={() => navigate('/support')}
+                className="hover:text-foreground transition-colors"
+              >
+                Support
+              </button>
             </div>
           </div>
         </div>

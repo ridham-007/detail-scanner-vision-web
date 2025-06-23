@@ -11,6 +11,9 @@ import QuizzesPage from "./pages/QuizzesPage";
 import QuizPage from "./pages/QuizPage";
 import UserSettingsPage from "./pages/UserSettingsPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import PrivacyPage from "./pages/PrivacyPage";
+import TermsPage from "./pages/TermsPage";
+import SupportPage from "./pages/SupportPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +32,9 @@ const App = () => (
               <Route path="/quiz/:quizId" element={<QuizPage />} />
               <Route path="/settings" element={<UserSettingsPage />} />
               <Route path="/profile/:username" element={<UserProfilePage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/support" element={<SupportPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
