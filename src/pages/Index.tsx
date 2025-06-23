@@ -9,6 +9,7 @@ import AnimatedBackground from '@/components/AnimatedBackground';
 import FoodScannerPage from './FoodScannerPage';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { trackCTAClick } from '@/utils/analytics';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +21,23 @@ const IndexPage: React.FC = () => {
   const scannerRef = useRef<HTMLDivElement>(null);
 
   const scrollToScanner = () => {
+    trackCTAClick('scroll_to_scanner');
+    scannerRef.current?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
+  const handleLearnMoreClick = () => {
+    trackCTAClick('learn_more');
+    howItWorksRef.current?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
+  const handleGetStartedClick = () => {
+    trackCTAClick('get_started_cta');
     scannerRef.current?.scrollIntoView({ 
       behavior: 'smooth',
       block: 'start'
@@ -168,7 +186,12 @@ const IndexPage: React.FC = () => {
                 Start Scanning Now
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="px-8 py-3 rounded-full border-2 hover:bg-accent transition-all duration-300">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="px-8 py-3 rounded-full border-2 hover:bg-accent transition-all duration-300"
+                onClick={handleLearnMoreClick}
+              >
                 Learn More
               </Button>
             </div>
@@ -247,7 +270,7 @@ const IndexPage: React.FC = () => {
               size="lg" 
               variant="secondary" 
               className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              onClick={scrollToScanner}
+              onClick={handleGetStartedClick}
             >
               Get Started Today
               <Sparkles className="ml-2 h-5 w-5" />

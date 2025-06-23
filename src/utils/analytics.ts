@@ -1,0 +1,77 @@
+
+// Google Analytics utility functions
+declare global {
+  interface Window {
+    gtag: (command: string, targetId: string, config?: any) => void;
+  }
+}
+
+export const GA_MEASUREMENT_ID = 'GA_MEASUREMENT_ID'; // Replace with your actual GA4 Measurement ID
+
+// Initialize Google Analytics
+export const initGA = () => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('config', GA_MEASUREMENT_ID, {
+      page_title: document.title,
+      page_location: window.location.href,
+    });
+  }
+};
+
+// Track page views
+export const trackPageView = (url: string, title?: string) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('config', GA_MEASUREMENT_ID, {
+      page_path: url,
+      page_title: title || document.title,
+    });
+  }
+};
+
+// Track custom events
+export const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, {
+      ...parameters,
+    });
+  }
+};
+
+// Specific event tracking functions for EaterIQ
+export const trackScanAttempt = () => {
+  trackEvent('scan_attempt', {
+    event_category: 'scanner',
+    event_label: 'barcode_scan',
+  });
+};
+
+export const trackScanSuccess = (productName?: string) => {
+  trackEvent('scan_success', {
+    event_category: 'scanner',
+    event_label: 'barcode_scan_success',
+    product_name: productName,
+  });
+};
+
+export const trackScanError = (error: string) => {
+  trackEvent('scan_error', {
+    event_category: 'scanner',
+    event_label: 'barcode_scan_error',
+    error_message: error,
+  });
+};
+
+export const trackProductView = (productName: string) => {
+  trackEvent('view_item', {
+    event_category: 'product',
+    event_label: 'product_details_view',
+    item_name: productName,
+  });
+};
+
+export const trackCTAClick = (ctaName: string) => {
+  trackEvent('cta_click', {
+    event_category: 'engagement',
+    event_label: ctaName,
+  });
+};
