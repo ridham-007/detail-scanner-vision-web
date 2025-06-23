@@ -40,28 +40,28 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay }) => {
   return (
     <>
       <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
-        <CardHeader>
+        <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <CardTitle className="text-lg mb-2">{quiz.title}</CardTitle>
-              <Badge className={getDifficultyColor(quiz.difficulty)}>
+            <div className="flex-1 min-w-0">
+              <CardTitle className="text-base sm:text-lg mb-2 line-clamp-2">{quiz.title}</CardTitle>
+              <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
                 {quiz.difficulty.toUpperCase()}
               </Badge>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="flex-1 flex flex-col">
-          <p className="text-muted-foreground text-sm mb-4 flex-1">
+        <CardContent className="flex-1 flex flex-col pt-0">
+          <p className="text-muted-foreground text-xs sm:text-sm mb-3 sm:mb-4 flex-1 line-clamp-3">
             {quiz.description}
           </p>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
-            <Calendar className="h-4 w-4" />
-            <span>{new Date(quiz.created_at).toLocaleDateString()}</span>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3 sm:mb-4">
+            <Calendar className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
+            <span className="truncate">{new Date(quiz.created_at).toLocaleDateString()}</span>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Button 
               onClick={() => onPlay(quiz.id)} 
-              className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600"
+              className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600 text-sm h-9"
             >
               <Play className="h-4 w-4 mr-2" />
               Play Quiz
@@ -70,10 +70,11 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay }) => {
               <Button 
                 onClick={() => setShowLeaderboard(true)}
                 variant="outline"
-                size="icon"
-                className="shrink-0"
+                size="sm"
+                className="sm:w-auto w-full h-9"
               >
-                <Trophy className="h-4 w-4" />
+                <Trophy className="h-4 w-4 sm:mr-2" />
+                <span className="sm:inline hidden">Leaderboard</span>
               </Button>
             )}
           </div>

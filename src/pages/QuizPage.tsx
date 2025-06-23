@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -248,9 +249,9 @@ const QuizPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <Header />
-        <div className="flex justify-center items-center h-64">
+        <div className="flex justify-center items-center h-64 px-4">
           <div className="text-center">
-            <p>Quiz not found</p>
+            <p className="text-sm sm:text-base">Quiz not found</p>
             <Button onClick={onBack} className="mt-4">Back to Quizzes</Button>
           </div>
         </div>
@@ -264,10 +265,10 @@ const QuizPage: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <Header />
         <AnimatedBackground />
-        <div className="flex justify-center items-center h-64 relative z-10">
+        <div className="flex justify-center items-center h-64 relative z-10 px-4">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
-            <p>Loading quiz...</p>
+            <div className="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+            <p className="text-sm sm:text-base">Loading quiz...</p>
           </div>
         </div>
         <Footer />
@@ -280,28 +281,28 @@ const QuizPage: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <Header />
         <AnimatedBackground />
-        <main className="container mx-auto px-4 py-8 relative z-10">
+        <main className="container mx-auto px-4 py-4 sm:py-8 relative z-10">
           <div className="max-w-2xl mx-auto">
             <Card className="text-center">
-              <CardHeader>
-                <Trophy className="h-16 w-16 text-yellow-500 mx-auto mb-4" />
-                <CardTitle className="text-2xl">Quiz Completed!</CardTitle>
+              <CardHeader className="pb-4">
+                <Trophy className="h-12 w-12 sm:h-16 sm:w-16 text-yellow-500 mx-auto mb-4" />
+                <CardTitle className="text-xl sm:text-2xl">Quiz Completed!</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="text-4xl font-bold text-emerald-600">{score}/100</div>
-                <p className="text-muted-foreground">
+                <div className="text-3xl sm:text-4xl font-bold text-emerald-600">{score}/100</div>
+                <p className="text-muted-foreground text-sm sm:text-base">
                   You answered {Math.floor(score/10)} out of {questions.length} questions correctly!
                 </p>
                 
                 {!user && (
-                  <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                    <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                  <div className="bg-blue-50 dark:bg-blue-950 p-3 sm:p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2 text-sm sm:text-base">
                       Want to save your score?
                     </h3>
-                    <p className="text-sm text-blue-700 dark:text-blue-300 mb-3">
+                    <p className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 mb-3">
                       Sign in to save your score and appear on the leaderboard!
                     </p>
-                    <Button onClick={signInWithGoogle} className="bg-gradient-to-r from-blue-600 to-purple-600">
+                    <Button onClick={signInWithGoogle} className="bg-gradient-to-r from-blue-600 to-purple-600 w-full sm:w-auto">
                       <LogIn className="h-4 w-4 mr-2" />
                       Sign in with Google
                     </Button>
@@ -309,19 +310,19 @@ const QuizPage: React.FC = () => {
                 )}
                 
                 {user && (
-                  <div className="bg-green-50 dark:bg-green-950 p-4 rounded-lg border border-green-200 dark:border-green-800">
-                    <p className="text-green-700 dark:text-green-300">
+                  <div className="bg-green-50 dark:bg-green-950 p-3 sm:p-4 rounded-lg border border-green-200 dark:border-green-800">
+                    <p className="text-green-700 dark:text-green-300 text-sm sm:text-base">
                       ✅ Your score has been saved to the leaderboard!
                     </p>
                   </div>
                 )}
 
-                <div className="flex gap-2 justify-center">
-                  <Button onClick={onBack} variant="outline">
+                <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                  <Button onClick={onBack} variant="outline" className="w-full sm:w-auto">
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Back to Quizzes
                   </Button>
-                  <Button onClick={shareQuiz} className="bg-gradient-to-r from-emerald-600 to-blue-600">
+                  <Button onClick={shareQuiz} className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto">
                     <Share2 className="h-4 w-4 mr-2" />
                     Share Quiz
                   </Button>
@@ -340,19 +341,19 @@ const QuizPage: React.FC = () => {
       <Header />
       <AnimatedBackground />
       
-      <main className="container mx-auto px-4 py-8 relative z-10">
-        <div className="max-w-4xl mx-auto space-y-6">
+      <main className="container mx-auto px-4 py-4 sm:py-8 relative z-10">
+        <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
           {/* Quiz Header */}
-          <div className="flex items-center justify-between">
-            <Button variant="outline" onClick={onBack}>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <Button variant="outline" onClick={onBack} className="self-start">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back
             </Button>
-            <div className="text-center">
-              <h1 className="text-xl font-bold">{quiz.title}</h1>
-              <Badge variant="outline">{quiz.difficulty.toUpperCase()}</Badge>
+            <div className="text-center flex-1">
+              <h1 className="text-lg sm:text-xl font-bold">{quiz.title}</h1>
+              <Badge variant="outline" className="mt-1">{quiz.difficulty.toUpperCase()}</Badge>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2 self-start sm:self-auto">
               <Button 
                 onClick={() => setSoundEnabled(!soundEnabled)}
                 variant="outline"
@@ -366,21 +367,36 @@ const QuizPage: React.FC = () => {
                   onClick={() => setShowLeaderboard(true)}
                   variant="outline"
                   size="sm"
+                  className="hidden sm:flex"
                 >
                   <Trophy className="h-4 w-4 mr-2" />
                   Leaderboard
                 </Button>
               )}
-              <Button onClick={shareQuiz} variant="outline" size="sm">
+              <Button onClick={shareQuiz} variant="outline" size="sm" className="hidden sm:flex">
                 <Share2 className="h-4 w-4 mr-2" />
                 Share
+              </Button>
+              {/* Mobile-only buttons */}
+              {user && (
+                <Button 
+                  onClick={() => setShowLeaderboard(true)}
+                  variant="outline"
+                  size="sm"
+                  className="sm:hidden"
+                >
+                  <Trophy className="h-4 w-4" />
+                </Button>
+              )}
+              <Button onClick={shareQuiz} variant="outline" size="sm" className="sm:hidden">
+                <Share2 className="h-4 w-4" />
               </Button>
             </div>
           </div>
 
           {/* Progress */}
           <div className="space-y-2">
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-xs sm:text-sm">
               <span>Question {currentQuestion + 1} of {questions.length}</span>
               <span>Score: {score}/100</span>
             </div>
@@ -391,9 +407,9 @@ const QuizPage: React.FC = () => {
           {!user && (
             <Card className="bg-amber-50 dark:bg-amber-950 border-amber-200 dark:border-amber-800">
               <CardContent className="pt-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <LogIn className="h-5 w-5 text-amber-600" />
+                    <LogIn className="h-5 w-5 text-amber-600 shrink-0" />
                     <div>
                       <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
                         Playing as guest
@@ -406,7 +422,7 @@ const QuizPage: React.FC = () => {
                   <Button 
                     onClick={signInWithGoogle} 
                     size="sm" 
-                    className="bg-gradient-to-r from-emerald-600 to-blue-600"
+                    className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto"
                   >
                     Sign In
                   </Button>
@@ -416,15 +432,15 @@ const QuizPage: React.FC = () => {
           )}
 
           {/* Lifelines */}
-          <div className="flex gap-2 justify-center">
+          <div className="flex flex-wrap gap-2 justify-center">
             <Button
               variant="outline"
               size="sm"
               onClick={useFiftyFifty}
               disabled={!lifelines.fiftyFifty}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 text-xs sm:text-sm"
             >
-              <Users className="h-4 w-4" />
+              <Users className="h-3 w-3 sm:h-4 sm:w-4" />
               50:50
             </Button>
             <Button
@@ -432,9 +448,9 @@ const QuizPage: React.FC = () => {
               size="sm"
               onClick={useSkipQuestion}
               disabled={!lifelines.skipQuestion}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 text-xs sm:text-sm"
             >
-              <Lightbulb className="h-4 w-4" />
+              <Lightbulb className="h-3 w-3 sm:h-4 sm:w-4" />
               Skip
             </Button>
             <Button
@@ -442,51 +458,51 @@ const QuizPage: React.FC = () => {
               size="sm"
               onClick={useExtraTime}
               disabled={!lifelines.extraTime}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 text-xs sm:text-sm"
             >
-              <Clock className="h-4 w-4" />
+              <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
               +15s
             </Button>
           </div>
 
           {/* Timer */}
           <div className="text-center">
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${
+            <div className={`inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full ${
               timeLeft <= 10 ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'
             }`}>
               <Clock className="h-4 w-4" />
-              <span className="font-mono text-lg">{timeLeft}s</span>
+              <span className="font-mono text-base sm:text-lg">{timeLeft}s</span>
             </div>
           </div>
 
           {/* Question */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-center text-lg">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-center text-base sm:text-lg leading-relaxed">
                 {questions[currentQuestion]?.question_text}
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-2 sm:space-y-3">
               {shuffledAnswers.map((answer, index) => (
                 <Button
                   key={index}
                   variant={selectedAnswer === answer ? "default" : "outline"}
-                  className="w-full text-left justify-start h-auto p-4"
+                  className="w-full text-left justify-start h-auto p-3 sm:p-4 text-sm sm:text-base"
                   onClick={() => handleAnswerSelect(answer)}
                 >
-                  <span className="font-medium mr-2">{String.fromCharCode(65 + index)}.</span>
-                  {answer}
+                  <span className="font-medium mr-2 shrink-0">{String.fromCharCode(65 + index)}.</span>
+                  <span className="break-words">{answer}</span>
                 </Button>
               ))}
             </CardContent>
           </Card>
 
           {/* Submit Button */}
-          <div className="text-center">
+          <div className="text-center pb-4">
             <Button
               onClick={handleNextQuestion}
               disabled={!selectedAnswer}
-              className="bg-gradient-to-r from-emerald-600 to-blue-600 px-8"
+              className="bg-gradient-to-r from-emerald-600 to-blue-600 px-6 sm:px-8 w-full sm:w-auto"
             >
               {currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next Question'}
             </Button>
