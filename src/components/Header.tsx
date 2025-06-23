@@ -1,8 +1,8 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Scan, Sparkles, Brain } from 'lucide-react';
 import { gsap } from 'gsap';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import ThemeToggle from './ThemeToggle';
 import AuthButton from './AuthButton';
 
@@ -12,6 +12,7 @@ const Header = () => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -91,14 +92,16 @@ const Header = () => {
               >
                 Quizzes
               </button>
-              <button
-                onClick={() => navigate('/settings')}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === '/settings' ? 'text-primary' : 'text-muted-foreground'
-                }`}
-              >
-                Settings
-              </button>
+              {user && (
+                <button
+                  onClick={() => navigate('/settings')}
+                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                    location.pathname === '/settings' ? 'text-primary' : 'text-muted-foreground'
+                  }`}
+                >
+                  Settings
+                </button>
+              )}
             </nav>
             
             <div className="flex items-center gap-4">
