@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -177,14 +176,6 @@ const IndexPage: React.FC = () => {
         {/* Scanner Section */}
         <section ref={scannerRef} className="scanner-section container mx-auto px-4 py-16">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Smart Food Scanner
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Point, scan, and discover everything about your food in seconds
-              </p>
-            </div>
             <FoodScannerPage />
           </div>
         </section>
