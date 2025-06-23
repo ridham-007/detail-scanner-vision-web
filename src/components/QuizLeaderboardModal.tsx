@@ -48,27 +48,50 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
   const fetchQuizLeaderboard = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      // First, get the quiz attempts
+      const { data: attempts, error: attemptsError } = await supabase
         .from('quiz_attempts')
-        .select(`
-          id,
-          score,
-          total_questions,
-          time_taken,
-          completed_at,
-          user_id,
-          profiles!inner(
-            full_name,
-            avatar_url
-          )
-        `)
+        .select('id, score, total_questions, time_taken, completed_at, user_id')
         .eq('quiz_id', quizId)
         .order('score', { ascending: false })
         .order('time_taken', { ascending: true })
         .limit(10);
 
-      if (error) throw error;
-      setLeaderboard(data || []);
+      if (attemptsError) throw attemptsError;
+
+      if (!attempts || attempts.length === 0) {
+        setLeaderboard([]);
+        return;
+      }
+
+      // Get unique user IDs
+      const userIds = [...new Set(attempts.map(attempt => attempt.user_id))];
+
+      // Fetch profiles for these users
+      const { data: profiles, error: profilesError } = await supabase
+        .from('profiles')
+        .select('id, full_name, avatar_url')
+        .in('id', userIds);
+
+      if (profilesError) throw profilesError;
+
+      // Combine the data
+      const leaderboardData = attempts.map(attempt => {
+        const profile = profiles?.find(p => p.id === attempt.user_id);
+        return {
+          id: attempt.id,
+          score: attempt.score,
+          total_questions: attempt.total_questions,
+          time_taken: attempt.time_taken,
+          completed_at: attempt.completed_at,
+          profiles: profile ? {
+            full_name: profile.full_name || 'Anonymous Player',
+            avatar_url: profile.avatar_url || ''
+          } : null
+        };
+      });
+
+      setLeaderboard(leaderboardData);
     } catch (error) {
       console.error('Error fetching quiz leaderboard:', error);
       toast({
