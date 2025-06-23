@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ArrowLeft, MessageCircle, HelpCircle, Bug, Lightbulb, Mail, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
@@ -17,6 +17,7 @@ import AnimatedBackground from '@/components/AnimatedBackground';
 const SupportPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,23 +26,54 @@ const SupportPage = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Simulate form submission
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      category: '',
-      subject: '',
-      message: ''
-    });
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          category: formData.category,
+          subject: formData.subject,
+          message: formData.message
+        }]);
+
+      if (error) {
+        console.error('Error submitting form:', error);
+        toast({
+          title: "Error",
+          description: "Failed to submit your message. Please try again.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      toast({
+        title: "Message Sent!",
+        description: "We'll get back to you within 24 hours.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        category: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -123,6 +155,7 @@ const SupportPage = () => {
                         onChange={(e) => handleInputChange('name', e.target.value)}
                         placeholder="Your full name"
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div>
@@ -134,13 +167,18 @@ const SupportPage = () => {
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         placeholder="your@email.com"
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
                   
                   <div>
                     <Label htmlFor="category">Category</Label>
-                    <Select value={formData.category} onValueChange={(value) => handleInputChange('category', value)}>
+                    <Select 
+                      value={formData.category} 
+                      onValueChange={(value) => handleInputChange('category', value)}
+                      disabled={isSubmitting}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
@@ -163,6 +201,7 @@ const SupportPage = () => {
                       onChange={(e) => handleInputChange('subject', e.target.value)}
                       placeholder="Brief description of your issue"
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                   
@@ -175,12 +214,17 @@ const SupportPage = () => {
                       placeholder="Please describe your issue or question in detail..."
                       rows={5}
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                   
-                  <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-blue-600">
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-gradient-to-r from-emerald-600 to-blue-600"
+                    disabled={isSubmitting}
+                  >
                     <Send className="h-4 w-4 mr-2" />
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </form>
               </CardContent>
