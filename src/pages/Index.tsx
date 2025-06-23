@@ -18,6 +18,14 @@ const IndexPage: React.FC = () => {
   const howItWorksRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const scannerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToScanner = () => {
+    scannerRef.current?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -193,7 +201,11 @@ const IndexPage: React.FC = () => {
             </p>
             
             <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                onClick={scrollToScanner}
+              >
                 Start Scanning Now
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -205,7 +217,7 @@ const IndexPage: React.FC = () => {
         </section>
 
         {/* Scanner Section */}
-        <section className="scanner-section container mx-auto px-4 py-16">
+        <section ref={scannerRef} className="scanner-section container mx-auto px-4 py-16">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -312,7 +324,12 @@ const IndexPage: React.FC = () => {
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               Join thousands of users who are making smarter, healthier decisions with EaterIQ
             </p>
-            <Button size="lg" variant="secondary" className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              onClick={scrollToScanner}
+            >
               Get Started Today
               <Sparkles className="ml-2 h-5 w-5" />
             </Button>
