@@ -14,7 +14,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const IndexPage: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
-  const featuresRef = useRef<HTMLDivElement>(null);
   const howItWorksRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -60,20 +59,6 @@ const IndexPage: React.FC = () => {
         duration: 1,
         delay: 0.8,
         ease: "power2.out"
-      });
-
-      // Features animations with ScrollTrigger
-      gsap.from(".feature-card", {
-        y: 80,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: featuresRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
-        }
       });
 
       // How it works animations
@@ -130,45 +115,6 @@ const IndexPage: React.FC = () => {
 
     return () => ctx.revert();
   }, []);
-
-  const features = [
-    {
-      icon: Scan,
-      title: "Smart Barcode Scanning",
-      description: "Instantly scan any product barcode using your device's camera. Our advanced recognition technology works with over 99% of barcodes worldwide, providing immediate access to comprehensive nutritional data and ingredient analysis.",
-      color: "from-blue-500 to-cyan-500"
-    },
-    {
-      icon: Brain,
-      title: "AI-Powered Analysis",
-      description: "Our machine learning algorithms analyze thousands of nutritional factors, additives, and ingredients to provide personalized health recommendations based on your dietary preferences and health goals.",
-      color: "from-purple-500 to-pink-500"
-    },
-    {
-      icon: Target,
-      title: "Precise Nutrition Data",
-      description: "Access detailed nutritional breakdowns including macros, micronutrients, allergens, and additives. Our database contains verified information from trusted sources and is continuously updated.",
-      color: "from-green-500 to-emerald-500"
-    },
-    {
-      icon: Zap,
-      title: "Instant Health Insights",
-      description: "Receive real-time health scores, dietary compatibility alerts, and alternative product suggestions within seconds. Make informed decisions on-the-go with confidence.",
-      color: "from-orange-500 to-red-500"
-    },
-    {
-      icon: Shield,
-      title: "Allergen Detection",
-      description: "Automatically detect potential allergens and dietary restrictions. Set up your profile once and get instant warnings about ingredients that don't match your dietary needs.",
-      color: "from-red-500 to-pink-500"
-    },
-    {
-      icon: Users,
-      title: "Family Profiles",
-      description: "Create separate profiles for family members with different dietary requirements. Track nutrition goals, preferences, and restrictions for everyone in your household.",
-      color: "from-indigo-500 to-purple-500"
-    }
-  ];
 
   const steps = [
     {
@@ -240,38 +186,6 @@ const IndexPage: React.FC = () => {
               </p>
             </div>
             <FoodScannerPage />
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section ref={featuresRef} className="container mx-auto px-4 py-16">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Powerful Features
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to make informed food choices and maintain a healthy lifestyle
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="feature-card group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm">
-                <CardHeader className="text-center pb-4">
-                  <div className={`floating-icon w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${feature.color} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}>
-                    <feature.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-center text-muted-foreground text-sm leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </section>
 
