@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -213,7 +214,7 @@ const IndexPage: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="group">
               <div className="stat-number text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                50,000+
+                4,700+
               </div>
               <p className="text-muted-foreground text-lg">Products Analyzed</p>
             </div>
@@ -225,7 +226,7 @@ const IndexPage: React.FC = () => {
             </div>
             <div className="group">
               <div className="stat-number text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-                10,000+
+                2,400+
               </div>
               <p className="text-muted-foreground text-lg">Happy Users</p>
             </div>
