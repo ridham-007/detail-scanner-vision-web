@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Scan, Sparkles, Brain } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -89,6 +90,14 @@ const Header = () => {
                 }`}
               >
                 Quizzes
+              </button>
+              <button
+                onClick={() => navigate('/settings')}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  location.pathname === '/settings' ? 'text-primary' : 'text-muted-foreground'
+                }`}
+              >
+                Settings
               </button>
             </nav>
             

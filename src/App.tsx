@@ -9,6 +9,8 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import Index from "./pages/Index";
 import QuizzesPage from "./pages/QuizzesPage";
 import QuizPage from "./pages/QuizPage";
+import UserSettingsPage from "./pages/UserSettingsPage";
+import UserProfilePage from "./pages/UserProfilePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +27,8 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/quizzes" element={<QuizzesPage />} />
               <Route path="/quiz/:quizId" element={<QuizPage />} />
+              <Route path="/settings" element={<UserSettingsPage />} />
+              <Route path="/profile/:username" element={<UserProfilePage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -1,11 +1,45 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { LogIn, LogOut, User } from 'lucide-react';
+import { LogIn, LogOut, User, Settings } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const AuthButton = () => {
   const { user, signInWithGoogle, signOut, loading } = useAuth();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (user) {
+      fetchUsername();
+    }
+  }, [user]);
+
+  const fetchUsername = async () => {
+    if (!user) return;
+
+    try {
+      const { data } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('id', user.id)
+        .single();
+
+      if (data?.username) {
+        setUsername(data.username);
+      }
+    } catch (error) {
+      console.error('Error fetching username:', error);
+    }
+  };
 
   if (loading) {
     return <Button variant="outline" disabled>Loading...</Button>;
@@ -13,16 +47,30 @@ const AuthButton = () => {
 
   if (user) {
     return (
-      <div className="flex items-center gap-2">
-        <div className="flex items-center gap-2 text-sm">
-          <User className="h-4 w-4" />
-          <span className="hidden md:inline">{user.email}</span>
-        </div>
-        <Button variant="outline" size="sm" onClick={signOut}>
-          <LogOut className="h-4 w-4 mr-2" />
-          Sign Out
-        </Button>
-      </div>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm">
+            <User className="h-4 w-4 mr-2" />
+            <span className="hidden md:inline">{user.email}</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          {username && (
+            <DropdownMenuItem onClick={() => navigate(`/profile/${username}`)}>
+              <User className="h-4 w-4 mr-2" />
+              View Profile
+            </DropdownMenuItem>
+          )}
+          <DropdownMenuItem onClick={() => navigate('/settings')}>
+            <Settings className="h-4 w-4 mr-2" />
+            Settings
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={signOut}>
+            <LogOut className="h-4 w-4 mr-2" />
+            Sign Out
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
   }
 
