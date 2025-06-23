@@ -75,12 +75,13 @@ const IndexPage: React.FC = () => {
         }
       });
 
-      // Stats counter animation
-      gsap.from(".stat-number", {
-        textContent: 0,
-        duration: 2,
+      // Stats animations (removed problematic counter animation)
+      gsap.from(".stat-item", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
         ease: "power2.out",
-        snap: { textContent: 1 },
         scrollTrigger: {
           trigger: statsRef.current,
           start: "top 80%",
@@ -212,20 +213,20 @@ const IndexPage: React.FC = () => {
         {/* Stats Section */}
         <section ref={statsRef} className="container mx-auto px-4 py-16">
           <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="group">
-              <div className="stat-number text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-2">
+            <div className="stat-item group">
+              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-2">
                 4,700+
               </div>
               <p className="text-muted-foreground text-lg">Products Analyzed</p>
             </div>
-            <div className="group">
-              <div className="stat-number text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            <div className="stat-item group">
+              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
                 99.9%
               </div>
               <p className="text-muted-foreground text-lg">Accuracy Rate</p>
             </div>
-            <div className="group">
-              <div className="stat-number text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+            <div className="stat-item group">
+              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
                 2,400+
               </div>
               <p className="text-muted-foreground text-lg">Happy Users</p>
