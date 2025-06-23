@@ -1,9 +1,11 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Clock, User, Play } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Badge } from '@/components/ui/badge';
+import { Play, Calendar, Trophy } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import QuizLeaderboardModal from './QuizLeaderboardModal';
 
 interface Quiz {
   id: string;
@@ -11,66 +13,82 @@ interface Quiz {
   description: string;
   difficulty: 'easy' | 'medium' | 'hard';
   created_at: string;
-  creator_id: string;
 }
 
 interface QuizCardProps {
   quiz: Quiz;
-  onPlay?: (quizId: string) => void;
+  onPlay: (quizId: string) => void;
 }
 
 const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay }) => {
-  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy': return 'bg-green-500';
-      case 'medium': return 'bg-yellow-500';
-      case 'hard': return 'bg-red-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
-  const handlePlay = () => {
-    if (onPlay) {
-      onPlay(quiz.id);
-    } else {
-      navigate(`/quiz/${quiz.id}`);
+      case 'easy':
+        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+      case 'hard':
+        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+      default:
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
   return (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardHeader>
-        <div className="flex justify-between items-start">
-          <CardTitle className="text-lg font-semibold">{quiz.title}</CardTitle>
-          <Badge className={`${getDifficultyColor(quiz.difficulty)} text-white`}>
-            {quiz.difficulty.toUpperCase()}
-          </Badge>
-        </div>
-        {quiz.description && (
-          <p className="text-sm text-muted-foreground">{quiz.description}</p>
-        )}
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <User className="h-4 w-4" />
-              <span>Creator</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="h-4 w-4" />
-              <span>{new Date(quiz.created_at).toLocaleDateString()}</span>
+    <>
+      <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
+        <CardHeader>
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <CardTitle className="text-lg mb-2">{quiz.title}</CardTitle>
+              <Badge className={getDifficultyColor(quiz.difficulty)}>
+                {quiz.difficulty.toUpperCase()}
+              </Badge>
             </div>
           </div>
-          <Button onClick={handlePlay} className="bg-gradient-to-r from-emerald-600 to-blue-600">
-            <Play className="h-4 w-4 mr-2" />
-            Play Quiz
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+        </CardHeader>
+        <CardContent className="flex-1 flex flex-col">
+          <p className="text-muted-foreground text-sm mb-4 flex-1">
+            {quiz.description}
+          </p>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
+            <Calendar className="h-4 w-4" />
+            <span>{new Date(quiz.created_at).toLocaleDateString()}</span>
+          </div>
+          <div className="flex gap-2">
+            <Button 
+              onClick={() => onPlay(quiz.id)} 
+              className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600"
+            >
+              <Play className="h-4 w-4 mr-2" />
+              Play Quiz
+            </Button>
+            {user && (
+              <Button 
+                onClick={() => setShowLeaderboard(true)}
+                variant="outline"
+                size="icon"
+                className="shrink-0"
+              >
+                <Trophy className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {user && (
+        <QuizLeaderboardModal
+          open={showLeaderboard}
+          onOpenChange={setShowLeaderboard}
+          quizId={quiz.id}
+          quizTitle={quiz.title}
+        />
+      )}
+    </>
   );
 };
 

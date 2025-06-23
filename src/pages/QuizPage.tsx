@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import QuizLeaderboardModal from '@/components/QuizLeaderboardModal';
 
 interface Question {
   id: string;
@@ -56,6 +57,7 @@ const QuizPage: React.FC = () => {
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>(new Array(10).fill(false));
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   const onBack = () => {
     navigate('/quizzes');
@@ -312,10 +314,22 @@ const QuizPage: React.FC = () => {
               <h1 className="text-xl font-bold">{quiz.title}</h1>
               <Badge variant="outline">{quiz.difficulty.toUpperCase()}</Badge>
             </div>
-            <Button onClick={shareQuiz} variant="outline">
-              <Share2 className="h-4 w-4 mr-2" />
-              Share
-            </Button>
+            <div className="flex gap-2">
+              {user && (
+                <Button 
+                  onClick={() => setShowLeaderboard(true)}
+                  variant="outline"
+                  size="sm"
+                >
+                  <Trophy className="h-4 w-4 mr-2" />
+                  Leaderboard
+                </Button>
+              )}
+              <Button onClick={shareQuiz} variant="outline" size="sm">
+                <Share2 className="h-4 w-4 mr-2" />
+                Share
+              </Button>
+            </div>
           </div>
 
           {/* Progress */}
