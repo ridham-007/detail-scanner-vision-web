@@ -135,26 +135,38 @@ const IndexPage: React.FC = () => {
     {
       icon: Scan,
       title: "Smart Barcode Scanning",
-      description: "Instantly scan any product barcode to get comprehensive nutritional information and health insights.",
+      description: "Instantly scan any product barcode using your device's camera. Our advanced recognition technology works with over 99% of barcodes worldwide, providing immediate access to comprehensive nutritional data and ingredient analysis.",
       color: "from-blue-500 to-cyan-500"
     },
     {
       icon: Brain,
       title: "AI-Powered Analysis",
-      description: "Our advanced AI analyzes ingredients and provides personalized health recommendations.",
+      description: "Our machine learning algorithms analyze thousands of nutritional factors, additives, and ingredients to provide personalized health recommendations based on your dietary preferences and health goals.",
       color: "from-purple-500 to-pink-500"
     },
     {
       icon: Target,
       title: "Precise Nutrition Data",
-      description: "Get detailed nutritional breakdowns with accuracy you can trust for better food choices.",
+      description: "Access detailed nutritional breakdowns including macros, micronutrients, allergens, and additives. Our database contains verified information from trusted sources and is continuously updated.",
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: Zap,
-      title: "Instant Results",
-      description: "Receive comprehensive food analysis in seconds, making healthy choices effortless.",
+      title: "Instant Health Insights",
+      description: "Receive real-time health scores, dietary compatibility alerts, and alternative product suggestions within seconds. Make informed decisions on-the-go with confidence.",
       color: "from-orange-500 to-red-500"
+    },
+    {
+      icon: Shield,
+      title: "Allergen Detection",
+      description: "Automatically detect potential allergens and dietary restrictions. Set up your profile once and get instant warnings about ingredients that don't match your dietary needs.",
+      color: "from-red-500 to-pink-500"
+    },
+    {
+      icon: Users,
+      title: "Family Profiles",
+      description: "Create separate profiles for family members with different dietary requirements. Track nutrition goals, preferences, and restrictions for everyone in your household.",
+      color: "from-indigo-500 to-purple-500"
     }
   ];
 
@@ -162,17 +174,17 @@ const IndexPage: React.FC = () => {
     {
       step: "01",
       title: "Scan or Search",
-      description: "Use your camera to scan a barcode or manually enter product information"
+      description: "Use your camera to scan a barcode or manually search for products in our extensive database"
     },
     {
       step: "02",
       title: "AI Analysis",
-      description: "Our AI processes the product data and analyzes nutritional content"
+      description: "Our AI processes the product data and analyzes nutritional content against your personal health profile"
     },
     {
       step: "03",
       title: "Get Insights",
-      description: "Receive detailed health scores, recommendations, and ingredient analysis"
+      description: "Receive detailed health scores, recommendations, ingredient analysis, and alternative suggestions"
     }
   ];
 
@@ -242,7 +254,7 @@ const IndexPage: React.FC = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <Card key={index} className="feature-card group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
@@ -254,7 +266,7 @@ const IndexPage: React.FC = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-center text-muted-foreground">
+                  <CardDescription className="text-center text-muted-foreground text-sm leading-relaxed">
                     {feature.description}
                   </CardDescription>
                 </CardContent>
