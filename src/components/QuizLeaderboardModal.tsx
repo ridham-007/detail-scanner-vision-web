@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   Dialog,
@@ -57,7 +56,7 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
           total_questions,
           time_taken,
           completed_at,
-          profiles:user_id (
+          profiles!quiz_attempts_user_id_fkey (
             full_name,
             avatar_url
           )
