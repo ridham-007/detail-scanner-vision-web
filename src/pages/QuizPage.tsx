@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -66,6 +65,7 @@ const QuizPage: React.FC = () => {
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [hiddenAnswers, setHiddenAnswers] = useState<string[]>([]);
 
   const onBack = () => {
     navigate('/quizzes');
@@ -94,13 +94,14 @@ const QuizPage: React.FC = () => {
     }
   }, [timeLeft, gameOver, showResult, soundEnabled, answerFeedback.show]);
 
-  // Shuffle answers when current question changes
+  // Shuffle answers when current question changes and clear hidden answers
   useEffect(() => {
     if (questions[currentQuestion]) {
       const q = questions[currentQuestion];
       const answers = [q.correct_answer, q.wrong_answer_1, q.wrong_answer_2, q.wrong_answer_3];
       const shuffled = [...answers].sort(() => Math.random() - 0.5);
       setShuffledAnswers(shuffled);
+      setHiddenAnswers([]); // Clear hidden answers for new question
     }
   }, [currentQuestion, questions]);
 
@@ -208,12 +209,27 @@ const QuizPage: React.FC = () => {
   };
 
   const useFiftyFifty = () => {
-    if (!lifelines.fiftyFifty) return;
+    if (!lifelines.fiftyFifty || !questions[currentQuestion]) return;
+    
     setLifelines(prev => ({ ...prev, fiftyFifty: false }));
     if (soundEnabled) {
       soundEffects.playButtonClick();
     }
-    // Logic to remove 2 wrong answers would go here
+
+    // Get current question answers
+    const q = questions[currentQuestion];
+    const wrongAnswers = [q.wrong_answer_1, q.wrong_answer_2, q.wrong_answer_3];
+    
+    // Randomly select 2 wrong answers to hide
+    const shuffledWrongAnswers = [...wrongAnswers].sort(() => Math.random() - 0.5);
+    const answersToHide = shuffledWrongAnswers.slice(0, 2);
+    
+    setHiddenAnswers(answersToHide);
+    
+    toast({
+      title: "50:50 Used!",
+      description: "Two wrong answers have been removed",
+    });
   };
 
   const useSkipQuestion = () => {
@@ -232,6 +248,10 @@ const QuizPage: React.FC = () => {
       soundEffects.playButtonClick();
     }
     setTimeLeft(timeLeft + 15);
+    toast({
+      title: "Extra Time!",
+      description: "+15 seconds added to the timer",
+    });
   };
 
   const shareQuiz = () => {
@@ -243,6 +263,13 @@ const QuizPage: React.FC = () => {
         title: quiz?.title,
         text: shareText,
         url: shareUrl
+      }).catch(() => {
+        // Fallback to clipboard if sharing fails
+        navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+        toast({
+          title: "Link Copied!",
+          description: "Quiz link copied to clipboard",
+        });
       });
     } else {
       navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
@@ -446,30 +473,36 @@ const QuizPage: React.FC = () => {
               size="sm"
               onClick={useFiftyFifty}
               disabled={!lifelines.fiftyFifty || answerFeedback.show}
-              className="flex items-center gap-1 text-xs sm:text-sm"
+              className={`flex items-center gap-1 text-xs sm:text-sm ${
+                !lifelines.fiftyFifty ? 'opacity-50 bg-gray-100' : ''
+              }`}
             >
               <Users className="h-3 w-3 sm:h-4 sm:w-4" />
-              50:50
+              50:50 {!lifelines.fiftyFifty && '(Used)'}
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={useSkipQuestion}
               disabled={!lifelines.skipQuestion || answerFeedback.show}
-              className="flex items-center gap-1 text-xs sm:text-sm"
+              className={`flex items-center gap-1 text-xs sm:text-sm ${
+                !lifelines.skipQuestion ? 'opacity-50 bg-gray-100' : ''
+              }`}
             >
               <Lightbulb className="h-3 w-3 sm:h-4 sm:w-4" />
-              Skip
+              Skip {!lifelines.skipQuestion && '(Used)'}
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={useExtraTime}
               disabled={!lifelines.extraTime || answerFeedback.show}
-              className="flex items-center gap-1 text-xs sm:text-sm"
+              className={`flex items-center gap-1 text-xs sm:text-sm ${
+                !lifelines.extraTime ? 'opacity-50 bg-gray-100' : ''
+              }`}
             >
               <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
-              +15s
+              +15s {!lifelines.extraTime && '(Used)'}
             </Button>
           </div>
 
@@ -516,31 +549,43 @@ const QuizPage: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 sm:space-y-3">
-              {shuffledAnswers.map((answer, index) => (
-                <Button
-                  key={index}
-                  variant={selectedAnswer === answer ? "default" : "outline"}
-                  className={`w-full text-left justify-start h-auto p-3 sm:p-4 text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] ${
-                    answerFeedback.show && answerFeedback.selectedAnswer === answer
-                      ? answerFeedback.isCorrect 
-                        ? 'bg-green-500 text-white border-green-500' 
-                        : 'bg-red-500 text-white border-red-500'
-                      : answerFeedback.show && answer === questions[currentQuestion]?.correct_answer
-                        ? 'bg-green-100 border-green-300 text-green-800'
-                        : ''
-                  } ${answerFeedback.show ? 'pointer-events-none' : ''}`}
-                  onClick={() => handleAnswerSelect(answer)}
-                  disabled={answerFeedback.show}
-                >
-                  <span className="font-medium mr-2 shrink-0">{String.fromCharCode(65 + index)}.</span>
-                  <span className="break-words">{answer}</span>
-                  {answerFeedback.show && answerFeedback.selectedAnswer === answer && (
-                    <span className="ml-auto">
-                      {answerFeedback.isCorrect ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
-                    </span>
-                  )}
-                </Button>
-              ))}
+              {shuffledAnswers.map((answer, index) => {
+                const isHidden = hiddenAnswers.includes(answer);
+                
+                if (isHidden) {
+                  return (
+                    <div key={index} className="h-12 sm:h-14 bg-gray-100 dark:bg-gray-800 rounded-md flex items-center justify-center opacity-50">
+                      <span className="text-gray-400 text-sm">Answer removed</span>
+                    </div>
+                  );
+                }
+                
+                return (
+                  <Button
+                    key={index}
+                    variant={selectedAnswer === answer ? "default" : "outline"}
+                    className={`w-full text-left justify-start h-auto p-3 sm:p-4 text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] ${
+                      answerFeedback.show && answerFeedback.selectedAnswer === answer
+                        ? answerFeedback.isCorrect 
+                          ? 'bg-green-500 text-white border-green-500' 
+                          : 'bg-red-500 text-white border-red-500'
+                        : answerFeedback.show && answer === questions[currentQuestion]?.correct_answer
+                          ? 'bg-green-100 border-green-300 text-green-800'
+                          : ''
+                    } ${answerFeedback.show ? 'pointer-events-none' : ''}`}
+                    onClick={() => handleAnswerSelect(answer)}
+                    disabled={answerFeedback.show}
+                  >
+                    <span className="font-medium mr-2 shrink-0">{String.fromCharCode(65 + shuffledAnswers.indexOf(answer))}.</span>
+                    <span className="break-words">{answer}</span>
+                    {answerFeedback.show && answerFeedback.selectedAnswer === answer && (
+                      <span className="ml-auto">
+                        {answerFeedback.isCorrect ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
+                      </span>
+                    )}
+                  </Button>
+                );
+              })}
             </CardContent>
           </Card>
 
@@ -551,6 +596,15 @@ const QuizPage: React.FC = () => {
           )}
         </div>
       </main>
+      
+      {showLeaderboard && (
+        <QuizLeaderboardModal
+          quizId={quizId!}
+          isOpen={showLeaderboard}
+          onClose={() => setShowLeaderboard(false)}
+        />
+      )}
+      
       <Footer />
     </div>
   );
