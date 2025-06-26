@@ -1,4 +1,5 @@
 
+
 import { supabase } from '../integrations/supabase/client';
 
 export interface SitemapUrl {
@@ -74,9 +75,9 @@ export const generateQuizSitemapUrls = async (): Promise<SitemapUrl[]> => {
 
     const baseUrl = 'https://eateriq.com';
     
-    return quizzes.map((quiz: { id: string; updated_at: string }) => ({
+    return quizzes.map((quiz: { id: string; updated_at: string | null }) => ({
       loc: `${baseUrl}/quiz/${quiz.id}`,
-      lastmod: new Date(quiz.updated_at).toISOString().split('T')[0],
+      lastmod: quiz.updated_at ? new Date(quiz.updated_at).toISOString().split('T')[0] : undefined,
       changefreq: 'weekly' as const,
       priority: 0.8
     }));
@@ -100,12 +101,14 @@ export const generateUserProfileSitemapUrls = async (): Promise<SitemapUrl[]> =>
 
     const baseUrl = 'https://eateriq.com';
     
-    return profiles.map((profile: { username: string; updated_at: string }) => ({
-      loc: `${baseUrl}/profile/${profile.username}`,
-      lastmod: new Date(profile.updated_at).toISOString().split('T')[0],
-      changefreq: 'monthly' as const,
-      priority: 0.6
-    }));
+    return profiles
+      .filter((profile: { username: string | null; updated_at: string | null }) => profile.username)
+      .map((profile: { username: string | null; updated_at: string | null }) => ({
+        loc: `${baseUrl}/profile/${profile.username}`,
+        lastmod: profile.updated_at ? new Date(profile.updated_at).toISOString().split('T')[0] : undefined,
+        changefreq: 'monthly' as const,
+        priority: 0.6
+      }));
   } catch (error) {
     console.error('Error generating user profile sitemap URLs:', error);
     return [];
@@ -121,3 +124,4 @@ export const generateCompleteSitemap = async (): Promise<string> => {
   
   return generateSitemap(allUrls);
 };
+
