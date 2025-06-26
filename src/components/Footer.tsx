@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
-import { Heart, Github, Star, Brain, Zap, Award, Users } from 'lucide-react';
+import { Heart, Brain, Zap, Award, Users, Mail, Shield, HelpCircle, FileText } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +24,10 @@ const Footer = () => {
       }
     });
   }, []);
+
+  const handleContactClick = () => {
+    window.location.href = 'mailto:hello@eateriq.com';
+  };
 
   return (
     <footer ref={footerRef} className="border-t bg-background/50 backdrop-blur">
@@ -66,20 +70,39 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Connect Section */}
+          {/* Support & Resources Section */}
           <div className="footer-section space-y-4">
-            <h3 className="font-semibold text-base md:text-lg">Connect</h3>
-            <div className="flex space-x-4">
-              <button className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors hover:scale-110 duration-200">
-                <Github className="h-4 w-4 md:h-5 md:w-5" />
+            <h3 className="font-semibold text-base md:text-lg">Support & Resources</h3>
+            <div className="space-y-3">
+              <button 
+                onClick={handleContactClick}
+                className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                <Mail className="h-4 w-4 text-blue-500 group-hover:text-blue-600" />
+                <span>Contact Support</span>
               </button>
-              <button className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors hover:scale-110 duration-200">
-                <Star className="h-4 w-4 md:h-5 md:w-5" />
+              <button 
+                onClick={() => navigate('/support')}
+                className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                <HelpCircle className="h-4 w-4 text-green-500 group-hover:text-green-600" />
+                <span>Help Center</span>
+              </button>
+              <button 
+                onClick={() => navigate('/privacy')}
+                className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                <Shield className="h-4 w-4 text-purple-500 group-hover:text-purple-600" />
+                <span>Privacy Policy</span>
+              </button>
+              <button 
+                onClick={() => navigate('/terms')}
+                className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                <FileText className="h-4 w-4 text-orange-500 group-hover:text-orange-600" />
+                <span>Terms of Service</span>
               </button>
             </div>
-            <p className="text-xs text-muted-foreground">
-              Built with modern web technologies for intelligent food choices.
-            </p>
           </div>
         </div>
 
