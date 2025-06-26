@@ -42,8 +42,8 @@ const QuizzesPage = () => {
   const [loading, setLoading] = useState(false);
 
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
-    { name: 'Home', url: 'https://eateriq.lovable.app/' },
-    { name: 'Quiz Hub', url: 'https://eateriq.lovable.app/quizzes' }
+    { name: 'Home', url: 'https://eateriq.com/' },
+    { name: 'Quiz Hub', url: 'https://eateriq.com/quizzes' }
   ]);
 
   useEffect(() => {

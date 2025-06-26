@@ -106,13 +106,13 @@ export const generateQuizStructuredData = (quiz: {
   "provider": {
     "@type": "Organization",
     "name": "EaterIQ",
-    "url": "https://eateriq.lovable.app"
+    "url": "https://eateriq.com"
   },
-  "url": `https://eateriq.lovable.app/quiz/${quiz.id}`,
+  "url": `https://eateriq.com/quiz/${quiz.id}`,
   "isPartOf": {
     "@type": "WebSite",
     "name": "EaterIQ",
-    "url": "https://eateriq.lovable.app"
+    "url": "https://eateriq.com"
   }
 });
 
