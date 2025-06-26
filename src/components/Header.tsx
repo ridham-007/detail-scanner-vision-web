@@ -49,7 +49,6 @@ const Header = () => {
   const navigationItems = [
     { path: '/', label: 'Scanner' },
     { path: '/quizzes', label: 'Quizzes' },
-    ...(user ? [{ path: '/settings', label: 'Settings' }] : []),
   ];
 
   return (
