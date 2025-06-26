@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles, Clock, Rocket, Bell, Calendar, Utensils } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -168,30 +169,6 @@ const IndexPage: React.FC = () => {
     }
   ];
 
-  const comingSoonFeatures = [
-    {
-      icon: <Utensils className="h-8 w-8" />,
-      title: "AI Meal Planner",
-      description: "Get personalized weekly meal plans based on your dietary preferences and health goals",
-      eta: "Q1 2025",
-      color: "bg-emerald-500"
-    },
-    {
-      icon: <Users className="h-8 w-8" />,
-      title: "Food Community",
-      description: "Connect with health-conscious food lovers and share your discoveries",
-      eta: "Q2 2025",
-      color: "bg-blue-500"
-    },
-    {
-      icon: <Bell className="h-8 w-8" />,
-      title: "Smart Reminders",
-      description: "Intelligent notifications for meal timing and nutrition tracking",
-      eta: "Q1 2025",
-      color: "bg-purple-500"
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
@@ -296,8 +273,8 @@ const IndexPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Coming Soon Section */}
-        <section ref={comingSoonRef} className="py-20 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+        {/* Coming Soon Section - Fixed and Improved */}
+        <section ref={comingSoonRef} className="py-20 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-purple-600 rounded-2xl mb-6 mx-auto">
@@ -306,41 +283,85 @@ const IndexPage: React.FC = () => {
               <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent mb-4">
                 What's Coming Next
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 We're constantly innovating to make your healthy eating journey even more powerful
               </p>
             </div>
             
             <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-16">
-              {comingSoonFeatures.map((feature, index) => (
-                <Card key={index} className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                  <div className="absolute top-4 right-4">
-                    <Badge variant="secondary" className="text-xs font-medium">
-                      {feature.eta}
-                    </Badge>
+              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                <div className="absolute top-4 right-4">
+                  <Badge variant="secondary" className="text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
+                    Q1 2025
+                  </Badge>
+                </div>
+                
+                <CardHeader className="text-center pb-4 pt-8">
+                  <div className="mx-auto mb-4 w-16 h-16 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                    <Utensils className="h-8 w-8" />
                   </div>
-                  
-                  <CardHeader className="text-center pb-4">
-                    <div className={`mx-auto mb-4 w-16 h-16 ${feature.color} rounded-xl flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                      {feature.icon}
-                    </div>
-                    <CardTitle className="text-xl font-bold text-foreground">
-                      {feature.title}
-                    </CardTitle>
-                  </CardHeader>
-                  
-                  <CardContent className="text-center px-6 pb-8">
-                    <CardDescription className="text-base text-muted-foreground leading-relaxed">
-                      {feature.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
+                    AI Meal Planner
+                  </CardTitle>
+                </CardHeader>
+                
+                <CardContent className="text-center px-6 pb-8">
+                  <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Get personalized weekly meal plans based on your dietary preferences and health goals
+                  </CardDescription>
+                </CardContent>
+              </Card>
+
+              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                <div className="absolute top-4 right-4">
+                  <Badge variant="secondary" className="text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                    Q2 2025
+                  </Badge>
+                </div>
+                
+                <CardHeader className="text-center pb-4 pt-8">
+                  <div className="mx-auto mb-4 w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                    <Users className="h-8 w-8" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
+                    Food Community
+                  </CardTitle>
+                </CardHeader>
+                
+                <CardContent className="text-center px-6 pb-8">
+                  <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Connect with health-conscious food lovers and share your discoveries
+                  </CardDescription>
+                </CardContent>
+              </Card>
+
+              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                <div className="absolute top-4 right-4">
+                  <Badge variant="secondary" className="text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300">
+                    Q1 2025
+                  </Badge>
+                </div>
+                
+                <CardHeader className="text-center pb-4 pt-8">
+                  <div className="mx-auto mb-4 w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                    <Bell className="h-8 w-8" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
+                    Smart Reminders
+                  </CardTitle>
+                </CardHeader>
+                
+                <CardContent className="text-center px-6 pb-8">
+                  <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Intelligent notifications for meal timing and nutrition tracking
+                  </CardDescription>
+                </CardContent>
+              </Card>
             </div>
             
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Be the First to Know</h3>
-              <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Be the First to Know</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-xl mx-auto">
                 Join our community and get early access to these exciting new features when they launch.
               </p>
               <Button 
