@@ -12,6 +12,8 @@ import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import QuizCard from '@/components/QuizCard';
 import CreateQuizModal from '@/components/CreateQuizModal';
+import SEOHead from '@/components/SEOHead';
+import { generateBreadcrumbStructuredData } from '@/utils/seo';
 
 interface Quiz {
   id: string;
@@ -38,6 +40,11 @@ const QuizzesPage = () => {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const breadcrumbStructuredData = generateBreadcrumbStructuredData([
+    { name: 'Home', url: 'https://eateriq.lovable.app/' },
+    { name: 'Quiz Hub', url: 'https://eateriq.lovable.app/quizzes' }
+  ]);
 
   useEffect(() => {
     fetchQuizzes();
@@ -163,6 +170,14 @@ const QuizzesPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <SEOHead
+        title="Quiz Hub - AI-Generated Food & Nutrition Quizzes | EaterIQ"
+        description="Challenge yourself with AI-generated quizzes about nutrition, food safety, and healthy eating. Create custom quizzes and compete with other food enthusiasts on EaterIQ."
+        keywords="nutrition quiz, food quiz, AI quiz generator, healthy eating quiz, food safety quiz, nutrition knowledge test"
+        type="website"
+        structuredData={breadcrumbStructuredData}
+      />
+      
       <Header />
       <AnimatedBackground />
       

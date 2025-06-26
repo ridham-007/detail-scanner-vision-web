@@ -1,3 +1,18 @@
+
+User-agent: *
+Allow: /
+Allow: /quizzes
+Allow: /quiz/*
+Allow: /profile/*
+
+# Block sensitive areas
+Disallow: /settings
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /static/
+
+# Allow specific bots
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +25,8 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+# Sitemap location
+Sitemap: https://eateriq.lovable.app/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
