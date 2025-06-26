@@ -191,7 +191,7 @@ const QuizzesPage = () => {
         </div>
 
         <Tabs defaultValue="all-quizzes" className="space-y-4 sm:space-y-6">
-          <TabsList className="grid w-full grid-cols-3 h-auto">
+          <TabsList className="grid w-full grid-cols-2 h-auto">
             <TabsTrigger value="all-quizzes" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
               <Brain className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">All Quizzes</span>
@@ -202,11 +202,11 @@ const QuizzesPage = () => {
               <span className="hidden sm:inline">My Quizzes</span>
               <span className="sm:hidden">Mine</span>
             </TabsTrigger>
-            <TabsTrigger value="leaderboard" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
+            {/* <TabsTrigger value="leaderboard" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
               <Trophy className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Leaderboard</span>
               <span className="sm:hidden">Top</span>
-            </TabsTrigger>
+            </TabsTrigger> */}
           </TabsList>
 
           <TabsContent value="all-quizzes" className="space-y-4 sm:space-y-6">

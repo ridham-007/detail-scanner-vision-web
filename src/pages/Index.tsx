@@ -21,7 +21,7 @@ const IndexPage: React.FC = () => {
   const comingSoonRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scannerRef = useRef<HTMLDivElement>(null);
-
+  console.log({comingSoonRef})
   const scrollToScanner = () => {
     trackCTAClick('scroll_to_scanner');
     scannerRef.current?.scrollIntoView({ 
@@ -109,19 +109,19 @@ const IndexPage: React.FC = () => {
         }
       });
 
-      // Coming Soon animations - Fixed to ensure visibility
-      gsap.from(".coming-soon-card", {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: comingSoonRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
-        }
-      });
+      // Coming Soon animations
+      // gsap.from(".coming-soon-card", {
+        // y: 50,
+        // opacity: 0,
+        // duration: 0.8,
+        // stagger: 0.2,
+        // ease: "power2.out",
+        // scrollTrigger: {
+        //   trigger: comingSoonRef.current,
+        //   start: "top 80%",
+        //   toggleActions: "play none none reverse"
+        // }
+      // });
 
       // CTA section animation
       gsap.from(".cta-content", {
@@ -289,12 +289,12 @@ const IndexPage: React.FC = () => {
             </div>
             
             <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-16">
-              <Card className="coming-soon-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 opacity-100">
-                <div className="absolute top-4 right-4">
-                  <Badge variant="secondary" className="text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                {/* <div className="absolute top-4 right-4">
+                  <Badge variant="secondary" className="text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
                     Q1 2025
                   </Badge>
-                </div>
+                </div> */}
                 
                 <CardHeader className="text-center pb-4 pt-8">
                   <div className="mx-auto mb-4 w-16 h-16 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-md">
@@ -312,12 +312,12 @@ const IndexPage: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card className="coming-soon-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 opacity-100">
-                <div className="absolute top-4 right-4">
-                  <Badge variant="secondary" className="text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                {/* <div className="absolute top-4 right-4">
+                  <Badge variant="secondary" className="text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
                     Q2 2025
                   </Badge>
-                </div>
+                </div> */}
                 
                 <CardHeader className="text-center pb-4 pt-8">
                   <div className="mx-auto mb-4 w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center text-white shadow-md">
@@ -335,13 +335,13 @@ const IndexPage: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card className="coming-soon-card bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 opacity-100">
-                <div className="absolute top-4 right-4">
-                  <Badge variant="secondary" className="text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
+              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                {/* <div className="absolute top-4 right-4">
+                  <Badge variant="secondary" className="text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300">
                     Q1 2025
                   </Badge>
                 </div>
-                
+                 */}
                 <CardHeader className="text-center pb-4 pt-8">
                   <div className="mx-auto mb-4 w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center text-white shadow-md">
                     <Bell className="h-8 w-8" />

@@ -86,7 +86,7 @@ const Footer = () => {
         <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              © 2024 EaterIQ. Made with{' '}
+              © 2025 EaterIQ. Made with{' '}
               <Heart className="inline h-4 w-4 text-red-500 animate-pulse" />{' '}
               for smarter eating
             </p>
