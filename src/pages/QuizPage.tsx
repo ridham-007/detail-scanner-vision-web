@@ -600,8 +600,9 @@ const QuizPage: React.FC = () => {
       {showLeaderboard && (
         <QuizLeaderboardModal
           quizId={quizId!}
-          isOpen={showLeaderboard}
-          onClose={() => setShowLeaderboard(false)}
+          quizTitle={quiz.title}
+          open={showLeaderboard}
+          onOpenChange={setShowLeaderboard}
         />
       )}
       
