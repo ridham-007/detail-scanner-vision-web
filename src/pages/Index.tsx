@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { trackCTAClick } from '@/utils/analytics';
+import Logo from '../assets/download.svg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -185,9 +186,8 @@ const IndexPage: React.FC = () => {
         <section className="container mx-auto px-4 py-12 text-center">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-center mb-8">
-              <div className="floating-icon relative p-4 bg-gradient-to-br from-emerald-500 via-blue-500 to-purple-600 rounded-2xl shadow-2xl">
-                <Brain className="h-12 w-12 text-white" />
-                <Sparkles className="absolute -top-2 -right-2 h-6 w-6 text-yellow-400 animate-pulse" />
+              <div>
+                <img src={Logo} alt="" className='h-28 w-28' />
               </div>
             </div>
             

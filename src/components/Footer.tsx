@@ -4,6 +4,7 @@ import { Heart, Brain, Zap, Award, Users, Mail, Shield, HelpCircle, FileText } f
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../assets/download.svg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,8 +37,8 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="footer-section space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="p-2 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-lg">
-                <Brain className="h-4 w-4 md:h-5 md:w-5 text-white" />
+              <div>
+                <img src={Logo} alt="" className='h-12 w-12' />
               </div>
               <span className="font-bold text-lg md:text-xl">EaterIQ</span>
             </div>

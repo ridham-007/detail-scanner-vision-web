@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import ThemeToggle from './ThemeToggle';
 import AuthButton from './AuthButton';
+import Logo from '../assets/download.svg';
 
 const Header = () => {
   const logoRef = useRef<HTMLDivElement>(null);
@@ -57,12 +58,9 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div 
-              ref={logoRef}
-              className="relative p-3 bg-gradient-to-br from-emerald-500 via-blue-500 to-purple-600 rounded-xl shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
               onClick={() => navigate('/')}
             >
-              <Brain className="h-6 w-6 text-white" />
-              <Sparkles className="sparkle absolute -top-1 -right-1 h-4 w-4 text-yellow-400" />
+              <img src={Logo} alt="" className='h-16 w-16' />
             </div>
             <div className="cursor-pointer" onClick={() => navigate('/')}>
               <h1 
