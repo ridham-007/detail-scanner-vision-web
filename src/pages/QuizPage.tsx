@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Clock, Heart, Lightbulb, Users, Trophy, ArrowLeft, Share2, LogIn, Volume2, VolumeX } from 'lucide-react';
+import { Clock, Heart, Lightbulb, Users, Trophy, ArrowLeft, Share2, LogIn, Volume2, VolumeX, CheckCircle, XCircle } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -51,6 +51,11 @@ const QuizPage: React.FC = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const [showResult, setShowResult] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [answerFeedback, setAnswerFeedback] = useState<{ show: boolean; isCorrect: boolean; selectedAnswer: string }>({ 
+    show: false, 
+    isCorrect: false, 
+    selectedAnswer: '' 
+  });
   const [lifelines, setLifelines] = useState({
     fiftyFifty: true,
     skipQuestion: true,
@@ -72,7 +77,7 @@ const QuizPage: React.FC = () => {
   }, [quizId]);
 
   useEffect(() => {
-    if (!gameOver && timeLeft > 0) {
+    if (!gameOver && timeLeft > 0 && !answerFeedback.show) {
       const timer = setTimeout(() => {
         setTimeLeft(timeLeft - 1);
         
@@ -84,10 +89,10 @@ const QuizPage: React.FC = () => {
         }
       }, 1000);
       return () => clearTimeout(timer);
-    } else if (timeLeft === 0 && !showResult) {
-      handleNextQuestion();
+    } else if (timeLeft === 0 && !showResult && !answerFeedback.show) {
+      handleAnswerSelect(''); // Auto-select empty answer when time runs out
     }
-  }, [timeLeft, gameOver, showResult, soundEnabled]);
+  }, [timeLeft, gameOver, showResult, soundEnabled, answerFeedback.show]);
 
   // Shuffle answers when current question changes
   useEffect(() => {
@@ -129,15 +134,14 @@ const QuizPage: React.FC = () => {
     }
   };
 
-  const handleAnswerSelect = (answer: string) => {
+  const handleAnswerSelect = async (answer: string) => {
+    if (answerFeedback.show) return; // Prevent multiple selections
+    
     setSelectedAnswer(answer);
-    if (soundEnabled) {
-      soundEffects.playButtonClick();
-    }
-  };
-
-  const handleNextQuestion = async () => {
-    const isCorrect = selectedAnswer === questions[currentQuestion]?.correct_answer;
+    const isCorrect = answer === questions[currentQuestion]?.correct_answer;
+    
+    // Show feedback animation
+    setAnswerFeedback({ show: true, isCorrect, selectedAnswer: answer });
     
     // Play sound based on answer correctness
     if (soundEnabled) {
@@ -156,20 +160,24 @@ const QuizPage: React.FC = () => {
     newAnsweredQuestions[currentQuestion] = true;
     setAnsweredQuestions(newAnsweredQuestions);
 
-    if (currentQuestion === questions.length - 1) {
-      setGameOver(true);
-      if (soundEnabled) {
-        setTimeout(() => {
-          soundEffects.playQuizComplete();
-        }, 500);
+    // Wait for animation to complete before moving to next question
+    setTimeout(async () => {
+      if (currentQuestion === questions.length - 1) {
+        setGameOver(true);
+        if (soundEnabled) {
+          setTimeout(() => {
+            soundEffects.playQuizComplete();
+          }, 500);
+        }
+        await saveQuizAttempt();
+      } else {
+        setCurrentQuestion(currentQuestion + 1);
+        setSelectedAnswer('');
+        setTimeLeft(30);
+        setShowResult(false);
+        setAnswerFeedback({ show: false, isCorrect: false, selectedAnswer: '' });
       }
-      await saveQuizAttempt();
-    } else {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedAnswer('');
-      setTimeLeft(30);
-      setShowResult(false);
-    }
+    }, 2000); // 2 second delay for feedback animation
   };
 
   const saveQuizAttempt = async () => {
@@ -214,7 +222,7 @@ const QuizPage: React.FC = () => {
     if (soundEnabled) {
       soundEffects.playButtonClick();
     }
-    handleNextQuestion();
+    handleAnswerSelect(''); // Skip by selecting empty answer
   };
 
   const useExtraTime = () => {
@@ -437,7 +445,7 @@ const QuizPage: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={useFiftyFifty}
-              disabled={!lifelines.fiftyFifty}
+              disabled={!lifelines.fiftyFifty || answerFeedback.show}
               className="flex items-center gap-1 text-xs sm:text-sm"
             >
               <Users className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -447,7 +455,7 @@ const QuizPage: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={useSkipQuestion}
-              disabled={!lifelines.skipQuestion}
+              disabled={!lifelines.skipQuestion || answerFeedback.show}
               className="flex items-center gap-1 text-xs sm:text-sm"
             >
               <Lightbulb className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -457,7 +465,7 @@ const QuizPage: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={useExtraTime}
-              disabled={!lifelines.extraTime}
+              disabled={!lifelines.extraTime || answerFeedback.show}
               className="flex items-center gap-1 text-xs sm:text-sm"
             >
               <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -475,6 +483,31 @@ const QuizPage: React.FC = () => {
             </div>
           </div>
 
+          {/* Answer Feedback */}
+          {answerFeedback.show && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fade-in">
+              <div className={`bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md mx-4 text-center transform transition-all duration-500 ${
+                answerFeedback.isCorrect ? 'animate-bounce' : 'animate-pulse'
+              }`}>
+                {answerFeedback.isCorrect ? (
+                  <div className="text-green-500">
+                    <CheckCircle className="h-16 w-16 mx-auto mb-4 animate-spin" />
+                    <h3 className="text-2xl font-bold text-green-600 mb-2">Correct!</h3>
+                    <p className="text-gray-600 dark:text-gray-300">+10 points</p>
+                  </div>
+                ) : (
+                  <div className="text-red-500">
+                    <XCircle className="h-16 w-16 mx-auto mb-4 animate-pulse" />
+                    <h3 className="text-2xl font-bold text-red-600 mb-2">Incorrect!</h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      Correct answer: {questions[currentQuestion]?.correct_answer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Question */}
           <Card>
             <CardHeader className="pb-4">
@@ -487,26 +520,35 @@ const QuizPage: React.FC = () => {
                 <Button
                   key={index}
                   variant={selectedAnswer === answer ? "default" : "outline"}
-                  className="w-full text-left justify-start h-auto p-3 sm:p-4 text-sm sm:text-base"
+                  className={`w-full text-left justify-start h-auto p-3 sm:p-4 text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] ${
+                    answerFeedback.show && answerFeedback.selectedAnswer === answer
+                      ? answerFeedback.isCorrect 
+                        ? 'bg-green-500 text-white border-green-500' 
+                        : 'bg-red-500 text-white border-red-500'
+                      : answerFeedback.show && answer === questions[currentQuestion]?.correct_answer
+                        ? 'bg-green-100 border-green-300 text-green-800'
+                        : ''
+                  } ${answerFeedback.show ? 'pointer-events-none' : ''}`}
                   onClick={() => handleAnswerSelect(answer)}
+                  disabled={answerFeedback.show}
                 >
                   <span className="font-medium mr-2 shrink-0">{String.fromCharCode(65 + index)}.</span>
                   <span className="break-words">{answer}</span>
+                  {answerFeedback.show && answerFeedback.selectedAnswer === answer && (
+                    <span className="ml-auto">
+                      {answerFeedback.isCorrect ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
+                    </span>
+                  )}
                 </Button>
               ))}
             </CardContent>
           </Card>
 
-          {/* Submit Button */}
-          <div className="text-center pb-4">
-            <Button
-              onClick={handleNextQuestion}
-              disabled={!selectedAnswer}
-              className="bg-gradient-to-r from-emerald-600 to-blue-600 px-6 sm:px-8 w-full sm:w-auto"
-            >
-              {currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next Question'}
-            </Button>
-          </div>
+          {answerFeedback.show && (
+            <div className="text-center text-sm text-muted-foreground">
+              Moving to next question in {Math.ceil((2000 - (Date.now() % 2000)) / 1000)}s...
+            </div>
+          )}
         </div>
       </main>
       <Footer />
