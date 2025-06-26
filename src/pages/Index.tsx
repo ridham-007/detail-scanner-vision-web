@@ -1,6 +1,5 @@
-
 import React, { useEffect, useRef } from 'react';
-import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles } from 'lucide-react';
+import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles, Clock, Rocket, Bell } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Header from '@/components/Header';
@@ -17,6 +16,7 @@ const IndexPage: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const howItWorksRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const comingSoonRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scannerRef = useRef<HTMLDivElement>(null);
 
@@ -107,6 +107,20 @@ const IndexPage: React.FC = () => {
         }
       });
 
+      // Coming Soon animations
+      gsap.from(".coming-soon-card", {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: comingSoonRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
       // CTA section animation
       gsap.from(".cta-content", {
         scale: 0.9,
@@ -150,6 +164,27 @@ const IndexPage: React.FC = () => {
       step: "03",
       title: "Get Insights",
       description: "Receive detailed health scores, recommendations, ingredient analysis, and alternative suggestions"
+    }
+  ];
+
+  const comingSoonFeatures = [
+    {
+      icon: <Target className="h-8 w-8" />,
+      title: "Personalized Diet Plans",
+      description: "AI-generated meal plans tailored to your health goals and dietary preferences",
+      eta: "Coming Q1 2025"
+    },
+    {
+      icon: <Users className="h-8 w-8" />,
+      title: "Social Food Sharing",
+      description: "Share your healthy discoveries with friends and build a community around better eating",
+      eta: "Coming Q2 2025"
+    },
+    {
+      icon: <Bell className="h-8 w-8" />,
+      title: "Smart Notifications",
+      description: "Intelligent reminders and alerts for meal timing, nutrition goals, and shopping lists",
+      eta: "Coming Q1 2025"
     }
   ];
 
@@ -253,6 +288,61 @@ const IndexPage: React.FC = () => {
                 2,400+
               </div>
               <p className="text-muted-foreground text-lg">Happy Users</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Coming Soon Section */}
+        <section ref={comingSoonRef} className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <div className="flex items-center justify-center mb-6">
+                <div className="floating-icon p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-lg">
+                  <Rocket className="h-8 w-8 text-white" />
+                </div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Coming Soon
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Exciting new features are on the way to make your healthy eating journey even better
+              </p>
+            </div>
+            
+            <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+              {comingSoonFeatures.map((feature, index) => (
+                <Card key={index} className="coming-soon-card group hover:shadow-lg transition-all duration-300 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-2 border-transparent hover:border-purple-200 dark:hover:border-purple-800">
+                  <CardHeader className="text-center pb-4">
+                    <div className="mx-auto mb-4 p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                      {feature.icon}
+                    </div>
+                    <CardTitle className="text-xl font-bold text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                      {feature.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <CardDescription className="text-muted-foreground mb-4 text-base">
+                      {feature.description}
+                    </CardDescription>
+                    <div className="flex items-center justify-center gap-2 text-sm font-medium text-purple-600 dark:text-purple-400">
+                      <Clock className="h-4 w-4" />
+                      {feature.eta}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <div className="text-center mt-12">
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 hover:from-purple-600 hover:to-pink-600 px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                onClick={() => trackCTAClick('notify_coming_soon')}
+              >
+                <Bell className="mr-2 h-5 w-5" />
+                Notify Me When Available
+              </Button>
             </div>
           </div>
         </section>
