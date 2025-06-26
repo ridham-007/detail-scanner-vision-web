@@ -1,5 +1,4 @@
-
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles, Clock, Rocket, Bell, Calendar, Utensils } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -7,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import FoodScannerPage from './FoodScannerPage';
+import EarlyAccessModal from '@/components/EarlyAccessModal';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,7 +21,8 @@ const IndexPage: React.FC = () => {
   const comingSoonRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scannerRef = useRef<HTMLDivElement>(null);
-  console.log({comingSoonRef})
+  const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
+
   const scrollToScanner = () => {
     trackCTAClick('scroll_to_scanner');
     scannerRef.current?.scrollIntoView({ 
@@ -44,6 +45,11 @@ const IndexPage: React.FC = () => {
       behavior: 'smooth',
       block: 'start'
     });
+  };
+
+  const handleEarlyAccessClick = () => {
+    trackCTAClick('early_access_modal');
+    setShowEarlyAccessModal(true);
   };
 
   useEffect(() => {
@@ -289,7 +295,7 @@ const IndexPage: React.FC = () => {
             </div>
             
             <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-16">
-              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 opacity-100">
                 {/* <div className="absolute top-4 right-4">
                   <Badge variant="secondary" className="text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
                     Q1 2025
@@ -312,7 +318,7 @@ const IndexPage: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 opacity-100">
                 {/* <div className="absolute top-4 right-4">
                   <Badge variant="secondary" className="text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
                     Q2 2025
@@ -335,7 +341,7 @@ const IndexPage: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 opacity-100">
                 {/* <div className="absolute top-4 right-4">
                   <Badge variant="secondary" className="text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300">
                     Q1 2025
@@ -367,7 +373,7 @@ const IndexPage: React.FC = () => {
               <Button 
                 size="lg"
                 className="bg-gradient-to-r from-emerald-500 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                onClick={() => trackCTAClick('notify_coming_soon')}
+                onClick={handleEarlyAccessClick}
               >
                 <Bell className="mr-2 h-5 w-5" />
                 Get Early Access
@@ -399,6 +405,11 @@ const IndexPage: React.FC = () => {
       </main>
       
       <Footer />
+      
+      <EarlyAccessModal 
+        open={showEarlyAccessModal} 
+        onOpenChange={setShowEarlyAccessModal} 
+      />
     </div>
   );
 };

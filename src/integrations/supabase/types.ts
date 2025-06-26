@@ -42,6 +42,30 @@ export type Database = {
         }
         Relationships: []
       }
+      early_access_subscriptions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
