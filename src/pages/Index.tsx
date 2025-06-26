@@ -1,5 +1,6 @@
+
 import React, { useEffect, useRef } from 'react';
-import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles, Clock, Rocket, Bell } from 'lucide-react';
+import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles, Clock, Rocket, Bell, Calendar, Utensils } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Header from '@/components/Header';
@@ -8,6 +9,7 @@ import AnimatedBackground from '@/components/AnimatedBackground';
 import FoodScannerPage from './FoodScannerPage';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { trackCTAClick } from '@/utils/analytics';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -169,22 +171,28 @@ const IndexPage: React.FC = () => {
 
   const comingSoonFeatures = [
     {
-      icon: <Target className="h-8 w-8" />,
-      title: "Personalized Diet Plans",
-      description: "AI-generated meal plans tailored to your health goals and dietary preferences",
-      eta: "Coming Q1 2025"
+      icon: <Utensils className="h-10 w-10" />,
+      title: "AI Meal Planner",
+      description: "Get personalized weekly meal plans based on your dietary preferences, health goals, and nutritional needs",
+      eta: "Q1 2025",
+      status: "In Development",
+      color: "from-emerald-500 to-teal-600"
     },
     {
-      icon: <Users className="h-8 w-8" />,
-      title: "Social Food Sharing",
-      description: "Share your healthy discoveries with friends and build a community around better eating",
-      eta: "Coming Q2 2025"
+      icon: <Users className="h-10 w-10" />,
+      title: "Food Community",
+      description: "Connect with health-conscious food lovers, share discoveries, and get recommendations from like-minded people",
+      eta: "Q2 2025",
+      status: "Design Phase",
+      color: "from-blue-500 to-indigo-600"
     },
     {
-      icon: <Bell className="h-8 w-8" />,
-      title: "Smart Notifications",
-      description: "Intelligent reminders and alerts for meal timing, nutrition goals, and shopping lists",
-      eta: "Coming Q1 2025"
+      icon: <Bell className="h-10 w-10" />,
+      title: "Smart Reminders",
+      description: "Intelligent notifications for meal timing, grocery shopping, and tracking your nutrition goals throughout the day",
+      eta: "Q1 2025",
+      status: "Coming Soon",
+      color: "from-purple-500 to-pink-600"
     }
   ];
 
@@ -293,55 +301,74 @@ const IndexPage: React.FC = () => {
         </section>
 
         {/* Coming Soon Section */}
-        <section ref={comingSoonRef} className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16">
-          <div className="container mx-auto px-4">
+        <section ref={comingSoonRef} className="relative py-20 overflow-hidden">
+          {/* Background decoration */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/50 to-purple-50/50 dark:from-gray-900/50 dark:via-gray-800/50 dark:to-purple-900/20"></div>
+          <div className="absolute inset-0">
+            <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-emerald-400/20 to-blue-400/20 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-10 right-10 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="relative container mx-auto px-4">
             <div className="text-center mb-16">
-              <div className="flex items-center justify-center mb-6">
-                <div className="floating-icon p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-lg">
+              <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-emerald-500/10 to-purple-500/10 rounded-2xl mb-6">
+                <div className="floating-icon p-4 bg-gradient-to-r from-emerald-500 to-purple-600 rounded-xl shadow-xl">
                   <Rocket className="h-8 w-8 text-white" />
                 </div>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Coming Soon
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+                What's Coming Next
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Exciting new features are on the way to make your healthy eating journey even better
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                We're constantly innovating to make your healthy eating journey even more powerful and enjoyable
               </p>
             </div>
             
-            <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+            <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8 mb-16">
               {comingSoonFeatures.map((feature, index) => (
-                <Card key={index} className="coming-soon-card group hover:shadow-lg transition-all duration-300 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-2 border-transparent hover:border-purple-200 dark:hover:border-purple-800">
-                  <CardHeader className="text-center pb-4">
-                    <div className="mx-auto mb-4 p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                <Card key={index} className="coming-soon-card group relative overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                  <div className="absolute top-4 right-4">
+                    <Badge variant="secondary" className="bg-white/90 text-gray-700 font-medium">
+                      {feature.status}
+                    </Badge>
+                  </div>
+                  
+                  <CardHeader className="pb-4 pt-8">
+                    <div className={`mx-auto mb-6 p-4 bg-gradient-to-r ${feature.color} rounded-2xl text-white shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
                       {feature.icon}
                     </div>
-                    <CardTitle className="text-xl font-bold text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                    <CardTitle className="text-2xl font-bold text-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-emerald-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300">
                       {feature.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="text-center">
-                    <CardDescription className="text-muted-foreground mb-4 text-base">
+                  
+                  <CardContent className="px-6 pb-8">
+                    <CardDescription className="text-center text-base leading-relaxed mb-6 text-gray-600 dark:text-gray-300">
                       {feature.description}
                     </CardDescription>
-                    <div className="flex items-center justify-center gap-2 text-sm font-medium text-purple-600 dark:text-purple-400">
-                      <Clock className="h-4 w-4" />
-                      {feature.eta}
+                    <div className="flex items-center justify-center gap-2 text-sm font-semibold">
+                      <Calendar className="h-4 w-4 text-emerald-600" />
+                      <span className="text-emerald-600 dark:text-emerald-400">Expected {feature.eta}</span>
                     </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
             
-            <div className="text-center mt-12">
+            <div className="text-center">
+              <div className="max-w-2xl mx-auto mb-8">
+                <h3 className="text-2xl font-bold text-foreground mb-4">Be the First to Know</h3>
+                <p className="text-muted-foreground">Join our community and get early access to these exciting new features when they launch.</p>
+              </div>
               <Button 
-                variant="outline" 
                 size="lg"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 hover:from-purple-600 hover:to-pink-600 px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 hover:from-emerald-600 hover:via-blue-600 hover:to-purple-700 text-white border-0 px-12 py-4 rounded-full shadow-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-lg font-semibold"
                 onClick={() => trackCTAClick('notify_coming_soon')}
               >
-                <Bell className="mr-2 h-5 w-5" />
-                Notify Me When Available
+                <Bell className="mr-3 h-6 w-6" />
+                Get Early Access
+                <Sparkles className="ml-3 h-6 w-6" />
               </Button>
             </div>
           </div>
