@@ -45,6 +45,7 @@ export const useProductLookup = () => {
         .from('scanned_products')
         .select('*')
         .eq('barcode', barcode)
+        .eq('is_published', true)
         .single();
 
       if (error || !data) {
@@ -106,6 +107,7 @@ export const useProductLookup = () => {
           concerns: productData.concerns,
           recommendations: productData.recommendations,
           images: productData.images,
+          is_published: true,
           updated_at: new Date().toISOString()
         });
 
@@ -116,6 +118,34 @@ export const useProductLookup = () => {
       }
     } catch (error) {
       console.error('Error saving to Supabase:', error);
+    }
+  };
+
+  const saveUnpublishedBarcode = async (barcode: string): Promise<void> => {
+    try {
+      const { error } = await supabase
+        .from('scanned_products')
+        .upsert({
+          barcode: barcode,
+          name: `Unknown Product - ${barcode}`,
+          health_score: 0,
+          unit: '',
+          nutrition_per_100g: {},
+          positives: [],
+          concerns: [],
+          recommendations: [],
+          images: [],
+          is_published: false,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) {
+        console.error('Error saving unpublished barcode:', error);
+      } else {
+        console.log('Unpublished barcode tracked successfully');
+      }
+    } catch (error) {
+      console.error('Error saving unpublished barcode:', error);
     }
   };
 
@@ -165,7 +195,7 @@ export const useProductLookup = () => {
     console.log('Looking up product with barcode:', barcode);
 
     try {
-      // First, try to fetch from Supabase cache
+      // First, try to fetch from Supabase cache (published only)
       console.log('Checking Supabase cache...');
       const cachedProduct = await fetchFromSupabase(barcode);
       
@@ -190,9 +220,13 @@ export const useProductLookup = () => {
         return apiProduct;
       }
 
+      // If no data found anywhere, save as unpublished for tracking
+      console.log('No product data found, saving as unpublished...');
+      await saveUnpublishedBarcode(barcode);
+
       toast({
         title: "Product Not Found",
-        description: "This product is not available in our database.",
+        description: "This product is not available in our database. We've noted your request!",
         variant: "destructive",
       });
       

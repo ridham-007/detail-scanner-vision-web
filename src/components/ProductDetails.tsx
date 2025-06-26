@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Lightbulb, Activity, Image as ImageIcon } from 'lucide-react';
+import NoProductData from './NoProductData';
 
 interface ProductData {
   barcode: string;
@@ -40,9 +41,14 @@ interface ProductData {
 interface ProductDetailsProps {
   product: ProductData | null;
   isLoading: boolean;
+  showNoDataState?: boolean;
 }
 
-const ProductDetails: React.FC<ProductDetailsProps> = ({ product, isLoading }) => {
+const ProductDetails: React.FC<ProductDetailsProps> = ({ 
+  product, 
+  isLoading, 
+  showNoDataState = false 
+}) => {
   if (isLoading) {
     return (
       <Card className="w-full animate-pulse">
@@ -56,6 +62,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, isLoading }) =
         </CardContent>
       </Card>
     );
+  }
+
+  // Show the animated no-data state when explicitly requested
+  if (showNoDataState) {
+    return <NoProductData />;
   }
 
   if (!product) {

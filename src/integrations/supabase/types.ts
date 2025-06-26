@@ -237,6 +237,7 @@ export type Database = {
           health_score: number | null
           id: string
           images: string[] | null
+          is_published: boolean
           name: string
           nutrition_per_100g: Json | null
           positives: string[] | null
@@ -251,6 +252,7 @@ export type Database = {
           health_score?: number | null
           id?: string
           images?: string[] | null
+          is_published?: boolean
           name: string
           nutrition_per_100g?: Json | null
           positives?: string[] | null
@@ -265,6 +267,7 @@ export type Database = {
           health_score?: number | null
           id?: string
           images?: string[] | null
+          is_published?: boolean
           name?: string
           nutrition_per_100g?: Json | null
           positives?: string[] | null
