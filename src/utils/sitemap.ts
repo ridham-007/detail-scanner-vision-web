@@ -1,5 +1,5 @@
 
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '../integrations/supabase/client';
 
 export interface SitemapUrl {
   loc: string;
@@ -74,7 +74,7 @@ export const generateQuizSitemapUrls = async (): Promise<SitemapUrl[]> => {
 
     const baseUrl = 'https://eateriq.com';
     
-    return quizzes.map(quiz => ({
+    return quizzes.map((quiz: { id: string; updated_at: string }) => ({
       loc: `${baseUrl}/quiz/${quiz.id}`,
       lastmod: new Date(quiz.updated_at).toISOString().split('T')[0],
       changefreq: 'weekly' as const,
@@ -100,7 +100,7 @@ export const generateUserProfileSitemapUrls = async (): Promise<SitemapUrl[]> =>
 
     const baseUrl = 'https://eateriq.com';
     
-    return profiles.map(profile => ({
+    return profiles.map((profile: { username: string; updated_at: string }) => ({
       loc: `${baseUrl}/profile/${profile.username}`,
       lastmod: new Date(profile.updated_at).toISOString().split('T')[0],
       changefreq: 'monthly' as const,
