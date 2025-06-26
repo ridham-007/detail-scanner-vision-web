@@ -1,4 +1,6 @@
 
+import { supabase } from '@/integrations/supabase/client';
+
 export interface SitemapUrl {
   loc: string;
   lastmod?: string;
@@ -59,8 +61,63 @@ export const getStaticSitemapUrls = (): SitemapUrl[] => {
 };
 
 export const generateQuizSitemapUrls = async (): Promise<SitemapUrl[]> => {
-  // This would typically fetch from your database
-  // For now, returning empty array as we'd need to import supabase here
-  // In a real implementation, you'd fetch all published quizzes
-  return [];
+  try {
+    const { data: quizzes, error } = await supabase
+      .from('quizzes')
+      .select('id, updated_at')
+      .eq('is_published', true);
+
+    if (error) {
+      console.error('Error fetching quizzes for sitemap:', error);
+      return [];
+    }
+
+    const baseUrl = 'https://eateriq.com';
+    
+    return quizzes.map(quiz => ({
+      loc: `${baseUrl}/quiz/${quiz.id}`,
+      lastmod: new Date(quiz.updated_at).toISOString().split('T')[0],
+      changefreq: 'weekly' as const,
+      priority: 0.8
+    }));
+  } catch (error) {
+    console.error('Error generating quiz sitemap URLs:', error);
+    return [];
+  }
+};
+
+export const generateUserProfileSitemapUrls = async (): Promise<SitemapUrl[]> => {
+  try {
+    const { data: profiles, error } = await supabase
+      .from('profiles')
+      .select('username, updated_at')
+      .not('username', 'is', null);
+
+    if (error) {
+      console.error('Error fetching user profiles for sitemap:', error);
+      return [];
+    }
+
+    const baseUrl = 'https://eateriq.com';
+    
+    return profiles.map(profile => ({
+      loc: `${baseUrl}/profile/${profile.username}`,
+      lastmod: new Date(profile.updated_at).toISOString().split('T')[0],
+      changefreq: 'monthly' as const,
+      priority: 0.6
+    }));
+  } catch (error) {
+    console.error('Error generating user profile sitemap URLs:', error);
+    return [];
+  }
+};
+
+export const generateCompleteSitemap = async (): Promise<string> => {
+  const staticUrls = getStaticSitemapUrls();
+  const quizUrls = await generateQuizSitemapUrls();
+  const profileUrls = await generateUserProfileSitemapUrls();
+  
+  const allUrls = [...staticUrls, ...quizUrls, ...profileUrls];
+  
+  return generateSitemap(allUrls);
 };
