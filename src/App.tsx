@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -38,31 +37,36 @@ const App = () => {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AuthProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <PageTracker />
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/quizzes" element={<QuizzesPage />} />
-                <Route path="/quiz/:quizId" element={<QuizPage />} />
-                <Route path="/settings" element={<UserSettingsPage />} />
-                <Route path="/profile/:username" element={<UserProfilePage />} />
-                <Route path="/privacy" element={<PrivacyPage />} />
-                <Route path="/terms" element={<TermsPage />} />
-                <Route path="/support" element={<SupportPage />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <div className="min-h-screen">
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <AuthProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <PageTracker />
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/quizzes" element={<QuizzesPage />} />
+                  <Route path="/quiz/:quizId" element={<QuizPage />} />
+                  <Route path="/settings" element={<UserSettingsPage />} />
+                  <Route
+                    path="/profile/:username"
+                    element={<UserProfilePage />}
+                  />
+                  <Route path="/privacy" element={<PrivacyPage />} />
+                  <Route path="/terms" element={<TermsPage />} />
+                  <Route path="/support" element={<SupportPage />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </div>
   );
 };
 

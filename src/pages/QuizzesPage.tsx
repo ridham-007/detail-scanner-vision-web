@@ -170,7 +170,7 @@ const QuizzesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <SEOHead
         title="Quiz Hub - AI-Generated Food & Nutrition Quizzes | EaterIQ"
         description="Challenge yourself with AI-generated quizzes about nutrition, food safety, and healthy eating. Create custom quizzes and compete with other food enthusiasts on EaterIQ."
