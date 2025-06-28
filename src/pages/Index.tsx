@@ -26,7 +26,7 @@ const IndexPage: React.FC = () => {
 
   const scrollToScanner = () => {
     trackCTAClick('scroll_to_scanner');
-    scannerRef.current?.scrollIntoView({ 
+    scannerRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     });
@@ -34,7 +34,7 @@ const IndexPage: React.FC = () => {
 
   const handleLearnMoreClick = () => {
     trackCTAClick('learn_more');
-    howItWorksRef.current?.scrollIntoView({ 
+    howItWorksRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     });
@@ -42,7 +42,7 @@ const IndexPage: React.FC = () => {
 
   const handleGetStartedClick = () => {
     trackCTAClick('get_started_cta');
-    scannerRef.current?.scrollIntoView({ 
+    scannerRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     });
@@ -118,16 +118,16 @@ const IndexPage: React.FC = () => {
 
       // Coming Soon animations
       // gsap.from(".coming-soon-card", {
-        // y: 50,
-        // opacity: 0,
-        // duration: 0.8,
-        // stagger: 0.2,
-        // ease: "power2.out",
-        // scrollTrigger: {
-        //   trigger: comingSoonRef.current,
-        //   start: "top 80%",
-        //   toggleActions: "play none none reverse"
-        // }
+      // y: 50,
+      // opacity: 0,
+      // duration: 0.8,
+      // stagger: 0.2,
+      // ease: "power2.out",
+      // scrollTrigger: {
+      //   trigger: comingSoonRef.current,
+      //   start: "top 80%",
+      //   toggleActions: "play none none reverse"
+      // }
       // });
 
       // CTA section animation
@@ -180,37 +180,37 @@ const IndexPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
       <AnimatedBackground />
-      
+
       <main ref={heroRef} className="relative z-10">
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-12 text-center">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center justify-center mb-8">
+            <div className="flex items-center justify-center mb-5">
               <div>
                 <img src={Logo} alt="" className='h-28 w-28' />
               </div>
             </div>
-            
+
             <h1 className="hero-title text-5xl md:text-7xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
               EaterIQ
             </h1>
-            
-            <p className="hero-subtitle text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+
+            <h2 className="hero-subtitle text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
               Transform the way you make food choices with AI-powered nutrition analysis and smart barcode scanning
-            </p>
-            
+            </h2>
+
             <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 onClick={scrollToScanner}
               >
                 Start Scanning Now
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
+              <Button
+                variant="outline"
+                size="lg"
                 className="px-8 py-3 rounded-full border-2 hover:bg-accent transition-all duration-300"
                 onClick={handleLearnMoreClick}
               >
@@ -238,7 +238,7 @@ const IndexPage: React.FC = () => {
                 Three simple steps to smarter food choices
               </p>
             </div>
-            
+
             <div className="max-w-4xl mx-auto">
               {steps.map((step, index) => (
                 <div key={index} className="step-card flex items-center mb-12 last:mb-0">
@@ -286,14 +286,14 @@ const IndexPage: React.FC = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-purple-600 rounded-2xl mb-6 mx-auto">
                 <Rocket className="h-8 w-8 text-white" />
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent mb-4">
+              <h2 className="text-4xl md:text-5xl sm:h-16 font-bold bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent ">
                 What's Coming Next
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto ">
                 We're constantly innovating to make your healthy eating journey even more powerful
               </p>
             </div>
-            
+
             <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-16">
               <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 opacity-100">
                 {/* <div className="absolute top-4 right-4">
@@ -301,7 +301,7 @@ const IndexPage: React.FC = () => {
                     Q1 2025
                   </Badge>
                 </div> */}
-                
+
                 <CardHeader className="text-center pb-4 pt-8">
                   <div className="mx-auto mb-4 w-16 h-16 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-md">
                     <Utensils className="h-8 w-8" />
@@ -310,7 +310,7 @@ const IndexPage: React.FC = () => {
                     AI Meal Planner
                   </CardTitle>
                 </CardHeader>
-                
+
                 <CardContent className="text-center px-6 pb-8">
                   <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                     Get personalized weekly meal plans based on your dietary preferences and health goals
@@ -324,7 +324,7 @@ const IndexPage: React.FC = () => {
                     Q2 2025
                   </Badge>
                 </div> */}
-                
+
                 <CardHeader className="text-center pb-4 pt-8">
                   <div className="mx-auto mb-4 w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center text-white shadow-md">
                     <Users className="h-8 w-8" />
@@ -333,7 +333,7 @@ const IndexPage: React.FC = () => {
                     Food Community
                   </CardTitle>
                 </CardHeader>
-                
+
                 <CardContent className="text-center px-6 pb-8">
                   <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                     Connect with health-conscious food lovers and share your discoveries
@@ -356,7 +356,7 @@ const IndexPage: React.FC = () => {
                     Smart Reminders
                   </CardTitle>
                 </CardHeader>
-                
+
                 <CardContent className="text-center px-6 pb-8">
                   <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                     Intelligent notifications for meal timing and nutrition tracking
@@ -364,13 +364,13 @@ const IndexPage: React.FC = () => {
                 </CardContent>
               </Card>
             </div>
-            
+
             <div className="text-center">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Be the First to Know</h3>
               <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-xl mx-auto">
                 Join our community and get early access to these exciting new features when they launch.
               </p>
-              <Button 
+              <Button
                 size="lg"
                 className="bg-gradient-to-r from-emerald-500 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 onClick={handleEarlyAccessClick}
@@ -391,9 +391,9 @@ const IndexPage: React.FC = () => {
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               Join thousands of users who are making smarter, healthier decisions with EaterIQ
             </p>
-            <Button 
-              size="lg" 
-              variant="secondary" 
+            <Button
+              size="lg"
+              variant="secondary"
               className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               onClick={handleGetStartedClick}
             >
@@ -403,12 +403,12 @@ const IndexPage: React.FC = () => {
           </div>
         </section>
       </main>
-      
+
       <Footer />
-      
-      <EarlyAccessModal 
-        open={showEarlyAccessModal} 
-        onOpenChange={setShowEarlyAccessModal} 
+
+      <EarlyAccessModal
+        open={showEarlyAccessModal}
+        onOpenChange={setShowEarlyAccessModal}
       />
     </div>
   );

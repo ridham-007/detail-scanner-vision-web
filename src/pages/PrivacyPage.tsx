@@ -15,18 +15,18 @@ const PrivacyPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
       <AnimatedBackground />
-      
+
       <main className="container mx-auto px-4 py-8 relative z-10 max-w-4xl">
-        <div className="flex items-center gap-4 mb-8">
-          <Button variant="outline" onClick={() => navigate('/')} size="sm">
+        <div className="flex flex-col  gap-4 mb-8">
+          {/* <Button variant="outline" onClick={() => navigate('/')} size="sm" className='w-fit'>
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+          </Button> */}
+          <div className='flex flex-col w-full !justify-center items-center'>
+            <h1 className="text-3xl sm:text-4xl !h-11 font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
               Privacy Policy
             </h1>
-            <p className="text-muted-foreground">How we protect and handle your data</p>
+            <h2 className="text-sm text-muted-foreground text-center">How we protect and handle your data</h2>
           </div>
         </div>
 
@@ -40,8 +40,8 @@ const PrivacyPage = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                At EaterIQ, we are committed to protecting your privacy and ensuring the security of your personal information. 
-                This privacy policy explains how we collect, use, and safeguard your data when you use our AI-powered food 
+                At EaterIQ, we are committed to protecting your privacy and ensuring the security of your personal information.
+                This privacy policy explains how we collect, use, and safeguard your data when you use our AI-powered food
                 intelligence platform and quiz services.
               </p>
               <p className="text-sm text-muted-foreground">
@@ -174,10 +174,10 @@ const PrivacyPage = () => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                If you have any questions about this privacy policy or how we handle your data, 
+                If you have any questions about this privacy policy or how we handle your data,
                 please don't hesitate to contact us through our{' '}
-                <Button 
-                  variant="link" 
+                <Button
+                  variant="link"
                   className="p-0 h-auto font-semibold text-emerald-600"
                   onClick={() => navigate('/support')}
                 >

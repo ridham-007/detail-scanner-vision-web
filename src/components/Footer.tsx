@@ -82,22 +82,31 @@ const Footer = () => {
                 <Mail className="h-4 w-4 text-blue-500 group-hover:text-blue-600" />
                 <span>Contact Support</span>
               </button>
-              <button 
-                onClick={() => navigate('/support')}
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  navigate('/support');
+                }}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
                 <HelpCircle className="h-4 w-4 text-green-500 group-hover:text-green-600" />
                 <span>Help Center</span>
               </button>
-              <button 
-                onClick={() => navigate('/privacy')}
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  navigate('/privacy');
+                }}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
                 <Shield className="h-4 w-4 text-purple-500 group-hover:text-purple-600" />
                 <span>Privacy Policy</span>
               </button>
-              <button 
-                onClick={() => navigate('/terms')}
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  navigate('/terms');
+                }}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
                 <FileText className="h-4 w-4 text-orange-500 group-hover:text-orange-600" />
@@ -115,20 +124,29 @@ const Footer = () => {
               for smarter eating
             </p>
             <div className="flex space-x-4 md:space-x-6 text-sm text-muted-foreground">
-              <button 
-                onClick={() => navigate('/privacy')}
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  navigate('/privacy');
+                }}
                 className="hover:text-foreground transition-colors"
               >
                 Privacy
               </button>
-              <button 
-                onClick={() => navigate('/terms')}
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  navigate('/terms');
+                }}
                 className="hover:text-foreground transition-colors"
               >
                 Terms
               </button>
-              <button 
-                onClick={() => navigate('/support')}
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  navigate('/support');
+                }}
                 className="hover:text-foreground transition-colors"
               >
                 Support

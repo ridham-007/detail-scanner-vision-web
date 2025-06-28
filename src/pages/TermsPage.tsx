@@ -17,18 +17,19 @@ const TermsPage = () => {
       <AnimatedBackground />
       
       <main className="container mx-auto px-4 py-8 relative z-10 max-w-4xl">
-        <div className="flex items-center gap-4 mb-8">
-          <Button variant="outline" onClick={() => navigate('/')} size="sm">
+        <div className="flex justify-center items-center gap-4 mb-8">
+          {/* <Button variant="outline" onClick={() => navigate('/')} size="sm">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
-          </Button>
+          </Button> */}
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
               Terms of Service
             </h1>
-            <p className="text-muted-foreground">Your agreement with EaterIQ</p>
+            <h2 className="text-sm text-muted-foreground text-center">Your agreement with EaterIQ</h2>
           </div>
         </div>
+
 
         <div className="space-y-6">
           <Card>

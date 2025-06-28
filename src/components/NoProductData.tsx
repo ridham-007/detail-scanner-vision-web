@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Search, Package } from 'lucide-react';
+import {Search, Package } from 'lucide-react';
 
 const NoProductData: React.FC = () => {
   return (
@@ -13,9 +13,9 @@ const NoProductData: React.FC = () => {
             <div className="w-24 h-24 mx-auto bg-muted rounded-full flex items-center justify-center animate-pulse">
               <Package size={48} className="text-muted-foreground/60" />
             </div>
-            <div className="absolute -top-2 -right-2 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center animate-bounce">
+            {/* <div className="absolute -top-2 -right-2 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center animate-bounce">
               <Search size={16} className="text-orange-600" />
-            </div>
+            </div> */}
           </div>
 
           {/* Main Message */}

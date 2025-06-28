@@ -96,20 +96,17 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                 <Bell className="h-8 w-8 text-white" />
               )}
             </div>
-            <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent animate-fade-in">
-              {isSuccess ? "You're In! 🎉" : "Get Early Access"}
+            <DialogTitle className="!text-center text-2xl font-bold bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent animate-fade-in">
+              {isSuccess ? "You're In!" : "Get Early Access"}
             </DialogTitle>
           </DialogHeader>
 
           {isSuccess ? (
-            <div className="text-center py-6 animate-fade-in">
-              <div className="mb-4">
-                <Sparkles className="h-12 w-12 text-emerald-500 mx-auto animate-pulse" />
-              </div>
+            <div className="text-center py-4 animate-fade-in">
               <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                 Perfect! You're now on our exclusive early access list. We'll send you a personal invitation when these amazing features go live.
               </p>
-              <Button 
+              <Button
                 onClick={handleClose}
                 className="bg-gradient-to-r from-emerald-500 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white px-8 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
@@ -135,7 +132,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                     placeholder="Your name"
                     value={formData.name}
                     onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    className="h-12 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 transition-all duration-300"
+                    className="h-12 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 transition-all duration-300 "
                   />
                 </div>
 

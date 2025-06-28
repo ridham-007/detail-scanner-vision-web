@@ -29,7 +29,7 @@ const SupportPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const { error } = await supabase
         .from('contact_submissions')
@@ -55,7 +55,7 @@ const SupportPage = () => {
         title: "Message Sent!",
         description: "We'll get back to you within 24 hours.",
       });
-      
+
       // Reset form
       setFormData({
         name: '',
@@ -119,18 +119,18 @@ const SupportPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
       <AnimatedBackground />
-      
+
       <main className="container mx-auto px-4 py-8 relative z-10 max-w-6xl">
-        <div className="flex items-center gap-4 mb-8">
-          <Button variant="outline" onClick={() => navigate('/')} size="sm">
+        <div className="flex flex-col gap-4 mb-8">
+          {/* <Button variant="outline" onClick={() => navigate('/')} size="sm" className='w-fit'>
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+          </Button> */}
+          <div className='flex flex-col w-full !justify-center items-center'>
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
               Support Center
             </h1>
-            <p className="text-muted-foreground">Get help with EaterIQ</p>
+            <h2 className="text-sm text-muted-foreground text-center">Get help with EaterIQ</h2>
           </div>
         </div>
 
@@ -147,7 +147,7 @@ const SupportPage = () => {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
+                    <div className='space-y-1'>
                       <Label htmlFor="name">Name</Label>
                       <Input
                         id="name"
@@ -156,9 +156,10 @@ const SupportPage = () => {
                         placeholder="Your full name"
                         required
                         disabled={isSubmitting}
+                        className="border border-gray-200 dark:border-gray-700 focus:border-emerald-500 dark:focus:border-emerald-400 transition-all duration-300"
                       />
                     </div>
-                    <div>
+                    <div className='space-y-1'>
                       <Label htmlFor="email">Email</Label>
                       <Input
                         id="email"
@@ -168,21 +169,23 @@ const SupportPage = () => {
                         placeholder="your@email.com"
                         required
                         disabled={isSubmitting}
+                        className="border border-gray-200 dark:border-gray-700 focus:border-emerald-500 dark:focus:border-emerald-400 transition-all duration-300"
                       />
                     </div>
                   </div>
-                  
-                  <div>
+
+                  <div className='space-y-1'>
                     <Label htmlFor="category">Category</Label>
-                    <Select 
-                      value={formData.category} 
+                    <Select
+                      value={formData.category}
                       onValueChange={(value) => handleInputChange('category', value)}
                       disabled={isSubmitting}
+
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="border border-gray-200 dark:border-gray-700 focus:border-emerald-500 dark:focus:border-emerald-400 transition-all duration-300">
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent >
                         <SelectItem value="general">General Question</SelectItem>
                         <SelectItem value="technical">Technical Issue</SelectItem>
                         <SelectItem value="bug">Bug Report</SelectItem>
@@ -192,8 +195,8 @@ const SupportPage = () => {
                       </SelectContent>
                     </Select>
                   </div>
-                  
-                  <div>
+
+                  <div className='space-y-1'>
                     <Label htmlFor="subject">Subject</Label>
                     <Input
                       id="subject"
@@ -202,10 +205,12 @@ const SupportPage = () => {
                       placeholder="Brief description of your issue"
                       required
                       disabled={isSubmitting}
+                      className="border border-gray-200 dark:border-gray-700 focus:border-emerald-500 dark:focus:border-emerald-400 transition-all duration-300"
+
                     />
                   </div>
-                  
-                  <div>
+
+                  <div className='space-y-1'>
                     <Label htmlFor="message">Message</Label>
                     <Textarea
                       id="message"
@@ -215,11 +220,13 @@ const SupportPage = () => {
                       rows={5}
                       required
                       disabled={isSubmitting}
+                      className="border border-gray-200 dark:border-gray-700 focus:border-emerald-500 dark:focus:border-emerald-400 transition-all duration-300"
+
                     />
                   </div>
-                  
-                  <Button 
-                    type="submit" 
+
+                  <Button
+                    type="submit"
                     className="w-full bg-gradient-to-r from-emerald-600 to-blue-600"
                     disabled={isSubmitting}
                   >
@@ -247,7 +254,7 @@ const SupportPage = () => {
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-3">
                   <Lightbulb className="h-5 w-5 text-yellow-500 mt-0.5" />
                   <div>
@@ -257,10 +264,10 @@ const SupportPage = () => {
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="p-4 bg-muted rounded-lg">
                   <p className="text-sm">
-                    <strong>Response Time:</strong> We typically respond within 24 hours during business days. 
+                    <strong>Response Time:</strong> We typically respond within 24 hours during business days.
                     For urgent issues, please mark your message as "Technical Issue" for faster processing.
                   </p>
                 </div>

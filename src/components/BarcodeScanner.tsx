@@ -170,40 +170,46 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
           <div className="w-full h-1 bg-gradient-to-r from-transparent via-destructive to-transparent opacity-80 animate-pulse"></div>
         </div>
 
-        {!isScanning && (
-          <div className="absolute inset-0 bg-background/90 flex flex-col items-center justify-center">
-            <p className="text-lg font-medium mb-2">Ready to Scan</p>
-            <p className="text-sm text-muted-foreground">
-              {isInitialized
-                ? 'Click "Start Scan" to begin'
-                : "Initializing..."}
-            </p>
+        <div className="flex flex-col !justify-center !items-center">
+          <div className="!flex flex-col ">
+            {!isScanning && (
+              <div className="absolute inset-0 bg-background/90 flex flex-col items-center justify-center ">
+                <div className="absolute top-20">
+                  <p className="text-lg font-medium text-center">Ready to Scan</p>
+                  <p className="text-sm text-muted-foreground">
+                    {isInitialized
+                      ? 'Click "Start Scan" to begin'
+                      : "Initializing..."}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
-        )}
 
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-50">
-          <Button
-            onClick={onToggleScanning}
-            variant={isScanning ? "destructive" : "default"}
-            size="sm"
-            className="flex items-center gap-2 shadow-lg"
-            disabled={!isInitialized}
-          >
-            {isScanning ? <CameraOff size={16} /> : <Camera size={16} />}
-            {isScanning ? "Stop" : "Start"} Scan
-          </Button>
-
-          {hasFlash && isScanning && (
+          <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-2 z-50">
             <Button
-              onClick={toggleFlash}
-              variant="outline"
+              onClick={onToggleScanning}
+              variant={isScanning ? "destructive" : "default"}
               size="sm"
-              className="flex items-center gap-2 shadow-lg bg-background/90"
+              className="flex items-center gap-2 shadow-lg"
+              disabled={!isInitialized}
             >
-              {flashOn ? <FlashlightOff size={16} /> : <Flashlight size={16} />}
-              Flash
+              {isScanning ? <CameraOff size={16} /> : <Camera size={16} />}
+              {isScanning ? "Stop" : "Start"} Scan
             </Button>
-          )}
+
+            {hasFlash && isScanning && (
+              <Button
+                onClick={toggleFlash}
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-2 shadow-lg bg-background/90"
+              >
+                {flashOn ? <FlashlightOff size={16} /> : <Flashlight size={16} />}
+                Flash
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
