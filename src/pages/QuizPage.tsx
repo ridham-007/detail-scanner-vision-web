@@ -16,7 +16,6 @@ import {
   VolumeX,
   CheckCircle,
   XCircle,
-  VolumeUp,
 } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -729,7 +728,7 @@ const QuizPage: React.FC = () => {
                   disabled={answerFeedback.show}
                   className={`shrink-0 ${isSpeaking ? 'bg-emerald-100 text-emerald-700' : ''}`}
                 >
-                  <VolumeUp className={`h-4 w-4 ${isSpeaking ? 'animate-pulse' : ''}`} />
+                  <Volume2 className={`h-4 w-4 ${isSpeaking ? 'animate-pulse' : ''}`} />
                 </Button>
               </div>
             </CardHeader>
