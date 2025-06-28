@@ -26,6 +26,7 @@ import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import QuizLeaderboardModal from "@/components/QuizLeaderboardModal";
 import { soundEffects } from "@/utils/soundEffects";
+import confetti from "canvas-confetti";
 
 interface Question {
   id: string;
@@ -218,24 +219,47 @@ const QuizPage: React.FC = () => {
       (new Date().getTime() - startTime.getTime()) / 1000
     );
 
+    const finalScore = score + (answer === questions[currentQuestion]?.correct_answer ? 10 : 0);
+
     try {
       const { error } = await supabase.from("quiz_attempts").insert({
         user_id: user.id,
         quiz_id: quizId,
-        score:
-          score +
-          (answer === questions[currentQuestion]?.correct_answer
-            ? 10
-            : 0),
+        score: finalScore,
         total_questions: questions.length,
         time_taken: timeSpent,
       });
 
       if (error) throw error;
 
+      // Trigger confetti if score is more than 50
+      if (finalScore > 50) {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+        
+        // Additional confetti burst after a short delay
+        setTimeout(() => {
+          confetti({
+            particleCount: 50,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+          });
+          confetti({
+            particleCount: 50,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+          });
+        }, 200);
+      }
+
       toast({
         title: "Quiz Completed!",
-        description: `Your score: ${score}/100 points has been saved to the leaderboard`,
+        description: `Your score: ${finalScore}/100 points has been saved to the leaderboard`,
       });
     } catch (error) {
       console.error("Error saving quiz attempt:", error);
@@ -377,15 +401,28 @@ const QuizPage: React.FC = () => {
                 <CardTitle className="text-xl sm:text-2xl">
                   Quiz Completed!
                 </CardTitle>
+                {score > 50 && (
+                  <div className="text-lg font-semibold text-emerald-600 animate-pulse">
+                    🎉 Excellent Performance! 🎉
+                  </div>
+                )}
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="text-3xl sm:text-4xl font-bold text-emerald-600">
+                <div className={`text-3xl sm:text-4xl font-bold ${score > 50 ? 'text-emerald-600' : 'text-emerald-600'}`}>
                   {score}/100
                 </div>
                 <p className="text-muted-foreground text-sm sm:text-base">
                   You answered {Math.floor(score / 10)} out of{" "}
                   {questions.length} questions correctly!
                 </p>
+
+                {score > 50 && (
+                  <div className="bg-emerald-50 dark:bg-emerald-950 p-3 sm:p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                    <p className="text-emerald-700 dark:text-emerald-300 text-sm sm:text-base font-medium">
+                      🌟 Outstanding! You scored more than 50 points! 🌟
+                    </p>
+                  </div>
+                )}
 
                 {!user && (
                   <div className="bg-blue-50 dark:bg-blue-950 p-3 sm:p-4 rounded-lg border border-blue-200 dark:border-blue-800">
