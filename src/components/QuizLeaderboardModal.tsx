@@ -161,7 +161,7 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
                       <div className="flex items-center gap-3">
                         {getRankIcon(index)}
                         <div>
-                          <p className="font-semibold">
+                          <p className="font-semibold capitalize">
                             {attempt.profiles?.full_name || 'Anonymous Player'}
                           </p>
                           <p className="text-sm text-muted-foreground">

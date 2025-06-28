@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, Trophy, Brain, Target, ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import AnimatedBackground from '@/components/AnimatedBackground';
-import QuizCard from '@/components/QuizCard';
-import CreateQuizModal from '@/components/CreateQuizModal';
-import SEOHead from '@/components/SEOHead';
-import { generateBreadcrumbStructuredData } from '@/utils/seo';
+import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Plus, Trophy, Brain, Target, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import QuizCard from "@/components/QuizCard";
+import CreateQuizModal from "@/components/CreateQuizModal";
+import SEOHead from "@/components/SEOHead";
+import { generateBreadcrumbStructuredData } from "@/utils/seo";
 
 interface Quiz {
   id: string;
   title: string;
   description: string;
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty: "easy" | "medium" | "hard";
   created_at: string;
   creator_id: string;
 }
@@ -42,8 +42,8 @@ const QuizzesPage = () => {
   const [loading, setLoading] = useState(false);
 
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
-    { name: 'Home', url: 'https://eateriq.com/' },
-    { name: 'Quiz Hub', url: 'https://eateriq.com/quizzes' }
+    { name: "Home", url: "https://eateriq.com/" },
+    { name: "Quiz Hub", url: "https://eateriq.com/quizzes" },
   ]);
 
   useEffect(() => {
@@ -57,54 +57,54 @@ const QuizzesPage = () => {
   const fetchQuizzes = async () => {
     try {
       const { data, error } = await supabase
-        .from('quizzes')
-        .select('id, title, description, difficulty, created_at, creator_id')
-        .eq('is_published', true)
-        .order('created_at', { ascending: false });
+        .from("quizzes")
+        .select("id, title, description, difficulty, created_at, creator_id")
+        .eq("is_published", true)
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
       setQuizzes(data || []);
     } catch (error) {
-      console.error('Error fetching quizzes:', error);
+      console.error("Error fetching quizzes:", error);
     }
   };
 
   const fetchMyQuizzes = async () => {
     if (!user) return;
-    
+
     try {
       const { data, error } = await supabase
-        .from('quizzes')
-        .select('id, title, description, difficulty, created_at, creator_id')
-        .eq('creator_id', user.id)
-        .order('created_at', { ascending: false });
+        .from("quizzes")
+        .select("id, title, description, difficulty, created_at, creator_id")
+        .eq("creator_id", user.id)
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
       setMyQuizzes(data || []);
     } catch (error) {
-      console.error('Error fetching my quizzes:', error);
+      console.error("Error fetching my quizzes:", error);
     }
   };
 
   const fetchLeaderboard = async () => {
     try {
       const { data, error } = await supabase
-        .from('profiles')
-        .select('id, full_name, total_score, quizzes_completed')
-        .order('total_score', { ascending: false })
+        .from("profiles")
+        .select("id, full_name, total_score, quizzes_completed")
+        .order("total_score", { ascending: false })
         .limit(10);
 
       if (error) throw error;
       setLeaderboard(data || []);
     } catch (error) {
-      console.error('Error fetching leaderboard:', error);
+      console.error("Error fetching leaderboard:", error);
     }
   };
 
   const createQuiz = async (formData: {
     title: string;
     description: string;
-    difficulty: 'easy' | 'medium' | 'hard';
+    difficulty: "easy" | "medium" | "hard";
     prompt: string;
   }) => {
     if (!user) return;
@@ -113,14 +113,14 @@ const QuizzesPage = () => {
     try {
       // Create quiz in database
       const { data: quiz, error: quizError } = await supabase
-        .from('quizzes')
+        .from("quizzes")
         .insert({
           creator_id: user.id,
           title: formData.title,
           description: formData.description,
           difficulty: formData.difficulty,
           prompt: formData.prompt,
-          is_published: false
+          is_published: false,
         })
         .select()
         .single();
@@ -128,21 +128,22 @@ const QuizzesPage = () => {
       if (quizError) throw quizError;
 
       // Call edge function to generate questions with ChatGPT
-      const { data: questionsData, error: questionsError } = await supabase.functions.invoke('generate-quiz', {
-        body: {
-          quizId: quiz.id,
-          prompt: formData.prompt,
-          difficulty: formData.difficulty
-        }
-      });
+      const { data: questionsData, error: questionsError } =
+        await supabase.functions.invoke("generate-quiz", {
+          body: {
+            quizId: quiz.id,
+            prompt: formData.prompt,
+            difficulty: formData.difficulty,
+          },
+        });
 
       if (questionsError) throw questionsError;
 
       // Publish the quiz after questions are generated
       await supabase
-        .from('quizzes')
+        .from("quizzes")
         .update({ is_published: true })
-        .eq('id', quiz.id);
+        .eq("id", quiz.id);
 
       toast({
         title: "Quiz Created!",
@@ -153,11 +154,11 @@ const QuizzesPage = () => {
       fetchQuizzes();
       fetchMyQuizzes();
     } catch (error) {
-      console.error('Error creating quiz:', error);
+      console.error("Error creating quiz:", error);
       toast({
         title: "Error",
         description: "Failed to create quiz. Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -177,42 +178,70 @@ const QuizzesPage = () => {
         type="website"
         structuredData={breadcrumbStructuredData}
       />
-      
+
       <Header />
       <AnimatedBackground />
-      
+
       <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 relative z-10 max-w-6xl">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
-          <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-            <Button variant="outline" onClick={() => navigate('/')} size="sm" className="shrink-0">
+        <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
+          <Button
+            variant="outline"
+            onClick={() => navigate("/")}
+            size="sm"
+            className="shrink-0 flex md:hidden"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Back to Home</span>
+            <span className="sm:hidden">Back</span>
+          </Button>
+          <div className="flex flex-col sm:flex-row justify-between text-center w-full items-center gap-3 sm:gap-4">
+            <Button
+              variant="outline"
+              onClick={() => navigate("/")}
+              size="sm"
+              className="shrink-0  hidden md:flex"
+            >
               <ArrowLeft className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Back to Home</span>
               <span className="sm:hidden">Back</span>
             </Button>
-            <div className="min-w-0 flex-1">
-              <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+            <div>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
                 Quiz Hub
               </h1>
-              <p className="text-sm sm:text-base text-muted-foreground">Challenge yourself with AI-generated quizzes</p>
+              <p className="text-sm sm:text-base text-muted-foreground">
+                Challenge yourself with AI-generated quizzes
+              </p>
             </div>
+            {user && (
+              <Button
+                onClick={() => setShowCreateModal(true)}
+                className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto"
+                size="sm"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                <span className="sm:hidden">Create</span>
+                <span className="hidden sm:inline">Create Quiz</span>
+              </Button>
+            )}
           </div>
-          {user && (
-            <Button onClick={() => setShowCreateModal(true)} className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto" size="sm">
-              <Plus className="h-4 w-4 mr-2" />
-              <span className="sm:hidden">Create</span>
-              <span className="hidden sm:inline">Create Quiz</span>
-            </Button>
-          )}
         </div>
 
-        <Tabs defaultValue="all-quizzes" className="space-y-4 sm:space-y-6">
+        <Tabs defaultValue="all-quizzes" className="space-y-4 sm:space-y-8">
           <TabsList className="grid w-full grid-cols-2 h-auto">
-            <TabsTrigger value="all-quizzes" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
+            <TabsTrigger
+              value="all-quizzes"
+              className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm"
+            >
               <Brain className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">All Quizzes</span>
               <span className="sm:hidden">All</span>
             </TabsTrigger>
-            <TabsTrigger value="my-quizzes" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm" disabled={!user}>
+            <TabsTrigger
+              value="my-quizzes"
+              className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm"
+              disabled={!user}
+            >
               <Target className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">My Quizzes</span>
               <span className="sm:hidden">Mine</span>
@@ -226,15 +255,19 @@ const QuizzesPage = () => {
 
           <TabsContent value="all-quizzes" className="space-y-4 sm:space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {quizzes.map((quiz) => (
+              {quizzes?.map((quiz) => (
                 <QuizCard key={quiz.id} quiz={quiz} onPlay={playQuiz} />
               ))}
             </div>
-            {quizzes.length === 0 && (
+            {quizzes?.length === 0 && (
               <div className="text-center py-8 sm:py-12">
                 <Brain className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-base sm:text-lg font-semibold mb-2">No quizzes yet</h3>
-                <p className="text-sm sm:text-base text-muted-foreground">Be the first to create a quiz!</p>
+                <h3 className="text-base sm:text-lg font-semibold mb-2">
+                  No quizzes yet
+                </h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  Be the first to create a quiz!
+                </p>
               </div>
             )}
           </TabsContent>
@@ -250,9 +283,17 @@ const QuizzesPage = () => {
                 {myQuizzes.length === 0 && (
                   <div className="text-center py-8 sm:py-12">
                     <Target className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-base sm:text-lg font-semibold mb-2">No quizzes created yet</h3>
-                    <p className="text-sm sm:text-base text-muted-foreground mb-4">Create your first AI-generated quiz!</p>
-                    <Button onClick={() => setShowCreateModal(true)} className="bg-gradient-to-r from-emerald-600 to-blue-600" size="sm">
+                    <h3 className="text-base sm:text-lg font-semibold mb-2">
+                      No quizzes created yet
+                    </h3>
+                    <p className="text-sm sm:text-base text-muted-foreground mb-4">
+                      Create your first AI-generated quiz!
+                    </p>
+                    <Button
+                      onClick={() => setShowCreateModal(true)}
+                      className="bg-gradient-to-r from-emerald-600 to-blue-600"
+                      size="sm"
+                    >
                       <Plus className="h-4 w-4 mr-2" />
                       Create Quiz
                     </Button>
@@ -261,7 +302,9 @@ const QuizzesPage = () => {
               </>
             ) : (
               <div className="text-center py-8 sm:py-12">
-                <p className="text-sm sm:text-base text-muted-foreground">Please sign in to view your quizzes.</p>
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  Please sign in to view your quizzes.
+                </p>
               </div>
             )}
           </TabsContent>
@@ -277,26 +320,42 @@ const QuizzesPage = () => {
               <CardContent className="p-3 sm:p-6 pt-0">
                 <div className="space-y-3 sm:space-y-4">
                   {leaderboard.map((player, index) => (
-                    <div key={player.id} className="flex items-center justify-between p-2 sm:p-3 rounded-lg bg-muted/50">
+                    <div
+                      key={player.id}
+                      className="flex items-center justify-between p-2 sm:p-3 rounded-lg bg-muted/50"
+                    >
                       <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                        <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${
-                          index === 0 ? 'bg-yellow-500 text-white' :
-                          index === 1 ? 'bg-gray-400 text-white' :
-                          index === 2 ? 'bg-amber-600 text-white' :
-                          'bg-muted text-muted-foreground'
-                        }`}>
+                        <div
+                          className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${
+                            index === 0
+                              ? "bg-yellow-500 text-white"
+                              : index === 1
+                              ? "bg-gray-400 text-white"
+                              : index === 2
+                              ? "bg-amber-600 text-white"
+                              : "bg-muted text-muted-foreground"
+                          }`}
+                        >
                           {index + 1}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="font-semibold text-sm sm:text-base truncate">{player.full_name || 'Anonymous'}</p>
+                          <p className="font-semibold text-sm sm:text-base truncate">
+                            {player.full_name || "Anonymous"}
+                          </p>
                           <p className="text-xs sm:text-sm text-muted-foreground">
-                            {player.quizzes_completed} quiz{player.quizzes_completed !== 1 ? 'es' : ''} completed
+                            {player.quizzes_completed} quiz
+                            {player.quizzes_completed !== 1 ? "es" : ""}{" "}
+                            completed
                           </p>
                         </div>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className="font-bold text-emerald-600 text-sm sm:text-base">{player.total_score}</p>
-                        <p className="text-xs sm:text-sm text-muted-foreground">points</p>
+                        <p className="font-bold text-emerald-600 text-sm sm:text-base">
+                          {player.total_score}
+                        </p>
+                        <p className="text-xs sm:text-sm text-muted-foreground">
+                          points
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -304,7 +363,9 @@ const QuizzesPage = () => {
                 {leaderboard.length === 0 && (
                   <div className="text-center py-6 sm:py-8">
                     <Trophy className="h-8 w-8 sm:h-12 sm:w-12 mx-auto text-muted-foreground mb-4" />
-                    <p className="text-sm sm:text-base text-muted-foreground">No scores yet. Be the first!</p>
+                    <p className="text-sm sm:text-base text-muted-foreground">
+                      No scores yet. Be the first!
+                    </p>
                   </div>
                 )}
               </CardContent>

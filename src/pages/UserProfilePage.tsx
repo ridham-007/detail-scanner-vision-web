@@ -242,7 +242,7 @@ const UserProfilePage = () => {
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
                 </div>
               ) : quizzes.length > 0 ? (
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 md:grid-cols-2">
                   {quizzes.map((quiz) => (
                     <QuizCard
                       key={quiz.id}

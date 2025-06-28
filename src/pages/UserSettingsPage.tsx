@@ -145,7 +145,7 @@ const UserSettingsPage = () => {
                   </div>
 
                   <div className="grid gap-4">
-                    <div>
+                    <div className='flex flex-col gap-2'>
                       <Label htmlFor="full_name">Full Name</Label>
                       <Input
                         id="full_name"
@@ -155,7 +155,7 @@ const UserSettingsPage = () => {
                       />
                     </div>
 
-                    <div>
+                    <div className='flex flex-col gap-2'>
                       <Label htmlFor="username">Username</Label>
                       <Input
                         id="username"
@@ -164,14 +164,14 @@ const UserSettingsPage = () => {
                         placeholder="Enter a unique username (lowercase, alphanumeric, _, -)"
                         pattern="^[a-z0-9_-]+$"
                       />
-                      {profile.username && (
+                      {/* {profile.username && (
                         <p className="text-sm text-muted-foreground mt-1">
                           Your profile will be available at: /profile/{profile.username}
                         </p>
-                      )}
+                      )} */}
                     </div>
 
-                    <div>
+                    <div className='flex flex-col gap-2'>
                       <Label htmlFor="bio">Bio</Label>
                       <Textarea
                         id="bio"
@@ -182,7 +182,7 @@ const UserSettingsPage = () => {
                       />
                     </div>
 
-                    <div>
+                    <div className='flex flex-col gap-2'>
                       <Label htmlFor="website" className="flex items-center gap-2">
                         <Globe className="h-4 w-4" />
                         Website
@@ -196,7 +196,7 @@ const UserSettingsPage = () => {
                       />
                     </div>
 
-                    <div>
+                    <div className='flex flex-col gap-2'>
                       <Label htmlFor="location" className="flex items-center gap-2">
                         <MapPin className="h-4 w-4" />
                         Location

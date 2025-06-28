@@ -85,8 +85,8 @@ const Header = () => {
                 <button
                   key={item.path}
                   onClick={() => navigate(item.path)}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    location.pathname === item.path ? 'text-primary' : 'text-muted-foreground'
+                  className={` font-medium transition-colors hover:text-primary ${
+                    location.pathname === item.path ? 'text-primary font-bold underline underline-offset-4' : 'text-muted-foreground'
                   }`}
                 >
                   {item.label}
