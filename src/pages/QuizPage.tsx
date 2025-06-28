@@ -333,7 +333,7 @@ const QuizPage: React.FC = () => {
 
   if (!quizId) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <Header />
         <div className="flex justify-center items-center h-64 px-4">
           <div className="text-center">
@@ -366,7 +366,7 @@ const QuizPage: React.FC = () => {
 
   if (gameOver) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <Header />
         <AnimatedBackground />
         <main className="container mx-auto px-4 py-4 sm:py-8 relative z-10">
@@ -440,11 +440,11 @@ const QuizPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
       <AnimatedBackground />
 
-      <main className="container mx-auto px-4 py-4 sm:py-8 relative z-10">
+      <main className="h-full container mx-auto px-4 py-4 sm:py-8 relative z-10">
         <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
           {/* Quiz Header */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

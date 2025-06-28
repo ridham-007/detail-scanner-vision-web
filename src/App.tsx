@@ -37,7 +37,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="h-dvh">
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <AuthProvider>
