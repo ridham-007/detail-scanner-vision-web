@@ -84,7 +84,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md mx-4 rounded-2xl border-0 shadow-2xl bg-white dark:bg-gray-900 overflow-hidden">
+      <DialogContent className="sm:max-w-md rounded-2xl border-0 shadow-2xl bg-white dark:bg-gray-900 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-800 opacity-50" />
         
         <div className="relative z-10">
@@ -152,7 +152,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <Button
                   type="button"
                   variant="outline"

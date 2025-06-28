@@ -242,7 +242,7 @@ const IndexPage: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               {steps.map((step, index) => (
                 <div key={index} className="step-card flex items-center mb-12 last:mb-0">
-                  <div className="floating-icon flex-shrink-0 w-20 h-20 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg mr-8">
+                  <div className="floating-icon flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg mr-4 sm:mr-8">
                     {step.step}
                   </div>
                   <div className="flex-1">
@@ -405,7 +405,6 @@ const IndexPage: React.FC = () => {
       </main>
 
       <Footer />
-
       <EarlyAccessModal
         open={showEarlyAccessModal}
         onOpenChange={setShowEarlyAccessModal}
