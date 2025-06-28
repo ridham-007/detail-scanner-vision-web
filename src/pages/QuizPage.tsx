@@ -16,6 +16,7 @@ import {
   VolumeX,
   CheckCircle,
   XCircle,
+  VolumeUp,
 } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -86,6 +87,7 @@ const QuizPage: React.FC = () => {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hiddenAnswers, setHiddenAnswers] = useState<string[]>([]);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const onBack = () => {
     navigate("/quizzes");
@@ -354,6 +356,37 @@ const QuizPage: React.FC = () => {
         return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
     }
   };
+
+  const speakQuestion = () => {
+    if (!questions[currentQuestion]) return;
+
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+
+    if (isSpeaking) {
+      setIsSpeaking(false);
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(questions[currentQuestion].question_text);
+    utterance.rate = 0.8;
+    utterance.pitch = 1;
+    utterance.volume = soundEnabled ? 1 : 0;
+
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // Stop speaking when component unmounts or question changes
+  useEffect(() => {
+    return () => {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    };
+  }, [currentQuestion]);
 
   if (!quizId) {
     return (
@@ -685,9 +718,20 @@ const QuizPage: React.FC = () => {
           {/* Question */}
           <Card>
             <CardHeader className="pb-4">
-              <CardTitle className="text-center text-base sm:text-lg leading-relaxed">
-                {questions[currentQuestion]?.question_text}
-              </CardTitle>
+              <div className="flex items-start justify-between gap-4">
+                <CardTitle className="text-center text-base sm:text-lg leading-relaxed flex-1">
+                  {questions[currentQuestion]?.question_text}
+                </CardTitle>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={speakQuestion}
+                  disabled={answerFeedback.show}
+                  className={`shrink-0 ${isSpeaking ? 'bg-emerald-100 text-emerald-700' : ''}`}
+                >
+                  <VolumeUp className={`h-4 w-4 ${isSpeaking ? 'animate-pulse' : ''}`} />
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="space-y-2 sm:space-y-3">
               {shuffledAnswers.map((answer, index) => {
