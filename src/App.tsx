@@ -19,7 +19,7 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-// Component to handle page view tracking
+// Component to handle page view tracking //
 const PageTracker = () => {
   const location = useLocation();
 
