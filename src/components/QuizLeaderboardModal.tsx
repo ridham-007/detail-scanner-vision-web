@@ -48,14 +48,11 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
   const fetchQuizLeaderboard = async () => {
     setLoading(true);
     try {
-      // First, get the quiz attempts
+      // Get all quiz attempts for this quiz
       const { data: attempts, error: attemptsError } = await supabase
         .from('quiz_attempts')
         .select('id, score, total_questions, time_taken, completed_at, user_id')
-        .eq('quiz_id', quizId)
-        .order('score', { ascending: false })
-        .order('time_taken', { ascending: true })
-        .limit(10);
+        .eq('quiz_id', quizId);
 
       if (attemptsError) throw attemptsError;
 
@@ -64,8 +61,46 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
         return;
       }
 
+      // Group attempts by user_id and find the best attempt for each user
+      const userBestAttempts = new Map();
+      
+      attempts.forEach(attempt => {
+        const userId = attempt.user_id;
+        const existing = userBestAttempts.get(userId);
+        
+        if (!existing) {
+          userBestAttempts.set(userId, attempt);
+        } else {
+          // Compare attempts to find the best one
+          const isBetter = 
+            attempt.score > existing.score || 
+            (attempt.score === existing.score && attempt.time_taken < existing.time_taken) ||
+            (attempt.score === existing.score && attempt.time_taken === existing.time_taken && 
+             new Date(attempt.completed_at) > new Date(existing.completed_at));
+          
+          if (isBetter) {
+            userBestAttempts.set(userId, attempt);
+          }
+        }
+      });
+
+      // Convert map to array and sort by score (desc) then time (asc)
+      const bestAttempts = Array.from(userBestAttempts.values())
+        .sort((a, b) => {
+          if (a.score !== b.score) {
+            return b.score - a.score; // Higher score first
+          }
+          return a.time_taken - b.time_taken; // Lower time first
+        })
+        .slice(0, 10); // Top 10
+
+      if (bestAttempts.length === 0) {
+        setLeaderboard([]);
+        return;
+      }
+
       // Get unique user IDs
-      const userIds = [...new Set(attempts.map(attempt => attempt.user_id))];
+      const userIds = bestAttempts.map(attempt => attempt.user_id);
 
       // Fetch profiles for these users
       const { data: profiles, error: profilesError } = await supabase
@@ -76,7 +111,7 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
       if (profilesError) throw profilesError;
 
       // Combine the data
-      const leaderboardData = attempts.map(attempt => {
+      const leaderboardData = bestAttempts.map(attempt => {
         const profile = profiles?.find(p => p.id === attempt.user_id);
         return {
           id: attempt.id,
@@ -165,7 +200,7 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
                             {attempt.profiles?.full_name || 'Anonymous Player'}
                           </p>
                           <p className="text-sm text-muted-foreground">
-                            {new Date(attempt.completed_at).toLocaleDateString()}
+                            Best attempt: {new Date(attempt.completed_at).toLocaleDateString()}
                           </p>
                         </div>
                       </div>
