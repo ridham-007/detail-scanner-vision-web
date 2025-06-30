@@ -237,9 +237,11 @@ export type Database = {
           health_score: number | null
           id: string
           images: string[] | null
+          is_health_related_product: boolean | null
           is_published: boolean
           name: string
           nutrition_per_100g: Json | null
+          other_good_product_suggestions: Json | null
           positives: string[] | null
           recommendations: string[] | null
           unit: string | null
@@ -252,9 +254,11 @@ export type Database = {
           health_score?: number | null
           id?: string
           images?: string[] | null
+          is_health_related_product?: boolean | null
           is_published?: boolean
           name: string
           nutrition_per_100g?: Json | null
+          other_good_product_suggestions?: Json | null
           positives?: string[] | null
           recommendations?: string[] | null
           unit?: string | null
@@ -267,9 +271,11 @@ export type Database = {
           health_score?: number | null
           id?: string
           images?: string[] | null
+          is_health_related_product?: boolean | null
           is_published?: boolean
           name?: string
           nutrition_per_100g?: Json | null
+          other_good_product_suggestions?: Json | null
           positives?: string[] | null
           recommendations?: string[] | null
           unit?: string | null
