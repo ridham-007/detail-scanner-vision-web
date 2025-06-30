@@ -50,6 +50,11 @@ export const useProductLookup = () => {
         additives: []
       };
 
+      // Safely access the new fields with fallbacks
+      const rawData = data as any;
+      const productSuggestions = rawData.other_good_product_suggestions || [];
+      const isHealthRelated = rawData.is_health_related_product !== false; // Default to true if not specified
+
       return {
         barcode: data.barcode,
         name: data.name,
@@ -60,8 +65,8 @@ export const useProductLookup = () => {
         concerns: data.concerns || [],
         recommendations: data.recommendations || [],
         images: data.images || [],
-        other_good_product_suggestions: data.other_good_product_suggestions || [],
-        is_health_related_product: data.is_health_related_product !== false
+        other_good_product_suggestions: productSuggestions,
+        is_health_related_product: isHealthRelated
       };
     } catch (error) {
       console.error('Error fetching from Supabase:', error);
