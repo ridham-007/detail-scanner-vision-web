@@ -89,7 +89,7 @@ const CreateQuizModal: React.FC<CreateQuizModalProps> = ({
               id="prompt"
               value={formData.prompt}
               onChange={(e) => setFormData(prev => ({ ...prev, prompt: e.target.value }))}
-              placeholder="Describe what your quiz should be about (e.g., 'World History', 'JavaScript Programming', 'Space Science')"
+              placeholder={`placeholder="What's your quiz about? (e.g., Balanced Diet, Superfoods, Vitamins)`}
               rows={3}
               required
             />
