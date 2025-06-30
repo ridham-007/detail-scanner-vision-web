@@ -2,38 +2,7 @@
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-
-interface ProductData {
-  barcode: string;
-  name: string;
-  health_score: number;
-  unit: string;
-  nutrition_per_100g: {
-    calories_kcal: number | null;
-    total_fat_g: number | null;
-    saturated_fat_g: number | null;
-    trans_fat_g: number | null;
-    cholesterol_mg: number | null;
-    carbohydrates_g: number | null;
-    sugar_g: number | null;
-    fiber_g: number | null;
-    protein_g: number | null;
-    salt_mg: number | null;
-    vitamin_a_iu: number | null;
-    vitamin_c_mg: number | null;
-    calcium_mg: number | null;
-    iron_mg: number | null;
-    potassium_mg: number | null;
-    magnesium_mg: number | null;
-    zinc_mg: number | null;
-    allergens: string[];
-    additives: string[];
-  };
-  positives: string[];
-  concerns: string[];
-  recommendations: string[];
-  images: string[];
-}
+import { ProductData } from '@/types/ProductData';
 
 export const useProductLookup = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -59,10 +28,15 @@ export const useProductLookup = () => {
         total_fat_g: null,
         saturated_fat_g: null,
         trans_fat_g: null,
+        polyunsaturated_fat_g: null,
+        monounsaturated_fat_g: null,
         cholesterol_mg: null,
         carbohydrates_g: null,
         sugar_g: null,
+        sugar_alcohols_g: null,
         fiber_g: null,
+        soluble_fibre_g: null,
+        insoluble_fibre_g: null,
         protein_g: null,
         salt_mg: null,
         vitamin_a_iu: null,
@@ -85,7 +59,9 @@ export const useProductLookup = () => {
         positives: data.positives || [],
         concerns: data.concerns || [],
         recommendations: data.recommendations || [],
-        images: data.images || []
+        images: data.images || [],
+        other_good_product_suggestions: data.other_good_product_suggestions || [],
+        is_health_related_product: data.is_health_related_product !== false
       };
     } catch (error) {
       console.error('Error fetching from Supabase:', error);
@@ -107,6 +83,8 @@ export const useProductLookup = () => {
           concerns: productData.concerns,
           recommendations: productData.recommendations,
           images: productData.images,
+          other_good_product_suggestions: productData.other_good_product_suggestions,
+          is_health_related_product: productData.is_health_related_product,
           is_published: true,
           updated_at: new Date().toISOString()
         });
@@ -135,6 +113,8 @@ export const useProductLookup = () => {
           concerns: [],
           recommendations: [],
           images: [],
+          other_good_product_suggestions: [],
+          is_health_related_product: true,
           is_published: false,
           updated_at: new Date().toISOString()
         });
@@ -168,13 +148,15 @@ export const useProductLookup = () => {
           const product: ProductData = {
             barcode: productData.barcode,
             name: productData.product,
-            health_score: productData.health_score,
-            unit: productData.unit,
-            nutrition_per_100g: productData.nutrition_per_100g,
+            health_score: productData.health_score || 0,
+            unit: productData.unit || '',
+            nutrition_per_100g: productData.nutrition_per_100g || {},
             positives: productData.positives || [],
             concerns: productData.concerns || [],
             recommendations: productData.recommendations || [],
-            images: productData.images || []
+            images: productData.images || [],
+            other_good_product_suggestions: productData.other_good_product_suggestions || [],
+            is_health_related_product: productData.is_health_related_product !== false
           };
 
           // Save to Supabase for future use
