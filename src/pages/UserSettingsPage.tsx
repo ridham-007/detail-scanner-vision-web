@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -8,9 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { User, Save, Globe, MapPin } from 'lucide-react';
 import Header from '@/components/Header';
+import AvatarUpload from '@/components/AvatarUpload';
 import { useNavigate } from 'react-router-dom';
 
 const UserSettingsPage = () => {
@@ -69,6 +68,10 @@ const UserSettingsPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAvatarUpdate = (newAvatarUrl: string) => {
+    setProfile(prev => ({ ...prev, avatar_url: newAvatarUrl }));
   };
 
   const handleSave = async () => {
@@ -131,19 +134,20 @@ const UserSettingsPage = () => {
                 </div>
               ) : (
                 <>
-                  <div className="flex items-center gap-4">
-                    <Avatar className="h-20 w-20">
-                      <AvatarImage src={profile.avatar_url} />
-                      <AvatarFallback>
-                        {profile.full_name?.charAt(0)?.toUpperCase() || user.email?.charAt(0)?.toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
+                  <div className="flex flex-col items-center gap-4">
+                    <AvatarUpload
+                      currentAvatarUrl={profile.avatar_url}
+                      fallbackText={profile.full_name?.charAt(0)?.toUpperCase() || user.email?.charAt(0)?.toUpperCase() || '?'}
+                      onAvatarUpdate={handleAvatarUpdate}
+                      userId={user.id}
+                    />
+                    <div className="text-center">
                       <h3 className="text-lg font-semibold">{profile.full_name || 'No name set'}</h3>
                       <p className="text-muted-foreground">{user.email}</p>
                     </div>
                   </div>
 
+                  
                   <div className="grid gap-4">
                     <div className='flex flex-col gap-2'>
                       <Label htmlFor="full_name">Full Name</Label>
@@ -164,11 +168,6 @@ const UserSettingsPage = () => {
                         placeholder="Enter a unique username (lowercase, alphanumeric, _, -)"
                         pattern="^[a-z0-9_-]+$"
                       />
-                      {/* {profile.username && (
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Your profile will be available at: /profile/{profile.username}
-                        </p>
-                      )} */}
                     </div>
 
                     <div className='flex flex-col gap-2'>
