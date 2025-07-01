@@ -22,6 +22,7 @@ interface Quiz {
   difficulty: "easy" | "medium" | "hard";
   created_at: string;
   creator_id: string;
+  is_published?: boolean;
 }
 
 interface LeaderboardEntry {
@@ -58,7 +59,7 @@ const QuizzesPage = () => {
     try {
       const { data, error } = await supabase
         .from("quizzes")
-        .select("id, title, description, difficulty, created_at, creator_id")
+        .select("id, title, description, difficulty, created_at, creator_id, is_published")
         .eq("is_published", true)
         .order("created_at", { ascending: false });
 
@@ -75,7 +76,7 @@ const QuizzesPage = () => {
     try {
       const { data, error } = await supabase
         .from("quizzes")
-        .select("id, title, description, difficulty, created_at, creator_id")
+        .select("id, title, description, difficulty, created_at, creator_id, is_published")
         .eq("creator_id", user.id)
         .order("created_at", { ascending: false });
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Play, Calendar, Trophy, EyeOff } from 'lucide-react';
+import { Play, Calendar, Trophy, EyeOff, Eye } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -16,6 +16,7 @@ interface Quiz {
   difficulty: 'easy' | 'medium' | 'hard';
   created_at: string;
   creator_id?: string;
+  is_published?: boolean;
 }
 
 interface QuizCardProps {
@@ -28,7 +29,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [showLeaderboard, setShowLeaderboard] = useState(false);
-  const [isUnpublishing, setIsUnpublishing] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -43,22 +44,26 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
     }
   };
 
-  const handleUnpublish = async () => {
+  const handleTogglePublish = async () => {
     if (!user || quiz.creator_id !== user.id) return;
 
-    setIsUnpublishing(true);
+    const newPublishedState = !quiz.is_published;
+    setIsUpdating(true);
+    
     try {
       const { error } = await supabase
         .from('quizzes')
-        .update({ is_published: false })
+        .update({ is_published: newPublishedState })
         .eq('id', quiz.id)
         .eq('creator_id', user.id);
 
       if (error) throw error;
 
       toast({
-        title: "Quiz Unpublished",
-        description: "Your quiz has been unpublished successfully.",
+        title: newPublishedState ? "Quiz Published" : "Quiz Unpublished",
+        description: newPublishedState 
+          ? "Your quiz has been published successfully." 
+          : "Your quiz has been unpublished successfully.",
       });
 
       // Refresh the quiz list
@@ -66,18 +71,19 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
         onQuizUpdated();
       }
     } catch (error) {
-      console.error('Error unpublishing quiz:', error);
+      console.error('Error updating quiz:', error);
       toast({
         title: "Error",
-        description: "Failed to unpublish quiz. Please try again.",
+        description: "Failed to update quiz. Please try again.",
         variant: "destructive",
       });
     } finally {
-      setIsUnpublishing(false);
+      setIsUpdating(false);
     }
   };
 
   const isMyQuiz = user && quiz.creator_id === user.id;
+  const isPublished = quiz.is_published !== false; // Default to true if not specified
 
   return (
     <>
@@ -86,9 +92,16 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
               <CardTitle className="text-base sm:text-lg mb-2 line-clamp-2 capitalize">{quiz.title}</CardTitle>
-              <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
-                {quiz.difficulty.toUpperCase()}
-              </Badge>
+              <div className="flex gap-2">
+                <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
+                  {quiz.difficulty.toUpperCase()}
+                </Badge>
+                {isMyQuiz && (
+                  <Badge variant={isPublished ? "default" : "secondary"} className="text-xs">
+                    {isPublished ? "Published" : "Draft"}
+                  </Badge>
+                )}
+              </div>
             </div>
           </div>
         </CardHeader>
@@ -123,14 +136,27 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
             </div>
             {isMyQuiz && (
               <Button
-                onClick={handleUnpublish}
+                onClick={handleTogglePublish}
                 variant="outline"
                 size="sm"
-                disabled={isUnpublishing}
-                className="w-full h-9 text-red-600 hover:text-red-700 hover:bg-red-50"
+                disabled={isUpdating}
+                className={`w-full h-9 ${
+                  isPublished 
+                    ? 'text-red-600 hover:text-red-700 hover:bg-red-50' 
+                    : 'text-green-600 hover:text-green-700 hover:bg-green-50'
+                }`}
               >
-                <EyeOff className="h-4 w-4 mr-2" />
-                {isUnpublishing ? 'Unpublishing...' : 'Unpublish'}
+                {isPublished ? (
+                  <>
+                    <EyeOff className="h-4 w-4 mr-2" />
+                    {isUpdating ? 'Unpublishing...' : 'Unpublish'}
+                  </>
+                ) : (
+                  <>
+                    <Eye className="h-4 w-4 mr-2" />
+                    {isUpdating ? 'Publishing...' : 'Publish'}
+                  </>
+                )}
               </Button>
             )}
           </div>
