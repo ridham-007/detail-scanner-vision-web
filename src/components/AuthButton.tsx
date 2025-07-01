@@ -5,6 +5,7 @@ import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,28 +19,30 @@ const AuthButton = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [username, setUsername] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
     if (user) {
-      fetchUsername();
+      fetchUserProfile();
     }
   }, [user]);
 
-  const fetchUsername = async () => {
+  const fetchUserProfile = async () => {
     if (!user) return;
 
     try {
       const { data } = await supabase
         .from('profiles')
-        .select('username')
+        .select('username, avatar_url')
         .eq('id', user.id)
         .single();
 
-      if (data?.username) {
+      if (data) {
         setUsername(data.username);
+        setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      console.error('Error fetching username:', error);
+      console.error('Error fetching user profile:', error);
     }
   };
 
@@ -47,6 +50,16 @@ const AuthButton = () => {
     { path: '/', label: 'Scanner', icon: Scan },
     { path: '/quizzes', label: 'Food IQ Tests', icon: Trophy },
   ];
+
+  const getUserInitials = () => {
+    if (username) {
+      return username.substring(0, 2).toUpperCase();
+    }
+    if (user?.email) {
+      return user.email.substring(0, 2).toUpperCase();
+    }
+    return 'US';
+  };
 
   if (loading) {
     return <Button variant="outline" disabled>Loading...</Button>;
@@ -56,9 +69,14 @@ const AuthButton = () => {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm">
-            <User className="h-4 w-4 mr-2" />
-            <span className="hidden md:inline">{user.email}</span>
+          <Button variant="outline" size="sm" className="gap-2">
+            <Avatar className="h-6 w-6">
+              <AvatarImage src={avatarUrl || undefined} />
+              <AvatarFallback className="text-xs">
+                {getUserInitials()}
+              </AvatarFallback>
+            </Avatar>
+            <span className="hidden md:inline">{username || user.email}</span>
             <Menu className="h-4 w-4 md:hidden" />
           </Button>
         </DropdownMenuTrigger>
