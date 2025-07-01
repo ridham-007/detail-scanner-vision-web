@@ -45,7 +45,7 @@ const AuthButton = () => {
 
   const navigationItems = [
     { path: '/', label: 'Scanner', icon: Scan },
-    { path: '/quizzes', label: 'Quizzes', icon: Trophy },
+    { path: '/quizzes', label: 'Food IQ Tests', icon: Trophy },
   ];
 
   if (loading) {

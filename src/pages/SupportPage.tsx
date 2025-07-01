@@ -97,10 +97,10 @@ const SupportPage = () => {
       question: "Is my data secure and private?",
       answer: "Absolutely. We use enterprise-grade security measures including end-to-end encryption, secure cloud infrastructure, and strict access controls. Your personal data is never shared with third parties without your consent."
     },
-    {
-      question: "How do I update my dietary preferences?",
-      answer: "You can update your dietary preferences in the Settings page when logged in. This helps our AI provide more personalized food recommendations and health scores tailored to your specific needs."
-    },
+    // {
+    //   question: "How do I update my dietary preferences?",
+    //   answer: "You can update your dietary preferences in the Settings page when logged in. This helps our AI provide more personalized food recommendations and health scores tailored to your specific needs."
+    // },
     {
       question: "What should I do if a barcode scan returns incorrect information?",
       answer: "If you encounter incorrect product information, please report it through this support page. We continuously improve our database and appreciate user feedback to maintain accuracy."
@@ -111,7 +111,7 @@ const SupportPage = () => {
     },
     {
       question: "Can I use EaterIQ offline?",
-      answer: "Currently, EaterIQ requires an internet connection for barcode scanning and AI analysis. However, you can view your scan history and previously generated content when offline."
+      answer: "Currently, EaterIQ requires an internet connection for barcode scanning and AI analysis."
     }
   ];
 

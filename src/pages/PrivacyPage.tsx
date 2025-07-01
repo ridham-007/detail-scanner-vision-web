@@ -123,7 +123,7 @@ const PrivacyPage = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          {/* <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Cookie className="h-5 w-5 text-orange-600" />
@@ -145,7 +145,7 @@ const PrivacyPage = () => {
                 </p>
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
 
           <Card>
             <CardHeader>

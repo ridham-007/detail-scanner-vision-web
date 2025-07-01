@@ -395,7 +395,7 @@ const QuizPage: React.FC = () => {
           <div className="text-center">
             <p className="text-sm sm:text-base">Quiz not found</p>
             <Button onClick={onBack} className="mt-4">
-              Back to Quizzes
+              Back to List
             </Button>
           </div>
         </div>
@@ -489,7 +489,7 @@ const QuizPage: React.FC = () => {
                     className="w-full sm:w-auto"
                   >
                     <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back to Quizzes
+                    Back to List
                   </Button>
                   <Button
                     onClick={shareQuiz}
@@ -519,7 +519,7 @@ const QuizPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <Button variant="outline" onClick={onBack} className="self-start">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Quizzes
+              Back to List
             </Button>
             <div className="text-center flex-1">
               <h1 className="text-lg sm:text-xl md:text-3xl font-bold capitalize">

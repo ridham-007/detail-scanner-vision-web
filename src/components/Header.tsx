@@ -49,7 +49,7 @@ const Header = () => {
 
   const navigationItems = [
     { path: '/', label: 'Scanner' },
-    { path: '/quizzes', label: 'Quizzes' },
+    { path: '/quizzes', label: 'Food IQ Tests' },
   ];
 
   return (
@@ -73,7 +73,7 @@ const Header = () => {
                 ref={subtitleRef}
                 className="text-xs md:text-sm text-muted-foreground"
               >
-                Smart Food Intelligence & Quizzes
+                Smart Food Intelligence & Brain Bites
               </p>
             </div>
           </div>
