@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Play, Calendar, Trophy } from 'lucide-react';
+import { Play, Calendar, Trophy, EyeOff } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 import QuizLeaderboardModal from './QuizLeaderboardModal';
 
 interface Quiz {
@@ -13,16 +15,20 @@ interface Quiz {
   description: string;
   difficulty: 'easy' | 'medium' | 'hard';
   created_at: string;
+  creator_id?: string;
 }
 
 interface QuizCardProps {
   quiz: Quiz;
   onPlay: (quizId: string) => void;
+  onQuizUpdated?: () => void;
 }
 
-const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay }) => {
+const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [isUnpublishing, setIsUnpublishing] = useState(false);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -36,6 +42,42 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay }) => {
         return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
+
+  const handleUnpublish = async () => {
+    if (!user || quiz.creator_id !== user.id) return;
+
+    setIsUnpublishing(true);
+    try {
+      const { error } = await supabase
+        .from('quizzes')
+        .update({ is_published: false })
+        .eq('id', quiz.id)
+        .eq('creator_id', user.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Quiz Unpublished",
+        description: "Your quiz has been unpublished successfully.",
+      });
+
+      // Refresh the quiz list
+      if (onQuizUpdated) {
+        onQuizUpdated();
+      }
+    } catch (error) {
+      console.error('Error unpublishing quiz:', error);
+      toast({
+        title: "Error",
+        description: "Failed to unpublish quiz. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUnpublishing(false);
+    }
+  };
+
+  const isMyQuiz = user && quiz.creator_id === user.id;
 
   return (
     <>
@@ -58,23 +100,37 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay }) => {
             <Calendar className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
             <span className="truncate">{new Date(quiz.created_at).toLocaleDateString()}</span>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2">
-            <Button 
-              onClick={() => onPlay(quiz.id)} 
-              className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600 text-sm h-9"
-            >
-              <Play className="h-4 w-4 mr-2" />
-              Play Quiz
-            </Button>
-            {user && (
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-2">
               <Button 
-                onClick={() => setShowLeaderboard(true)}
+                onClick={() => onPlay(quiz.id)} 
+                className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600 text-sm h-9"
+              >
+                <Play className="h-4 w-4 mr-2" />
+                Play Quiz
+              </Button>
+              {user && (
+                <Button 
+                  onClick={() => setShowLeaderboard(true)}
+                  variant="outline"
+                  size="sm"
+                  className="sm:w-auto w-full h-9"
+                >
+                  <Trophy className="h-4 w-4 sm:mr-2" />
+                  <span className="sm:inline hidden">Leaderboard</span>
+                </Button>
+              )}
+            </div>
+            {isMyQuiz && (
+              <Button
+                onClick={handleUnpublish}
                 variant="outline"
                 size="sm"
-                className="sm:w-auto w-full h-9"
+                disabled={isUnpublishing}
+                className="w-full h-9 text-red-600 hover:text-red-700 hover:bg-red-50"
               >
-                <Trophy className="h-4 w-4 sm:mr-2" />
-                <span className="sm:inline hidden">Leaderboard</span>
+                <EyeOff className="h-4 w-4 mr-2" />
+                {isUnpublishing ? 'Unpublishing...' : 'Unpublish'}
               </Button>
             )}
           </div>

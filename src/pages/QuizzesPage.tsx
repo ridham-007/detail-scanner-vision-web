@@ -101,6 +101,11 @@ const QuizzesPage = () => {
     }
   };
 
+  const handleQuizUpdated = () => {
+    fetchQuizzes();
+    fetchMyQuizzes();
+  };
+
   const createQuiz = async (formData: {
     title: string;
     description: string;
@@ -245,17 +250,17 @@ const QuizzesPage = () => {
                 <span className="hidden sm:inline">My Quizzes</span>
                 <span className="sm:hidden">Mine</span>
               </TabsTrigger>
-              {/* <TabsTrigger value="leaderboard" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
-              <Trophy className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Leaderboard</span>
-              <span className="sm:hidden">Top</span>
-            </TabsTrigger> */}
             </TabsList>
 
             <TabsContent value="all-quizzes" className="space-y-4 sm:space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {quizzes?.map((quiz) => (
-                  <QuizCard key={quiz.id} quiz={quiz} onPlay={playQuiz} />
+                  <QuizCard 
+                    key={quiz.id} 
+                    quiz={quiz} 
+                    onPlay={playQuiz} 
+                    onQuizUpdated={handleQuizUpdated}
+                  />
                 ))}
               </div>
               {quizzes?.length === 0 && (
@@ -276,7 +281,12 @@ const QuizzesPage = () => {
                 <>
                   <div className="py-8 sm:py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {myQuizzes.map((quiz) => (
-                      <QuizCard key={quiz.id} quiz={quiz} onPlay={playQuiz} />
+                      <QuizCard 
+                        key={quiz.id} 
+                        quiz={quiz} 
+                        onPlay={playQuiz} 
+                        onQuizUpdated={handleQuizUpdated}
+                      />
                     ))}
                   </div>
                   {myQuizzes.length === 0 && (
