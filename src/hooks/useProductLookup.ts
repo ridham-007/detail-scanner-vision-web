@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -88,7 +87,7 @@ export const useProductLookup = () => {
           concerns: productData.concerns,
           recommendations: productData.recommendations,
           images: productData.images,
-          other_good_product_suggestions: productData.other_good_product_suggestions,
+          other_good_product_suggestions: productData.other_good_product_suggestions as any,
           is_health_related_product: productData.is_health_related_product,
           is_published: true,
           updated_at: new Date().toISOString()
@@ -118,7 +117,7 @@ export const useProductLookup = () => {
           concerns: [],
           recommendations: [],
           images: [],
-          other_good_product_suggestions: [],
+          other_good_product_suggestions: [] as any,
           is_health_related_product: true,
           is_published: false,
           updated_at: new Date().toISOString()
