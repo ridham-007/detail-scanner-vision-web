@@ -93,7 +93,7 @@ const UserProfilePage = () => {
         .from('quizzes')
         .select('id, title, description, difficulty, created_at')
         .eq('creator_id', userId)
-        .eq('is_published', true)
+        // .eq('is_published', true)
         .order('created_at', { ascending: false });
 
       if (error) throw error;

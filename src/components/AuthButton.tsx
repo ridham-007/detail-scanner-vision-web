@@ -19,6 +19,7 @@ const AuthButton = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [username, setUsername] = useState<string | null>(null);
+  const [fullName, setFullName] = useState<string | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -33,12 +34,13 @@ const AuthButton = () => {
     try {
       const { data } = await supabase
         .from('profiles')
-        .select('username, avatar_url')
+        .select('username, avatar_url, full_name')
         .eq('id', user.id)
         .single();
 
       if (data) {
         setUsername(data.username);
+        setFullName(data.full_name);
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
@@ -76,7 +78,7 @@ const AuthButton = () => {
                 {getUserInitials()}
               </AvatarFallback>
             </Avatar>
-            <span className="hidden md:inline">{username || user.email}</span>
+            <span className="hidden md:inline">{fullName || username || user.email}</span>
             <Menu className="h-4 w-4 md:hidden" />
           </Button>
         </DropdownMenuTrigger>
