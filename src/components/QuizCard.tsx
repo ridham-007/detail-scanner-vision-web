@@ -91,7 +91,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
-              <CardTitle className="text-base sm:text-lg mb-2 line-clamp-2 capitalize">{quiz.title}</CardTitle>
+              <h2 className="font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">{quiz.title}</h2>
               <div className="flex gap-2">
                 <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
                   {quiz.difficulty.toUpperCase()}

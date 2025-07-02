@@ -231,10 +231,10 @@ const UserProfilePage = () => {
           {/* Created Quizzes */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <h2 className="font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">
                 <Trophy className="h-5 w-5" />
                 Created Quizzes
-              </CardTitle>
+              </h2>
             </CardHeader>
             <CardContent>
               {quizzesLoading ? (
