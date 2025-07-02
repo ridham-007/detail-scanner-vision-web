@@ -9,6 +9,7 @@ const ThemeToggle: React.FC = () => {
 
   return (
     <Button
+      aria-label="Toggle Theme"
       variant="outline"
       size="icon"
       onClick={toggleTheme}

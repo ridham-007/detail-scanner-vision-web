@@ -98,6 +98,7 @@ const FoodScannerPage: React.FC = () => {
                 onKeyPress={(e) => e.key === 'Enter' && handleManualLookup()}
               />
               <Button 
+                aria-label="Search"
                 onClick={handleManualLookup}
                 disabled={isLoading || !manualBarcode.trim()}
               >

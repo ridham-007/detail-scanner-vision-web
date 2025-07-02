@@ -99,7 +99,7 @@ const UserSettingsPage = () => {
         title: "Success",
         description: "Profile updated successfully"
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error updating profile:', error);
       toast({
         title: "Error",
@@ -210,6 +210,7 @@ const UserSettingsPage = () => {
                   </div>
 
                   <Button 
+                    aria-label="Save Profile"
                     onClick={handleSave} 
                     disabled={saving}
                     className="w-full bg-gradient-to-r from-emerald-600 to-blue-600"

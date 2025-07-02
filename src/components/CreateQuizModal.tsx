@@ -96,10 +96,10 @@ const CreateQuizModal: React.FC<CreateQuizModalProps> = ({
           </div>
 
           <div className="flex gap-2 pt-4">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
+            <Button aria-label="Cancel" type="button" variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
               Cancel
             </Button>
-            <Button type="submit" disabled={loading} className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600">
+            <Button aria-label="Create Quiz" type="submit" disabled={loading} className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600">
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />

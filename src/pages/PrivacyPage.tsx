@@ -177,6 +177,7 @@ const PrivacyPage = () => {
                 If you have any questions about this privacy policy or how we handle your data,
                 please don't hesitate to contact us through our{' '}
                 <Button
+                  aria-label="Support Page"
                   variant="link"
                   className="p-0 h-auto font-semibold text-emerald-600"
                   onClick={() => navigate('/support')}

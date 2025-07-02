@@ -398,7 +398,7 @@ const QuizPage: React.FC = () => {
         <div className="flex justify-center items-center h-64 px-4">
           <div className="text-center">
             <p className="text-sm sm:text-base">Quiz not found</p>
-            <Button onClick={onBack} className="mt-4">
+            <Button aria-label="Back to List" onClick={onBack} className="mt-4">
               Back to List
             </Button>
           </div>
@@ -501,6 +501,7 @@ const QuizPage: React.FC = () => {
                       Sign in to save your score and climb the leaderboard!
                     </p>
                     <Button
+                      aria-label="Sign in with Google"
                       onClick={signInWithGoogle}
                       className="bg-gradient-to-r from-blue-600 to-purple-600 w-full"
                     >
@@ -524,6 +525,7 @@ const QuizPage: React.FC = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Button
+                    aria-label="Back to Quizzes"
                     onClick={onBack}
                     variant="outline"
                     className="flex-1"
@@ -532,6 +534,7 @@ const QuizPage: React.FC = () => {
                     Back to Quizzes
                   </Button>
                   <Button
+                    aria-label="Share Achievement"
                     onClick={shareQuiz}
                     className="bg-gradient-to-r from-emerald-600 to-blue-600 flex-1"
                   >
@@ -557,12 +560,13 @@ const QuizPage: React.FC = () => {
         {/* Quiz Header - Compact and Mobile Optimized */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
-            <Button variant="outline" onClick={onBack} size="sm">
+            <Button aria-label="Back" variant="outline" onClick={onBack} size="sm">
               <ArrowLeft className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Back</span>
             </Button>
             <div className="flex items-center gap-2">
               <Button
+                aria-label="Toggle Sound"
                 onClick={() => setSoundEnabled(!soundEnabled)}
                 variant="outline"
                 size="sm"
@@ -571,6 +575,7 @@ const QuizPage: React.FC = () => {
               </Button>
               {user && (
                 <Button
+                  aria-label="Leaderboard"
                   onClick={() => setShowLeaderboard(true)}
                   variant="outline"
                   size="sm"
@@ -578,7 +583,7 @@ const QuizPage: React.FC = () => {
                   <Trophy className="h-4 w-4" />
                 </Button>
               )}
-              <Button onClick={shareQuiz} variant="outline" size="sm">
+              <Button aria-label="Share" onClick={shareQuiz} variant="outline" size="sm">
                 <Share2 className="h-4 w-4" />
               </Button>
             </div>
@@ -632,7 +637,7 @@ const QuizPage: React.FC = () => {
                     <p className="text-xs text-amber-600 dark:text-amber-400 truncate">Sign in to save score</p>
                   </div>
                 </div>
-                <Button onClick={signInWithGoogle} size="sm" className="bg-gradient-to-r from-emerald-600 to-blue-600 shrink-0">
+                <Button aria-label="Sign In" onClick={signInWithGoogle} size="sm" className="bg-gradient-to-r from-emerald-600 to-blue-600 shrink-0">
                   Sign In
                 </Button>
               </div>
@@ -650,6 +655,7 @@ const QuizPage: React.FC = () => {
           </div>
           <div className="grid grid-cols-3 gap-2">
             <Button
+              aria-label="50:50"
               variant={lifelines.fiftyFifty ? "default" : "outline"}
               size="sm"
               onClick={useFiftyFifty}
@@ -663,6 +669,7 @@ const QuizPage: React.FC = () => {
               {!lifelines.fiftyFifty && <span className="text-[10px] opacity-75">Used</span>}
             </Button>
             <Button
+              aria-label="Skip"
               variant={lifelines.skipQuestion ? "default" : "outline"}
               size="sm"
               onClick={useSkipQuestion}
@@ -676,6 +683,7 @@ const QuizPage: React.FC = () => {
               {!lifelines.skipQuestion && <span className="text-[10px] opacity-75">Used</span>}
             </Button>
             <Button
+              aria-label="Extra Time"
               variant={lifelines.extraTime ? "default" : "outline"}
               size="sm"
               onClick={useExtraTime}
@@ -699,6 +707,7 @@ const QuizPage: React.FC = () => {
                 {questions[currentQuestion]?.question_text}
               </CardTitle>
               <Button
+                aria-label="Speak Question"
                 variant="outline"
                 size="sm"
                 onClick={speakQuestion}
@@ -733,6 +742,7 @@ const QuizPage: React.FC = () => {
 
               return (
                 <Button
+                  aria-label={`Answer ${letter}`}
                   key={index}
                   variant="outline"
                   className={`w-full text-left justify-start h-auto p-4 text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] border-2 ${

@@ -107,6 +107,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                 Perfect! You're now on our exclusive early access list. We'll send you a personal invitation when these amazing features go live.
               </p>
               <Button
+                aria-label="Close"
                 onClick={handleClose}
                 className="bg-gradient-to-r from-emerald-500 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white px-8 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
@@ -154,6 +155,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
 
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <Button
+                  aria-label="Maybe Later"
                   type="button"
                   variant="outline"
                   onClick={handleClose}
@@ -163,6 +165,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                   Maybe Later
                 </Button>
                 <Button
+                  aria-label="Get Early Access"
                   type="submit"
                   disabled={isSubmitting}
                   className="flex-1 h-12 bg-gradient-to-r from-emerald-500 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"

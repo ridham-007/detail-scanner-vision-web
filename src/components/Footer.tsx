@@ -38,7 +38,7 @@ const Footer = () => {
           <div className="footer-section space-y-4">
             <div className="flex items-center space-x-2">
               <div>
-                <img src={Logo} alt="" className='h-12 w-12' />
+                <img src={Logo} alt="eateriq logo" className='h-12 w-12' />
               </div>
               <span className="font-bold text-lg md:text-xl">EaterIQ</span>
             </div>
@@ -76,6 +76,7 @@ const Footer = () => {
             <h3 className="font-semibold text-base md:text-lg">Support & Resources</h3>
             <div className="space-y-3">
               <button 
+                aria-label="Contact Support"
                 onClick={handleContactClick}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
@@ -83,6 +84,7 @@ const Footer = () => {
                 <span>Contact Support</span>
               </button>
               <button
+                aria-label="Help Center"
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                   navigate('/support');
@@ -93,6 +95,7 @@ const Footer = () => {
                 <span>Help Center</span>
               </button>
               <button
+                aria-label="Privacy Policy"
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                   navigate('/privacy');
@@ -103,6 +106,7 @@ const Footer = () => {
                 <span>Privacy Policy</span>
               </button>
               <button
+                aria-label="Terms of Service"
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                   navigate('/terms');
@@ -125,6 +129,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 md:space-x-6 text-sm text-muted-foreground">
               <button
+                aria-label="Privacy"
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                   navigate('/privacy');
@@ -134,6 +139,7 @@ const Footer = () => {
                 Privacy
               </button>
               <button
+                aria-label="Terms"
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                   navigate('/terms');
@@ -143,6 +149,7 @@ const Footer = () => {
                 Terms
               </button>
               <button
+                aria-label="Support"
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                   navigate('/support');

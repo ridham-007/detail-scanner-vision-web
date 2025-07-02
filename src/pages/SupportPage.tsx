@@ -226,6 +226,7 @@ const SupportPage = () => {
                   </div>
 
                   <Button
+                    aria-label="Send Message"
                     type="submit"
                     className="w-full bg-gradient-to-r from-emerald-600 to-blue-600"
                     disabled={isSubmitting}

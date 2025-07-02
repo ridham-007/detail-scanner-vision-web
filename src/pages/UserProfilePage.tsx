@@ -160,7 +160,7 @@ const UserProfilePage = () => {
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row gap-6">
                 <Avatar className="h-24 w-24">
-                  <AvatarImage src={profile.avatar_url} />
+                  <AvatarImage alt="user avatar" src={profile.avatar_url} />
                   <AvatarFallback className="text-2xl">
                     {profile.full_name?.charAt(0)?.toUpperCase() || profile.username?.charAt(0)?.toUpperCase()}
                   </AvatarFallback>
@@ -176,7 +176,7 @@ const UserProfilePage = () => {
                       )}
                     </div>
                     
-                    <Button onClick={handleShareProfile} variant="outline">
+                    <Button aria-label="Share Profile" onClick={handleShareProfile} variant="outline">
                       <ExternalLink className="h-4 w-4 mr-2" />
                       Share Profile
                     </Button>

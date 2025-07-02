@@ -104,7 +104,7 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({
         title: "Success",
         description: "Avatar updated successfully"
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error uploading avatar:', error);
       toast({
         title: "Upload failed",
@@ -124,7 +124,7 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({
     <div className="flex flex-col items-center gap-4">
       <div className="relative group">
         <Avatar className="h-24 w-24 cursor-pointer" onClick={handleUploadClick}>
-          <AvatarImage src={currentAvatarUrl} />
+          <AvatarImage alt="user avatar" src={currentAvatarUrl} />
           <AvatarFallback className="text-xl">
             {fallbackText}
           </AvatarFallback>
@@ -138,6 +138,7 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({
       </div>
       
       <Button 
+        aria-label="Change Avatar"
         variant="outline" 
         size="sm" 
         onClick={handleUploadClick}

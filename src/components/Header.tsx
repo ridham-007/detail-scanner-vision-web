@@ -60,15 +60,15 @@ const Header = () => {
             <div 
               onClick={() => navigate('/')}
             >
-              <img src={Logo} alt="" className='h-16 w-16' />
+              <img src={Logo} alt="eateriq logo" className='h-16 w-16' />
             </div>
             <div className="cursor-pointer" onClick={() => navigate('/')}>
-              <h1 
+              <h2
                 ref={titleRef}
                 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent"
               >
                 EaterIQ
-              </h1>
+              </h2>
               <p 
                 ref={subtitleRef}
                 className="text-xs md:text-sm text-muted-foreground"
@@ -83,6 +83,7 @@ const Header = () => {
             <nav className="hidden md:flex items-center gap-6">
               {navigationItems.map((item) => (
                 <button
+                  aria-label={item.label}
                   key={item.path}
                   onClick={() => navigate(item.path)}
                   className={` font-medium transition-colors hover:text-primary ${

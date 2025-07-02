@@ -64,16 +64,16 @@ const AuthButton = () => {
   };
 
   if (loading) {
-    return <Button variant="outline" disabled>Loading...</Button>;
+    return <Button aria-label="Loading..." variant="outline" disabled>Loading...</Button>;
   }
 
   if (user) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm" className="gap-2">
+          <Button aria-label="User Menu" variant="outline" size="sm" className="gap-2">
             <Avatar className="h-6 w-6">
-              <AvatarImage src={avatarUrl || undefined} />
+              <AvatarImage alt="user avatar" src={avatarUrl || undefined} />
               <AvatarFallback className="text-xs">
                 {getUserInitials()}
               </AvatarFallback>
@@ -124,7 +124,7 @@ const AuthButton = () => {
       <div className="md:hidden">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm">
+            <Button aria-label="Mobile Menu" variant="outline" size="sm">
               <Menu className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -150,6 +150,7 @@ const AuthButton = () => {
       
       {/* Desktop Sign In Button */}
       <Button 
+        aria-label="Sign in with Google"
         onClick={signInWithGoogle} 
         className="hidden md:flex bg-gradient-to-r from-emerald-600 to-blue-600"
       >

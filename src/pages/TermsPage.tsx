@@ -180,6 +180,7 @@ const TermsPage = () => {
               <p className="text-sm text-muted-foreground">
                 Your privacy is important to us. Please review our{' '}
                 <Button 
+                  aria-label="Privacy Policy"
                   variant="link" 
                   className="p-0 h-auto font-semibold text-emerald-600"
                   onClick={() => navigate('/privacy')}
@@ -231,6 +232,7 @@ const TermsPage = () => {
               <p className="text-sm text-muted-foreground">
                 Questions about these Terms? Contact us through our{' '}
                 <Button 
+                  aria-label="Support Page"
                   variant="link" 
                   className="p-0 h-auto font-semibold text-emerald-600"
                   onClick={() => navigate('/support')}

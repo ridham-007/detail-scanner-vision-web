@@ -190,6 +190,7 @@ const QuizzesPage = () => {
         <main className="h-full container mx-auto px-3 sm:px-4 py-4 sm:py-8 relative z-10 max-w-6xl">
           <div className="h-full w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
             <Button
+              aria-label="Back to Home"
               variant="outline"
               onClick={() => navigate("/")}
               size="sm"
@@ -201,6 +202,7 @@ const QuizzesPage = () => {
             </Button>
             <div className="flex flex-col sm:flex-row justify-between text-center w-full items-center gap-3 sm:gap-4">
               <Button
+                aria-label="Back to Home"
                 variant="outline"
                 onClick={() => navigate("/")}
                 size="sm"
@@ -220,6 +222,7 @@ const QuizzesPage = () => {
               </div>
               {user && (
                 <Button
+                  aria-label="Create Quiz"
                   onClick={() => setShowCreateModal(true)}
                   className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto"
                   size="sm"
@@ -300,6 +303,7 @@ const QuizzesPage = () => {
                         Create your first AI-generated quiz!
                       </p>
                       <Button
+                        aria-label="Create Quiz"
                         onClick={() => setShowCreateModal(true)}
                         className="bg-gradient-to-r from-emerald-600 to-blue-600"
                         size="sm"

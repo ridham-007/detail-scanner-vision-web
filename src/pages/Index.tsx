@@ -187,7 +187,7 @@ const IndexPage: React.FC = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-center mb-5">
               <div>
-                <img src={Logo} alt="" className='h-28 w-28' />
+                <img src={Logo} alt="eateriq logo" className='h-28 w-28' />
               </div>
             </div>
 
@@ -195,12 +195,13 @@ const IndexPage: React.FC = () => {
               EaterIQ
             </h1>
 
-            <h2 className="hero-subtitle text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+            <h2 className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
               Transform the way you make food choices with AI-powered nutrition analysis and smart barcode scanning
             </h2>
 
             <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button
+                aria-label="Start Scanning Now"
                 size="lg"
                 className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 onClick={scrollToScanner}
@@ -209,6 +210,7 @@ const IndexPage: React.FC = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
+                aria-label="Learn More"
                 variant="outline"
                 size="lg"
                 className="px-8 py-3 rounded-full border-2 hover:bg-accent transition-all duration-300"
@@ -371,6 +373,7 @@ const IndexPage: React.FC = () => {
                 Join our community and get early access to these exciting new features when they launch.
               </p>
               <Button
+                aria-label="Get Early Access"
                 size="lg"
                 className="bg-gradient-to-r from-emerald-500 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 onClick={handleEarlyAccessClick}
@@ -392,6 +395,7 @@ const IndexPage: React.FC = () => {
               Join thousands of users who are making smarter, healthier decisions with EaterIQ
             </p>
             <Button
+              aria-label="Get Started Today"
               size="lg"
               variant="secondary"
               className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"

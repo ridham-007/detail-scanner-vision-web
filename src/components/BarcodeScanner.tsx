@@ -106,7 +106,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
           onToggleScanning();
           break;
         }
-      } catch (error: any) {
+      } catch (error) {
         if (error?.name !== "NotFoundException") {
           console.error("Detection error:", error);
         }
@@ -188,6 +188,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
 
           <div className="absolute bottom-7 left-1/2 transform -translate-x-1/2 flex gap-2 z-50">
             <Button
+              aria-label={isScanning ? "Stop Scan" : "Start Scan"}
               onClick={onToggleScanning}
               variant={isScanning ? "destructive" : "default"}
               size="sm"
@@ -200,6 +201,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
 
             {hasFlash && isScanning && (
               <Button
+                aria-label="Toggle Flash"
                 onClick={toggleFlash}
                 variant="outline"
                 size="sm"

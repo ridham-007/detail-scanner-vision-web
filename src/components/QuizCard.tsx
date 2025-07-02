@@ -116,6 +116,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
           <div className="flex flex-col gap-2">
             <div className="flex gap-2">
               <Button 
+                aria-label="Play Quiz"
                 onClick={() => onPlay(quiz.id)} 
                 className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600 text-sm h-9"
               >
@@ -124,6 +125,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               </Button>
               {user && (
                 <Button 
+                  aria-label="Leaderboard"
                   onClick={() => setShowLeaderboard(true)}
                   variant="outline"
                   size="sm"
@@ -136,6 +138,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
             </div>
             {isMyQuiz && (
               <Button
+                aria-label="Publish Quiz"
                 onClick={handleTogglePublish}
                 variant="outline"
                 size="sm"
