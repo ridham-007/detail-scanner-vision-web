@@ -14,6 +14,7 @@ import QuizCard from "@/components/QuizCard";
 import CreateQuizModal from "@/components/CreateQuizModal";
 import SEOHead from "@/components/SEOHead";
 import { generateBreadcrumbStructuredData } from "@/utils/seo";
+import { cn } from "@/lib/utils";
 
 interface Quiz {
   id: string;
@@ -59,7 +60,9 @@ const QuizzesPage = () => {
     try {
       const { data, error } = await supabase
         .from("quizzes")
-        .select("id, title, description, difficulty, created_at, creator_id, is_published")
+        .select(
+          "id, title, description, difficulty, created_at, creator_id, is_published"
+        )
         .eq("is_published", true)
         .order("created_at", { ascending: false });
 
@@ -76,7 +79,9 @@ const QuizzesPage = () => {
     try {
       const { data, error } = await supabase
         .from("quizzes")
-        .select("id, title, description, difficulty, created_at, creator_id, is_published")
+        .select(
+          "id, title, description, difficulty, created_at, creator_id, is_published"
+        )
         .eq("creator_id", user.id)
         .order("created_at", { ascending: false });
 
@@ -185,217 +190,226 @@ const QuizzesPage = () => {
         structuredData={breadcrumbStructuredData}
       />
 
-        <Header />
-        <AnimatedBackground />
-        <main className="h-full container mx-auto px-3 sm:px-4 py-4 sm:py-8 relative z-10 max-w-6xl">
-          <div className="h-full w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
+      <Header />
+      <AnimatedBackground />
+      <main className="h-full container mx-auto px-3 sm:px-4 py-4 sm:py-8 relative z-10 max-w-6xl">
+        <div className="h-full w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
+          <Button
+            aria-label="Back to Home"
+            variant="outline"
+            onClick={() => navigate("/")}
+            size="sm"
+            className="shrink-0 flex md:hidden"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Back to Home</span>
+            <span className="sm:hidden">Back</span>
+          </Button>
+          <div className="flex flex-col sm:flex-row justify-between text-center w-full items-center gap-3 sm:gap-4">
+            {/* Back Button - always visible */}
             <Button
               aria-label="Back to Home"
               variant="outline"
               onClick={() => navigate("/")}
               size="sm"
-              className="shrink-0 flex md:hidden"
+              className="shrink-0 hidden md:flex"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Back to Home</span>
               <span className="sm:hidden">Back</span>
             </Button>
-            <div className="flex flex-col sm:flex-row justify-between text-center w-full items-center gap-3 sm:gap-4">
+
+            {/* Center Heading */}
+            <div
+              className={`flex flex-col ${
+                user ? "" : "flex-1 items-center"
+              } text-center`}
+            >
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+                Quiz Hub
+              </h1>
+              <p className="text-sm sm:text-base text-muted-foreground">
+                Challenge yourself with AI-generated quizzes
+              </p>
+            </div>
+
+            {/* Create Quiz Button - only visible when user exists */}
+            {user && (
               <Button
-                aria-label="Back to Home"
-                variant="outline"
-                onClick={() => navigate("/")}
+                aria-label="Create Quiz"
+                onClick={() => setShowCreateModal(true)}
+                className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto"
                 size="sm"
-                className="shrink-0  hidden md:flex"
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                <span className="hidden sm:inline">Back to Home</span>
-                <span className="sm:hidden">Back</span>
+                <Plus className="h-4 w-4 mr-2" />
+                <span className="sm:hidden">Create</span>
+                <span className="hidden sm:inline">Create Quiz</span>
               </Button>
-              <div>
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-                  Quiz Hub
-                </h1>
+            )}
+          </div>
+        </div>
+
+        <Tabs defaultValue="all-quizzes" className="space-y-4 sm:space-y-8">
+          <TabsList className="grid w-full grid-cols-2 h-auto">
+            <TabsTrigger
+              value="all-quizzes"
+              className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm"
+            >
+              <Brain className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">All Quizzes</span>
+              <span className="sm:hidden">All</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="my-quizzes"
+              className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm"
+              disabled={!user}
+            >
+              <Target className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">My Quizzes</span>
+              <span className="sm:hidden">Mine</span>
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="all-quizzes" className="space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              {quizzes?.map((quiz) => (
+                <QuizCard
+                  key={quiz.id}
+                  quiz={quiz}
+                  onPlay={playQuiz}
+                  onQuizUpdated={handleQuizUpdated}
+                />
+              ))}
+            </div>
+            {quizzes?.length === 0 && (
+              <div className="text-center py-8 sm:py-12">
+                <Brain className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-base sm:text-lg font-semibold mb-2">
+                  No quizzes yet
+                </h3>
                 <p className="text-sm sm:text-base text-muted-foreground">
-                  Challenge yourself with AI-generated quizzes
+                  Be the first to create a quiz!
                 </p>
               </div>
-              {user && (
-                <Button
-                  aria-label="Create Quiz"
-                  onClick={() => setShowCreateModal(true)}
-                  className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto"
-                  size="sm"
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  <span className="sm:hidden">Create</span>
-                  <span className="hidden sm:inline">Create Quiz</span>
-                </Button>
-              )}
-            </div>
-          </div>
+            )}
+          </TabsContent>
 
-          <Tabs defaultValue="all-quizzes" className="space-y-4 sm:space-y-8">
-            <TabsList className="grid w-full grid-cols-2 h-auto">
-              <TabsTrigger
-                value="all-quizzes"
-                className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm"
-              >
-                <Brain className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">All Quizzes</span>
-                <span className="sm:hidden">All</span>
-              </TabsTrigger>
-              <TabsTrigger
-                value="my-quizzes"
-                className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm"
-                disabled={!user}
-              >
-                <Target className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">My Quizzes</span>
-                <span className="sm:hidden">Mine</span>
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="all-quizzes" className="space-y-4 sm:space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {quizzes?.map((quiz) => (
-                  <QuizCard 
-                    key={quiz.id} 
-                    quiz={quiz} 
-                    onPlay={playQuiz} 
-                    onQuizUpdated={handleQuizUpdated}
-                  />
-                ))}
-              </div>
-              {quizzes?.length === 0 && (
-                <div className="text-center py-8 sm:py-12">
-                  <Brain className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-base sm:text-lg font-semibold mb-2">
-                    No quizzes yet
-                  </h3>
-                  <p className="text-sm sm:text-base text-muted-foreground">
-                    Be the first to create a quiz!
-                  </p>
+          <TabsContent value="my-quizzes" className="space-y-4 sm:space-y-6">
+            {user ? (
+              <>
+                <div className="py-8 sm:py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                  {myQuizzes.map((quiz) => (
+                    <QuizCard
+                      key={quiz.id}
+                      quiz={quiz}
+                      onPlay={playQuiz}
+                      onQuizUpdated={handleQuizUpdated}
+                    />
+                  ))}
                 </div>
-              )}
-            </TabsContent>
-
-            <TabsContent value="my-quizzes" className="space-y-4 sm:space-y-6">
-              {user ? (
-                <>
-                  <div className="py-8 sm:py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    {myQuizzes.map((quiz) => (
-                      <QuizCard 
-                        key={quiz.id} 
-                        quiz={quiz} 
-                        onPlay={playQuiz} 
-                        onQuizUpdated={handleQuizUpdated}
-                      />
-                    ))}
+                {myQuizzes.length === 0 && (
+                  <div className="text-center py-8 sm:py-12">
+                    <Target className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
+                    <h3 className="text-base sm:text-lg font-semibold mb-2">
+                      No quizzes created yet
+                    </h3>
+                    <p className="text-sm sm:text-base text-muted-foreground mb-4">
+                      Create your first AI-generated quiz!
+                    </p>
+                    <Button
+                      aria-label="Create Quiz"
+                      onClick={() => setShowCreateModal(true)}
+                      className="bg-gradient-to-r from-emerald-600 to-blue-600"
+                      size="sm"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create Quiz
+                    </Button>
                   </div>
-                  {myQuizzes.length === 0 && (
-                    <div className="text-center py-8 sm:py-12">
-                      <Target className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
-                      <h3 className="text-base sm:text-lg font-semibold mb-2">
-                        No quizzes created yet
-                      </h3>
-                      <p className="text-sm sm:text-base text-muted-foreground mb-4">
-                        Create your first AI-generated quiz!
-                      </p>
-                      <Button
-                        aria-label="Create Quiz"
-                        onClick={() => setShowCreateModal(true)}
-                        className="bg-gradient-to-r from-emerald-600 to-blue-600"
-                        size="sm"
-                      >
-                        <Plus className="h-4 w-4 mr-2" />
-                        Create Quiz
-                      </Button>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="text-center py-8 sm:py-12">
-                  <p className="text-sm sm:text-base text-muted-foreground">
-                    Please sign in to view your quizzes.
-                  </p>
-                </div>
-              )}
-            </TabsContent>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-8 sm:py-12">
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  Please sign in to view your quizzes.
+                </p>
+              </div>
+            )}
+          </TabsContent>
 
-            <TabsContent value="leaderboard" className="space-y-4 sm:space-y-6">
-              <Card>
-                <CardHeader className="pb-3 sm:pb-4">
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Trophy className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
-                    Top Players
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-3 sm:p-6 pt-0">
-                  <div className="space-y-3 sm:space-y-4">
-                    {leaderboard.map((player, index) => (
-                      <div
-                        key={player.id}
-                        className="flex items-center justify-between p-2 sm:p-3 rounded-lg bg-muted/50"
-                      >
-                        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                          <div
-                            className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${
-                              index === 0
-                                ? "bg-yellow-500 text-white"
-                                : index === 1
-                                ? "bg-gray-400 text-white"
-                                : index === 2
-                                ? "bg-amber-600 text-white"
-                                : "bg-muted text-muted-foreground"
-                            }`}
-                          >
-                            {index + 1}
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="font-semibold text-sm sm:text-base truncate">
-                              {player.full_name || "Anonymous"}
-                            </p>
-                            <p className="text-xs sm:text-sm text-muted-foreground">
-                              {player.quizzes_completed} quiz
-                              {player.quizzes_completed !== 1 ? "es" : ""}{" "}
-                              completed
-                            </p>
-                          </div>
+          <TabsContent value="leaderboard" className="space-y-4 sm:space-y-6">
+            <Card>
+              <CardHeader className="pb-3 sm:pb-4">
+                <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                  <Trophy className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
+                  Top Players
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-3 sm:p-6 pt-0">
+                <div className="space-y-3 sm:space-y-4">
+                  {leaderboard.map((player, index) => (
+                    <div
+                      key={player.id}
+                      className="flex items-center justify-between p-2 sm:p-3 rounded-lg bg-muted/50"
+                    >
+                      <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                        <div
+                          className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${
+                            index === 0
+                              ? "bg-yellow-500 text-white"
+                              : index === 1
+                              ? "bg-gray-400 text-white"
+                              : index === 2
+                              ? "bg-amber-600 text-white"
+                              : "bg-muted text-muted-foreground"
+                          }`}
+                        >
+                          {index + 1}
                         </div>
-                        <div className="text-right shrink-0">
-                          <p className="font-bold text-emerald-600 text-sm sm:text-base">
-                            {player.total_score}
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold text-sm sm:text-base truncate">
+                            {player.full_name || "Anonymous"}
                           </p>
                           <p className="text-xs sm:text-sm text-muted-foreground">
-                            points
+                            {player.quizzes_completed} quiz
+                            {player.quizzes_completed !== 1 ? "es" : ""}{" "}
+                            completed
                           </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                  {leaderboard.length === 0 && (
-                    <div className="text-center py-6 sm:py-8">
-                      <Trophy className="h-8 w-8 sm:h-12 sm:w-12 mx-auto text-muted-foreground mb-4" />
-                      <p className="text-sm sm:text-base text-muted-foreground">
-                        No scores yet. Be the first!
-                      </p>
+                      <div className="text-right shrink-0">
+                        <p className="font-bold text-emerald-600 text-sm sm:text-base">
+                          {player.total_score}
+                        </p>
+                        <p className="text-xs sm:text-sm text-muted-foreground">
+                          points
+                        </p>
+                      </div>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
+                  ))}
+                </div>
+                {leaderboard.length === 0 && (
+                  <div className="text-center py-6 sm:py-8">
+                    <Trophy className="h-8 w-8 sm:h-12 sm:w-12 mx-auto text-muted-foreground mb-4" />
+                    <p className="text-sm sm:text-base text-muted-foreground">
+                      No scores yet. Be the first!
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
 
-          <CreateQuizModal
-            open={showCreateModal}
-            onOpenChange={setShowCreateModal}
-            onSubmit={createQuiz}
-            loading={loading}
-          />
-        </main>
+        <CreateQuizModal
+          open={showCreateModal}
+          onOpenChange={setShowCreateModal}
+          onSubmit={createQuiz}
+          loading={loading}
+        />
+      </main>
 
-        <Footer />
+      <Footer />
     </div>
   );
 };
