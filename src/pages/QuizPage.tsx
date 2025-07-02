@@ -398,6 +398,7 @@ const QuizPage: React.FC = () => {
         <div className="flex justify-center items-center h-64 px-4">
           <div className="text-center">
             <p className="text-sm sm:text-base">Quiz not found</p>
+            
             <Button aria-label="Back to List" onClick={onBack} className="mt-4">
               Back to List
             </Button>
