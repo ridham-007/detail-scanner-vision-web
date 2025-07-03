@@ -231,7 +231,7 @@ const UserProfilePage = () => {
           {/* Created Quizzes */}
           <Card>
             <CardHeader>
-              <h2 className="font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">
+              <h2 className="!flex gap-2 items-center font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">
                 <Trophy className="h-5 w-5" />
                 Created Quizzes
               </h2>

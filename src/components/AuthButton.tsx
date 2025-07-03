@@ -33,10 +33,7 @@ const AuthButton = () => {
 
     try {
       const { data } = await supabase
-        .from('profiles')
-        .select('username, avatar_url, full_name')
-        .eq('id', user.id)
-        .single();
+        .from('profiles').select('username, avatar_url, full_name').eq('id', user.id).single();
 
       if (data) {
         setUsername(data.username);
