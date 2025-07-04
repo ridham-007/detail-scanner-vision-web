@@ -31,6 +31,8 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import QuizLeaderboardModal from "@/components/QuizLeaderboardModal";
 import { soundEffects } from "@/utils/soundEffects";
 import confetti from "canvas-confetti";
+import { toPng } from "html-to-image";
+import { useRef } from "react";
 
 interface Question {
   id: string;
@@ -56,6 +58,7 @@ interface QuizPageProps {
 }
 
 const QuizPage: React.FC = () => {
+  const codeRef = useRef(null);
   const { quizId } = useParams<{ quizId: string }>();
   const navigate = useNavigate();
   const { user, signInWithGoogle } = useAuth();
@@ -91,7 +94,7 @@ const QuizPage: React.FC = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hiddenAnswers, setHiddenAnswers] = useState<string[]>([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
-
+  const [spentTime, setSpentTime] = useState<number>(new Date().getTime() || 0 );
   const onBack = () => {
     navigate("/quizzes");
   };
@@ -225,7 +228,7 @@ const QuizPage: React.FC = () => {
     );
 
     const finalScore = score + (answer === questions[currentQuestion]?.correct_answer ? 10 : 0);
-
+    setSpentTime(timeSpent)
     try {
       const { error } = await supabase.from("quiz_attempts").insert({
         user_id: user.id,
@@ -319,15 +322,21 @@ const QuizPage: React.FC = () => {
     });
   };
 
-  const shareQuiz = () => {
+  const shareQuiz = async () => {
+    if (!codeRef.current) return;
+
     const shareText = `Check out this ${quiz?.difficulty} quiz: "${quiz?.title}" on EaterIQ!`;
     const shareUrl = `${window.location.origin}/quiz/${quizId}`;
+    const dataUrl = await toPng(codeRef.current, { pixelRatio: 2 });
 
     if (navigator.share) {
+      const blob = await (await fetch(dataUrl)).blob();
+      const filesArray = [new File([blob], "quiz.png", { type: blob.type })];
       navigator
         .share({
-          title: quiz?.title,
+          title: "Check out this quiz!",
           text: shareText,
+          files: filesArray,
           url: shareUrl,
         })
         .catch(() => {
@@ -425,12 +434,13 @@ const QuizPage: React.FC = () => {
     );
   }
 
+
   if (gameOver) {
     return (
       <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <Header />
         <AnimatedBackground />
-        <main className="container mx-auto px-4 py-4 sm:py-8 relative z-10">
+        <main ref={codeRef} className="container mx-auto px-4 py-4 sm:py-8 relative z-10">
           <div className="max-w-2xl mx-auto">
             <Card className="text-center border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950 dark:to-orange-950">
               <CardHeader className="pb-4">
@@ -446,7 +456,7 @@ const QuizPage: React.FC = () => {
                   Quiz Completed!
                 </CardTitle>
                 {score > 50 && (
-                  <div className="text-lg font-semibold text-emerald-600 animate-pulse flex items-center justify-center gap-2">
+                  <div className="text-lg font-semibold text-emerald-600 flex items-center justify-center gap-2">
                     <Zap className="h-5 w-5" />
                     🎉 Excellent Performance! 🎉
                     <Zap className="h-5 w-5" />
@@ -455,7 +465,7 @@ const QuizPage: React.FC = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="relative">
-                  <div className={`text-4xl sm:text-5xl font-bold ${score > 50 ? 'text-emerald-600' : score > 30 ? 'text-yellow-600' : 'text-red-600'} animate-pulse`}>
+                  <div className={`text-4xl sm:text-5xl font-bold ${score > 50 ? 'text-emerald-600' : score > 30 ? 'text-yellow-600' : 'text-red-600'}`}>
                     {score}/100
                   </div>
                   <div className="text-lg text-muted-foreground mt-2">
@@ -471,7 +481,13 @@ const QuizPage: React.FC = () => {
                   </div>
                   <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
                     <Clock className="h-5 w-5 mx-auto mb-1 text-green-600" />
-                    <div className="font-semibold">{Math.floor(((new Date().getTime() - (startTime?.getTime() || 0)) / 1000) / 60)}m</div>
+                    <div className="font-semibold">
+                      {(() => {
+                       const minutes = Math.floor(spentTime / 60);
+                       const seconds = spentTime % 60;
+                       return `${minutes}m ${seconds}s`;
+                      })()}
+                    </div>
                     <div className="text-xs text-muted-foreground">Time</div>
                   </div>
                 </div>
