@@ -106,7 +106,7 @@ const FoodScannerPage: React.FC = () => {
               </Button>
             </div>
             <p className="text-sm text-muted-foreground">
-              Try scanning: 3017620422003 (Nutella) or 7622202225512 (Oreo)
+              Try scanning: 8906000610077 (Crispy Potatoes) or 8906019779840 (Mix Dry Fruits)
             </p>
           </CardContent>
         </Card>
