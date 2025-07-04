@@ -55,48 +55,72 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Main Product Card */}
-      <Card className="w-full animate-fade-in">
-        <CardContent className="p-8 space-y-6">
-          {/* Product Image and Basic Info */}
-          <div className="grid gap-6 md:grid-cols-2">
-            {/* Product Image */}
-            <div className="flex justify-center">
-              {product.images && product.images.length > 0 ? (
-                <div className="w-64 h-64 bg-muted rounded-lg overflow-hidden">
-                  <img 
-                    src={product.images[0]} 
-                    alt={product.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
-                    onError={(e) => {
-                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iI0Q1RDVENSIvPgo8L3N2Zz4K';
-                    }}
-                  />
+      {/* Main Product Card - Redesigned */}
+      <Card className="w-full animate-fade-in overflow-hidden">
+        <CardContent className="p-0">
+          {/* Header Section with Image and Product Info */}
+          <div className="relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 p-8">
+            <div className="flex flex-col lg:flex-row items-center gap-8">
+              {/* Product Image */}
+              <div className="relative group">
+                <div className="w-48 h-48 lg:w-56 lg:h-56 bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border-4 border-white dark:border-gray-700">
+                  {product.images && product.images.length > 0 ? (
+                    <img 
+                      src={product.images[0]} 
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iI0Q1RDVENSIvPgo8L3N2Zz4K';
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <ImageIcon size={64} className="text-gray-400" />
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="w-64 h-64 bg-muted rounded-lg flex items-center justify-center">
-                  <ImageIcon size={48} className="text-muted-foreground/50" />
-                </div>
-              )}
-            </div>
-
-            {/* Product Info and Health Score */}
-            <div className="space-y-6">
-              <div className="text-center md:text-left">
-                <CardTitle className="text-2xl mb-3">{product.name}</CardTitle>
-                {product.unit && (
-                  <Badge variant="outline" className="mb-4">
-                    {product.unit}
-                  </Badge>
-                )}
               </div>
 
-              {/* Health Score */}
-              {product.is_health_related_product && (
-                <div className="flex justify-center md:justify-start">
-                  <CircularHealthScore score={product.health_score} />
+              {/* Product Info and Health Score */}
+              <div className="flex-1 text-center lg:text-left space-y-6">
+                {/* Product Title and Unit */}
+                <div className="space-y-3">
+                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
+                    {product.name}
+                  </h1>
+                  {product.unit && (
+                    <Badge variant="outline" className="text-sm font-medium bg-white/50 dark:bg-gray-700/50">
+                      Per {product.unit}
+                    </Badge>
+                  )}
                 </div>
-              )}
+
+                {/* Health Score Section */}
+                {product.is_health_related_product && (
+                  <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
+                    <CircularHealthScore score={product.health_score} size={140} />
+                    <div className="text-center lg:text-left">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        Health Assessment
+                      </p>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 justify-center lg:justify-start">
+                          <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                          <span className="text-sm text-gray-700 dark:text-gray-300">
+                            {product.positives?.length || 0} Benefits
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 justify-center lg:justify-start">
+                          <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                          <span className="text-sm text-gray-700 dark:text-gray-300">
+                            {product.concerns?.length || 0} Concerns
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </CardContent>
