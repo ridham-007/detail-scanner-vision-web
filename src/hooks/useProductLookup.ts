@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -64,6 +65,7 @@ export const useProductLookup = () => {
         concerns: data.concerns || [],
         recommendations: data.recommendations || [],
         images: data.images || [],
+        ingredients: data.ingredients || '',
         other_good_product_suggestions: productSuggestions,
         is_health_related_product: isHealthRelated
       };
@@ -87,6 +89,7 @@ export const useProductLookup = () => {
           concerns: productData.concerns,
           recommendations: productData.recommendations,
           images: productData.images,
+          ingredients: productData.ingredients,
           other_good_product_suggestions: productData.other_good_product_suggestions as any,
           is_health_related_product: productData.is_health_related_product,
           is_published: true,
@@ -117,6 +120,7 @@ export const useProductLookup = () => {
           concerns: [],
           recommendations: [],
           images: [],
+          ingredients: '',
           other_good_product_suggestions: [] as any,
           is_health_related_product: true,
           is_published: false,
@@ -159,6 +163,7 @@ export const useProductLookup = () => {
             concerns: productData.concerns || [],
             recommendations: productData.recommendations || [],
             images: productData.images || [],
+            ingredients: productData.ingredients || '',
             other_good_product_suggestions: productData.other_good_product_suggestions || [],
             is_health_related_product: productData.is_health_related_product !== false
           };

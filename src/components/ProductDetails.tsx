@@ -3,8 +3,11 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Lightbulb, Activity, Image as ImageIcon, Star, ArrowRight } from 'lucide-react';
+import { Lightbulb, Image as ImageIcon, Star, ArrowRight } from 'lucide-react';
 import NoProductData from './NoProductData';
+import CircularHealthScore from './CircularHealthScore';
+import IngredientsDisplay from './IngredientsDisplay';
+import HealthInsights from './HealthInsights';
 import { ProductData } from '@/types/ProductData';
 
 interface ProductDetailsProps {
@@ -33,7 +36,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     );
   }
 
-  // Show the animated no-data state when explicitly requested
   if (showNoDataState) {
     return <NoProductData />;
   }
@@ -51,78 +53,82 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     );
   }
 
-  const getHealthScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 bg-green-100 dark:bg-green-900/30';
-    if (score >= 60) return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30';
-    return 'text-red-600 bg-red-100 dark:bg-red-900/30';
-  };
-
   return (
     <div className="space-y-6">
+      {/* Main Product Card */}
       <Card className="w-full animate-fade-in">
         <CardContent className="p-8 space-y-6">
-          {/* Product Image */}
-          <div className="flex justify-center">
-            {product.images && product.images.length > 0 ? (
-              <div className="w-48 h-48 bg-muted rounded-lg overflow-hidden">
-                <img 
-                  src={product.images[0]} 
-                  alt={product.name}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
-                  onError={(e) => {
-                    e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iI0Q1RDVENSIvPgo8L3N2Zz4K';
-                  }}
-                />
-              </div>
-            ) : (
-              <div className="w-48 h-48 bg-muted rounded-lg flex items-center justify-center">
-                <ImageIcon size={48} className="text-muted-foreground/50" />
-              </div>
-            )}
-          </div>
-
-          {/* Product Name and Health Score */}
-          <div className="text-center space-y-3">
-            <CardTitle className="text-2xl">{product.name}</CardTitle>
-            {product.is_health_related_product && (
-              <div className="flex justify-center">
-                <Badge className={`${getHealthScoreColor(product.health_score)} border-0 px-4 py-2`}>
-                  <Activity size={16} className="mr-2" />
-                  Health Score: {product.health_score}/100
-                </Badge>
-              </div>
-            )}
-          </div>
-
-          {/* Recommendations */}
-          {product.recommendations && product.recommendations.length > 0 ? (
-            <>
-              <Separator />
-              <div className="space-y-3">
-                <h4 className="font-semibold flex items-center justify-center gap-2 text-lg">
-                  <Lightbulb size={20} className="text-blue-600" />
-                  Recommendations
-                </h4>
-                <div className="space-y-3">
-                  {product.recommendations.map((recommendation, index) => (
-                    <div key={index} className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="text-blue-700 dark:text-blue-300">{recommendation}</p>
-                    </div>
-                  ))}
+          {/* Product Image and Basic Info */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Product Image */}
+            <div className="flex justify-center">
+              {product.images && product.images.length > 0 ? (
+                <div className="w-64 h-64 bg-muted rounded-lg overflow-hidden">
+                  <img 
+                    src={product.images[0]} 
+                    alt={product.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iI0Q1RDVENSIvPgo8L3N2Zz4K';
+                    }}
+                  />
                 </div>
+              ) : (
+                <div className="w-64 h-64 bg-muted rounded-lg flex items-center justify-center">
+                  <ImageIcon size={48} className="text-muted-foreground/50" />
+                </div>
+              )}
+            </div>
+
+            {/* Product Info and Health Score */}
+            <div className="space-y-6">
+              <div className="text-center md:text-left">
+                <CardTitle className="text-2xl mb-3">{product.name}</CardTitle>
+                {product.unit && (
+                  <Badge variant="outline" className="mb-4">
+                    {product.unit}
+                  </Badge>
+                )}
               </div>
-            </>
-          ) : (
-            <>
-              <Separator />
-              <div className="text-center py-8">
-                <p className="text-muted-foreground">Data not available for this product</p>
-              </div>
-            </>
-          )}
+
+              {/* Health Score */}
+              {product.is_health_related_product && (
+                <div className="flex justify-center md:justify-start">
+                  <CircularHealthScore score={product.health_score} />
+                </div>
+              )}
+            </div>
+          </div>
         </CardContent>
       </Card>
+
+      {/* Health Insights */}
+      <HealthInsights positives={product.positives} concerns={product.concerns} />
+
+      {/* Ingredients */}
+      <IngredientsDisplay ingredients={product.ingredients || ''} />
+
+      {/* Recommendations */}
+      {product.recommendations && product.recommendations.length > 0 && (
+        <Card className="w-full animate-fade-in">
+          <CardContent className="p-8 space-y-6">
+            <div className="space-y-3">
+              <h4 className="font-semibold flex items-center justify-center gap-2 text-lg">
+                <Lightbulb size={20} className="text-blue-600" />
+                Recommendations
+              </h4>
+              <div className="space-y-3">
+                {product.recommendations.map((recommendation, index) => (
+                  <div key={index} className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-blue-700 dark:text-blue-300">{recommendation}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Product Suggestions */}
       {product.other_good_product_suggestions && product.other_good_product_suggestions.length > 0 && (

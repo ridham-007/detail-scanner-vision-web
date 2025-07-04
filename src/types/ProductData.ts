@@ -41,6 +41,7 @@ export interface ProductData {
   concerns: string[];
   recommendations: string[];
   images: string[];
+  ingredients: string;
   other_good_product_suggestions: ProductSuggestion[];
   is_health_related_product: boolean;
 }
