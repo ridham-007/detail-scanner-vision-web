@@ -150,9 +150,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         </CardContent>
       </Card>
 
-      {/* User Feedback Section */}
-      <ProductFeedback barcode={product.barcode} />
-
       {/* Health Insights */}
       <HealthInsights positives={product.positives} concerns={product.concerns} />
 
@@ -221,6 +218,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
           </CardContent>
         </Card>
       )}
+            {/* User Feedback Section */}
+      <ProductFeedback barcode={product.barcode} />
     </div>
   );
 };
