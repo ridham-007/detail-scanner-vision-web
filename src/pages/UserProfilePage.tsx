@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -30,6 +29,7 @@ interface Quiz {
   description: string;
   difficulty: 'easy' | 'medium' | 'hard';
   created_at: string;
+  creator_id: string;
 }
 
 const UserProfilePage = () => {
@@ -91,7 +91,7 @@ const UserProfilePage = () => {
     try {
       const { data, error } = await supabase
         .from('quizzes')
-        .select('id, title, description, difficulty, created_at')
+        .select('id, title, description, difficulty, created_at, creator_id')
         .eq('creator_id', userId)
         // .eq('is_published', true)
         .order('created_at', { ascending: false });
