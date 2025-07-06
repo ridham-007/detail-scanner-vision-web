@@ -66,6 +66,36 @@ export type Database = {
         }
         Relationships: []
       }
+      product_feedback: {
+        Row: {
+          barcode: string
+          category: string | null
+          comment: string | null
+          created_at: string
+          feedback_type: string
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          barcode: string
+          category?: string | null
+          comment?: string | null
+          created_at?: string
+          feedback_type: string
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          barcode?: string
+          category?: string | null
+          comment?: string | null
+          created_at?: string
+          feedback_type?: string
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

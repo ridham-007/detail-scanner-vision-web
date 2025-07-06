@@ -8,6 +8,7 @@ import NoProductData from './NoProductData';
 import CircularHealthScore from './CircularHealthScore';
 import IngredientsDisplay from './IngredientsDisplay';
 import HealthInsights from './HealthInsights';
+import ProductFeedback from './ProductFeedback';
 import { ProductData } from '@/types/ProductData';
 
 interface ProductDetailsProps {
@@ -148,6 +149,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
           </div>
         </CardContent>
       </Card>
+
+      {/* User Feedback Section */}
+      <ProductFeedback barcode={product.barcode} />
 
       {/* Health Insights */}
       <HealthInsights positives={product.positives} concerns={product.concerns} />
