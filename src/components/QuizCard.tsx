@@ -1,13 +1,13 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Play, Calendar, Trophy, EyeOff, Eye } from 'lucide-react';
+import { Play, Calendar, Trophy, EyeOff, Eye, Edit } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import QuizLeaderboardModal from './QuizLeaderboardModal';
+import EditQuizModal from './EditQuizModal';
 
 interface Quiz {
   id: string;
@@ -29,6 +29,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const getDifficultyColor = (difficulty: string) => {
@@ -66,7 +67,6 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
           : "Your quiz has been unpublished successfully.",
       });
 
-      // Refresh the quiz list
       if (onQuizUpdated) {
         onQuizUpdated();
       }
@@ -83,7 +83,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   };
 
   const isMyQuiz = user && quiz.creator_id === user.id;
-  const isPublished = quiz.is_published !== false; // Default to true if not specified
+  const isPublished = quiz.is_published !== false;
 
   return (
     <>
@@ -137,42 +137,64 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               )}
             </div>
             {isMyQuiz && (
-              <Button
-                aria-label="Publish Quiz"
-                onClick={handleTogglePublish}
-                variant="outline"
-                size="sm"
-                disabled={isUpdating}
-                className={`w-full h-9 ${
-                  isPublished 
-                    ? 'text-red-600 hover:text-red-700 hover:bg-red-50' 
-                    : 'text-green-600 hover:text-green-700 hover:bg-green-50'
-                }`}
-              >
-                {isPublished ? (
-                  <>
-                    <EyeOff className="h-4 w-4 mr-2" />
-                    {isUpdating ? 'Unpublishing...' : 'Unpublish'}
-                  </>
-                ) : (
-                  <>
-                    <Eye className="h-4 w-4 mr-2" />
-                    {isUpdating ? 'Publishing...' : 'Publish'}
-                  </>
-                )}
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  aria-label="Edit Quiz"
+                  onClick={() => setShowEditModal(true)}
+                  variant="outline"
+                  size="sm"
+                  className="flex-1 h-9 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                >
+                  <Edit className="h-4 w-4 mr-2" />
+                  Edit
+                </Button>
+                <Button
+                  aria-label="Publish Quiz"
+                  onClick={handleTogglePublish}
+                  variant="outline"
+                  size="sm"
+                  disabled={isUpdating}
+                  className={`flex-1 h-9 ${
+                    isPublished 
+                      ? 'text-red-600 hover:text-red-700 hover:bg-red-50' 
+                      : 'text-green-600 hover:text-green-700 hover:bg-green-50'
+                  }`}
+                >
+                  {isPublished ? (
+                    <>
+                      <EyeOff className="h-4 w-4 mr-2" />
+                      {isUpdating ? 'Unpublishing...' : 'Unpublish'}
+                    </>
+                  ) : (
+                    <>
+                      <Eye className="h-4 w-4 mr-2" />
+                      {isUpdating ? 'Publishing...' : 'Publish'}
+                    </>
+                  )}
+                </Button>
+              </div>
             )}
           </div>
         </CardContent>
       </Card>
 
       {user && (
-        <QuizLeaderboardModal
-          open={showLeaderboard}
-          onOpenChange={setShowLeaderboard}
-          quizId={quiz.id}
-          quizTitle={quiz.title}
-        />
+        <>
+          <QuizLeaderboardModal
+            open={showLeaderboard}
+            onOpenChange={setShowLeaderboard}
+            quizId={quiz.id}
+            quizTitle={quiz.title}
+          />
+          {isMyQuiz && (
+            <EditQuizModal
+              open={showEditModal}
+              onOpenChange={setShowEditModal}
+              quiz={quiz}
+              onQuizUpdated={onQuizUpdated || (() => {})}
+            />
+          )}
+        </>
       )}
     </>
   );
