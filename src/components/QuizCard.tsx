@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -15,7 +16,7 @@ interface Quiz {
   description: string;
   difficulty: 'easy' | 'medium' | 'hard';
   created_at: string;
-  creator_id?: string;
+  creator_id: string;
   is_published?: boolean;
 }
 
