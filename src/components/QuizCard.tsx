@@ -3,12 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Play, Calendar, Trophy, EyeOff, Eye, Edit, User } from 'lucide-react';
+import { Play, Calendar, Trophy, EyeOff, Eye, Edit, User, Shield } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useIsAdmin } from '@/hooks/useIsAdmin';
 import QuizLeaderboardModal from './QuizLeaderboardModal';
 import EditQuizModal from './EditQuizModal';
 
@@ -35,6 +36,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const { data: isAdmin } = useIsAdmin();
 
   // Fetch creator profile
   const { data: creator } = useQuery({
@@ -83,7 +85,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   };
 
   const handleTogglePublish = async () => {
-    if (!user || quiz.creator_id !== user.id) return;
+    if (!user || (quiz.creator_id !== user.id && !isAdmin)) return;
 
     const newPublishedState = !quiz.is_published;
     setIsUpdating(true);
@@ -92,16 +94,15 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
       const { error } = await supabase
         .from('quizzes')
         .update({ is_published: newPublishedState })
-        .eq('id', quiz.id)
-        .eq('creator_id', user.id);
+        .eq('id', quiz.id);
 
       if (error) throw error;
 
       toast({
         title: newPublishedState ? "Quiz Published" : "Quiz Unpublished",
         description: newPublishedState 
-          ? "Your quiz has been published successfully." 
-          : "Your quiz has been unpublished successfully.",
+          ? "Quiz has been published successfully." 
+          : "Quiz has been unpublished successfully.",
       });
 
       if (onQuizUpdated) {
@@ -119,8 +120,46 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
     }
   };
 
+  const handleDeleteQuiz = async () => {
+    if (!user || (quiz.creator_id !== user.id && !isAdmin)) return;
+    
+    if (!confirm('Are you sure you want to delete this quiz? This action cannot be undone.')) {
+      return;
+    }
+
+    setIsUpdating(true);
+    
+    try {
+      const { error } = await supabase
+        .from('quizzes')
+        .delete()
+        .eq('id', quiz.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Quiz Deleted",
+        description: "Quiz has been deleted successfully.",
+      });
+
+      if (onQuizUpdated) {
+        onQuizUpdated();
+      }
+    } catch (error) {
+      console.error('Error deleting quiz:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete quiz. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   const isMyQuiz = user && quiz.creator_id === user.id;
   const isPublished = quiz.is_published !== false;
+  const canManageQuiz = isMyQuiz || isAdmin;
 
   return (
     <>
@@ -133,9 +172,15 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                 <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
                   {quiz.difficulty.toUpperCase()}
                 </Badge>
-                {isMyQuiz && (
+                {(isMyQuiz || isAdmin) && (
                   <Badge variant={isPublished ? "default" : "secondary"} className="text-xs">
                     {isPublished ? "Published" : "Draft"}
+                  </Badge>
+                )}
+                {isAdmin && !isMyQuiz && (
+                  <Badge variant="outline" className="text-xs text-orange-600 border-orange-600">
+                    <Shield className="h-3 w-3 mr-1" />
+                    Admin
                   </Badge>
                 )}
               </div>
@@ -189,7 +234,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                 </Button>
               )}
             </div>
-            {isMyQuiz && (
+            {canManageQuiz && (
               <div className="flex gap-2">
                 <Button
                   aria-label="Edit Quiz"
@@ -202,7 +247,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                   Edit
                 </Button>
                 <Button
-                  aria-label="Publish Quiz"
+                  aria-label="Toggle Publish"
                   onClick={handleTogglePublish}
                   variant="outline"
                   size="sm"
@@ -227,6 +272,18 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                 </Button>
               </div>
             )}
+            {isAdmin && !isMyQuiz && (
+              <Button
+                aria-label="Delete Quiz"
+                onClick={handleDeleteQuiz}
+                variant="outline"
+                size="sm"
+                disabled={isUpdating}
+                className="w-full h-9 text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+              >
+                {isUpdating ? 'Deleting...' : 'Delete Quiz'}
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -239,7 +296,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
             quizId={quiz.id}
             quizTitle={quiz.title}
           />
-          {isMyQuiz && (
+          {canManageQuiz && (
             <EditQuizModal
               open={showEditModal}
               onOpenChange={setShowEditModal}

@@ -104,6 +104,7 @@ export type Database = {
           email: string | null
           full_name: string | null
           id: string
+          is_admin: boolean
           location: string | null
           quizzes_completed: number | null
           total_score: number | null
@@ -118,6 +119,7 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id: string
+          is_admin?: boolean
           location?: string | null
           quizzes_completed?: number | null
           total_score?: number | null
@@ -132,6 +134,7 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id?: string
+          is_admin?: boolean
           location?: string | null
           quizzes_completed?: number | null
           total_score?: number | null
