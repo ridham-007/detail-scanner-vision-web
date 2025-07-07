@@ -324,29 +324,49 @@ const QuizPage: React.FC = () => {
 
   const shareQuiz = async () => {
     if (!codeRef.current) return;
-
+  
     const shareText = `Check out this ${quiz?.difficulty} quiz: "${quiz?.title}" on EaterIQ!`;
     const shareUrl = `${window.location.origin}/quiz/${quizId}`;
-    const dataUrl = await toPng(codeRef.current, { pixelRatio: 2 });
-
+  
+    // 1. Clone the node without modifying actual UI
+    const clone = codeRef.current.cloneNode(true);
+  
+    // 2. Remove elements with class "ignoreInShare" from the clone
+    const elementsToRemove = clone.querySelectorAll('.ignoreInShare');
+    elementsToRemove.forEach(el => el.remove());
+  
+    // 3. Create an off-screen container to hold the clone temporarily
+    const container = document.createElement('div');
+    container.style.position = 'fixed';
+    container.style.top = '-10000px';
+    container.style.left = '-10000px';
+    container.style.zIndex = '-1';
+    container.appendChild(clone);
+    document.body.appendChild(container);
+  
+    // 4. Generate PNG from the cloned node
+    const dataUrl = await toPng(clone, { pixelRatio: 2 });
+  
+    // 5. Clean up: remove the off-screen clone
+    document.body.removeChild(container);
+  
     if (navigator.share) {
-      const blob = await (await fetch(dataUrl)).blob();
-      const filesArray = [new File([blob], "quiz.png", { type: blob.type })];
-      navigator
-        .share({
+      try {
+        const blob = await (await fetch(dataUrl)).blob();
+        const filesArray = [new File([blob], "quiz.png", { type: blob.type })];
+        await navigator.share({
           title: "Check out this quiz!",
           text: shareText,
           files: filesArray,
           url: shareUrl,
-        })
-        .catch(() => {
-          // Fallback to clipboard if sharing fails
-          navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
-          toast({
-            title: "Link Copied!",
-            description: "Quiz link copied to clipboard",
-          });
         });
+      } catch {
+        navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+        toast({
+          title: "Link Copied!",
+          description: "Quiz link copied to clipboard",
+        });
+      }
     } else {
       navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
       toast({
@@ -355,6 +375,7 @@ const QuizPage: React.FC = () => {
       });
     }
   };
+  
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -529,7 +550,7 @@ const QuizPage: React.FC = () => {
                 )}
 
                 {user && (
-                  <div className="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-950 dark:to-emerald-950 p-4 rounded-xl border-2 border-green-200 dark:border-green-800">
+                  <div className="ignoreInShare bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-950 dark:to-emerald-950 p-4 rounded-xl border-2 border-green-200 dark:border-green-800">
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <CheckCircle className="h-5 w-5 text-green-600" />
                       <span className="font-medium text-green-700 dark:text-green-300">Score Saved!</span>
@@ -540,7 +561,7 @@ const QuizPage: React.FC = () => {
                   </div>
                 )}
 
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 ignoreInShare">
                   <Button
                     aria-label="Back to Quizzes"
                     onClick={onBack}
