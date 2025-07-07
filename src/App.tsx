@@ -23,7 +23,7 @@ import BlogPostPage from "./pages/BlogPostPage";
 import AdminBlogsPage from "./pages/admin/AdminBlogsPage";
 import CreateBlogPage from "./pages/admin/CreateBlogPage";
 import EditBlogPage from "./pages/admin/EditBlogPage";
-import "./App.css";
+// import "./App.css";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +34,7 @@ function App() {
         <AuthProvider>
           <TooltipProvider>
             <BrowserRouter>
-              <div className="min-h-screen bg-background flex flex-col">
+              <div className="min-h-screen bg-background flex flex-col w-full">
                 <Header />
                 <main className="flex-1">
                   <Routes>

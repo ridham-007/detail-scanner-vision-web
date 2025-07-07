@@ -424,7 +424,7 @@ const QuizPage: React.FC = () => {
   if (!quizId) {
     return (
       <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        <Header />
+
         <div className="flex justify-center items-center h-64 px-4">
           <div className="text-center">
             <p className="text-sm sm:text-base">Quiz not found</p>
@@ -434,7 +434,6 @@ const QuizPage: React.FC = () => {
             </Button>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -442,7 +441,7 @@ const QuizPage: React.FC = () => {
   if (!quiz || questions.length === 0) {
     return (
       <div className="min-h-dvh flex flex-col justify-between bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        <Header />
+
         <AnimatedBackground />
         <div className="flex justify-center items-center h-full relative z-10 px-4">
           <div className="text-center">
@@ -450,7 +449,6 @@ const QuizPage: React.FC = () => {
             <p className="text-sm sm:text-base">Loading quiz...</p>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -459,7 +457,6 @@ const QuizPage: React.FC = () => {
   if (gameOver) {
     return (
       <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        <Header />
         <AnimatedBackground />
         <main ref={codeRef} className="container mx-auto px-4 py-4 sm:py-8 relative z-10">
           <div className="max-w-2xl mx-auto">
@@ -584,14 +581,12 @@ const QuizPage: React.FC = () => {
             </Card>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <Header />
       <AnimatedBackground />
 
       <main className="container mx-auto px-3 sm:px-4 py-4 relative z-10 max-w-4xl">
@@ -886,8 +881,6 @@ const QuizPage: React.FC = () => {
           onOpenChange={setShowLeaderboard}
         />
       )}
-
-      <Footer />
     </div>
   );
 };

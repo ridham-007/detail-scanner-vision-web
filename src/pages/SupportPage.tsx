@@ -117,7 +117,6 @@ const SupportPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <Header />
       <AnimatedBackground />
 
       <main className="container mx-auto px-4 py-8 relative z-10 max-w-6xl">
@@ -303,7 +302,6 @@ const SupportPage = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

@@ -126,7 +126,6 @@ const UserProfilePage = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-center py-16">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
@@ -139,7 +138,6 @@ const UserProfilePage = () => {
   if (!profile) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center py-16">
             <h1 className="text-2xl font-bold mb-4">User not found</h1>
@@ -152,7 +150,6 @@ const UserProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Profile Header */}

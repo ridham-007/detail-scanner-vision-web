@@ -201,7 +201,6 @@ const QuizzesPage = () => {
         structuredData={breadcrumbStructuredData}
       />
 
-      <Header />
       <AnimatedBackground />
       <main className="h-full container mx-auto px-3 sm:px-4 py-4 sm:py-8 relative z-10 max-w-6xl">
         <div className="h-full w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
@@ -425,8 +424,6 @@ const QuizzesPage = () => {
           action="create quizzes"
         />
       </main>
-
-      <Footer />
     </div>
   );
 };
