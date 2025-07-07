@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -67,8 +66,8 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   };
 
   const handleCreatorClick = () => {
-    if (creator) {
-      navigate(`/profile/${creator.id}`);
+    if (creator && creator.username) {
+      navigate(`/profile/${creator.username}`);
     }
   };
 
@@ -143,8 +142,8 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               
               {/* Creator Info */}
               <div 
-                className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-                onClick={handleCreatorClick}
+                className={`flex items-center gap-2 transition-opacity ${creator && creator.username ? 'cursor-pointer hover:opacity-80' : 'cursor-default'}`}
+                onClick={creator && creator.username ? handleCreatorClick : undefined}
               >
                 <Avatar className="h-6 w-6">
                   <AvatarImage src={creator?.avatar_url || ''} alt={getCreatorDisplayName()} />
@@ -152,7 +151,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                     {getCreatorInitials()}
                   </AvatarFallback>
                 </Avatar>
-                <span className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+                <span className={`text-xs text-muted-foreground transition-colors ${creator && creator.username ? 'hover:text-foreground' : ''}`}>
                   by {getCreatorDisplayName()}
                 </span>
               </div>
