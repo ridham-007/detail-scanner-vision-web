@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu } from 'lucide-react';
+import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu, BookOpen, Shield } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -16,6 +17,7 @@ import {
 
 const AuthButton = () => {
   const { user, signInWithGoogle, signOut, loading } = useAuth();
+  const { data: isAdmin } = useIsAdmin();
   const navigate = useNavigate();
   const location = useLocation();
   const [username, setUsername] = useState<string | null>(null);
@@ -48,6 +50,7 @@ const AuthButton = () => {
   const navigationItems = [
     { path: '/', label: 'Scanner', icon: Scan },
     { path: '/quizzes', label: 'Food IQ Tests', icon: Trophy },
+    { path: '/blog', label: 'Blog', icon: BookOpen },
   ];
 
   const getUserInitials = () => {
@@ -106,6 +109,18 @@ const AuthButton = () => {
             <Settings className="h-4 w-4 mr-2" />
             Settings
           </DropdownMenuItem>
+          
+          {/* Admin Menu Items */}
+          {isAdmin && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => navigate('/admin/blogs')}>
+                <Shield className="h-4 w-4 mr-2" />
+                Manage Blogs
+              </DropdownMenuItem>
+            </>
+          )}
+          
           <DropdownMenuItem onClick={signOut}>
             <LogOut className="h-4 w-4 mr-2" />
             Sign Out
