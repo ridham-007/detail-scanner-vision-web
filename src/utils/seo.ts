@@ -7,6 +7,19 @@ interface SEOConfig {
   url?: string;
   type?: 'website' | 'article' | 'quiz';
   structuredData?: object;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  canonicalUrl?: string;
+  articleData?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+    section?: string;
+  };
 }
 
 export const updatePageSEO = (config: SEOConfig) => {
@@ -17,7 +30,15 @@ export const updatePageSEO = (config: SEOConfig) => {
     image = 'http://eateriq.com/eater-iq.png',
     url = window.location.href,
     type = 'website',
-    structuredData
+    structuredData,
+    ogTitle,
+    ogDescription,
+    ogImage,
+    twitterTitle,
+    twitterDescription,
+    twitterImage,
+    canonicalUrl,
+    articleData
   } = config;
 
   // Update document title
@@ -46,17 +67,33 @@ export const updatePageSEO = (config: SEOConfig) => {
   updateMeta('keywords', keywords);
   
   // Update Open Graph tags
-  updateMeta('og:title', title, true);
-  updateMeta('og:description', description, true);
-  updateMeta('og:image', image, true);
-  updateMeta('og:url', url, true);
+  updateMeta('og:title', ogTitle || title, true);
+  updateMeta('og:description', ogDescription || description, true);
+  updateMeta('og:image', ogImage || image, true);
+  updateMeta('og:url', canonicalUrl || url, true);
   updateMeta('og:type', type, true);
   
   // Update Twitter tags
-  updateMeta('twitter:title', title);
-  updateMeta('twitter:description', description);
-  updateMeta('twitter:image', image);
-  updateMeta('twitter:url', url);
+  updateMeta('twitter:title', twitterTitle || title);
+  updateMeta('twitter:description', twitterDescription || description);
+  updateMeta('twitter:image', twitterImage || image);
+  updateMeta('twitter:url', canonicalUrl || url);
+
+  // Article-specific meta tags
+  if (type === 'article' && articleData) {
+    if (articleData.publishedTime) {
+      updateMeta('article:published_time', articleData.publishedTime, true);
+    }
+    if (articleData.modifiedTime) {
+      updateMeta('article:modified_time', articleData.modifiedTime, true);
+    }
+    if (articleData.author) {
+      updateMeta('article:author', articleData.author, true);
+    }
+    if (articleData.section) {
+      updateMeta('article:section', articleData.section, true);
+    }
+  }
 
   // Update canonical URL
   let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
@@ -65,7 +102,7 @@ export const updatePageSEO = (config: SEOConfig) => {
     canonical.setAttribute('rel', 'canonical');
     document.head.appendChild(canonical);
   }
-  canonical.setAttribute('href', url);
+  canonical.setAttribute('href', canonicalUrl || url);
 
   // Add structured data if provided
   if (structuredData) {

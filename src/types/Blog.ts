@@ -70,4 +70,7 @@ export interface CreateBlogPost {
   twitter_title?: string;
   twitter_description?: string;
   twitter_image?: string;
+  word_count?: number;
+  reading_time?: number;
+  published_at?: string;
 }

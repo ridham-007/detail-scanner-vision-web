@@ -9,6 +9,19 @@ interface SEOHeadProps {
   image?: string;
   type?: 'website' | 'article' | 'quiz';
   structuredData?: object;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  canonicalUrl?: string;
+  articleData?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+    section?: string;
+  };
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
@@ -17,7 +30,15 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   keywords,
   image,
   type = 'website',
-  structuredData
+  structuredData,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  twitterTitle,
+  twitterDescription,
+  twitterImage,
+  canonicalUrl,
+  articleData
 }) => {
   useEffect(() => {
     updatePageSEO({
@@ -26,9 +47,17 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       keywords,
       image,
       type,
-      structuredData
+      structuredData,
+      ogTitle,
+      ogDescription,
+      ogImage,
+      twitterTitle,
+      twitterDescription,
+      twitterImage,
+      canonicalUrl,
+      articleData
     });
-  }, [title, description, keywords, image, type, structuredData]);
+  }, [title, description, keywords, image, type, structuredData, ogTitle, ogDescription, ogImage, twitterTitle, twitterDescription, twitterImage, canonicalUrl, articleData]);
 
   return null;
 };
