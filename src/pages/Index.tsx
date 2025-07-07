@@ -59,6 +59,30 @@ const IndexPage: React.FC = () => {
     },
   });
 
+  // Fetch user count
+  const { data: userCount } = useQuery({
+    queryKey: ['user-count'],
+    queryFn: async () => {
+      const { count, error } = await supabase
+        .from('profiles')
+        .select('*', { count: 'exact', head: true });
+      
+      if (error) throw error;
+      return (count || 0) + 2400; // Base count + DB count
+    },
+  });
+
+  // Format numbers with K, M abbreviations
+  const formatNumber = (num: number) => {
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    return num.toString();
+  };
+
   const scrollToScanner = () => {
     trackCTAClick('scroll_to_scanner');
     scannerRef.current?.scrollIntoView({
@@ -301,7 +325,7 @@ const IndexPage: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="stat-item group">
               <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                {productCount?.toLocaleString() || '4,700+'}
+                {productCount ? formatNumber(productCount) : '4.7K+'}
               </div>
               <p className="text-muted-foreground text-lg">Products Analyzed</p>
             </div>
@@ -313,7 +337,7 @@ const IndexPage: React.FC = () => {
             </div>
             <div className="stat-item group">
               <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-                2,400+
+                {userCount ? formatNumber(userCount) : '2.4K+'}
               </div>
               <p className="text-muted-foreground text-lg">Happy Users</p>
             </div>
