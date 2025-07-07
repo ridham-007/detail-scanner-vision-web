@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +13,7 @@ import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import QuizCard from "@/components/QuizCard";
 import CreateQuizModal from "@/components/CreateQuizModal";
+import LoginPromptModal from "@/components/LoginPromptModal";
 import SEOHead from "@/components/SEOHead";
 import { generateBreadcrumbStructuredData } from "@/utils/seo";
 import { cn } from "@/lib/utils";
@@ -41,6 +43,7 @@ const QuizzesPage = () => {
   const [myQuizzes, setMyQuizzes] = useState<Quiz[]>([]);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
@@ -110,6 +113,14 @@ const QuizzesPage = () => {
   const handleQuizUpdated = () => {
     fetchQuizzes();
     fetchMyQuizzes();
+  };
+
+  const handleCreateQuizClick = () => {
+    if (user) {
+      setShowCreateModal(true);
+    } else {
+      setShowLoginPrompt(true);
+    }
   };
 
   const createQuiz = async (formData: {
@@ -220,11 +231,7 @@ const QuizzesPage = () => {
             </Button>
 
             {/* Center Heading */}
-            <div
-              className={`flex flex-col ${
-                user ? "" : "flex-1 items-center"
-              } text-center`}
-            >
+            <div className="flex flex-col flex-1 items-center text-center">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
                 Quiz Hub
               </h1>
@@ -233,19 +240,17 @@ const QuizzesPage = () => {
               </p>
             </div>
 
-            {/* Create Quiz Button - only visible when user exists */}
-            {user && (
-              <Button
-                aria-label="Create Quiz"
-                onClick={() => setShowCreateModal(true)}
-                className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto"
-                size="sm"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                <span className="sm:hidden">Create</span>
-                <span className="hidden sm:inline">Create Quiz</span>
-              </Button>
-            )}
+            {/* Create Quiz Button - always visible */}
+            <Button
+              aria-label="Create Quiz"
+              onClick={handleCreateQuizClick}
+              className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto"
+              size="sm"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              <span className="sm:hidden">Create</span>
+              <span className="hidden sm:inline">Create Quiz</span>
+            </Button>
           </div>
         </div>
 
@@ -318,7 +323,7 @@ const QuizzesPage = () => {
                     </p>
                     <Button
                       aria-label="Create Quiz"
-                      onClick={() => setShowCreateModal(true)}
+                      onClick={handleCreateQuizClick}
                       className="bg-gradient-to-r from-emerald-600 to-blue-600"
                       size="sm"
                     >
@@ -330,9 +335,15 @@ const QuizzesPage = () => {
               </>
             ) : (
               <div className="text-center py-8 sm:py-12">
-                <p className="text-sm sm:text-base text-muted-foreground">
+                <p className="text-sm sm:text-base text-muted-foreground mb-4">
                   Please sign in to view your quizzes.
                 </p>
+                <Button
+                  onClick={() => navigate('/auth')}
+                  className="bg-gradient-to-r from-emerald-600 to-blue-600"
+                >
+                  Sign In
+                </Button>
               </div>
             )}
           </TabsContent>
@@ -406,6 +417,12 @@ const QuizzesPage = () => {
           onOpenChange={setShowCreateModal}
           onSubmit={createQuiz}
           loading={loading}
+        />
+
+        <LoginPromptModal
+          open={showLoginPrompt}
+          onOpenChange={setShowLoginPrompt}
+          action="create quizzes"
         />
       </main>
 

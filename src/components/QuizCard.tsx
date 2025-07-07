@@ -3,10 +3,13 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Play, Calendar, Trophy, EyeOff, Eye, Edit } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Play, Calendar, Trophy, EyeOff, Eye, Edit, User } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import QuizLeaderboardModal from './QuizLeaderboardModal';
 import EditQuizModal from './EditQuizModal';
 
@@ -29,9 +32,26 @@ interface QuizCardProps {
 const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+
+  // Fetch creator profile
+  const { data: creator } = useQuery({
+    queryKey: ['creator-profile', quiz.creator_id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id, full_name, avatar_url, username')
+        .eq('id', quiz.creator_id)
+        .single();
+      
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!quiz.creator_id,
+  });
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -44,6 +64,23 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
       default:
         return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
+  };
+
+  const handleCreatorClick = () => {
+    if (creator) {
+      navigate(`/profile/${creator.id}`);
+    }
+  };
+
+  const getCreatorDisplayName = () => {
+    if (!creator) return 'Anonymous';
+    return creator.full_name || creator.username || 'Anonymous';
+  };
+
+  const getCreatorInitials = () => {
+    const name = getCreatorDisplayName();
+    if (name === 'Anonymous') return 'A';
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   };
 
   const handleTogglePublish = async () => {
@@ -93,7 +130,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
               <h2 className="font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">{quiz.title}</h2>
-              <div className="flex gap-2">
+              <div className="flex gap-2 mb-3">
                 <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
                   {quiz.difficulty.toUpperCase()}
                 </Badge>
@@ -102,6 +139,22 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                     {isPublished ? "Published" : "Draft"}
                   </Badge>
                 )}
+              </div>
+              
+              {/* Creator Info */}
+              <div 
+                className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={handleCreatorClick}
+              >
+                <Avatar className="h-6 w-6">
+                  <AvatarImage src={creator?.avatar_url || ''} alt={getCreatorDisplayName()} />
+                  <AvatarFallback className="text-xs bg-gradient-to-r from-emerald-500 to-blue-500 text-white">
+                    {getCreatorInitials()}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+                  by {getCreatorDisplayName()}
+                </span>
               </div>
             </div>
           </div>
