@@ -4,19 +4,26 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
 export const useIsAdmin = () => {
-  const { user } = useAuth();
-
+  const { user, loading } = useAuth();
   return useQuery({
     queryKey: ['is-admin', user?.id],
     queryFn: async () => {
-      if (!user?.id) return false;
+      if (!user?.id) {
+        if(loading){
+          console.log('Loading user data...');
+          return {
+            isLoading: true,
+          }
+        } else {
+        return false;
+        }
+      }
       
       const { data, error } = await supabase
         .from('profiles')
         .select('is_admin')
         .eq('id', user.id)
         .single();
-      
       if (error) {
         console.error('Error checking admin status:', error);
         return false;
@@ -24,6 +31,5 @@ export const useIsAdmin = () => {
       
       return data?.is_admin || false;
     },
-    enabled: !!user?.id,
   });
 };
