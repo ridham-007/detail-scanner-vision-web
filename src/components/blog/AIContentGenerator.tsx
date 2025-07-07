@@ -45,10 +45,11 @@ const AIContentGenerator: React.FC<AIContentGeneratorProps> = ({
     setIsGenerating(true);
     
     try {
-      const response = await fetch('/functions/v1/generate-blog-content', {
+      const response = await fetch('https://tzxvlfemmamhrxtcqfhz.supabase.co/functions/v1/generate-blog-content', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6eHZsZmVtbWFtaHJ4dGNxZmh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAxMzEwODUsImV4cCI6MjA2NTcwNzA4NX0.wHrtKZiGgo90Ffle_AgeJtJLzqJYv3wEje3QU0epPOQ`,
         },
         body: JSON.stringify({
           prompt: selectedPrompt || prompt,
