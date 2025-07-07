@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles, Clock, Rocket, Bell, Calendar, Utensils } from 'lucide-react';
+import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles, Clock, Rocket, Bell, Calendar, Utensils, Play } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useQuery } from '@tanstack/react-query';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
@@ -12,6 +13,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { trackCTAClick } from '@/utils/analytics';
 import Logo from '../assets/download.svg';
+import { supabase } from '@/integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,10 +22,42 @@ const IndexPage: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const howItWorksRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const quizzesRef = useRef<HTMLDivElement>(null);
   const comingSoonRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scannerRef = useRef<HTMLDivElement>(null);
   const [showEarlyAccessModal, setShowEarlyAccessModal] = useState(false);
+  const navigate = useNavigate();
+
+  // Fetch recent quizzes
+  const { data: recentQuizzes } = useQuery({
+    queryKey: ['recent-quizzes'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('quizzes')
+        .select('id, title, description, difficulty, created_at')
+        .eq('is_published', true)
+        .order('created_at', { ascending: false })
+        .limit(4);
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  // Fetch product count
+  const { data: productCount } = useQuery({
+    queryKey: ['product-count'],
+    queryFn: async () => {
+      const { count, error } = await supabase
+        .from('scanned_products')
+        .select('*', { count: 'exact', head: true })
+        .eq('is_published', true);
+      
+      if (error) throw error;
+      return (count || 0) + 4700; // Base count + DB count
+    },
+  });
 
   const scrollToScanner = () => {
     trackCTAClick('scroll_to_scanner');
@@ -51,6 +86,24 @@ const IndexPage: React.FC = () => {
   const handleEarlyAccessClick = () => {
     trackCTAClick('early_access_modal');
     setShowEarlyAccessModal(true);
+  };
+
+  const handleQuizPlay = (quizId: string) => {
+    trackCTAClick('play_quiz_from_landing');
+    navigate(`/quiz/${quizId}`);
+  };
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'easy':
+        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+      case 'hard':
+        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+      default:
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+    }
   };
 
   useEffect(() => {
@@ -115,20 +168,6 @@ const IndexPage: React.FC = () => {
           toggleActions: "play none none reverse"
         }
       });
-
-      // Coming Soon animations
-      // gsap.from(".coming-soon-card", {
-      // y: 50,
-      // opacity: 0,
-      // duration: 0.8,
-      // stagger: 0.2,
-      // ease: "power2.out",
-      // scrollTrigger: {
-      //   trigger: comingSoonRef.current,
-      //   start: "top 80%",
-      //   toggleActions: "play none none reverse"
-      // }
-      // });
 
       // CTA section animation
       gsap.from(".cta-content", {
@@ -262,7 +301,7 @@ const IndexPage: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="stat-item group">
               <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                4,700+
+                {productCount?.toLocaleString() || '4,700+'}
               </div>
               <p className="text-muted-foreground text-lg">Products Analyzed</p>
             </div>
@@ -280,6 +319,74 @@ const IndexPage: React.FC = () => {
             </div>
           </div>
         </section>
+
+        {/* Recent Quizzes Section */}
+        {recentQuizzes && recentQuizzes.length > 0 && (
+          <section ref={quizzesRef} className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-16">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl mb-6 mx-auto">
+                  <Brain className="h-8 w-8 text-white" />
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
+                  Test Your Food IQ
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                  Challenge yourself with our latest AI-generated nutrition quizzes
+                </p>
+              </div>
+
+              <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                {recentQuizzes.map((quiz) => (
+                  <Card key={quiz.id} className="group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between mb-2">
+                        <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
+                          {quiz.difficulty.toUpperCase()}
+                        </Badge>
+                      </div>
+                      <CardTitle className="text-lg font-semibold line-clamp-2 capitalize">
+                        {quiz.title}
+                      </CardTitle>
+                    </CardHeader>
+                    
+                    <CardContent className="pt-0">
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        {quiz.description}
+                      </p>
+                      
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
+                        <Calendar className="h-3 w-3" />
+                        <span>{new Date(quiz.created_at).toLocaleDateString()}</span>
+                      </div>
+                      
+                      <Button 
+                        onClick={() => handleQuizPlay(quiz.id)}
+                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                        size="sm"
+                      >
+                        <Play className="h-4 w-4 mr-2" />
+                        Play Quiz
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="text-center">
+                <Button
+                  onClick={() => navigate('/quizzes')}
+                  variant="outline"
+                  size="lg"
+                  className="px-8 py-3 rounded-full border-2 hover:bg-accent transition-all duration-300"
+                >
+                  View All Quizzes
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Coming Soon Section - Fixed for proper visibility */}
         <section ref={comingSoonRef} className="py-20 bg-white dark:bg-gray-900">
