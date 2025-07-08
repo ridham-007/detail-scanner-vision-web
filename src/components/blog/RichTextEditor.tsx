@@ -75,7 +75,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none min-h-[300px] p-4',
+        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none min-h-[300px] p-4 max-w-none',
       },
     },
   });
@@ -105,8 +105,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   );
 
   return (
-    <div className="border border-input rounded-md">
-      <div className="border-b border-input p-2 flex flex-wrap gap-1">
+    <div className="border border-input rounded-md overflow-hidden">
+      <div className="border-b border-input p-2 flex flex-wrap gap-1 bg-muted/30">
         <MenuButton
           onClick={() => editor.chain().focus().toggleBold().run()}
           isActive={editor.isActive('bold')}
@@ -274,7 +274,9 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         </MenuButton>
       </div>
       
-      <EditorContent editor={editor} />
+      <div className="p-4">
+        <EditorContent editor={editor} className="prose-editor" />
+      </div>
     </div>
   );
 };

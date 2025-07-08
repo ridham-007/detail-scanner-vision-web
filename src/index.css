@@ -123,4 +123,51 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
+
+  /* Rich Text Editor Styles */
+  .prose-editor .ProseMirror {
+    outline: none;
+    min-height: 300px;
+  }
+
+  .prose-editor .ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+    height: 0;
+  }
+
+  .prose-editor .ProseMirror table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .prose-editor .ProseMirror table td,
+  .prose-editor .ProseMirror table th {
+    min-width: 1em;
+    border: 2px solid hsl(var(--border));
+    padding: 3px 5px;
+    vertical-align: top;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .prose-editor .ProseMirror table th {
+    font-weight: bold;
+    text-align: left;
+    background-color: hsl(var(--muted));
+  }
+
+  .prose-editor .ProseMirror table .selectedCell:after {
+    z-index: 2;
+    position: absolute;
+    content: "";
+    left: 0; right: 0; top: 0; bottom: 0;
+    background: rgba(200, 200, 255, 0.4);
+    pointer-events: none;
+  }
 }
