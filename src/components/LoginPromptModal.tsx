@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from '@/components/ui/button';
 import { LogIn, UserPlus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface LoginPromptModalProps {
   open: boolean;
@@ -16,12 +17,7 @@ const LoginPromptModal: React.FC<LoginPromptModalProps> = ({
   onOpenChange, 
   action = "create quizzes" 
 }) => {
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
-    navigate('/auth');
-    onOpenChange(false);
-  };
+  const { signInWithGoogle } = useAuth();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -38,7 +34,7 @@ const LoginPromptModal: React.FC<LoginPromptModalProps> = ({
         
         <div className="flex flex-col gap-3 pt-4">
           <Button
-            onClick={handleLogin}
+            onClick={signInWithGoogle}
             className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700"
           >
             <LogIn className="h-4 w-4 mr-2" />
