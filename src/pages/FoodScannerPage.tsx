@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -15,11 +15,22 @@ const FoodScannerPage: React.FC = () => {
   const [currentProduct, setCurrentProduct] = useState<ProductData | null>(null);
   const [showNoDataState, setShowNoDataState] = useState(false);
   const { lookupProduct, isLoading } = useProductLookup();
+  const productDetailsRef = useRef<HTMLDivElement>(null);
+
+  const scrollToResults = () => {
+    setTimeout(() => {
+      productDetailsRef.current?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }, 100);
+  };
 
   const handleScan = async (scannedCode: string) => {
     console.log('Scanned barcode:', scannedCode);
     setIsScanning(false);
     setShowNoDataState(false);
+    scrollToResults();
     
     const product = await lookupProduct(scannedCode);
     if (product) {
@@ -34,6 +45,8 @@ const FoodScannerPage: React.FC = () => {
     if (!manualBarcode.trim()) return;
     
     setShowNoDataState(false);
+    scrollToResults();
+    
     const product = await lookupProduct(manualBarcode.trim());
     if (product) {
       setCurrentProduct(product);
@@ -113,11 +126,13 @@ const FoodScannerPage: React.FC = () => {
       </div>
 
       {/* Product Details Section */}
-      <ProductDetails 
-        product={currentProduct} 
-        isLoading={isLoading} 
-        showNoDataState={showNoDataState}
-      />
+      <div ref={productDetailsRef}>
+        <ProductDetails 
+          product={currentProduct} 
+          isLoading={isLoading} 
+          showNoDataState={showNoDataState}
+        />
+      </div>
     </div>
   );
 };

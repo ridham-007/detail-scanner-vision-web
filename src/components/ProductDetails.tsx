@@ -24,13 +24,101 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <Card className="w-full animate-pulse">
-        <CardContent className="p-8">
-          <div className="space-y-4">
-            <div className="h-48 bg-muted rounded-lg"></div>
-            <div className="h-6 bg-muted rounded w-3/4"></div>
-            <div className="h-4 bg-muted rounded w-1/2"></div>
-            <div className="h-20 bg-muted rounded"></div>
+      <Card className="w-full overflow-hidden border-0 shadow-xl">
+        <CardContent className="p-0">
+          <div className="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950">
+            <div className="max-w-7xl mx-auto px-8 py-16">
+              
+              {/* Animated background elements */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute -top-10 -left-10 w-20 h-20 bg-blue-200 dark:bg-blue-800 rounded-full animate-pulse opacity-30"></div>
+                <div className="absolute top-20 -right-5 w-16 h-16 bg-purple-200 dark:bg-purple-800 rounded-full animate-pulse opacity-20" style={{animationDelay: '0.5s'}}></div>
+                <div className="absolute bottom-10 left-1/4 w-12 h-12 bg-pink-200 dark:bg-pink-800 rounded-full animate-pulse opacity-25" style={{animationDelay: '1s'}}></div>
+                <div className="absolute bottom-20 right-1/3 w-8 h-8 bg-indigo-200 dark:bg-indigo-800 rounded-full animate-pulse opacity-30" style={{animationDelay: '1.5s'}}></div>
+              </div>
+
+              <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                {/* Product Image Skeleton */}
+                <div className="lg:col-span-4 flex justify-center">
+                  <div className="relative">
+                    <div className="w-64 h-64 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
+                      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 animate-pulse relative">
+                        {/* Scanning line effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-200 dark:via-blue-600 to-transparent opacity-50 animate-pulse" 
+                             style={{animation: 'slide-scan 2s ease-in-out infinite'}}>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Floating dots */}
+                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.5s'}}></div>
+                  </div>
+                </div>
+
+                {/* Content Skeleton */}
+                <div className="lg:col-span-5 text-center lg:text-left space-y-6">
+                  <div className="space-y-4">
+                    {/* Title skeleton with shimmer */}
+                    <div className="space-y-3">
+                      <div className="h-8 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-lg animate-pulse w-4/5"></div>
+                      <div className="h-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-lg animate-pulse w-3/5"></div>
+                    </div>
+                    
+                    {/* Stats skeleton */}
+                    <div className="grid grid-cols-2 gap-4 pt-4">
+                      <div className="text-center lg:text-left">
+                        <div className="flex items-center justify-center lg:justify-start gap-2">
+                          <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16 animate-pulse"></div>
+                        </div>
+                      </div>
+                      <div className="text-center lg:text-left">
+                        <div className="flex items-center justify-center lg:justify-start gap-2">
+                          <div className="w-3 h-3 rounded-full bg-orange-400 animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20 animate-pulse"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Health Score Skeleton */}
+                <div className="lg:col-span-3 flex justify-center">
+                  <div className="text-center space-y-4">
+                    {/* Circular progress skeleton */}
+                    <div className="relative w-40 h-40">
+                      <div className="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+                      <div className="absolute inset-4 rounded-full bg-white dark:bg-gray-800"></div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-12 h-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+                      </div>
+                      {/* Rotating ring */}
+                      <div className="absolute inset-2 rounded-full border-4 border-transparent border-t-blue-400 animate-spin" style={{animationDuration: '3s'}}></div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24 mx-auto animate-pulse"></div>
+                      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-32 mx-auto animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Loading text with typing effect */}
+              <div className="text-center mt-12">
+                <div className="flex items-center justify-center gap-3 text-gray-600 dark:text-gray-400">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                  </div>
+                  <span className="text-lg font-medium">Analyzing product...</span>
+                </div>
+                <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
+                  Getting nutritional information and health insights
+                </p>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
