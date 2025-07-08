@@ -199,7 +199,7 @@ const ProductFeedback: React.FC<ProductFeedbackProps> = ({ barcode }) => {
             )}
 
             {/* Feedback Buttons */}
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
               <p className="text-sm text-muted-foreground">Is this information accurate?</p>
               <div className="flex gap-2">
                 <Button
