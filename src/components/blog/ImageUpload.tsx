@@ -174,6 +174,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded }) => {
                     size="sm"
                     onClick={() => copyToClipboard(image.url)}
                     className="h-8 w-8 p-0"
+                    type='button'
                   >
                     {copiedUrl === image.url ? (
                       <Check className="h-4 w-4" />
@@ -186,6 +187,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded }) => {
                     size="sm"
                     onClick={() => removeImage(image.url)}
                     className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                    type='button'
                   >
                     <X className="h-4 w-4" />
                   </Button>
