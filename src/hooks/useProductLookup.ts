@@ -98,8 +98,6 @@ export const useProductLookup = () => {
 
       if (error) {
         console.error('Error saving to Supabase:', error);
-      } else {
-        console.log('Product data cached successfully');
       }
     } catch (error) {
       console.error('Error saving to Supabase:', error);
@@ -183,7 +181,6 @@ export const useProductLookup = () => {
 
   const lookupProduct = async (barcode: string): Promise<ProductData | null> => {
     setIsLoading(true);
-    console.log('Looking up product with barcode:', barcode);
 
     try {
       // First, try to fetch from Supabase cache (published only)
@@ -193,7 +190,7 @@ export const useProductLookup = () => {
       if (cachedProduct) {
         console.log('Found product in cache');
         toast({
-          title: "Product Found (Cached)!",
+          title: "Product Found",
           description: `Found ${cachedProduct.name}`,
         });
         return cachedProduct;
