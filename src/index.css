@@ -301,6 +301,46 @@
     color: hsl(var(--foreground));
   }
 
+  .prose u {
+    text-decoration: underline;
+  }
+
+  .prose s {
+    text-decoration: line-through;
+  }
+
+  .prose sup {
+    vertical-align: super;
+    font-size: smaller;
+  }
+
+  .prose sub {
+    vertical-align: sub;
+    font-size: smaller;
+  }
+
+  .prose hr {
+    border: none;
+    border-top: 2px solid hsl(var(--border));
+    margin: 2rem 0;
+  }
+
+  .prose .text-left {
+    text-align: left;
+  }
+
+  .prose .text-center {
+    text-align: center;
+  }
+
+  .prose .text-right {
+    text-align: right;
+  }
+
+  .prose .text-justify {
+    text-align: justify;
+  }
+
   .prose-editor .ProseMirror table td,
   .prose-editor .ProseMirror table th {
     min-width: 1em;

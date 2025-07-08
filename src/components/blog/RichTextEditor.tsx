@@ -9,12 +9,23 @@ import Table from '@tiptap/extension-table';
 import TableRow from '@tiptap/extension-table-row';
 import TableHeader from '@tiptap/extension-table-header';
 import TableCell from '@tiptap/extension-table-cell';
+import Underline from '@tiptap/extension-underline';
+import Strike from '@tiptap/extension-strike';
+import TextAlign from '@tiptap/extension-text-align';
+import TextStyle from '@tiptap/extension-text-style';
+import Color from '@tiptap/extension-color';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import CodeBlock from '@tiptap/extension-code-block';
+import Superscript from '@tiptap/extension-superscript';
+import Subscript from '@tiptap/extension-subscript';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { 
   Bold, 
   Italic, 
+  Underline as UnderlineIcon,
+  Strikethrough,
   List, 
   ListOrdered, 
   Quote, 
@@ -25,7 +36,17 @@ import {
   Heading3,
   Image as ImageIcon,
   Link as LinkIcon,
-  Table as TableIcon
+  Table as TableIcon,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
+  Minus,
+  Code,
+  Superscript as SuperscriptIcon,
+  Subscript as SubscriptIcon,
+  Palette,
+  Type
 } from 'lucide-react';
 
 interface RichTextEditorProps {
@@ -93,6 +114,19 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       TableRow,
       TableHeader,
       TableCell,
+      Underline,
+      Strike,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      TextStyle,
+      Color.configure({
+        types: ['textStyle'],
+      }),
+      HorizontalRule,
+      CodeBlock,
+      Superscript,
+      Subscript,
     ],
     content,
     onUpdate: ({ editor }) => {
@@ -146,6 +180,34 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <Italic className="h-4 w-4" />
         </MenuButton>
 
+        <MenuButton
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
+          isActive={editor.isActive('underline')}
+        >
+          <UnderlineIcon className="h-4 w-4" />
+        </MenuButton>
+
+        <MenuButton
+          onClick={() => editor.chain().focus().toggleStrike().run()}
+          isActive={editor.isActive('strike')}
+        >
+          <Strikethrough className="h-4 w-4" />
+        </MenuButton>
+
+        <MenuButton
+          onClick={() => editor.chain().focus().toggleSuperscript().run()}
+          isActive={editor.isActive('superscript')}
+        >
+          <SuperscriptIcon className="h-4 w-4" />
+        </MenuButton>
+
+        <MenuButton
+          onClick={() => editor.chain().focus().toggleSubscript().run()}
+          isActive={editor.isActive('subscript')}
+        >
+          <SubscriptIcon className="h-4 w-4" />
+        </MenuButton>
+
         <div className="w-px h-6 bg-border mx-1" />
 
         <MenuButton
@@ -190,6 +252,56 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           isActive={editor.isActive('blockquote')}
         >
           <Quote className="h-4 w-4" />
+        </MenuButton>
+
+        <MenuButton
+          onClick={() => editor.chain().focus().toggleCode().run()}
+          isActive={editor.isActive('code')}
+        >
+          <Code className="h-4 w-4" />
+        </MenuButton>
+
+        <MenuButton
+          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+          isActive={editor.isActive('codeBlock')}
+        >
+          <Type className="h-4 w-4" />
+        </MenuButton>
+
+        <div className="w-px h-6 bg-border mx-1" />
+
+        <MenuButton
+          onClick={() => editor.chain().focus().setTextAlign('left').run()}
+          isActive={editor.isActive({ textAlign: 'left' })}
+        >
+          <AlignLeft className="h-4 w-4" />
+        </MenuButton>
+
+        <MenuButton
+          onClick={() => editor.chain().focus().setTextAlign('center').run()}
+          isActive={editor.isActive({ textAlign: 'center' })}
+        >
+          <AlignCenter className="h-4 w-4" />
+        </MenuButton>
+
+        <MenuButton
+          onClick={() => editor.chain().focus().setTextAlign('right').run()}
+          isActive={editor.isActive({ textAlign: 'right' })}
+        >
+          <AlignRight className="h-4 w-4" />
+        </MenuButton>
+
+        <MenuButton
+          onClick={() => editor.chain().focus().setTextAlign('justify').run()}
+          isActive={editor.isActive({ textAlign: 'justify' })}
+        >
+          <AlignJustify className="h-4 w-4" />
+        </MenuButton>
+
+        <MenuButton
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        >
+          <Minus className="h-4 w-4" />
         </MenuButton>
 
         <div className="w-px h-6 bg-border mx-1" />
