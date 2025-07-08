@@ -182,13 +182,10 @@ const BlogPostPage = () => {
           )}
         </header>
 
-        <div className="prose prose-lg max-w-none">
-          {post.content.split('\n').map((paragraph, index) => (
-            <p key={index} className="mb-4 leading-relaxed">
-              {paragraph}
-            </p>
-          ))}
-        </div>
+        <div 
+          className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-blockquote:text-foreground prose-li:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
 
         <footer className="mt-12 pt-8 border-t">
           <div className="flex items-center justify-between">

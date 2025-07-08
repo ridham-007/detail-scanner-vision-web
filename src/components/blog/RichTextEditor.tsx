@@ -47,13 +47,35 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: false,
+          HTMLAttributes: {
+            class: 'list-disc list-inside',
+          },
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: false,
+          HTMLAttributes: {
+            class: 'list-decimal list-inside',
+          },
+        },
+        listItem: {
+          HTMLAttributes: {
+            class: 'mb-1',
+          },
+        },
+      }),
       Placeholder.configure({
         placeholder,
       }),
       Image.configure({
+        inline: true,
+        allowBase64: true,
         HTMLAttributes: {
-          class: 'max-w-full h-auto rounded-lg',
+          class: 'max-w-full h-auto rounded-lg my-4',
         },
       }),
       Link.configure({
@@ -64,6 +86,9 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       }),
       Table.configure({
         resizable: true,
+        HTMLAttributes: {
+          class: 'border-collapse table-auto w-full',
+        },
       }),
       TableRow,
       TableHeader,
@@ -190,11 +215,16 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 <Button
                   onClick={() => {
                     if (imageUrl) {
-                      editor.chain().focus().setImage({ src: imageUrl }).run();
+                      editor.chain().focus().setImage({ 
+                        src: imageUrl,
+                        alt: 'Blog image',
+                        title: 'Blog image'
+                      }).run();
                       setImageUrl('');
                       setIsImageDialogOpen(false);
                     }
                   }}
+                  disabled={!imageUrl.trim()}
                 >
                   Insert Image
                 </Button>
