@@ -21,7 +21,7 @@ const FoodScannerPage: React.FC = () => {
     setTimeout(() => {
       productDetailsRef.current?.scrollIntoView({ 
         behavior: 'smooth', 
-        block: 'start',
+        block: 'center',
       });
     }, 10);
   };
