@@ -11,6 +11,7 @@ import { CreateBlogPost } from '@/types/Blog';
 import { Save, Eye, Globe, Wand2 } from 'lucide-react';
 import RichTextEditor from './RichTextEditor';
 import AIContentGenerator from './AIContentGenerator';
+import ImageUpload from './ImageUpload';
 
 interface BlogEditorProps {
   initialData?: Partial<CreateBlogPost>;
@@ -143,6 +144,13 @@ const BlogEditor: React.FC<BlogEditorProps> = ({ initialData, onSave, isLoading 
             </div>
           </CardContent>
         </Card>
+
+        <ImageUpload
+          onImageUploaded={(url) => {
+            // You can use this URL in any image field
+            console.log('Image uploaded:', url);
+          }}
+        />
 
         <Tabs defaultValue="basic" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
