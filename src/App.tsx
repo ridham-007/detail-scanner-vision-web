@@ -41,7 +41,7 @@ function App() {
                     <Route path="/" element={<Index />} />
                     <Route path="/scanner" element={<FoodScannerPage />} />
                     <Route path="/quizzes" element={<QuizzesPage />} />
-                    <Route path="/quiz/:id" element={<QuizPage />} />
+                    <Route path="/quiz/:quizId" element={<QuizPage />} />
                     <Route path="/profile/:username" element={<UserProfilePage />} />
                     <Route path="/settings" element={<UserSettingsPage />} />
                     <Route path="/blog" element={<BlogListPage />} />
