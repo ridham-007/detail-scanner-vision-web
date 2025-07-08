@@ -137,6 +137,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded }) => {
               disabled={uploading}
               className="w-full"
               variant="outline"
+              type='button'
             >
               {uploading ? (
                 <div className="flex items-center gap-2">
