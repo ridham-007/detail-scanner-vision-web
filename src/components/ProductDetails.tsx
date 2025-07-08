@@ -93,13 +93,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       {product.name}
                     </h1>
                     
-                    {product.unit && (
+                    {/* {product.unit && (
                       <div className="flex justify-center lg:justify-start">
                         <Badge variant="outline" className="text-sm font-medium px-4 py-2 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800">
                           Per {product.unit}
                         </Badge>
                       </div>
-                    )}
+                    )} */}
                   </div>
 
                   {/* Quick Stats */}
