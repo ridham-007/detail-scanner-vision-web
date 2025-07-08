@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useBlogPost, useUpdateBlogPost } from '@/hooks/useBlogPosts';
+import { useBlogPostById, useUpdateBlogPost } from '@/hooks/useBlogPosts';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import BlogEditor from '@/components/blog/BlogEditor';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,7 @@ const EditBlogPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data: isAdmin, isLoading: isCheckingAdmin } = useIsAdmin();
-  const { data: post, isLoading, error } = useBlogPost(id!);
+  const { data: post, isLoading, error } = useBlogPostById(id!);
   const updatePost = useUpdateBlogPost();
 
   if (isCheckingAdmin) {

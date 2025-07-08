@@ -49,6 +49,26 @@ export const useBlogPost = (slug: string) => {
   });
 };
 
+export const useBlogPostById = (id: string) => {
+  return useQuery({
+    queryKey: ['blog-post-by-id', id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select(`
+          *,
+          author:profiles(id, full_name, username, avatar_url)
+        `)
+        .eq('id', id)
+        .single();
+      
+      if (error) throw error;
+      return data as BlogPost;
+    },
+    enabled: !!id,
+  });
+};
+
 export const useCreateBlogPost = () => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
