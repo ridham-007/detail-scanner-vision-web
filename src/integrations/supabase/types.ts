@@ -467,6 +467,39 @@ export type Database = {
         }
         Relationships: []
       }
+      scan_history: {
+        Row: {
+          barcode: string
+          health_score: number | null
+          id: string
+          notes: string | null
+          product_name: string
+          scan_location: string | null
+          scanned_at: string
+          user_id: string
+        }
+        Insert: {
+          barcode: string
+          health_score?: number | null
+          id?: string
+          notes?: string | null
+          product_name: string
+          scan_location?: string | null
+          scanned_at?: string
+          user_id: string
+        }
+        Update: {
+          barcode?: string
+          health_score?: number | null
+          id?: string
+          notes?: string | null
+          product_name?: string
+          scan_location?: string | null
+          scanned_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       scanned_products: {
         Row: {
           barcode: string
