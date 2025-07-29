@@ -50,6 +50,7 @@ const Header = () => {
   const navigationItems = [
     { path: '/', label: 'Scanner' },
     ...(user ? [{ path: '/history', label: 'History' }] : []),
+    ...(user ? [{ path: '/shopping-lists', label: 'Lists' }] : []),
     { path: '/quizzes', label: 'Food IQ Tests' },
     { path: '/blog', label: 'Blogs' },
   ];

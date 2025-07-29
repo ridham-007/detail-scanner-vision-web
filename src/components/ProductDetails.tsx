@@ -1,14 +1,17 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Lightbulb, Image as ImageIcon, Star, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Lightbulb, Image as ImageIcon, Star, ArrowRight, Heart, ShoppingCart } from 'lucide-react';
 import NoProductData from './NoProductData';
 import CircularHealthScore from './CircularHealthScore';
 import IngredientsDisplay from './IngredientsDisplay';
 import HealthInsights from './HealthInsights';
 import ProductFeedback from './ProductFeedback';
+import { AddToShoppingListModal } from '@/components/AddToShoppingListModal';
+import { useFavorites } from '@/hooks/useFavorites';
 import { ProductData } from '@/types/ProductData';
 
 interface ProductDetailsProps {
@@ -22,6 +25,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   isLoading, 
   showNoDataState = false 
 }) => {
+  const [showAddToListModal, setShowAddToListModal] = useState(false);
+  const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
   if (isLoading) {
     return (
       <Card className="w-full overflow-hidden border-0 shadow-xl">
@@ -181,13 +186,36 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       {product.name}
                     </h1>
                     
-                    {/* {product.unit && (
-                      <div className="flex justify-center lg:justify-start">
-                        <Badge variant="outline" className="text-sm font-medium px-4 py-2 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800">
-                          Per {product.unit}
-                        </Badge>
-                      </div>
-                    )} */}
+                    {/* Action Buttons */}
+                    <div className="flex items-center justify-center lg:justify-start gap-3 pt-2">
+                      <Button
+                        variant={isFavorite(product.barcode) ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => {
+                          if (isFavorite(product.barcode)) {
+                            removeFromFavorites(product.barcode);
+                          } else {
+                            addToFavorites(product.barcode, product.name, product.health_score);
+                          }
+                        }}
+                        className="flex items-center gap-2"
+                      >
+                        <Heart 
+                          className={`w-4 h-4 ${isFavorite(product.barcode) ? 'fill-current' : ''}`} 
+                        />
+                        {isFavorite(product.barcode) ? 'Favorited' : 'Add to Favorites'}
+                      </Button>
+
+                      <AddToShoppingListModal
+                        barcode={product.barcode}
+                        productName={product.name}
+                      >
+                        <Button variant="outline" size="sm" className="flex items-center gap-2">
+                          <ShoppingCart className="w-4 h-4" />
+                          Add to List
+                        </Button>
+                      </AddToShoppingListModal>
+                    </div>
                   </div>
 
                   {/* Quick Stats */}

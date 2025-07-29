@@ -271,6 +271,33 @@ export type Database = {
         }
         Relationships: []
       }
+      favorites: {
+        Row: {
+          barcode: string
+          created_at: string
+          health_score: number | null
+          id: string
+          product_name: string
+          user_id: string
+        }
+        Insert: {
+          barcode: string
+          created_at?: string
+          health_score?: number | null
+          id?: string
+          product_name: string
+          user_id: string
+        }
+        Update: {
+          barcode?: string
+          created_at?: string
+          health_score?: number | null
+          id?: string
+          product_name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       product_feedback: {
         Row: {
           barcode: string
@@ -554,6 +581,80 @@ export type Database = {
           recommendations?: string[] | null
           unit?: string | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      shopping_list_items: {
+        Row: {
+          barcode: string | null
+          created_at: string
+          id: string
+          is_purchased: boolean
+          notes: string | null
+          product_name: string
+          quantity: number
+          shopping_list_id: string
+          updated_at: string
+        }
+        Insert: {
+          barcode?: string | null
+          created_at?: string
+          id?: string
+          is_purchased?: boolean
+          notes?: string | null
+          product_name: string
+          quantity?: number
+          shopping_list_id: string
+          updated_at?: string
+        }
+        Update: {
+          barcode?: string | null
+          created_at?: string
+          id?: string
+          is_purchased?: boolean
+          notes?: string | null
+          product_name?: string
+          quantity?: number
+          shopping_list_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_shopping_list_items_list_id"
+            columns: ["shopping_list_id"]
+            isOneToOne: false
+            referencedRelation: "shopping_lists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      shopping_lists: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_completed: boolean
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_completed?: boolean
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_completed?: boolean
+          name?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }

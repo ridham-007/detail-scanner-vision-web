@@ -1,0 +1,277 @@
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
+import { ShoppingCart, Plus, Trash2, Edit3, Check, Package, Calendar, Users, Loader2 } from 'lucide-react';
+import { useShoppingLists } from '@/hooks/useShoppingLists';
+import { useAuth } from '@/contexts/AuthContext';
+import { format } from 'date-fns';
+
+const ShoppingLists = () => {
+  const { user } = useAuth();
+  const { shoppingLists, isLoading, createShoppingList, updateShoppingList, deleteShoppingList, updateListItem, removeItemFromList } = useShoppingLists();
+  
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newListName, setNewListName] = useState('');
+  const [newListDescription, setNewListDescription] = useState('');
+
+  const handleCreateList = async () => {
+    if (!newListName.trim()) return;
+    
+    await createShoppingList(newListName.trim(), newListDescription.trim() || undefined);
+    setNewListName('');
+    setNewListDescription('');
+    setShowCreateModal(false);
+  };
+
+  const toggleItemPurchased = async (itemId: string, isPurchased: boolean) => {
+    await updateListItem(itemId, { is_purchased: !isPurchased });
+  };
+
+  const toggleListCompleted = async (listId: string, isCompleted: boolean) => {
+    await updateShoppingList(listId, { is_completed: !isCompleted });
+  };
+
+  if (!user) {
+    return (
+      <Card className="w-full max-w-4xl mx-auto">
+        <CardContent className="pt-6">
+          <div className="text-center py-8">
+            <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+            <h3 className="text-lg font-medium mb-2">Sign in to view your shopping lists</h3>
+            <p className="text-muted-foreground">Create and manage your shopping lists</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <Card className="w-full max-w-4xl mx-auto">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <span className="ml-2">Loading shopping lists...</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className="w-full max-w-4xl mx-auto space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Shopping Lists</h1>
+          <p className="text-muted-foreground">Manage your shopping lists and items</p>
+        </div>
+        
+        <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
+          <DialogTrigger asChild>
+            <Button className="flex items-center gap-2">
+              <Plus className="w-4 h-4" />
+              New List
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create Shopping List</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">List Name</label>
+                <Input
+                  placeholder="e.g. Weekly Groceries"
+                  value={newListName}
+                  onChange={(e) => setNewListName(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Description (optional)</label>
+                <Textarea
+                  placeholder="Add any notes about this shopping list..."
+                  value={newListDescription}
+                  onChange={(e) => setNewListDescription(e.target.value)}
+                  className="min-h-[80px]"
+                />
+              </div>
+              <div className="flex gap-3">
+                <Button variant="outline" onClick={() => setShowCreateModal(false)} className="flex-1">
+                  Cancel
+                </Button>
+                <Button onClick={handleCreateList} disabled={!newListName.trim()} className="flex-1">
+                  Create List
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* Shopping Lists */}
+      {shoppingLists.length === 0 ? (
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center py-12">
+              <ShoppingCart className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
+              <h3 className="text-xl font-medium mb-2">No shopping lists yet</h3>
+              <p className="text-muted-foreground mb-6">Create your first shopping list to get started</p>
+              <Button onClick={() => setShowCreateModal(true)} className="flex items-center gap-2">
+                <Plus className="w-4 h-4" />
+                Create Your First List
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="grid gap-6">
+          {shoppingLists.map((list) => {
+            const totalItems = list.items?.length || 0;
+            const purchasedItems = list.items?.filter(item => item.is_purchased).length || 0;
+            const progress = totalItems > 0 ? (purchasedItems / totalItems) * 100 : 0;
+
+            return (
+              <Card key={list.id} className={`${list.is_completed ? 'bg-muted/30' : ''}`}>
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-3">
+                        <CardTitle className={`${list.is_completed ? 'line-through text-muted-foreground' : ''}`}>
+                          {list.name}
+                        </CardTitle>
+                        <div className="flex items-center gap-2">
+                          <Badge variant={list.is_completed ? 'default' : 'secondary'}>
+                            {purchasedItems}/{totalItems} items
+                          </Badge>
+                          {list.is_completed && (
+                            <Badge variant="outline" className="text-green-600 border-green-600">
+                              <Check className="w-3 h-3 mr-1" />
+                              Completed
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                      {list.description && (
+                        <p className="text-sm text-muted-foreground">{list.description}</p>
+                      )}
+                      <p className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        Created {format(new Date(list.created_at), 'MMM d, yyyy')}
+                      </p>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => toggleListCompleted(list.id, list.is_completed)}
+                        className="flex items-center gap-1"
+                      >
+                        <Check className="w-3 h-3" />
+                        {list.is_completed ? 'Reopen' : 'Complete'}
+                      </Button>
+                      
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="outline" size="sm" className="text-destructive hover:text-destructive">
+                            <Trash2 className="w-3 h-3" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete shopping list?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This will permanently delete "{list.name}" and all its items. This action cannot be undone.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => deleteShoppingList(list.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                  </div>
+                  
+                  {/* Progress Bar */}
+                  {totalItems > 0 && (
+                    <div className="space-y-2">
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div 
+                          className="bg-primary h-2 rounded-full transition-all duration-300" 
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        {Math.round(progress)}% complete
+                      </p>
+                    </div>
+                  )}
+                </CardHeader>
+                
+                {totalItems > 0 && (
+                  <CardContent>
+                    <ScrollArea className="max-h-[300px]">
+                      <div className="space-y-3">
+                        {list.items?.map((item, index) => (
+                          <div key={item.id}>
+                            <div className="flex items-center justify-between p-3 rounded-lg border bg-card">
+                              <div className="flex items-center gap-3 flex-1">
+                                <Checkbox
+                                  checked={item.is_purchased}
+                                  onCheckedChange={() => toggleItemPurchased(item.id, item.is_purchased)}
+                                />
+                                <div className="flex items-center gap-2">
+                                  <Package className="w-4 h-4 text-muted-foreground" />
+                                  <div className="flex-1">
+                                    <h4 className={`font-medium text-sm ${item.is_purchased ? 'line-through text-muted-foreground' : ''}`}>
+                                      {item.product_name}
+                                    </h4>
+                                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                      <span>Qty: {item.quantity}</span>
+                                      {item.barcode && <span>• {item.barcode}</span>}
+                                    </div>
+                                    {item.notes && (
+                                      <p className="text-xs text-muted-foreground mt-1">{item.notes}</p>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => removeItemFromList(item.id)}
+                                className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive"
+                              >
+                                <Trash2 className="h-3 w-3" />
+                              </Button>
+                            </div>
+                            {index < (list.items?.length || 0) - 1 && <Separator className="my-2" />}
+                          </div>
+                        ))}
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
+                )}
+              </Card>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ShoppingLists;
