@@ -1,0 +1,127 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
+
+export interface ScanHistoryItem {
+  id: string;
+  barcode: string;
+  product_name: string;
+  health_score: number | null;
+  scanned_at: string;
+  scan_location?: string;
+  notes?: string;
+}
+
+export const useScanHistory = () => {
+  const [scanHistory, setScanHistory] = useState<ScanHistoryItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth();
+
+  const fetchScanHistory = async (limit: number = 50) => {
+    if (!user) return;
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { data, error } = await supabase
+        .from('scan_history')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('scanned_at', { ascending: false })
+        .limit(limit);
+
+      if (error) {
+        throw error;
+      }
+
+      setScanHistory(data || []);
+    } catch (err) {
+      console.error('Error fetching scan history:', err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch scan history');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteScanHistoryItem = async (id: string) => {
+    if (!user) return;
+
+    try {
+      const { error } = await supabase
+        .from('scan_history')
+        .delete()
+        .eq('id', id)
+        .eq('user_id', user.id);
+
+      if (error) {
+        throw error;
+      }
+
+      // Update local state
+      setScanHistory(prev => prev.filter(item => item.id !== id));
+    } catch (err) {
+      console.error('Error deleting scan history item:', err);
+      setError(err instanceof Error ? err.message : 'Failed to delete item');
+    }
+  };
+
+  const clearAllHistory = async () => {
+    if (!user) return;
+
+    try {
+      const { error } = await supabase
+        .from('scan_history')
+        .delete()
+        .eq('user_id', user.id);
+
+      if (error) {
+        throw error;
+      }
+
+      setScanHistory([]);
+    } catch (err) {
+      console.error('Error clearing scan history:', err);
+      setError(err instanceof Error ? err.message : 'Failed to clear history');
+    }
+  };
+
+  const getStatsFromHistory = () => {
+    const totalScans = scanHistory.length;
+    const averageHealthScore = scanHistory.length > 0 
+      ? scanHistory.reduce((sum, item) => sum + (item.health_score || 0), 0) / scanHistory.length
+      : 0;
+    
+    const recentScans = scanHistory.filter(item => {
+      const scanDate = new Date(item.scanned_at);
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+      return scanDate >= weekAgo;
+    }).length;
+
+    return {
+      totalScans,
+      averageHealthScore: Math.round(averageHealthScore * 10) / 10,
+      recentScans
+    };
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchScanHistory();
+    } else {
+      setScanHistory([]);
+    }
+  }, [user]);
+
+  return {
+    scanHistory,
+    isLoading,
+    error,
+    fetchScanHistory,
+    deleteScanHistoryItem,
+    clearAllHistory,
+    stats: getStatsFromHistory()
+  };
+};

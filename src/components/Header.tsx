@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
-import { Scan, Sparkles, Brain } from 'lucide-react';
+import { Scan, Sparkles, Brain, History } from 'lucide-react';
 import { gsap } from 'gsap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -49,6 +49,7 @@ const Header = () => {
 
   const navigationItems = [
     { path: '/', label: 'Scanner' },
+    ...(user ? [{ path: '/history', label: 'History' }] : []),
     { path: '/quizzes', label: 'Food IQ Tests' },
     { path: '/blog', label: 'Blogs' },
   ];

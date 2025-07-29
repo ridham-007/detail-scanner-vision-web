@@ -20,6 +20,7 @@ import TermsPage from "./pages/TermsPage";
 import SupportPage from "./pages/SupportPage";
 import BlogListPage from "./pages/BlogListPage";
 import BlogPostPage from "./pages/BlogPostPage";
+import ScanHistoryPage from "./pages/ScanHistoryPage";
 import AdminBlogsPage from "./pages/admin/AdminBlogsPage";
 import CreateBlogPage from "./pages/admin/CreateBlogPage";
 import EditBlogPage from "./pages/admin/EditBlogPage";
@@ -40,6 +41,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/scanner" element={<FoodScannerPage />} />
+                    <Route path="/history" element={<ScanHistoryPage />} />
                     <Route path="/quizzes" element={<QuizzesPage />} />
                     <Route path="/quiz/:quizId" element={<QuizPage />} />
                     <Route path="/profile/:username" element={<UserProfilePage />} />

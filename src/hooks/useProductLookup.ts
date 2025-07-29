@@ -3,10 +3,12 @@ import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { ProductData } from '@/types/ProductData';
+import { useAuth } from '@/contexts/AuthContext';
 
 export const useProductLookup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const fetchFromSupabase = async (barcode: string): Promise<ProductData | null> => {
     try {
@@ -179,6 +181,28 @@ export const useProductLookup = () => {
     }
   };
 
+  const saveScanHistory = async (productData: ProductData): Promise<void> => {
+    if (!user) return; // Only save for authenticated users
+    
+    try {
+      const { error } = await supabase
+        .from('scan_history')
+        .insert({
+          user_id: user.id,
+          barcode: productData.barcode,
+          product_name: productData.name,
+          health_score: productData.health_score,
+          scanned_at: new Date().toISOString()
+        });
+
+      if (error) {
+        console.error('Error saving scan history:', error);
+      }
+    } catch (error) {
+      console.error('Error saving scan history:', error);
+    }
+  };
+
   const lookupProduct = async (barcode: string): Promise<ProductData | null> => {
     setIsLoading(true);
 
@@ -189,6 +213,8 @@ export const useProductLookup = () => {
       
       if (cachedProduct) {
         console.log('Found product in cache');
+        // Save to scan history
+        await saveScanHistory(cachedProduct);
         toast({
           title: "Product Found",
           description: `Found ${cachedProduct.name}`,
@@ -201,6 +227,8 @@ export const useProductLookup = () => {
       const apiProduct = await fetchFromAPI(barcode);
       
       if (apiProduct) {
+        // Save to scan history
+        await saveScanHistory(apiProduct);
         toast({
           title: "Product Found!",
           description: `Found ${apiProduct.name}`,
