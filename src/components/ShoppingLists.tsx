@@ -134,8 +134,8 @@ const ShoppingLists = () => {
         </Card>
       ) : (
         <div className="grid gap-6">
-          {shoppingLists.map((list) => {
-            const totalItems = list.items?.length || 0;
+          {shoppingLists.map((list:any) => {
+            const totalItems = list.shopping_list_items?.length || 0;
             const purchasedItems = list.items?.filter(item => item.is_purchased).length || 0;
             const progress = totalItems > 0 ? (purchasedItems / totalItems) * 100 : 0;
 

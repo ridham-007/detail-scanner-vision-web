@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu, BookOpen, Shield } from 'lucide-react';
+import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu, BookOpen, Shield, ShoppingCart, History } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { supabase } from '@/integrations/supabase/client';
@@ -51,6 +51,8 @@ const AuthButton = () => {
     { path: '/', label: 'Scanner', icon: Scan },
     { path: '/quizzes', label: 'Food IQ Tests', icon: Trophy },
     { path: '/blog', label: 'Blog', icon: BookOpen },
+    ...(user ? [{ path: '/history', label: 'History', icon: History }] : []),
+    ...(user ? [{ path: '/shopping-lists', label: 'Lists', icon: ShoppingCart }] : []),
   ];
 
   const getUserInitials = () => {

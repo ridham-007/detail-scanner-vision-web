@@ -16,7 +16,7 @@ const ScanHistory = () => {
 
   if (!user) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="w-full max-w-4xl mx-auto">
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <History className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
@@ -30,7 +30,7 @@ const ScanHistory = () => {
 
   if (isLoading) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="w-full max-w-4xl mx-auto">
         <CardContent className="pt-6">
           <div className="flex items-center justify-center py-8">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -43,7 +43,7 @@ const ScanHistory = () => {
 
   if (error) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="w-full max-w-4xl mx-auto">
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <div className="text-destructive mb-2">Error loading scan history</div>
@@ -62,13 +62,13 @@ const ScanHistory = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-6">
+    <div className="w-full max-w-4xl mx-auto space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-3 gap-4">
         <Card>
           <CardContent className="pt-4">
             <div className="flex items-center space-x-2">
-              <BarChart3 className="h-4 w-4 text-primary" />
+              <BarChart3 className="hidden sm:flex h-6 w-6 text-blue-500 shrink-0" />
               <div>
                 <p className="text-sm font-medium">Total Scans</p>
                 <p className="text-2xl font-bold">{stats.totalScans}</p>
@@ -80,7 +80,7 @@ const ScanHistory = () => {
         <Card>
           <CardContent className="pt-4">
             <div className="flex items-center space-x-2">
-              <TrendingUp className="h-4 w-4 text-primary" />
+              <TrendingUp className="hidden sm:flex h-6 w-6  text-green-500" />
               <div>
                 <p className="text-sm font-medium">Avg Score</p>
                 <p className="text-2xl font-bold">{stats.averageHealthScore}</p>
@@ -92,7 +92,7 @@ const ScanHistory = () => {
         <Card>
           <CardContent className="pt-4">
             <div className="flex items-center space-x-2">
-              <Calendar className="h-4 w-4 text-primary" />
+              <Calendar className="hidden sm:flex h-6 w-6 text-purple-500" />
               <div>
                 <p className="text-sm font-medium">This Week</p>
                 <p className="text-2xl font-bold">{stats.recentScans}</p>
@@ -141,19 +141,19 @@ const ScanHistory = () => {
               <p className="text-muted-foreground">Start scanning products to build your history</p>
             </div>
           ) : (
-            <ScrollArea className="h-[400px] pr-4">
+            <ScrollArea className="h-[460px] pr-4">
               <div className="space-y-3">
                 {scanHistory.map((item, index) => (
                   <div key={item.id}>
-                    <div className="flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
+                    <div className="flex sm:items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
                       <div className="flex-1 space-y-1">
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                           <h4 className="font-medium text-sm">{item.product_name}</h4>
-                          <Badge variant={getHealthScoreBadgeVariant(item.health_score)}>
+                          <Badge variant={getHealthScoreBadgeVariant(item.health_score)} className='w-fit'>
                             {item.health_score || 'N/A'}
                           </Badge>
                         </div>
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-xs text-muted-foreground">
                           <span>Barcode: {item.barcode}</span>
                           <span>{format(new Date(item.scanned_at), 'MMM d, yyyy HH:mm')}</span>
                         </div>
@@ -162,7 +162,7 @@ const ScanHistory = () => {
                         variant="ghost"
                         size="sm"
                         onClick={() => deleteScanHistoryItem(item.id)}
-                        className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive"
+                        className=" p-0 text-muted-foreground hover:text-destructive flex justify-end"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

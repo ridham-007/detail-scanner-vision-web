@@ -8,6 +8,9 @@ import BarcodeScanner from '@/components/BarcodeScanner';
 import ProductDetails from '@/components/ProductDetails';
 import { useProductLookup } from '@/hooks/useProductLookup';
 import { ProductData } from '@/types/ProductData';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 const FoodScannerPage: React.FC = () => {
   const [isScanning, setIsScanning] = useState(false);
@@ -16,6 +19,7 @@ const FoodScannerPage: React.FC = () => {
   const [showNoDataState, setShowNoDataState] = useState(false);
   const { lookupProduct, isLoading } = useProductLookup();
   const productDetailsRef = useRef<HTMLDivElement>(null);
+  const { user } = useAuth();
 
   const scrollToResults = () => {
     setTimeout(() => {
@@ -27,14 +31,41 @@ const FoodScannerPage: React.FC = () => {
   };
 
   const handleScan = async (scannedCode: string) => {
-    console.log('Scanned barcode:', scannedCode);
     setIsScanning(false);
     setShowNoDataState(false);
     scrollToResults();
-    
+
+    const { data, error } = await supabase
+      .from('scan_history')
+      .select('barcode')
+      .eq('user_id', user.id);
+
+    if (error) {
+      console.error('Error fetching scan history:', error);
+      return;
+    }
+    const alreadyScanned = data?.some(entry => entry.barcode === scannedCode);
+
+    if (alreadyScanned) {
+      toast.info('You’ve already scanned this product. Check your history for details!');
+      return;
+    }
+
     const product = await lookupProduct(scannedCode);
+
     if (product) {
       setCurrentProduct(product);
+
+      await supabase.from('scan_history').insert([
+        {
+          user_id: user.id,
+          barcode: scannedCode,
+          product_name: product.name,
+          health_score: product.health_score ?? null,
+          scanned_at: new Date().toISOString(),
+        }
+      ]);
+
     } else {
       setCurrentProduct(null);
       setShowNoDataState(true);
@@ -42,14 +73,43 @@ const FoodScannerPage: React.FC = () => {
   };
 
   const handleManualLookup = async () => {
-    if (!manualBarcode.trim()) return;
-    
+    const trimmedBarcode = manualBarcode.trim();
+    if (!trimmedBarcode) return;
+
     setShowNoDataState(false);
     scrollToResults();
-    
-    const product = await lookupProduct(manualBarcode.trim());
+
+    const { data, error } = await supabase
+      .from('scan_history')
+      .select('barcode')
+      .eq('user_id', user.id);
+
+    if (error) {
+      console.error('Error fetching scan history:', error);
+      return;
+    }
+
+    const alreadyScanned = data?.some(entry => entry.barcode === trimmedBarcode);
+
+    if (alreadyScanned) {
+      toast.info('You’ve already scanned this product. Check your history for details!');
+      return;
+    }
+
+    const product = await lookupProduct(trimmedBarcode);
+
     if (product) {
       setCurrentProduct(product);
+      await supabase.from('scan_history').insert([
+        {
+          user_id: user.id,
+          barcode: trimmedBarcode,
+          product_name: product.name,
+          health_score: product.health_score ?? null,
+          scanned_at: new Date().toISOString(),
+        }
+      ]);
+
     } else {
       setCurrentProduct(null);
       setShowNoDataState(true);

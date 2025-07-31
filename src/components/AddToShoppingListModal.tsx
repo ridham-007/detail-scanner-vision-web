@@ -143,13 +143,13 @@ export const AddToShoppingListModal: React.FC<AddToShoppingListModalProps> = ({
                   <SelectValue placeholder="Select a shopping list" />
                 </SelectTrigger>
                 <SelectContent>
-                  {shoppingLists.map((list) => (
+                  {shoppingLists.map((list:any) => (
                     <SelectItem key={list.id} value={list.id}>
                       <div className="flex items-center justify-between w-full">
                         <span>{list.name}</span>
                         <div className="flex items-center gap-2 ml-2">
                           <Badge variant="secondary" className="text-xs">
-                            {list.items?.length || 0} items
+                            {list.shopping_list_items?.length || 0} items
                           </Badge>
                           {list.is_completed && (
                             <Badge variant="outline" className="text-xs">
