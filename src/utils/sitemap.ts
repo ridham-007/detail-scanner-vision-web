@@ -115,12 +115,40 @@ export const generateUserProfileSitemapUrls = async (): Promise<SitemapUrl[]> =>
   }
 };
 
+export const generateBlogsUrls = async (): Promise<SitemapUrl[]> => {
+  try {
+    const { data: blogs, error } = await supabase
+      .from('blog_posts')
+      .select('slug, updated_at');
+
+    if (error) {
+      console.error('Error fetching blogs for sitemap:', error);
+      return [];
+    }
+
+    const baseUrl = 'https://eateriq.com';
+
+    return blogs
+      .filter((blog: { slug: string | null }) => !!blog.slug)
+      .map((blog: { slug: string; updated_at: string | null }) => ({
+        loc: `${baseUrl}/blog/${blog.slug}`,
+        lastmod: blog.updated_at ? new Date(blog.updated_at).toISOString().split('T')[0] : undefined,
+        changefreq: 'monthly' as const,
+        priority: 0.6,
+      }));
+  } catch (error) {
+    console.error('Error generating blog sitemap URLs:', error);
+    return [];
+  }
+};
+
 export const generateCompleteSitemap = async (): Promise<string> => {
   const staticUrls = getStaticSitemapUrls();
   const quizUrls = await generateQuizSitemapUrls();
   const profileUrls = await generateUserProfileSitemapUrls();
+  const blogUrls = await generateBlogsUrls();
   
-  const allUrls = [...staticUrls, ...quizUrls, ...profileUrls];
+  const allUrls = [...staticUrls, ...quizUrls, ...profileUrls, ...blogUrls];
   
   return generateSitemap(allUrls);
 };
