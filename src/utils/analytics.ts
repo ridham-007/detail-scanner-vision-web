@@ -9,7 +9,7 @@ declare global {
 }
 
 export const GA_MEASUREMENT_ID = 'G-YK2C6Q3ZMW'; // Replace with your actual GA4 Measurement ID
-export const AMPLITUDE_API_KEY = ''; // Will be configured by user or via environment
+export const AMPLITUDE_API_KEY = import.meta.env.VITE_AMPLITUDE_API_KEY || '';
 
 // Initialize Google Analytics
 export const initGA = () => {
@@ -21,13 +21,11 @@ export const initGA = () => {
   }
 };
 
-// Initialize Amplitude with configurable API key
-export const initAmplitude = (apiKey?: string) => {
-  const amplitudeKey = apiKey || AMPLITUDE_API_KEY || localStorage.getItem('amplitude_api_key');
-  
-  if (typeof window !== 'undefined' && amplitudeKey && amplitudeKey.trim()) {
+// Initialize Amplitude
+export const initAmplitude = () => {
+  if (typeof window !== 'undefined' && AMPLITUDE_API_KEY && AMPLITUDE_API_KEY.trim()) {
     try {
-      amplitude.init(amplitudeKey, {
+      amplitude.init(AMPLITUDE_API_KEY, {
         defaultTracking: {
           sessions: true,
           pageViews: true,
@@ -41,18 +39,10 @@ export const initAmplitude = (apiKey?: string) => {
   }
 };
 
-// Initialize all analytics with configurable API keys
-export const initAnalytics = (amplitudeApiKey?: string) => {
+// Initialize all analytics
+export const initAnalytics = () => {
   initGA();
-  initAmplitude(amplitudeApiKey);
-};
-
-// Reinitialize Amplitude with new API key
-export const reinitializeAmplitude = (apiKey: string) => {
-  if (apiKey) {
-    localStorage.setItem('amplitude_api_key', apiKey);
-    initAmplitude(apiKey);
-  }
+  initAmplitude();
 };
 
 // Set user identity
