@@ -156,20 +156,6 @@ const BlogPostPage = () => {
             </Button>
           </div>
 
-          <div className="flex items-center gap-3 mb-6">
-            <Avatar className="h-10 w-10">
-              <AvatarImage src={post.author?.avatar_url} alt={post.author?.full_name} />
-              <AvatarFallback>
-                <User className="h-5 w-5" />
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="font-medium">
-                {post.author?.full_name || post.author?.username || 'EaterIQ Team'}
-              </p>
-              <p className="text-sm text-muted-foreground">Author</p>
-            </div>
-          </div>
 
           {post.featured_image_url && (
             <div className="aspect-video overflow-hidden rounded-lg mb-8">
@@ -189,22 +175,9 @@ const BlogPostPage = () => {
 
         <footer className="mt-12 pt-8 border-t">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Avatar className="h-12 w-12">
-                <AvatarImage src={post.author?.avatar_url} alt={post.author?.full_name} />
-                <AvatarFallback>
-                  <User className="h-6 w-6" />
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-medium text-lg">
-                  {post.author?.full_name || post.author?.username || 'EaterIQ Team'}
-                </p>
-                <p className="text-muted-foreground">
-                  Published on {formatDate(post.published_at || post.created_at)}
-                </p>
-              </div>
-            </div>
+            <p className="text-muted-foreground">
+              Published on {formatDate(post.published_at || post.created_at)}
+            </p>
             
             <Button onClick={handleShare}>
               <Share2 className="h-4 w-4 mr-2" />

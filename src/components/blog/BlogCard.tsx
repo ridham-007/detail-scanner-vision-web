@@ -58,19 +58,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       </CardHeader>
       
       <CardContent className="pt-0">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Avatar className="h-6 w-6">
-              <AvatarImage src={post.author?.avatar_url} alt={post.author?.full_name} />
-              <AvatarFallback className="text-xs">
-                <User className="h-3 w-3" />
-              </AvatarFallback>
-            </Avatar>
-            <span className="text-sm text-muted-foreground">
-              {post.author?.full_name || post.author?.username || 'Anonymous'}
-            </span>
-          </div>
-          
+        <div className="flex items-center justify-end">
           {!post.is_published && (
             <Badge variant="secondary">Draft</Badge>
           )}
