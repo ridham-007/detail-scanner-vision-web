@@ -69,7 +69,7 @@ const EditQuizModal: React.FC<EditQuizModalProps> = ({
     try {
       const { data, error } = await supabase
         .from('quiz_questions')
-        .select('*')
+        .select('id, question_text, correct_answer, wrong_answer_1, wrong_answer_2, wrong_answer_3, question_order')
         .eq('quiz_id', quiz.id)
         .order('question_order');
 

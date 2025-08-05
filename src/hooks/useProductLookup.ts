@@ -14,7 +14,7 @@ export const useProductLookup = () => {
     try {
       const { data, error } = await supabase
         .from('scanned_products')
-        .select('*')
+        .select('id, barcode, name, unit, health_score, nutrition_per_100g, positives, concerns, recommendations, images, ingredients, other_good_product_suggestions, is_health_related_product')
         .eq('barcode', barcode)
         .eq('is_published', true)
         .single();

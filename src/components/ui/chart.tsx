@@ -1,10 +1,11 @@
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
-
+import dompurify from 'dompurify';
 import { cn } from "@/lib/utils"
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
+const safeThemes = dompurify.sanitize(JSON.stringify(THEMES));
 
 export type ChartConfig = {
   [k in string]: {
@@ -77,7 +78,7 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   return (
     <style
       dangerouslySetInnerHTML={{
-        __html: Object.entries(THEMES)
+        __html: Object.entries(safeThemes)
           .map(
             ([theme, prefix]) => `
 ${prefix} [data-chart=${id}] {

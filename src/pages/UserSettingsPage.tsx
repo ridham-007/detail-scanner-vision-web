@@ -42,7 +42,7 @@ const UserSettingsPage = () => {
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .select('*')
+        .select('full_name, username, bio, website, location, avatar_url')
         .eq('id', user.id)
         .single();
 

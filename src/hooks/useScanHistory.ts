@@ -27,7 +27,7 @@ export const useScanHistory = () => {
     try {
       const { data, error } = await supabase
         .from('scan_history')
-        .select('*')
+        .select('id, barcode, product_name, health_score, scanned_at, scan_location, notes')
         .eq('user_id', user.id)
         .order('scanned_at', { ascending: false })
         .limit(limit);

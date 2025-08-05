@@ -9,11 +9,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CalendarDays, Clock, User, ArrowLeft, Share2 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import { useToast } from '@/hooks/use-toast';
+import DOMPurify from 'dompurify';
+
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: post, isLoading, error } = useBlogPost(slug!);
   const { toast } = useToast();
+  const safePostContent = DOMPurify.sanitize(post?.content || '');
+
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -98,6 +102,8 @@ const BlogPostPage = () => {
     }
   };
 
+  const safeSchemaData = DOMPurify.sanitize(JSON.stringify(schemaData));
+
   return (
     <>
       <SEOHead
@@ -121,7 +127,7 @@ const BlogPostPage = () => {
       
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+        dangerouslySetInnerHTML={{ __html: safeSchemaData }}
       />
 
       <article className="container mx-auto px-4 py-8 max-w-4xl">
@@ -170,7 +176,7 @@ const BlogPostPage = () => {
 
         <div 
           className="blog-content-loaded prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-blockquote:text-foreground prose-li:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: safePostContent }}
         />
 
         <footer className="mt-12 pt-8 border-t">

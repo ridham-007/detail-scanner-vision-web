@@ -1,119 +1,137 @@
-
-import React, { useState, useRef } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Search, Scan } from 'lucide-react';
-import BarcodeScanner from '@/components/BarcodeScanner';
-import ProductDetails from '@/components/ProductDetails';
-import { useProductLookup } from '@/hooks/useProductLookup';
-import { ProductData } from '@/types/ProductData';
-import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
+import React, { useState, useRef } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search, Scan } from "lucide-react";
+import BarcodeScanner from "@/components/BarcodeScanner";
+import ProductDetails from "@/components/ProductDetails";
+import { useProductLookup } from "@/hooks/useProductLookup";
+import { ProductData } from "@/types/ProductData";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { rateLimitedQuery } from "@/utils/rateLimitedSupabase";
 
 const FoodScannerPage: React.FC = () => {
   const [isScanning, setIsScanning] = useState(false);
-  const [manualBarcode, setManualBarcode] = useState('');
-  const [currentProduct, setCurrentProduct] = useState<ProductData | null>(null);
+  const [manualBarcode, setManualBarcode] = useState("");
+  const [currentProduct, setCurrentProduct] = useState<ProductData | null>(
+    null
+  );
   const [showNoDataState, setShowNoDataState] = useState(false);
   const { lookupProduct, isLoading } = useProductLookup();
   const productDetailsRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
 
   const scrollToResults = () => {
-    setTimeout(() => {
-      productDetailsRef.current?.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'center',
-      });
-    }, 10);
+    // setTimeout(() => {
+    //   productDetailsRef.current?.scrollIntoView({
+    //     behavior: "smooth",
+    //     block: "center",
+    //   });
+    // }, 10);
   };
 
   const handleScan = async (scannedCode: string) => {
-    setIsScanning(false);
-    setShowNoDataState(false);
-    scrollToResults();
+    await rateLimitedQuery("scanHistory", async () => {
+      setIsScanning(false);
+      setShowNoDataState(false);
+      scrollToResults();
 
-    const { data, error } = await supabase
-      .from('scan_history')
-      .select('barcode')
-      .eq('user_id', user.id);
+      const { data, error } = await supabase
+        .from("scan_history")
+        .select("barcode")
+        .eq("user_id", user.id);
 
-    if (error) {
-      console.error('Error fetching scan history:', error);
-      return;
-    }
-    const alreadyScanned = data?.some(entry => entry.barcode === scannedCode);
+      if (error) {
+        console.error("Error fetching scan history:", error);
+        return;
+      }
+      const alreadyScanned = data?.some(
+        (entry) => entry.barcode === scannedCode
+      );
 
-    if (alreadyScanned) {
-      toast.info('You’ve already scanned this product. Check your history for details!');
-      return;
-    }
+      if (alreadyScanned) {
+        toast.info(
+          "You’ve already scanned this product. Check your history for details!"
+        );
+        return;
+      }
 
-    const product = await lookupProduct(scannedCode);
+      const product = await lookupProduct(scannedCode);
 
-    if (product) {
-      setCurrentProduct(product);
+      if (product) {
+        setCurrentProduct(product);
 
-      await supabase.from('scan_history').insert([
-        {
-          user_id: user.id,
-          barcode: scannedCode,
-          product_name: product.name,
-          health_score: product.health_score ?? null,
-          scanned_at: new Date().toISOString(),
-        }
-      ]);
-
-    } else {
-      setCurrentProduct(null);
-      setShowNoDataState(true);
-    }
+        await supabase.from("scan_history").insert([
+          {
+            user_id: user.id,
+            barcode: scannedCode,
+            product_name: product.name,
+            health_score: product.health_score ?? null,
+            scanned_at: new Date().toISOString(),
+          },
+        ]);
+      } else {
+        setCurrentProduct(null);
+        setShowNoDataState(true);
+      }
+    });
   };
 
   const handleManualLookup = async () => {
-    const trimmedBarcode = manualBarcode.trim();
-    if (!trimmedBarcode) return;
+    return rateLimitedQuery("scanHistory", async () => {
+      const trimmedBarcode = manualBarcode.trim();
+      if (!trimmedBarcode) return;
 
-    setShowNoDataState(false);
-    scrollToResults();
+      setShowNoDataState(false);
+      scrollToResults();
 
-    const { data, error } = await supabase
-      .from('scan_history')
-      .select('barcode')
-      .eq('user_id', user.id);
+      const { data, error } = await supabase
+        .from("scan_history")
+        .select("barcode")
+        .eq("user_id", user.id);
 
-    if (error) {
-      console.error('Error fetching scan history:', error);
-      return;
-    }
+      if (error) {
+        console.error("Error fetching scan history:", error);
+        return;
+      }
 
-    const alreadyScanned = data?.some(entry => entry.barcode === trimmedBarcode);
+      const alreadyScanned = data?.some(
+        (entry) => entry.barcode === trimmedBarcode
+      );
 
-    if (alreadyScanned) {
-      toast.info('You’ve already scanned this product. Check your history for details!');
-      return;
-    }
+      if (alreadyScanned) {
+        toast.info(
+          "You’ve already scanned this product. Check your history for details!"
+        );
+        return;
+      }
 
-    const product = await lookupProduct(trimmedBarcode);
+      const product = await lookupProduct(trimmedBarcode);
 
-    if (product) {
-      setCurrentProduct(product);
-      await supabase.from('scan_history').insert([
-        {
-          user_id: user.id,
-          barcode: trimmedBarcode,
-          product_name: product.name,
-          health_score: product.health_score ?? null,
-          scanned_at: new Date().toISOString(),
-        }
-      ]);
-
-    } else {
-      setCurrentProduct(null);
-      setShowNoDataState(true);
-    }
+      if (product) {
+        setCurrentProduct(product);
+        await supabase.from("scan_history").insert([
+          {
+            user_id: user.id,
+            barcode: trimmedBarcode,
+            product_name: product.name,
+            health_score: product.health_score ?? null,
+            scanned_at: new Date().toISOString(),
+          },
+        ]);
+      } else {
+        setCurrentProduct(null);
+        setShowNoDataState(true);
+      }
+    });
   };
 
   const toggleScanning = () => {
@@ -123,9 +141,12 @@ const FoodScannerPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-foreground mb-2">Food Scanner</h2>
+        <h2 className="text-3xl font-bold text-foreground mb-2">
+          Food Scanner
+        </h2>
         <p className="text-muted-foreground">
-          Scan barcodes or enter them manually to get detailed product information
+          Scan barcodes or enter them manually to get detailed product
+          information
         </p>
       </div>
 
@@ -142,7 +163,7 @@ const FoodScannerPage: React.FC = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <BarcodeScanner 
+            <BarcodeScanner
               onScan={handleScan}
               isScanning={isScanning}
               onToggleScanning={toggleScanning}
@@ -168,9 +189,9 @@ const FoodScannerPage: React.FC = () => {
                 placeholder="Enter barcode number..."
                 value={manualBarcode}
                 onChange={(e) => setManualBarcode(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleManualLookup()}
+                onKeyPress={(e) => e.key === "Enter" && handleManualLookup()}
               />
-              <Button 
+              <Button
                 aria-label="Search"
                 onClick={handleManualLookup}
                 disabled={isLoading || !manualBarcode.trim()}
@@ -179,7 +200,8 @@ const FoodScannerPage: React.FC = () => {
               </Button>
             </div>
             <p className="text-sm text-muted-foreground">
-              Try scanning: 8906000610077 (Crispy Potatoes) or 8906019779840 (Mix Dry Fruits)
+              Try scanning: 8906000610077 (Crispy Potatoes) or 8906019779840
+              (Mix Dry Fruits)
             </p>
           </CardContent>
         </Card>
@@ -187,9 +209,9 @@ const FoodScannerPage: React.FC = () => {
 
       {/* Product Details Section */}
       <div ref={productDetailsRef}>
-        <ProductDetails 
-          product={currentProduct} 
-          isLoading={isLoading} 
+        <ProductDetails
+          product={currentProduct}
+          isLoading={isLoading}
           showNoDataState={showNoDataState}
         />
       </div>

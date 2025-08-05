@@ -24,10 +24,9 @@ export const useFavorites = () => {
     try {
       const { data, error } = await supabase
         .from('favorites')
-        .select('*')
+        .select('id, barcode, product_name, health_score, created_at')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
-
       if (error) throw error;
       setFavorites(data || []);
     } catch (error) {

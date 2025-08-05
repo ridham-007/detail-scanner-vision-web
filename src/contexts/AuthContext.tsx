@@ -21,6 +21,8 @@ export const useAuth = () => {
   return context;
 };
 
+const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 1 minutes
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
@@ -60,6 +62,46 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   };
+
+  // --- ⏰ Session Timeout Logic ---
+  useEffect(() => {
+    if (!session) return;
+
+    // 1. Update lastActivity on user interaction
+    const updateActivity = () => {
+      localStorage.setItem('lastActivity', Date.now().toString());
+    };
+
+    // 2. Check if session expired
+    const checkTimeout = () => {
+      const lastActivity = localStorage.getItem('lastActivity');
+      if (!lastActivity) return;
+
+      const now = Date.now();
+      const diff = now - parseInt(lastActivity);
+
+      if (diff > SESSION_TIMEOUT_MS) {
+        console.log("⏳ Session expired due to inactivity");
+        signOut();
+      }
+    };
+
+    // Set initial activity time
+    updateActivity();
+
+    // Listen to user events
+    window.addEventListener('mousemove', updateActivity);
+    window.addEventListener('keydown', updateActivity);
+
+    // Check every 1 minute
+    const interval = setInterval(checkTimeout, 60 * 1000);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('mousemove', updateActivity);
+      window.removeEventListener('keydown', updateActivity);
+    };
+  }, [session]); // Only when user is logged in
 
   const value = {
     user,

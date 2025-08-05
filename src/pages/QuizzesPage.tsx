@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,7 +15,7 @@ import CreateQuizModal from "@/components/CreateQuizModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
 import SEOHead from "@/components/SEOHead";
 import { generateBreadcrumbStructuredData } from "@/utils/seo";
-import { cn } from "@/lib/utils";
+import { rateLimitedQuery } from "@/utils/rateLimitedSupabase";
 
 interface Quiz {
   id: string;
@@ -129,62 +128,65 @@ const QuizzesPage = () => {
     difficulty: "easy" | "medium" | "hard";
     prompt: string;
   }) => {
-    if (!user) return;
+    return rateLimitedQuery("quizzes", async () => {
+      if (!user) return;
 
-    setLoading(true);
-    try {
-      // Create quiz in database
-      const { data: quiz, error: quizError } = await supabase
-        .from("quizzes")
-        .insert({
-          creator_id: user.id,
-          title: formData.title,
-          description: formData.description,
-          difficulty: formData.difficulty,
-          prompt: formData.prompt,
-          is_published: false,
-        })
-        .select()
-        .single();
-
-      if (quizError) throw quizError;
-
-      // Call edge function to generate questions with ChatGPT
-      const { data: questionsData, error: questionsError } =
-        await supabase.functions.invoke("generate-quiz", {
-          body: {
-            quizId: quiz.id,
-            prompt: formData.prompt,
+      setLoading(true);
+      try {
+        // Create quiz in database
+        const { data: quiz, error: quizError } = await supabase
+          .from("quizzes")
+          .insert({
+            creator_id: user.id,
+            title: formData.title,
+            description: formData.description,
             difficulty: formData.difficulty,
-          },
+            prompt: formData.prompt,
+            is_published: false,
+          })
+          .select()
+          .single();
+
+        if (quizError) throw quizError;
+
+        // Call edge function to generate questions with ChatGPT
+        const { data: questionsData, error: questionsError } =
+          await supabase.functions.invoke("generate-quiz", {
+            body: {
+              quizId: quiz.id,
+              prompt: formData.prompt,
+              difficulty: formData.difficulty,
+            },
+          });
+
+        if (questionsError) throw questionsError;
+
+        // Publish the quiz after questions are generated
+        await supabase
+          .from("quizzes")
+          .update({ is_published: true })
+          .eq("id", quiz.id);
+
+        toast({
+          title: "Quiz Created!",
+          description:
+            "Your quiz has been generated and published successfully.",
         });
 
-      if (questionsError) throw questionsError;
-
-      // Publish the quiz after questions are generated
-      await supabase
-        .from("quizzes")
-        .update({ is_published: true })
-        .eq("id", quiz.id);
-
-      toast({
-        title: "Quiz Created!",
-        description: "Your quiz has been generated and published successfully.",
-      });
-
-      setShowCreateModal(false);
-      fetchQuizzes();
-      fetchMyQuizzes();
-    } catch (error) {
-      console.error("Error creating quiz:", error);
-      toast({
-        title: "Error",
-        description: "Failed to create quiz. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+        setShowCreateModal(false);
+        fetchQuizzes();
+        fetchMyQuizzes();
+      } catch (error) {
+        console.error("Error creating quiz:", error);
+        toast({
+          title: "Error",
+          description: "Failed to create quiz. Please try again.",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    });
   };
 
   const playQuiz = (quizId: string) => {
@@ -338,7 +340,7 @@ const QuizzesPage = () => {
                   Please sign in to view your quizzes.
                 </p>
                 <Button
-                  onClick={() => navigate('/auth')}
+                  onClick={() => navigate("/auth")}
                   className="bg-gradient-to-r from-emerald-600 to-blue-600"
                 >
                   Sign In
@@ -414,7 +416,9 @@ const QuizzesPage = () => {
         <CreateQuizModal
           open={showCreateModal}
           onOpenChange={setShowCreateModal}
-          onSubmit={createQuiz}
+          onSubmit={async (data) => {
+            await createQuiz(data);
+          }}
           loading={loading}
         />
 

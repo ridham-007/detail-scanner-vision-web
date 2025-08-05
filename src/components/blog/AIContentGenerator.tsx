@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Wand2, Loader2, Copy, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import DOMPurify from 'dompurify';
 
 interface AIContentGeneratorProps {
   onContentGenerated: (content: string) => void;
@@ -22,6 +23,7 @@ const AIContentGenerator: React.FC<AIContentGeneratorProps> = ({
   const [generatedContent, setGeneratedContent] = useState('');
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
+  const safeGeneratedContent = DOMPurify.sanitize(generatedContent);
 
   const contentTypes = [
     { label: 'Blog Introduction', prompt: 'Write an engaging introduction for a blog post about' },
@@ -168,7 +170,7 @@ const AIContentGenerator: React.FC<AIContentGeneratorProps> = ({
             <div className="p-4 border rounded-md bg-muted max-h-60 overflow-y-auto">
               <div 
                 className="prose prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: generatedContent }}
+                dangerouslySetInnerHTML={{ __html: safeGeneratedContent }}
               />
             </div>
             <div className="flex gap-2">
