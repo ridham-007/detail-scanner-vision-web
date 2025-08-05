@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { identifyUser, trackEvent } from '@/utils/analytics';
 
 interface AuthContextType {
   user: User | null;
@@ -33,6 +34,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
+        
+        // Track authentication events
+        if (event === 'SIGNED_IN' && session?.user) {
+          setTimeout(() => {
+            identifyUser(session.user.id, {
+              email: session.user.email,
+              provider: session.user.app_metadata?.provider,
+              created_at: session.user.created_at,
+            });
+            trackEvent('user_signed_in', {
+              provider: session.user.app_metadata?.provider,
+              user_id: session.user.id,
+            });
+          }, 0);
+        } else if (event === 'SIGNED_OUT') {
+          trackEvent('user_signed_out');
+        }
       }
     );
 
@@ -41,6 +59,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+      
+      // Identify existing user
+      if (session?.user) {
+        setTimeout(() => {
+          identifyUser(session.user.id, {
+            email: session.user.email,
+            provider: session.user.app_metadata?.provider,
+            created_at: session.user.created_at,
+          });
+        }, 0);
+      }
     });
 
     return () => subscription.unsubscribe();

@@ -1,5 +1,7 @@
 
-// Google Analytics utility functions
+// Analytics utility functions for Google Analytics and Amplitude
+import * as amplitude from '@amplitude/analytics-browser';
+
 declare global {
   interface Window {
     gtag: (command: string, targetId: string, config?: any) => void;
@@ -7,6 +9,7 @@ declare global {
 }
 
 export const GA_MEASUREMENT_ID = 'G-YK2C6Q3ZMW'; // Replace with your actual GA4 Measurement ID
+export const AMPLITUDE_API_KEY = 'YOUR_AMPLITUDE_API_KEY'; // Replace with your actual Amplitude API key
 
 // Initialize Google Analytics
 export const initGA = () => {
@@ -18,23 +21,70 @@ export const initGA = () => {
   }
 };
 
+// Initialize Amplitude
+export const initAmplitude = () => {
+  if (typeof window !== 'undefined') {
+    amplitude.init(AMPLITUDE_API_KEY, {
+      defaultTracking: {
+        sessions: true,
+        pageViews: true,
+        formInteractions: true,
+        fileDownloads: true,
+      },
+    });
+  }
+};
+
+// Initialize all analytics
+export const initAnalytics = () => {
+  initGA();
+  initAmplitude();
+};
+
+// Set user identity
+export const identifyUser = (userId: string, userProperties?: Record<string, any>) => {
+  // Google Analytics
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('config', GA_MEASUREMENT_ID, {
+      user_id: userId,
+    });
+  }
+  
+  // Amplitude
+  amplitude.setUserId(userId);
+  if (userProperties) {
+    const identifyObj = new amplitude.Identify();
+    Object.entries(userProperties).forEach(([key, value]) => {
+      identifyObj.setOnce(key, value);
+    });
+    amplitude.identify(identifyObj);
+  }
+};
+
 // Track page views
 export const trackPageView = (url: string, title?: string) => {
+  // Google Analytics
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('config', GA_MEASUREMENT_ID, {
       page_path: url,
       page_title: title || document.title,
     });
   }
+  
+  // Amplitude (handled automatically by defaultTracking.pageViews)
 };
 
 // Track custom events
 export const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+  // Google Analytics
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', eventName, {
       ...parameters,
     });
   }
+  
+  // Amplitude
+  amplitude.track(eventName, parameters);
 };
 
 // Specific event tracking functions for EaterIQ
