@@ -379,3 +379,8 @@
     pointer-events: none;
   }
 }
+
+
+.blog-content-loaded ul {
+  list-style-position: outside !important;
+}
