@@ -9,7 +9,7 @@ declare global {
 }
 
 export const GA_MEASUREMENT_ID = 'G-YK2C6Q3ZMW'; // Replace with your actual GA4 Measurement ID
-export const AMPLITUDE_API_KEY = 'YOUR_AMPLITUDE_API_KEY'; // Replace with your actual Amplitude API key
+export const AMPLITUDE_API_KEY = import.meta.env.VITE_AMPLITUDE_API_KEY || ''; // Loaded from Supabase secrets
 
 // Initialize Google Analytics
 export const initGA = () => {
