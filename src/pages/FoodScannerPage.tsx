@@ -82,24 +82,17 @@ const FoodScannerPage: React.FC = () => {
     const { data, error } = await supabase
       .from('scan_history')
       .select('barcode')
-      .eq('user_id', user.id);
+      .eq('user_id', user?.id);
 
-    if (error) {
-      console.error('Error fetching scan history:', error);
-      return;
-    }
 
-    const alreadyScanned = data?.some(entry => entry.barcode === trimmedBarcode);
+    const alreadyScanned = data?.some(entry => entry?.barcode === trimmedBarcode);
 
-    if (alreadyScanned) {
-      toast.info('You’ve already scanned this product. Check your history for details!');
-      return;
-    }
 
     const product = await lookupProduct(trimmedBarcode);
 
     if (product) {
       setCurrentProduct(product);
+      if(!alreadyScanned){
       await supabase.from('scan_history').insert([
         {
           user_id: user.id,
@@ -109,6 +102,7 @@ const FoodScannerPage: React.FC = () => {
           scanned_at: new Date().toISOString(),
         }
       ]);
+    }
 
     } else {
       setCurrentProduct(null);
