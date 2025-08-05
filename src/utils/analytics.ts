@@ -9,7 +9,7 @@ declare global {
 }
 
 export const GA_MEASUREMENT_ID = 'G-YK2C6Q3ZMW'; // Replace with your actual GA4 Measurement ID
-export const AMPLITUDE_API_KEY = import.meta.env.VITE_AMPLITUDE_API_KEY || ''; // Loaded from Supabase secrets
+export const AMPLITUDE_API_KEY = ''; // Will be configured by user or via environment
 
 // Initialize Google Analytics
 export const initGA = () => {
@@ -21,24 +21,38 @@ export const initGA = () => {
   }
 };
 
-// Initialize Amplitude
-export const initAmplitude = () => {
-  if (typeof window !== 'undefined') {
-    amplitude.init(AMPLITUDE_API_KEY, {
-      defaultTracking: {
-        sessions: true,
-        pageViews: true,
-        formInteractions: true,
-        fileDownloads: true,
-      },
-    });
+// Initialize Amplitude with configurable API key
+export const initAmplitude = (apiKey?: string) => {
+  const amplitudeKey = apiKey || AMPLITUDE_API_KEY || localStorage.getItem('amplitude_api_key');
+  
+  if (typeof window !== 'undefined' && amplitudeKey && amplitudeKey.trim()) {
+    try {
+      amplitude.init(amplitudeKey, {
+        defaultTracking: {
+          sessions: true,
+          pageViews: true,
+          formInteractions: true,
+          fileDownloads: true,
+        },
+      });
+    } catch (error) {
+      console.warn('Failed to initialize Amplitude:', error);
+    }
   }
 };
 
-// Initialize all analytics
-export const initAnalytics = () => {
+// Initialize all analytics with configurable API keys
+export const initAnalytics = (amplitudeApiKey?: string) => {
   initGA();
-  initAmplitude();
+  initAmplitude(amplitudeApiKey);
+};
+
+// Reinitialize Amplitude with new API key
+export const reinitializeAmplitude = (apiKey: string) => {
+  if (apiKey) {
+    localStorage.setItem('amplitude_api_key', apiKey);
+    initAmplitude(apiKey);
+  }
 };
 
 // Set user identity
@@ -50,14 +64,18 @@ export const identifyUser = (userId: string, userProperties?: Record<string, any
     });
   }
   
-  // Amplitude
-  amplitude.setUserId(userId);
-  if (userProperties) {
-    const identifyObj = new amplitude.Identify();
-    Object.entries(userProperties).forEach(([key, value]) => {
-      identifyObj.setOnce(key, value);
-    });
-    amplitude.identify(identifyObj);
+  // Amplitude - only if initialized
+  try {
+    amplitude.setUserId(userId);
+    if (userProperties) {
+      const identifyObj = new amplitude.Identify();
+      Object.entries(userProperties).forEach(([key, value]) => {
+        identifyObj.setOnce(key, value);
+      });
+      amplitude.identify(identifyObj);
+    }
+  } catch (error) {
+    // Amplitude not initialized, skip silently
   }
 };
 
@@ -83,8 +101,12 @@ export const trackEvent = (eventName: string, parameters?: Record<string, any>) 
     });
   }
   
-  // Amplitude
-  amplitude.track(eventName, parameters);
+  // Amplitude - only if initialized
+  try {
+    amplitude.track(eventName, parameters);
+  } catch (error) {
+    // Amplitude not initialized, skip silently
+  }
 };
 
 // Specific event tracking functions for EaterIQ
