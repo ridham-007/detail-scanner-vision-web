@@ -1,11 +1,10 @@
-
 interface SEOConfig {
   title?: string;
   description?: string;
   keywords?: string;
   image?: string;
   url?: string;
-  type?: 'website' | 'article' | 'quiz';
+  type?: "website" | "article" | "quiz";
   structuredData?: object;
   ogTitle?: string;
   ogDescription?: string;
@@ -24,12 +23,17 @@ interface SEOConfig {
 
 export const updatePageSEO = (config: SEOConfig) => {
   const {
-    title = 'EaterIQ - Smart Food Intelligence',
-    description = 'AI-powered barcode scanner and quiz platform for smarter food choices',
-    keywords = 'barcode scanner, food scanner, nutrition app, health score, AI food quiz',
-    image = 'http://eateriq.com/eater-iq.png',
-    url = window.location.href,
-    type = 'website',
+    title = "EaterIQ - Smart Food Intelligence",
+    description = "AI-powered barcode scanner and quiz platform for smarter food choices",
+    keywords = "barcode scanner, food scanner, nutrition app, health score, AI food quiz",
+    image = `${import.meta.env.VITE_BASE_URL}/eater-iq.png`,
+    url = typeof window !== "undefined"
+      ? window.location.href.replace(
+          window.location.origin,
+          import.meta.env.VITE_BASE_URL
+        )
+      : `${import.meta.env.VITE_BASE_URL}`,
+    type = "website",
     structuredData,
     ogTitle,
     ogDescription,
@@ -38,7 +42,7 @@ export const updatePageSEO = (config: SEOConfig) => {
     twitterDescription,
     twitterImage,
     canonicalUrl,
-    articleData
+    articleData,
   } = config;
 
   // Update document title
@@ -46,63 +50,71 @@ export const updatePageSEO = (config: SEOConfig) => {
 
   // Update or create meta tags
   const updateMeta = (name: string, content: string, property = false) => {
-    const selector = property ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+    const selector = property
+      ? `meta[property="${name}"]`
+      : `meta[name="${name}"]`;
     let meta = document.querySelector(selector) as HTMLMetaElement;
-    
+
     if (!meta) {
-      meta = document.createElement('meta');
+      meta = document.createElement("meta");
       if (property) {
-        meta.setAttribute('property', name);
+        meta.setAttribute("property", name);
       } else {
-        meta.setAttribute('name', name);
+        meta.setAttribute("name", name);
       }
       document.head.appendChild(meta);
     }
-    
-    meta.setAttribute('content', content);
+
+    meta.setAttribute("content", content);
   };
 
   // Update basic meta tags
-  updateMeta('description', description);
-  updateMeta('keywords', keywords);
-  
+  updateMeta("description", description);
+  updateMeta("keywords", keywords);
+
   // Update Open Graph tags
-  updateMeta('og:title', ogTitle || title, true);
-  updateMeta('og:description', ogDescription || description, true);
-  updateMeta('og:image', ogImage || image, true);
-  updateMeta('og:url', canonicalUrl || url, true);
-  updateMeta('og:type', type, true);
-  
+  updateMeta("og:title", ogTitle || title, true);
+  updateMeta("og:description", ogDescription || description, true);
+  updateMeta("og:image", ogImage || image, true);
+  updateMeta("og:url", canonicalUrl || url, true);
+  updateMeta("og:type", type, true);
+  updateMeta('og:site_name', 'EaterIQ', true);
+
+
   // Update Twitter tags
-  updateMeta('twitter:title', twitterTitle || title);
-  updateMeta('twitter:description', twitterDescription || description);
-  updateMeta('twitter:image', twitterImage || image);
-  updateMeta('twitter:url', canonicalUrl || url);
+  updateMeta("twitter:title", twitterTitle || title);
+  updateMeta("twitter:description", twitterDescription || description);
+  updateMeta("twitter:image", twitterImage || image);
+  updateMeta("twitter:url", canonicalUrl || url);
+  updateMeta('twitter:card', 'summary_large_image');
+
 
   // Article-specific meta tags
-  if (type === 'article' && articleData) {
+  if (type === "article" && articleData) {
     if (articleData.publishedTime) {
-      updateMeta('article:published_time', articleData.publishedTime, true);
+      updateMeta("article:published_time", articleData.publishedTime, true);
     }
     if (articleData.modifiedTime) {
-      updateMeta('article:modified_time', articleData.modifiedTime, true);
+      updateMeta("article:modified_time", articleData.modifiedTime, true);
     }
     if (articleData.author) {
-      updateMeta('article:author', articleData.author, true);
+      updateMeta("article:author", articleData.author, true);
     }
     if (articleData.section) {
-      updateMeta('article:section', articleData.section, true);
+      updateMeta("article:section", articleData.section, true);
     }
   }
 
   // Update canonical URL
-  let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+  let canonical = document.querySelector(
+    'link[rel="canonical"]'
+  ) as HTMLLinkElement;
   if (!canonical) {
-    canonical = document.createElement('link');
-    canonical.setAttribute('rel', 'canonical');
+    canonical = document.createElement("link");
+    canonical.setAttribute("rel", "canonical");
     document.head.appendChild(canonical);
   }
-  canonical.setAttribute('href', canonicalUrl || url);
+  canonical.setAttribute("href", canonicalUrl || url);
 
   // Add structured data if provided
   if (structuredData) {
@@ -111,9 +123,9 @@ export const updatePageSEO = (config: SEOConfig) => {
       existingScript.remove();
     }
 
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.setAttribute('data-seo', 'dynamic');
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.setAttribute("data-seo", "dynamic");
     script.textContent = JSON.stringify(structuredData);
     document.head.appendChild(script);
   }
@@ -128,38 +140,40 @@ export const generateQuizStructuredData = (quiz: {
 }) => ({
   "@context": "https://schema.org",
   "@type": "Quiz",
-  "name": quiz.title,
-  "description": quiz.description,
-  "about": {
+  name: quiz.title,
+  description: quiz.description,
+  about: {
     "@type": "Thing",
-    "name": "Nutrition and Food Knowledge"
+    name: "Nutrition and Food Knowledge",
   },
-  "educationalLevel": quiz.difficulty,
-  "dateCreated": quiz.created_at,
-  "creator": {
+  educationalLevel: quiz.difficulty,
+  dateCreated: quiz.created_at,
+  creator: {
     "@type": "Organization",
-    "name": "EaterIQ"
+    name: "EaterIQ",
   },
-  "provider": {
+  provider: {
     "@type": "Organization",
-    "name": "EaterIQ",
-    "url": "https://eateriq.com"
+    name: "EaterIQ",
+    url: "https://eateriq.com",
   },
-  "url": `https://eateriq.com/quiz/${quiz.id}`,
-  "isPartOf": {
+  url: `${import.meta.env.VITE_BASE_URL}/quiz/${quiz.id}`,
+  isPartOf: {
     "@type": "WebSite",
-    "name": "EaterIQ",
-    "url": "https://eateriq.com"
-  }
+    name: "EaterIQ",
+    url: "https://eateriq.com",
+  },
 });
 
-export const generateBreadcrumbStructuredData = (breadcrumbs: Array<{name: string, url: string}>) => ({
+export const generateBreadcrumbStructuredData = (
+  breadcrumbs: Array<{ name: string; url: string }>
+) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": breadcrumbs.map((crumb, index) => ({
+  itemListElement: breadcrumbs.map((crumb, index) => ({
     "@type": "ListItem",
-    "position": index + 1,
-    "name": crumb.name,
-    "item": crumb.url
-  }))
+    position: index + 1,
+    name: crumb.name,
+    item: crumb.url,
+  })),
 });
