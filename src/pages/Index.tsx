@@ -240,7 +240,7 @@ const IndexPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-background">
       <AnimatedBackground />
 
       <main ref={heroRef} className="relative z-10">
@@ -258,7 +258,7 @@ const IndexPage: React.FC = () => {
                   
                   <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
                     Make
-                    <span className="block bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
+                    <span className="block text-primary">
                       Smarter Food
                     </span>
                     <span className="block">Choices</span>
@@ -281,7 +281,6 @@ const IndexPage: React.FC = () => {
                       Start Scanning
                       <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                   </Button>
                   
                   <Button
@@ -322,7 +321,7 @@ const IndexPage: React.FC = () => {
                 <div className="relative z-10">
                   {/* Phone Mockup */}
                   <div className="mx-auto w-72 h-96 bg-card rounded-3xl shadow-2xl border-8 border-border/20 overflow-hidden">
-                    <div className="h-full bg-gradient-to-br from-background to-muted flex flex-col">
+                    <div className="h-full bg-muted flex flex-col">
                       {/* Phone Header */}
                       <div className="p-6 text-center border-b border-border/20">
                         <img src={Logo} alt="EaterIQ logo" className="h-16 w-16 mx-auto mb-3" />
@@ -331,7 +330,7 @@ const IndexPage: React.FC = () => {
                       
                       {/* Scanner Interface */}
                       <div className="flex-1 p-6 flex flex-col justify-center">
-                        <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl border-2 border-dashed border-primary/40 flex items-center justify-center mb-4">
+                        <div className="aspect-square bg-primary/20 rounded-2xl border-2 border-dashed border-primary/40 flex items-center justify-center mb-4">
                           <Scan className="h-12 w-12 text-primary animate-pulse" />
                         </div>
                         <p className="text-center text-muted-foreground text-sm">
@@ -389,7 +388,7 @@ const IndexPage: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               {steps.map((step, index) => (
                 <div key={index} className="step-card flex items-center mb-12 last:mb-0">
-                  <div className="floating-icon flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg mr-4 sm:mr-8">
+                  <div className="floating-icon flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-2xl shadow-lg mr-4 sm:mr-8">
                     {step.step}
                   </div>
                   <div className="flex-1">
@@ -406,19 +405,19 @@ const IndexPage: React.FC = () => {
         <section ref={statsRef} className="container mx-auto px-4 py-16">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="stat-item group">
-              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
                 {productCount ? formatNumber(productCount) : '4.7K+'}
               </div>
               <p className="text-muted-foreground text-lg">Products Analyzed</p>
             </div>
             <div className="stat-item group">
-              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
                 99.9%
               </div>
               <p className="text-muted-foreground text-lg">Accuracy Rate</p>
             </div>
             <div className="stat-item group">
-              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
                 {userCount ? formatNumber(userCount) : '2.4K+'}
               </div>
               <p className="text-muted-foreground text-lg">Happy Users</p>
@@ -431,10 +430,10 @@ const IndexPage: React.FC = () => {
           <section ref={quizzesRef} className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16">
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl mb-6 mx-auto">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-6 mx-auto">
                   <Brain className="h-8 w-8 text-white" />
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
                   Test Your Food IQ
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -468,7 +467,7 @@ const IndexPage: React.FC = () => {
                       
                       <Button 
                         onClick={() => handleQuizPlay(quiz.id)}
-                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                         size="sm"
                       >
                         <Play className="h-4 w-4 mr-2" />
@@ -498,10 +497,10 @@ const IndexPage: React.FC = () => {
         <section ref={comingSoonRef} className="py-20 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-purple-600 rounded-2xl mb-6 mx-auto">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-6 mx-auto">
                 <Rocket className="h-8 w-8 text-white" />
               </div>
-              <h2 className="text-4xl md:text-5xl sm:h-16 font-bold bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent ">
+              <h2 className="text-4xl md:text-5xl sm:h-16 font-bold text-primary ">
                 What's Coming Next
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto ">
@@ -588,7 +587,7 @@ const IndexPage: React.FC = () => {
               <Button
                 aria-label="Get Early Access"
                 size="lg"
-                className="bg-gradient-to-r from-emerald-500 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 onClick={handleEarlyAccessClick}
               >
                 <Bell className="mr-2 h-5 w-5" />
@@ -600,18 +599,18 @@ const IndexPage: React.FC = () => {
 
         {/* CTA Section */}
         <section ref={ctaRef} className="container mx-auto px-4 py-16">
-          <div className="cta-content max-w-4xl mx-auto text-center bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 rounded-3xl p-12 shadow-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+          <div className="cta-content max-w-4xl mx-auto text-center bg-primary rounded-3xl p-12 shadow-2xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
               Ready to Transform Your Food Choices?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
               Join thousands of users who are making smarter, healthier decisions with EaterIQ
             </p>
             <Button
               aria-label="Get Started Today"
               size="lg"
               variant="secondary"
-              className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="bg-background text-foreground hover:bg-muted px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               onClick={handleGetStartedClick}
             >
               Get Started Today
