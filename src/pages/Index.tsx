@@ -251,14 +251,14 @@ const IndexPage: React.FC = () => {
               {/* Left Column - Content */}
               <div className="space-y-8 lg:space-y-10">
                 <div className="space-y-6">
-                  <div className="inline-flex items-center space-x-3 bg-primary/10 rounded-full px-4 py-2">
-                    <Sparkles className="h-5 w-5 text-primary" />
-                    <span className="text-sm font-medium text-primary">AI-Powered Nutrition</span>
+                  <div className="inline-flex items-center space-x-3 bg-muted rounded-full px-4 py-2">
+                    <Sparkles className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-sm font-medium text-muted-foreground">AI-Powered Nutrition</span>
                   </div>
                   
                   <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
                     Make
-                    <span className="block text-primary">
+                    <span className="block text-foreground">
                       Smarter Food
                     </span>
                     <span className="block">Choices</span>
@@ -287,7 +287,7 @@ const IndexPage: React.FC = () => {
                     aria-label="Watch Demo"
                     variant="outline"
                     size="lg"
-                    className="group px-8 py-4 h-auto rounded-xl border-2 border-border hover:border-primary transition-all duration-300"
+                    className="group px-8 py-4 h-auto rounded-xl border-2 border-border hover:border-muted transition-all duration-300"
                     onClick={handleLearnMoreClick}
                   >
                     <Play className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
@@ -330,8 +330,8 @@ const IndexPage: React.FC = () => {
                       
                       {/* Scanner Interface */}
                       <div className="flex-1 p-6 flex flex-col justify-center">
-                        <div className="aspect-square bg-primary/20 rounded-2xl border-2 border-dashed border-primary/40 flex items-center justify-center mb-4">
-                          <Scan className="h-12 w-12 text-primary animate-pulse" />
+                        <div className="aspect-square bg-muted rounded-2xl border-2 border-dashed border-border flex items-center justify-center mb-4">
+                          <Scan className="h-12 w-12 text-muted-foreground animate-pulse" />
                         </div>
                         <p className="text-center text-muted-foreground text-sm">
                           Point camera at barcode
@@ -342,13 +342,13 @@ const IndexPage: React.FC = () => {
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute top-8 -left-4 w-20 h-20 bg-primary/10 rounded-full blur-xl"></div>
+                <div className="absolute top-8 -left-4 w-20 h-20 bg-muted/10 rounded-full blur-xl"></div>
                 <div className="absolute bottom-8 -right-4 w-16 h-16 bg-muted/20 rounded-full blur-lg"></div>
                 
                 {/* Floating Icons */}
                 <div className="absolute top-1/4 -left-8 floating-icon">
-                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg">
-                    <Shield className="h-6 w-6 text-primary-foreground" />
+                  <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center shadow-lg">
+                    <Shield className="h-6 w-6 text-muted-foreground" />
                   </div>
                 </div>
                 <div className="absolute top-3/4 -right-8 floating-icon">
@@ -388,7 +388,7 @@ const IndexPage: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               {steps.map((step, index) => (
                 <div key={index} className="step-card flex items-center mb-12 last:mb-0">
-                  <div className="floating-icon flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-2xl shadow-lg mr-4 sm:mr-8">
+                  <div className="floating-icon flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-muted rounded-full flex items-center justify-center text-muted-foreground font-bold text-2xl shadow-lg mr-4 sm:mr-8">
                     {step.step}
                   </div>
                   <div className="flex-1">
@@ -405,19 +405,19 @@ const IndexPage: React.FC = () => {
         <section ref={statsRef} className="container mx-auto px-4 py-16">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="stat-item group">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
                 {productCount ? formatNumber(productCount) : '4.7K+'}
               </div>
               <p className="text-muted-foreground text-lg">Products Analyzed</p>
             </div>
             <div className="stat-item group">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
                 99.9%
               </div>
               <p className="text-muted-foreground text-lg">Accuracy Rate</p>
             </div>
             <div className="stat-item group">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
                 {userCount ? formatNumber(userCount) : '2.4K+'}
               </div>
               <p className="text-muted-foreground text-lg">Happy Users</p>
@@ -430,10 +430,10 @@ const IndexPage: React.FC = () => {
           <section ref={quizzesRef} className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16">
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-6 mx-auto">
-                  <Brain className="h-8 w-8 text-primary-foreground" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-muted rounded-2xl mb-6 mx-auto">
+                  <Brain className="h-8 w-8 text-muted-foreground" />
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
                   Test Your Food IQ
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -497,10 +497,10 @@ const IndexPage: React.FC = () => {
         <section ref={comingSoonRef} className="py-20 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-6 mx-auto">
-                  <Rocket className="h-8 w-8 text-primary-foreground" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-muted rounded-2xl mb-6 mx-auto">
+                  <Rocket className="h-8 w-8 text-muted-foreground" />
               </div>
-              <h2 className="text-4xl md:text-5xl sm:h-16 font-bold text-primary ">
+              <h2 className="text-4xl md:text-5xl sm:h-16 font-bold text-foreground ">
                 What's Coming Next
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto ">
@@ -517,8 +517,8 @@ const IndexPage: React.FC = () => {
                 </div> */}
 
                 <CardHeader className="text-center pb-4 pt-8">
-                  <div className="mx-auto mb-4 w-16 h-16 bg-primary rounded-xl flex items-center justify-center shadow-md">
-                    <Utensils className="h-8 w-8 text-primary-foreground" />
+                  <div className="mx-auto mb-4 w-16 h-16 bg-muted rounded-xl flex items-center justify-center shadow-md">
+                    <Utensils className="h-8 w-8 text-muted-foreground" />
                   </div>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
                     AI Meal Planner

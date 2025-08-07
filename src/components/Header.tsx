@@ -68,7 +68,7 @@ const Header = () => {
             <div className="cursor-pointer" onClick={() => navigate('/')}>
               <h2
                 ref={titleRef}
-                className="text-2xl md:text-3xl font-bold text-primary"
+                className="text-2xl md:text-3xl font-bold text-foreground"
               >
                 EaterIQ
               </h2>
@@ -89,8 +89,8 @@ const Header = () => {
                   aria-label={item.label}
                   key={item.path}
                   onClick={() => navigate(item.path)}
-                  className={` font-medium transition-colors hover:text-primary ${
-                    location.pathname === item.path ? 'text-primary font-bold underline underline-offset-4' : 'text-muted-foreground'
+                  className={` font-medium transition-colors hover:text-foreground ${
+                    location.pathname === item.path ? 'text-foreground font-bold underline underline-offset-4' : 'text-muted-foreground'
                   }`}
                 >
                   {item.label}
