@@ -85,18 +85,18 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md rounded-2xl border-0 shadow-2xl bg-white dark:bg-gray-900 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-800 opacity-50" />
+        <div className="absolute inset-0 bg-muted/50" />
         
         <div className="relative z-10">
           <DialogHeader className="text-center pb-2">
-            <div className="mx-auto mb-4 w-16 h-16 bg-gradient-to-r from-emerald-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg animate-scale-in">
+            <div className="mx-auto mb-4 w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg animate-scale-in">
               {isSuccess ? (
                 <CheckCircle className="h-8 w-8 text-white animate-fade-in" />
               ) : (
                 <Bell className="h-8 w-8 text-white" />
               )}
             </div>
-            <DialogTitle className="!text-center text-2xl font-bold bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent animate-fade-in">
+            <DialogTitle className="!text-center text-2xl font-bold text-primary animate-fade-in">
               {isSuccess ? "You're In!" : "Get Early Access"}
             </DialogTitle>
           </DialogHeader>
@@ -109,7 +109,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
               <Button
                 aria-label="Close"
                 onClick={handleClose}
-                className="bg-gradient-to-r from-emerald-500 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white px-8 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 Awesome, Thanks!
               </Button>
@@ -168,7 +168,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                   aria-label="Get Early Access"
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 h-12 bg-gradient-to-r from-emerald-500 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="flex-1 h-12 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {isSubmitting ? (
                     <>

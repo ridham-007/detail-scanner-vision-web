@@ -120,13 +120,13 @@ const IndexPage: React.FC = () => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'easy':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+        return 'bg-primary/20 text-primary';
       case 'medium':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+        return 'bg-accent/20 text-accent-foreground';
       case 'hard':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+        return 'bg-destructive/20 text-destructive';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+        return 'bg-muted text-muted-foreground';
     }
   };
 
@@ -342,23 +342,23 @@ const IndexPage: React.FC = () => {
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute top-8 -left-4 w-20 h-20 bg-primary/20 rounded-full blur-xl"></div>
-                <div className="absolute bottom-8 -right-4 w-16 h-16 bg-accent/20 rounded-full blur-lg"></div>
+                <div className="absolute top-8 -left-4 w-20 h-20 bg-primary/10 rounded-full blur-xl"></div>
+                <div className="absolute bottom-8 -right-4 w-16 h-16 bg-muted/20 rounded-full blur-lg"></div>
                 
                 {/* Floating Icons */}
                 <div className="absolute top-1/4 -left-8 floating-icon">
-                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
-                    <Shield className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg">
+                    <Shield className="h-6 w-6 text-primary-foreground" />
                   </div>
                 </div>
                 <div className="absolute top-3/4 -right-8 floating-icon">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                    <Zap className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center shadow-lg">
+                    <Zap className="h-6 w-6 text-accent-foreground" />
                   </div>
                 </div>
                 <div className="absolute top-1/2 left-8 floating-icon">
-                  <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
-                    <Target className="h-5 w-5 text-white" />
+                  <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center shadow-lg">
+                    <Target className="h-5 w-5 text-muted-foreground" />
                   </div>
                 </div>
               </div>
@@ -431,7 +431,7 @@ const IndexPage: React.FC = () => {
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-6 mx-auto">
-                  <Brain className="h-8 w-8 text-white" />
+                  <Brain className="h-8 w-8 text-primary-foreground" />
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
                   Test Your Food IQ
@@ -497,8 +497,8 @@ const IndexPage: React.FC = () => {
         <section ref={comingSoonRef} className="py-20 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-6 mx-auto">
-                <Rocket className="h-8 w-8 text-white" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-6 mx-auto">
+                  <Rocket className="h-8 w-8 text-primary-foreground" />
               </div>
               <h2 className="text-4xl md:text-5xl sm:h-16 font-bold text-primary ">
                 What's Coming Next
@@ -517,8 +517,8 @@ const IndexPage: React.FC = () => {
                 </div> */}
 
                 <CardHeader className="text-center pb-4 pt-8">
-                  <div className="mx-auto mb-4 w-16 h-16 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-md">
-                    <Utensils className="h-8 w-8" />
+                  <div className="mx-auto mb-4 w-16 h-16 bg-primary rounded-xl flex items-center justify-center shadow-md">
+                    <Utensils className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
                     AI Meal Planner
@@ -540,8 +540,8 @@ const IndexPage: React.FC = () => {
                 </div> */}
 
                 <CardHeader className="text-center pb-4 pt-8">
-                  <div className="mx-auto mb-4 w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center text-white shadow-md">
-                    <Users className="h-8 w-8" />
+                  <div className="mx-auto mb-4 w-16 h-16 bg-accent rounded-xl flex items-center justify-center shadow-md">
+                    <Users className="h-8 w-8 text-accent-foreground" />
                   </div>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
                     Food Community
@@ -563,8 +563,8 @@ const IndexPage: React.FC = () => {
                 </div>
                  */}
                 <CardHeader className="text-center pb-4 pt-8">
-                  <div className="mx-auto mb-4 w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center text-white shadow-md">
-                    <Bell className="h-8 w-8" />
+                  <div className="mx-auto mb-4 w-16 h-16 bg-muted rounded-xl flex items-center justify-center shadow-md">
+                    <Bell className="h-8 w-8 text-muted-foreground" />
                   </div>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
                     Smart Reminders

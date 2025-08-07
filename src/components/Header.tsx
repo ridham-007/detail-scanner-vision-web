@@ -68,7 +68,7 @@ const Header = () => {
             <div className="cursor-pointer" onClick={() => navigate('/')}>
               <h2
                 ref={titleRef}
-                className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent"
+                className="text-2xl md:text-3xl font-bold text-primary"
               >
                 EaterIQ
               </h2>
