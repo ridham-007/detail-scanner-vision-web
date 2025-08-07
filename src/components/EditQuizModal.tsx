@@ -341,7 +341,7 @@ const EditQuizModal: React.FC<EditQuizModalProps> = ({
             <Button 
               type="submit" 
               disabled={loading || !isFormValid()} 
-              className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600"
+              className="flex-1"
             >
               {loading ? (
                 <>

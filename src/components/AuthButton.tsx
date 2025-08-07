@@ -166,7 +166,7 @@ const AuthButton = () => {
       <Button 
         aria-label="Sign in with Google"
         onClick={signInWithGoogle} 
-        className="hidden md:flex bg-gradient-to-r from-emerald-600 to-blue-600"
+        className="hidden md:flex bg-primary text-primary-foreground"
       >
         <LogIn className="h-4 w-4 mr-2" />
         Sign in with Google

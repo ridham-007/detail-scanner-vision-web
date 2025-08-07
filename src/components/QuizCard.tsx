@@ -192,7 +192,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               >
                 <Avatar className="h-6 w-6">
                   <AvatarImage src={creator?.avatar_url || ''} alt={getCreatorDisplayName()} />
-                  <AvatarFallback className="text-xs bg-gradient-to-r from-emerald-500 to-blue-500 text-white">
+                  <AvatarFallback className="text-xs bg-primary text-primary-foreground">
                     {getCreatorInitials()}
                   </AvatarFallback>
                 </Avatar>
@@ -216,7 +216,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               <Button 
                 aria-label="Play Quiz"
                 onClick={() => onPlay(quiz.id)} 
-                className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600 text-sm h-9"
+                className="flex-1 text-sm h-9"
               >
                 <Play className="h-4 w-4 mr-2" />
                 Play Quiz
