@@ -245,41 +245,124 @@ const IndexPage: React.FC = () => {
 
       <main ref={heroRef} className="relative z-10">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-12 text-center">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center justify-center mb-5">
-              <div>
-                <img src={Logo} alt="eateriq logo" className='h-28 w-28' />
+        <section className="relative overflow-hidden">
+          <div className="container mx-auto px-4 py-20 lg:py-32">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column - Content */}
+              <div className="space-y-8 lg:space-y-10">
+                <div className="space-y-6">
+                  <div className="inline-flex items-center space-x-3 bg-primary/10 rounded-full px-4 py-2">
+                    <Sparkles className="h-5 w-5 text-primary" />
+                    <span className="text-sm font-medium text-primary">AI-Powered Nutrition</span>
+                  </div>
+                  
+                  <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                    Make
+                    <span className="block bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
+                      Smarter Food
+                    </span>
+                    <span className="block">Choices</span>
+                  </h1>
+                  
+                  <h2 className="hero-subtitle text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
+                    Discover what's really in your food with instant barcode scanning and AI-powered health insights
+                  </h2>
+                </div>
+
+                <div className="hero-cta flex flex-col sm:flex-row gap-4">
+                  <Button
+                    aria-label="Start Scanning Now"
+                    size="lg"
+                    className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 h-auto rounded-xl shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                    onClick={scrollToScanner}
+                  >
+                    <span className="relative z-10 flex items-center">
+                      <Scan className="mr-2 h-5 w-5" />
+                      Start Scanning
+                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                  </Button>
+                  
+                  <Button
+                    aria-label="Watch Demo"
+                    variant="outline"
+                    size="lg"
+                    className="group px-8 py-4 h-auto rounded-xl border-2 border-border hover:border-primary transition-all duration-300"
+                    onClick={handleLearnMoreClick}
+                  >
+                    <Play className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+                    Watch Demo
+                  </Button>
+                </div>
+
+                {/* Stats Preview */}
+                <div className="flex flex-wrap gap-8 pt-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-foreground">
+                      {productCount ? formatNumber(productCount) : '4.7K+'}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Products Scanned</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-foreground">99.9%</div>
+                    <div className="text-sm text-muted-foreground">Accuracy</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-foreground">
+                      {userCount ? formatNumber(userCount) : '2.4K+'}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Happy Users</div>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <h1 className="hero-title text-5xl md:text-7xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
-              EaterIQ
-            </h1>
+              {/* Right Column - Visual */}
+              <div className="relative lg:ml-8">
+                <div className="relative z-10">
+                  {/* Phone Mockup */}
+                  <div className="mx-auto w-72 h-96 bg-card rounded-3xl shadow-2xl border-8 border-border/20 overflow-hidden">
+                    <div className="h-full bg-gradient-to-br from-background to-muted flex flex-col">
+                      {/* Phone Header */}
+                      <div className="p-6 text-center border-b border-border/20">
+                        <img src={Logo} alt="EaterIQ logo" className="h-16 w-16 mx-auto mb-3" />
+                        <h3 className="font-bold text-foreground">EaterIQ Scanner</h3>
+                      </div>
+                      
+                      {/* Scanner Interface */}
+                      <div className="flex-1 p-6 flex flex-col justify-center">
+                        <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl border-2 border-dashed border-primary/40 flex items-center justify-center mb-4">
+                          <Scan className="h-12 w-12 text-primary animate-pulse" />
+                        </div>
+                        <p className="text-center text-muted-foreground text-sm">
+                          Point camera at barcode
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-            <h2 className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Transform the way you make food choices with AI-powered nutrition analysis and smart barcode scanning
-            </h2>
-
-            <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                aria-label="Start Scanning Now"
-                size="lg"
-                className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                onClick={scrollToScanner}
-              >
-                Start Scanning Now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                aria-label="Learn More"
-                variant="outline"
-                size="lg"
-                className="px-8 py-3 rounded-full border-2 hover:bg-accent transition-all duration-300"
-                onClick={handleLearnMoreClick}
-              >
-                Learn More
-              </Button>
+                {/* Floating Elements */}
+                <div className="absolute top-8 -left-4 w-20 h-20 bg-primary/20 rounded-full blur-xl"></div>
+                <div className="absolute bottom-8 -right-4 w-16 h-16 bg-accent/20 rounded-full blur-lg"></div>
+                
+                {/* Floating Icons */}
+                <div className="absolute top-1/4 -left-8 floating-icon">
+                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                    <Shield className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+                <div className="absolute top-3/4 -right-8 floating-icon">
+                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                    <Zap className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+                <div className="absolute top-1/2 left-8 floating-icon">
+                  <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
+                    <Target className="h-5 w-5 text-white" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
