@@ -23,8 +23,14 @@ import { Link, Navigate } from 'react-router-dom';
 import { BlogPost } from '@/types/Blog';
 
 const AdminBlogsPage = () => {
+  console.log('AdminBlogsPage component rendering...');
+  
   const { data: isAdmin, isLoading: isCheckingAdmin } = useIsAdmin();
+  console.log('Admin check:', { isAdmin, isCheckingAdmin });
+  
   const { data: posts, isLoading, error } = useBlogPosts(true); // Include unpublished posts
+  console.log('Blog posts data:', { posts, isLoading, error });
+  
   const deletePost = useDeleteBlogPost();
 
   if (isCheckingAdmin) {
