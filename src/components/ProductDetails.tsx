@@ -6,8 +6,14 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Lightbulb, Image as ImageIcon, Star, ArrowRight, Heart, ShoppingCart } from 'lucide-react';
 import NoProductData from './NoProductData';
-import CircularHealthScore from './CircularHealthScore';
-import IngredientsDisplay from './IngredientsDisplay';
+import AnimatedHealthScore from './AnimatedHealthScore';
+import EnhancedIngredientsDisplay from './EnhancedIngredientsDisplay';
+import NutritionComparison from './NutritionComparison';
+import ProductImageCarousel from './ProductImageCarousel';
+import ScanStreak from './ScanStreak';
+import AchievementSystem from './AchievementSystem';
+import PersonalizedInsights from './PersonalizedInsights';
+import SocialProof from './SocialProof';
 import HealthInsights from './HealthInsights';
 import ProductFeedback from './ProductFeedback';
 import { AddToShoppingListModal } from '@/components/AddToShoppingListModal';
@@ -159,24 +165,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 
                 {/* Product Image - Left Side */}
                 <div className="lg:col-span-4 flex justify-center">
-                  <div className="relative group">
-                    <div className="w-64 h-64 bg-gray-50 dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700 group-hover:shadow-3xl transition-all duration-500">
-                      {product.images && product.images.length > 0 ? (
-                        <img 
-                          src={product.images[0]} 
-                          alt={product.name}
-                          className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-700"
-                          onError={(e) => {
-                            e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iI0Q1RDVENSIvPgo8L3N2Zz4K';
-                          }}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <ImageIcon size={80} className="text-gray-300" />
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                  <ProductImageCarousel images={product.images} productName={product.name} />
                 </div>
 
                 {/* Product Info - Center */}
@@ -244,17 +233,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 {/* Health Score - Right Side */}
                 {product.is_health_related_product && (
                   <div className="lg:col-span-3 flex justify-center">
-                    <div className="text-center space-y-4">
-                      <CircularHealthScore score={product.health_score} size={160} />
-                      <div className="space-y-1">
-                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                          Health Assessment
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-500">
-                          Based on nutritional analysis
-                        </p>
-                      </div>
-                    </div>
+                    <AnimatedHealthScore 
+                      score={product.health_score} 
+                      size={160}
+                      categoryRank={12}
+                      categoryTotal={47}
+                    />
                   </div>
                 )}
               </div>
@@ -269,8 +253,28 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       {/* Health Insights */}
       <HealthInsights positives={product.positives} concerns={product.concerns} />
 
-      {/* Ingredients */}
-      <IngredientsDisplay ingredients={product.ingredients || ''} />
+      {/* Enhanced Components */}
+      <ScanStreak productName={product.name} />
+      
+      <AchievementSystem productData={product} />
+      
+      <PersonalizedInsights 
+        product={product}
+        comparisonData={{ lastScanScore: 65 }}
+      />
+      
+      <NutritionComparison 
+        nutrition={product.nutrition_per_100g} 
+        productName={product.name}
+      />
+      
+      <EnhancedIngredientsDisplay 
+        ingredients={product.ingredients || ''} 
+        allergens={product.nutrition_per_100g.allergens}
+        additives={product.nutrition_per_100g.additives}
+      />
+      
+      <SocialProof barcode={product.barcode} productName={product.name} />
 
       {/* Recommendations */}
       {product.recommendations && product.recommendations.length > 0 && (
