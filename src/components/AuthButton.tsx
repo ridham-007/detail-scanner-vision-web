@@ -51,9 +51,13 @@ const AuthButton = () => {
     { path: '/', label: 'Scanner', icon: Scan },
     { path: '/quizzes', label: 'Food IQ Tests', icon: Trophy },
     { path: '/blog', label: 'Blog', icon: BookOpen },
-    ...(user ? [{ path: '/history', label: 'History', icon: History }] : []),
-    ...(user ? [{ path: '/shopping-lists', label: 'Lists', icon: ShoppingCart }] : []),
+    { path: '/history', label: 'History', icon: History },
+    { path: '/shopping-lists', label: 'Lists', icon: ShoppingCart },
   ];
+
+  // Debug logging
+  console.log('AuthButton - user:', user);
+  console.log('AuthButton - navigationItems:', navigationItems);
 
   const getUserInitials = () => {
     if (username) {
