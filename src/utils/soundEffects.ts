@@ -50,27 +50,37 @@ class SoundEffects {
     oscillator.stop(this.audioContext.currentTime + 0.5);
   }
 
-  // Play a wrong answer sound (descending buzz)
+  // Play a wrong answer sound (dramatic buzzer sequence)
   async playWrongAnswer() {
     await this.ensureAudioContext();
     if (!this.audioContext) return;
 
-    const oscillator = this.audioContext.createOscillator();
-    const gainNode = this.audioContext.createGain();
+    // Create a more dramatic wrong answer sound with multiple tones
+    const frequencies = [300, 250, 200, 150]; // Descending sequence
+    
+    frequencies.forEach((freq, index) => {
+      setTimeout(() => {
+        const oscillator = this.audioContext!.createOscillator();
+        const gainNode = this.audioContext!.createGain();
 
-    oscillator.connect(gainNode);
-    gainNode.connect(this.audioContext.destination);
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext!.destination);
 
-    // Create a descending "buzz" sound
-    oscillator.frequency.setValueAtTime(200, this.audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(100, this.audioContext.currentTime + 0.3);
+        // Each tone gets progressively lower and more distorted
+        oscillator.frequency.setValueAtTime(freq, this.audioContext!.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(freq * 0.7, this.audioContext!.currentTime + 0.15);
+        
+        // Use square wave for more harsh, buzzer-like sound
+        oscillator.type = 'square';
+        
+        // Volume decreases with each tone but still audible
+        gainNode.gain.setValueAtTime(0.25 - (index * 0.05), this.audioContext!.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext!.currentTime + 0.15);
 
-    oscillator.type = 'sawtooth';
-    gainNode.gain.setValueAtTime(0.2, this.audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
-
-    oscillator.start(this.audioContext.currentTime);
-    oscillator.stop(this.audioContext.currentTime + 0.3);
+        oscillator.start(this.audioContext!.currentTime);
+        oscillator.stop(this.audioContext!.currentTime + 0.15);
+      }, index * 80); // Stagger each tone by 80ms for dramatic effect
+    });
   }
 
   // Play a button click sound
