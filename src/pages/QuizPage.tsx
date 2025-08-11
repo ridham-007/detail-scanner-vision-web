@@ -928,7 +928,7 @@ const QuizPage: React.FC = () => {
                   }`}>
                     {letter}
                   </div>
-                  <span className="break-words flex-1">{answer}</span>
+                  <span className="break-words flex-1 whitespace-break-spaces">{answer}</span>
                   {isSelectedAnswer && (
                     <div className="ml-auto">
                       {answerFeedback.isCorrect ? (
