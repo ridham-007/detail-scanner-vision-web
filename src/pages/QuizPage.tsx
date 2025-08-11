@@ -20,6 +20,12 @@ import {
   Star,
   Zap,
   Target,
+  Flame,
+  Award,
+  TrendingUp,
+  Crown,
+  Sparkles,
+  Bolt,
 } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -94,7 +100,17 @@ const QuizPage: React.FC = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hiddenAnswers, setHiddenAnswers] = useState<string[]>([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [spentTime, setSpentTime] = useState<number>(new Date().getTime() || 0 );
+  const [spentTime, setSpentTime] = useState<number>(new Date().getTime() || 0);
+  
+  // Gamification states
+  const [streak, setStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
+  const [xp, setXP] = useState(0);
+  const [comboMultiplier, setComboMultiplier] = useState(1);
+  const [totalXP, setTotalXP] = useState(0);
+  const [achievements, setAchievements] = useState<string[]>([]);
+  const [showAchievement, setShowAchievement] = useState<string | null>(null);
+  const [perfectAnswers, setPerfectAnswers] = useState(0); // Fast answers (>25s left)
   const onBack = () => {
     navigate("/quizzes");
   };
@@ -173,10 +189,86 @@ const QuizPage: React.FC = () => {
 
     setSelectedAnswer(answer);
     const isCorrect = answer === questions[currentQuestion]?.correct_answer;
+    const isPerfectAnswer = timeLeft >= 25; // Fast answer bonus
 
     // Show feedback animation
     if (!isSkip) {
-    setAnswerFeedback({ show: true, isCorrect, selectedAnswer: answer });
+      setAnswerFeedback({ show: true, isCorrect, selectedAnswer: answer });
+    }
+
+    // Enhanced gamification logic
+    if (isCorrect) {
+      let pointsEarned = 10;
+      let xpEarned = 15;
+
+      // Update streak
+      const newStreak = streak + 1;
+      setStreak(newStreak);
+      setBestStreak(prev => Math.max(prev, newStreak));
+
+      // Perfect answer bonus
+      if (isPerfectAnswer) {
+        pointsEarned += 5;
+        xpEarned += 10;
+        setPerfectAnswers(prev => prev + 1);
+      }
+
+      // Combo multiplier system
+      const newMultiplier = Math.min(Math.floor(newStreak / 3) + 1, 4);
+      setComboMultiplier(newMultiplier);
+      
+      if (newMultiplier > 1) {
+        pointsEarned *= newMultiplier;
+        xpEarned *= newMultiplier;
+      }
+
+      // Update score and XP
+      setScore(prev => prev + pointsEarned);
+      setXP(prev => prev + xpEarned);
+      setTotalXP(prev => prev + xpEarned);
+
+      // Achievement system
+      const newAchievements = [...achievements];
+      
+      // First correct answer
+      if (newStreak === 1 && !achievements.includes('first_correct')) {
+        newAchievements.push('first_correct');
+        setShowAchievement('First Blood! 🎯');
+      }
+      
+      // Hot streak
+      if (newStreak === 3 && !achievements.includes('hot_streak')) {
+        newAchievements.push('hot_streak');
+        setShowAchievement('On Fire! 🔥');
+      }
+      
+      // Perfect streak
+      if (newStreak === 5 && !achievements.includes('perfect_streak')) {
+        newAchievements.push('perfect_streak');
+        setShowAchievement('Unstoppable! ⚡');
+      }
+      
+      // Speed demon
+      if (perfectAnswers >= 3 && !achievements.includes('speed_demon')) {
+        newAchievements.push('speed_demon');
+        setShowAchievement('Speed Demon! 🚄');
+      }
+      
+      setAchievements(newAchievements);
+
+      // Extra confetti for streaks
+      if (newStreak >= 3) {
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.7 },
+          colors: ['#10B981', '#3B82F6', '#8B5CF6']
+        });
+      }
+    } else {
+      // Reset streak on wrong answer
+      setStreak(0);
+      setComboMultiplier(1);
     }
 
     // Play sound based on answer correctness
@@ -188,13 +280,14 @@ const QuizPage: React.FC = () => {
       }
     }
 
-    if (isCorrect) {
-      setScore((prev) => prev + 10);
-    }
-
     const newAnsweredQuestions = [...answeredQuestions];
     newAnsweredQuestions[currentQuestion] = true;
     setAnsweredQuestions(newAnsweredQuestions);
+
+    // Hide achievement after 3 seconds
+    if (showAchievement) {
+      setTimeout(() => setShowAchievement(null), 3000);
+    }
 
     // Wait for animation to complete before moving to next question
     setTimeout(async () => {
@@ -632,7 +725,7 @@ const QuizPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Game Stats Bar */}
+        {/* Enhanced Game Stats Bar with Gamification */}
         <div className="bg-gradient-to-r from-emerald-100 to-blue-100 dark:from-gray-800 dark:to-gray-700 rounded-xl p-4 mb-4 border-2 border-emerald-200 dark:border-gray-600">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-4">
@@ -644,6 +737,31 @@ const QuizPage: React.FC = () => {
                 <div className="text-lg sm:text-xl font-bold text-blue-600">{score}</div>
                 <div className="text-xs text-muted-foreground">Score</div>
               </div>
+              {/* Streak Display */}
+              {streak > 0 && (
+                <div className="text-center animate-pulse">
+                  <div className="flex items-center gap-1">
+                    <Flame className={`h-4 w-4 ${streak >= 3 ? 'text-orange-500 animate-bounce' : 'text-orange-400'}`} />
+                    <div className="text-lg sm:text-xl font-bold text-orange-600">{streak}</div>
+                  </div>
+                  <div className="text-xs text-muted-foreground">Streak</div>
+                </div>
+              )}
+              {/* XP Display */}
+              <div className="text-center">
+                <div className="text-lg sm:text-xl font-bold text-purple-600">{xp}</div>
+                <div className="text-xs text-muted-foreground">XP</div>
+              </div>
+              {/* Multiplier Display */}
+              {comboMultiplier > 1 && (
+                <div className="text-center">
+                  <div className="flex items-center gap-1">
+                    <Bolt className="h-4 w-4 text-yellow-500 animate-pulse" />
+                    <div className="text-lg sm:text-xl font-bold text-yellow-600">x{comboMultiplier}</div>
+                  </div>
+                  <div className="text-xs text-muted-foreground">Combo</div>
+                </div>
+              )}
             </div>
             <div className="text-center">
               <div className={`text-xl sm:text-2xl font-bold font-mono ${timeLeft <= 10 ? 'text-red-600 animate-pulse' : 'text-green-600'}`}>
@@ -654,8 +772,21 @@ const QuizPage: React.FC = () => {
           </div>
           <Progress 
             value={(currentQuestion / questions.length) * 100} 
-            className="h-2 bg-white/50 dark:bg-gray-600"
+            className="h-2 bg-white/50 dark:bg-gray-600 mb-2"
           />
+          {bestStreak > 0 && (
+            <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+              <Crown className="h-3 w-3 text-yellow-600" />
+              Best Streak: {bestStreak}
+              {perfectAnswers > 0 && (
+                <>
+                  <span className="mx-2">•</span>
+                  <Sparkles className="h-3 w-3 text-blue-600" />
+                  Perfect Answers: {perfectAnswers}
+                </>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Guest Notice - Compact */}
@@ -838,17 +969,40 @@ const QuizPage: React.FC = () => {
                     <Star className="h-8 w-8 text-yellow-400 animate-spin" fill="currentColor" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-green-600 mb-2">
-                  🎉 Correct!
-                </h3>
-                <div className="bg-green-100 dark:bg-green-900 rounded-lg p-3 mb-2">
-                  <p className="text-lg font-semibold text-green-800 dark:text-green-200">
-                    +10 points
-                  </p>
-                </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Great job! Keep it up! 🚀
-                </p>
+                 <h3 className="text-2xl font-bold text-green-600 mb-2">
+                   🎉 Correct!
+                 </h3>
+                 <div className="space-y-2">
+                   <div className="bg-green-100 dark:bg-green-900 rounded-lg p-3">
+                     <div className="flex items-center justify-between">
+                       <span className="font-semibold text-green-800 dark:text-green-200">Points:</span>
+                       <span className="text-lg font-bold text-green-600">
+                         +{comboMultiplier > 1 ? `${10 * comboMultiplier}` : '10'}
+                         {comboMultiplier > 1 && <span className="text-sm ml-1">(x{comboMultiplier})</span>}
+                       </span>
+                     </div>
+                     <div className="flex items-center justify-between mt-1">
+                       <span className="font-semibold text-green-800 dark:text-green-200">XP:</span>
+                       <span className="text-lg font-bold text-purple-600">
+                         +{comboMultiplier > 1 ? `${15 * comboMultiplier}` : '15'}
+                         {timeLeft >= 25 && <span className="text-sm ml-1 text-blue-600">(+10 speed bonus!)</span>}
+                       </span>
+                     </div>
+                   </div>
+                   {streak > 0 && (
+                     <div className="bg-orange-100 dark:bg-orange-900 rounded-lg p-2">
+                       <div className="flex items-center justify-center gap-2">
+                         <Flame className="h-4 w-4 text-orange-600" />
+                         <span className="text-sm font-medium text-orange-800 dark:text-orange-200">
+                           {streak} Question Streak! 🔥
+                         </span>
+                       </div>
+                     </div>
+                   )}
+                 </div>
+                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                   Great job! Keep it up! 🚀
+                 </p>
               </div>
             ) : (
               <div className="text-red-500">
@@ -869,6 +1023,19 @@ const QuizPage: React.FC = () => {
                 </p>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Achievement Popup */}
+      {showAchievement && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in">
+          <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-6 py-3 rounded-full shadow-2xl border-4 border-yellow-300 animate-bounce">
+            <div className="flex items-center gap-2">
+              <Award className="h-6 w-6 animate-spin" />
+              <span className="font-bold text-lg">{showAchievement}</span>
+              <Sparkles className="h-6 w-6 animate-pulse" />
+            </div>
           </div>
         </div>
       )}
