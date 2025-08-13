@@ -24,7 +24,7 @@ ${urls.map(url => `  <url>
 };
 
 export const getStaticSitemapUrls = (): SitemapUrl[] => {
-  const baseUrl = 'https://eateriq.com';
+  const baseUrl = 'https://www.eateriq.com';
   const currentDate = new Date().toISOString().split('T')[0];
   
   return [
@@ -73,7 +73,7 @@ export const generateQuizSitemapUrls = async (): Promise<SitemapUrl[]> => {
       return [];
     }
 
-    const baseUrl = 'https://eateriq.com';
+    const baseUrl = 'https://www.eateriq.com';
     
     return quizzes.map((quiz: { id: string; updated_at: string | null }) => ({
       loc: `${baseUrl}/quiz/${quiz.id}`,
@@ -99,7 +99,7 @@ export const generateUserProfileSitemapUrls = async (): Promise<SitemapUrl[]> =>
       return [];
     }
 
-    const baseUrl = 'https://eateriq.com';
+    const baseUrl = 'https://www.eateriq.com';
     
     return profiles
       .filter((profile: { username: string | null; updated_at: string | null }) => profile.username)
@@ -126,7 +126,7 @@ export const generateBlogsUrls = async (): Promise<SitemapUrl[]> => {
       return [];
     }
 
-    const baseUrl = 'https://eateriq.com';
+    const baseUrl = 'https://www.eateriq.com';
 
     return blogs
       .filter((blog: { slug: string | null }) => !!blog.slug)
