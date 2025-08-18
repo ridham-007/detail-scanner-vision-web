@@ -1,19 +1,27 @@
-
-import React, { useEffect, useRef } from 'react';
-import { Heart, Brain, Zap, Award, Users, Mail, Shield, HelpCircle, FileText } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useNavigate } from 'react-router-dom';
-import Logo from '../assets/download.svg';
+import React, { useEffect, useRef } from "react";
+import {
+  Heart,
+  Brain,
+  Zap,
+  Award,
+  Users,
+  Mail,
+  Shield,
+  HelpCircle,
+  FileText,
+} from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
+import Logo from "../assets/download.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    gsap.from(footerRef.current?.querySelectorAll('.footer-section'), {
+    gsap.from(footerRef.current?.querySelectorAll(".footer-section"), {
       y: 50,
       opacity: 0,
       duration: 0.8,
@@ -22,12 +30,12 @@ const Footer = () => {
       scrollTrigger: {
         trigger: footerRef.current,
         start: "top 90%",
-      }
+      },
     });
   }, []);
 
   const handleContactClick = () => {
-    window.location.href = 'mailto:hello@eateriq.com';
+    window.location.href = "mailto:hello@eateriq.com";
   };
 
   return (
@@ -38,13 +46,14 @@ const Footer = () => {
           <div className="footer-section space-y-4">
             <div className="flex items-center space-x-2">
               <div>
-                <img src={Logo} alt="eateriq logo" className='h-12 w-12' />
+                <img src={Logo} alt="eateriq logo" className="h-12 w-12" />
               </div>
               <span className="font-bold text-lg md:text-xl">EaterIQ</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Experience the future of food intelligence with EaterIQ's AI-powered barcode scanner. 
-              Make smarter eating choices with instant health scores and personalized recommendations.
+              Experience the future of food intelligence with EaterIQ's
+              AI-powered barcode scanner. Make smarter eating choices with
+              instant health scores and personalized recommendations.
             </p>
           </div>
 
@@ -73,9 +82,11 @@ const Footer = () => {
 
           {/* Support & Resources Section */}
           <div className="footer-section space-y-4">
-            <h3 className="font-semibold text-base md:text-lg">Support & Resources</h3>
+            <h3 className="font-semibold text-base md:text-lg">
+              Support & Resources
+            </h3>
             <div className="space-y-3">
-              <button 
+              <button
                 aria-label="Contact Support"
                 onClick={handleContactClick}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
@@ -83,39 +94,39 @@ const Footer = () => {
                 <Mail className="h-4 w-4 text-blue-500 group-hover:text-blue-600" />
                 <span>Contact Support</span>
               </button>
-              <button
+              <Link
+                to="/support"
                 aria-label="Help Center"
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  navigate('/support');
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
                 <HelpCircle className="h-4 w-4 text-green-500 group-hover:text-green-600" />
                 <span>Help Center</span>
-              </button>
-              <button
+              </Link>
+              <Link
+                to="/privacy"
                 aria-label="Privacy Policy"
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  navigate('/privacy');
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
                 <Shield className="h-4 w-4 text-purple-500 group-hover:text-purple-600" />
                 <span>Privacy Policy</span>
-              </button>
-              <button
+              </Link>
+              <Link
+                to="/terms"
                 aria-label="Terms of Service"
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  navigate('/terms');
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
                 <FileText className="h-4 w-4 text-orange-500 group-hover:text-orange-600" />
                 <span>Terms of Service</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -123,41 +134,41 @@ const Footer = () => {
         <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              © 2025 EaterIQ. Made with{' '}
-              <Heart className="inline h-4 w-4 text-red-500 animate-pulse" />{' '}
+              © 2025 EaterIQ. Made with{" "}
+              <Heart className="inline h-4 w-4 text-red-500 animate-pulse" />{" "}
               for smarter eating
             </p>
             <div className="flex space-x-4 md:space-x-6 text-sm text-muted-foreground">
-              <button
+              <Link
+                to="/privacy"
                 aria-label="Privacy"
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  navigate('/privacy');
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="hover:text-foreground transition-colors"
               >
                 Privacy
-              </button>
-              <button
+              </Link>
+              <Link
+                to={"/terms"}
                 aria-label="Terms"
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  navigate('/terms');
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="hover:text-foreground transition-colors"
               >
                 Terms
-              </button>
-              <button
+              </Link>
+              <Link
+                to={"/support"}
                 aria-label="Support"
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  navigate('/support');
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="hover:text-foreground transition-colors"
               >
                 Support
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,31 +1,32 @@
-
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Shield, Eye, Lock, Database, Cookie } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { ArrowLeft, Shield, Eye, Lock, Database } from 'lucide-react';
 import AnimatedBackground from '@/components/AnimatedBackground';
 
 const PrivacyPage = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <AnimatedBackground />
 
       <main className="container mx-auto px-4 py-8 relative z-10 max-w-4xl">
-        <div className="flex flex-col  gap-4 mb-8">
-          {/* <Button variant="outline" onClick={() => navigate('/')} size="sm" className='w-fit'>
+        <div className="flex flex-col gap-4 mb-8">
+          {/* Back to Home Link */}
+          {/* <Link
+            to="/"
+            className="flex items-center w-fit px-3 py-1 border rounded-md text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
-          </Button> */}
-          <div className='flex flex-col w-full !justify-center items-center'>
+          </Link> */}
+
+          <div className="flex flex-col w-full !justify-center items-center">
             <h1 className="text-3xl sm:text-4xl !h-11 font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
               Privacy Policy
             </h1>
-            <h2 className="text-sm text-muted-foreground text-center">How we protect and handle your data</h2>
+            <h2 className="text-sm text-muted-foreground text-center">
+              How we protect and handle your data
+            </h2>
           </div>
         </div>
 
@@ -122,30 +123,6 @@ const PrivacyPage = () => {
             </CardContent>
           </Card>
 
-          {/* <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Cookie className="h-5 w-5 text-orange-600" />
-                Third-Party Services
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  EaterIQ integrates with the following third-party services:
-                </p>
-                <ul className="text-sm text-muted-foreground space-y-2">
-                  <li>• <strong>Supabase:</strong> Database and authentication services</li>
-                  <li>• <strong>OpenAI:</strong> AI-powered quiz generation and food analysis</li>
-                  <li>• <strong>Product Databases:</strong> For barcode scanning and nutritional information</li>
-                </ul>
-                <p className="text-sm text-muted-foreground">
-                  These services have their own privacy policies and security measures that we ensure meet our standards.
-                </p>
-              </div>
-            </CardContent>
-          </Card> */}
-
           <Card>
             <CardHeader>
               <CardTitle>Your Rights</CardTitle>
@@ -175,15 +152,13 @@ const PrivacyPage = () => {
               <p className="text-sm text-muted-foreground">
                 If you have any questions about this privacy policy or how we handle your data,
                 please don't hesitate to contact us through our{' '}
-                <Button
+                <Link
+                  to="/support"
                   aria-label="Support Page"
-                  variant="link"
-                  className="p-0 h-auto font-semibold text-emerald-600"
-                  onClick={() => navigate('/support')}
+                  className="p-0 h-auto font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700"
                 >
                   support page
-                </Button>
-                .
+                </Link>.
               </p>
             </CardContent>
           </Card>

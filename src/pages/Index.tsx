@@ -1,20 +1,41 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Brain, Scan, Target, Zap, Shield, Users, ArrowRight, Sparkles, Clock, Rocket, Bell, Calendar, Utensils, Play } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useQuery } from '@tanstack/react-query';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import AnimatedBackground from '@/components/AnimatedBackground';
-import FoodScannerPage from './FoodScannerPage';
-import EarlyAccessModal from '@/components/EarlyAccessModal';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { trackCTAClick } from '@/utils/analytics';
-import Logo from '../assets/download.svg';
-import { supabase } from '@/integrations/supabase/client';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Brain,
+  Scan,
+  Target,
+  Zap,
+  Shield,
+  Users,
+  ArrowRight,
+  Sparkles,
+  Clock,
+  Rocket,
+  Bell,
+  Calendar,
+  Utensils,
+  Play,
+} from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useQuery } from "@tanstack/react-query";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import FoodScannerPage from "./FoodScannerPage";
+import EarlyAccessModal from "@/components/EarlyAccessModal";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { trackCTAClick } from "@/utils/analytics";
+import Logo from "../assets/download.svg";
+import { supabase } from "@/integrations/supabase/client";
+import { Link, useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,15 +52,15 @@ const IndexPage: React.FC = () => {
 
   // Fetch recent quizzes
   const { data: recentQuizzes } = useQuery({
-    queryKey: ['recent-quizzes'],
+    queryKey: ["recent-quizzes"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('quizzes')
-        .select('id, title, description, difficulty, created_at')
-        .eq('is_published', true)
-        .order('created_at', { ascending: false })
+        .from("quizzes")
+        .select("id, title, description, difficulty, created_at")
+        .eq("is_published", true)
+        .order("created_at", { ascending: false })
         .limit(4);
-      
+
       if (error) throw error;
       return data;
     },
@@ -47,13 +68,13 @@ const IndexPage: React.FC = () => {
 
   // Fetch product count
   const { data: productCount } = useQuery({
-    queryKey: ['product-count'],
+    queryKey: ["product-count"],
     queryFn: async () => {
       const { count, error } = await supabase
-        .from('scanned_products')
-        .select('*', { count: 'exact', head: true })
-        .eq('is_published', true);
-      
+        .from("scanned_products")
+        .select("*", { count: "exact", head: true })
+        .eq("is_published", true);
+
       if (error) throw error;
       return (count || 0) + 4700; // Base count + DB count
     },
@@ -61,12 +82,12 @@ const IndexPage: React.FC = () => {
 
   // Fetch user count
   const { data: userCount } = useQuery({
-    queryKey: ['user-count'],
+    queryKey: ["user-count"],
     queryFn: async () => {
       const { count, error } = await supabase
-        .from('profiles')
-        .select('*', { count: 'exact', head: true });
-      
+        .from("profiles")
+        .select("*", { count: "exact", head: true });
+
       if (error) throw error;
       return (count || 0) + 2400; // Base count + DB count
     },
@@ -75,58 +96,58 @@ const IndexPage: React.FC = () => {
   // Format numbers with K, M abbreviations
   const formatNumber = (num: number) => {
     if (num >= 1000000) {
-      return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
     }
     if (num >= 1000) {
-      return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
     }
     return num.toString();
   };
 
   const scrollToScanner = () => {
-    trackCTAClick('scroll_to_scanner');
+    trackCTAClick("scroll_to_scanner");
     scannerRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
+      behavior: "smooth",
+      block: "start",
     });
   };
 
   const handleLearnMoreClick = () => {
-    trackCTAClick('learn_more');
+    trackCTAClick("learn_more");
     howItWorksRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
+      behavior: "smooth",
+      block: "start",
     });
   };
 
   const handleGetStartedClick = () => {
-    trackCTAClick('get_started_cta');
+    trackCTAClick("get_started_cta");
     scannerRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
+      behavior: "smooth",
+      block: "start",
     });
   };
 
   const handleEarlyAccessClick = () => {
-    trackCTAClick('early_access_modal');
+    trackCTAClick("early_access_modal");
     setShowEarlyAccessModal(true);
   };
 
   const handleQuizPlay = (quizId: string) => {
-    trackCTAClick('play_quiz_from_landing');
+    trackCTAClick("play_quiz_from_landing");
     navigate(`/quiz/${quizId}`);
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy':
-        return 'bg-primary/20 text-primary';
-      case 'medium':
-        return 'bg-accent/20 text-accent-foreground';
-      case 'hard':
-        return 'bg-destructive/20 text-destructive';
+      case "easy":
+        return "bg-primary/20 text-primary";
+      case "medium":
+        return "bg-accent/20 text-accent-foreground";
+      case "hard":
+        return "bg-destructive/20 text-destructive";
       default:
-        return 'bg-muted text-muted-foreground';
+        return "bg-muted text-muted-foreground";
     }
   };
 
@@ -137,7 +158,7 @@ const IndexPage: React.FC = () => {
         y: 50,
         opacity: 0,
         duration: 1,
-        ease: "power2.out"
+        ease: "power2.out",
       });
 
       gsap.from(".hero-subtitle", {
@@ -145,7 +166,7 @@ const IndexPage: React.FC = () => {
         opacity: 0,
         duration: 0.8,
         delay: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
 
       gsap.from(".hero-cta", {
@@ -153,7 +174,7 @@ const IndexPage: React.FC = () => {
         opacity: 0,
         duration: 0.6,
         delay: 0.6,
-        ease: "power2.out"
+        ease: "power2.out",
       });
 
       // Scanner section animation
@@ -162,7 +183,7 @@ const IndexPage: React.FC = () => {
         opacity: 0,
         duration: 1,
         delay: 0.8,
-        ease: "power2.out"
+        ease: "power2.out",
       });
 
       // How it works animations
@@ -175,8 +196,8 @@ const IndexPage: React.FC = () => {
         scrollTrigger: {
           trigger: howItWorksRef.current,
           start: "top 70%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
 
       // Stats animations (removed problematic counter animation)
@@ -189,8 +210,8 @@ const IndexPage: React.FC = () => {
         scrollTrigger: {
           trigger: statsRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
 
       // CTA section animation
@@ -202,8 +223,8 @@ const IndexPage: React.FC = () => {
         scrollTrigger: {
           trigger: ctaRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
 
       // Floating elements animation
@@ -213,9 +234,8 @@ const IndexPage: React.FC = () => {
         ease: "power1.inOut",
         yoyo: true,
         repeat: -1,
-        stagger: 0.5
+        stagger: 0.5,
       });
-
     }, heroRef);
 
     return () => ctx.revert();
@@ -225,18 +245,21 @@ const IndexPage: React.FC = () => {
     {
       step: "01",
       title: "Scan or Search",
-      description: "Use your camera to scan a barcode or manually search for products in our extensive database"
+      description:
+        "Use your camera to scan a barcode or manually search for products in our extensive database",
     },
     {
       step: "02",
       title: "AI Analysis",
-      description: "Our AI processes the product data and analyzes nutritional content against your personal health profile"
+      description:
+        "Our AI processes the product data and analyzes nutritional content against your personal health profile",
     },
     {
       step: "03",
       title: "Get Insights",
-      description: "Receive detailed health scores, recommendations, ingredient analysis, and alternative suggestions"
-    }
+      description:
+        "Receive detailed health scores, recommendations, ingredient analysis, and alternative suggestions",
+    },
   ];
 
   return (
@@ -253,19 +276,20 @@ const IndexPage: React.FC = () => {
                 <div className="space-y-6">
                   <div className="inline-flex items-center space-x-3 bg-muted rounded-full px-4 py-2">
                     <Sparkles className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-sm font-medium text-muted-foreground">AI-Powered Nutrition</span>
+                    <span className="text-sm font-medium text-muted-foreground">
+                      AI-Powered Nutrition
+                    </span>
                   </div>
-                  
+
                   <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
                     Make
-                    <span className="block text-foreground">
-                      Smarter Food
-                    </span>
+                    <span className="block text-foreground">Smarter Food</span>
                     <span className="block">Choices</span>
                   </h1>
-                  
+
                   <h2 className="hero-subtitle text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
-                    Discover what's really in your food with instant barcode scanning and AI-powered health insights
+                    Discover what's really in your food with instant barcode
+                    scanning and AI-powered health insights
                   </h2>
                 </div>
 
@@ -282,7 +306,7 @@ const IndexPage: React.FC = () => {
                       <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </span>
                   </Button>
-                  
+
                   <Button
                     aria-label="Watch Demo"
                     variant="outline"
@@ -299,19 +323,27 @@ const IndexPage: React.FC = () => {
                 <div className="flex flex-wrap gap-8 pt-4">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-foreground">
-                      {productCount ? formatNumber(productCount) : '4.7K+'}
+                      {productCount ? formatNumber(productCount) : "4.7K+"}
                     </div>
-                    <div className="text-sm text-muted-foreground">Products Scanned</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-foreground">99.9%</div>
-                    <div className="text-sm text-muted-foreground">Accuracy</div>
+                    <div className="text-sm text-muted-foreground">
+                      Products Scanned
+                    </div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-foreground">
-                      {userCount ? formatNumber(userCount) : '2.4K+'}
+                      99.9%
                     </div>
-                    <div className="text-sm text-muted-foreground">Happy Users</div>
+                    <div className="text-sm text-muted-foreground">
+                      Accuracy
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-foreground">
+                      {userCount ? formatNumber(userCount) : "2.4K+"}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Happy Users
+                    </div>
                   </div>
                 </div>
               </div>
@@ -324,10 +356,16 @@ const IndexPage: React.FC = () => {
                     <div className="h-full bg-muted flex flex-col">
                       {/* Phone Header */}
                       <div className="p-6 text-center border-b border-border/20">
-                        <img src={Logo} alt="EaterIQ logo" className="h-16 w-16 mx-auto mb-3" />
-                        <h3 className="font-bold text-foreground">EaterIQ Scanner</h3>
+                        <img
+                          src={Logo}
+                          alt="EaterIQ logo"
+                          className="h-16 w-16 mx-auto mb-3"
+                        />
+                        <h3 className="font-bold text-foreground">
+                          EaterIQ Scanner
+                        </h3>
                       </div>
-                      
+
                       {/* Scanner Interface */}
                       <div className="flex-1 p-6 flex flex-col justify-center">
                         <div className="aspect-square bg-muted rounded-2xl border-2 border-dashed border-border flex items-center justify-center mb-4">
@@ -344,7 +382,7 @@ const IndexPage: React.FC = () => {
                 {/* Floating Elements */}
                 <div className="absolute top-8 -left-4 w-20 h-20 bg-muted/10 rounded-full blur-xl"></div>
                 <div className="absolute bottom-8 -right-4 w-16 h-16 bg-muted/20 rounded-full blur-lg"></div>
-                
+
                 {/* Floating Icons */}
                 <div className="absolute top-1/4 -left-8 floating-icon">
                   <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center shadow-lg">
@@ -367,14 +405,20 @@ const IndexPage: React.FC = () => {
         </section>
 
         {/* Scanner Section */}
-        <section ref={scannerRef} className="scanner-section container mx-auto px-4 py-16">
+        <section
+          ref={scannerRef}
+          className="scanner-section container mx-auto px-4 py-16"
+        >
           <div className="max-w-6xl mx-auto">
             <FoodScannerPage />
           </div>
         </section>
 
         {/* How It Works Section */}
-        <section ref={howItWorksRef} className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16">
+        <section
+          ref={howItWorksRef}
+          className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16"
+        >
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -387,13 +431,20 @@ const IndexPage: React.FC = () => {
 
             <div className="max-w-4xl mx-auto">
               {steps.map((step, index) => (
-                <div key={index} className="step-card flex items-center mb-12 last:mb-0">
+                <div
+                  key={index}
+                  className="step-card flex items-center mb-12 last:mb-0"
+                >
                   <div className="floating-icon flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-muted rounded-full flex items-center justify-center text-muted-foreground font-bold text-2xl shadow-lg mr-4 sm:mr-8">
                     {step.step}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-foreground mb-2">{step.title}</h3>
-                    <p className="text-muted-foreground text-lg">{step.description}</p>
+                    <h3 className="text-2xl font-bold text-foreground mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-muted-foreground text-lg">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -406,7 +457,7 @@ const IndexPage: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="stat-item group">
               <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
-                {productCount ? formatNumber(productCount) : '4.7K+'}
+                {productCount ? formatNumber(productCount) : "4.7K+"}
               </div>
               <p className="text-muted-foreground text-lg">Products Analyzed</p>
             </div>
@@ -418,7 +469,7 @@ const IndexPage: React.FC = () => {
             </div>
             <div className="stat-item group">
               <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
-                {userCount ? formatNumber(userCount) : '2.4K+'}
+                {userCount ? formatNumber(userCount) : "2.4K+"}
               </div>
               <p className="text-muted-foreground text-lg">Happy Users</p>
             </div>
@@ -427,7 +478,10 @@ const IndexPage: React.FC = () => {
 
         {/* Recent Quizzes Section */}
         {recentQuizzes && recentQuizzes.length > 0 && (
-          <section ref={quizzesRef} className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16">
+          <section
+            ref={quizzesRef}
+            className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16"
+          >
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-muted rounded-2xl mb-6 mx-auto">
@@ -437,16 +491,24 @@ const IndexPage: React.FC = () => {
                   Test Your Food IQ
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                  Challenge yourself with our latest AI-generated nutrition quizzes
+                  Challenge yourself with our latest AI-generated nutrition
+                  quizzes
                 </p>
               </div>
 
               <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 {recentQuizzes.map((quiz) => (
-                  <Card key={quiz.id} className="group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <Card
+                    key={quiz.id}
+                    className="group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  >
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between mb-2">
-                        <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
+                        <Badge
+                          className={`${getDifficultyColor(
+                            quiz.difficulty
+                          )} text-xs`}
+                        >
                           {quiz.difficulty.toUpperCase()}
                         </Badge>
                       </div>
@@ -454,57 +516,66 @@ const IndexPage: React.FC = () => {
                         {quiz.title}
                       </CardTitle>
                     </CardHeader>
-                    
+
                     <CardContent className="pt-0">
                       <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                         {quiz.description}
                       </p>
-                      
+
                       <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
                         <Calendar className="h-3 w-3" />
-                        <span>{new Date(quiz.created_at).toLocaleDateString()}</span>
+                        <span>
+                          {new Date(quiz.created_at).toLocaleDateString()}
+                        </span>
                       </div>
-                      
-                      <Button 
-                        onClick={() => handleQuizPlay(quiz.id)}
-                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-                        size="sm"
-                      >
-                        <Play className="h-4 w-4 mr-2" />
-                        Play Quiz
-                      </Button>
+
+                      <Link to={`/quiz/${quiz.id}`}>
+                        <Button
+                          onClick={() => trackCTAClick("play_quiz_from_home")}
+                          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                          size="sm"
+                        >
+                          <Play className="h-4 w-4 mr-2" />
+                          Play Quiz
+                        </Button>
+                      </Link>
                     </CardContent>
                   </Card>
                 ))}
               </div>
 
               <div className="text-center">
-                <Button
-                  onClick={() => navigate('/quizzes')}
-                  variant="outline"
-                  size="lg"
-                  className="px-8 py-3 rounded-full border-2 hover:bg-accent transition-all duration-300"
-                >
-                  View All Quizzes
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                <Link to="/quizzes">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="px-8 py-3 rounded-full border-2 hover:bg-accent transition-all duration-300"
+                  >
+                    View All Quizzes
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </section>
         )}
 
         {/* Coming Soon Section - Fixed for proper visibility */}
-        <section ref={comingSoonRef} className="py-20 bg-white dark:bg-gray-900">
+        <section
+          ref={comingSoonRef}
+          className="py-20 bg-white dark:bg-gray-900"
+        >
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-muted rounded-2xl mb-6 mx-auto">
-                  <Rocket className="h-8 w-8 text-muted-foreground" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-muted rounded-2xl mb-6 mx-auto">
+                <Rocket className="h-8 w-8 text-muted-foreground" />
               </div>
               <h2 className="text-4xl md:text-5xl sm:h-16 font-bold text-foreground ">
                 What's Coming Next
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto ">
-                We're constantly innovating to make your healthy eating journey even more powerful
+                We're constantly innovating to make your healthy eating journey
+                even more powerful
               </p>
             </div>
 
@@ -527,7 +598,8 @@ const IndexPage: React.FC = () => {
 
                 <CardContent className="text-center px-6 pb-8">
                   <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Get personalized weekly meal plans based on your dietary preferences and health goals
+                    Get personalized weekly meal plans based on your dietary
+                    preferences and health goals
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -550,7 +622,8 @@ const IndexPage: React.FC = () => {
 
                 <CardContent className="text-center px-6 pb-8">
                   <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Connect with health-conscious food lovers and share your discoveries
+                    Connect with health-conscious food lovers and share your
+                    discoveries
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -573,26 +646,32 @@ const IndexPage: React.FC = () => {
 
                 <CardContent className="text-center px-6 pb-8">
                   <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Intelligent notifications for meal timing and nutrition tracking
+                    Intelligent notifications for meal timing and nutrition
+                    tracking
                   </CardDescription>
                 </CardContent>
               </Card>
             </div>
 
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Be the First to Know</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                Be the First to Know
+              </h3>
               <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-xl mx-auto">
-                Join our community and get early access to these exciting new features when they launch.
+                Join our community and get early access to these exciting new
+                features when they launch.
               </p>
-              <Button
-                aria-label="Get Early Access"
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                onClick={handleEarlyAccessClick}
-              >
-                <Bell className="mr-2 h-5 w-5" />
-                Get Early Access
-              </Button>
+              <Link to={"/early-access"}>
+                <Button
+                  aria-label="Get Early Access"
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  onClick={handleEarlyAccessClick}
+                >
+                  <Bell className="mr-2 h-5 w-5" />
+                  Get Early Access
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -604,7 +683,8 @@ const IndexPage: React.FC = () => {
               Ready to Transform Your Food Choices?
             </h2>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-              Join thousands of users who are making smarter, healthier decisions with EaterIQ
+              Join thousands of users who are making smarter, healthier
+              decisions with EaterIQ
             </p>
             <Button
               aria-label="Get Started Today"

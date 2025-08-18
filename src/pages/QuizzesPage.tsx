@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Trophy, Brain, Target, ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -204,30 +203,32 @@ const QuizzesPage = () => {
       <AnimatedBackground />
       <main className="h-full container mx-auto px-3 sm:px-4 py-4 sm:py-8 relative z-10 max-w-6xl">
         <div className="h-full w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
-          <Button
-            aria-label="Back to Home"
-            variant="outline"
-            onClick={() => navigate("/")}
-            size="sm"
-            className="shrink-0 flex md:hidden"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            <span className="hidden sm:inline">Back to Home</span>
-            <span className="sm:hidden">Back</span>
-          </Button>
-          <div className="flex flex-col sm:flex-row justify-between text-center w-full items-center gap-3 sm:gap-4">
-            {/* Back Button - always visible */}
+          <Link to={"/"}>
             <Button
               aria-label="Back to Home"
               variant="outline"
-              onClick={() => navigate("/")}
               size="sm"
-              className="shrink-0 hidden md:flex"
+              className="shrink-0 flex md:hidden"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Back to Home</span>
               <span className="sm:hidden">Back</span>
             </Button>
+          </Link>
+          <div className="flex flex-col sm:flex-row justify-between text-center w-full items-center gap-3 sm:gap-4">
+            {/* Back Button - always visible */}
+            <Link to={"/"}>
+              <Button
+                aria-label="Back to Home"
+                variant="outline"
+                size="sm"
+                className="shrink-0 hidden md:flex"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Back to Home</span>
+                <span className="sm:hidden">Back</span>
+              </Button>
+            </Link>
 
             {/* Center Heading */}
             <div className="flex flex-col flex-1 items-center text-center">
@@ -320,15 +321,17 @@ const QuizzesPage = () => {
                     <p className="text-sm sm:text-base text-muted-foreground mb-4">
                       Create your first AI-generated quiz!
                     </p>
-                    <Button
-                      aria-label="Create Quiz"
-                      onClick={handleCreateQuizClick}
-                      className="bg-gradient-to-r from-emerald-600 to-blue-600"
-                      size="sm"
-                    >
-                      <Plus className="h-4 w-4 mr-2" />
-                      Create Quiz
-                    </Button>
+                    <Link to={"/create"}>
+                      <Button
+                        aria-label="Create Quiz"
+                        onClick={handleCreateQuizClick}
+                        className="bg-gradient-to-r from-emerald-600 to-blue-600"
+                        size="sm"
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Create Quiz
+                      </Button>
+                    </Link>
                   </div>
                 )}
               </>
@@ -337,12 +340,11 @@ const QuizzesPage = () => {
                 <p className="text-sm sm:text-base text-muted-foreground mb-4">
                   Please sign in to view your quizzes.
                 </p>
-                <Button
-                  onClick={() => navigate('/auth')}
-                  className="bg-gradient-to-r from-emerald-600 to-blue-600"
-                >
-                  Sign In
-                </Button>
+                <Link to={"/auth"}>
+                  <Button className="bg-gradient-to-r from-emerald-600 to-blue-600">
+                    Sign In
+                  </Button>
+                </Link>
               </div>
             )}
           </TabsContent>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -27,7 +26,7 @@ import {
   Sparkles,
   Bolt,
 } from "lucide-react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -66,7 +65,6 @@ interface QuizPageProps {
 const QuizPage: React.FC = () => {
   const codeRef = useRef(null);
   const { quizId } = useParams<{ quizId: string }>();
-  const navigate = useNavigate();
   const { user, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -101,7 +99,7 @@ const QuizPage: React.FC = () => {
   const [hiddenAnswers, setHiddenAnswers] = useState<string[]>([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [spentTime, setSpentTime] = useState<number>(new Date().getTime() || 0);
-  
+
   // Gamification states
   const [streak, setStreak] = useState(0);
   const [bestStreak, setBestStreak] = useState(0);
@@ -111,9 +109,6 @@ const QuizPage: React.FC = () => {
   const [achievements, setAchievements] = useState<string[]>([]);
   const [showAchievement, setShowAchievement] = useState<string | null>(null);
   const [perfectAnswers, setPerfectAnswers] = useState(0); // Fast answers (>25s left)
-  const onBack = () => {
-    navigate("/quizzes");
-  };
 
   useEffect(() => {
     fetchQuizData();
@@ -184,7 +179,10 @@ const QuizPage: React.FC = () => {
     }
   };
 
-  const handleAnswerSelect = async (answer: string, isSkip: boolean = false) => {
+  const handleAnswerSelect = async (
+    answer: string,
+    isSkip: boolean = false
+  ) => {
     if (answerFeedback.show) return; // Prevent multiple selections
 
     setSelectedAnswer(answer);
@@ -204,56 +202,56 @@ const QuizPage: React.FC = () => {
       // Update streak
       const newStreak = streak + 1;
       setStreak(newStreak);
-      setBestStreak(prev => Math.max(prev, newStreak));
+      setBestStreak((prev) => Math.max(prev, newStreak));
 
       // Perfect answer bonus
       if (isPerfectAnswer) {
         pointsEarned += 5;
         xpEarned += 10;
-        setPerfectAnswers(prev => prev + 1);
+        setPerfectAnswers((prev) => prev + 1);
       }
 
       // Combo multiplier system
       const newMultiplier = Math.min(Math.floor(newStreak / 3) + 1, 4);
       setComboMultiplier(newMultiplier);
-      
+
       if (newMultiplier > 1) {
         pointsEarned *= newMultiplier;
         xpEarned *= newMultiplier;
       }
 
       // Update score and XP
-      setScore(prev => prev + pointsEarned);
-      setXP(prev => prev + xpEarned);
-      setTotalXP(prev => prev + xpEarned);
+      setScore((prev) => prev + pointsEarned);
+      setXP((prev) => prev + xpEarned);
+      setTotalXP((prev) => prev + xpEarned);
 
       // Achievement system
       const newAchievements = [...achievements];
-      
+
       // First correct answer
-      if (newStreak === 1 && !achievements.includes('first_correct')) {
-        newAchievements.push('first_correct');
-        setShowAchievement('First Blood! 🎯');
+      if (newStreak === 1 && !achievements.includes("first_correct")) {
+        newAchievements.push("first_correct");
+        setShowAchievement("First Blood! 🎯");
       }
-      
+
       // Hot streak
-      if (newStreak === 3 && !achievements.includes('hot_streak')) {
-        newAchievements.push('hot_streak');
-        setShowAchievement('On Fire! 🔥');
+      if (newStreak === 3 && !achievements.includes("hot_streak")) {
+        newAchievements.push("hot_streak");
+        setShowAchievement("On Fire! 🔥");
       }
-      
+
       // Perfect streak
-      if (newStreak === 5 && !achievements.includes('perfect_streak')) {
-        newAchievements.push('perfect_streak');
-        setShowAchievement('Unstoppable! ⚡');
+      if (newStreak === 5 && !achievements.includes("perfect_streak")) {
+        newAchievements.push("perfect_streak");
+        setShowAchievement("Unstoppable! ⚡");
       }
-      
+
       // Speed demon
-      if (perfectAnswers >= 3 && !achievements.includes('speed_demon')) {
-        newAchievements.push('speed_demon');
-        setShowAchievement('Speed Demon! 🚄');
+      if (perfectAnswers >= 3 && !achievements.includes("speed_demon")) {
+        newAchievements.push("speed_demon");
+        setShowAchievement("Speed Demon! 🚄");
       }
-      
+
       setAchievements(newAchievements);
 
       // Extra confetti for streaks
@@ -262,7 +260,7 @@ const QuizPage: React.FC = () => {
           particleCount: 50,
           spread: 60,
           origin: { y: 0.7 },
-          colors: ['#10B981', '#3B82F6', '#8B5CF6']
+          colors: ["#10B981", "#3B82F6", "#8B5CF6"],
         });
       }
     } else {
@@ -320,8 +318,9 @@ const QuizPage: React.FC = () => {
       (new Date().getTime() - startTime.getTime()) / 1000
     );
 
-    const finalScore = score + (answer === questions[currentQuestion]?.correct_answer ? 10 : 0);
-    setSpentTime(timeSpent)
+    const finalScore =
+      score + (answer === questions[currentQuestion]?.correct_answer ? 10 : 0);
+    setSpentTime(timeSpent);
     try {
       const { error } = await supabase.from("quiz_attempts").insert({
         user_id: user.id,
@@ -338,22 +337,22 @@ const QuizPage: React.FC = () => {
         confetti({
           particleCount: 100,
           spread: 70,
-          origin: { y: 0.6 }
+          origin: { y: 0.6 },
         });
-        
+
         // Additional confetti burst after a short delay
         setTimeout(() => {
           confetti({
             particleCount: 50,
             angle: 60,
             spread: 55,
-            origin: { x: 0 }
+            origin: { x: 0 },
           });
           confetti({
             particleCount: 50,
             angle: 120,
             spread: 55,
-            origin: { x: 1 }
+            origin: { x: 1 },
           });
         }, 200);
       }
@@ -417,32 +416,32 @@ const QuizPage: React.FC = () => {
 
   const shareQuiz = async () => {
     if (!codeRef.current) return;
-  
+
     const shareText = `Check out this ${quiz?.difficulty} quiz: "${quiz?.title}" on EaterIQ!`;
     const shareUrl = `${window.location.origin}/quiz/${quizId}`;
-  
+
     // 1. Clone the node without modifying actual UI
     const clone = codeRef.current.cloneNode(true);
-  
+
     // 2. Remove elements with class "ignoreInShare" from the clone
-    const elementsToRemove = clone.querySelectorAll('.ignoreInShare');
-    elementsToRemove.forEach(el => el.remove());
-  
+    const elementsToRemove = clone.querySelectorAll(".ignoreInShare");
+    elementsToRemove.forEach((el) => el.remove());
+
     // 3. Create an off-screen container to hold the clone temporarily
-    const container = document.createElement('div');
-    container.style.position = 'fixed';
-    container.style.top = '-10000px';
-    container.style.left = '-10000px';
-    container.style.zIndex = '-1';
+    const container = document.createElement("div");
+    container.style.position = "fixed";
+    container.style.top = "-10000px";
+    container.style.left = "-10000px";
+    container.style.zIndex = "-1";
     container.appendChild(clone);
     document.body.appendChild(container);
-  
+
     // 4. Generate PNG from the cloned node
     const dataUrl = await toPng(clone, { pixelRatio: 2 });
-  
+
     // 5. Clean up: remove the off-screen clone
     document.body.removeChild(container);
-  
+
     if (navigator.share) {
       try {
         const blob = await (await fetch(dataUrl)).blob();
@@ -468,7 +467,6 @@ const QuizPage: React.FC = () => {
       });
     }
   };
-  
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -494,7 +492,9 @@ const QuizPage: React.FC = () => {
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(questions[currentQuestion].question_text);
+    const utterance = new SpeechSynthesisUtterance(
+      questions[currentQuestion].question_text
+    );
     utterance.rate = 0.8;
     utterance.pitch = 1;
     utterance.volume = soundEnabled ? 1 : 0;
@@ -517,14 +517,15 @@ const QuizPage: React.FC = () => {
   if (!quizId) {
     return (
       <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-
         <div className="flex justify-center items-center h-64 px-4">
           <div className="text-center">
             <p className="text-sm sm:text-base">Quiz not found</p>
-            
-            <Button aria-label="Back to List" onClick={onBack} className="mt-4">
-              Back to List
-            </Button>
+
+            <Link to={"/quizzes"}>
+              <Button aria-label="Back to List" className="mt-4">
+                Back to List
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -534,7 +535,6 @@ const QuizPage: React.FC = () => {
   if (!quiz || questions.length === 0) {
     return (
       <div className="min-h-dvh flex flex-col justify-between bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-
         <AnimatedBackground />
         <div className="flex justify-center items-center h-full relative z-10 px-4">
           <div className="text-center">
@@ -546,12 +546,14 @@ const QuizPage: React.FC = () => {
     );
   }
 
-
   if (gameOver) {
     return (
       <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <AnimatedBackground />
-        <main ref={codeRef} className="container mx-auto px-4 py-4 sm:py-8 relative z-10">
+        <main
+          ref={codeRef}
+          className="container mx-auto px-4 py-4 sm:py-8 relative z-10"
+        >
           <div className="max-w-2xl mx-auto">
             <Card className="text-center border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950 dark:to-orange-950">
               <CardHeader className="pb-4">
@@ -559,7 +561,10 @@ const QuizPage: React.FC = () => {
                   <Trophy className="h-16 w-16 sm:h-20 sm:w-20 text-yellow-500 mx-auto mb-4 animate-bounce" />
                   {score > 70 && (
                     <div className="absolute -top-2 -right-2">
-                      <Star className="h-8 w-8 text-yellow-400 animate-pulse" fill="currentColor" />
+                      <Star
+                        className="h-8 w-8 text-yellow-400 animate-pulse"
+                        fill="currentColor"
+                      />
                     </div>
                   )}
                 </div>
@@ -576,27 +581,43 @@ const QuizPage: React.FC = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="relative">
-                  <div className={`text-4xl sm:text-5xl font-bold ${score > 50 ? 'text-emerald-600' : score > 30 ? 'text-yellow-600' : 'text-red-600'}`}>
+                  <div
+                    className={`text-4xl sm:text-5xl font-bold ${
+                      score > 50
+                        ? "text-emerald-600"
+                        : score > 30
+                        ? "text-yellow-600"
+                        : "text-red-600"
+                    }`}
+                  >
                     {score}/100
                   </div>
                   <div className="text-lg text-muted-foreground mt-2">
-                    {score > 70 ? "🏆 Outstanding!" : score > 50 ? "🌟 Great Job!" : score > 30 ? "👍 Good Effort!" : "📚 Keep Learning!"}
+                    {score > 70
+                      ? "🏆 Outstanding!"
+                      : score > 50
+                      ? "🌟 Great Job!"
+                      : score > 30
+                      ? "👍 Good Effort!"
+                      : "📚 Keep Learning!"}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
                     <Target className="h-5 w-5 mx-auto mb-1 text-blue-600" />
-                    <div className="font-semibold">{Math.floor(score / 10)}/{questions.length}</div>
+                    <div className="font-semibold">
+                      {Math.floor(score / 10)}/{questions.length}
+                    </div>
                     <div className="text-xs text-muted-foreground">Correct</div>
                   </div>
                   <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
                     <Clock className="h-5 w-5 mx-auto mb-1 text-green-600" />
                     <div className="font-semibold">
                       {(() => {
-                       const minutes = Math.floor(spentTime / 60);
-                       const seconds = spentTime % 60;
-                       return `${minutes}m ${seconds}s`;
+                        const minutes = Math.floor(spentTime / 60);
+                        const seconds = spentTime % 60;
+                        return `${minutes}m ${seconds}s`;
                       })()}
                     </div>
                     <div className="text-xs text-muted-foreground">Time</div>
@@ -606,9 +627,18 @@ const QuizPage: React.FC = () => {
                 {score > 50 && (
                   <div className="bg-gradient-to-r from-emerald-100 to-blue-100 dark:from-emerald-950 dark:to-blue-950 p-4 rounded-xl border-2 border-emerald-200 dark:border-emerald-800">
                     <div className="flex items-center justify-center gap-2 mb-2">
-                      <Star className="h-5 w-5 text-yellow-500" fill="currentColor" />
-                      <Star className="h-6 w-6 text-yellow-500" fill="currentColor" />
-                      <Star className="h-5 w-5 text-yellow-500" fill="currentColor" />
+                      <Star
+                        className="h-5 w-5 text-yellow-500"
+                        fill="currentColor"
+                      />
+                      <Star
+                        className="h-6 w-6 text-yellow-500"
+                        fill="currentColor"
+                      />
+                      <Star
+                        className="h-5 w-5 text-yellow-500"
+                        fill="currentColor"
+                      />
                     </div>
                     <p className="text-emerald-700 dark:text-emerald-300 font-medium">
                       🌟 Outstanding Achievement! 🌟
@@ -643,7 +673,9 @@ const QuizPage: React.FC = () => {
                   <div className="ignoreInShare bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-950 dark:to-emerald-950 p-4 rounded-xl border-2 border-green-200 dark:border-green-800">
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <CheckCircle className="h-5 w-5 text-green-600" />
-                      <span className="font-medium text-green-700 dark:text-green-300">Score Saved!</span>
+                      <span className="font-medium text-green-700 dark:text-green-300">
+                        Score Saved!
+                      </span>
                     </div>
                     <p className="text-sm text-green-600 dark:text-green-400">
                       Your achievement is now on the leaderboard!
@@ -652,15 +684,17 @@ const QuizPage: React.FC = () => {
                 )}
 
                 <div className="flex flex-col sm:flex-row gap-3 ignoreInShare">
-                  <Button
-                    aria-label="Back to Quizzes"
-                    onClick={onBack}
-                    variant="outline"
-                    className="flex-1"
-                  >
-                    <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back to Quizzes
-                  </Button>
+                  <Link to={"/quizzes"} className="flex-1">
+                    <Button
+                      aria-label="Back to Quizzes"
+                      variant="outline"
+                      className="flex-1"
+                    >
+                      <ArrowLeft className="h-4 w-4 mr-2" />
+                      Back to Quizzes
+                    </Button>
+                  </Link>
+
                   <Button
                     aria-label="Share Achievement"
                     onClick={shareQuiz}
@@ -686,10 +720,12 @@ const QuizPage: React.FC = () => {
         {/* Quiz Header - Compact and Mobile Optimized */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
-            <Button aria-label="Back" variant="outline" onClick={onBack} size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              <span className="hidden sm:inline">Back</span>
-            </Button>
+            <Link to={"/quizzes"}>
+              <Button aria-label="Back" variant="outline" size="sm">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Back</span>
+              </Button>
+            </Link>
             <div className="flex items-center gap-2">
               <Button
                 aria-label="Toggle Sound"
@@ -697,7 +733,11 @@ const QuizPage: React.FC = () => {
                 variant="outline"
                 size="sm"
               >
-                {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+                {soundEnabled ? (
+                  <Volume2 className="h-4 w-4" />
+                ) : (
+                  <VolumeX className="h-4 w-4" />
+                )}
               </Button>
               {user && (
                 <Button
@@ -709,7 +749,12 @@ const QuizPage: React.FC = () => {
                   <Trophy className="h-4 w-4" />
                 </Button>
               )}
-              <Button aria-label="Share" onClick={shareQuiz} variant="outline" size="sm">
+              <Button
+                aria-label="Share"
+                onClick={shareQuiz}
+                variant="outline"
+                size="sm"
+              >
                 <Share2 className="h-4 w-4" />
               </Button>
             </div>
@@ -730,26 +775,40 @@ const QuizPage: React.FC = () => {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-4">
               <div className="text-center">
-                <div className="text-lg sm:text-xl font-bold text-emerald-600">{currentQuestion + 1}</div>
+                <div className="text-lg sm:text-xl font-bold text-emerald-600">
+                  {currentQuestion + 1}
+                </div>
                 <div className="text-xs text-muted-foreground">Question</div>
               </div>
               <div className="text-center">
-                <div className="text-lg sm:text-xl font-bold text-blue-600">{score}</div>
+                <div className="text-lg sm:text-xl font-bold text-blue-600">
+                  {score}
+                </div>
                 <div className="text-xs text-muted-foreground">Score</div>
               </div>
               {/* Streak Display */}
               {streak > 0 && (
                 <div className="text-center animate-pulse">
                   <div className="flex items-center gap-1">
-                    <Flame className={`h-4 w-4 ${streak >= 3 ? 'text-orange-500 animate-bounce' : 'text-orange-400'}`} />
-                    <div className="text-lg sm:text-xl font-bold text-orange-600">{streak}</div>
+                    <Flame
+                      className={`h-4 w-4 ${
+                        streak >= 3
+                          ? "text-orange-500 animate-bounce"
+                          : "text-orange-400"
+                      }`}
+                    />
+                    <div className="text-lg sm:text-xl font-bold text-orange-600">
+                      {streak}
+                    </div>
                   </div>
                   <div className="text-xs text-muted-foreground">Streak</div>
                 </div>
               )}
               {/* XP Display */}
               <div className="text-center">
-                <div className="text-lg sm:text-xl font-bold text-purple-600">{xp}</div>
+                <div className="text-lg sm:text-xl font-bold text-purple-600">
+                  {xp}
+                </div>
                 <div className="text-xs text-muted-foreground">XP</div>
               </div>
               {/* Multiplier Display */}
@@ -757,21 +816,29 @@ const QuizPage: React.FC = () => {
                 <div className="text-center">
                   <div className="flex items-center gap-1">
                     <Bolt className="h-4 w-4 text-yellow-500 animate-pulse" />
-                    <div className="text-lg sm:text-xl font-bold text-yellow-600">x{comboMultiplier}</div>
+                    <div className="text-lg sm:text-xl font-bold text-yellow-600">
+                      x{comboMultiplier}
+                    </div>
                   </div>
                   <div className="text-xs text-muted-foreground">Combo</div>
                 </div>
               )}
             </div>
             <div className="text-center">
-              <div className={`text-xl sm:text-2xl font-bold font-mono ${timeLeft <= 10 ? 'text-red-600 animate-pulse' : 'text-green-600'}`}>
+              <div
+                className={`text-xl sm:text-2xl font-bold font-mono ${
+                  timeLeft <= 10
+                    ? "text-red-600 animate-pulse"
+                    : "text-green-600"
+                }`}
+              >
                 {timeLeft}s
               </div>
               <div className="text-xs text-muted-foreground">Time Left</div>
             </div>
           </div>
-          <Progress 
-            value={(currentQuestion / questions.length) * 100} 
+          <Progress
+            value={(currentQuestion / questions.length) * 100}
             className="h-2 bg-white/50 dark:bg-gray-600 mb-2"
           />
           {bestStreak > 0 && (
@@ -797,11 +864,20 @@ const QuizPage: React.FC = () => {
                 <div className="flex items-center gap-2 min-w-0">
                   <LogIn className="h-4 w-4 text-amber-600 shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-amber-800 dark:text-amber-200">Playing as guest</p>
-                    <p className="text-xs text-amber-600 dark:text-amber-400 truncate">Sign in to save score</p>
+                    <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                      Playing as guest
+                    </p>
+                    <p className="text-xs text-amber-600 dark:text-amber-400 truncate">
+                      Sign in to save score
+                    </p>
                   </div>
                 </div>
-                <Button aria-label="Sign In" onClick={signInWithGoogle} size="sm" className="bg-gradient-to-r from-emerald-600 to-blue-600 shrink-0">
+                <Button
+                  aria-label="Sign In"
+                  onClick={signInWithGoogle}
+                  size="sm"
+                  className="bg-gradient-to-r from-emerald-600 to-blue-600 shrink-0"
+                >
                   Sign In
                 </Button>
               </div>
@@ -825,12 +901,16 @@ const QuizPage: React.FC = () => {
               onClick={useFiftyFifty}
               disabled={!lifelines.fiftyFifty || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
-                !lifelines.fiftyFifty ? "opacity-50 bg-gray-100 dark:bg-gray-800" : "bg-gradient-to-br from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                !lifelines.fiftyFifty
+                  ? "opacity-50 bg-gray-100 dark:bg-gray-800"
+                  : "bg-gradient-to-br from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
               }`}
             >
               <Users className="h-4 w-4" />
               <span className="text-xs">50:50</span>
-              {!lifelines.fiftyFifty && <span className="text-[10px] opacity-75">Used</span>}
+              {!lifelines.fiftyFifty && (
+                <span className="text-[10px] opacity-75">Used</span>
+              )}
             </Button>
             <Button
               aria-label="Skip"
@@ -839,12 +919,16 @@ const QuizPage: React.FC = () => {
               onClick={useSkipQuestion}
               disabled={!lifelines.skipQuestion || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
-                !lifelines.skipQuestion ? "opacity-50 bg-gray-100 dark:bg-gray-800" : "bg-gradient-to-br from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+                !lifelines.skipQuestion
+                  ? "opacity-50 bg-gray-100 dark:bg-gray-800"
+                  : "bg-gradient-to-br from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
               }`}
             >
               <Lightbulb className="h-4 w-4" />
               <span className="text-xs">Skip</span>
-              {!lifelines.skipQuestion && <span className="text-[10px] opacity-75">Used</span>}
+              {!lifelines.skipQuestion && (
+                <span className="text-[10px] opacity-75">Used</span>
+              )}
             </Button>
             <Button
               aria-label="Extra Time"
@@ -853,12 +937,16 @@ const QuizPage: React.FC = () => {
               onClick={useExtraTime}
               disabled={!lifelines.extraTime || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
-                !lifelines.extraTime ? "opacity-50 bg-gray-100 dark:bg-gray-800" : "bg-gradient-to-br from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
+                !lifelines.extraTime
+                  ? "opacity-50 bg-gray-100 dark:bg-gray-800"
+                  : "bg-gradient-to-br from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
               }`}
             >
               <Clock className="h-4 w-4" />
               <span className="text-xs">+15s</span>
-              {!lifelines.extraTime && <span className="text-[10px] opacity-75">Used</span>}
+              {!lifelines.extraTime && (
+                <span className="text-[10px] opacity-75">Used</span>
+              )}
             </Button>
           </div>
         </div>
@@ -876,9 +964,15 @@ const QuizPage: React.FC = () => {
                 size="sm"
                 onClick={speakQuestion}
                 disabled={answerFeedback.show}
-                className={`shrink-0 ${isSpeaking ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900' : ''}`}
+                className={`shrink-0 ${
+                  isSpeaking
+                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900"
+                    : ""
+                }`}
               >
-                <Volume2 className={`h-4 w-4 ${isSpeaking ? 'animate-pulse' : ''}`} />
+                <Volume2
+                  className={`h-4 w-4 ${isSpeaking ? "animate-pulse" : ""}`}
+                />
               </Button>
             </div>
           </CardHeader>
@@ -901,8 +995,11 @@ const QuizPage: React.FC = () => {
                 );
               }
 
-              const isSelectedAnswer = answerFeedback.show && answerFeedback.selectedAnswer === answer;
-              const isCorrectAnswer = answerFeedback.show && answer === questions[currentQuestion]?.correct_answer;
+              const isSelectedAnswer =
+                answerFeedback.show && answerFeedback.selectedAnswer === answer;
+              const isCorrectAnswer =
+                answerFeedback.show &&
+                answer === questions[currentQuestion]?.correct_answer;
 
               return (
                 <Button
@@ -921,11 +1018,13 @@ const QuizPage: React.FC = () => {
                   onClick={() => handleAnswerSelect(answer)}
                   disabled={answerFeedback.show}
                 >
-                  <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mr-3 font-bold text-xs shrink-0 ${
-                    isSelectedAnswer || isCorrectAnswer 
-                      ? "bg-white dark:bg-gray-800" 
-                      : "bg-gradient-to-br from-emerald-100 to-blue-100 dark:from-gray-700 dark:to-gray-600"
-                  }`}>
+                  <div
+                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mr-3 font-bold text-xs shrink-0 ${
+                      isSelectedAnswer || isCorrectAnswer
+                        ? "bg-white dark:bg-gray-800"
+                        : "bg-gradient-to-br from-emerald-100 to-blue-100 dark:from-gray-700 dark:to-gray-600"
+                    }`}
+                  >
                     {letter}
                   </div>
                   <span className="break-words flex-1">{answer}</span>
@@ -949,7 +1048,8 @@ const QuizPage: React.FC = () => {
           <div className="text-center text-sm text-muted-foreground bg-white/50 dark:bg-gray-800/50 rounded-lg p-2 backdrop-blur-sm">
             <div className="flex items-center justify-center gap-2">
               <Clock className="h-4 w-4" />
-              Moving to next question in {Math.ceil((2000 - (Date.now() % 2000)) / 1000)}s...
+              Moving to next question in{" "}
+              {Math.ceil((2000 - (Date.now() % 2000)) / 1000)}s...
             </div>
           </div>
         )}
@@ -958,51 +1058,70 @@ const QuizPage: React.FC = () => {
       {/* Answer Feedback Modal - Enhanced */}
       {answerFeedback.show && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in p-4">
-          <div className={`bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-sm w-full text-center transform transition-all duration-500 animate-scale-in border-4 ${
-            answerFeedback.isCorrect ? 'border-green-400' : 'border-red-400'
-          }`}>
+          <div
+            className={`bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-sm w-full text-center transform transition-all duration-500 animate-scale-in border-4 ${
+              answerFeedback.isCorrect ? "border-green-400" : "border-red-400"
+            }`}
+          >
             {answerFeedback.isCorrect ? (
               <div className="text-green-500">
                 <div className="relative mb-4">
                   <CheckCircle className="h-20 w-20 mx-auto animate-bounce" />
                   <div className="absolute -top-2 -right-2">
-                    <Star className="h-8 w-8 text-yellow-400 animate-spin" fill="currentColor" />
+                    <Star
+                      className="h-8 w-8 text-yellow-400 animate-spin"
+                      fill="currentColor"
+                    />
                   </div>
                 </div>
-                 <h3 className="text-2xl font-bold text-green-600 mb-2">
-                   🎉 Correct!
-                 </h3>
-                 <div className="space-y-2">
-                   <div className="bg-green-100 dark:bg-green-900 rounded-lg p-3">
-                     <div className="flex items-center justify-between">
-                       <span className="font-semibold text-green-800 dark:text-green-200">Points:</span>
-                       <span className="text-lg font-bold text-green-600">
-                         +{comboMultiplier > 1 ? `${10 * comboMultiplier}` : '10'}
-                         {comboMultiplier > 1 && <span className="text-sm ml-1">(x{comboMultiplier})</span>}
-                       </span>
-                     </div>
-                     <div className="flex items-center justify-between mt-1">
-                       <span className="font-semibold text-green-800 dark:text-green-200">XP:</span>
-                       <span className="text-lg font-bold text-purple-600">
-                         +{comboMultiplier > 1 ? `${15 * comboMultiplier}` : '15'}
-                         {timeLeft >= 25 && <span className="text-sm ml-1 text-blue-600">(+10 speed bonus!)</span>}
-                       </span>
-                     </div>
-                   </div>
-                   {streak > 0 && (
-                     <div className="bg-orange-100 dark:bg-orange-900 rounded-lg p-2">
-                       <div className="flex items-center justify-center gap-2">
-                         <Flame className="h-4 w-4 text-orange-600" />
-                         <span className="text-sm font-medium text-orange-800 dark:text-orange-200">
-                           {streak} Question Streak! 🔥
-                         </span>
-                       </div>
-                     </div>
-                   )}
-                 </div>
-                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                   Great job! Keep it up! 🚀
-                 </p>
+                <h3 className="text-2xl font-bold text-green-600 mb-2">
+                  🎉 Correct!
+                </h3>
+                <div className="space-y-2">
+                  <div className="bg-green-100 dark:bg-green-900 rounded-lg p-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-green-800 dark:text-green-200">
+                        Points:
+                      </span>
+                      <span className="text-lg font-bold text-green-600">
+                        +
+                        {comboMultiplier > 1 ? `${10 * comboMultiplier}` : "10"}
+                        {comboMultiplier > 1 && (
+                          <span className="text-sm ml-1">
+                            (x{comboMultiplier})
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between mt-1">
+                      <span className="font-semibold text-green-800 dark:text-green-200">
+                        XP:
+                      </span>
+                      <span className="text-lg font-bold text-purple-600">
+                        +
+                        {comboMultiplier > 1 ? `${15 * comboMultiplier}` : "15"}
+                        {timeLeft >= 25 && (
+                          <span className="text-sm ml-1 text-blue-600">
+                            (+10 speed bonus!)
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                  {streak > 0 && (
+                    <div className="bg-orange-100 dark:bg-orange-900 rounded-lg p-2">
+                      <div className="flex items-center justify-center gap-2">
+                        <Flame className="h-4 w-4 text-orange-600" />
+                        <span className="text-sm font-medium text-orange-800 dark:text-orange-200">
+                          {streak} Question Streak! 🔥
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                  Great job! Keep it up! 🚀
+                </p>
               </div>
             ) : (
               <div className="text-red-500">

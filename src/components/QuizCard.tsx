@@ -7,7 +7,7 @@ import { Play, Calendar, Trophy, EyeOff, Eye, Edit, User, Shield } from 'lucide-
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import QuizLeaderboardModal from './QuizLeaderboardModal';
@@ -186,9 +186,9 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               </div>
               
               {/* Creator Info */}
-              <div 
+              <Link
+              to={creator && creator.username ? `/profile/${creator.username}` : ''} 
                 className={`flex items-center gap-2 transition-opacity ${creator && creator.username ? 'cursor-pointer hover:opacity-80' : 'cursor-default'}`}
-                onClick={creator && creator.username ? handleCreatorClick : undefined}
               >
                 <Avatar className="h-6 w-6">
                   <AvatarImage src={creator?.avatar_url || ''} alt={getCreatorDisplayName()} />
@@ -199,7 +199,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                 <span className={`text-xs text-muted-foreground transition-colors ${creator && creator.username ? 'hover:text-foreground' : ''}`}>
                   by {getCreatorDisplayName()}
                 </span>
-              </div>
+              </Link>
             </div>
           </div>
         </CardHeader>
