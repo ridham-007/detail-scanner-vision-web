@@ -16,10 +16,10 @@ interface QuizAttempt {
   total_questions: number;
   time_taken: number;
   completed_at: string;
-  profiles: {
-    full_name: string;
-    avatar_url: string;
-  } | null;
+          profiles: {
+            username: string;
+            avatar_url: string;
+          } | null;
 }
 
 interface QuizLeaderboardModalProps {
@@ -102,10 +102,10 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
       // Get unique user IDs
       const userIds = bestAttempts.map(attempt => attempt.user_id);
 
-      // Fetch profiles for these users
+      // Fetch profiles for these users (only public data)
       const { data: profiles, error: profilesError } = await supabase
         .from('profiles')
-        .select('id, full_name, avatar_url')
+        .select('id, username, avatar_url')
         .in('id', userIds);
 
       if (profilesError) throw profilesError;
@@ -120,7 +120,7 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
           time_taken: attempt.time_taken,
           completed_at: attempt.completed_at,
           profiles: profile ? {
-            full_name: profile.full_name || 'Anonymous Player',
+            username: profile.username || 'Anonymous Player',
             avatar_url: profile.avatar_url || ''
           } : null
         };
@@ -196,8 +196,8 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
                       <div className="flex items-center gap-3">
                         {getRankIcon(index)}
                         <div>
-                          <p className="font-semibold capitalize">
-                            {attempt.profiles?.full_name || 'Anonymous Player'}
+                          <p className="font-semibold">
+                            {attempt.profiles?.username || 'Anonymous Player'}
                           </p>
                           <p className="text-sm text-muted-foreground">
                             Best attempt: {new Date(attempt.completed_at).toLocaleDateString()}

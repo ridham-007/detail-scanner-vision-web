@@ -12,11 +12,9 @@ import QuizCard from '@/components/QuizCard';
 
 interface UserProfile {
   id: string;
-  full_name: string;
   username: string;
   bio: string;
   website: string;
-  location: string;
   avatar_url: string;
   total_score: number;
   quizzes_completed: number;
@@ -54,7 +52,7 @@ const UserProfilePage = () => {
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .select('*')
+        .select('id, username, bio, website, avatar_url, total_score, quizzes_completed, created_at')
         .eq('username', username)
         .single();
 
@@ -159,14 +157,14 @@ const UserProfilePage = () => {
                 <Avatar className="h-24 w-24">
                   <AvatarImage alt="user avatar" src={profile.avatar_url} />
                   <AvatarFallback className="text-2xl">
-                    {profile.full_name?.charAt(0)?.toUpperCase() || profile.username?.charAt(0)?.toUpperCase()}
+                    {profile.username?.charAt(0)?.toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 
                 <div className="flex-1">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                     <div>
-                      <h1 className="text-3xl font-bold">{profile.full_name || profile.username}</h1>
+                      <h1 className="text-3xl font-bold">{profile.username}</h1>
                       <p className="text-muted-foreground">@{profile.username}</p>
                       {profile.bio && (
                         <p className="mt-2 text-muted-foreground">{profile.bio}</p>
@@ -180,12 +178,6 @@ const UserProfilePage = () => {
                   </div>
                   
                   <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
-                    {profile.location && (
-                      <div className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4" />
-                        <span>{profile.location}</span>
-                      </div>
-                    )}
                     {profile.website && (
                       <div className="flex items-center gap-1">
                         <Globe className="h-4 w-4" />
@@ -253,7 +245,7 @@ const UserProfilePage = () => {
                   <Trophy className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
                   <h3 className="text-lg font-semibold mb-2">No quizzes yet</h3>
                   <p className="text-muted-foreground">
-                    {profile.full_name || profile.username} hasn't created any public quizzes yet.
+                    {profile.username} hasn't created any public quizzes yet.
                   </p>
                 </div>
               )}
