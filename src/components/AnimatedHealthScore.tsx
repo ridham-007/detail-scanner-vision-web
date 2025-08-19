@@ -47,10 +47,10 @@ const AnimatedHealthScore: React.FC<AnimatedHealthScoreProps> = ({
   const strokeDashoffset = circumference - (animatedScore / 100) * circumference;
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return '#10b981'; // green
-    if (score >= 60) return '#f59e0b'; // yellow
-    if (score >= 40) return '#f97316'; // orange
-    return '#ef4444'; // red
+    if (score >= 80) return 'hsl(var(--health-excellent))';
+    if (score >= 60) return 'hsl(var(--health-good))';
+    if (score >= 40) return 'hsl(var(--health-fair))';
+    return 'hsl(var(--health-poor))';
   };
 
   const getScoreLabel = (score: number) => {
@@ -68,7 +68,7 @@ const AnimatedHealthScore: React.FC<AnimatedHealthScoreProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4 relative">
+    <div className="flex flex-col items-center space-y-4 relative p-6 rounded-3xl bg-white dark:bg-card shadow-[var(--shadow-health-score)] border border-border/20">
       {/* Confetti Effect for High Scores */}
       {showConfetti && (
         <div className="absolute -inset-8 pointer-events-none overflow-hidden">
@@ -98,20 +98,20 @@ const AnimatedHealthScore: React.FC<AnimatedHealthScoreProps> = ({
         >
           <defs>
             <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#10b981" />
-              <stop offset="100%" stopColor="#059669" />
+              <stop offset="0%" stopColor="hsl(var(--health-excellent))" />
+              <stop offset="100%" stopColor="hsl(var(--health-excellent) / 0.8)" />
             </linearGradient>
             <linearGradient id="yellowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#f59e0b" />
-              <stop offset="100%" stopColor="#d97706" />
+              <stop offset="0%" stopColor="hsl(var(--health-good))" />
+              <stop offset="100%" stopColor="hsl(var(--health-good) / 0.8)" />
             </linearGradient>
             <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#f97316" />
-              <stop offset="100%" stopColor="#ea580c" />
+              <stop offset="0%" stopColor="hsl(var(--health-fair))" />
+              <stop offset="100%" stopColor="hsl(var(--health-fair) / 0.8)" />
             </linearGradient>
             <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#ef4444" />
-              <stop offset="100%" stopColor="#dc2626" />
+              <stop offset="0%" stopColor="hsl(var(--health-poor))" />
+              <stop offset="100%" stopColor="hsl(var(--health-poor) / 0.8)" />
             </linearGradient>
           </defs>
           
@@ -176,23 +176,29 @@ const AnimatedHealthScore: React.FC<AnimatedHealthScoreProps> = ({
         </div>
       </div>
       
-      <div className="text-center space-y-2">
-        <div className="flex items-center gap-2">
+        <div className="text-center space-y-3">
+        <div className="flex items-center justify-center gap-2">
           <Badge 
             variant={score >= 80 ? 'default' : score >= 60 ? 'secondary' : 'destructive'}
-            className="text-sm font-semibold"
+            className="text-base font-bold px-4 py-2 rounded-full"
+            style={{ 
+              backgroundColor: score >= 80 ? 'hsl(var(--health-excellent))' : 
+                              score >= 60 ? 'hsl(var(--health-good))' : 
+                              score >= 40 ? 'hsl(var(--health-fair))' : 'hsl(var(--health-poor))',
+              color: 'white'
+            }}
           >
-            {score >= 80 && <Trophy className="w-3 h-3 mr-1" />}
+            {score >= 80 && <Trophy className="w-4 h-4 mr-1" />}
             {getScoreLabel(animatedScore)}
           </Badge>
         </div>
         
-        <p className="text-xs text-muted-foreground">Health Assessment</p>
+        <p className="text-sm font-medium text-foreground">Nutri-Score</p>
         
         {/* Category Ranking */}
         {categoryRank && categoryTotal && (
-          <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
-            <TrendingUp className="w-3 h-3" />
+          <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground bg-muted/50 px-3 py-1 rounded-full">
+            <TrendingUp className="w-4 h-4" />
             <span>#{categoryRank} of {categoryTotal} in category</span>
           </div>
         )}

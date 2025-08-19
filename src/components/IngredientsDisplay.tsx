@@ -13,16 +13,18 @@ const IngredientsDisplay: React.FC<IngredientsDisplayProps> = ({ ingredients }) 
   }
 
   return (
-    <Card className="w-full animate-fade-in">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <List className="h-5 w-5 text-blue-600" />
-          Ingredients
+    <Card className="w-full animate-fade-in border-none shadow-lg">
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center gap-3 text-xl font-bold text-foreground">
+          <div className="p-2 rounded-full bg-primary/20">
+            <List className="h-6 w-6 text-primary" />
+          </div>
+          Ingredients List
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
-          <p className="text-sm text-foreground leading-relaxed">
+        <div className="p-6 bg-muted/30 rounded-2xl border border-border/30">
+          <p className="text-base text-foreground leading-relaxed font-medium">
             {ingredients}
           </p>
         </div>

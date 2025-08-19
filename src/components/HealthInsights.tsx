@@ -14,22 +14,26 @@ const HealthInsights: React.FC<HealthInsightsProps> = ({ positives, concerns }) 
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid gap-6 md:grid-cols-2">
       {/* Positives */}
       {positives && positives.length > 0 && (
-        <Card className="w-full animate-fade-in border-green-200 dark:border-green-800">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg text-green-700 dark:text-green-300">
-              <CheckCircle className="h-5 w-5" />
+        <Card className="w-full animate-fade-in border-none shadow-lg bg-[hsl(var(--benefit-bg))] dark:bg-[hsl(var(--benefit-bg))]">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-3 text-xl font-bold text-[hsl(var(--benefit))]">
+              <div className="p-2 rounded-full bg-[hsl(var(--benefit))]/20">
+                <CheckCircle className="h-6 w-6" />
+              </div>
               Health Benefits
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {positives.map((positive, index) => (
-                <div key={index} className="flex items-start gap-2 p-3 bg-green-50 dark:bg-green-950 rounded-lg">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-sm text-green-700 dark:text-green-300">{positive}</p>
+                <div key={index} className="flex items-start gap-3 p-4 bg-white/80 dark:bg-card/50 rounded-xl shadow-sm border border-[hsl(var(--benefit))]/20">
+                  <div className="w-6 h-6 rounded-full bg-[hsl(var(--benefit))] flex items-center justify-center mt-0.5 flex-shrink-0">
+                    <CheckCircle className="w-4 h-4 text-white" />
+                  </div>
+                  <p className="text-sm font-medium text-[hsl(var(--benefit))] leading-relaxed">{positive}</p>
                 </div>
               ))}
             </div>
@@ -39,19 +43,23 @@ const HealthInsights: React.FC<HealthInsightsProps> = ({ positives, concerns }) 
 
       {/* Concerns */}
       {concerns && concerns.length > 0 && (
-        <Card className="w-full animate-fade-in border-orange-200 dark:border-orange-800">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg text-orange-700 dark:text-orange-300">
-              <AlertTriangle className="h-5 w-5" />
+        <Card className="w-full animate-fade-in border-none shadow-lg bg-[hsl(var(--concern-bg))] dark:bg-[hsl(var(--concern-bg))]">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-3 text-xl font-bold text-[hsl(var(--concern))]">
+              <div className="p-2 rounded-full bg-[hsl(var(--concern))]/20">
+                <AlertTriangle className="h-6 w-6" />
+              </div>
               Health Concerns
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {concerns.map((concern, index) => (
-                <div key={index} className="flex items-start gap-2 p-3 bg-orange-50 dark:bg-orange-950 rounded-lg">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-sm text-orange-700 dark:text-orange-300">{concern}</p>
+                <div key={index} className="flex items-start gap-3 p-4 bg-white/80 dark:bg-card/50 rounded-xl shadow-sm border border-[hsl(var(--concern))]/20">
+                  <div className="w-6 h-6 rounded-full bg-[hsl(var(--concern))] flex items-center justify-center mt-0.5 flex-shrink-0">
+                    <AlertTriangle className="w-4 h-4 text-white" />
+                  </div>
+                  <p className="text-sm font-medium text-[hsl(var(--concern))] leading-relaxed">{concern}</p>
                 </div>
               ))}
             </div>
