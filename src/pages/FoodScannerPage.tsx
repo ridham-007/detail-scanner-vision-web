@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -38,20 +37,23 @@ const FoodScannerPage: React.FC = () => {
     setShowNoDataState(false);
     scrollToResults();
 
-    const { data, error } = await supabase
-      .from('scan_history')
-      .select('barcode')
-      .eq('user_id', user.id);
+    // Only check scan history if user is authenticated
+    if (user) {
+      const { data, error } = await supabase
+        .from('scan_history')
+        .select('barcode')
+        .eq('user_id', user.id);
 
-    if (error) {
-      console.error('Error fetching scan history:', error);
-      return;
-    }
-    const alreadyScanned = data?.some(entry => entry.barcode === scannedCode);
+      if (error) {
+        console.error('Error fetching scan history:', error);
+      } else {
+        const alreadyScanned = data?.some(entry => entry.barcode === scannedCode);
 
-    if (alreadyScanned) {
-      toast.info('You’ve already scanned this product. Check your history for details!');
-      return;
+        if (alreadyScanned) {
+          toast.info("You've already scanned this product. Check your history for details!");
+          return;
+        }
+      }
     }
 
     const product = await lookupProduct(scannedCode);
@@ -59,16 +61,18 @@ const FoodScannerPage: React.FC = () => {
     if (product) {
       setCurrentProduct(product);
 
-      await supabase.from('scan_history').insert([
-        {
-          user_id: user.id,
-          barcode: scannedCode,
-          product_name: product.name,
-          health_score: product.health_score ?? null,
-          scanned_at: new Date().toISOString(),
-        }
-      ]);
-
+      // Only save to history if user is authenticated
+      if (user) {
+        await supabase.from('scan_history').insert([
+          {
+            user_id: user.id,
+            barcode: scannedCode,
+            product_name: product.name,
+            health_score: product.health_score ?? null,
+            scanned_at: new Date().toISOString(),
+          }
+        ]);
+      }
     } else {
       setCurrentProduct(null);
       setShowNoDataState(true);
@@ -84,31 +88,39 @@ const FoodScannerPage: React.FC = () => {
     setShowNoDataState(false);
     scrollToResults();
 
-    const { data, error } = await supabase
-      .from('scan_history')
-      .select('barcode')
-      .eq('user_id', user?.id);
+    let alreadyScanned = false;
+    
+    // Only check scan history if user is authenticated
+    if (user) {
+      const { data, error } = await supabase
+        .from('scan_history')
+        .select('barcode')
+        .eq('user_id', user.id);
 
-
-    const alreadyScanned = data?.some(entry => entry?.barcode === trimmedBarcode);
-
+      if (error) {
+        console.error('Error fetching scan history:', error);
+      } else {
+        alreadyScanned = data?.some(entry => entry?.barcode === trimmedBarcode) || false;
+      }
+    }
 
     const product = await lookupProduct(trimmedBarcode);
 
     if (product) {
       setCurrentProduct(product);
-      if(!alreadyScanned){
-      await supabase.from('scan_history').insert([
-        {
-          user_id: user.id,
-          barcode: trimmedBarcode,
-          product_name: product.name,
-          health_score: product.health_score ?? null,
-          scanned_at: new Date().toISOString(),
-        }
-      ]);
-    }
-
+      
+      // Only save to history if user is authenticated and hasn't scanned before
+      if (user && !alreadyScanned) {
+        await supabase.from('scan_history').insert([
+          {
+            user_id: user.id,
+            barcode: trimmedBarcode,
+            product_name: product.name,
+            health_score: product.health_score ?? null,
+            scanned_at: new Date().toISOString(),
+          }
+        ]);
+      }
     } else {
       setCurrentProduct(null);
       setShowNoDataState(true);
