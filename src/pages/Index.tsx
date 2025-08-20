@@ -268,87 +268,46 @@ const IndexPage: React.FC = () => {
 
       <main ref={heroRef} className="relative z-10">
         {/* Hero Section */}
-        <section className="relative overflow-hidden min-h-[80vh] flex items-center">
-          {/* Background Elements */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5"></div>
-          <div className="absolute top-1/4 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto text-center space-y-12">
+        <section className="relative py-24 md:py-32 lg:py-40">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
               {/* Main Content */}
               <div className="space-y-8">
-                <div className="space-y-6">
-                  <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                    Decode Your Food
-                    <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-extrabold">
-                      Instantly
-                    </span>
-                  </h1>
-                  
-                  <p className="hero-subtitle text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                    Scan any product barcode and get AI-powered nutritional analysis, health scores, and personalized recommendations in seconds.
-                  </p>
-                </div>
+                <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                  Make Smarter Food Choices with
+                  <span className="block text-primary mt-2">
+                    AI-Powered Analysis
+                  </span>
+                </h1>
                 
-                <div className="hero-cta">
+                <p className="hero-subtitle text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Scan any product barcode to instantly get detailed nutritional insights, health scores, and personalized recommendations.
+                </p>
+                
+                <div className="hero-cta space-y-4">
                   <Button
                     size="lg"
-                    className="group bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 h-auto rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-base font-semibold"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-base font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
                     onClick={scrollToScanner}
                   >
                     <Scan className="mr-2 h-5 w-5" />
-                    Try Scanner Now
-                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    Start Scanning
                   </Button>
-                </div>
-              </div>
-              
-              {/* Visual Demo */}
-              <div className="relative max-w-md mx-auto">
-                <div className="bg-card border-2 border-primary/20 rounded-3xl p-8 shadow-2xl">
-                  <div className="space-y-6">
-                    <div className="w-20 h-20 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center">
-                      <Scan className="h-10 w-10 text-primary animate-pulse" />
+                  
+                  <div className="flex items-center justify-center gap-6 pt-4 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                      <Shield className="h-4 w-4 text-primary" />
+                      <span>100% Free</span>
                     </div>
-                    
-                    <div className="text-center space-y-3">
-                      <div className="h-2 bg-muted rounded-full">
-                        <div className="h-2 bg-primary rounded-full animate-pulse" style={{ width: '70%' }}></div>
-                      </div>
-                      <p className="text-sm text-muted-foreground">Analyzing product...</p>
+                    <div className="flex items-center gap-2">
+                      <Zap className="h-4 w-4 text-primary" />
+                      <span>Instant Results</span>
                     </div>
-                    
-                    <div className="flex items-center justify-center gap-4 pt-4">
-                      <div className="w-16 h-16 bg-green-500/10 rounded-xl flex items-center justify-center">
-                        <span className="text-2xl font-bold text-green-600">A</span>
-                      </div>
-                      <div className="text-left">
-                        <div className="text-sm font-semibold text-foreground">Health Score</div>
-                        <div className="text-xs text-muted-foreground">Excellent choice!</div>
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4 text-primary" />
+                      <span>{userCount ? formatNumber(userCount) : "2.4K+"} Users</span>
                     </div>
                   </div>
-                </div>
-              </div>
-              
-              {/* Trust Indicators */}
-              <div className="flex flex-wrap justify-center gap-8 pt-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-foreground">
-                    {productCount ? formatNumber(productCount) : "4.7K+"}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Products</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-foreground">99.9%</div>
-                  <div className="text-sm text-muted-foreground">Accuracy</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-foreground">
-                    {userCount ? formatNumber(userCount) : "2.4K+"}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Users</div>
                 </div>
               </div>
             </div>
