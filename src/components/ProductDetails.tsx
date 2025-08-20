@@ -283,10 +283,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       
       <AchievementSystem productData={product} />
       
-      <PersonalizedInsights 
-        product={product}
-        comparisonData={{ lastScanScore: 65 }}
-      />
       
       <NutritionComparison 
         nutrition={product.nutrition_per_100g} 

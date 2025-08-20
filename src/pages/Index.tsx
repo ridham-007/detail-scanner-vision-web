@@ -669,28 +669,6 @@ const IndexPage: React.FC = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section ref={ctaRef} className="container mx-auto px-4 py-16">
-          <div className="cta-content max-w-4xl mx-auto text-center bg-primary rounded-3xl p-12 shadow-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
-              Ready to Transform Your Food Choices?
-            </h2>
-            <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-              Join thousands of users who are making smarter, healthier
-              decisions with EaterIQ
-            </p>
-            <Button
-              aria-label="Get Started Today"
-              size="lg"
-              variant="secondary"
-              className="bg-background text-foreground hover:bg-muted px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              onClick={handleGetStartedClick}
-            >
-              Get Started Today
-              <Sparkles className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-        </section>
       </main>
 
       <EarlyAccessModal
