@@ -5,7 +5,6 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import ThemeToggle from "./ThemeToggle";
 import AuthButton from "./AuthButton";
-import Logo from "../assets/download.svg";
 
 const Header = () => {
   const logoRef = useRef<HTMLDivElement>(null);
@@ -65,7 +64,10 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link to="/">
-              <img src={Logo} alt="eateriq logo" className="h-16 w-16" />
+              <div ref={logoRef} className="relative h-16 w-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+                <span className="text-3xl">🥑</span>
+                <div className="sparkle absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full opacity-80"></div>
+              </div>
             </Link>
             <Link to={'/'} className="cursor-pointer">
               <h2
