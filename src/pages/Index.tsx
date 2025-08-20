@@ -268,133 +268,87 @@ const IndexPage: React.FC = () => {
 
       <main ref={heroRef} className="relative z-10">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted/30">
-          <div className="container mx-auto px-4 py-24 lg:py-32">
-            <div className="max-w-7xl mx-auto">
-              <div className="text-center space-y-12">
-                {/* Header Content */}
-                <div className="space-y-8">
-                  <div className="inline-flex items-center gap-3 bg-primary/10 text-primary rounded-full px-6 py-3 border border-primary/20">
-                    <Sparkles className="h-5 w-5" />
-                    <span className="text-sm font-semibold tracking-wide">AI-POWERED NUTRITION ANALYSIS</span>
-                  </div>
-
-                  <div className="space-y-6">
-                    <h1 className="hero-title text-5xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight">
-                      Make Smarter
-                      <span className="block bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
-                        Food Choices
-                      </span>
-                    </h1>
-
-                    <p className="hero-subtitle text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium">
-                      Instantly decode what's in your food with our advanced barcode scanner and AI-powered nutritional insights
-                    </p>
-                  </div>
-
-                  <div className="hero-cta flex flex-col sm:flex-row gap-6 justify-center items-center pt-4">
-                    <Button
-                      aria-label="Start Scanning Now"
-                      size="lg"
-                      className="group bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 h-auto rounded-2xl shadow-2xl hover:shadow-primary/25 transition-all duration-500 text-lg font-semibold"
-                      onClick={scrollToScanner}
-                    >
-                      <Scan className="mr-3 h-6 w-6" />
-                      Start Scanning Now
-                      <ArrowRight className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-1" />
-                    </Button>
-
-                    <Button
-                      aria-label="Learn How It Works"
-                      variant="outline"
-                      size="lg"
-                      className="group px-10 py-6 h-auto rounded-2xl border-2 hover:bg-muted/50 transition-all duration-300 text-lg font-semibold"
-                      onClick={handleLearnMoreClick}
-                    >
-                      <Play className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" />
-                      See How It Works
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Trust Indicators */}
-                <div className="flex flex-wrap justify-center gap-12 pt-8 border-t border-border/30">
-                  <div className="text-center group">
-                    <div className="text-3xl md:text-4xl font-black text-foreground group-hover:text-primary transition-colors">
-                      {productCount ? formatNumber(productCount) : "4.7K+"}
-                    </div>
-                    <div className="text-sm text-muted-foreground font-medium uppercase tracking-wide">
-                      Products Analyzed
-                    </div>
-                  </div>
-                  <div className="hidden sm:block w-px h-16 bg-border"></div>
-                  <div className="text-center group">
-                    <div className="text-3xl md:text-4xl font-black text-foreground group-hover:text-primary transition-colors">
-                      99.9%
-                    </div>
-                    <div className="text-sm text-muted-foreground font-medium uppercase tracking-wide">
-                      Accuracy Rate
-                    </div>
-                  </div>
-                  <div className="hidden sm:block w-px h-16 bg-border"></div>
-                  <div className="text-center group">
-                    <div className="text-3xl md:text-4xl font-black text-foreground group-hover:text-primary transition-colors">
-                      {userCount ? formatNumber(userCount) : "2.4K+"}
-                    </div>
-                    <div className="text-sm text-muted-foreground font-medium uppercase tracking-wide">
-                      Active Users
-                    </div>
-                  </div>
-                </div>
-
-                {/* Feature Preview */}
-                <div className="relative pt-16">
-                  <div className="mx-auto max-w-4xl">
-                    <div className="relative bg-card border shadow-2xl rounded-3xl overflow-hidden">
-                      {/* Browser-like Header */}
-                      <div className="flex items-center gap-2 px-6 py-4 bg-muted border-b">
-                        <div className="flex gap-2">
-                          <div className="w-3 h-3 bg-destructive rounded-full"></div>
-                          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                        </div>
-                        <div className="flex-1 flex justify-center">
-                          <div className="bg-background rounded-lg px-4 py-2 text-sm text-muted-foreground font-mono">
-                            eateriq.app/scanner
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* App Preview Content */}
-                      <div className="p-8 bg-gradient-to-br from-background to-muted/30">
-                        <div className="flex items-center justify-center gap-8">
-                          <div className="text-center space-y-4">
-                            <div className="w-24 h-24 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center">
-                              <Scan className="h-12 w-12 text-primary animate-pulse" />
-                            </div>
-                            <p className="text-muted-foreground font-medium">
-                              Point camera at barcode
-                            </p>
-                          </div>
-                          
-                          <ArrowRight className="h-8 w-8 text-muted-foreground animate-pulse" />
-                          
-                          <div className="text-center space-y-4">
-                            <div className="w-24 h-24 mx-auto bg-green-500/10 rounded-2xl flex items-center justify-center">
-                              <div className="text-3xl font-bold text-green-600">A</div>
-                            </div>
-                            <p className="text-muted-foreground font-medium">
-                              Get instant health score
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+        <section className="relative overflow-hidden min-h-[80vh] flex items-center">
+          {/* Background Elements */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5"></div>
+          <div className="absolute top-1/4 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center space-y-12">
+              {/* Main Content */}
+              <div className="space-y-8">
+                <div className="space-y-6">
+                  <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                    Decode Your Food
+                    <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-extrabold">
+                      Instantly
+                    </span>
+                  </h1>
                   
-                  {/* Subtle Background Elements */}
-                  <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 animate-pulse"></div>
-                  <div className="absolute top-1/3 right-1/4 w-24 h-24 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+                  <p className="hero-subtitle text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                    Scan any product barcode and get AI-powered nutritional analysis, health scores, and personalized recommendations in seconds.
+                  </p>
+                </div>
+                
+                <div className="hero-cta">
+                  <Button
+                    size="lg"
+                    className="group bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 h-auto rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-base font-semibold"
+                    onClick={scrollToScanner}
+                  >
+                    <Scan className="mr-2 h-5 w-5" />
+                    Try Scanner Now
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Visual Demo */}
+              <div className="relative max-w-md mx-auto">
+                <div className="bg-card border-2 border-primary/20 rounded-3xl p-8 shadow-2xl">
+                  <div className="space-y-6">
+                    <div className="w-20 h-20 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center">
+                      <Scan className="h-10 w-10 text-primary animate-pulse" />
+                    </div>
+                    
+                    <div className="text-center space-y-3">
+                      <div className="h-2 bg-muted rounded-full">
+                        <div className="h-2 bg-primary rounded-full animate-pulse" style={{ width: '70%' }}></div>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Analyzing product...</p>
+                    </div>
+                    
+                    <div className="flex items-center justify-center gap-4 pt-4">
+                      <div className="w-16 h-16 bg-green-500/10 rounded-xl flex items-center justify-center">
+                        <span className="text-2xl font-bold text-green-600">A</span>
+                      </div>
+                      <div className="text-left">
+                        <div className="text-sm font-semibold text-foreground">Health Score</div>
+                        <div className="text-xs text-muted-foreground">Excellent choice!</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Trust Indicators */}
+              <div className="flex flex-wrap justify-center gap-8 pt-8">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-foreground">
+                    {productCount ? formatNumber(productCount) : "4.7K+"}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Products</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-foreground">99.9%</div>
+                  <div className="text-sm text-muted-foreground">Accuracy</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-foreground">
+                    {userCount ? formatNumber(userCount) : "2.4K+"}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Users</div>
                 </div>
               </div>
             </div>
