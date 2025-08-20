@@ -13,7 +13,6 @@ import {
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
-import Logo from "../assets/download.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,9 +44,11 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="footer-section space-y-4">
             <div className="flex items-center space-x-2">
-              <div>
-                <img src={Logo} alt="eateriq logo" className="h-12 w-12" />
-              </div>
+              <Link to="/">
+                <div className="h-12 w-12 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+                  <span className="text-2xl">🥑</span>
+                </div>
+              </Link>
               <span className="font-bold text-lg md:text-xl">EaterIQ</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">

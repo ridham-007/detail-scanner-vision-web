@@ -7,7 +7,6 @@ import ThemeToggle from "./ThemeToggle";
 import AuthButton from "./AuthButton";
 
 const Header = () => {
-  const logoRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const location = useLocation();
@@ -16,21 +15,14 @@ const Header = () => {
   useEffect(() => {
     const tl = gsap.timeline();
 
-    tl.from(logoRef.current, {
-      scale: 0,
-      rotation: 180,
-      duration: 0.8,
-      ease: "back.out(1.7)",
-    })
-      .from(
+    tl.from(
         titleRef.current,
         {
           x: -50,
           opacity: 0,
           duration: 0.6,
           ease: "power2.out",
-        },
-        "-=0.4"
+        }
       )
       .from(
         subtitleRef.current,
@@ -42,14 +34,6 @@ const Header = () => {
         },
         "-=0.2"
       );
-
-    // Continuous sparkle animation
-    gsap.to(logoRef.current?.querySelector(".sparkle"), {
-      rotation: 360,
-      duration: 3,
-      repeat: -1,
-      ease: "none",
-    });
   }, []);
 
   const navigationItems = [
@@ -64,9 +48,8 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link to="/">
-              <div ref={logoRef} className="relative h-16 w-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+              <div className="h-16 w-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
                 <span className="text-3xl">🥑</span>
-                <div className="sparkle absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full opacity-80"></div>
               </div>
             </Link>
             <Link to={'/'} className="cursor-pointer">

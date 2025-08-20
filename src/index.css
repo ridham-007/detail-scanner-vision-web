@@ -16,25 +16,25 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 88 50% 53%;
-    --primary-dark: 88 60% 35%;
+    --primary: 88 45% 45%;
+    --primary-dark: 88 55% 30%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 88 25% 85%;
-    --secondary-foreground: 88 50% 15%;
+    --secondary: 88 30% 75%;
+    --secondary-foreground: 88 55% 20%;
 
-    --muted: 88 10% 95%;
-    --muted-foreground: 88 5% 45%;
+    --muted: 88 15% 90%;
+    --muted-foreground: 88 10% 40%;
 
-    --accent: 88 80% 65%;
-    --accent-foreground: 88 50% 15%;
+    --accent: 88 75% 55%;
+    --accent-foreground: 88 55% 20%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 88 20% 90%;
-    --input: 88 20% 90%;
-    --ring: 88 50% 53%;
+    --border: 88 25% 85%;
+    --input: 88 25% 85%;
+    --ring: 88 45% 45%;
 
     --radius: 0.75rem;
 
@@ -85,25 +85,25 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 88 50% 53%;
-    --primary-dark: 88 60% 35%;
+    --primary: 88 45% 45%;
+    --primary-dark: 88 55% 30%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 88 15% 20%;
+    --secondary: 88 20% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 88 15% 20%;
-    --muted-foreground: 88 10% 65%;
+    --muted: 88 20% 15%;
+    --muted-foreground: 88 15% 60%;
 
-    --accent: 88 70% 45%;
+    --accent: 88 65% 40%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 88 15% 20%;
-    --input: 88 15% 20%;
-    --ring: 88 50% 53%;
+    --border: 88 20% 15%;
+    --input: 88 20% 15%;
+    --ring: 88 45% 45%;
 
     /* Dark mode health colors */
     --health-excellent: 120 60% 55%;
