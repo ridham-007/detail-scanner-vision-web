@@ -57,13 +57,13 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'easy':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+        return 'bg-primary/10 text-primary border border-primary/20';
       case 'medium':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+        return 'bg-accent/10 text-accent-foreground border border-accent/20';
       case 'hard':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+        return 'bg-destructive/10 text-destructive border border-destructive/20';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+        return 'bg-muted text-muted-foreground border border-muted/20';
     }
   };
 
@@ -163,7 +163,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
 
   return (
     <>
-      <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
+      <Card className="h-full flex flex-col hover:shadow-xl transition-all duration-300 border-primary/10 hover:border-primary/20 bg-gradient-to-br from-card via-card to-primary/5">
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">

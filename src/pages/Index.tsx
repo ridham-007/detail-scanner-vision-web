@@ -325,24 +325,12 @@ const IndexPage: React.FC = () => {
 
                 {/* Right Visual */}
                 <div className="relative flex justify-center lg:justify-end">
-                  {/* Floating Food Elements */}
-                  <div className="absolute -top-10 -left-10 w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center text-2xl floating-icon shadow-lg">
-                    🥬
+                  {/* Minimal Floating Elements */}
+                  <div className="absolute -top-16 -left-16 w-32 h-32 bg-primary/5 rounded-full flex items-center justify-center text-6xl floating-icon opacity-30">
+                    🥑
                   </div>
-                  <div className="absolute top-1/4 -right-12 w-14 h-14 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center text-xl floating-icon shadow-lg">
-                    🥕
-                  </div>
-                  <div className="absolute -bottom-8 left-1/4 w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center text-lg floating-icon shadow-lg">
+                  <div className="absolute -bottom-12 -right-12 w-28 h-28 bg-accent/5 rounded-full flex items-center justify-center text-5xl floating-icon opacity-25">
                     🍎
-                  </div>
-                  <div className="absolute top-12 left-8 w-10 h-10 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center text-sm floating-icon shadow-lg">
-                    🍇
-                  </div>
-                  <div className="absolute bottom-1/3 -right-6 w-12 h-12 bg-yellow-100 dark:bg-yellow-900/20 rounded-full flex items-center justify-center text-lg floating-icon shadow-lg">
-                    🌽
-                  </div>
-                  <div className="absolute top-2/3 left-12 w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center text-sm floating-icon shadow-lg">
-                    🥦
                   </div>
                   
                   {/* Main Visual - Browser Mockup */}

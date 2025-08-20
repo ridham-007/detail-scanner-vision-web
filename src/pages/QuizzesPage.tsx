@@ -191,7 +191,7 @@ const QuizzesPage = () => {
   };
 
   return (
-    <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-dvh bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5 dark:from-background dark:via-primary/5 dark:to-accent/5">
       <SEOHead
         title="Quiz Hub - AI-Generated Food & Nutrition Quizzes | EaterIQ"
         description="Challenge yourself with AI-generated quizzes about nutrition, food safety, and healthy eating. Create custom quizzes and compete with other food enthusiasts on EaterIQ."
@@ -232,7 +232,7 @@ const QuizzesPage = () => {
 
             {/* Center Heading */}
             <div className="flex flex-col flex-1 items-center text-center">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Quiz Hub
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground">
@@ -244,7 +244,7 @@ const QuizzesPage = () => {
             <Button
               aria-label="Create Quiz"
               onClick={handleCreateQuizClick}
-              className="bg-gradient-to-r from-emerald-600 to-blue-600 w-full sm:w-auto"
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 w-full sm:w-auto shadow-md hover:shadow-lg transition-all duration-300"
               size="sm"
             >
               <Plus className="h-4 w-4 mr-2" />
@@ -325,7 +325,7 @@ const QuizzesPage = () => {
                       <Button
                         aria-label="Create Quiz"
                         onClick={handleCreateQuizClick}
-                        className="bg-gradient-to-r from-emerald-600 to-blue-600"
+                        className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-md hover:shadow-lg transition-all duration-300"
                         size="sm"
                       >
                         <Plus className="h-4 w-4 mr-2" />
@@ -341,7 +341,7 @@ const QuizzesPage = () => {
                   Please sign in to view your quizzes.
                 </p>
                 <Link to={"/auth"}>
-                  <Button className="bg-gradient-to-r from-emerald-600 to-blue-600">
+                  <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-md hover:shadow-lg transition-all duration-300">
                     Sign In
                   </Button>
                 </Link>
