@@ -14,6 +14,8 @@ import {
   Calendar,
   Utensils,
   Play,
+  QrCode,
+  TrendingUp,
 } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -244,21 +246,24 @@ const IndexPage: React.FC = () => {
   const steps = [
     {
       step: "01",
-      title: "Scan or Search",
+      icon: "QrCode",
+      title: "Scan & Discover",
       description:
-        "Use your camera to scan a barcode or manually search for products in our extensive database",
+        "Simply scan any barcode with your camera or search our database of millions of products. Our smart scanner recognizes products instantly.",
     },
     {
       step: "02",
-      title: "AI Analysis",
+      icon: "Brain",
+      title: "AI-Powered Analysis",
       description:
-        "Our AI processes the product data and analyzes nutritional content against your personal health profile",
+        "Advanced AI analyzes ingredients, nutrition facts, additives, and allergens to provide comprehensive health insights tailored to your needs.",
     },
     {
       step: "03",
-      title: "Get Insights",
+      icon: "TrendingUp",
+      title: "Smart Recommendations",
       description:
-        "Receive detailed health scores, recommendations, ingredient analysis, and alternative suggestions",
+        "Get personalized health scores, ingredient warnings, better alternatives, and actionable advice to make smarter food choices.",
     },
   ];
 
@@ -410,37 +415,92 @@ const IndexPage: React.FC = () => {
         {/* How It Works Section */}
         <section
           ref={howItWorksRef}
-          className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16"
+          className="relative bg-gradient-to-br from-background via-muted/20 to-background py-20 overflow-hidden"
         >
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          {/* Background decorative elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 left-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-20 right-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/3 to-accent/3 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="relative container mx-auto px-4">
+            <div className="text-center mb-20">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-6 mx-auto">
+                <Sparkles className="h-8 w-8 text-primary" />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tight">
                 How It Works
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Three simple steps to smarter food choices
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Transform your food choices in three intelligent steps. Our AI-powered platform makes healthy eating simple and personalized.
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto">
-              {steps.map((step, index) => (
-                <div
-                  key={index}
-                  className="step-card flex items-center mb-12 last:mb-0"
-                >
-                  <div className="floating-icon flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-muted rounded-full flex items-center justify-center text-muted-foreground font-bold text-2xl shadow-lg mr-4 sm:mr-8">
-                    {step.step}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-foreground mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-muted-foreground text-lg">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
+            <div className="max-w-6xl mx-auto">
+              <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+                {steps.map((step, index) => {
+                  const IconComponent = step.icon === 'QrCode' ? QrCode : 
+                                      step.icon === 'Brain' ? Brain : 
+                                      TrendingUp;
+                  
+                  return (
+                    <div
+                      key={index}
+                      className="step-card group relative"
+                    >
+                      {/* Connection line for desktop */}
+                      {index < steps.length - 1 && (
+                        <div className="hidden lg:block absolute top-20 left-full w-12 h-0.5 bg-gradient-to-r from-primary/50 to-accent/50 transform translate-x-6"></div>
+                      )}
+                      
+                      <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg hover:shadow-xl transition-all duration-500 group-hover:-translate-y-2">
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Content */}
+                        <div className="relative z-10">
+                          {/* Icon and step number */}
+                          <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors duration-300">
+                              <IconComponent className="h-8 w-8 text-primary" />
+                            </div>
+                            <div className="text-4xl font-bold text-primary/30 group-hover:text-primary/50 transition-colors duration-300">
+                              {step.step}
+                            </div>
+                          </div>
+                          
+                          {/* Title */}
+                          <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
+                            {step.title}
+                          </h3>
+                          
+                          {/* Description */}
+                          <p className="text-muted-foreground leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
+                            {step.description}
+                          </p>
+                          
+                          {/* Decorative element */}
+                          <div className="mt-6 w-12 h-1 bg-gradient-to-r from-primary to-accent rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Call to action */}
+            <div className="text-center mt-16">
+              <p className="text-muted-foreground mb-6">Ready to make smarter food choices?</p>
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                onClick={handleGetStartedClick}
+              >
+                <QrCode className="mr-2 h-5 w-5" />
+                Start Scanning Now
+              </Button>
             </div>
           </div>
         </section>
