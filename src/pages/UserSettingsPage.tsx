@@ -213,7 +213,7 @@ const UserSettingsPage = () => {
                     aria-label="Save Profile"
                     onClick={handleSave} 
                     disabled={saving}
-                    className="w-full bg-gradient-to-r from-emerald-600 to-blue-600"
+                    className="w-full bg-primary hover:bg-primary/90"
                   >
                     <Save className="h-4 w-4 mr-2" />
                     {saving ? 'Saving...' : 'Save Profile'}

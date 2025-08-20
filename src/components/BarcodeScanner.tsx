@@ -167,7 +167,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
           ref={scannerRef}
           className="absolute inset-4 overflow-hidden rounded-lg"
         >
-          <div className="w-full h-1 bg-gradient-to-r from-transparent via-destructive to-transparent opacity-80 animate-pulse"></div>
+          <div className="w-full h-1 bg-destructive opacity-80 animate-pulse"></div>
         </div>
 
         <div className="flex flex-col !justify-center !items-center">

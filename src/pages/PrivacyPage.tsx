@@ -6,7 +6,7 @@ import AnimatedBackground from '@/components/AnimatedBackground';
 
 const PrivacyPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-background">
       <AnimatedBackground />
 
       <main className="container mx-auto px-4 py-8 relative z-10 max-w-4xl">
@@ -21,7 +21,7 @@ const PrivacyPage = () => {
           </Link> */}
 
           <div className="flex flex-col w-full !justify-center items-center">
-            <h1 className="text-3xl sm:text-4xl !h-11 font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl !h-11 font-bold text-primary">
               Privacy Policy
             </h1>
             <h2 className="text-sm text-muted-foreground text-center">

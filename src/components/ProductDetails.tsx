@@ -37,7 +37,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     return (
       <Card className="w-full overflow-hidden border-0 shadow-xl">
         <CardContent className="p-0">
-          <div className="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950">
+          <div className="relative bg-primary/5">
             <div className="max-w-7xl mx-auto px-8 py-16">
               
               {/* Animated background elements */}
@@ -54,9 +54,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="relative">
                     <div className="w-64 h-64 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
-                      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 animate-pulse relative">
+                      <div className="w-full h-full bg-muted animate-pulse relative">
                         {/* Scanning line effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-200 dark:via-blue-600 to-transparent opacity-50 animate-pulse" 
+                        <div className="absolute inset-0 bg-primary/20 opacity-50 animate-pulse" 
                              style={{animation: 'slide-scan 2s ease-in-out infinite'}}>
                         </div>
                       </div>
@@ -72,8 +72,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   <div className="space-y-4">
                     {/* Title skeleton with shimmer */}
                     <div className="space-y-3">
-                      <div className="h-8 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-lg animate-pulse w-4/5"></div>
-                      <div className="h-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-lg animate-pulse w-3/5"></div>
+                      <div className="h-8 bg-muted rounded-lg animate-pulse w-4/5"></div>
+                      <div className="h-6 bg-muted rounded-lg animate-pulse w-3/5"></div>
                     </div>
                     
                     {/* Stats skeleton */}
@@ -156,15 +156,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   return (
     <div className="space-y-8">
       {/* Main Product Card - Completely Redesigned */}
-      <Card className="w-full animate-fade-in overflow-hidden border-0 shadow-2xl bg-gradient-to-br from-background via-background to-muted/20">
+      <Card className="w-full animate-fade-in overflow-hidden border-0 shadow-2xl bg-card">
         <CardContent className="p-0">
           {/* Hero Section with Enhanced Visual Design */}
-          <div className="relative bg-gradient-to-br from-primary/5 via-background to-accent/10 dark:from-primary/10 dark:via-background dark:to-accent/5">
+          <div className="relative bg-primary/5">
             {/* Decorative Background Elements */}
             <div className="absolute inset-0 overflow-hidden">
               <div className="absolute top-8 right-8 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
               <div className="absolute bottom-8 left-8 w-24 h-24 bg-accent/10 rounded-full blur-2xl"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-primary/5 to-accent/5 rounded-full blur-3xl"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
             </div>
 
             <div className="relative max-w-7xl mx-auto px-6 py-12">
@@ -173,7 +173,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 {/* Product Image - Enhanced with Better Styling */}
                 <div className="flex justify-center">
                   <div className="relative group">
-                    <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity"></div>
                     <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-xl border border-border/50">
                       <ProductImageCarousel images={product.images} productName={product.name} />
                     </div>
@@ -257,7 +257,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 {product.is_health_related_product && (
                   <div className="flex justify-center">
                     <div className="relative">
-                      <div className="absolute -inset-8 bg-gradient-to-r from-primary/10 to-accent/10 rounded-full blur-2xl"></div>
+                      <div className="absolute -inset-8 bg-primary/10 rounded-full blur-2xl"></div>
                       <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-border/50">
                         <AnimatedHealthScore 
                           score={product.health_score} 
@@ -299,7 +299,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
       {/* Recommendations - Enhanced Design */}
       {product.recommendations && product.recommendations.length > 0 && (
-        <Card className="w-full animate-fade-in border-0 shadow-lg bg-gradient-to-br from-blue-50 via-background to-blue-50/30 dark:from-blue-950/20 dark:via-background dark:to-blue-950/10">
+        <Card className="w-full animate-fade-in border-0 shadow-lg bg-card">
           <CardContent className="p-8 space-y-6">
             <div className="text-center space-y-3">
               <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 px-4 py-2 rounded-full">
@@ -315,7 +315,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             <div className="grid gap-4">
               {product.recommendations.map((recommendation, index) => (
                 <div key={index} className="relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent"></div>
+                  <div className="absolute inset-0 bg-accent/10"></div>
                   <div className="relative flex items-start gap-4 p-5 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-xl border border-blue-200/50 dark:border-blue-800/50">
                     <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
                       <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">{index + 1}</span>
@@ -331,7 +331,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
       {/* Product Suggestions - Enhanced Design */}
       {product.other_good_product_suggestions && product.other_good_product_suggestions.length > 0 && (
-        <Card className="w-full animate-fade-in border-0 shadow-lg bg-gradient-to-br from-green-50 via-background to-green-50/30 dark:from-green-950/20 dark:via-background dark:to-green-950/10">
+        <Card className="w-full animate-fade-in border-0 shadow-lg bg-card">
           <CardContent className="p-8 space-y-8">
             <div className="text-center space-y-4">
               <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-4 py-2 rounded-full">
@@ -348,7 +348,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
               {product.other_good_product_suggestions.map((suggestion, index) => (
                 <div key={index} className="group relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="relative bg-white dark:bg-gray-900 border border-green-200/50 dark:border-green-800/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                     <div className="space-y-4">
                       <div className="flex items-start justify-between">
@@ -366,7 +366,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       </div>
                       
                       <div className="relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent"></div>
+                        <div className="absolute inset-0 bg-primary/10"></div>
                         <div className="relative p-4 bg-green-50/50 dark:bg-green-950/30 rounded-lg border border-green-200/30 dark:border-green-800/30">
                           <p className="text-sm text-green-700 dark:text-green-300 leading-relaxed">
                             <span className="font-semibold">Why it's better:</span> {suggestion.why_better}

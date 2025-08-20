@@ -165,7 +165,7 @@ const FoodScannerPage: React.FC = () => {
 
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Scanner Section - Enhanced */}
-        <Card className="border-none shadow-[var(--shadow-product)] bg-gradient-to-br from-primary/5 to-primary/10">
+        <Card className="border-none shadow-[var(--shadow-product)] bg-primary/5">
           <CardHeader className="pb-6">
             <CardTitle className="flex items-center gap-3 text-2xl font-bold">
               <div className="p-3 rounded-full bg-primary/20">

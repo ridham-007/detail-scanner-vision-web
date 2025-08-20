@@ -352,7 +352,7 @@ const IndexPage: React.FC = () => {
                       </div>
                       
                       {/* Scanner Interface Preview */}
-                      <div className="p-6 bg-gradient-to-br from-background to-muted/20">
+                      <div className="p-6 bg-muted/20">
                         <div className="text-center space-y-4">
                           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl">
                             <Scan className="h-8 w-8 text-primary" />
@@ -380,7 +380,7 @@ const IndexPage: React.FC = () => {
                     </div>
                     
                     {/* Floating Health Character */}
-                    <div className="absolute -right-8 -bottom-8 w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center shadow-lg floating-icon">
+                    <div className="absolute -right-8 -bottom-8 w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-lg floating-icon">
                       <div className="text-2xl">✅</div>
                     </div>
                   </div>
@@ -403,13 +403,13 @@ const IndexPage: React.FC = () => {
         {/* How It Works Section */}
         <section
           ref={howItWorksRef}
-          className="relative bg-gradient-to-br from-background via-muted/20 to-background py-20 overflow-hidden"
+          className="relative bg-muted/20 py-20 overflow-hidden"
         >
           {/* Background decorative elements */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-20 left-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
             <div className="absolute bottom-20 right-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/3 to-accent/3 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
           </div>
 
           <div className="relative container mx-auto px-4">
@@ -439,12 +439,12 @@ const IndexPage: React.FC = () => {
                     >
                       {/* Connection line for desktop */}
                       {index < steps.length - 1 && (
-                        <div className="hidden lg:block absolute top-20 left-full w-12 h-0.5 bg-gradient-to-r from-primary/50 to-accent/50 transform translate-x-6"></div>
+                        <div className="hidden lg:block absolute top-20 left-full w-12 h-0.5 bg-primary/50 transform translate-x-6"></div>
                       )}
                       
                       <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg hover:shadow-xl transition-all duration-500 group-hover:-translate-y-2">
                         {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div className="absolute inset-0 bg-primary/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         
                         {/* Content */}
                         <div className="relative z-10">
@@ -469,7 +469,7 @@ const IndexPage: React.FC = () => {
                           </p>
                           
                           {/* Decorative element */}
-                          <div className="mt-6 w-12 h-1 bg-gradient-to-r from-primary to-accent rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                          <div className="mt-6 w-12 h-1 bg-primary rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                         </div>
                       </div>
                     </div>

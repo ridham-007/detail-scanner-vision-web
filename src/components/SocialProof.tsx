@@ -109,7 +109,7 @@ const SocialProof: React.FC<SocialProofProps> = ({ barcode, productName }) => {
   };
 
   return (
-    <Card className="w-full animate-fade-in border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950">
+    <Card className="w-full animate-fade-in border-primary/20 bg-primary/5">
       <CardContent className="p-4">
         <div className="flex items-center gap-2 mb-3">
           <Users className="w-5 h-5 text-purple-600" />

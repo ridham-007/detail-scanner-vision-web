@@ -38,19 +38,19 @@ const Footer = () => {
   };
 
   return (
-    <footer ref={footerRef} className="border-t border-primary/20 bg-gradient-to-br from-muted/20 via-primary/5 to-muted/20 backdrop-blur">
+    <footer ref={footerRef} className="border-t border-primary/20 bg-muted/20 backdrop-blur">
       <div className="container mx-auto px-4 py-6 md:py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {/* Brand Section */}
           <div className="footer-section space-y-4">
             <div className="flex items-center space-x-3">
               <Link to="/">
-                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center shadow-sm hover:from-primary/30 hover:to-accent/30 transition-all duration-300">
+                <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center shadow-sm hover:bg-primary/30 transition-all duration-300">
                   <span className="text-2xl filter drop-shadow-sm">🥑</span>
                 </div>
               </Link>
               <div>
-                <h3 className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">EaterIQ</h3>
+                <h3 className="text-lg font-bold text-primary">EaterIQ</h3>
                 <p className="text-sm text-muted-foreground">Smart Food Intelligence</p>
               </div>
             </div>
