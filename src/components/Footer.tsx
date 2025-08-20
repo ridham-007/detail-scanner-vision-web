@@ -45,7 +45,7 @@ const Footer = () => {
           <div className="footer-section space-y-4">
             <div className="flex items-center space-x-2">
               <Link to="/">
-                <div className="h-12 w-12 bg-primary rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+                <div className="h-12 w-12 rounded-2xl flex items-center justify-center hover:bg-primary/10 transition-colors">
                   <span className="text-2xl">🥑</span>
                 </div>
               </Link>

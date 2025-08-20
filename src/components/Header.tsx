@@ -48,7 +48,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link to="/">
-              <div className="h-16 w-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+              <div className="h-16 w-16 rounded-2xl flex items-center justify-center hover:bg-primary/10 transition-colors">
                 <span className="text-3xl">🥑</span>
               </div>
             </Link>
