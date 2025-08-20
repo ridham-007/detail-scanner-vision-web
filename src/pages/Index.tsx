@@ -521,17 +521,17 @@ const IndexPage: React.FC = () => {
         {recentQuizzes && recentQuizzes.length > 0 && (
           <section
             ref={quizzesRef}
-            className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm py-16"
+            className="bg-muted/30 backdrop-blur-sm py-16"
           >
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-muted rounded-2xl mb-6 mx-auto">
-                  <Brain className="h-8 w-8 text-muted-foreground" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-6 mx-auto">
+                  <Brain className="h-8 w-8 text-primary" />
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
                   Test Your Food IQ
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                   Challenge yourself with our latest AI-generated nutrition
                   quizzes
                 </p>
@@ -541,7 +541,7 @@ const IndexPage: React.FC = () => {
                 {recentQuizzes.map((quiz) => (
                   <Card
                     key={quiz.id}
-                    className="group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                    className="group relative overflow-hidden bg-card border-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                   >
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between mb-2">
@@ -604,89 +604,71 @@ const IndexPage: React.FC = () => {
         {/* Coming Soon Section - Fixed for proper visibility */}
         <section
           ref={comingSoonRef}
-          className="py-20 bg-white dark:bg-gray-900"
+          className="py-20 bg-muted/50"
         >
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-muted rounded-2xl mb-6 mx-auto">
-                <Rocket className="h-8 w-8 text-muted-foreground" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-6 mx-auto">
+                <Rocket className="h-8 w-8 text-primary" />
               </div>
-              <h2 className="text-4xl md:text-5xl sm:h-16 font-bold text-foreground ">
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
                 What's Coming Next
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto ">
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 We're constantly innovating to make your healthy eating journey
                 even more powerful
               </p>
             </div>
 
             <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-16">
-              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 opacity-100">
-                {/* <div className="absolute top-4 right-4">
-                  <Badge variant="secondary" className="text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
-                    Q1 2025
-                  </Badge>
-                </div> */}
-
+              <Card className="coming-soon-card group relative overflow-hidden bg-card border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                 <CardHeader className="text-center pb-4 pt-8">
-                  <div className="mx-auto mb-4 w-16 h-16 bg-muted rounded-xl flex items-center justify-center shadow-md">
-                    <Utensils className="h-8 w-8 text-muted-foreground" />
+                  <div className="mx-auto mb-4 w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center shadow-md">
+                    <Utensils className="h-8 w-8 text-primary" />
                   </div>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
+                  <CardTitle className="text-xl font-bold text-foreground">
                     AI Meal Planner
                   </CardTitle>
                 </CardHeader>
 
                 <CardContent className="text-center px-6 pb-8">
-                  <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                  <CardDescription className="text-base text-muted-foreground leading-relaxed">
                     Get personalized weekly meal plans based on your dietary
                     preferences and health goals
                   </CardDescription>
                 </CardContent>
               </Card>
 
-              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 opacity-100">
-                {/* <div className="absolute top-4 right-4">
-                  <Badge variant="secondary" className="text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
-                    Q2 2025
-                  </Badge>
-                </div> */}
-
+              <Card className="coming-soon-card group relative overflow-hidden bg-card border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                 <CardHeader className="text-center pb-4 pt-8">
-                  <div className="mx-auto mb-4 w-16 h-16 bg-accent rounded-xl flex items-center justify-center shadow-md">
+                  <div className="mx-auto mb-4 w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center shadow-md">
                     <Users className="h-8 w-8 text-accent-foreground" />
                   </div>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
+                  <CardTitle className="text-xl font-bold text-foreground">
                     Food Community
                   </CardTitle>
                 </CardHeader>
 
                 <CardContent className="text-center px-6 pb-8">
-                  <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                  <CardDescription className="text-base text-muted-foreground leading-relaxed">
                     Connect with health-conscious food lovers and share your
                     discoveries
                   </CardDescription>
                 </CardContent>
               </Card>
 
-              <Card className="coming-soon-card group relative overflow-hidden bg-white dark:bg-gray-800 border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 opacity-100">
-                {/* <div className="absolute top-4 right-4">
-                  <Badge variant="secondary" className="text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300">
-                    Q1 2025
-                  </Badge>
-                </div>
-                 */}
+              <Card className="coming-soon-card group relative overflow-hidden bg-card border-2 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                 <CardHeader className="text-center pb-4 pt-8">
-                  <div className="mx-auto mb-4 w-16 h-16 bg-muted rounded-xl flex items-center justify-center shadow-md">
-                    <Bell className="h-8 w-8 text-muted-foreground" />
+                  <div className="mx-auto mb-4 w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center shadow-md">
+                    <Bell className="h-8 w-8 text-secondary-foreground" />
                   </div>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
+                  <CardTitle className="text-xl font-bold text-foreground">
                     Smart Reminders
                   </CardTitle>
                 </CardHeader>
 
                 <CardContent className="text-center px-6 pb-8">
-                  <CardDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                  <CardDescription className="text-base text-muted-foreground leading-relaxed">
                     Intelligent notifications for meal timing and nutrition
                     tracking
                   </CardDescription>
@@ -695,10 +677,10 @@ const IndexPage: React.FC = () => {
             </div>
 
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-2xl font-bold text-foreground mb-4">
                 Be the First to Know
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-xl mx-auto">
+              <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
                 Join our community and get early access to these exciting new
                 features when they launch.
               </p>
