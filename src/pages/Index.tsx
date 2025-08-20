@@ -268,44 +268,77 @@ const IndexPage: React.FC = () => {
 
       <main ref={heroRef} className="relative z-10">
         {/* Hero Section */}
-        <section className="relative py-24 md:py-32 lg:py-40">
+        <section className="relative py-20 md:py-28 lg:py-36">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
+            <div className="max-w-5xl mx-auto text-center">
+              {/* Free Badge */}
+              <div className="hero-badge mb-6">
+                <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium rounded-full">
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  100% Free Forever • No Sign-up Required
+                </Badge>
+              </div>
+
               {/* Main Content */}
-              <div className="space-y-8">
-                <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                  Make Smarter Food Choices with
-                  <span className="block text-primary mt-2">
-                    AI-Powered Analysis
+              <div className="space-y-6">
+                <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight">
+                  Your Personal
+                  <span className="block text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                    Food Scanner
+                  </span>
+                  <span className="block text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-normal mt-2">
+                    Powered by AI ✨
                   </span>
                 </h1>
                 
-                <p className="hero-subtitle text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Scan any product barcode to instantly get detailed nutritional insights, health scores, and personalized recommendations.
+                <p className="hero-subtitle text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                  Just scan any barcode and instantly discover what's really in your food. 
+                  <span className="text-foreground font-medium"> Get health scores, ingredient breakdowns, and smart alternatives</span> — all completely free!
                 </p>
                 
-                <div className="hero-cta space-y-4">
-                  <Button
-                    size="lg"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-base font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
-                    onClick={scrollToScanner}
-                  >
-                    <Scan className="mr-2 h-5 w-5" />
-                    Start Scanning
-                  </Button>
+                <div className="hero-cta space-y-6 pt-4">
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <Button
+                      size="lg"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                      onClick={scrollToScanner}
+                    >
+                      <Scan className="mr-3 h-6 w-6" />
+                      Start Scanning Now
+                    </Button>
+                    
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="px-8 py-4 text-lg rounded-full border-2 hover:bg-accent/50 transition-all duration-300"
+                      onClick={handleLearnMoreClick}
+                    >
+                      See How It Works
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </div>
                   
-                  <div className="flex items-center justify-center gap-6 pt-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-primary" />
-                      <span>100% Free</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto pt-8">
+                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                        <Shield className="h-6 w-6 text-primary" />
+                      </div>
+                      <span className="text-sm font-medium text-foreground">Always Free</span>
+                      <span className="text-xs text-muted-foreground">No hidden costs</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Zap className="h-4 w-4 text-primary" />
-                      <span>Instant Results</span>
+                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                        <Zap className="h-6 w-6 text-primary" />
+                      </div>
+                      <span className="text-sm font-medium text-foreground">Instant Results</span>
+                      <span className="text-xs text-muted-foreground">Scan & get insights</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-primary" />
-                      <span>{userCount ? formatNumber(userCount) : "2.4K+"} Users</span>
+                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                        <Users className="h-6 w-6 text-primary" />
+                      </div>
+                      <span className="text-sm font-medium text-foreground">{userCount ? formatNumber(userCount) : "2.4K+"} Happy Users</span>
+                      <span className="text-xs text-muted-foreground">Join the community</span>
                     </div>
                   </div>
                 </div>
