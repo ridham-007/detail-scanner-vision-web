@@ -471,13 +471,13 @@ const QuizPage: React.FC = () => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "easy":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+        return "bg-primary/10 text-primary border border-primary/20";
       case "medium":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
+        return "bg-accent/10 text-accent-foreground border border-accent/20";
       case "hard":
-        return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+        return "bg-destructive/10 text-destructive border border-destructive/20";
       default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
+        return "bg-muted text-muted-foreground border border-muted/20";
     }
   };
 
@@ -516,7 +516,7 @@ const QuizPage: React.FC = () => {
 
   if (!quizId) {
     return (
-      <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="min-h-dvh bg-background">
         <div className="flex justify-center items-center h-64 px-4">
           <div className="text-center">
             <p className="text-sm sm:text-base">Quiz not found</p>
@@ -534,11 +534,11 @@ const QuizPage: React.FC = () => {
 
   if (!quiz || questions.length === 0) {
     return (
-      <div className="min-h-dvh flex flex-col justify-between bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="min-h-dvh flex flex-col justify-between bg-background">
         <AnimatedBackground />
         <div className="flex justify-center items-center h-full relative z-10 px-4">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-primary mx-auto mb-4"></div>
             <p className="text-sm sm:text-base">Loading quiz...</p>
           </div>
         </div>
@@ -548,31 +548,31 @@ const QuizPage: React.FC = () => {
 
   if (gameOver) {
     return (
-      <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="min-h-dvh bg-background">
         <AnimatedBackground />
         <main
           ref={codeRef}
           className="container mx-auto px-4 py-4 sm:py-8 relative z-10"
         >
           <div className="max-w-2xl mx-auto">
-            <Card className="text-center border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950 dark:to-orange-950">
+            <Card className="text-center border-2 border-primary/20 bg-card">
               <CardHeader className="pb-4">
                 <div className="relative">
-                  <Trophy className="h-16 w-16 sm:h-20 sm:w-20 text-yellow-500 mx-auto mb-4 animate-bounce" />
+                  <Trophy className="h-16 w-16 sm:h-20 sm:w-20 text-primary mx-auto mb-4 animate-bounce" />
                   {score > 70 && (
                     <div className="absolute -top-2 -right-2">
                       <Star
-                        className="h-8 w-8 text-yellow-400 animate-pulse"
+                        className="h-8 w-8 text-accent animate-pulse"
                         fill="currentColor"
                       />
                     </div>
                   )}
                 </div>
-                <CardTitle className="text-2xl sm:text-3xl bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
+                <CardTitle className="text-2xl sm:text-3xl text-primary">
                   Quiz Completed!
                 </CardTitle>
                 {score > 50 && (
-                  <div className="text-lg font-semibold text-emerald-600 flex items-center justify-center gap-2">
+                  <div className="text-lg font-semibold text-primary flex items-center justify-center gap-2">
                     <Zap className="h-5 w-5" />
                     🎉 Excellent Performance! 🎉
                     <Zap className="h-5 w-5" />
@@ -584,10 +584,10 @@ const QuizPage: React.FC = () => {
                   <div
                     className={`text-4xl sm:text-5xl font-bold ${
                       score > 50
-                        ? "text-emerald-600"
+                        ? "text-primary"
                         : score > 30
-                        ? "text-yellow-600"
-                        : "text-red-600"
+                        ? "text-accent"
+                        : "text-destructive"
                     }`}
                   >
                     {score}/100
@@ -604,15 +604,15 @@ const QuizPage: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
-                    <Target className="h-5 w-5 mx-auto mb-1 text-blue-600" />
+                  <div className="bg-muted rounded-lg p-3">
+                    <Target className="h-5 w-5 mx-auto mb-1 text-primary" />
                     <div className="font-semibold">
                       {Math.floor(score / 10)}/{questions.length}
                     </div>
                     <div className="text-xs text-muted-foreground">Correct</div>
                   </div>
-                  <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-3">
-                    <Clock className="h-5 w-5 mx-auto mb-1 text-green-600" />
+                  <div className="bg-muted rounded-lg p-3">
+                    <Clock className="h-5 w-5 mx-auto mb-1 text-accent" />
                     <div className="font-semibold">
                       {(() => {
                         const minutes = Math.floor(spentTime / 60);
@@ -625,43 +625,43 @@ const QuizPage: React.FC = () => {
                 </div>
 
                 {score > 50 && (
-                  <div className="bg-gradient-to-r from-emerald-100 to-blue-100 dark:from-emerald-950 dark:to-blue-950 p-4 rounded-xl border-2 border-emerald-200 dark:border-emerald-800">
+                  <div className="bg-primary/10 p-4 rounded-xl border-2 border-primary/20">
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <Star
-                        className="h-5 w-5 text-yellow-500"
+                        className="h-5 w-5 text-accent"
                         fill="currentColor"
                       />
                       <Star
-                        className="h-6 w-6 text-yellow-500"
+                        className="h-6 w-6 text-accent"
                         fill="currentColor"
                       />
                       <Star
-                        className="h-5 w-5 text-yellow-500"
+                        className="h-5 w-5 text-accent"
                         fill="currentColor"
                       />
                     </div>
-                    <p className="text-emerald-700 dark:text-emerald-300 font-medium">
+                    <p className="text-primary font-medium">
                       🌟 Outstanding Achievement! 🌟
                     </p>
-                    <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-1">
+                    <p className="text-sm text-primary/80 mt-1">
                       You've mastered this topic!
                     </p>
                   </div>
                 )}
 
                 {!user && (
-                  <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-950 dark:to-purple-950 p-4 rounded-xl border-2 border-blue-200 dark:border-blue-800">
-                    <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2 flex items-center gap-2">
+                  <div className="bg-accent/10 p-4 rounded-xl border-2 border-accent/20">
+                    <h3 className="font-semibold text-accent mb-2 flex items-center gap-2">
                       <Trophy className="h-5 w-5" />
                       Save Your Achievement!
                     </h3>
-                    <p className="text-sm text-blue-700 dark:text-blue-300 mb-3">
+                    <p className="text-sm text-accent/80 mb-3">
                       Sign in to save your score and climb the leaderboard!
                     </p>
                     <Button
                       aria-label="Sign in with Google"
                       onClick={signInWithGoogle}
-                      className="bg-gradient-to-r from-blue-600 to-purple-600 w-full"
+                      className="bg-primary hover:bg-primary/90 w-full"
                     >
                       <LogIn className="h-4 w-4 mr-2" />
                       Sign in with Google
@@ -670,14 +670,14 @@ const QuizPage: React.FC = () => {
                 )}
 
                 {user && (
-                  <div className="ignoreInShare bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-950 dark:to-emerald-950 p-4 rounded-xl border-2 border-green-200 dark:border-green-800">
+                  <div className="ignoreInShare bg-primary/10 p-4 rounded-xl border-2 border-primary/20">
                     <div className="flex items-center justify-center gap-2 mb-2">
-                      <CheckCircle className="h-5 w-5 text-green-600" />
-                      <span className="font-medium text-green-700 dark:text-green-300">
+                      <CheckCircle className="h-5 w-5 text-primary" />
+                      <span className="font-medium text-primary">
                         Score Saved!
                       </span>
                     </div>
-                    <p className="text-sm text-green-600 dark:text-green-400">
+                    <p className="text-sm text-primary/80">
                       Your achievement is now on the leaderboard!
                     </p>
                   </div>
@@ -698,7 +698,7 @@ const QuizPage: React.FC = () => {
                   <Button
                     aria-label="Share Achievement"
                     onClick={shareQuiz}
-                    className="bg-gradient-to-r from-emerald-600 to-blue-600 flex-1"
+                    className="bg-primary hover:bg-primary/90 flex-1"
                   >
                     <Share2 className="h-4 w-4 mr-2" />
                     Share Achievement
@@ -713,7 +713,7 @@ const QuizPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-dvh bg-background">
       <AnimatedBackground />
 
       <main className="container mx-auto px-3 sm:px-4 py-4 relative z-10 max-w-4xl">
@@ -761,7 +761,7 @@ const QuizPage: React.FC = () => {
           </div>
 
           <div className="text-center">
-            <h1 className="text-xl sm:text-2xl font-bold capitalize mb-2 bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-xl sm:text-2xl font-bold capitalize mb-2 text-primary">
               {quiz.title}
             </h1>
             <Badge className={`${getDifficultyColor(quiz.difficulty)} mb-3`}>
@@ -771,17 +771,17 @@ const QuizPage: React.FC = () => {
         </div>
 
         {/* Enhanced Game Stats Bar with Gamification */}
-        <div className="bg-gradient-to-r from-emerald-100 to-blue-100 dark:from-gray-800 dark:to-gray-700 rounded-xl p-4 mb-4 border-2 border-emerald-200 dark:border-gray-600">
+        <div className="bg-muted/50 rounded-xl p-4 mb-4 border-2 border-border">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-4">
               <div className="text-center">
-                <div className="text-lg sm:text-xl font-bold text-emerald-600">
+                <div className="text-lg sm:text-xl font-bold text-primary">
                   {currentQuestion + 1}
                 </div>
                 <div className="text-xs text-muted-foreground">Question</div>
               </div>
               <div className="text-center">
-                <div className="text-lg sm:text-xl font-bold text-blue-600">
+                <div className="text-lg sm:text-xl font-bold text-accent">
                   {score}
                 </div>
                 <div className="text-xs text-muted-foreground">Score</div>
@@ -793,11 +793,11 @@ const QuizPage: React.FC = () => {
                     <Flame
                       className={`h-4 w-4 ${
                         streak >= 3
-                          ? "text-orange-500 animate-bounce"
-                          : "text-orange-400"
+                          ? "text-destructive animate-bounce"
+                          : "text-destructive/80"
                       }`}
                     />
-                    <div className="text-lg sm:text-xl font-bold text-orange-600">
+                    <div className="text-lg sm:text-xl font-bold text-destructive">
                       {streak}
                     </div>
                   </div>
@@ -806,7 +806,7 @@ const QuizPage: React.FC = () => {
               )}
               {/* XP Display */}
               <div className="text-center">
-                <div className="text-lg sm:text-xl font-bold text-purple-600">
+                <div className="text-lg sm:text-xl font-bold text-secondary">
                   {xp}
                 </div>
                 <div className="text-xs text-muted-foreground">XP</div>
@@ -815,8 +815,8 @@ const QuizPage: React.FC = () => {
               {comboMultiplier > 1 && (
                 <div className="text-center">
                   <div className="flex items-center gap-1">
-                    <Bolt className="h-4 w-4 text-yellow-500 animate-pulse" />
-                    <div className="text-lg sm:text-xl font-bold text-yellow-600">
+                    <Bolt className="h-4 w-4 text-accent animate-pulse" />
+                    <div className="text-lg sm:text-xl font-bold text-accent">
                       x{comboMultiplier}
                     </div>
                   </div>
@@ -828,8 +828,8 @@ const QuizPage: React.FC = () => {
               <div
                 className={`text-xl sm:text-2xl font-bold font-mono ${
                   timeLeft <= 10
-                    ? "text-red-600 animate-pulse"
-                    : "text-green-600"
+                    ? "text-destructive animate-pulse"
+                    : "text-primary"
                 }`}
               >
                 {timeLeft}s
@@ -839,16 +839,16 @@ const QuizPage: React.FC = () => {
           </div>
           <Progress
             value={(currentQuestion / questions.length) * 100}
-            className="h-2 bg-white/50 dark:bg-gray-600 mb-2"
+            className="h-2 bg-muted mb-2"
           />
           {bestStreak > 0 && (
             <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-              <Crown className="h-3 w-3 text-yellow-600" />
+              <Crown className="h-3 w-3 text-accent" />
               Best Streak: {bestStreak}
               {perfectAnswers > 0 && (
                 <>
                   <span className="mx-2">•</span>
-                  <Sparkles className="h-3 w-3 text-blue-600" />
+                  <Sparkles className="h-3 w-3 text-primary" />
                   Perfect Answers: {perfectAnswers}
                 </>
               )}
@@ -858,16 +858,16 @@ const QuizPage: React.FC = () => {
 
         {/* Guest Notice - Compact */}
         {!user && (
-          <Card className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950 dark:to-orange-950 border-amber-200 dark:border-amber-800 mb-4">
+          <Card className="bg-accent/10 border-accent/20 mb-4">
             <CardContent className="p-3">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2 min-w-0">
-                  <LogIn className="h-4 w-4 text-amber-600 shrink-0" />
+                  <LogIn className="h-4 w-4 text-accent shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                    <p className="text-sm font-medium text-accent">
                       Playing as guest
                     </p>
-                    <p className="text-xs text-amber-600 dark:text-amber-400 truncate">
+                    <p className="text-xs text-accent/80 truncate">
                       Sign in to save score
                     </p>
                   </div>
@@ -876,7 +876,7 @@ const QuizPage: React.FC = () => {
                   aria-label="Sign In"
                   onClick={signInWithGoogle}
                   size="sm"
-                  className="bg-gradient-to-r from-emerald-600 to-blue-600 shrink-0"
+                  className="bg-primary hover:bg-primary/90 shrink-0"
                 >
                   Sign In
                 </Button>
@@ -902,8 +902,8 @@ const QuizPage: React.FC = () => {
               disabled={!lifelines.fiftyFifty || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.fiftyFifty
-                  ? "opacity-50 bg-gray-100 dark:bg-gray-800"
-                  : "bg-gradient-to-br from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                  ? "opacity-50 bg-muted"
+                  : "bg-primary hover:bg-primary/90 text-primary-foreground"
               }`}
             >
               <Users className="h-4 w-4" />
@@ -920,8 +920,8 @@ const QuizPage: React.FC = () => {
               disabled={!lifelines.skipQuestion || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.skipQuestion
-                  ? "opacity-50 bg-gray-100 dark:bg-gray-800"
-                  : "bg-gradient-to-br from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+                  ? "opacity-50 bg-muted"
+                  : "bg-accent hover:bg-accent/90 text-accent-foreground"
               }`}
             >
               <Lightbulb className="h-4 w-4" />
@@ -938,8 +938,8 @@ const QuizPage: React.FC = () => {
               disabled={!lifelines.extraTime || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.extraTime
-                  ? "opacity-50 bg-gray-100 dark:bg-gray-800"
-                  : "bg-gradient-to-br from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
+                  ? "opacity-50 bg-muted"
+                  : "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
               }`}
             >
               <Clock className="h-4 w-4" />
@@ -952,7 +952,7 @@ const QuizPage: React.FC = () => {
         </div>
 
         {/* Question Card - Enhanced Design */}
-        <Card className="mb-4 border-2 border-gradient bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
+        <Card className="mb-4 border-2 border-border bg-card">
           <CardHeader className="pb-3">
             <div className="flex items-start justify-between gap-3">
               <CardTitle className="text-base sm:text-lg leading-relaxed flex-1 text-center">
@@ -966,7 +966,7 @@ const QuizPage: React.FC = () => {
                 disabled={answerFeedback.show}
                 className={`shrink-0 ${
                   isSpeaking
-                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900"
+                    ? "bg-primary/10 text-primary"
                     : ""
                 }`}
               >
@@ -985,9 +985,9 @@ const QuizPage: React.FC = () => {
                 return (
                   <div
                     key={index}
-                    className="h-12 sm:h-14 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center opacity-50 border-2 border-dashed border-gray-300"
+                    className="h-12 sm:h-14 bg-muted rounded-lg flex items-center justify-center opacity-50 border-2 border-dashed border-border"
                   >
-                    <span className="text-gray-400 text-sm flex items-center gap-2">
+                    <span className="text-muted-foreground text-sm flex items-center gap-2">
                       <XCircle className="h-4 w-4" />
                       Answer removed
                     </span>
@@ -1009,11 +1009,11 @@ const QuizPage: React.FC = () => {
                   className={`w-full text-left justify-start h-auto p-4 text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] border-2 ${
                     isSelectedAnswer
                       ? answerFeedback.isCorrect
-                        ? "bg-green-100 border-green-400 text-green-800 dark:bg-green-900 dark:border-green-600 dark:text-green-200"
-                        : "bg-red-100 border-red-400 text-red-800 dark:bg-red-900 dark:border-red-600 dark:text-red-200"
+                        ? "bg-primary/20 border-primary text-primary"
+                        : "bg-destructive/20 border-destructive text-destructive"
                       : isCorrectAnswer
-                      ? "bg-green-50 border-green-300 text-green-700 dark:bg-green-950 dark:border-green-700"
-                      : "hover:bg-gradient-to-r hover:from-emerald-50 hover:to-blue-50 dark:hover:from-gray-700 dark:hover:to-gray-600"
+                      ? "bg-primary/10 border-primary/50 text-primary"
+                      : "hover:bg-muted/50"
                   } ${answerFeedback.show ? "pointer-events-none" : ""}`}
                   onClick={() => handleAnswerSelect(answer)}
                   disabled={answerFeedback.show}
@@ -1021,8 +1021,8 @@ const QuizPage: React.FC = () => {
                   <div
                     className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mr-3 font-bold text-xs shrink-0 ${
                       isSelectedAnswer || isCorrectAnswer
-                        ? "bg-white dark:bg-gray-800"
-                        : "bg-gradient-to-br from-emerald-100 to-blue-100 dark:from-gray-700 dark:to-gray-600"
+                        ? "bg-background"
+                        : "bg-muted"
                     }`}
                   >
                     {letter}
@@ -1031,9 +1031,9 @@ const QuizPage: React.FC = () => {
                   {isSelectedAnswer && (
                     <div className="ml-auto">
                       {answerFeedback.isCorrect ? (
-                        <CheckCircle className="h-5 w-5 text-green-600" />
+                        <CheckCircle className="h-5 w-5 text-primary" />
                       ) : (
-                        <XCircle className="h-5 w-5 text-red-600" />
+                        <XCircle className="h-5 w-5 text-destructive" />
                       )}
                     </div>
                   )}
@@ -1045,7 +1045,7 @@ const QuizPage: React.FC = () => {
 
         {/* Next Question Timer */}
         {answerFeedback.show && (
-          <div className="text-center text-sm text-muted-foreground bg-white/50 dark:bg-gray-800/50 rounded-lg p-2 backdrop-blur-sm">
+          <div className="text-center text-sm text-muted-foreground bg-muted/50 rounded-lg p-2 backdrop-blur-sm">
             <div className="flex items-center justify-center gap-2">
               <Clock className="h-4 w-4" />
               Moving to next question in{" "}
@@ -1059,31 +1059,31 @@ const QuizPage: React.FC = () => {
       {answerFeedback.show && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in p-4">
           <div
-            className={`bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-sm w-full text-center transform transition-all duration-500 animate-scale-in border-4 ${
-              answerFeedback.isCorrect ? "border-green-400" : "border-red-400"
+            className={`bg-card rounded-2xl p-6 max-w-sm w-full text-center transform transition-all duration-500 animate-scale-in border-4 ${
+              answerFeedback.isCorrect ? "border-primary" : "border-destructive"
             }`}
           >
             {answerFeedback.isCorrect ? (
-              <div className="text-green-500">
+              <div className="text-primary">
                 <div className="relative mb-4">
                   <CheckCircle className="h-20 w-20 mx-auto animate-bounce" />
                   <div className="absolute -top-2 -right-2">
                     <Star
-                      className="h-8 w-8 text-yellow-400 animate-spin"
+                      className="h-8 w-8 text-accent animate-spin"
                       fill="currentColor"
                     />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-green-600 mb-2">
+                <h3 className="text-2xl font-bold text-primary mb-2">
                   🎉 Correct!
                 </h3>
                 <div className="space-y-2">
-                  <div className="bg-green-100 dark:bg-green-900 rounded-lg p-3">
+                  <div className="bg-primary/10 rounded-lg p-3">
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-green-800 dark:text-green-200">
+                      <span className="font-semibold text-primary">
                         Points:
                       </span>
-                      <span className="text-lg font-bold text-green-600">
+                      <span className="text-lg font-bold text-primary">
                         +
                         {comboMultiplier > 1 ? `${10 * comboMultiplier}` : "10"}
                         {comboMultiplier > 1 && (
@@ -1094,14 +1094,14 @@ const QuizPage: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex items-center justify-between mt-1">
-                      <span className="font-semibold text-green-800 dark:text-green-200">
+                      <span className="font-semibold text-primary">
                         XP:
                       </span>
-                      <span className="text-lg font-bold text-purple-600">
+                      <span className="text-lg font-bold text-secondary">
                         +
                         {comboMultiplier > 1 ? `${15 * comboMultiplier}` : "15"}
                         {timeLeft >= 25 && (
-                          <span className="text-sm ml-1 text-blue-600">
+                          <span className="text-sm ml-1 text-accent">
                             (+10 speed bonus!)
                           </span>
                         )}
@@ -1109,35 +1109,35 @@ const QuizPage: React.FC = () => {
                     </div>
                   </div>
                   {streak > 0 && (
-                    <div className="bg-orange-100 dark:bg-orange-900 rounded-lg p-2">
+                    <div className="bg-destructive/10 rounded-lg p-2">
                       <div className="flex items-center justify-center gap-2">
-                        <Flame className="h-4 w-4 text-orange-600" />
-                        <span className="text-sm font-medium text-orange-800 dark:text-orange-200">
+                        <Flame className="h-4 w-4 text-destructive" />
+                        <span className="text-sm font-medium text-destructive">
                           {streak} Question Streak! 🔥
                         </span>
                       </div>
                     </div>
                   )}
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                <p className="text-sm text-muted-foreground mt-2">
                   Great job! Keep it up! 🚀
                 </p>
               </div>
             ) : (
-              <div className="text-red-500">
+              <div className="text-destructive">
                 <XCircle className="h-20 w-20 mx-auto mb-4 animate-pulse" />
-                <h3 className="text-2xl font-bold text-red-600 mb-3">
+                <h3 className="text-2xl font-bold text-destructive mb-3">
                   ❌ Incorrect!
                 </h3>
-                <div className="bg-red-100 dark:bg-red-900 rounded-lg p-3 mb-2">
-                  <p className="text-sm font-medium text-red-800 dark:text-red-200 mb-1">
+                <div className="bg-destructive/10 rounded-lg p-3 mb-2">
+                  <p className="text-sm font-medium text-destructive mb-1">
                     Correct answer:
                   </p>
-                  <p className="font-semibold text-red-900 dark:text-red-100">
+                  <p className="font-semibold text-destructive">
                     {questions[currentQuestion]?.correct_answer}
                   </p>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-muted-foreground">
                   Don't worry, keep learning! 📚
                 </p>
               </div>
@@ -1149,7 +1149,7 @@ const QuizPage: React.FC = () => {
       {/* Achievement Popup */}
       {showAchievement && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in">
-          <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-6 py-3 rounded-full shadow-2xl border-4 border-yellow-300 animate-bounce">
+          <div className="bg-primary text-primary-foreground px-6 py-3 rounded-full shadow-2xl border-4 border-accent animate-bounce">
             <div className="flex items-center gap-2">
               <Award className="h-6 w-6 animate-spin" />
               <span className="font-bold text-lg">{showAchievement}</span>
