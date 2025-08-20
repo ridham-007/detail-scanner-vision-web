@@ -268,77 +268,112 @@ const IndexPage: React.FC = () => {
 
       <main ref={heroRef} className="relative z-10">
         {/* Hero Section */}
-        <section className="relative py-20 md:py-28 lg:py-36">
+        <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
           <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto text-center">
-              {/* Free Badge */}
-              <div className="hero-badge mb-6">
-                <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium rounded-full">
-                  <Sparkles className="mr-2 h-4 w-4" />
-                  100% Free Forever • No Sign-up Required
-                </Badge>
-              </div>
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                {/* Left Content */}
+                <div className="space-y-8">
+                  {/* Free Badge */}
+                  <div className="hero-badge">
+                    <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium rounded-full">
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      100% Free Forever
+                    </Badge>
+                  </div>
 
-              {/* Main Content */}
-              <div className="space-y-6">
-                <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight">
-                  Your Personal
-                  <span className="block text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                    Food Scanner
-                  </span>
-                  <span className="block text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-normal mt-2">
-                    Powered by AI ✨
-                  </span>
-                </h1>
-                
-                <p className="hero-subtitle text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                  Just scan any barcode and instantly discover what's really in your food. 
-                  <span className="text-foreground font-medium"> Get health scores, ingredient breakdowns, and smart alternatives</span> — all completely free!
-                </p>
-                
-                <div className="hero-cta space-y-6 pt-4">
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  {/* Main Heading */}
+                  <div className="space-y-6">
+                    <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                      Make the right choices
+                      <span className="block text-primary">for your health</span>
+                    </h1>
+                    
+                    <p className="hero-subtitle text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
+                      Scan any product and instantly get detailed nutritional analysis, 
+                      health insights, and smart recommendations — completely free.
+                    </p>
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="hero-cta flex flex-col sm:flex-row gap-4">
                     <Button
                       size="lg"
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                       onClick={scrollToScanner}
                     >
-                      <Scan className="mr-3 h-6 w-6" />
-                      Start Scanning Now
+                      <Scan className="mr-3 h-5 w-5" />
+                      Try It Now
                     </Button>
                     
                     <Button
                       variant="outline"
                       size="lg"
-                      className="px-8 py-4 text-lg rounded-full border-2 hover:bg-accent/50 transition-all duration-300"
+                      className="px-8 py-4 text-base rounded-lg border-2 hover:bg-accent/10 transition-all duration-300"
                       onClick={handleLearnMoreClick}
                     >
-                      See How It Works
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      Learn More
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
+                </div>
+
+                {/* Right Visual */}
+                <div className="relative flex justify-center lg:justify-end">
+                  {/* Decorative Elements */}
+                  <div className="absolute -top-10 -left-10 w-20 h-20 bg-primary/10 rounded-2xl rotate-12 floating-icon"></div>
+                  <div className="absolute top-1/4 -right-8 w-12 h-12 bg-accent/20 rounded-full floating-icon"></div>
+                  <div className="absolute -bottom-6 left-1/4 w-16 h-16 bg-muted/30 rounded-xl -rotate-12 floating-icon"></div>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto pt-8">
-                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                        <Shield className="h-6 w-6 text-primary" />
+                  {/* Main Visual - Browser Mockup */}
+                  <div className="relative max-w-md w-full">
+                    {/* Browser Window */}
+                    <div className="bg-background border border-border rounded-xl shadow-2xl overflow-hidden">
+                      {/* Browser Header */}
+                      <div className="bg-muted/50 px-4 py-3 border-b border-border flex items-center gap-2">
+                        <div className="flex gap-2">
+                          <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                          <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                          <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                        </div>
+                        <div className="flex-1 mx-4">
+                          <div className="bg-background rounded px-3 py-1 text-xs text-muted-foreground border border-border">
+                            eater-iq.com
+                          </div>
+                        </div>
                       </div>
-                      <span className="text-sm font-medium text-foreground">Always Free</span>
-                      <span className="text-xs text-muted-foreground">No hidden costs</span>
+                      
+                      {/* Scanner Interface Preview */}
+                      <div className="p-6 bg-gradient-to-br from-background to-muted/20">
+                        <div className="text-center space-y-4">
+                          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl">
+                            <Scan className="h-8 w-8 text-primary" />
+                          </div>
+                          <h3 className="font-semibold text-foreground">Scan Product</h3>
+                          <div className="bg-accent/20 rounded-lg p-4 space-y-2">
+                            <div className="flex justify-between text-sm">
+                              <span className="text-muted-foreground">Health Score</span>
+                              <span className="font-semibold text-primary">8.5/10</span>
+                            </div>
+                            <div className="w-full bg-muted rounded-full h-2">
+                              <div className="bg-primary h-2 rounded-full" style={{width: '85%'}}></div>
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            <div className="bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400 px-2 py-1 rounded">
+                              Low Sugar
+                            </div>
+                            <div className="bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 px-2 py-1 rounded">
+                              High Protein
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                        <Zap className="h-6 w-6 text-primary" />
-                      </div>
-                      <span className="text-sm font-medium text-foreground">Instant Results</span>
-                      <span className="text-xs text-muted-foreground">Scan & get insights</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                        <Users className="h-6 w-6 text-primary" />
-                      </div>
-                      <span className="text-sm font-medium text-foreground">{userCount ? formatNumber(userCount) : "2.4K+"} Happy Users</span>
-                      <span className="text-xs text-muted-foreground">Join the community</span>
+                    
+                    {/* Floating Health Character */}
+                    <div className="absolute -right-8 -bottom-8 w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center shadow-lg floating-icon">
+                      <div className="text-2xl">✅</div>
                     </div>
                   </div>
                 </div>
