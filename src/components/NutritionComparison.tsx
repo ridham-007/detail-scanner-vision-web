@@ -36,62 +36,71 @@ const NutritionComparison: React.FC<NutritionComparisonProps> = ({
   nutrition,
   productName
 }) => {
+  // Check if we have meaningful nutrition data
+  const hasNutritionData = nutrition && Object.values(nutrition).some(value => 
+    value !== null && value !== undefined && value > 0
+  );
+
+  // Don't render if no nutrition data is available
+  if (!hasNutritionData) {
+    return null;
+  }
   const nutritionItems = [
     {
       key: 'calories_kcal' as keyof NutritionData,
       label: 'Calories',
       unit: 'kcal',
       goodRange: 'lower',
-      color: 'bg-blue-500'
+      color: 'bg-primary'
     },
     {
       key: 'total_fat_g' as keyof NutritionData,
       label: 'Total Fat',
       unit: 'g',
       goodRange: 'moderate',
-      color: 'bg-orange-500'
+      color: 'bg-accent'
     },
     {
       key: 'saturated_fat_g' as keyof NutritionData,
       label: 'Saturated Fat',
       unit: 'g',
       goodRange: 'lower',
-      color: 'bg-red-500'
+      color: 'bg-destructive'
     },
     {
       key: 'carbohydrates_g' as keyof NutritionData,
       label: 'Carbohydrates',
       unit: 'g',
       goodRange: 'moderate',
-      color: 'bg-yellow-500'
+      color: 'bg-secondary'
     },
     {
       key: 'sugar_g' as keyof NutritionData,
       label: 'Sugar',
       unit: 'g',
       goodRange: 'lower',
-      color: 'bg-pink-500'
+      color: 'bg-accent'
     },
     {
       key: 'fiber_g' as keyof NutritionData,
       label: 'Fiber',
       unit: 'g',
       goodRange: 'higher',
-      color: 'bg-green-500'
+      color: 'bg-primary'
     },
     {
       key: 'protein_g' as keyof NutritionData,
       label: 'Protein',
       unit: 'g',
       goodRange: 'higher',
-      color: 'bg-purple-500'
+      color: 'bg-secondary'
     },
     {
       key: 'salt_mg' as keyof NutritionData,
       label: 'Salt',
       unit: 'mg',
       goodRange: 'lower',
-      color: 'bg-gray-500'
+      color: 'bg-muted'
     }
   ];
 
@@ -128,7 +137,7 @@ const NutritionComparison: React.FC<NutritionComparisonProps> = ({
     <Card className="w-full animate-fade-in">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
-          <BarChart3 className="h-5 w-5 text-blue-600" />
+          <BarChart3 className="h-5 w-5 text-primary" />
           Nutrition Comparison
         </CardTitle>
         <p className="text-sm text-muted-foreground">
@@ -143,7 +152,8 @@ const NutritionComparison: React.FC<NutritionComparisonProps> = ({
             const percentage = getComparisonPercentage(value, average);
             const comparison = getComparisonStatus(value, average, item.goodRange);
             
-            if (!value) return null;
+            // Skip items with no meaningful data
+            if (!value || value <= 0) return null;
 
             return (
               <div key={item.key} className="space-y-2">
@@ -185,11 +195,11 @@ const NutritionComparison: React.FC<NutritionComparisonProps> = ({
           <div className="pt-3 mt-4 border-t">
             <div className="text-xs text-muted-foreground space-y-1">
               <p className="flex items-center gap-1">
-                <TrendingUp className="w-3 h-3 text-green-600" />
+                <TrendingUp className="w-3 h-3 text-primary" />
                 <span>Better than average for this category</span>
               </p>
               <p className="flex items-center gap-1">
-                <TrendingDown className="w-3 h-3 text-red-600" />
+                <TrendingDown className="w-3 h-3 text-destructive" />
                 <span>Higher than recommended for this category</span>
               </p>
             </div>
