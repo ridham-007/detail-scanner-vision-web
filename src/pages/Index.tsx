@@ -654,17 +654,15 @@ const IndexPage: React.FC = () => {
                 Join our community and get early access to these exciting new
                 features when they launch.
               </p>
-              <Link to={"/early-access"}>
-                <Button
-                  aria-label="Get Early Access"
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                  onClick={handleEarlyAccessClick}
-                >
-                  <Bell className="mr-2 h-5 w-5" />
-                  Get Early Access
-                </Button>
-              </Link>
+              <Button
+                aria-label="Get Early Access"
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                onClick={handleEarlyAccessClick}
+              >
+                <Bell className="mr-2 h-5 w-5" />
+                Get Early Access
+              </Button>
             </div>
           </div>
         </section>
