@@ -320,10 +320,25 @@ const IndexPage: React.FC = () => {
 
                 {/* Right Visual */}
                 <div className="relative flex justify-center lg:justify-end">
-                  {/* Decorative Elements */}
-                  <div className="absolute -top-10 -left-10 w-20 h-20 bg-primary/10 rounded-2xl rotate-12 floating-icon"></div>
-                  <div className="absolute top-1/4 -right-8 w-12 h-12 bg-accent/20 rounded-full floating-icon"></div>
-                  <div className="absolute -bottom-6 left-1/4 w-16 h-16 bg-muted/30 rounded-xl -rotate-12 floating-icon"></div>
+                  {/* Floating Food Elements */}
+                  <div className="absolute -top-10 -left-10 w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center text-2xl floating-icon shadow-lg">
+                    🥬
+                  </div>
+                  <div className="absolute top-1/4 -right-12 w-14 h-14 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center text-xl floating-icon shadow-lg">
+                    🥕
+                  </div>
+                  <div className="absolute -bottom-8 left-1/4 w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center text-lg floating-icon shadow-lg">
+                    🍎
+                  </div>
+                  <div className="absolute top-12 left-8 w-10 h-10 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center text-sm floating-icon shadow-lg">
+                    🍇
+                  </div>
+                  <div className="absolute bottom-1/3 -right-6 w-12 h-12 bg-yellow-100 dark:bg-yellow-900/20 rounded-full flex items-center justify-center text-lg floating-icon shadow-lg">
+                    🌽
+                  </div>
+                  <div className="absolute top-2/3 left-12 w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center text-sm floating-icon shadow-lg">
+                    🥦
+                  </div>
                   
                   {/* Main Visual - Browser Mockup */}
                   <div className="relative max-w-md w-full">
