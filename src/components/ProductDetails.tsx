@@ -154,29 +154,46 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   }
 
   return (
-    <div className="space-y-6">
-      {/* Main Product Card - Redesigned */}
-      <Card className="w-full animate-fade-in overflow-hidden border-0 shadow-xl">
+    <div className="space-y-8">
+      {/* Main Product Card - Completely Redesigned */}
+      <Card className="w-full animate-fade-in overflow-hidden border-0 shadow-2xl bg-gradient-to-br from-background via-background to-muted/20">
         <CardContent className="p-0">
-          {/* Clean Header Section */}
-          <div className="relative bg-white dark:bg-gray-900">
-            <div className="max-w-7xl mx-auto px-8 py-12">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Hero Section with Enhanced Visual Design */}
+          <div className="relative bg-gradient-to-br from-primary/5 via-background to-accent/10 dark:from-primary/10 dark:via-background dark:to-accent/5">
+            {/* Decorative Background Elements */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-8 right-8 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
+              <div className="absolute bottom-8 left-8 w-24 h-24 bg-accent/10 rounded-full blur-2xl"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-primary/5 to-accent/5 rounded-full blur-3xl"></div>
+            </div>
+
+            <div className="relative max-w-7xl mx-auto px-6 py-12">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
                 
-                {/* Product Image - Left Side */}
-                <div className="lg:col-span-4 flex justify-center">
-                  <ProductImageCarousel images={product.images} productName={product.name} />
+                {/* Product Image - Enhanced with Better Styling */}
+                <div className="flex justify-center">
+                  <div className="relative group">
+                    <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-xl border border-border/50">
+                      <ProductImageCarousel images={product.images} productName={product.name} />
+                    </div>
+                  </div>
                 </div>
 
-                {/* Product Info - Center */}
-                <div className="lg:col-span-5 text-center lg:text-left space-y-6">
+                {/* Product Info - Center with Better Typography */}
+                <div className="text-center lg:text-left space-y-6">
                   <div className="space-y-4">
-                    <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 leading-tight tracking-tight">
-                      {product.name}
-                    </h1>
+                    <div className="space-y-2">
+                      <Badge variant="secondary" className="mb-2">
+                        Product Analysis
+                      </Badge>
+                      <h1 className="text-2xl lg:text-3xl font-bold text-foreground leading-tight tracking-tight">
+                        {product.name}
+                      </h1>
+                    </div>
                     
-                    {/* Action Buttons */}
-                    <div className="flex items-center justify-center lg:justify-start gap-3 pt-2">
+                    {/* Enhanced Action Buttons */}
+                    <div className="flex items-center justify-center lg:justify-start gap-3 pt-4">
                       <Button
                         variant={isFavorite(product.barcode) ? "default" : "outline"}
                         size="sm"
@@ -187,19 +204,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                             addToFavorites(product.barcode, product.name, product.health_score);
                           }
                         }}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 hover:scale-105 transition-transform"
                       >
                         <Heart 
                           className={`w-4 h-4 ${isFavorite(product.barcode) ? 'fill-current' : ''}`} 
                         />
-                        {isFavorite(product.barcode) ? 'Favorited' : 'Add to Favorites'}
+                        {isFavorite(product.barcode) ? 'Favorited' : 'Favorite'}
                       </Button>
 
                       <AddToShoppingListModal
                         barcode={product.barcode}
                         productName={product.name}
                       >
-                        <Button variant="outline" size="sm" className="flex items-center gap-2">
+                        <Button variant="outline" size="sm" className="flex items-center gap-2 hover:scale-105 transition-transform">
                           <ShoppingCart className="w-4 h-4" />
                           Add to List
                         </Button>
@@ -207,45 +224,53 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                     </div>
                   </div>
 
-                  {/* Quick Stats */}
+                  {/* Enhanced Quick Stats */}
                   {product.is_health_related_product && (
-                    <div className="grid grid-cols-2 gap-4 pt-4">
-                      <div className="text-center lg:text-left">
-                        <div className="flex items-center justify-center lg:justify-start gap-2">
-                          <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {product.positives?.length || 0} Benefits
+                    <div className="grid grid-cols-2 gap-4 pt-6">
+                      <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-4 text-center lg:text-left">
+                        <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
+                          <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                          <span className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wide">
+                            Benefits
                           </span>
                         </div>
+                        <div className="text-lg font-bold text-green-600 dark:text-green-400">
+                          {product.positives?.length || 0}
+                        </div>
                       </div>
-                      <div className="text-center lg:text-left">
-                        <div className="flex items-center justify-center lg:justify-start gap-2">
-                          <div className="w-3 h-3 rounded-full bg-orange-500"></div>
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {product.concerns?.length || 0} Concerns
+                      <div className="bg-orange-50 dark:bg-orange-950/30 rounded-xl p-4 text-center lg:text-left">
+                        <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
+                          <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                          <span className="text-xs font-medium text-orange-700 dark:text-orange-300 uppercase tracking-wide">
+                            Concerns
                           </span>
+                        </div>
+                        <div className="text-lg font-bold text-orange-600 dark:text-orange-400">
+                          {product.concerns?.length || 0}
                         </div>
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* Health Score - Right Side */}
+                {/* Health Score - Enhanced Design */}
                 {product.is_health_related_product && (
-                  <div className="lg:col-span-3 flex justify-center">
-                    <AnimatedHealthScore 
-                      score={product.health_score} 
-                      size={160}
-                      categoryRank={12}
-                      categoryTotal={47}
-                    />
+                  <div className="flex justify-center">
+                    <div className="relative">
+                      <div className="absolute -inset-8 bg-gradient-to-r from-primary/10 to-accent/10 rounded-full blur-2xl"></div>
+                      <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-border/50">
+                        <AnimatedHealthScore 
+                          score={product.health_score} 
+                          size={140}
+                          categoryRank={12}
+                          categoryTotal={47}
+                        />
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
             </div>
-            
-            {/* Subtle bottom border */}
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent"></div>
           </div>
         </CardContent>
       </Card>
@@ -276,60 +301,82 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       
       <SocialProof barcode={product.barcode} productName={product.name} />
 
-      {/* Recommendations */}
+      {/* Recommendations - Enhanced Design */}
       {product.recommendations && product.recommendations.length > 0 && (
-        <Card className="w-full animate-fade-in">
+        <Card className="w-full animate-fade-in border-0 shadow-lg bg-gradient-to-br from-blue-50 via-background to-blue-50/30 dark:from-blue-950/20 dark:via-background dark:to-blue-950/10">
           <CardContent className="p-8 space-y-6">
-            <div className="space-y-3">
-              <h4 className="font-semibold flex items-center justify-center gap-2 text-lg">
-                <Lightbulb size={20} className="text-blue-600" />
-                Recommendations
-              </h4>
-              <div className="space-y-3">
-                {product.recommendations.map((recommendation, index) => (
-                  <div key={index} className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-blue-700 dark:text-blue-300">{recommendation}</p>
-                  </div>
-                ))}
+            <div className="text-center space-y-3">
+              <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 px-4 py-2 rounded-full">
+                <Lightbulb size={18} className="text-blue-600 dark:text-blue-400" />
+                <h4 className="font-semibold text-blue-700 dark:text-blue-300">
+                  Smart Recommendations
+                </h4>
               </div>
+              <p className="text-muted-foreground text-sm">
+                AI-powered suggestions to optimize your nutrition
+              </p>
+            </div>
+            <div className="grid gap-4">
+              {product.recommendations.map((recommendation, index) => (
+                <div key={index} className="relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent"></div>
+                  <div className="relative flex items-start gap-4 p-5 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-xl border border-blue-200/50 dark:border-blue-800/50">
+                    <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
+                      <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">{index + 1}</span>
+                    </div>
+                    <p className="text-foreground leading-relaxed">{recommendation}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
       )}
 
-      {/* Product Suggestions */}
+      {/* Product Suggestions - Enhanced Design */}
       {product.other_good_product_suggestions && product.other_good_product_suggestions.length > 0 && (
-        <Card className="w-full animate-fade-in">
-          <CardContent className="p-8 space-y-6">
-            <div className="text-center space-y-3">
-              <h3 className="text-xl font-semibold flex items-center justify-center gap-2">
-                <Star size={20} className="text-orange-500" />
-                Better Alternatives
-              </h3>
+        <Card className="w-full animate-fade-in border-0 shadow-lg bg-gradient-to-br from-green-50 via-background to-green-50/30 dark:from-green-950/20 dark:via-background dark:to-green-950/10">
+          <CardContent className="p-8 space-y-8">
+            <div className="text-center space-y-4">
+              <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-4 py-2 rounded-full">
+                <Star size={18} className="text-green-600 dark:text-green-400" />
+                <h3 className="text-lg font-semibold text-green-700 dark:text-green-300">
+                  Healthier Alternatives
+                </h3>
+              </div>
               <p className="text-muted-foreground">
-                Here are some healthier options you might consider
+                Discover better options that align with your health goals
               </p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
               {product.other_good_product_suggestions.map((suggestion, index) => (
-                <div key={index} className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h4 className="font-medium text-foreground">{suggestion.name}</h4>
-                        {suggestion.brand && (
-                          <p className="text-sm text-muted-foreground">{suggestion.brand}</p>
-                        )}
+                <div key={index} className="group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative bg-white dark:bg-gray-900 border border-green-200/50 dark:border-green-800/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div className="space-y-4">
+                      <div className="flex items-start justify-between">
+                        <div className="space-y-1">
+                          <h4 className="font-semibold text-foreground text-lg">{suggestion.name}</h4>
+                          {suggestion.brand && (
+                            <Badge variant="outline" className="text-xs">
+                              {suggestion.brand}
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex-shrink-0 w-8 h-8 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center">
+                          <ArrowRight size={14} className="text-green-600 dark:text-green-400" />
+                        </div>
                       </div>
-                      <ArrowRight size={16} className="text-green-600 mt-1 flex-shrink-0" />
-                    </div>
-                    
-                    <div className="p-3 bg-green-50 dark:bg-green-950 rounded-md">
-                      <p className="text-sm text-green-700 dark:text-green-300">
-                        <span className="font-medium">Why it's better:</span> {suggestion.why_better}
-                      </p>
+                      
+                      <div className="relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent"></div>
+                        <div className="relative p-4 bg-green-50/50 dark:bg-green-950/30 rounded-lg border border-green-200/30 dark:border-green-800/30">
+                          <p className="text-sm text-green-700 dark:text-green-300 leading-relaxed">
+                            <span className="font-semibold">Why it's better:</span> {suggestion.why_better}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
