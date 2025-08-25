@@ -326,12 +326,12 @@ const IndexPage: React.FC = () => {
                 {/* Right Visual */}
                 <div className="relative flex justify-center lg:justify-end">
                   {/* Minimal Floating Elements */}
-                  <div className="absolute -top-16 -left-16 w-32 h-32 bg-primary/5 rounded-full flex items-center justify-center text-6xl floating-icon opacity-30">
+                  {/* <div className="absolute -top-16 -left-16 w-32 h-32 bg-primary/5 rounded-full flex items-center justify-center text-6xl floating-icon opacity-30">
                     🥑
                   </div>
                   <div className="absolute -bottom-12 -right-12 w-28 h-28 bg-accent/5 rounded-full flex items-center justify-center text-5xl floating-icon opacity-25">
                     🍎
-                  </div>
+                  </div> */}
                   
                   {/* Main Visual - Browser Mockup */}
                   <div className="relative max-w-md w-full">
@@ -346,7 +346,7 @@ const IndexPage: React.FC = () => {
                         </div>
                         <div className="flex-1 mx-4">
                           <div className="bg-background rounded px-3 py-1 text-xs text-muted-foreground border border-border">
-                            eater-iq.com
+                            eateriq.com
                           </div>
                         </div>
                       </div>
@@ -380,9 +380,9 @@ const IndexPage: React.FC = () => {
                     </div>
                     
                     {/* Floating Health Character */}
-                    <div className="absolute -right-8 -bottom-8 w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-lg floating-icon">
+                    {/* <div className="absolute -right-8 -bottom-8 w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-lg floating-icon">
                       <div className="text-2xl">✅</div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

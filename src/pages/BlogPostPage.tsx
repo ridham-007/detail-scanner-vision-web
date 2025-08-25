@@ -158,11 +158,11 @@ const BlogPostPage = () => {
 
 
           {post.featured_image_url && (
-            <div className="aspect-video overflow-hidden rounded-lg mb-8">
+            <div className="aspect-[16/11] overflow-hidden rounded-lg mb-8">
               <img
                 src={post.featured_image_url}
                 alt={post.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-fill"
               />
             </div>
           )}

@@ -46,7 +46,7 @@ const Footer = () => {
             <div className="flex items-center space-x-3">
               <Link to="/">
                 <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center shadow-sm hover:bg-primary/30 transition-all duration-300">
-                  <span className="text-2xl filter drop-shadow-sm">🥑</span>
+                  {/* <span className="text-2xl filter drop-shadow-sm">🥑</span> */}
                 </div>
               </Link>
               <div>
