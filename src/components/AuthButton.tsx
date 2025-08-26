@@ -78,7 +78,7 @@ const AuthButton = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button aria-label="User Menu" variant="outline" size="sm" className="gap-2 hover:bg-primary hover:text-white">
-            <Avatar className="h-6 w-6 text-black">
+            <Avatar className="h-6 w-6">
               <AvatarImage alt="user avatar" src={avatarUrl || undefined}/>
               <AvatarFallback className="text-xs">
                 {getUserInitials()}
@@ -106,12 +106,12 @@ const AuthButton = () => {
           
           {/* User Menu Items */}
           {username && (
-            <DropdownMenuItem onClick={() => navigate(`/profile/${username}`)}>
+            <DropdownMenuItem onClick={() => navigate(`/profile/${username}`)} className=' hover:!bg-primary hover:!text-white'>
               <User className="h-4 w-4 mr-2" />
               View Profile
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem onClick={() => navigate('/settings')}>
+          <DropdownMenuItem onClick={() => navigate('/settings')} className=' hover:!bg-primary hover:!text-white'>
             <Settings className="h-4 w-4 mr-2" />
             Settings
           </DropdownMenuItem>
@@ -120,14 +120,14 @@ const AuthButton = () => {
           {isAdmin && (
             <>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate('/admin/blogs')}>
+              <DropdownMenuItem onClick={() => navigate('/admin/blogs')} className=' hover:!bg-primary hover:!text-white'>
                 <Shield className="h-4 w-4 mr-2" />
                 Manage Blogs
               </DropdownMenuItem>
             </>
           )}
           
-          <DropdownMenuItem onClick={signOut}>
+          <DropdownMenuItem onClick={signOut} className=' hover:!bg-primary hover:!text-white'>
             <LogOut className="h-4 w-4 mr-2" />
             Sign Out
           </DropdownMenuItem>
