@@ -25,6 +25,7 @@ import ShoppingListsPage from "./pages/ShoppingListsPage";
 import AdminBlogsPage from "./pages/admin/AdminBlogsPage";
 import CreateBlogPage from "./pages/admin/CreateBlogPage";
 import EditBlogPage from "./pages/admin/EditBlogPage";
+import ScrollToTop from "./components/scrollToTop";
 // import "./App.css";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ function App() {
         <AuthProvider>
           <TooltipProvider>
             <BrowserRouter>
+              <ScrollToTop />   {/* 👈 Add here */}
               <div className="min-h-screen bg-background flex flex-col w-full">
                 <Header />
                 <main className="flex-1">

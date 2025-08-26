@@ -281,9 +281,11 @@ const IndexPage: React.FC = () => {
                 <div className="space-y-8">
                   {/* Free Badge */}
                   <div className="hero-badge">
-                    <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium rounded-full">
+                    <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium rounded-full cursor-default hover:text-white">
                       <Sparkles className="mr-2 h-4 w-4" />
+                    
                       100% Free Forever
+                     
                     </Badge>
                   </div>
 

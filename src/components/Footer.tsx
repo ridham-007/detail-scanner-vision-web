@@ -46,7 +46,7 @@ const Footer = () => {
             <div className="flex items-center space-x-3">
               <Link to="/">
                 <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center shadow-sm hover:bg-primary/30 transition-all duration-300">
-                  {/* <span className="text-2xl filter drop-shadow-sm">🥑</span> */}
+                  <span className="text-2xl filter drop-shadow-sm">🥑</span>
                 </div>
               </Link>
               <div>
@@ -70,11 +70,11 @@ const Footer = () => {
                 <span>Health Score Analysis</span>
               </li>
               <li className="flex items-center space-x-2 hover:text-foreground transition-colors">
-                <Brain className="h-4 w-4 text-accent" />
+                <Brain className="h-4 w-4 text-primary/80" />
                 <span>AI-Powered Insights</span>
               </li>
               <li className="flex items-center space-x-2 hover:text-foreground transition-colors">
-                <Zap className="h-4 w-4 text-secondary" />
+                <Zap className="h-4 w-4 text-primary/80 " />
                 <span>Smart Recommendations</span>
               </li>
               <li className="flex items-center space-x-2 hover:text-foreground transition-colors">
@@ -95,7 +95,7 @@ const Footer = () => {
                 onClick={handleContactClick}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
-                <Mail className="h-4 w-4 text-primary group-hover:text-primary/80" />
+                <Mail className="h-4 w-4 text-primary/80 group-hover:text-primary/80" />
                 <span>Contact Support</span>
               </button>
               <Link
@@ -106,7 +106,7 @@ const Footer = () => {
                 }}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
-                <HelpCircle className="h-4 w-4 text-accent group-hover:text-accent/80" />
+                <HelpCircle className="h-4 w-4 text-primary/80 group-hover:text-accent/80" />
                 <span>Help Center</span>
               </Link>
               <Link
@@ -117,7 +117,7 @@ const Footer = () => {
                 }}
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
-                <Shield className="h-4 w-4 text-secondary group-hover:text-secondary/80" />
+                <Shield className="h-4 w-4 text-primary/80 group-hover:text-secondary/80" />
                 <span>Privacy Policy</span>
               </Link>
               <Link

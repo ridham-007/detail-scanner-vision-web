@@ -48,8 +48,8 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link to="/">
-              <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-all duration-300 shadow-md">
-                {/* <span className="text-4xl filter drop-shadow-sm">🥑</span> */}
+              <div className="h-20 w-20 rounded-2xl flex items-center justify-center transition-all duration-300">
+                <span className="text-4xl filter">🥑</span>
               </div>
             </Link>
             <Link to={'/'} className="cursor-pointer group">

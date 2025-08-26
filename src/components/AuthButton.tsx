@@ -77,9 +77,9 @@ const AuthButton = () => {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button aria-label="User Menu" variant="outline" size="sm" className="gap-2">
-            <Avatar className="h-6 w-6">
-              <AvatarImage alt="user avatar" src={avatarUrl || undefined} />
+          <Button aria-label="User Menu" variant="outline" size="sm" className="gap-2 hover:bg-primary hover:text-white">
+            <Avatar className="h-6 w-6 text-black">
+              <AvatarImage alt="user avatar" src={avatarUrl || undefined}/>
               <AvatarFallback className="text-xs">
                 {getUserInitials()}
               </AvatarFallback>
