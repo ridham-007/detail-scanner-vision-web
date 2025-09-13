@@ -219,21 +219,30 @@ export type Database = {
           created_at: string | null
           description: string | null
           id: string
+          is_active: boolean | null
           name: string
+          slug: string
+          sort_order: number | null
           updated_at: string | null
         }
         Insert: {
           created_at?: string | null
           description?: string | null
           id?: string
+          is_active?: boolean | null
           name: string
+          slug: string
+          sort_order?: number | null
           updated_at?: string | null
         }
         Update: {
           created_at?: string | null
           description?: string | null
           id?: string
+          is_active?: boolean | null
           name?: string
+          slug?: string
+          sort_order?: number | null
           updated_at?: string | null
         }
         Relationships: []
@@ -324,25 +333,31 @@ export type Database = {
       }
       product_categories: {
         Row: {
+          assigned_by: string | null
           confidence_score: number | null
           created_at: string | null
           id: string
           product_barcode: string
           subcategory_id: string
+          updated_at: string | null
         }
         Insert: {
+          assigned_by?: string | null
           confidence_score?: number | null
           created_at?: string | null
           id?: string
           product_barcode: string
           subcategory_id: string
+          updated_at?: string | null
         }
         Update: {
+          assigned_by?: string | null
           confidence_score?: number | null
           created_at?: string | null
           id?: string
           product_barcode?: string
           subcategory_id?: string
+          updated_at?: string | null
         }
         Relationships: [
           {
@@ -717,26 +732,38 @@ export type Database = {
       subcategories: {
         Row: {
           category_id: string
+          code: string | null
           created_at: string | null
           description: string | null
           id: string
+          is_active: boolean | null
           name: string
+          slug: string
+          sort_order: number | null
           updated_at: string | null
         }
         Insert: {
           category_id: string
+          code?: string | null
           created_at?: string | null
           description?: string | null
-          id: string
+          id?: string
+          is_active?: boolean | null
           name: string
+          slug: string
+          sort_order?: number | null
           updated_at?: string | null
         }
         Update: {
           category_id?: string
+          code?: string | null
           created_at?: string | null
           description?: string | null
           id?: string
+          is_active?: boolean | null
           name?: string
+          slug?: string
+          sort_order?: number | null
           updated_at?: string | null
         }
         Relationships: [
