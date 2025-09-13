@@ -7,14 +7,16 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { User, Save, Globe, MapPin, Bell, Settings as SettingsIcon } from 'lucide-react';
+import { User, Save, Globe, MapPin, Bell, Settings as SettingsIcon, Shield, Eye } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Header from '@/components/Header';
 import AvatarUpload from '@/components/AvatarUpload';
 import { useNavigate } from 'react-router-dom';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings';
+import { usePrivacySettings, ProfileVisibility } from '@/hooks/usePrivacySettings';
 
 const UserSettingsPage = () => {
   const { user } = useAuth();
@@ -23,6 +25,7 @@ const UserSettingsPage = () => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const { settings: notificationSettings, loading: notificationLoading, saving: notificationSaving, updateSetting } = useNotificationSettings();
+  const { settings: privacySettings, loading: privacyLoading, saving: privacySaving, updateSetting: updatePrivacySetting } = usePrivacySettings();
   const [profile, setProfile] = useState({
     full_name: '',
     username: '',
@@ -126,7 +129,7 @@ const UserSettingsPage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <Tabs defaultValue="profile" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="profile" className="flex items-center gap-2">
                 <User className="h-4 w-4" />
                 Profile
@@ -134,6 +137,10 @@ const UserSettingsPage = () => {
               <TabsTrigger value="notifications" className="flex items-center gap-2">
                 <Bell className="h-4 w-4" />
                 Notifications
+              </TabsTrigger>
+              <TabsTrigger value="privacy" className="flex items-center gap-2">
+                <Shield className="h-4 w-4" />
+                Privacy
               </TabsTrigger>
             </TabsList>
 
@@ -373,6 +380,136 @@ const UserSettingsPage = () => {
                         checked={notificationSettings.social_updates}
                         onCheckedChange={(checked) => updateSetting('social_updates', checked)}
                         disabled={notificationSaving}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="privacy">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5" />
+                Privacy Settings
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {privacyLoading ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                </div>
+              ) : (
+                <>
+                  {/* Profile Visibility */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-foreground">Profile Visibility</h3>
+                    
+                    <div className="space-y-3">
+                      <Label className="text-sm font-medium">Who can see your profile?</Label>
+                      <RadioGroup 
+                        value={privacySettings.profile_visibility} 
+                        onValueChange={(value: ProfileVisibility) => updatePrivacySetting('profile_visibility', value)}
+                        disabled={privacySaving}
+                        className="space-y-2"
+                      >
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="public" id="public" />
+                          <Label htmlFor="public" className="flex-1">
+                            <div className="space-y-1">
+                              <div className="font-medium">Public</div>
+                              <div className="text-sm text-muted-foreground">Anyone can see your profile</div>
+                            </div>
+                          </Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="friends" id="friends" />
+                          <Label htmlFor="friends" className="flex-1">
+                            <div className="space-y-1">
+                              <div className="font-medium">Friends Only</div>
+                              <div className="text-sm text-muted-foreground">Only your friends can see your profile</div>
+                            </div>
+                          </Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="private" id="private" />
+                          <Label htmlFor="private" className="flex-1">
+                            <div className="space-y-1">
+                              <div className="font-medium">Private</div>
+                              <div className="text-sm text-muted-foreground">Only you can see your profile</div>
+                            </div>
+                          </Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+                  </div>
+
+                  <Separator />
+
+                  {/* Data & Privacy */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-foreground">Data & Privacy</h3>
+                    
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Usage Analytics</Label>
+                        <p className="text-sm text-muted-foreground">Help us improve the app by sharing usage data</p>
+                      </div>
+                      <Switch
+                        checked={privacySettings.usage_analytics}
+                        onCheckedChange={(checked) => updatePrivacySetting('usage_analytics', checked)}
+                        disabled={privacySaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Crash Reporting</Label>
+                        <p className="text-sm text-muted-foreground">Automatically send crash reports to help fix bugs</p>
+                      </div>
+                      <Switch
+                        checked={privacySettings.crash_reporting}
+                        onCheckedChange={(checked) => updatePrivacySetting('crash_reporting', checked)}
+                        disabled={privacySaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Personalized Ads</Label>
+                        <p className="text-sm text-muted-foreground">Show ads tailored to your interests</p>
+                      </div>
+                      <Switch
+                        checked={privacySettings.personalized_ads}
+                        onCheckedChange={(checked) => updatePrivacySetting('personalized_ads', checked)}
+                        disabled={privacySaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Location Services</Label>
+                        <p className="text-sm text-muted-foreground">Allow the app to access your location</p>
+                      </div>
+                      <Switch
+                        checked={privacySettings.location_services}
+                        onCheckedChange={(checked) => updatePrivacySetting('location_services', checked)}
+                        disabled={privacySaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Cloud Backup</Label>
+                        <p className="text-sm text-muted-foreground">Backup your data to the cloud</p>
+                      </div>
+                      <Switch
+                        checked={privacySettings.cloud_backup}
+                        onCheckedChange={(checked) => updatePrivacySetting('cloud_backup', checked)}
+                        disabled={privacySaving}
                       />
                     </div>
                   </div>

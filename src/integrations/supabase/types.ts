@@ -706,6 +706,45 @@ export type Database = {
         }
         Relationships: []
       }
+      user_privacy_settings: {
+        Row: {
+          cloud_backup: boolean
+          crash_reporting: boolean
+          created_at: string
+          id: string
+          location_services: boolean
+          personalized_ads: boolean
+          profile_visibility: string
+          updated_at: string
+          usage_analytics: boolean
+          user_id: string
+        }
+        Insert: {
+          cloud_backup?: boolean
+          crash_reporting?: boolean
+          created_at?: string
+          id?: string
+          location_services?: boolean
+          personalized_ads?: boolean
+          profile_visibility?: string
+          updated_at?: string
+          usage_analytics?: boolean
+          user_id: string
+        }
+        Update: {
+          cloud_backup?: boolean
+          crash_reporting?: boolean
+          created_at?: string
+          id?: string
+          location_services?: boolean
+          personalized_ads?: boolean
+          profile_visibility?: string
+          updated_at?: string
+          usage_analytics?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
