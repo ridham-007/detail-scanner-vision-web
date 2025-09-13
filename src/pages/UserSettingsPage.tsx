@@ -7,10 +7,14 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { User, Save, Globe, MapPin } from 'lucide-react';
+import { User, Save, Globe, MapPin, Bell, Settings as SettingsIcon } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
 import AvatarUpload from '@/components/AvatarUpload';
 import { useNavigate } from 'react-router-dom';
+import { useNotificationSettings } from '@/hooks/useNotificationSettings';
 
 const UserSettingsPage = () => {
   const { user } = useAuth();
@@ -18,6 +22,7 @@ const UserSettingsPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const { settings: notificationSettings, loading: notificationLoading, saving: notificationSaving, updateSetting } = useNotificationSettings();
   const [profile, setProfile] = useState({
     full_name: '',
     username: '',
@@ -119,14 +124,27 @@ const UserSettingsPage = () => {
     <div className="min-h-screen bg-background">
 
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <User className="h-5 w-5" />
-                Profile Settings
-              </CardTitle>
-            </CardHeader>
+        <div className="max-w-4xl mx-auto">
+          <Tabs defaultValue="profile" className="space-y-6">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="profile" className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                Profile
+              </TabsTrigger>
+              <TabsTrigger value="notifications" className="flex items-center gap-2">
+                <Bell className="h-4 w-4" />
+                Notifications
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="profile">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <User className="h-5 w-5" />
+                    Profile Settings
+                  </CardTitle>
+                </CardHeader>
             <CardContent className="space-y-6">
               {loading ? (
                 <div className="flex justify-center py-8">
@@ -222,6 +240,148 @@ const UserSettingsPage = () => {
               )}
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="notifications">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Bell className="h-5 w-5" />
+                Notification Settings
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {notificationLoading ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                </div>
+              ) : (
+                <>
+                  {/* General Settings */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-foreground">General Settings</h3>
+                    
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Push Notifications</Label>
+                        <p className="text-sm text-muted-foreground">Receive push notifications on your device</p>
+                      </div>
+                      <Switch
+                        checked={notificationSettings.push_notifications}
+                        onCheckedChange={(checked) => updateSetting('push_notifications', checked)}
+                        disabled={notificationSaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Email Notifications</Label>
+                        <p className="text-sm text-muted-foreground">Receive notifications via email</p>
+                      </div>
+                      <Switch
+                        checked={notificationSettings.email_notifications}
+                        onCheckedChange={(checked) => updateSetting('email_notifications', checked)}
+                        disabled={notificationSaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Quiet Hours</Label>
+                        <p className="text-sm text-muted-foreground">Disable notifications during quiet hours</p>
+                      </div>
+                      <Switch
+                        checked={notificationSettings.quiet_hours}
+                        onCheckedChange={(checked) => updateSetting('quiet_hours', checked)}
+                        disabled={notificationSaving}
+                      />
+                    </div>
+                  </div>
+
+                  <Separator />
+
+                  {/* Content Preferences */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-foreground">Content Preferences</h3>
+                    
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Scan Reminders</Label>
+                        <p className="text-sm text-muted-foreground">Get reminded to scan products regularly</p>
+                      </div>
+                      <Switch
+                        checked={notificationSettings.scan_reminders}
+                        onCheckedChange={(checked) => updateSetting('scan_reminders', checked)}
+                        disabled={notificationSaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Health Insights</Label>
+                        <p className="text-sm text-muted-foreground">Receive personalized health insights</p>
+                      </div>
+                      <Switch
+                        checked={notificationSettings.health_insights}
+                        onCheckedChange={(checked) => updateSetting('health_insights', checked)}
+                        disabled={notificationSaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Product Alerts</Label>
+                        <p className="text-sm text-muted-foreground">Get alerts about products you've scanned</p>
+                      </div>
+                      <Switch
+                        checked={notificationSettings.product_alerts}
+                        onCheckedChange={(checked) => updateSetting('product_alerts', checked)}
+                        disabled={notificationSaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Weekly Summary</Label>
+                        <p className="text-sm text-muted-foreground">Receive weekly health and scan summaries</p>
+                      </div>
+                      <Switch
+                        checked={notificationSettings.weekly_summary}
+                        onCheckedChange={(checked) => updateSetting('weekly_summary', checked)}
+                        disabled={notificationSaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">New Features</Label>
+                        <p className="text-sm text-muted-foreground">Stay updated with new app features</p>
+                      </div>
+                      <Switch
+                        checked={notificationSettings.new_features}
+                        onCheckedChange={(checked) => updateSetting('new_features', checked)}
+                        disabled={notificationSaving}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between py-2">
+                      <div className="space-y-1">
+                        <Label className="text-sm font-medium">Social Updates</Label>
+                        <p className="text-sm text-muted-foreground">Get notified about community activity</p>
+                      </div>
+                      <Switch
+                        checked={notificationSettings.social_updates}
+                        onCheckedChange={(checked) => updateSetting('social_updates', checked)}
+                        disabled={notificationSaving}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
         </div>
       </div>
     </div>

@@ -658,6 +658,54 @@ export type Database = {
         }
         Relationships: []
       }
+      user_notification_settings: {
+        Row: {
+          created_at: string
+          email_notifications: boolean
+          health_insights: boolean
+          id: string
+          new_features: boolean
+          product_alerts: boolean
+          push_notifications: boolean
+          quiet_hours: boolean
+          scan_reminders: boolean
+          social_updates: boolean
+          updated_at: string
+          user_id: string
+          weekly_summary: boolean
+        }
+        Insert: {
+          created_at?: string
+          email_notifications?: boolean
+          health_insights?: boolean
+          id?: string
+          new_features?: boolean
+          product_alerts?: boolean
+          push_notifications?: boolean
+          quiet_hours?: boolean
+          scan_reminders?: boolean
+          social_updates?: boolean
+          updated_at?: string
+          user_id: string
+          weekly_summary?: boolean
+        }
+        Update: {
+          created_at?: string
+          email_notifications?: boolean
+          health_insights?: boolean
+          id?: string
+          new_features?: boolean
+          product_alerts?: boolean
+          push_notifications?: boolean
+          quiet_hours?: boolean
+          scan_reminders?: boolean
+          social_updates?: boolean
+          updated_at?: string
+          user_id?: string
+          weekly_summary?: boolean
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
