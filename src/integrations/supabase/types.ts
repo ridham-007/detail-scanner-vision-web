@@ -477,6 +477,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "fk_quiz_attempts_user_id"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "quiz_attempts_quiz_id_fkey"
             columns: ["quiz_id"]
             isOneToOne: false
