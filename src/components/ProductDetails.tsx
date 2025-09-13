@@ -16,6 +16,7 @@ import PersonalizedInsights from './PersonalizedInsights';
 import SocialProof from './SocialProof';
 import HealthInsights from './HealthInsights';
 import ProductFeedback from './ProductFeedback';
+import ProductCategories from './ProductCategories';
 import { AddToShoppingListModal } from '@/components/AddToShoppingListModal';
 import { useFavorites } from '@/hooks/useFavorites';
 import { ProductData } from '@/types/ProductData';
@@ -381,7 +382,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
           </CardContent>
         </Card>
       )}
-            {/* User Feedback Section */}
+      {/* Product Categories */}
+      <ProductCategories barcode={product.barcode} />
+      
+      {/* User Feedback Section */}
       <ProductFeedback barcode={product.barcode} />
     </div>
   );
