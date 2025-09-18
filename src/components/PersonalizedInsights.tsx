@@ -4,6 +4,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { AlertTriangle, User, Target, TrendingUp, TrendingDown } from 'lucide-react';
 import { ProductData } from '@/types/ProductData';
+import { useUserPreferences } from '@/hooks/useUserPreferences';
 
 interface PersonalizedInsightsProps {
   product: ProductData;
@@ -23,7 +24,16 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
   userPreferences = {},
   comparisonData
 }) => {
-  const { dietaryRestrictions = [], healthGoals = [], allergies = [] } = userPreferences;
+  const { preferences: userStoredPreferences } = useUserPreferences();
+  
+  // Use stored preferences if userPreferences prop is not provided
+  const activePreferences = userPreferences.dietaryRestrictions ? userPreferences : {
+    dietaryRestrictions: userStoredPreferences.dietary,
+    healthGoals: userStoredPreferences.health_goal ? [userStoredPreferences.health_goal] : [],
+    allergies: userStoredPreferences.allergies
+  };
+  
+  const { dietaryRestrictions = [], healthGoals = [], allergies = [] } = activePreferences;
 
   // Check for dietary restrictions
   const checkDietaryRestrictions = (): { alerts: string[]; compatible: string[] } => {

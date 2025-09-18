@@ -409,6 +409,7 @@ export type Database = {
           id: string
           is_admin: boolean
           location: string | null
+          preferences: Json | null
           quizzes_completed: number | null
           total_score: number | null
           updated_at: string | null
@@ -424,6 +425,7 @@ export type Database = {
           id: string
           is_admin?: boolean
           location?: string | null
+          preferences?: Json | null
           quizzes_completed?: number | null
           total_score?: number | null
           updated_at?: string | null
@@ -439,6 +441,7 @@ export type Database = {
           id?: string
           is_admin?: boolean
           location?: string | null
+          preferences?: Json | null
           quizzes_completed?: number | null
           total_score?: number | null
           updated_at?: string | null

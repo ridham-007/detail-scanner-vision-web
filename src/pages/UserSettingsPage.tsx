@@ -17,6 +17,7 @@ import AvatarUpload from '@/components/AvatarUpload';
 import { useNavigate } from 'react-router-dom';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings';
 import { usePrivacySettings, ProfileVisibility } from '@/hooks/usePrivacySettings';
+import { UserPreferencesForm } from '@/components/UserPreferencesForm';
 
 const UserSettingsPage = () => {
   const { user } = useAuth();
@@ -129,10 +130,14 @@ const UserSettingsPage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <Tabs defaultValue="profile" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="profile" className="flex items-center gap-2">
                 <User className="h-4 w-4" />
                 Profile
+              </TabsTrigger>
+              <TabsTrigger value="preferences" className="flex items-center gap-2">
+                <SettingsIcon className="h-4 w-4" />
+                Preferences
               </TabsTrigger>
               <TabsTrigger value="notifications" className="flex items-center gap-2">
                 <Bell className="h-4 w-4" />
@@ -247,6 +252,10 @@ const UserSettingsPage = () => {
               )}
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="preferences">
+          <UserPreferencesForm />
         </TabsContent>
 
         <TabsContent value="notifications">
