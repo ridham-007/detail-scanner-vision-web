@@ -613,6 +613,7 @@ export type Database = {
           barcode: string
           concerns: string[] | null
           created_at: string | null
+          description: string | null
           health_score: number | null
           id: string
           images: string[] | null
@@ -632,6 +633,7 @@ export type Database = {
           barcode: string
           concerns?: string[] | null
           created_at?: string | null
+          description?: string | null
           health_score?: number | null
           id?: string
           images?: string[] | null
@@ -651,6 +653,7 @@ export type Database = {
           barcode?: string
           concerns?: string[] | null
           created_at?: string | null
+          description?: string | null
           health_score?: number | null
           id?: string
           images?: string[] | null

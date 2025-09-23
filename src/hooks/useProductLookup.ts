@@ -60,6 +60,7 @@ export const useProductLookup = () => {
       return {
         barcode: data.barcode,
         name: data.name,
+        description: data.description,
         health_score: data.health_score || 0,
         unit: data.unit || '',
         nutrition_per_100g: nutritionData && typeof nutritionData === 'object' ? { ...defaultNutrition, ...nutritionData } : defaultNutrition,
@@ -85,6 +86,7 @@ export const useProductLookup = () => {
         .upsert({
           barcode: productData.barcode,
           name: productData.name,
+          description: productData.description,
           health_score: productData.health_score,
           unit: productData.unit,
           nutrition_per_100g: productData.nutrition_per_100g,
@@ -114,6 +116,7 @@ export const useProductLookup = () => {
         .upsert({
           barcode: barcode,
           name: `Unknown Product - ${barcode}`,
+          description: null,
           health_score: 0,
           unit: '',
           nutrition_per_100g: {},
@@ -157,6 +160,7 @@ export const useProductLookup = () => {
           const product: ProductData = {
             barcode: productData.barcode,
             name: productData.product,
+            description: productData.description,
             health_score: productData.health_score || 0,
             unit: productData.unit || '',
             nutrition_per_100g: productData.nutrition_per_100g || {},

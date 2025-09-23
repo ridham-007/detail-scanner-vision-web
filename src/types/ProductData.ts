@@ -9,6 +9,7 @@ export interface ProductSuggestion {
 export interface ProductData {
   barcode: string;
   name: string;
+  description?: string;
   health_score: number;
   unit: string;
   nutrition_per_100g: {
