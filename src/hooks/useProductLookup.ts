@@ -69,6 +69,7 @@ export const useProductLookup = () => {
         images: data.images || [],
         ingredients: data.ingredients || '',
         other_good_product_suggestions: productSuggestions,
+        retailers: rawData.retailers || [],
         is_health_related_product: isHealthRelated
       };
     } catch (error) {
@@ -165,6 +166,7 @@ export const useProductLookup = () => {
             images: productData.images || [],
             ingredients: productData.ingredients || '',
             other_good_product_suggestions: productData.other_good_product_suggestions || [],
+            retailers: productData.retailers || [],
             is_health_related_product: productData.is_health_related_product !== false
           };
 

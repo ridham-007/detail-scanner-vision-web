@@ -624,6 +624,7 @@ export type Database = {
           other_good_product_suggestions: Json | null
           positives: string[] | null
           recommendations: string[] | null
+          retailers: Json | null
           unit: string | null
           updated_at: string | null
         }
@@ -642,6 +643,7 @@ export type Database = {
           other_good_product_suggestions?: Json | null
           positives?: string[] | null
           recommendations?: string[] | null
+          retailers?: Json | null
           unit?: string | null
           updated_at?: string | null
         }
@@ -660,6 +662,7 @@ export type Database = {
           other_good_product_suggestions?: Json | null
           positives?: string[] | null
           recommendations?: string[] | null
+          retailers?: Json | null
           unit?: string | null
           updated_at?: string | null
         }

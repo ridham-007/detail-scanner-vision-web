@@ -43,5 +43,9 @@ export interface ProductData {
   images: string[];
   ingredients: string;
   other_good_product_suggestions: ProductSuggestion[];
+  retailers: Array<{
+    name: string;
+    link: string;
+  }>;
   is_health_related_product: boolean;
 }
