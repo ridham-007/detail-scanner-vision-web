@@ -4,13 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Lightbulb, Image as ImageIcon, Star, ArrowRight, Heart, ShoppingCart, AlertCircle, CheckCircle2, Sparkles } from 'lucide-react';
+import { Lightbulb, Image as ImageIcon, Star, ArrowRight, Heart, ShoppingCart } from 'lucide-react';
 import NoProductData from './NoProductData';
 import AnimatedHealthScore from './AnimatedHealthScore';
 import EnhancedIngredientsDisplay from './EnhancedIngredientsDisplay';
 import NutritionComparison from './NutritionComparison';
 import ProductImageCarousel from './ProductImageCarousel';
+import ScanStreak from './ScanStreak';
+import AchievementSystem from './AchievementSystem';
+import PersonalizedInsights from './PersonalizedInsights';
 import SocialProof from './SocialProof';
 import HealthInsights from './HealthInsights';
 import ProductFeedback from './ProductFeedback';
@@ -32,7 +34,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 }) => {
   const [showAddToListModal, setShowAddToListModal] = useState(false);
   const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
-  
   if (isLoading) {
     return (
       <Card className="w-full overflow-hidden border-0 shadow-xl">
@@ -153,22 +154,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     );
   }
 
-  // Helper function to get health verdict
-  const getHealthVerdict = (score: number) => {
-    if (score >= 80) return { text: 'Excellent Choice', color: 'text-green-600 dark:text-green-400', bgColor: 'bg-green-100 dark:bg-green-900/30' };
-    if (score >= 60) return { text: 'Good Choice', color: 'text-blue-600 dark:text-blue-400', bgColor: 'bg-blue-100 dark:bg-blue-900/30' };
-    if (score >= 40) return { text: 'Moderate Choice', color: 'text-yellow-600 dark:text-yellow-400', bgColor: 'bg-yellow-100 dark:bg-yellow-900/30' };
-    return { text: 'Consider Alternatives', color: 'text-orange-600 dark:text-orange-400', bgColor: 'bg-orange-100 dark:bg-orange-900/30' };
-  };
-
-  const verdict = product.is_health_related_product ? getHealthVerdict(product.health_score) : null;
-
   return (
     <div className="space-y-8">
-      {/* Main Product Card */}
+      {/* Main Product Card - Completely Redesigned */}
       <Card className="w-full animate-fade-in overflow-hidden border-0 shadow-2xl bg-card">
         <CardContent className="p-0">
-          {/* Hero Section */}
+          {/* Hero Section with Enhanced Visual Design */}
           <div className="relative bg-primary/5">
             {/* Decorative Background Elements */}
             <div className="absolute inset-0 overflow-hidden">
@@ -180,7 +171,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             <div className="relative max-w-7xl mx-auto px-6 py-12">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
                 
-                {/* Product Image */}
+                {/* Product Image - Enhanced with Better Styling */}
                 <div className="flex justify-center">
                   <div className="relative group">
                     <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity"></div>
@@ -190,7 +181,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   </div>
                 </div>
 
-                {/* Product Info */}
+                {/* Product Info - Center with Better Typography */}
                 <div className="text-center lg:text-left space-y-6">
                   <div className="space-y-4">
                     <div className="space-y-2">
@@ -200,14 +191,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       <h1 className="text-2xl lg:text-3xl font-bold text-foreground leading-tight tracking-tight">
                         {product.name}
                       </h1>
-                      {product.description && (
-                        <p className="text-muted-foreground text-sm mt-2">
-                          {product.description}
-                        </p>
-                      )}
                     </div>
                     
-                    {/* Action Buttons */}
+                    {/* Enhanced Action Buttons */}
                     <div className="flex items-center justify-center lg:justify-start gap-3 pt-4">
                       <Button
                         variant={isFavorite(product.barcode) ? "default" : "outline"}
@@ -239,7 +225,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                     </div>
                   </div>
 
-                  {/* Quick Stats */}
+                  {/* Enhanced Quick Stats */}
                   {product.is_health_related_product && (
                     <div className="grid grid-cols-2 gap-4 pt-6">
                       <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-4 text-center lg:text-left">
@@ -268,7 +254,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   )}
                 </div>
 
-                {/* Health Score */}
+                {/* Health Score - Enhanced Design */}
                 {product.is_health_related_product && (
                   <div className="flex justify-center">
                     <div className="relative">
@@ -290,169 +276,117 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         </CardContent>
       </Card>
 
-      {/* Quick Summary Card */}
-      {product.is_health_related_product && verdict && (
+      {/* Health Insights */}
+      <HealthInsights positives={product.positives} concerns={product.concerns} />
+
+      {/* Enhanced Components */}
+      <ScanStreak productName={product.name} />
+      
+      <AchievementSystem productData={product} />
+      
+      
+      <NutritionComparison 
+        nutrition={product.nutrition_per_100g} 
+        productName={product.name}
+      />
+      
+      <EnhancedIngredientsDisplay 
+        ingredients={product.ingredients || ''} 
+        allergens={product.nutrition_per_100g.allergens}
+        additives={product.nutrition_per_100g.additives}
+      />
+      
+      <SocialProof barcode={product.barcode} productName={product.name} />
+
+      {/* Recommendations - Enhanced Design */}
+      {product.recommendations && product.recommendations.length > 0 && (
         <Card className="w-full animate-fade-in border-0 shadow-lg bg-card">
-          <CardContent className="p-6">
-            <div className="flex items-start gap-6">
-              <div className={`flex-shrink-0 w-16 h-16 ${verdict.bgColor} rounded-2xl flex items-center justify-center`}>
-                <Sparkles className={`w-8 h-8 ${verdict.color}`} />
+          <CardContent className="p-8 space-y-6">
+            <div className="text-center space-y-3">
+              <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 px-4 py-2 rounded-full">
+                <Lightbulb size={18} className="text-blue-600 dark:text-blue-400" />
+                <h4 className="font-semibold text-blue-700 dark:text-blue-300">
+                  Smart Recommendations
+                </h4>
               </div>
-              <div className="flex-1 space-y-4">
-                <div>
-                  <h3 className={`text-xl font-bold ${verdict.color} mb-2`}>
-                    {verdict.text}
-                  </h3>
-                  <div className="grid md:grid-cols-2 gap-4 mt-4">
-                    {product.positives && product.positives.length > 0 && (
-                      <div className="space-y-2">
-                        <h4 className="font-semibold text-sm text-foreground flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400" />
-                          Top Benefits
-                        </h4>
-                        <ul className="space-y-1">
-                          {product.positives.slice(0, 2).map((positive, index) => (
-                            <li key={index} className="text-sm text-muted-foreground">
-                              • {positive}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {product.concerns && product.concerns.length > 0 && (
-                      <div className="space-y-2">
-                        <h4 className="font-semibold text-sm text-foreground flex items-center gap-2">
-                          <AlertCircle className="w-4 h-4 text-orange-600 dark:text-orange-400" />
-                          Top Concerns
-                        </h4>
-                        <ul className="space-y-1">
-                          {product.concerns.slice(0, 2).map((concern, index) => (
-                            <li key={index} className="text-sm text-muted-foreground">
-                              • {concern}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+              <p className="text-muted-foreground text-sm">
+                AI-powered suggestions to optimize your nutrition
+              </p>
+            </div>
+            <div className="grid gap-4">
+              {product.recommendations.map((recommendation, index) => (
+                <div key={index} className="relative overflow-hidden">
+                  <div className="absolute inset-0 bg-accent/10"></div>
+                  <div className="relative flex items-start gap-4 p-5 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-xl border border-blue-200/50 dark:border-blue-800/50">
+                    <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
+                      <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">{index + 1}</span>
+                    </div>
+                    <p className="text-foreground leading-relaxed">{recommendation}</p>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>
       )}
 
-      {/* Tabbed Content */}
-      <Card className="w-full animate-fade-in border-0 shadow-lg bg-card">
-        <CardContent className="p-6">
-          <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-8">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="nutrition">Nutrition</TabsTrigger>
-              <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
-              <TabsTrigger value="alternatives">Alternatives</TabsTrigger>
-              <TabsTrigger value="community">Community</TabsTrigger>
-            </TabsList>
+      {/* Product Suggestions - Enhanced Design */}
+      {product.other_good_product_suggestions && product.other_good_product_suggestions.length > 0 && (
+        <Card className="w-full animate-fade-in border-0 shadow-lg bg-card">
+          <CardContent className="p-8 space-y-8">
+            <div className="text-center space-y-4">
+              <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-4 py-2 rounded-full">
+                <Star size={18} className="text-green-600 dark:text-green-400" />
+                <h3 className="text-lg font-semibold text-green-700 dark:text-green-300">
+                  Healthier Alternatives
+                </h3>
+              </div>
+              <p className="text-muted-foreground">
+                Discover better options that align with your health goals
+              </p>
+            </div>
 
-            {/* Overview Tab */}
-            <TabsContent value="overview" className="space-y-6">
-              <HealthInsights positives={product.positives} concerns={product.concerns} />
-
-              {/* Recommendations Section */}
-              {product.recommendations && product.recommendations.length > 0 && (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Lightbulb size={20} className="text-primary" />
-                    <h3 className="text-lg font-semibold text-foreground">
-                      Smart Recommendations
-                    </h3>
-                  </div>
-                  <div className="grid gap-3">
-                    {product.recommendations.map((recommendation, index) => (
-                      <div key={index} className="flex items-start gap-4 p-4 bg-accent/10 rounded-lg border border-border/50">
-                        <div className="flex-shrink-0 w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center">
-                          <span className="text-primary font-semibold text-xs">{index + 1}</span>
+            <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
+              {product.other_good_product_suggestions.map((suggestion, index) => (
+                <div key={index} className="group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative bg-white dark:bg-gray-900 border border-green-200/50 dark:border-green-800/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div className="space-y-4">
+                      <div className="flex items-start justify-between">
+                        <div className="space-y-1">
+                          <h4 className="font-semibold text-foreground text-lg">{suggestion.name}</h4>
+                          {suggestion.brand && (
+                            <Badge variant="outline" className="text-xs">
+                              {suggestion.brand}
+                            </Badge>
+                          )}
                         </div>
-                        <p className="text-sm text-foreground leading-relaxed">{recommendation}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </TabsContent>
-
-            {/* Nutrition Tab */}
-            <TabsContent value="nutrition" className="space-y-6">
-              <NutritionComparison 
-                nutrition={product.nutrition_per_100g} 
-                productName={product.name}
-              />
-            </TabsContent>
-
-            {/* Ingredients Tab */}
-            <TabsContent value="ingredients" className="space-y-6">
-              <EnhancedIngredientsDisplay 
-                ingredients={product.ingredients || ''} 
-                allergens={product.nutrition_per_100g.allergens}
-                additives={product.nutrition_per_100g.additives}
-              />
-            </TabsContent>
-
-            {/* Alternatives Tab */}
-            <TabsContent value="alternatives" className="space-y-6">
-              {product.other_good_product_suggestions && product.other_good_product_suggestions.length > 0 ? (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Star size={20} className="text-primary" />
-                    <h3 className="text-lg font-semibold text-foreground">
-                      Healthier Alternatives
-                    </h3>
-                  </div>
-                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {product.other_good_product_suggestions.map((suggestion, index) => (
-                      <div key={index} className="group relative overflow-hidden">
-                        <div className="relative bg-card border border-border/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                          <div className="space-y-4">
-                            <div className="flex items-start justify-between">
-                              <div className="space-y-1">
-                                <h4 className="font-semibold text-foreground">{suggestion.name}</h4>
-                                {suggestion.brand && (
-                                  <Badge variant="outline" className="text-xs">
-                                    {suggestion.brand}
-                                  </Badge>
-                                )}
-                              </div>
-                              <ArrowRight size={16} className="text-primary" />
-                            </div>
-                            
-                            <div className="p-3 bg-accent/10 rounded-lg border border-border/30">
-                              <p className="text-sm text-muted-foreground leading-relaxed">
-                                <span className="font-semibold text-foreground">Why it's better:</span> {suggestion.why_better}
-                              </p>
-                            </div>
-                          </div>
+                        <div className="flex-shrink-0 w-8 h-8 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center">
+                          <ArrowRight size={14} className="text-green-600 dark:text-green-400" />
                         </div>
                       </div>
-                    ))}
+                      
+                      <div className="relative overflow-hidden">
+                        <div className="absolute inset-0 bg-primary/10"></div>
+                        <div className="relative p-4 bg-green-50/50 dark:bg-green-950/30 rounded-lg border border-green-200/30 dark:border-green-800/30">
+                          <p className="text-sm text-green-700 dark:text-green-300 leading-relaxed">
+                            <span className="font-semibold">Why it's better:</span> {suggestion.why_better}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              ) : (
-                <div className="text-center py-12 text-muted-foreground">
-                  <Star size={48} className="mx-auto mb-4 opacity-50" />
-                  <p>No alternative products available at this time.</p>
-                </div>
-              )}
-            </TabsContent>
-
-            {/* Community Tab */}
-            <TabsContent value="community" className="space-y-6">
-              <SocialProof barcode={product.barcode} productName={product.name} />
-              <ProductCategories barcode={product.barcode} />
-              <ProductFeedback barcode={product.barcode} />
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-      </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+      {/* Product Categories */}
+      <ProductCategories barcode={product.barcode} />
+      
+      {/* User Feedback Section */}
+      <ProductFeedback barcode={product.barcode} />
     </div>
   );
 };
