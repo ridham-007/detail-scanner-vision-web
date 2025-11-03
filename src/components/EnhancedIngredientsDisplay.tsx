@@ -39,47 +39,53 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
   ];
 
   // Process ingredients text to highlight concerning items
-  const processIngredients = (text: string): React.ReactNode[] => {
-    const words = text.split(/[\s,]+/);
-    return words.map((word, index) => {
-      const cleanWord = word.toLowerCase().replace(/[^\w]/g, '');
-      const isHarmful = harmfulAdditives.some(additive => 
-        cleanWord.includes(additive.replace(/\s/g, '')) || additive.includes(cleanWord)
-      );
-      const isAllergen = commonAllergens.some(allergen => 
-        cleanWord.includes(allergen) || allergen.includes(cleanWord)
-      );
+  // const processIngredients = (text: string): React.ReactNode[] => {
+  //   const words = text.split(/[\s,]+/);
+  //   return words.map((word, index) => {
+  //     const cleanWord = word.toLowerCase().replace(/[^\w]/g, '');
+  //     const isHarmful = harmfulAdditives.some(additive => 
+  //       cleanWord.includes(additive.replace(/\s/g, '')) || additive.includes(cleanWord)
+  //     );
+  //     const isAllergen = commonAllergens.some(allergen => 
+  //       cleanWord.includes(allergen) || allergen.includes(cleanWord)
+  //     );
 
-      if (isHarmful) {
-        return (
-          <span key={`harmful-${index}`} className="bg-destructive/20 text-destructive px-1 rounded">
-            {word}
-          </span>
-        );
-      }
-      if (isAllergen) {
-        return (
-          <span key={`allergen-${index}`} className="bg-accent/20 text-accent-foreground px-1 rounded">
-            {word}
-          </span>
-        );
-      }
-      return <span key={`word-${index}`}>{word}</span>;
-    }).reduce<React.ReactNode[]>((prev, curr, index) => {
-      if (index === 0) return [curr];
-      return [...prev, ' ', curr];
-    }, []);
-  };
+  //     if (isHarmful) {
+  //       return (
+  //         <span key={`harmful-${index}`} className="bg-destructive/20 text-destructive px-1 rounded">
+  //           {word}
+  //         </span>
+  //       );
+  //     }
+  //     if (isAllergen) {
+  //       return (
+  //         <span key={`allergen-${index}`} className="bg-accent/20 text-accent-foreground px-1 rounded">
+  //           {word}
+  //         </span>
+  //       );
+  //     }
+  //     return <span key={`word-${index}`}>{word}</span>;
+  //   }).reduce<React.ReactNode[]>((prev, curr, index) => {
+  //     if (index === 0) return [curr];
+  //     return [...prev, ' ', curr];
+  //   }, []);
+  // };
+
+  const processIngredients = (text: string): React.ReactNode => {
+  return <p className="text-base ">{text}</p>;
+  // .text-muted-foreground 
+};
 
   const ingredientsList = ingredients.split(',').map(ing => ing.trim());
   const displayedIngredients = isExpanded ? ingredientsList : ingredientsList.slice(0, 5);
   const hasMore = ingredientsList.length > 5;
 
   return (
-    <Card className="w-full animate-fade-in">
+    <Card className="w-full animate-fade-in ">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
-          <List className="h-5 w-5 text-primary" />
+          {/* <List className="h-5 w-5 text-primary" /> */}
+          <span role="img" aria-label="ingredients">🧪</span>
           Ingredients Analysis
           {(allergens.length > 0 || additives.length > 0) && (
             <Badge variant="secondary" className="text-xs">
@@ -88,7 +94,7 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
           )}
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 ">
         {/* Alerts Section */}
         {(allergens.length > 0 || additives.length > 0) && (
           <div className="space-y-3">
@@ -127,16 +133,16 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
         )}
 
         {/* Ingredients List */}
-        <div className="space-y-3">
-          <h4 className="font-medium text-sm text-muted-foreground">Full Ingredients List</h4>
-          <div className="p-4 bg-muted/50 rounded-lg">
+        <div className="space-y-3  ">
+          <h4 className="font-medium text-lg ">Full Ingredients List</h4>
+          <div className="p-4 bg-muted/60 rounded-lg">
             <p className="text-sm text-foreground leading-relaxed">
               {processIngredients(ingredients)}
             </p>
           </div>
 
           {/* Expand/Collapse for long ingredient lists */}
-          {hasMore && (
+          {/* {hasMore && (
             <Button
               variant="ghost"
               size="sm"
@@ -155,11 +161,11 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
                 </>
               )}
             </Button>
-          )}
+          )} */}
         </div>
 
         {/* Legend */}
-        <div className="pt-3 border-t">
+        {/* <div className="pt-3 border-t">
           <p className="text-xs text-muted-foreground mb-2">Legend:</p>
           <div className="flex flex-wrap gap-3 text-xs">
             <div className="flex items-center gap-1">
@@ -171,7 +177,7 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
               <span>Common allergens</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   );

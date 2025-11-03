@@ -18,14 +18,18 @@ interface CreateQuizModalProps {
     prompt: string;
   }) => Promise<void>;
   loading: boolean;
+    userQuizCount?: number; // 🟢 optional prop to show count
+
 }
 
 const CreateQuizModal: React.FC<CreateQuizModalProps> = ({
   open,
   onOpenChange,
   onSubmit,
-  loading
+  loading,
+   userQuizCount
 }) => {
+  console.log("🟢 CreateQuizModal opened — current quiz count:", userQuizCount);
   const [formData, setFormData] = useState({
     title: '',
     description: '',

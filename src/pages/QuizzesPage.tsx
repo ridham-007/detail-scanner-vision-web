@@ -16,6 +16,14 @@ import LoginPromptModal from "@/components/LoginPromptModal";
 import SEOHead from "@/components/SEOHead";
 import { generateBreadcrumbStructuredData } from "@/utils/seo";
 import { cn } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+
 
 interface Quiz {
   id: string;
@@ -44,6 +52,17 @@ const QuizzesPage = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userQuizCount, setUserQuizCount] = useState(0);
+  // NEW: whether user is currently blocked from creating (2 quizzes in active 30-day window)
+  const [isLimitActive, setIsLimitActive] = useState(false);
+
+  // NEW: when the limit window resets (Date or null)
+  const [limitResetDate, setLimitResetDate] = useState<Date | null>(null);
+  const [showLimitDialog, setShowLimitDialog] = useState(false);
+
+  // Detect mobile device
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
     { name: "Home", url: "https://www.eateriq.com/" },
@@ -53,10 +72,13 @@ const QuizzesPage = () => {
   useEffect(() => {
     fetchQuizzes();
     fetchLeaderboard();
+
     if (user) {
       fetchMyQuizzes();
+      fetchUserQuizCount(); // 🟢 NEW: check how many created this month
     }
   }, [user]);
+
 
   const fetchQuizzes = async () => {
     try {
@@ -108,14 +130,84 @@ const QuizzesPage = () => {
       console.error("Error fetching leaderboard:", error);
     }
   };
+  // 🟢 Function: Fetch how many quizzes user created this month
+  // 🟢 Function: Fetch quizzes inside the active 30-day window and compute limit state
+  const fetchUserQuizCount = async () => {
+    // get authenticated user if not present from context
+    const { data: { user: authUser } } = await supabase.auth.getUser();
+    const currentUser = user || authUser;
+    if (!currentUser) return;
+
+    try {
+      // fetch user's quizzes (we only need created_at; fetch last 50 to be safe)
+      const { data, error } = await supabase
+        .from("quizzes")
+        .select("id, created_at")
+        .eq("creator_id", currentUser.id)
+        .order("created_at", { ascending: true }) // earliest first
+        .limit(100);
+
+      if (error) throw error;
+
+      // compute 30-day window start (30 days ago from now)
+      const now = new Date();
+      const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+      const windowStart = new Date(now.getTime() - THIRTY_DAYS_MS);
+
+      // keep only quizzes created within last 30 days
+      const recentQuizzes = (data || []).filter((q: any) => {
+        const created = new Date(q.created_at);
+        return created.getTime() >= windowStart.getTime();
+      });
+
+      // debug logs
+      console.log("🟢 All user quizzes count:", (data || []).length);
+      console.log("🟢 Quizzes in last 30 days:", recentQuizzes.length, recentQuizzes);
+
+      // Update count state (count of quizzes in active 30-day window)
+      setUserQuizCount(recentQuizzes.length || 0);
+
+      if (recentQuizzes.length >= 2) {
+        // limit active -> find oldest quiz within window (earliest created_at)
+        const oldest = recentQuizzes[0]; // because ascending order
+        const oldestDate = new Date(oldest.created_at);
+        const reset = new Date(oldestDate.getTime() + THIRTY_DAYS_MS);
+
+        setIsLimitActive(true);
+        setLimitResetDate(reset);
+
+        console.log("⛔ Limit active until:", reset.toISOString());
+      } else {
+        // limit not active
+        setIsLimitActive(false);
+        setLimitResetDate(null);
+        console.log("✅ Limit not active. recent quizzes:", recentQuizzes.length);
+      }
+    } catch (err) {
+      console.error("❌ Error fetching monthly quiz count:", err);
+      // fail-safe: assume not limited on error
+      setIsLimitActive(false);
+      setLimitResetDate(null);
+    }
+  };
+
+
 
   const handleQuizUpdated = () => {
     fetchQuizzes();
     fetchMyQuizzes();
   };
 
+
   const handleCreateQuizClick = () => {
     if (user) {
+      if (isLimitActive) {
+        // ✅ If on mobile, show dialog instead of tooltip
+        if (isMobile) {
+          setShowLimitDialog(true);
+        }
+        return;
+      }
       setShowCreateModal(true);
     } else {
       setShowLoginPrompt(true);
@@ -129,6 +221,21 @@ const QuizzesPage = () => {
     prompt: string;
   }) => {
     if (!user) return;
+    console.log("🟢 Current quiz count in window:", userQuizCount, "isLimitActive:", isLimitActive);
+
+    if (isLimitActive) {
+      console.warn("🚫 User reached monthly limit (2 quizzes) and window is active");
+      toast({
+        title: "Monthly Limit Reached",
+        description: limitResetDate
+          ? `You can create a new quiz after ${limitResetDate.toLocaleString()}.`
+          : "You can only create 2 quizzes within a 30-day period.",
+        variant: "destructive",
+      });
+      setShowCreateModal(false);
+      return;
+    }
+
 
     setLoading(true);
     try {
@@ -172,8 +279,9 @@ const QuizzesPage = () => {
       });
 
       setShowCreateModal(false);
-      fetchQuizzes();
-      fetchMyQuizzes();
+      await fetchQuizzes();
+      await fetchMyQuizzes();
+      await fetchUserQuizCount(); // refresh the limit window after creation
     } catch (error) {
       console.error("Error creating quiz:", error);
       toast({
@@ -240,19 +348,77 @@ const QuizzesPage = () => {
               </p>
             </div>
 
-            {/* Create Quiz Button - always visible */}
-            <Button
-              aria-label="Create Quiz"
-              onClick={handleCreateQuizClick}
-              className="bg-primary hover:bg-primary/90 w-full sm:w-auto shadow-md hover:shadow-lg transition-all duration-300"
-              size="sm"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              <span className="sm:hidden">Create</span>
-              <span className="hidden sm:inline">Create Quiz</span>
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
+                    <Button
+                      aria-label="Create Quiz"
+                      onClick={handleCreateQuizClick}
+                      className="bg-primary hover:bg-primary/90  sm:w-auto shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      size="sm"
+                      disabled={isLimitActive && !isMobile} // Disable when limit reached
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      <span className="sm:hidden">Create</span>
+                      <span className="hidden sm:inline">Create Quiz</span>
+                    </Button>
+                  </div>
+                </TooltipTrigger>
+
+                {/* Tooltip content when limit is active */}
+                {isLimitActive && (
+                  <TooltipContent
+                    side="bottom"       // ⬅️ This shows tooltip below the button
+                    sideOffset={8}      // ⬅️ Optional: spacing between button & tooltip
+                    className="bg-white shadow-lg border rounded-md p-3"
+                  >
+                    <div className="max-w-xs">
+                      <p className="font-semibold">Monthly Limit Reached</p>
+                      <p className="text-sm mt-1">
+                        You have already created 2 quizzes in the last 30 days.
+                      </p>
+
+                      {limitResetDate && (
+                        <>
+                          <p className="text-sm mt-2">
+                            Resets on: <strong>{limitResetDate.toLocaleString()}</strong>
+                          </p>
+
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {(() => {
+                              const now = new Date();
+                              const diffMs = limitResetDate.getTime() - now.getTime();
+
+                              if (diffMs <= 0) return "Limit resets soon.";
+
+                              const days = Math.floor(diffMs / (24 * 60 * 60 * 1000));
+                              const hours = Math.floor(
+                                (diffMs % (24 * 60 * 60 * 1000)) /
+                                (60 * 60 * 1000)
+                              );
+
+                              return `Time left: ${days}d ${hours}h`;
+                            })()}
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
+
+
+
+
+
           </div>
         </div>
+        <p className="text-sm text-muted-foreground mt-2">
+          You’ve created <strong>{userQuizCount}</strong> quiz{userQuizCount !== 1 && "zes"} this month.
+        </p>
+
 
         <Tabs defaultValue="all-quizzes" className="space-y-4 sm:space-y-8">
           <TabsList className="grid w-full grid-cols-2 h-auto">
@@ -321,17 +487,17 @@ const QuizzesPage = () => {
                     <p className="text-sm sm:text-base text-muted-foreground mb-4">
                       Create your first AI-generated quiz!
                     </p>
-                    <Link to={"/create"}>
-                      <Button
-                        aria-label="Create Quiz"
-                        onClick={handleCreateQuizClick}
-                        className="bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-300"
-                        size="sm"
-                      >
-                        <Plus className="h-4 w-4 mr-2" />
-                        Create Quiz
-                      </Button>
-                    </Link>
+                    {/* <Link to={"/create"}> */}
+                    <Button
+                      aria-label="Create Quiz"
+                      onClick={handleCreateQuizClick}
+                      className="bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-300"
+                      size="sm"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create Quiz
+                    </Button>
+                    {/* </Link> */}
                   </div>
                 )}
               </>
@@ -366,15 +532,14 @@ const QuizzesPage = () => {
                     >
                       <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
                         <div
-                          className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${
-                            index === 0
-                              ? "bg-yellow-500 text-white"
-                              : index === 1
+                          className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${index === 0
+                            ? "bg-yellow-500 text-white"
+                            : index === 1
                               ? "bg-gray-400 text-white"
                               : index === 2
-                              ? "bg-amber-600 text-white"
-                              : "bg-muted text-muted-foreground"
-                          }`}
+                                ? "bg-amber-600 text-white"
+                                : "bg-muted text-muted-foreground"
+                            }`}
                         >
                           {index + 1}
                         </div>
@@ -418,6 +583,8 @@ const QuizzesPage = () => {
           onOpenChange={setShowCreateModal}
           onSubmit={createQuiz}
           loading={loading}
+          userQuizCount={userQuizCount}
+
         />
 
         <LoginPromptModal
@@ -425,6 +592,24 @@ const QuizzesPage = () => {
           onOpenChange={setShowLoginPrompt}
           action="create quizzes"
         />
+
+        <Dialog open={showLimitDialog} onOpenChange={setShowLimitDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Monthly Limit Reached</DialogTitle>
+              <p className="text-sm text-muted-foreground mt-2">
+                You have already created 2 quizzes in the last 30 days.
+                {limitResetDate && (
+                  <span> You can create a new quiz after <strong>{limitResetDate.toLocaleString()}</strong>.</span>
+                )}
+              </p>
+            </DialogHeader>
+            <Button onClick={() => setShowLimitDialog(false)} className="mt-4 w-full">
+              Got it
+            </Button>
+          </DialogContent>
+        </Dialog>
+
       </main>
     </div>
   );

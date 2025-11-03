@@ -265,7 +265,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                           size={140}
                           categoryRank={12}
                           categoryTotal={47}
-                        />
+                        /> 
                       </div>
                     </div>
                   </div>
@@ -280,9 +280,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       <HealthInsights positives={product.positives} concerns={product.concerns} />
 
       {/* Enhanced Components */}
-      <ScanStreak productName={product.name} />
+      {/* <ScanStreak productName={product.name} /> */}
       
-      <AchievementSystem productData={product} />
+      {/* <AchievementSystem productData={product} /> */}
       
       
       <NutritionComparison 
@@ -296,7 +296,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         additives={product.nutrition_per_100g.additives}
       />
       
-      <SocialProof barcode={product.barcode} productName={product.name} />
+      {/* <SocialProof barcode={product.barcode} productName={product.name} /> */}
 
       {/* Recommendations - Enhanced Design */}
       {product.recommendations && product.recommendations.length > 0 && (
@@ -383,10 +383,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         </Card>
       )}
       {/* Product Categories */}
-      <ProductCategories barcode={product.barcode} />
+      {/* <ProductCategories barcode={product.barcode} /> */}
       
       {/* User Feedback Section */}
-      <ProductFeedback barcode={product.barcode} />
+        {/* <ProductFeedback barcode={product.barcode} /> */}
     </div>
   );
 };
