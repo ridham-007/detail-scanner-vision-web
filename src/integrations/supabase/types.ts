@@ -884,14 +884,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      generate_slug: {
-        Args: { title: string }
-        Returns: string
-      }
-      is_admin_user: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      generate_slug: { Args: { title: string }; Returns: string }
+      is_admin_user: { Args: never; Returns: boolean }
     }
     Enums: {
       quiz_difficulty: "easy" | "medium" | "hard"
