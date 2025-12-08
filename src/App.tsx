@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -25,8 +24,9 @@ import ShoppingListsPage from "./pages/ShoppingListsPage";
 import AdminBlogsPage from "./pages/admin/AdminBlogsPage";
 import CreateBlogPage from "./pages/admin/CreateBlogPage";
 import EditBlogPage from "./pages/admin/EditBlogPage";
+import ProductSubmissionsPage from "./pages/admin/ProductSubmissionsPage";
+import ContributionsPage from "./pages/ContributionsPage";
 import ScrollToTop from "./components/scrollToTop";
-// import "./App.css";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +55,8 @@ function App() {
                     <Route path="/admin/blogs" element={<AdminBlogsPage />} />
                     <Route path="/admin/blogs/new" element={<CreateBlogPage />} />
                     <Route path="/admin/blogs/edit/:id" element={<EditBlogPage />} />
+                    <Route path="/admin/submissions" element={<ProductSubmissionsPage />} />
+                    <Route path="/contributions" element={<ContributionsPage />} />
                     <Route path="/privacy" element={<PrivacyPage />} />
                     <Route path="/terms" element={<TermsPage />} />
                     <Route path="/support" element={<SupportPage />} />

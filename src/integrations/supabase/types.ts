@@ -280,6 +280,39 @@ export type Database = {
         }
         Relationships: []
       }
+      contribution_badges: {
+        Row: {
+          created_at: string
+          description: string
+          icon: string
+          id: string
+          name: string
+          points_reward: number
+          requirement_type: string
+          requirement_value: number
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          icon: string
+          id?: string
+          name: string
+          points_reward?: number
+          requirement_type: string
+          requirement_value: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          icon?: string
+          id?: string
+          name?: string
+          points_reward?: number
+          requirement_type?: string
+          requirement_value?: number
+        }
+        Relationships: []
+      }
       early_access_subscriptions: {
         Row: {
           created_at: string
@@ -396,6 +429,69 @@ export type Database = {
           feedback_type?: string
           id?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      product_submissions: {
+        Row: {
+          barcode: string
+          brand: string | null
+          created_at: string
+          guest_email: string | null
+          guest_name: string | null
+          id: string
+          ingredients: string | null
+          nutrition_data: Json | null
+          points_awarded: number | null
+          product_description: string | null
+          product_images: string[] | null
+          product_name: string
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: Database["public"]["Enums"]["submission_status"]
+          submitted_by: string | null
+          updated_at: string
+        }
+        Insert: {
+          barcode: string
+          brand?: string | null
+          created_at?: string
+          guest_email?: string | null
+          guest_name?: string | null
+          id?: string
+          ingredients?: string | null
+          nutrition_data?: Json | null
+          points_awarded?: number | null
+          product_description?: string | null
+          product_images?: string[] | null
+          product_name: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          submitted_by?: string | null
+          updated_at?: string
+        }
+        Update: {
+          barcode?: string
+          brand?: string | null
+          created_at?: string
+          guest_email?: string | null
+          guest_name?: string | null
+          id?: string
+          ingredients?: string | null
+          nutrition_data?: Json | null
+          points_awarded?: number | null
+          product_description?: string | null
+          product_images?: string[] | null
+          product_name?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          submitted_by?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -792,6 +888,74 @@ export type Database = {
           },
         ]
       }
+      user_badges: {
+        Row: {
+          badge_id: string
+          earned_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          badge_id: string
+          earned_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          badge_id?: string
+          earned_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_id_fkey"
+            columns: ["badge_id"]
+            isOneToOne: false
+            referencedRelation: "contribution_badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_contribution_levels: {
+        Row: {
+          accuracy_rate: number | null
+          approved_submissions: number
+          contribution_points: number
+          created_at: string
+          id: string
+          rejected_submissions: number
+          tier: Database["public"]["Enums"]["contribution_tier"]
+          total_submissions: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          accuracy_rate?: number | null
+          approved_submissions?: number
+          contribution_points?: number
+          created_at?: string
+          id?: string
+          rejected_submissions?: number
+          tier?: Database["public"]["Enums"]["contribution_tier"]
+          total_submissions?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          accuracy_rate?: number | null
+          approved_submissions?: number
+          contribution_points?: number
+          created_at?: string
+          id?: string
+          rejected_submissions?: number
+          tier?: Database["public"]["Enums"]["contribution_tier"]
+          total_submissions?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_notification_settings: {
         Row: {
           created_at: string
@@ -888,7 +1052,9 @@ export type Database = {
       is_admin_user: { Args: never; Returns: boolean }
     }
     Enums: {
+      contribution_tier: "guest" | "logged_in" | "verified"
       quiz_difficulty: "easy" | "medium" | "hard"
+      submission_status: "pending" | "approved" | "rejected" | "needs_revision"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1016,7 +1182,9 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      contribution_tier: ["guest", "logged_in", "verified"],
       quiz_difficulty: ["easy", "medium", "hard"],
+      submission_status: ["pending", "approved", "rejected", "needs_revision"],
     },
   },
 } as const
