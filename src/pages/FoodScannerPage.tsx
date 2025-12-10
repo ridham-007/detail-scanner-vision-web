@@ -11,6 +11,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { trackEvent, trackScanAttempt, trackScanSuccess, trackScanError, trackProductView } from '@/utils/analytics';
+import UpgradeBanner from '@/components/UpgradeBanner';
+import { useDailyScans } from '@/hooks/useDailyScans';
 
 const FoodScannerPage: React.FC = () => {
   const [isScanning, setIsScanning] = useState(false);
@@ -20,6 +22,7 @@ const FoodScannerPage: React.FC = () => {
   const { lookupProduct, isLoading } = useProductLookup();
   const productDetailsRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
+  const { scansRemaining, maxScans, canScan, incrementScan, isUnlimited } = useDailyScans();
 
   const scrollToResults = () => {
     setTimeout(() => {
@@ -31,6 +34,12 @@ const FoodScannerPage: React.FC = () => {
   };
 
   const handleScan = async (scannedCode: string) => {
+    // Check scan limit for free users
+    if (!canScan) {
+      toast.error("You've reached your daily scan limit. Upgrade to Pro for unlimited scans!");
+      return;
+    }
+
     trackScanAttempt();
     
     setIsScanning(false);
@@ -60,6 +69,7 @@ const FoodScannerPage: React.FC = () => {
 
     if (product) {
       setCurrentProduct(product);
+      incrementScan(); // Track the scan
 
       // Only save to history if user is authenticated
       if (user) {
@@ -82,6 +92,12 @@ const FoodScannerPage: React.FC = () => {
   const handleManualLookup = async () => {
     const trimmedBarcode = manualBarcode.trim();
     if (!trimmedBarcode) return;
+
+    // Check scan limit for free users
+    if (!canScan) {
+      toast.error("You've reached your daily scan limit. Upgrade to Pro for unlimited scans!");
+      return;
+    }
 
     trackEvent('manual_barcode_entry', { barcode: trimmedBarcode });
     
@@ -108,6 +124,7 @@ const FoodScannerPage: React.FC = () => {
 
     if (product) {
       setCurrentProduct(product);
+      incrementScan(); // Track the scan
       
       // Only save to history if user is authenticated and hasn't scanned before
       if (user && !alreadyScanned) {
@@ -133,6 +150,14 @@ const FoodScannerPage: React.FC = () => {
 
   return (
     <div className="space-y-8">
+      {/* Upgrade Banner for Free Users */}
+      {!isUnlimited && (
+        <UpgradeBanner 
+          scansRemaining={scansRemaining as number} 
+          maxScans={maxScans as number} 
+          variant="compact" 
+        />
+      )}
       {/* Hero Section - Yuka Style */}
       <div className="text-center space-y-6 py-8">
         <div className="space-y-4">

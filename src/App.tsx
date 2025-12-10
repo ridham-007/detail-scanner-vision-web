@@ -26,6 +26,8 @@ import CreateBlogPage from "./pages/admin/CreateBlogPage";
 import EditBlogPage from "./pages/admin/EditBlogPage";
 import ProductSubmissionsPage from "./pages/admin/ProductSubmissionsPage";
 import ContributionsPage from "./pages/ContributionsPage";
+import PricingPage from "./pages/PricingPage";
+import SubscriptionSuccessPage from "./pages/SubscriptionSuccessPage";
 import ScrollToTop from "./components/scrollToTop";
 
 const queryClient = new QueryClient();
@@ -57,6 +59,8 @@ function App() {
                     <Route path="/admin/blogs/edit/:id" element={<EditBlogPage />} />
                     <Route path="/admin/submissions" element={<ProductSubmissionsPage />} />
                     <Route path="/contributions" element={<ContributionsPage />} />
+                    <Route path="/pricing" element={<PricingPage />} />
+                    <Route path="/subscription-success" element={<SubscriptionSuccessPage />} />
                     <Route path="/privacy" element={<PrivacyPage />} />
                     <Route path="/terms" element={<TermsPage />} />
                     <Route path="/support" element={<SupportPage />} />
