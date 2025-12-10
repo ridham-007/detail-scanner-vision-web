@@ -75,8 +75,22 @@ serve(async (req) => {
 
     if (hasActiveSub) {
       const subscription = subscriptions.data[0];
-      subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
-      productId = subscription.items.data[0].price.product as string;
+      
+      // Safely parse subscription end date
+      try {
+        const endTimestamp = subscription.current_period_end;
+        if (endTimestamp && typeof endTimestamp === 'number') {
+          subscriptionEnd = new Date(endTimestamp * 1000).toISOString();
+        }
+      } catch (dateError) {
+        logStep("Warning: Could not parse subscription end date", { error: String(dateError) });
+      }
+      
+      // Safely get product ID
+      if (subscription.items?.data?.[0]?.price?.product) {
+        productId = subscription.items.data[0].price.product as string;
+      }
+      
       logStep("Active subscription found", { subscriptionId: subscription.id, productId, endDate: subscriptionEnd });
 
       // Determine tier based on product ID
