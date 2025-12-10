@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { useNavigate } from 'react-router-dom';
 import { useSubscription } from '@/hooks/useSubscription';
 import SEOHead from '@/components/SEOHead';
@@ -23,9 +21,7 @@ const SubscriptionSuccessPage = () => {
         title="Subscription Activated - EaterIQ"
         description="Your EaterIQ subscription has been activated. Start scanning products with your new premium features."
       />
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16">
           <div className="max-w-lg mx-auto text-center">
             <Card className="border-primary">
               <CardHeader>
@@ -75,10 +71,8 @@ const SubscriptionSuccessPage = () => {
               </CardContent>
             </Card>
           </div>
-        </main>
-        <Footer />
-      </div>
-    </>
+        </div>
+      </>
   );
 };
 

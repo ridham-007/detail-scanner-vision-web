@@ -5,8 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
 import { useSubscription, SUBSCRIPTION_PRICES } from '@/hooks/useSubscription';
 import { toast } from 'sonner';
@@ -119,9 +117,7 @@ const PricingPage = () => {
         title="Pricing - EaterIQ"
         description="Choose the perfect plan for your health journey. From free basic features to premium family plans."
       />
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-12">
           {/* Hero Section */}
           <div className="text-center mb-12">
             <Badge className="mb-4" variant="secondary">
@@ -307,9 +303,7 @@ const PricingPage = () => {
               </div>
             </div>
           </div>
-        </main>
-        <Footer />
-      </div>
+        </div>
     </>
   );
 };
