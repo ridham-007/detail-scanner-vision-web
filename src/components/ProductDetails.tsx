@@ -20,6 +20,11 @@ import ProductCategories from './ProductCategories';
 import { AddToShoppingListModal } from '@/components/AddToShoppingListModal';
 import { useFavorites } from '@/hooks/useFavorites';
 import { ProductData } from '@/types/ProductData';
+import { NutritionScoreGrade } from './NutritionScoreGrade';
+import { AllergenAnalysisCard } from './AllergenAnalysisCard';
+import { AdditiveAnalysisCard } from './AdditiveAnalysisCard';
+import { IngredientAnalysisCard } from './IngredientAnalysisCard';
+import { NutritionDataCard } from './NutritionDataCard';
 
 interface ProductDetailsProps {
   product: ProductData | null;
@@ -276,8 +281,37 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         </CardContent>
       </Card>
 
+      {/* Nutrition Score Grade */}
+      {product.nutrition_score_grade && (
+        <Card className="w-full animate-fade-in border-0 shadow-lg bg-card">
+          <CardContent className="p-6">
+            <NutritionScoreGrade grade={product.nutrition_score_grade} />
+          </CardContent>
+        </Card>
+      )}
+
       {/* Health Insights */}
       <HealthInsights positives={product.positives} concerns={product.concerns} />
+
+      {/* Allergen Analysis */}
+      {product.allergens_analysis && product.allergens_analysis.length > 0 && (
+        <AllergenAnalysisCard allergens={product.allergens_analysis} />
+      )}
+
+      {/* Nutrition Data Analysis */}
+      {product.nutrition_data && product.nutrition_data.length > 0 && (
+        <NutritionDataCard nutritionData={product.nutrition_data} />
+      )}
+
+      {/* Additive Analysis */}
+      {product.additive_analysis && product.additive_analysis.length > 0 && (
+        <AdditiveAnalysisCard additives={product.additive_analysis} />
+      )}
+
+      {/* Ingredient Analysis */}
+      {product.ingredient_analysis && product.ingredient_analysis.length > 0 && (
+        <IngredientAnalysisCard ingredients={product.ingredient_analysis} />
+      )}
 
       {/* Enhanced Components */}
       {/* <ScanStreak productName={product.name} /> */}

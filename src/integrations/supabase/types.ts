@@ -706,6 +706,8 @@ export type Database = {
       }
       scanned_products: {
         Row: {
+          additive_analysis: Json | null
+          allergens_analysis: Json | null
           barcode: string
           concerns: string[] | null
           created_at: string | null
@@ -713,11 +715,14 @@ export type Database = {
           health_score: number | null
           id: string
           images: string[] | null
+          ingredient_analysis: Json | null
           ingredients: string | null
           is_health_related_product: boolean | null
           is_published: boolean
           name: string
+          nutrition_data: Json | null
           nutrition_per_100g: Json | null
+          nutrition_score_grade: string | null
           other_good_product_suggestions: Json | null
           positives: string[] | null
           recommendations: string[] | null
@@ -726,6 +731,8 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          additive_analysis?: Json | null
+          allergens_analysis?: Json | null
           barcode: string
           concerns?: string[] | null
           created_at?: string | null
@@ -733,11 +740,14 @@ export type Database = {
           health_score?: number | null
           id?: string
           images?: string[] | null
+          ingredient_analysis?: Json | null
           ingredients?: string | null
           is_health_related_product?: boolean | null
           is_published?: boolean
           name: string
+          nutrition_data?: Json | null
           nutrition_per_100g?: Json | null
+          nutrition_score_grade?: string | null
           other_good_product_suggestions?: Json | null
           positives?: string[] | null
           recommendations?: string[] | null
@@ -746,6 +756,8 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          additive_analysis?: Json | null
+          allergens_analysis?: Json | null
           barcode?: string
           concerns?: string[] | null
           created_at?: string | null
@@ -753,11 +765,14 @@ export type Database = {
           health_score?: number | null
           id?: string
           images?: string[] | null
+          ingredient_analysis?: Json | null
           ingredients?: string | null
           is_health_related_product?: boolean | null
           is_published?: boolean
           name?: string
+          nutrition_data?: Json | null
           nutrition_per_100g?: Json | null
+          nutrition_score_grade?: string | null
           other_good_product_suggestions?: Json | null
           positives?: string[] | null
           recommendations?: string[] | null

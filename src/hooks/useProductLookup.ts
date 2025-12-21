@@ -17,7 +17,7 @@ export const useProductLookup = () => {
         .select('*')
         .eq('barcode', barcode)
         .eq('is_published', true)
-        .single();
+        .maybeSingle();
 
       if (error || !data) {
         return null;
@@ -55,12 +55,12 @@ export const useProductLookup = () => {
       // Safely access the new fields with fallbacks
       const rawData = data as any;
       const productSuggestions = rawData.other_good_product_suggestions || [];
-      const isHealthRelated = rawData.is_health_related_product !== false; // Default to true if not specified
+      const isHealthRelated = rawData.is_health_related_product !== false;
 
       return {
         barcode: data.barcode,
         name: data.name,
-        description: data.description,
+        description: data.description || undefined,
         health_score: data.health_score || 0,
         unit: data.unit || '',
         nutrition_per_100g: nutritionData && typeof nutritionData === 'object' ? { ...defaultNutrition, ...nutritionData } : defaultNutrition,
@@ -71,7 +71,13 @@ export const useProductLookup = () => {
         ingredients: data.ingredients || '',
         other_good_product_suggestions: productSuggestions,
         retailers: rawData.retailers || [],
-        is_health_related_product: isHealthRelated
+        is_health_related_product: isHealthRelated,
+        // New fields
+        nutrition_score_grade: rawData.nutrition_score_grade || undefined,
+        allergens_analysis: rawData.allergens_analysis || [],
+        additive_analysis: rawData.additive_analysis || [],
+        ingredient_analysis: rawData.ingredient_analysis || [],
+        nutrition_data: rawData.nutrition_data || []
       };
     } catch (error) {
       console.error('Error fetching from Supabase:', error);
@@ -79,30 +85,95 @@ export const useProductLookup = () => {
     }
   };
 
+  const mapSubcategories = async (barcode: string, subcategories: Array<{ code: string; confidence: number }>): Promise<void> => {
+    if (!subcategories || subcategories.length === 0) return;
+
+    try {
+      // Fetch subcategory IDs by code
+      const codes = subcategories.map(s => s.code);
+      const { data: subcategoryData, error: fetchError } = await supabase
+        .from('subcategories')
+        .select('id, code')
+        .in('code', codes);
+
+      if (fetchError || !subcategoryData) {
+        console.error('Error fetching subcategories:', fetchError);
+        return;
+      }
+
+      // Create mapping from code to id
+      const codeToId = new Map(subcategoryData.map(s => [s.code, s.id]));
+
+      // Prepare product_categories entries
+      const categoriesToInsert = subcategories
+        .filter(s => codeToId.has(s.code))
+        .map(s => ({
+          product_barcode: barcode,
+          subcategory_id: codeToId.get(s.code)!,
+          confidence_score: s.confidence,
+          assigned_by: 'system'
+        }));
+
+      if (categoriesToInsert.length === 0) return;
+
+      // Delete existing categories for this product
+      await supabase
+        .from('product_categories')
+        .delete()
+        .eq('product_barcode', barcode);
+
+      // Insert new categories
+      const { error: insertError } = await supabase
+        .from('product_categories')
+        .insert(categoriesToInsert);
+
+      if (insertError) {
+        console.error('Error inserting product categories:', insertError);
+      } else {
+        console.log('Product categories mapped successfully');
+      }
+    } catch (error) {
+      console.error('Error mapping subcategories:', error);
+    }
+  };
+
   const saveToSupabase = async (productData: ProductData): Promise<void> => {
     try {
       const { error } = await supabase
         .from('scanned_products')
-        .upsert({
-          barcode: productData.barcode,
-          name: productData.name,
-          description: productData.description,
-          health_score: productData.health_score,
-          unit: productData.unit,
-          nutrition_per_100g: productData.nutrition_per_100g,
-          positives: productData.positives,
-          concerns: productData.concerns,
-          recommendations: productData.recommendations,
-          images: productData.images,
-          ingredients: productData.ingredients,
-          other_good_product_suggestions: productData.other_good_product_suggestions as any,
-          is_health_related_product: productData.is_health_related_product,
-          is_published: true,
-          updated_at: new Date().toISOString()
-        });
+        .upsert(
+          {
+            barcode: productData.barcode,
+            name: productData.name,
+            description: productData.description,
+            health_score: productData.health_score,
+            unit: productData.unit,
+            nutrition_per_100g: productData.nutrition_per_100g as any,
+            positives: productData.positives,
+            concerns: productData.concerns,
+            recommendations: productData.recommendations,
+            images: productData.images,
+            ingredients: productData.ingredients,
+            other_good_product_suggestions: productData.other_good_product_suggestions as any,
+            is_health_related_product: productData.is_health_related_product,
+            is_published: true,
+            updated_at: new Date().toISOString(),
+            nutrition_score_grade: productData.nutrition_score_grade,
+            allergens_analysis: (productData.allergens_analysis || []) as any,
+            additive_analysis: (productData.additive_analysis || []) as any,
+            ingredient_analysis: (productData.ingredient_analysis || []) as any,
+            nutrition_data: (productData.nutrition_data || []) as any
+          },
+          { onConflict: 'barcode' }
+        );
 
       if (error) {
         console.error('Error saving to Supabase:', error);
+      }
+
+      // Map subcategories if available
+      if (productData.subcategories && productData.subcategories.length > 0) {
+        await mapSubcategories(productData.barcode, productData.subcategories);
       }
     } catch (error) {
       console.error('Error saving to Supabase:', error);
@@ -171,7 +242,14 @@ export const useProductLookup = () => {
             ingredients: productData.ingredients || '',
             other_good_product_suggestions: productData.other_good_product_suggestions || [],
             retailers: productData.retailers || [],
-            is_health_related_product: productData.is_health_related_product !== false
+            is_health_related_product: productData.is_health_related_product !== false,
+            // New fields from API
+            nutrition_score_grade: productData.nutrition_score_grade,
+            allergens_analysis: productData.allergens_analysis || [],
+            additive_analysis: productData.additive_analysis || [],
+            ingredient_analysis: productData.ingredient_analysis || [],
+            nutrition_data: productData.nutrition_data || [],
+            subcategories: productData.subcategories || []
           };
 
           // Save to Supabase for future use
@@ -188,7 +266,7 @@ export const useProductLookup = () => {
   };
 
   const saveScanHistory = async (productData: ProductData): Promise<void> => {
-    if (!user) return; // Only save for authenticated users
+    if (!user) return;
     
     try {
       const { error } = await supabase
@@ -213,13 +291,11 @@ export const useProductLookup = () => {
     setIsLoading(true);
 
     try {
-      // First, try to fetch from Supabase cache (published only)
       console.log('Checking Supabase cache...');
       const cachedProduct = await fetchFromSupabase(barcode);
       
       if (cachedProduct) {
         console.log('Found product in cache');
-        // Save to scan history
         await saveScanHistory(cachedProduct);
         toast({
           title: "Product Found",
@@ -228,12 +304,10 @@ export const useProductLookup = () => {
         return cachedProduct;
       }
 
-      // If not found in cache, fetch from external API
       console.log('Product not in cache, fetching from API...');
       const apiProduct = await fetchFromAPI(barcode);
       
       if (apiProduct) {
-        // Save to scan history
         await saveScanHistory(apiProduct);
         toast({
           title: "Product Found!",
@@ -242,7 +316,6 @@ export const useProductLookup = () => {
         return apiProduct;
       }
 
-      // If no data found anywhere, save as unpublished for tracking
       console.log('No product data found, saving as unpublished...');
       await saveUnpublishedBarcode(barcode);
 
