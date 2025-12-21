@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export const GA_MEASUREMENT_ID = 'G-YK2C6Q3ZMW'; // Replace with your actual GA4 Measurement ID
+export const GA_MEASUREMENT_ID = 'G-Y80603VYMC';
 export const AMPLITUDE_API_KEY = import.meta.env.VITE_AMPLITUDE_API_KEY || '';
 
 // Initialize Google Analytics
