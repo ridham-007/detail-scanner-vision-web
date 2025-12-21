@@ -30,10 +30,15 @@ const getImpactColor = (impact: string) => {
   }
 };
 
-const getProgressColor = (score: number) => {
-  if (score >= 60) return 'bg-green-500';
-  if (score >= 30) return 'bg-yellow-500';
-  return 'bg-red-500';
+const getProgressColor = (impact: string) => {
+  switch (impact) {
+    case 'positive':
+      return 'bg-green-500';
+    case 'negative':
+      return 'bg-red-500';
+    default:
+      return 'bg-yellow-500';
+  }
 };
 
 export const NutritionDataCard = ({ nutritionData }: NutritionDataCardProps) => {
@@ -68,9 +73,7 @@ export const NutritionDataCard = ({ nutritionData }: NutritionDataCardProps) => 
                   <Progress
                     value={item.score}
                     className="h-2"
-                    style={{
-                      ['--progress-background' as any]: getProgressColor(item.score),
-                    }}
+                    indicatorClassName={getProgressColor(item.impact)}
                   />
                 </div>
                 <span className="text-sm text-muted-foreground w-12 text-right">
