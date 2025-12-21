@@ -6,6 +6,42 @@ export interface ProductSuggestion {
   barcode: string;
 }
 
+export interface AllergenAnalysis {
+  allergen: string;
+  severity_score: number;
+  impact: 'positive' | 'negative' | 'neutral';
+  short_reason: string;
+}
+
+export interface AdditiveAnalysis {
+  code: string;
+  name: string;
+  score: number;
+  impact: 'positive' | 'negative' | 'neutral';
+  short_reason: string;
+}
+
+export interface IngredientAnalysis {
+  ingredient: string;
+  score: number;
+  impact: 'positive' | 'negative' | 'neutral';
+  short_reason: string;
+}
+
+export interface NutritionDataItem {
+  key: string;
+  nutrient: string;
+  value: string;
+  score: number;
+  impact: 'positive' | 'negative' | 'neutral';
+  short_reason: string;
+}
+
+export interface SubcategoryMapping {
+  code: string;
+  confidence: number;
+}
+
 export interface ProductData {
   barcode: string;
   name: string;
@@ -49,4 +85,11 @@ export interface ProductData {
     link: string;
   }>;
   is_health_related_product: boolean;
+  // New fields from enhanced API
+  nutrition_score_grade?: string;
+  allergens_analysis?: AllergenAnalysis[];
+  additive_analysis?: AdditiveAnalysis[];
+  ingredient_analysis?: IngredientAnalysis[];
+  nutrition_data?: NutritionDataItem[];
+  subcategories?: SubcategoryMapping[];
 }
