@@ -40,6 +40,7 @@ const Header = () => {
     { path: "/", label: "Scanner" },
     { path: "/quizzes", label: "Food IQ Tests" },
     { path: "/blog", label: "Blogs" },
+    { path: "/pricing", label: "Pricing" },
   ];
 
   return (
