@@ -78,7 +78,7 @@ const IndexPage: React.FC = () => {
         .eq("is_published", true);
 
       if (error) throw error;
-      return (count || 0) + 4700; // Base count + DB count
+      return (count || 0) + 23000; // Base count + DB count
     },
   });
 
@@ -91,7 +91,7 @@ const IndexPage: React.FC = () => {
         .select("*", { count: "exact", head: true });
 
       if (error) throw error;
-      return (count || 0) + 2400; // Base count + DB count
+      return (count || 0) + 14000; // Base count + DB count
     },
   });
 
