@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -6,13 +6,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ArrowLeft, MessageCircle, HelpCircle, Bug, Lightbulb, Mail, Send } from 'lucide-react';
+import { ArrowLeft, MessageCircle, HelpCircle, Bug, Lightbulb, Mail, Send, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import { useRateLimit } from '@/hooks/useRateLimit';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const SupportPage = () => {
   const navigate = useNavigate();
@@ -26,9 +28,41 @@ const SupportPage = () => {
     message: ''
   });
 
+  // Rate limiting: 3 submissions per 5 minutes
+  const { isLimited, checkRateLimit, recordAttempt, getRemainingCooldown } = useRateLimit({
+    maxAttempts: 3,
+    windowMs: 5 * 60 * 1000,
+    cooldownMs: 60 * 1000,
+  });
+
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
+
+  useEffect(() => {
+    if (isLimited) {
+      const interval = setInterval(() => {
+        const remaining = getRemainingCooldown();
+        setCooldownSeconds(remaining);
+        if (remaining === 0) {
+          clearInterval(interval);
+        }
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [isLimited, getRemainingCooldown]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!checkRateLimit()) {
+      toast({
+        title: "Too many submissions",
+        description: `Please wait ${getRemainingCooldown()} seconds before submitting again.`,
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
+    recordAttempt();
 
     try {
       const { error } = await supabase
@@ -136,10 +170,17 @@ const SupportPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Contact Form */}
           <div className="space-y-6">
+            {isLimited && (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Too many submissions. Please wait {cooldownSeconds} seconds before trying again.
+                </AlertDescription>
+              </Alert>
+            )}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <MessageCircle className="h-5 w-5 text-emerald-600" />
                   Contact Us
                 </CardTitle>
               </CardHeader>
