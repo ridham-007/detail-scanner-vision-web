@@ -13,10 +13,17 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import SEOHead from "@/components/SEOHead";
 
 const TermsPage = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEOHead
+        title="Terms of Service | EaterIQ"
+        description="Read EaterIQ's Terms of Service. Understand your rights and responsibilities when using our AI-powered food intelligence platform."
+        keywords="terms of service, user agreement, EaterIQ terms, legal"
+      />
+      <div className="min-h-screen bg-background">
       <AnimatedBackground />
 
       <main className="container mx-auto px-4 py-8 relative z-10 max-w-4xl">
@@ -51,7 +58,7 @@ const TermsPage = () => {
                 by these Terms.
               </p>
               <p className="text-sm text-muted-foreground">
-                Last updated: {new Date().toLocaleDateString()}
+                Last updated: December 22, 2025
               </p>
             </CardContent>
           </Card>
@@ -299,6 +306,7 @@ const TermsPage = () => {
         </div>
       </main>
     </div>
+    </>
   );
 };
 

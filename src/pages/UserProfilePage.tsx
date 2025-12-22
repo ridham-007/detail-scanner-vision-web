@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { User, Globe, MapPin, Calendar, Trophy, Play, ExternalLink } from 'lucide-react';
 import Header from '@/components/Header';
 import QuizCard from '@/components/QuizCard';
+import SEOHead from '@/components/SEOHead';
 
 interface UserProfile {
   id: string;
@@ -147,8 +148,14 @@ const UserProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
+    <>
+      <SEOHead
+        title={`${profile.username}'s Profile | EaterIQ`}
+        description={profile.bio || `View ${profile.username}'s profile, quiz scores, and created quizzes on EaterIQ.`}
+        keywords="user profile, quiz creator, EaterIQ user"
+      />
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Profile Header */}
           <Card>
@@ -254,6 +261,7 @@ const UserProfilePage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { Eye, EyeOff, Mail, Lock, User, Loader2 } from 'lucide-react';
 import { z } from 'zod';
+import SEOHead from '@/components/SEOHead';
 
 // Validation schemas
 const emailSchema = z.string().email('Please enter a valid email address');
@@ -153,7 +154,13 @@ const AuthPage = () => {
   }
 
   return (
-    <div className="flex-1 flex items-center justify-center px-4 py-12">
+    <>
+      <SEOHead
+        title="Sign In | EaterIQ"
+        description="Sign in or create an account to track your nutrition journey with EaterIQ's AI-powered food intelligence platform."
+        keywords="sign in, login, register, create account, EaterIQ"
+      />
+      <div className="flex-1 flex items-center justify-center px-4 py-12">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold">Welcome to EaterIQ</CardTitle>
@@ -350,6 +357,7 @@ const AuthPage = () => {
           </CardContent>
         </Card>
     </div>
+    </>
   );
 };
 

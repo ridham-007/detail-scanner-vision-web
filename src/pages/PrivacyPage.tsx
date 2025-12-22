@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Shield, Eye, Lock, Database } from 'lucide-react';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import SEOHead from '@/components/SEOHead';
 
 const PrivacyPage = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEOHead
+        title="Privacy Policy | EaterIQ"
+        description="Learn how EaterIQ protects your privacy and handles your personal data. Read our comprehensive privacy policy."
+        keywords="privacy policy, data protection, EaterIQ privacy, personal data"
+      />
+      <div className="min-h-screen bg-background">
       <AnimatedBackground />
 
       <main className="container mx-auto px-4 py-8 relative z-10 max-w-4xl">
@@ -45,7 +52,7 @@ const PrivacyPage = () => {
                 intelligence platform and quiz services.
               </p>
               <p className="text-sm text-muted-foreground">
-                Last updated: {new Date().toLocaleDateString()}
+                Last updated: December 22, 2025
               </p>
             </CardContent>
           </Card>
@@ -165,6 +172,7 @@ const PrivacyPage = () => {
         </div>
       </main>
     </div>
+    </>
   );
 };
 
