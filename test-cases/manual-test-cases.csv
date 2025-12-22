@@ -1,0 +1,283 @@
+Test ID,Feature,Sub-Feature,Test Case Title,Preconditions,Test Steps,Expected Result,Priority,Status
+TC001,Authentication,Sign Up,Verify user can sign up with valid email,User not logged in,"1. Navigate to /auth
+2. Click 'Sign Up' tab
+3. Enter valid email and password (min 6 chars)
+4. Click 'Sign Up' button",User receives confirmation email and account is created,High,
+TC002,Authentication,Sign Up,Verify sign up fails with invalid email,User not logged in,"1. Navigate to /auth
+2. Click 'Sign Up' tab
+3. Enter invalid email format
+4. Click 'Sign Up' button",Error message displayed for invalid email,High,
+TC003,Authentication,Sign Up,Verify sign up fails with weak password,User not logged in,"1. Navigate to /auth
+2. Click 'Sign Up' tab
+3. Enter valid email and password less than 6 chars
+4. Click 'Sign Up' button",Error message displayed for weak password,High,
+TC004,Authentication,Login,Verify user can login with valid credentials,User has existing account,"1. Navigate to /auth
+2. Enter valid email and password
+3. Click 'Sign In' button",User is logged in and redirected to home page,High,
+TC005,Authentication,Login,Verify login fails with incorrect password,User has existing account,"1. Navigate to /auth
+2. Enter valid email and incorrect password
+3. Click 'Sign In' button",Error message displayed for invalid credentials,High,
+TC006,Authentication,Login,Verify login fails with non-existent email,User not logged in,"1. Navigate to /auth
+2. Enter non-existent email
+3. Click 'Sign In' button",Error message displayed,Medium,
+TC007,Authentication,Logout,Verify user can logout,User logged in,"1. Click on user avatar/menu
+2. Click 'Sign Out' button",User is logged out and redirected appropriately,High,
+TC008,Authentication,Session,Verify session persists on page refresh,User logged in,"1. Login to the app
+2. Refresh the page",User remains logged in,High,
+TC009,Barcode Scanner,Camera Scan,Verify barcode scanner opens camera,User on home page,"1. Navigate to Food Scanner page
+2. Allow camera permissions",Camera opens and shows scanning interface,High,
+TC010,Barcode Scanner,Camera Scan,Verify valid barcode is detected and product loads,Camera active,"1. Point camera at valid product barcode
+2. Wait for detection",Barcode is detected and product details are displayed,High,
+TC011,Barcode Scanner,Manual Entry,Verify manual barcode entry works,User on scanner page,"1. Enter valid barcode in manual input field
+2. Click 'Look Up' button",Product details are displayed,High,
+TC012,Barcode Scanner,Manual Entry,Verify invalid barcode shows appropriate message,User on scanner page,"1. Enter invalid/non-existent barcode
+2. Click 'Look Up' button",Message displayed that product not found with option to submit,Medium,
+TC013,Barcode Scanner,Scan Limits,Verify free user scan limit is enforced,Free user logged in,"1. Scan products until daily limit reached
+2. Try to scan another product",Upgrade banner/message displayed,High,
+TC014,Barcode Scanner,Scan Limits,Verify premium user has unlimited scans,Premium user logged in,"1. Scan multiple products
+2. Continue scanning beyond free limit",All scans complete successfully,High,
+TC015,Product Details,Health Score,Verify health score displays correctly,Product scanned,"1. Scan a product
+2. View product details",Health score displayed with correct color (green/yellow/red),High,
+TC016,Product Details,Nutrition Data,Verify nutrition information displays,Product scanned,"1. Scan a product
+2. Scroll to nutrition section",All nutrition data displayed correctly (calories, fats, carbs, protein, etc.),High,
+TC017,Product Details,Ingredients,Verify ingredients list displays,Product scanned,"1. Scan a product
+2. View ingredients section",Ingredients list is displayed and readable,High,
+TC018,Product Details,Ingredient Analysis,Verify ingredient analysis cards display,Product with analysis data scanned,"1. Scan a product with ingredient analysis
+2. View ingredient analysis section",Each ingredient shows score, impact, and reason,Medium,
+TC019,Product Details,Allergen Analysis,Verify allergen warnings display,Product with allergens scanned,"1. Scan a product with allergens
+2. View allergen analysis section",Allergen warnings displayed with severity scores,High,
+TC020,Product Details,Additive Analysis,Verify additive analysis displays,Product with additives scanned,"1. Scan a product with additives
+2. View additive analysis section",Additives listed with codes, names, scores, and impact,Medium,
+TC021,Product Details,Nutrition Score Grade,Verify Nutri-Score grade displays,Product scanned,"1. Scan a product with nutrition grade
+2. View product header",Nutri-Score grade (A/B/C/D/E) displayed correctly,Medium,
+TC022,Product Details,Product Images,Verify product images carousel works,Product with multiple images scanned,"1. Scan a product with images
+2. Navigate through image carousel",All images load and carousel navigation works,Medium,
+TC023,Product Details,Recommendations,Verify recommendations section displays,Product scanned,"1. Scan a product
+2. View recommendations section",Product recommendations/concerns/positives are displayed,Medium,
+TC024,Product Details,Alternative Products,Verify healthier alternatives display,Product scanned,"1. Scan a product
+2. View alternatives section",Healthier product suggestions displayed with reasons,Medium,
+TC025,Product Details,Categories,Verify product categories display,Product with categories scanned,"1. Scan a categorized product
+2. View categories section",Product categories displayed with confidence scores,Low,
+TC026,Favorites,Add Favorite,Verify user can add product to favorites,User logged in and product scanned,"1. Scan a product
+2. Click favorite/heart icon",Product added to favorites with confirmation toast,High,
+TC027,Favorites,Remove Favorite,Verify user can remove product from favorites,Product in favorites,"1. Go to favorites or product page
+2. Click unfavorite icon",Product removed from favorites with confirmation,High,
+TC028,Favorites,View Favorites,Verify favorites list displays correctly,User has favorites,"1. Navigate to favorites section
+2. View the list",All favorited products displayed with health scores,High,
+TC029,Favorites,Empty State,Verify empty favorites message displays,User has no favorites,"1. Navigate to favorites section
+2. Ensure no favorites exist",Empty state message displayed,Low,
+TC030,Scan History,View History,Verify scan history displays,User has scan history,"1. Navigate to /scan-history
+2. View the list",All scanned products displayed with timestamps,High,
+TC031,Scan History,History Stats,Verify scan statistics display,User has scan history,"1. Navigate to /scan-history
+2. View statistics cards",Total scans, average health score displayed correctly,Medium,
+TC032,Scan History,Delete Single,Verify user can delete single history item,User has scan history,"1. Navigate to scan history
+2. Click delete icon on an item
+3. Confirm deletion",Item removed from history,Medium,
+TC033,Scan History,Clear All,Verify user can clear all history,User has scan history,"1. Navigate to scan history
+2. Click 'Clear All' button
+3. Confirm in dialog",All history items cleared,Medium,
+TC034,Scan History,Empty State,Verify empty history message displays,User has no history,"1. Navigate to /scan-history
+2. Ensure no history exists",Empty state message with CTA to scan products,Low,
+TC035,Shopping Lists,Create List,Verify user can create new shopping list,User logged in,"1. Navigate to /shopping-lists
+2. Click 'Create List'
+3. Enter list name
+4. Save",New shopping list created and displayed,High,
+TC036,Shopping Lists,Add Item,Verify user can add item to list,Shopping list exists,"1. Open a shopping list
+2. Add item with name
+3. Save",Item added to the list,High,
+TC037,Shopping Lists,Add from Scan,Verify user can add scanned product to list,Product scanned,"1. Scan a product
+2. Click 'Add to Shopping List'
+3. Select list",Product added to selected shopping list,High,
+TC038,Shopping Lists,Mark Purchased,Verify user can mark item as purchased,List has items,"1. Open shopping list
+2. Click checkbox on item",Item marked as purchased with strikethrough,Medium,
+TC039,Shopping Lists,Delete Item,Verify user can delete item from list,List has items,"1. Open shopping list
+2. Click delete on an item",Item removed from list,Medium,
+TC040,Shopping Lists,Delete List,Verify user can delete shopping list,List exists,"1. Navigate to shopping lists
+2. Click delete on a list
+3. Confirm deletion",List deleted,Medium,
+TC041,Shopping Lists,Empty State,Verify empty list message displays,No lists exist,"1. Navigate to /shopping-lists
+2. Ensure no lists exist",Empty state with CTA to create list,Low,
+TC042,User Profile,View Profile,Verify profile page displays user info,User logged in,"1. Navigate to /profile
+2. View profile details",User info displayed (name, email, avatar, bio),High,
+TC043,User Profile,Edit Profile,Verify user can edit profile,User logged in,"1. Navigate to /profile
+2. Edit name/bio
+3. Save changes",Profile updated with confirmation,High,
+TC044,User Profile,Upload Avatar,Verify user can upload avatar,User logged in,"1. Navigate to /profile
+2. Click avatar upload
+3. Select image
+4. Save",Avatar updated and displayed,Medium,
+TC045,User Profile,Avatar Validation,Verify avatar upload validates file type,User logged in,"1. Navigate to /profile
+2. Try uploading non-image file",Error message displayed,Medium,
+TC046,User Settings,Preferences,Verify user preferences can be saved,User logged in,"1. Navigate to /settings
+2. Update dietary preferences
+3. Save",Preferences saved successfully,High,
+TC047,User Settings,Notifications,Verify notification settings can be toggled,User logged in,"1. Navigate to /settings
+2. Toggle notification settings
+3. Save",Settings saved and applied,Medium,
+TC048,User Settings,Privacy,Verify privacy settings can be updated,User logged in,"1. Navigate to /settings
+2. Update privacy settings
+3. Save",Privacy settings updated,Medium,
+TC049,User Settings,Theme Toggle,Verify dark/light theme toggle works,User on any page,"1. Click theme toggle button
+2. Observe UI change",Theme switches between dark and light mode,Medium,
+TC050,User Settings,Theme Persistence,Verify theme persists on refresh,Theme set to dark,"1. Set dark theme
+2. Refresh page",Dark theme still active,Low,
+TC051,Quizzes,View Quiz List,Verify quiz list displays,User on quizzes page,"1. Navigate to /quizzes
+2. View available quizzes",Quiz cards displayed with titles and difficulty,High,
+TC052,Quizzes,Start Quiz,Verify user can start a quiz,User logged in,"1. Navigate to /quizzes
+2. Click on a quiz
+3. Start quiz",Quiz questions displayed,High,
+TC053,Quizzes,Answer Question,Verify user can select answer,Quiz in progress,"1. View a question
+2. Select an answer",Answer registered and feedback shown,High,
+TC054,Quizzes,Complete Quiz,Verify quiz completion shows results,Quiz in progress,"1. Answer all questions
+2. Submit quiz",Score displayed with summary,High,
+TC055,Quizzes,Quiz Leaderboard,Verify quiz leaderboard displays,Quiz completed,"1. Complete a quiz
+2. View leaderboard",User ranking and top scores displayed,Medium,
+TC056,Quizzes,Filter by Difficulty,Verify quiz filter by difficulty works,On quizzes page,"1. Navigate to /quizzes
+2. Filter by difficulty (easy/medium/hard)",Only quizzes of selected difficulty shown,Medium,
+TC057,Blog,View Blog List,Verify blog posts list displays,User on blog page,"1. Navigate to /blog
+2. View blog list",Blog posts displayed with thumbnails and titles,High,
+TC058,Blog,Read Blog Post,Verify blog post content displays,Blog posts exist,"1. Navigate to /blog
+2. Click on a blog post",Full blog post content displayed,High,
+TC059,Blog,Blog Pagination,Verify blog pagination works,Many blog posts exist,"1. Navigate to /blog
+2. Scroll or click pagination",Additional posts load correctly,Medium,
+TC060,Blog,Blog Categories,Verify blog category filter works,Blog categories exist,"1. Navigate to /blog
+2. Select a category filter",Only posts from selected category shown,Medium,
+TC061,Categories,View Categories,Verify categories page displays,User on categories page,"1. Navigate to /categories
+2. View category list",All food categories displayed,Medium,
+TC062,Categories,Browse Category,Verify products in category display,Categories exist,"1. Click on a category
+2. View products",Products in selected category displayed,Medium,
+TC063,Contributions,View Contributions,Verify contributions page displays,User logged in,"1. Navigate to /contributions
+2. View contribution stats",User's contribution level and badges displayed,High,
+TC064,Contributions,Submit Product,Verify product submission form works,User on product not found,"1. Scan unknown product
+2. Click 'Submit Product Info'
+3. Fill form
+4. Submit",Submission successful with confirmation,High,
+TC065,Contributions,Guest Submission,Verify guest can submit product,Guest user,"1. Scan unknown product
+2. Fill submission form with name/email
+3. Submit",Submission accepted for guest,Medium,
+TC066,Contributions,View Badges,Verify earned badges display,User has badges,"1. Navigate to /contributions
+2. View badges section",Earned badges displayed with details,Medium,
+TC067,Contributions,Contribution Levels,Verify contribution tier displays,User has contributions,"1. Navigate to /contributions
+2. View tier progress",Current tier and progress to next displayed,Medium,
+TC068,Pricing,View Plans,Verify pricing page displays plans,User on pricing page,"1. Navigate to /pricing
+2. View available plans",All subscription plans displayed with features,High,
+TC069,Pricing,Checkout Flow,Verify checkout initiates correctly,User logged in,"1. Navigate to /pricing
+2. Click 'Subscribe' on a plan",Stripe checkout opens,High,
+TC070,Pricing,Free vs Premium,Verify feature differences shown,On pricing page,"1. Navigate to /pricing
+2. Compare plan features",Clear distinction between free and premium features,Medium,
+TC071,Subscription,Active Status,Verify active subscription displays,Premium user,"1. Login as premium user
+2. Check subscription status",Subscription active with current period info,High,
+TC072,Subscription,Manage Subscription,Verify customer portal opens,Premium user,"1. Navigate to settings
+2. Click 'Manage Subscription'",Stripe customer portal opens,High,
+TC073,Subscription,Cancel Flow,Verify cancellation flow works,Premium user,"1. Open customer portal
+2. Cancel subscription",Subscription cancelled with end date shown,High,
+TC074,Admin,Access Admin Panel,Verify admin can access admin pages,Admin user,"1. Login as admin
+2. Navigate to admin routes",Admin pages accessible,High,
+TC075,Admin,Non-Admin Redirect,Verify non-admin cannot access admin,Regular user,"1. Login as regular user
+2. Try to navigate to /admin/*",Redirected or access denied,High,
+TC076,Admin,View Submissions,Verify admin can view product submissions,Admin user,"1. Navigate to /admin/submissions
+2. View pending submissions",All submissions listed,High,
+TC077,Admin,Approve Submission,Verify admin can approve submission,Admin with pending submissions,"1. Open a submission
+2. Click 'Approve'",Submission approved and product added,High,
+TC078,Admin,Reject Submission,Verify admin can reject submission,Admin with pending submissions,"1. Open a submission
+2. Add notes and reject",Submission rejected with notes,Medium,
+TC079,Admin,Create Blog Post,Verify admin can create blog post,Admin user,"1. Navigate to /admin/blogs/create
+2. Fill form
+3. Publish",Blog post created and visible,High,
+TC080,Admin,Edit Blog Post,Verify admin can edit blog post,Blog post exists,"1. Navigate to blog post edit
+2. Make changes
+3. Save",Blog post updated,Medium,
+TC081,Admin,Delete Blog Post,Verify admin can delete blog post,Blog post exists,"1. Navigate to blog management
+2. Delete a post
+3. Confirm",Blog post deleted,Medium,
+TC082,Personalized Insights,Dietary Restrictions,Verify dietary restriction warnings show,User with dietary preferences,"1. Set dietary preferences
+2. Scan product with restricted ingredients",Warning displayed for dietary conflicts,High,
+TC083,Personalized Insights,Allergen Warnings,Verify allergen warnings display,User with allergies set,"1. Set allergen preferences
+2. Scan product with allergens",Prominent allergen warning displayed,High,
+TC084,Personalized Insights,Health Goals,Verify health goal insights display,User with health goals set,"1. Set health goals (weight loss, etc.)
+2. Scan product",Insights related to health goals shown,Medium,
+TC085,Personalized Insights,Comparison,Verify product comparison works,Previous scan exists,"1. Scan first product
+2. Scan second product",Comparison with previous product shown,Medium,
+TC086,Navigation,Header Navigation,Verify header nav links work,User on any page,"1. Click each header navigation link
+2. Observe navigation",All links navigate to correct pages,High,
+TC087,Navigation,Footer Navigation,Verify footer nav links work,User on any page,"1. Click each footer navigation link
+2. Observe navigation",All links navigate to correct pages,Medium,
+TC088,Navigation,Mobile Menu,Verify mobile hamburger menu works,On mobile viewport,"1. Click hamburger menu
+2. View menu items
+3. Click a link",Menu opens, closes, and navigates correctly,High,
+TC089,Navigation,Breadcrumbs,Verify breadcrumbs display correctly,On nested page,"1. Navigate to a nested page
+2. View breadcrumbs",Breadcrumbs show correct hierarchy,Low,
+TC090,Navigation,404 Page,Verify 404 page displays for invalid routes,User on any page,"1. Navigate to /invalid-route
+2. View page",404 not found page displayed with navigation options,Medium,
+TC091,SEO,Meta Tags,Verify meta tags present on pages,On any page,"1. View page source
+2. Check meta tags",Title, description, keywords present,Medium,
+TC092,SEO,OpenGraph Tags,Verify OpenGraph tags present,On any page,"1. View page source
+2. Check og: tags",og:title, og:description, og:image present,Medium,
+TC093,SEO,Canonical URL,Verify canonical URL present,On any page,"1. View page source
+2. Check canonical link",Canonical URL present and correct,Low,
+TC094,Accessibility,Keyboard Navigation,Verify keyboard navigation works,On any page,"1. Use Tab key to navigate
+2. Use Enter to activate",All interactive elements accessible via keyboard,Medium,
+TC095,Accessibility,Screen Reader,Verify alt text on images,On page with images,"1. Check image alt attributes
+2. Use screen reader",Images have descriptive alt text,Medium,
+TC096,Accessibility,Color Contrast,Verify text is readable,On any page,"1. Check text against backgrounds
+2. Test with contrast checker",Sufficient color contrast for readability,Medium,
+TC097,Performance,Page Load,Verify pages load within acceptable time,On any page,"1. Navigate to page
+2. Measure load time",Page loads within 3 seconds,High,
+TC098,Performance,Image Loading,Verify images load efficiently,On page with images,"1. Check network tab
+2. Observe image loading",Images lazy load and are optimized,Medium,
+TC099,Error Handling,API Errors,Verify API errors handled gracefully,Network issues simulated,"1. Disconnect network
+2. Try to scan product",User-friendly error message displayed,High,
+TC100,Error Handling,Form Validation,Verify form validation messages,On any form,"1. Submit form with invalid data
+2. Observe errors",Clear validation messages displayed,High,
+TC101,Cookie Consent,Banner Display,Verify cookie consent banner displays,First visit,"1. Visit site in incognito
+2. Observe page",Cookie consent banner displayed,Medium,
+TC102,Cookie Consent,Accept Cookies,Verify cookie acceptance works,Banner displayed,"1. Click 'Accept' on cookie banner
+2. Refresh page",Banner doesn't reappear,Medium,
+TC103,Scan Streak,Streak Display,Verify scan streak displays,User with consecutive scans,"1. Scan on consecutive days
+2. View streak indicator",Current streak count displayed,Low,
+TC104,Achievements,Badge Earning,Verify achievements/badges earned,User meets criteria,"1. Complete achievement criteria
+2. Check achievements",Badge earned with notification,Low,
+TC105,Responsive Design,Mobile View,Verify mobile responsive layout,On mobile viewport,"1. Resize to mobile width
+2. Check layout",All elements properly responsive,High,
+TC106,Responsive Design,Tablet View,Verify tablet responsive layout,On tablet viewport,"1. Resize to tablet width
+2. Check layout",Layout adapts to tablet size,Medium,
+TC107,Responsive Design,Desktop View,Verify desktop layout,On desktop viewport,"1. View on full desktop width
+2. Check layout",Full desktop layout displayed correctly,High,
+TC108,Terms & Privacy,Terms Page,Verify terms page displays,User on site,"1. Navigate to /terms
+2. View content",Terms of service displayed with last updated date,Medium,
+TC109,Terms & Privacy,Privacy Page,Verify privacy page displays,User on site,"1. Navigate to /privacy
+2. View content",Privacy policy displayed with last updated date,Medium,
+TC110,Support,Contact Form,Verify support form works,User on support page,"1. Navigate to /support
+2. Fill contact form
+3. Submit",Form submitted with confirmation,High,
+TC111,Support,FAQ Display,Verify FAQ section displays,On support page,"1. Navigate to /support
+2. View FAQ section",FAQ questions with expandable answers,Medium,
+TC112,Product Feedback,Submit Feedback,Verify product feedback submission,Product scanned,"1. Scan a product
+2. Click feedback option
+3. Submit feedback",Feedback submitted successfully,Medium,
+TC113,Product Feedback,Report Issue,Verify issue reporting works,Product scanned,"1. Scan a product
+2. Report incorrect data",Report submitted with confirmation,Medium,
+TC114,Early Access,Modal Display,Verify early access modal,First time visitor,"1. Visit site as new user
+2. Observe modal",Early access modal displayed,Low,
+TC115,Early Access,Email Signup,Verify email signup works,Modal displayed,"1. Enter email in modal
+2. Submit",Email captured with confirmation,Low,
+TC116,Social Proof,Display Stats,Verify social proof section,On homepage,"1. Navigate to homepage
+2. View social proof section",User counts and stats displayed,Low,
+TC117,Retailers,Display Retailers,Verify retailer links display,Product with retailers scanned,"1. Scan product with retailer info
+2. View retailers section",Retailer links displayed and clickable,Low,
+TC118,Product Images,No Image State,Verify placeholder for no image,Product without image scanned,"1. Scan product without images
+2. View product card",Placeholder image displayed,Low,
+TC119,Loading States,Skeleton Loading,Verify skeleton loaders display,During data load,"1. Navigate to page with data
+2. Observe loading",Skeleton loaders shown while loading,Medium,
+TC120,Toast Notifications,Success Toast,Verify success toasts display,After successful action,"1. Complete an action (save, submit)
+2. Observe notification",Success toast displayed and dismissable,Medium,
+TC121,Toast Notifications,Error Toast,Verify error toasts display,After failed action,"1. Trigger an error
+2. Observe notification",Error toast displayed with message,Medium,
+TC122,Login Prompt,Guest Actions,Verify login prompt for guest actions,Guest user,"1. Try action requiring login (favorite, history)
+2. Observe prompt",Login prompt modal displayed,High,
+TC123,Nutrition Comparison,Category Averages,Verify nutrition comparison,Product scanned,"1. Scan a product
+2. View nutrition comparison",Product values compared to category averages,Medium,
+TC124,Health Insights,Insights Display,Verify health insights display,Product scanned,"1. Scan a product
+2. View health insights",Key health insights displayed,Medium,
+TC125,Upgrade Banner,Free User Banner,Verify upgrade banner displays,Free user with limited scans,"1. Login as free user
+2. View banner on scanner page",Upgrade banner with remaining scans shown,Medium,
