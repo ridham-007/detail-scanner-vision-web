@@ -29,13 +29,19 @@ const CircularHealthScore: React.FC<CircularHealthScoreProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center space-y-2">
+    <div 
+      className="flex flex-col items-center space-y-2"
+      role="figure"
+      aria-label={`Health score: ${score} out of 100, rated ${getScoreLabel(score)}`}
+    >
       <div className="relative" style={{ width: size, height: size }}>
         <svg
           className="transform -rotate-90 animate-fade-in"
           width={size}
           height={size}
           viewBox="0 0 100 100"
+          role="img"
+          aria-hidden="true"
         >
           {/* Background circle */}
           <circle
@@ -63,7 +69,7 @@ const CircularHealthScore: React.FC<CircularHealthScoreProps> = ({
         </svg>
         
         {/* Score text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center" aria-hidden="true">
           <span className="text-2xl font-bold text-foreground">{score}</span>
           <span className="text-xs text-muted-foreground">/ 100</span>
         </div>

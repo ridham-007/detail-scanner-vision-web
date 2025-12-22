@@ -154,7 +154,12 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
   };
 
   return (
-    <div className="relative w-full h-64 bg-muted rounded-lg overflow-hidden">
+    <div 
+      className="relative w-full h-64 bg-muted rounded-lg overflow-hidden"
+      role="region"
+      aria-label="Barcode scanner"
+      aria-live="polite"
+    >
       <div className="absolute inset-0">
         <div className="absolute inset-4 border-2 border-primary/80 rounded-lg bg-transparent">
           <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-destructive rounded-tl-lg"></div>
@@ -166,8 +171,9 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
         <div
           ref={scannerRef}
           className="absolute inset-4 overflow-hidden rounded-lg"
+          aria-hidden={!isScanning}
         >
-          <div className="w-full h-1 bg-destructive opacity-80 animate-pulse"></div>
+          <div className="w-full h-1 bg-destructive opacity-80 animate-pulse" aria-hidden="true"></div>
         </div>
 
         <div className="flex flex-col !justify-center !items-center">
