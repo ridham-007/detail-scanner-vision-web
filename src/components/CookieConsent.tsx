@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Cookie, X, Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { updateAnalyticsConsent } from '@/utils/analytics';
 
 const COOKIE_CONSENT_KEY = 'eateriq_cookie_consent';
 
@@ -37,12 +38,8 @@ const CookieConsent = () => {
     }));
     setIsVisible(false);
 
-    // Enable/disable analytics based on preference
-    if (prefs.analytics && typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', {
-        analytics_storage: 'granted',
-      });
-    }
+    // Update analytics consent using the centralized utility
+    updateAnalyticsConsent(prefs.analytics, prefs.marketing);
   };
 
   const acceptAll = () => {
