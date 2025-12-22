@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings';
 import { usePrivacySettings, ProfileVisibility } from '@/hooks/usePrivacySettings';
 import { UserPreferencesForm } from '@/components/UserPreferencesForm';
+import SEOHead from '@/components/SEOHead';
 
 const UserSettingsPage = () => {
   const { user } = useAuth();
@@ -125,7 +126,13 @@ const UserSettingsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEOHead
+        title="Settings | EaterIQ"
+        description="Manage your EaterIQ account settings, preferences, notifications, and privacy options."
+        keywords="account settings, user preferences, privacy settings, notifications"
+      />
+      <div className="min-h-screen bg-background">
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
@@ -531,6 +538,7 @@ const UserSettingsPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

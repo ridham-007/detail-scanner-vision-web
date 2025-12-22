@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Package, Clock, CheckCircle2, XCircle, AlertCircle, Calendar, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
+import SEOHead from '@/components/SEOHead';
 
 interface Submission {
   id: string;
@@ -61,11 +62,17 @@ export default function ContributionsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground">My Contributions</h1>
-        <p className="text-muted-foreground">Track your product submissions and earned rewards</p>
-      </div>
+    <>
+      <SEOHead
+        title="My Contributions | EaterIQ"
+        description="Track your product submissions, earned rewards, and contribution stats on EaterIQ."
+        keywords="contributions, product submissions, rewards, badges"
+      />
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-foreground">My Contributions</h1>
+          <p className="text-muted-foreground">Track your product submissions and earned rewards</p>
+        </div>
 
       <Tabs defaultValue="stats" className="space-y-6">
         <TabsList>
@@ -143,5 +150,6 @@ export default function ContributionsPage() {
         </TabsContent>
       </Tabs>
     </div>
+    </>
   );
 }

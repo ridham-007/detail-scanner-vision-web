@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 import { trackEvent, trackScanAttempt, trackScanSuccess, trackScanError, trackProductView } from '@/utils/analytics';
 import UpgradeBanner from '@/components/UpgradeBanner';
 import { useDailyScans } from '@/hooks/useDailyScans';
+import SEOHead from '@/components/SEOHead';
 
 const FoodScannerPage: React.FC = () => {
   const [isScanning, setIsScanning] = useState(false);
@@ -149,8 +150,14 @@ const FoodScannerPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8">
-      {/* Upgrade Banner for Free Users */}
+    <>
+      <SEOHead
+        title="Food Scanner | EaterIQ"
+        description="Scan any barcode to get instant nutrition insights, health scores, and personalized food recommendations powered by AI."
+        keywords="food scanner, barcode scanner, nutrition analysis, health score, food insights"
+      />
+      <div className="space-y-8">
+        {/* Upgrade Banner for Free Users */}
       {!isUnlimited && (
         <UpgradeBanner 
           scansRemaining={scansRemaining as number} 
@@ -264,6 +271,7 @@ const FoodScannerPage: React.FC = () => {
         />
       </div>
     </div>
+    </>
   );
 };
 

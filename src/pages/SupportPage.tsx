@@ -15,6 +15,7 @@ import Footer from '@/components/Footer';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import { useRateLimit } from '@/hooks/useRateLimit';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import SEOHead from '@/components/SEOHead';
 
 const SupportPage = () => {
   const navigate = useNavigate();
@@ -150,8 +151,14 @@ const SupportPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <AnimatedBackground />
+    <>
+      <SEOHead
+        title="Support Center | EaterIQ"
+        description="Get help with EaterIQ. Contact our support team, report bugs, request features, or browse FAQs."
+        keywords="support, help, FAQ, contact, bug report, feature request"
+      />
+      <div className="min-h-screen bg-background">
+        <AnimatedBackground />
 
       <main className="container mx-auto px-4 py-8 relative z-10 max-w-6xl">
         <div className="flex flex-col gap-4 mb-8">
@@ -344,6 +351,7 @@ const SupportPage = () => {
         </div>
       </main>
     </div>
+    </>
   );
 };
 
