@@ -79,8 +79,7 @@ export const useProductLookup = () => {
         ingredient_analysis: rawData.ingredient_analysis || [],
         nutrition_data: rawData.nutrition_data || []
       };
-    } catch (error) {
-      console.error('Error fetching from Supabase:', error);
+    } catch {
       return null;
     }
   };
@@ -97,7 +96,6 @@ export const useProductLookup = () => {
         .in('code', codes);
 
       if (fetchError || !subcategoryData) {
-        console.error('Error fetching subcategories:', fetchError);
         return;
       }
 
@@ -128,12 +126,10 @@ export const useProductLookup = () => {
         .insert(categoriesToInsert);
 
       if (insertError) {
-        console.error('Error inserting product categories:', insertError);
-      } else {
-        console.log('Product categories mapped successfully');
+        // Category mapping failed silently
       }
-    } catch (error) {
-      console.error('Error mapping subcategories:', error);
+    } catch {
+      // Category mapping error, continue silently
     }
   };
 
@@ -168,15 +164,15 @@ export const useProductLookup = () => {
         );
 
       if (error) {
-        console.error('Error saving to Supabase:', error);
+        // Save to Supabase failed
       }
 
       // Map subcategories if available
       if (productData.subcategories && productData.subcategories.length > 0) {
         await mapSubcategories(productData.barcode, productData.subcategories);
       }
-    } catch (error) {
-      console.error('Error saving to Supabase:', error);
+    } catch {
+      // Error saving to Supabase
     }
   };
 
@@ -203,12 +199,10 @@ export const useProductLookup = () => {
         });
 
       if (error) {
-        console.error('Error saving unpublished barcode:', error);
-      } else {
-        console.log('Unpublished barcode tracked successfully');
+        // Save failed silently
       }
-    } catch (error) {
-      console.error('Error saving unpublished barcode:', error);
+    } catch {
+      // Error saving unpublished barcode
     }
   };
 
@@ -223,7 +217,6 @@ export const useProductLookup = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('API response:', data);
         
         if (data.success && data.data) {
           const productData = data.data;
@@ -259,8 +252,7 @@ export const useProductLookup = () => {
         }
       }
       return null;
-    } catch (error) {
-      console.error('API lookup error:', error);
+    } catch {
       return null;
     }
   };
@@ -280,10 +272,10 @@ export const useProductLookup = () => {
         });
 
       if (error) {
-        console.error('Error saving scan history:', error);
+        // Scan history save failed
       }
-    } catch (error) {
-      console.error('Error saving scan history:', error);
+    } catch {
+      // Error saving scan history
     }
   };
 
@@ -291,11 +283,9 @@ export const useProductLookup = () => {
     setIsLoading(true);
 
     try {
-      console.log('Checking Supabase cache...');
       const cachedProduct = await fetchFromSupabase(barcode);
       
       if (cachedProduct) {
-        console.log('Found product in cache');
         await saveScanHistory(cachedProduct);
         toast({
           title: "Product Found",
@@ -304,7 +294,7 @@ export const useProductLookup = () => {
         return cachedProduct;
       }
 
-      console.log('Product not in cache, fetching from API...');
+
       const apiProduct = await fetchFromAPI(barcode);
       
       if (apiProduct) {
@@ -316,7 +306,7 @@ export const useProductLookup = () => {
         return apiProduct;
       }
 
-      console.log('No product data found, saving as unpublished...');
+
       await saveUnpublishedBarcode(barcode);
 
       toast({

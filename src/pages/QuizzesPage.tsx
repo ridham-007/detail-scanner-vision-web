@@ -160,10 +160,6 @@ const QuizzesPage = () => {
         return created.getTime() >= windowStart.getTime();
       });
 
-      // debug logs
-      console.log("🟢 All user quizzes count:", (data || []).length);
-      console.log("🟢 Quizzes in last 30 days:", recentQuizzes.length, recentQuizzes);
-
       // Update count state (count of quizzes in active 30-day window)
       setUserQuizCount(recentQuizzes.length || 0);
 
@@ -175,16 +171,12 @@ const QuizzesPage = () => {
 
         setIsLimitActive(true);
         setLimitResetDate(reset);
-
-        console.log("⛔ Limit active until:", reset.toISOString());
       } else {
         // limit not active
         setIsLimitActive(false);
         setLimitResetDate(null);
-        console.log("✅ Limit not active. recent quizzes:", recentQuizzes.length);
       }
-    } catch (err) {
-      console.error("❌ Error fetching monthly quiz count:", err);
+    } catch {
       // fail-safe: assume not limited on error
       setIsLimitActive(false);
       setLimitResetDate(null);
@@ -221,10 +213,8 @@ const QuizzesPage = () => {
     prompt: string;
   }) => {
     if (!user) return;
-    console.log("🟢 Current quiz count in window:", userQuizCount, "isLimitActive:", isLimitActive);
 
     if (isLimitActive) {
-      console.warn("🚫 User reached monthly limit (2 quizzes) and window is active");
       toast({
         title: "Monthly Limit Reached",
         description: limitResetDate

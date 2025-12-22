@@ -1,9 +1,12 @@
-
 User-agent: *
 Allow: /
 Allow: /quizzes
 Allow: /quiz/*
 Allow: /profile/*
+Allow: /blog
+Allow: /blog/*
+Allow: /history
+Allow: /pricing
 
 # Block sensitive areas
 Disallow: /settings

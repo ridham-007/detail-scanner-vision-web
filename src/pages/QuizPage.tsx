@@ -34,6 +34,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import QuizLeaderboardModal from "@/components/QuizLeaderboardModal";
+import SEOHead from "@/components/SEOHead";
 import { soundEffects } from "@/utils/soundEffects";
 import confetti from "canvas-confetti";
 import { toPng } from "html-to-image";
@@ -169,8 +170,7 @@ const QuizPage: React.FC = () => {
 
       setQuiz(quizData);
       setQuestions(questionsData || []);
-    } catch (error) {
-      console.error("Error fetching quiz:", error);
+    } catch {
       toast({
         title: "Error",
         description: "Failed to load quiz data",
@@ -361,8 +361,8 @@ const QuizPage: React.FC = () => {
         title: "Quiz Completed!",
         description: `Your score: ${finalScore}/100 points has been saved to the leaderboard`,
       });
-    } catch (error) {
-      console.error("Error saving quiz attempt:", error);
+    } catch {
+      // Score save failed silently
     }
   };
 
@@ -714,6 +714,16 @@ const QuizPage: React.FC = () => {
 
   return (
     <div className="min-h-dvh bg-background">
+      <SEOHead
+        title={`${quiz.title} - Food IQ Quiz | EaterIQ`}
+        description={quiz.description || `Test your knowledge with this ${quiz.difficulty} difficulty nutrition quiz on EaterIQ`}
+        keywords={`nutrition quiz, food quiz, ${quiz.difficulty} quiz, ${quiz.title}, health knowledge test`}
+        ogTitle={`${quiz.title} - Food IQ Quiz`}
+        ogDescription={quiz.description || `Challenge yourself with this ${quiz.difficulty} nutrition quiz!`}
+        twitterTitle={`${quiz.title} - Food IQ Quiz`}
+        twitterDescription={quiz.description || `Challenge yourself with this ${quiz.difficulty} nutrition quiz!`}
+        type="quiz"
+      />
       <AnimatedBackground />
 
       <main className="container mx-auto px-3 sm:px-4 py-4 relative z-10 max-w-4xl">

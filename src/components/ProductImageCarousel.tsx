@@ -38,6 +38,7 @@ const ProductImageCarousel: React.FC<ProductImageCarouselProps> = ({
           <img 
             src={images[currentImageIndex]} 
             alt={`${productName} - Image ${currentImageIndex + 1}`}
+            loading="lazy"
             className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-700"
             onError={(e) => {
               e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iI0Q1RDVENSIvPgo8L3N2Zz4K';
@@ -59,6 +60,7 @@ const ProductImageCarousel: React.FC<ProductImageCarouselProps> = ({
               <img 
                 src={images[currentImageIndex]} 
                 alt={`${productName} - Enlarged`}
+                loading="lazy"
                 className="w-full h-full object-contain max-h-[80vh]"
               />
             </DialogContent>
