@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu, BookOpen, Shield, ShoppingCart, History } from 'lucide-react';
+import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu, BookOpen, Shield, ShoppingCart, History, CreditCard } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { supabase } from '@/integrations/supabase/client';
@@ -51,6 +51,7 @@ const AuthButton = () => {
     { path: '/', label: 'Scanner', icon: Scan },
     { path: '/quizzes', label: 'Food IQ Tests', icon: Trophy },
     { path: '/blog', label: 'Blog', icon: BookOpen },
+    { path: '/pricing', label: 'Pricing', icon: CreditCard },
     { path: '/history', label: 'History', icon: History },
     { path: '/shopping-lists', label: 'Lists', icon: ShoppingCart },
   ];
@@ -155,9 +156,9 @@ const AuthButton = () => {
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={signInWithGoogle}>
+            <DropdownMenuItem onClick={() => navigate('/auth')}>
               <LogIn className="h-4 w-4 mr-2" />
-              Sign in with Google
+              Sign In
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -165,12 +166,12 @@ const AuthButton = () => {
       
       {/* Desktop Sign In Button */}
       <Button 
-        aria-label="Sign in with Google"
-        onClick={signInWithGoogle} 
+        aria-label="Sign In"
+        onClick={() => navigate('/auth')} 
         className="hidden md:flex bg-primary text-primary-foreground"
       >
         <LogIn className="h-4 w-4 mr-2" />
-        Sign in with Google
+        Sign In
       </Button>
     </>
   );
