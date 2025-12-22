@@ -73,9 +73,9 @@ function App() {
                   </Routes>
                 </main>
                 <Footer />
+                <CookieConsent />
               </div>
             </BrowserRouter>
-            <CookieConsent />
             <Toaster />
             <Sonner />
           </TooltipProvider>
