@@ -23,8 +23,8 @@ const BlogPostPage = () => {
           text: post?.excerpt,
           url: window.location.href,
         });
-      } catch (error) {
-        console.log('Error sharing:', error);
+      } catch {
+        // Share cancelled or failed, ignore
       }
     } else {
       // Fallback to clipboard
@@ -162,6 +162,7 @@ const BlogPostPage = () => {
               <img
                 src={post.featured_image_url}
                 alt={post.title}
+                loading="lazy"
                 className="w-full h-full object-fill"
               />
             </div>

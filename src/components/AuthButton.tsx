@@ -55,9 +55,6 @@ const AuthButton = () => {
     { path: '/shopping-lists', label: 'Lists', icon: ShoppingCart },
   ];
 
-  // Debug logging
-  console.log('AuthButton - user:', user);
-  console.log('AuthButton - navigationItems:', navigationItems);
 
   const getUserInitials = () => {
     if (username) {

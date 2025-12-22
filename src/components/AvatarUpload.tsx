@@ -57,9 +57,6 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({
       const fileExt = file.name.split('.').pop()?.toLowerCase();
       const fileName = `${userId}-${Date.now()}.${fileExt}`;
       
-      console.log('Uploading file with name:', fileName);
-      console.log('User ID:', userId);
-      console.log('Expected policy match:', `split_part('${fileName}', '-', 1) = '${userId}'`);
 
       // Convert file to base64 for upload
       const arrayBuffer = await file.arrayBuffer();
@@ -78,14 +75,14 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({
         throw error;
       }
 
-      console.log('Upload successful:', data);
+      
 
       // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from('avatars')
         .getPublicUrl(fileName);
 
-      console.log('Public URL:', publicUrl);
+      
 
       // Update profile with new avatar URL
       const { error: updateError } = await supabase

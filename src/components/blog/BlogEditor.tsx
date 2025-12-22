@@ -146,9 +146,8 @@ const BlogEditor: React.FC<BlogEditorProps> = ({ initialData, onSave, isLoading 
         </Card>
 
         <ImageUpload
-          onImageUploaded={(url) => {
-            // You can use this URL in any image field
-            console.log('Image uploaded:', url);
+          onImageUploaded={() => {
+            // Image uploaded, can be used in image fields
           }}
         />
 

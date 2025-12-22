@@ -27,6 +27,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           <img
             src={post.featured_image_url}
             alt={post.title}
+            loading="lazy"
             className="w-full h-full object-fill hover:scale-105 transition-transform duration-300"
           />
         </div>

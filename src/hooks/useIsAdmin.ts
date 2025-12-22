@@ -10,7 +10,6 @@ export const useIsAdmin = () => {
     queryFn: async () => {
       if (!user?.id) {
         if(loading){
-          console.log('Loading user data...');
           return {
             isLoading: true,
           }
@@ -25,7 +24,6 @@ export const useIsAdmin = () => {
         .eq('id', user.id)
         .single();
       if (error) {
-        console.error('Error checking admin status:', error);
         return false;
       }
       
