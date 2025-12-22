@@ -5,25 +5,108 @@ import * as amplitude from '@amplitude/analytics-browser';
 declare global {
   interface Window {
     gtag: (command: string, targetId: string, config?: any) => void;
+    dataLayer: any[];
   }
 }
 
-export const GA_MEASUREMENT_ID = 'G-Y80603VYMC';
+export const GA_MEASUREMENT_ID = 'G-YK2C6Q3ZMW';
 export const AMPLITUDE_API_KEY = import.meta.env.VITE_AMPLITUDE_API_KEY || '';
 
-// Initialize Google Analytics
-export const initGA = () => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', GA_MEASUREMENT_ID, {
-      page_title: document.title,
-      page_location: window.location.href,
-    });
+const COOKIE_CONSENT_KEY = 'eateriq_cookie_consent';
+
+// Check if user has given analytics consent
+export const hasAnalyticsConsent = (): boolean => {
+  try {
+    const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
+    if (!consent) return false;
+    const parsed = JSON.parse(consent);
+    return parsed.analytics === true;
+  } catch {
+    return false;
   }
 };
 
-// Initialize Amplitude
+// Check if user has given marketing consent
+export const hasMarketingConsent = (): boolean => {
+  try {
+    const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
+    if (!consent) return false;
+    const parsed = JSON.parse(consent);
+    return parsed.marketing === true;
+  } catch {
+    return false;
+  }
+};
+
+// Initialize Google Analytics with consent mode
+export const initGA = () => {
+  if (typeof window === 'undefined') return;
+  
+  // Set default consent to denied
+  if (window.gtag) {
+    window.gtag('consent', 'default', {
+      analytics_storage: hasAnalyticsConsent() ? 'granted' : 'denied',
+      ad_storage: hasMarketingConsent() ? 'granted' : 'denied',
+    });
+    
+    // Only configure if consent is granted
+    if (hasAnalyticsConsent()) {
+      window.gtag('config', GA_MEASUREMENT_ID, {
+        page_title: document.title,
+        page_location: window.location.href,
+      });
+    }
+  }
+};
+
+// Initialize Amplitude with consent check
 export const initAmplitude = () => {
-  if (typeof window !== 'undefined' && AMPLITUDE_API_KEY && AMPLITUDE_API_KEY.trim()) {
+  if (typeof window === 'undefined') return;
+  if (!AMPLITUDE_API_KEY || !AMPLITUDE_API_KEY.trim()) return;
+  if (!hasAnalyticsConsent()) return;
+  
+  try {
+    amplitude.init(AMPLITUDE_API_KEY, {
+      defaultTracking: {
+        sessions: true,
+        pageViews: true,
+        formInteractions: true,
+        fileDownloads: true,
+      },
+    });
+  } catch (error) {
+    console.warn('Failed to initialize Amplitude:', error);
+  }
+};
+
+// Initialize all analytics (respects consent)
+export const initAnalytics = () => {
+  initGA();
+  initAmplitude();
+};
+
+// Update consent and reinitialize analytics if needed
+export const updateAnalyticsConsent = (analyticsConsent: boolean, marketingConsent: boolean) => {
+  if (typeof window === 'undefined') return;
+  
+  // Update Google Analytics consent
+  if (window.gtag) {
+    window.gtag('consent', 'update', {
+      analytics_storage: analyticsConsent ? 'granted' : 'denied',
+      ad_storage: marketingConsent ? 'granted' : 'denied',
+    });
+    
+    // Initialize GA if consent just granted
+    if (analyticsConsent) {
+      window.gtag('config', GA_MEASUREMENT_ID, {
+        page_title: document.title,
+        page_location: window.location.href,
+      });
+    }
+  }
+  
+  // Initialize Amplitude if consent just granted
+  if (analyticsConsent && AMPLITUDE_API_KEY && AMPLITUDE_API_KEY.trim()) {
     try {
       amplitude.init(AMPLITUDE_API_KEY, {
         defaultTracking: {
@@ -34,19 +117,30 @@ export const initAmplitude = () => {
         },
       });
     } catch (error) {
-      console.warn('Failed to initialize Amplitude:', error);
+      // Already initialized, ignore
+    }
+  }
+  
+  // Disable Amplitude if consent revoked
+  if (!analyticsConsent) {
+    try {
+      amplitude.setOptOut(true);
+    } catch {
+      // Not initialized, ignore
+    }
+  } else {
+    try {
+      amplitude.setOptOut(false);
+    } catch {
+      // Not initialized, ignore
     }
   }
 };
 
-// Initialize all analytics
-export const initAnalytics = () => {
-  initGA();
-  initAmplitude();
-};
-
-// Set user identity
+// Set user identity (only if consent granted)
 export const identifyUser = (userId: string, userProperties?: Record<string, any>) => {
+  if (!hasAnalyticsConsent()) return;
+  
   // Google Analytics
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('config', GA_MEASUREMENT_ID, {
@@ -54,7 +148,7 @@ export const identifyUser = (userId: string, userProperties?: Record<string, any
     });
   }
   
-  // Amplitude - only if initialized
+  // Amplitude
   try {
     amplitude.setUserId(userId);
     if (userProperties) {
@@ -69,8 +163,10 @@ export const identifyUser = (userId: string, userProperties?: Record<string, any
   }
 };
 
-// Track page views
+// Track page views (only if consent granted)
 export const trackPageView = (url: string, title?: string) => {
+  if (!hasAnalyticsConsent()) return;
+  
   // Google Analytics
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('config', GA_MEASUREMENT_ID, {
@@ -82,8 +178,10 @@ export const trackPageView = (url: string, title?: string) => {
   // Amplitude (handled automatically by defaultTracking.pageViews)
 };
 
-// Track custom events
+// Track custom events (only if consent granted)
 export const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+  if (!hasAnalyticsConsent()) return;
+  
   // Google Analytics
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', eventName, {
@@ -91,7 +189,7 @@ export const trackEvent = (eventName: string, parameters?: Record<string, any>) 
     });
   }
   
-  // Amplitude - only if initialized
+  // Amplitude
   try {
     amplitude.track(eventName, parameters);
   } catch (error) {

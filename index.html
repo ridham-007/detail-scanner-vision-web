@@ -69,13 +69,36 @@
     }
     </script>
 
-    <!-- Google Analytics -->
+    <!-- Google Analytics - with Consent Mode -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YK2C6Q3ZMW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-YK2C6Q3ZMW');
+      
+      // Set default consent to denied - will be updated by CookieConsent component
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'wait_for_update': 500
+      });
+      
+      // Check if user has already given consent
+      (function() {
+        try {
+          var consent = localStorage.getItem('eateriq_cookie_consent');
+          if (consent) {
+            var parsed = JSON.parse(consent);
+            gtag('consent', 'update', {
+              'analytics_storage': parsed.analytics ? 'granted' : 'denied',
+              'ad_storage': parsed.marketing ? 'granted' : 'denied'
+            });
+            if (parsed.analytics) {
+              gtag('config', 'G-YK2C6Q3ZMW');
+            }
+          }
+        } catch(e) {}
+      })();
     </script>
   </head>
 
