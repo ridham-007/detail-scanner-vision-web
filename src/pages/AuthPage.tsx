@@ -10,8 +10,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { Eye, EyeOff, Mail, Lock, User, Loader2 } from 'lucide-react';
 import { z } from 'zod';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 // Validation schemas
 const emailSchema = z.string().email('Please enter a valid email address');
@@ -155,10 +153,7 @@ const AuthPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
+    <div className="flex-1 flex items-center justify-center px-4 py-12">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold">Welcome to EaterIQ</CardTitle>
@@ -354,9 +349,6 @@ const AuthPage = () => {
             </Button>
           </CardContent>
         </Card>
-      </main>
-      
-      <Footer />
     </div>
   );
 };
