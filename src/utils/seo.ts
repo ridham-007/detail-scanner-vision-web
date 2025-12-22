@@ -27,7 +27,7 @@ export const updatePageSEO = (config: SEOConfig) => {
     title = 'EaterIQ - Smart Food Intelligence',
     description = 'AI-powered barcode scanner and quiz platform for smarter food choices',
     keywords = 'barcode scanner, food scanner, nutrition app, health score, AI food quiz',
-    image = 'http://eateriq.com/eater-iq.png',
+    image = 'https://www.eateriq.com/eater-iq.png',
     url = window.location.href,
     type = 'website',
     structuredData,

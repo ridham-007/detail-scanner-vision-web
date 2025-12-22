@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CookieConsent from "@/components/CookieConsent";
 import Index from "./pages/Index";
 import FoodScannerPage from "./pages/FoodScannerPage";
 import QuizzesPage from "./pages/QuizzesPage";
@@ -74,6 +75,7 @@ function App() {
                 <Footer />
               </div>
             </BrowserRouter>
+            <CookieConsent />
             <Toaster />
             <Sonner />
           </TooltipProvider>
