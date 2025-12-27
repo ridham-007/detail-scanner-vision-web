@@ -2,15 +2,24 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useLocation, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import ThemeToggle from "./ThemeToggle";
 import AuthButton from "./AuthButton";
 import NotificationBell from "./NotificationBell";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Shield, FileText, Package, Bell } from "lucide-react";
 
 const Header = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const location = useLocation();
   const { user } = useAuth();
+  const { data: isAdmin } = useIsAdmin();
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -95,6 +104,36 @@ const Header = () => {
                   }`}></span>
                 </Link>
               ))}
+
+              {/* Admin Dropdown */}
+              {isAdmin && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground hover:text-primary transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm">
+                    <Shield className="h-4 w-4" />
+                    Admin
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin/blogs" className="flex items-center gap-2 cursor-pointer">
+                        <FileText className="h-4 w-4" />
+                        Blog Management
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin/submissions" className="flex items-center gap-2 cursor-pointer">
+                        <Package className="h-4 w-4" />
+                        Product Submissions
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin/notifications" className="flex items-center gap-2 cursor-pointer">
+                        <Bell className="h-4 w-4" />
+                        Notifications
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </nav>
 
             <div className="flex items-center gap-2 md:gap-4">
