@@ -364,6 +364,48 @@ export type Database = {
         }
         Relationships: []
       }
+      notifications: {
+        Row: {
+          action_url: string | null
+          body: string
+          created_at: string
+          id: string
+          is_read: boolean
+          metadata: Json | null
+          priority: Database["public"]["Enums"]["notification_priority"]
+          read_at: string | null
+          title: string
+          type: Database["public"]["Enums"]["notification_type"]
+          user_id: string
+        }
+        Insert: {
+          action_url?: string | null
+          body: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          metadata?: Json | null
+          priority?: Database["public"]["Enums"]["notification_priority"]
+          read_at?: string | null
+          title: string
+          type: Database["public"]["Enums"]["notification_type"]
+          user_id: string
+        }
+        Update: {
+          action_url?: string | null
+          body?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          metadata?: Json | null
+          priority?: Database["public"]["Enums"]["notification_priority"]
+          read_at?: string | null
+          title?: string
+          type?: Database["public"]["Enums"]["notification_type"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       product_categories: {
         Row: {
           assigned_by: string | null
@@ -1146,6 +1188,14 @@ export type Database = {
     Enums: {
       app_role: "admin" | "moderator" | "user"
       contribution_tier: "guest" | "logged_in" | "verified"
+      notification_priority: "low" | "normal" | "high"
+      notification_type:
+        | "scan_reminder"
+        | "achievement"
+        | "health_alert"
+        | "weekly_summary"
+        | "product_suggestion"
+        | "quiz_challenge"
       quiz_difficulty: "easy" | "medium" | "hard"
       submission_status: "pending" | "approved" | "rejected" | "needs_revision"
     }
@@ -1277,6 +1327,15 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "moderator", "user"],
       contribution_tier: ["guest", "logged_in", "verified"],
+      notification_priority: ["low", "normal", "high"],
+      notification_type: [
+        "scan_reminder",
+        "achievement",
+        "health_alert",
+        "weekly_summary",
+        "product_suggestion",
+        "quiz_challenge",
+      ],
       quiz_difficulty: ["easy", "medium", "hard"],
       submission_status: ["pending", "approved", "rejected", "needs_revision"],
     },
