@@ -20,6 +20,7 @@ const FoodScannerPage: React.FC = () => {
   const [manualBarcode, setManualBarcode] = useState('');
   const [currentProduct, setCurrentProduct] = useState<ProductData | null>(null);
   const [showNoDataState, setShowNoDataState] = useState(false);
+  const [lastScannedBarcode, setLastScannedBarcode] = useState<string>('');
   const { lookupProduct, isLoading } = useProductLookup();
   const productDetailsRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
@@ -45,6 +46,7 @@ const FoodScannerPage: React.FC = () => {
     
     setIsScanning(false);
     setShowNoDataState(false);
+    setLastScannedBarcode(scannedCode);
     scrollToResults();
 
     // Only check scan history if user is authenticated
@@ -103,6 +105,7 @@ const FoodScannerPage: React.FC = () => {
     trackEvent('manual_barcode_entry', { barcode: trimmedBarcode });
     
     setShowNoDataState(false);
+    setLastScannedBarcode(trimmedBarcode);
     scrollToResults();
 
     let alreadyScanned = false;
@@ -268,6 +271,7 @@ const FoodScannerPage: React.FC = () => {
           product={currentProduct} 
           isLoading={isLoading} 
           showNoDataState={showNoDataState}
+          scannedBarcode={lastScannedBarcode}
         />
       </div>
     </div>

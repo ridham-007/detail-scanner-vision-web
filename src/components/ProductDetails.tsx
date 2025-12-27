@@ -30,12 +30,14 @@ interface ProductDetailsProps {
   product: ProductData | null;
   isLoading: boolean;
   showNoDataState?: boolean;
+  scannedBarcode?: string;
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ 
   product, 
   isLoading, 
-  showNoDataState = false 
+  showNoDataState = false,
+  scannedBarcode 
 }) => {
   const [showAddToListModal, setShowAddToListModal] = useState(false);
   const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
@@ -143,7 +145,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   }
 
   if (showNoDataState) {
-    return <NoProductData />;
+    return <NoProductData barcode={scannedBarcode} />;
   }
 
   if (!product) {
