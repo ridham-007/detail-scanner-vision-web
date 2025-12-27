@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { Scan, Sparkles, Brain, History } from "lucide-react";
 import { gsap } from "gsap";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import ThemeToggle from "./ThemeToggle";
 import AuthButton from "./AuthButton";
+import NotificationBell from "./NotificationBell";
 
 const Header = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -97,7 +97,8 @@ const Header = () => {
               ))}
             </nav>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4">
+              <NotificationBell />
               <AuthButton />
               <ThemeToggle />
             </div>
