@@ -70,12 +70,25 @@ const AdminNotificationsPage = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('notifications')
-        .select('*, profiles:user_id(email, full_name)')
+        .select('*')
         .order('created_at', { ascending: false })
         .limit(20);
       
       if (error) throw error;
-      return data;
+      
+      // Get unique user IDs and fetch their profiles
+      const userIds = [...new Set(data.map(n => n.user_id))];
+      const { data: profiles } = await supabase
+        .from('profiles')
+        .select('id, email, full_name')
+        .in('id', userIds);
+      
+      // Map profiles to notifications
+      const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
+      return data.map(notification => ({
+        ...notification,
+        profile: profileMap.get(notification.user_id) || null,
+      }));
     },
     enabled: !!isAdmin,
   });
