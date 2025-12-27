@@ -26,6 +26,7 @@ import AdminBlogsPage from "./pages/admin/AdminBlogsPage";
 import CreateBlogPage from "./pages/admin/CreateBlogPage";
 import EditBlogPage from "./pages/admin/EditBlogPage";
 import ProductSubmissionsPage from "./pages/admin/ProductSubmissionsPage";
+import AdminNotificationsPage from "./pages/admin/AdminNotificationsPage";
 import ContributionsPage from "./pages/ContributionsPage";
 import PricingPage from "./pages/PricingPage";
 import SubscriptionSuccessPage from "./pages/SubscriptionSuccessPage";
@@ -68,6 +69,7 @@ function App() {
                     <Route path="/admin/blogs/new" element={<CreateBlogPage />} />
                     <Route path="/admin/blogs/edit/:id" element={<EditBlogPage />} />
                     <Route path="/admin/submissions" element={<ProductSubmissionsPage />} />
+                    <Route path="/admin/notifications" element={<AdminNotificationsPage />} />
                     <Route path="/contributions" element={<ContributionsPage />} />
                     <Route path="/pricing" element={<PricingPage />} />
                     <Route path="/subscription-success" element={<SubscriptionSuccessPage />} />
