@@ -13,28 +13,20 @@ export interface SubscriptionState {
   error: string | null;
 }
 
-// Price IDs for different plans
-export const SUBSCRIPTION_PRICES = {
+// Plan IDs for Razorpay
+export const SUBSCRIPTION_PLANS = {
   pro: {
-    monthly: 'price_1Scex42UUU7zlEiUT01DrADK',
-    yearly: 'price_1Scexy2UUU7zlEiUApsogI1s',
-    monthlyAmount: 499,
-    yearlyAmount: 3999,
+    monthly: 'pro_monthly',
+    yearly: 'pro_yearly',
+    monthlyAmount: 399, // ₹399
+    yearlyAmount: 3199, // ₹3199
   },
   premium: {
-    monthly: 'price_1Scexi2UUU7zlEiU1ebSF4ZL',
-    yearly: 'price_1SceyH2UUU7zlEiU0gNX0oO3',
-    monthlyAmount: 999,
-    yearlyAmount: 7999,
+    monthly: 'premium_monthly',
+    yearly: 'premium_yearly',
+    monthlyAmount: 799, // ₹799
+    yearlyAmount: 6399, // ₹6399
   },
-} as const;
-
-// Product IDs mapping
-export const PRODUCT_IDS = {
-  pro_monthly: 'prod_TZoa3HJibmfYUl',
-  pro_yearly: 'prod_TZobqr5P0RqRhe',
-  premium_monthly: 'prod_TZoa78p3QSJfPH',
-  premium_yearly: 'prod_TZobwol5fO2stX',
 } as const;
 
 // Tier limits
@@ -61,6 +53,12 @@ export const TIER_LIMITS = {
     familyAccounts: 5,
   },
 } as const;
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 export const useSubscription = () => {
   const { user, session } = useAuth();
@@ -108,41 +106,96 @@ export const useSubscription = () => {
     }
   }, [user, session]);
 
-  const createCheckout = async (priceId: string) => {
+  const loadRazorpayScript = (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      if (window.Razorpay) {
+        resolve(true);
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const createOrder = async (planId: string): Promise<void> => {
     if (!session) {
       throw new Error('Please sign in to subscribe');
     }
 
-    const { data, error } = await supabase.functions.invoke('create-checkout', {
-      body: { priceId },
+    // Load Razorpay script
+    const scriptLoaded = await loadRazorpayScript();
+    if (!scriptLoaded) {
+      throw new Error('Failed to load payment gateway');
+    }
+
+    // Create order
+    const { data, error } = await supabase.functions.invoke('razorpay-create-order', {
+      body: { planId },
       headers: {
         Authorization: `Bearer ${session.access_token}`,
       },
     });
 
     if (error) throw error;
-    if (data?.url) {
-      window.open(data.url, '_blank');
-    }
-    return data;
-  };
+    if (!data?.orderId) throw new Error('Failed to create order');
 
-  const openCustomerPortal = async () => {
-    if (!session) {
-      throw new Error('Please sign in to manage subscription');
-    }
+    // Open Razorpay checkout
+    return new Promise((resolve, reject) => {
+      const options = {
+        key: data.keyId,
+        amount: data.amount,
+        currency: data.currency,
+        name: 'EaterIQ',
+        description: data.planName,
+        order_id: data.orderId,
+        prefill: {
+          email: data.userEmail,
+          name: data.userName,
+        },
+        theme: {
+          color: '#22c55e',
+        },
+        handler: async (response: any) => {
+          try {
+            // Verify payment
+            const { data: verifyData, error: verifyError } = await supabase.functions.invoke('razorpay-verify-payment', {
+              body: {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                planId,
+              },
+              headers: {
+                Authorization: `Bearer ${session.access_token}`,
+              },
+            });
 
-    const { data, error } = await supabase.functions.invoke('customer-portal', {
-      headers: {
-        Authorization: `Bearer ${session.access_token}`,
-      },
+            if (verifyError) throw verifyError;
+            if (!verifyData?.success) throw new Error('Payment verification failed');
+
+            // Refresh subscription status
+            await checkSubscription();
+            
+            // Redirect to success page
+            window.location.href = '/subscription-success';
+            resolve();
+          } catch (err) {
+            reject(err);
+          }
+        },
+        modal: {
+          ondismiss: () => {
+            reject(new Error('Payment cancelled'));
+          },
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
     });
-
-    if (error) throw error;
-    if (data?.url) {
-      window.open(data.url, '_blank');
-    }
-    return data;
   };
 
   // Check subscription on mount and when user changes
@@ -161,8 +214,7 @@ export const useSubscription = () => {
   return {
     ...state,
     checkSubscription,
-    createCheckout,
-    openCustomerPortal,
+    createOrder,
     limits: TIER_LIMITS[state.tier],
   };
 };

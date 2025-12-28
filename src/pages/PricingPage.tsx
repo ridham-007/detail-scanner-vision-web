@@ -6,13 +6,13 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
-import { useSubscription, SUBSCRIPTION_PRICES } from '@/hooks/useSubscription';
+import { useSubscription, SUBSCRIPTION_PLANS } from '@/hooks/useSubscription';
 import { toast } from 'sonner';
 import SEOHead from '@/components/SEOHead';
 
 const PricingPage = () => {
   const { user } = useAuth();
-  const { tier, subscribed, loading, createCheckout, openCustomerPortal } = useSubscription();
+  const { tier, subscribed, loading, createOrder } = useSubscription();
   const [isYearly, setIsYearly] = useState(true);
   const [processingPlan, setProcessingPlan] = useState<string | null>(null);
 
@@ -24,24 +24,17 @@ const PricingPage = () => {
 
     setProcessingPlan(planType);
     try {
-      const priceId = isYearly 
-        ? SUBSCRIPTION_PRICES[planType].yearly 
-        : SUBSCRIPTION_PRICES[planType].monthly;
-      await createCheckout(priceId);
+      const planId = isYearly 
+        ? SUBSCRIPTION_PLANS[planType].yearly 
+        : SUBSCRIPTION_PLANS[planType].monthly;
+      await createOrder(planId);
     } catch (error) {
-      console.error('Checkout error:', error);
-      toast.error('Failed to start checkout. Please try again.');
+      console.error('Payment error:', error);
+      if (error instanceof Error && error.message !== 'Payment cancelled') {
+        toast.error('Failed to process payment. Please try again.');
+      }
     } finally {
       setProcessingPlan(null);
-    }
-  };
-
-  const handleManageSubscription = async () => {
-    try {
-      await openCustomerPortal();
-    } catch (error) {
-      console.error('Portal error:', error);
-      toast.error('Failed to open subscription portal.');
     }
   };
 
@@ -69,8 +62,8 @@ const PricingPage = () => {
       name: 'Pro',
       icon: Star,
       description: 'For health-conscious individuals',
-      monthlyPrice: 4.99,
-      yearlyPrice: 39.99,
+      monthlyPrice: 399,
+      yearlyPrice: 3199,
       savings: '33% off',
       features: [
         'Unlimited scans',
@@ -91,8 +84,8 @@ const PricingPage = () => {
       name: 'Premium',
       icon: Crown,
       description: 'For families & health enthusiasts',
-      monthlyPrice: 9.99,
-      yearlyPrice: 79.99,
+      monthlyPrice: 799,
+      yearlyPrice: 6399,
       savings: '33% off',
       features: [
         'Everything in Pro',
@@ -192,7 +185,7 @@ const PricingPage = () => {
                   <div className="text-center mb-6">
                     <div className="flex items-baseline justify-center gap-1">
                       <span className="text-4xl font-bold">
-                        ${isYearly ? plan.yearlyPrice : plan.monthlyPrice}
+                        ₹{isYearly ? plan.yearlyPrice : plan.monthlyPrice}
                       </span>
                       <span className="text-muted-foreground">
                         /{isYearly ? 'year' : 'month'}
@@ -235,9 +228,9 @@ const PricingPage = () => {
                       <Button 
                         variant="outline" 
                         className="w-full"
-                        onClick={handleManageSubscription}
+                        disabled
                       >
-                        Manage Subscription
+                        Current Plan
                       </Button>
                     ) : (
                       <Button 
@@ -280,7 +273,7 @@ const PricingPage = () => {
               <div>
                 <h3 className="font-semibold mb-2">Can I cancel anytime?</h3>
                 <p className="text-muted-foreground">
-                  Yes! You can cancel your subscription at any time. You'll continue to have access until the end of your billing period.
+                  Yes! Your subscription remains active until the end of your billing period. No automatic renewals.
                 </p>
               </div>
               <div>
