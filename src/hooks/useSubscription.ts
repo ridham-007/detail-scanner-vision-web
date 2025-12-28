@@ -9,6 +9,7 @@ export interface SubscriptionState {
   tier: SubscriptionTier;
   productId: string | null;
   subscriptionEnd: string | null;
+  cancelAtPeriodEnd: boolean;
   loading: boolean;
   error: string | null;
 }
@@ -75,13 +76,14 @@ export const useSubscription = () => {
     tier: 'free',
     productId: null,
     subscriptionEnd: null,
+    cancelAtPeriodEnd: false,
     loading: true,
     error: null,
   });
 
   const checkSubscription = useCallback(async () => {
     if (!user || !session) {
-      setState(prev => ({ ...prev, subscribed: false, tier: 'free', loading: false }));
+      setState(prev => ({ ...prev, subscribed: false, tier: 'free', cancelAtPeriodEnd: false, loading: false }));
       return;
     }
 
@@ -101,6 +103,7 @@ export const useSubscription = () => {
         tier: data.tier as SubscriptionTier,
         productId: data.product_id,
         subscriptionEnd: data.subscription_end,
+        cancelAtPeriodEnd: data.cancel_at_period_end || false,
         loading: false,
         error: null,
       });

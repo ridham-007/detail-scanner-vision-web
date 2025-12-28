@@ -42,7 +42,7 @@ const UserSettingsPage = () => {
   const [cancellingSubscription, setCancellingSubscription] = useState(false);
   const { settings: notificationSettings, loading: notificationLoading, saving: notificationSaving, updateSetting } = useNotificationSettings();
   const { settings: privacySettings, loading: privacyLoading, saving: privacySaving, updateSetting: updatePrivacySetting } = usePrivacySettings();
-  const { subscribed, tier, subscriptionEnd, loading: subscriptionLoading, checkSubscription } = useSubscription();
+  const { subscribed, tier, subscriptionEnd, cancelAtPeriodEnd, loading: subscriptionLoading, checkSubscription } = useSubscription();
   const [profile, setProfile] = useState({
     full_name: '',
     username: '',
@@ -337,7 +337,12 @@ const UserSettingsPage = () => {
                           <p className="font-medium text-lg capitalize">{tier} Plan</p>
                           {subscribed && subscriptionEnd && (
                             <p className="text-sm text-muted-foreground">
-                              {tier === 'free' ? 'Free forever' : `Renews on ${new Date(subscriptionEnd).toLocaleDateString()}`}
+                              {cancelAtPeriodEnd 
+                                ? `Ends on ${new Date(subscriptionEnd).toLocaleDateString()}`
+                                : tier === 'free' 
+                                  ? 'Free forever' 
+                                  : `Renews on ${new Date(subscriptionEnd).toLocaleDateString()}`
+                              }
                             </p>
                           )}
                           {!subscribed && (
@@ -347,9 +352,13 @@ const UserSettingsPage = () => {
                           )}
                         </div>
                         <div className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          subscribed ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'
+                          cancelAtPeriodEnd 
+                            ? 'bg-orange-500/20 text-orange-600 dark:text-orange-400'
+                            : subscribed 
+                              ? 'bg-primary/20 text-primary' 
+                              : 'bg-muted text-muted-foreground'
                         }`}>
-                          {subscribed ? 'Active' : 'Free'}
+                          {cancelAtPeriodEnd ? 'Cancelled' : subscribed ? 'Active' : 'Free'}
                         </div>
                       </div>
                     </div>
@@ -364,7 +373,7 @@ const UserSettingsPage = () => {
                     )}
                   </div>
 
-                  {subscribed && tier !== 'free' && (
+                  {subscribed && tier !== 'free' && !cancelAtPeriodEnd && (
                     <>
                       <Separator />
 
@@ -411,6 +420,34 @@ const UserSettingsPage = () => {
                             </AlertDialogFooter>
                           </AlertDialogContent>
                         </AlertDialog>
+                      </div>
+                    </>
+                  )}
+
+                  {subscribed && tier !== 'free' && cancelAtPeriodEnd && (
+                    <>
+                      <Separator />
+
+                      {/* Already Cancelled */}
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-foreground">Subscription Cancelled</h3>
+                        
+                        <Alert className="bg-orange-500/10 border-orange-500/30">
+                          <AlertTriangle className="h-4 w-4 text-orange-500" />
+                          <AlertTitle className="text-orange-600 dark:text-orange-400">Your subscription has been cancelled</AlertTitle>
+                          <AlertDescription>
+                            You'll continue to have access to {tier} features until{' '}
+                            <strong>{subscriptionEnd ? new Date(subscriptionEnd).toLocaleDateString() : 'the end of your billing period'}</strong>.
+                            After that, you'll be downgraded to the free plan.
+                          </AlertDescription>
+                        </Alert>
+
+                        <Button 
+                          onClick={() => navigate('/pricing')}
+                          className="w-full"
+                        >
+                          Resubscribe
+                        </Button>
                       </div>
                     </>
                   )}

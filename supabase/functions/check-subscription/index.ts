@@ -38,12 +38,12 @@ serve(async (req) => {
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
-    // Check subscription in database
+    // Check subscription in database - include cancelled subscriptions that haven't expired yet
     const { data: subscription, error: subError } = await supabaseClient
       .from('user_subscriptions')
       .select('*')
       .eq('user_id', user.id)
-      .eq('status', 'active')
+      .in('status', ['active', 'cancelled'])
       .single();
 
     if (subError && subError.code !== 'PGRST116') {
@@ -51,12 +51,13 @@ serve(async (req) => {
     }
 
     if (!subscription) {
-      logStep("No active subscription found in database");
+      logStep("No subscription found in database");
       return new Response(JSON.stringify({ 
         subscribed: false,
         product_id: null,
         subscription_end: null,
-        tier: 'free'
+        tier: 'free',
+        cancel_at_period_end: false
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
@@ -80,12 +81,16 @@ serve(async (req) => {
         subscribed: false,
         product_id: null,
         subscription_end: null,
-        tier: 'free'
+        tier: 'free',
+        cancel_at_period_end: false
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       });
     }
+
+    // Check if subscription is cancelled but still in active period
+    const isCancelled = subscription.cancel_at_period_end === true || subscription.status === 'cancelled';
 
     // Determine tier from price_id
     let tier = 'free';
@@ -96,17 +101,19 @@ serve(async (req) => {
       tier = 'pro';
     }
 
-    logStep("Active subscription found", { 
+    logStep("Subscription found", { 
       tier, 
       endDate: subscription.current_period_end,
-      priceId: subscription.price_id
+      priceId: subscription.price_id,
+      cancelAtPeriodEnd: isCancelled
     });
 
     return new Response(JSON.stringify({
       subscribed: true,
       product_id: subscription.price_id,
       subscription_end: subscription.current_period_end,
-      tier: tier
+      tier: tier,
+      cancel_at_period_end: isCancelled
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
