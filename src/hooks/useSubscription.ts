@@ -13,19 +13,27 @@ export interface SubscriptionState {
   error: string | null;
 }
 
-// Plan IDs for Razorpay
+// Razorpay Plan IDs - USD pricing
 export const SUBSCRIPTION_PLANS = {
   pro: {
     monthly: 'pro_monthly',
     yearly: 'pro_yearly',
-    monthlyAmount: 399, // ₹399
-    yearlyAmount: 3199, // ₹3199
+    monthlyAmount: 4.99, // $4.99
+    yearlyAmount: 39.99, // $39.99
+    razorpayPlanIds: {
+      monthly: 'plan_RwuIq9KMbyYqaR',
+      yearly: 'plan_RwuKIvtf8b0GOw',
+    }
   },
   premium: {
     monthly: 'premium_monthly',
     yearly: 'premium_yearly',
-    monthlyAmount: 799, // ₹799
-    yearlyAmount: 6399, // ₹6399
+    monthlyAmount: 9.99, // $9.99
+    yearlyAmount: 79.99, // $79.99
+    razorpayPlanIds: {
+      monthly: 'plan_RwuKpEYCLAhwoJ',
+      yearly: 'plan_RwuM8XilR9mPnG',
+    }
   },
 } as const;
 
@@ -120,7 +128,7 @@ export const useSubscription = () => {
     });
   };
 
-  const createOrder = async (planId: string): Promise<void> => {
+  const createSubscription = async (planId: string): Promise<void> => {
     if (!session) {
       throw new Error('Please sign in to subscribe');
     }
@@ -131,8 +139,8 @@ export const useSubscription = () => {
       throw new Error('Failed to load payment gateway');
     }
 
-    // Create order
-    const { data, error } = await supabase.functions.invoke('razorpay-create-order', {
+    // Create subscription
+    const { data, error } = await supabase.functions.invoke('razorpay-create-subscription', {
       body: { planId },
       headers: {
         Authorization: `Bearer ${session.access_token}`,
@@ -140,17 +148,15 @@ export const useSubscription = () => {
     });
 
     if (error) throw error;
-    if (!data?.orderId) throw new Error('Failed to create order');
+    if (!data?.subscriptionId) throw new Error('Failed to create subscription');
 
-    // Open Razorpay checkout
+    // Open Razorpay checkout for subscription
     return new Promise((resolve, reject) => {
       const options = {
         key: data.keyId,
-        amount: data.amount,
-        currency: data.currency,
+        subscription_id: data.subscriptionId,
         name: 'EaterIQ',
         description: data.planName,
-        order_id: data.orderId,
         prefill: {
           email: data.userEmail,
           name: data.userName,
@@ -160,22 +166,13 @@ export const useSubscription = () => {
         },
         handler: async (response: any) => {
           try {
-            // Verify payment
-            const { data: verifyData, error: verifyError } = await supabase.functions.invoke('razorpay-verify-payment', {
-              body: {
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-                planId,
-              },
-              headers: {
-                Authorization: `Bearer ${session.access_token}`,
-              },
-            });
-
-            if (verifyError) throw verifyError;
-            if (!verifyData?.success) throw new Error('Payment verification failed');
-
+            // For subscriptions, Razorpay automatically handles recurring payments
+            // The webhook will update the subscription status
+            // We just need to refresh the subscription status
+            
+            // Wait a moment for webhook to process
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
             // Refresh subscription status
             await checkSubscription();
             
@@ -198,6 +195,9 @@ export const useSubscription = () => {
     });
   };
 
+  // Legacy support - redirect to new function
+  const createOrder = createSubscription;
+
   // Check subscription on mount and when user changes
   useEffect(() => {
     checkSubscription();
@@ -214,7 +214,8 @@ export const useSubscription = () => {
   return {
     ...state,
     checkSubscription,
-    createOrder,
+    createSubscription,
+    createOrder, // Legacy support
     limits: TIER_LIMITS[state.tier],
   };
 };

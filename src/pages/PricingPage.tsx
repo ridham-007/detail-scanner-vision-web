@@ -12,7 +12,7 @@ import SEOHead from '@/components/SEOHead';
 
 const PricingPage = () => {
   const { user } = useAuth();
-  const { tier, subscribed, loading, createOrder } = useSubscription();
+  const { tier, subscribed, loading, createSubscription } = useSubscription();
   const [isYearly, setIsYearly] = useState(true);
   const [processingPlan, setProcessingPlan] = useState<string | null>(null);
 
@@ -27,7 +27,7 @@ const PricingPage = () => {
       const planId = isYearly 
         ? SUBSCRIPTION_PLANS[planType].yearly 
         : SUBSCRIPTION_PLANS[planType].monthly;
-      await createOrder(planId);
+      await createSubscription(planId);
     } catch (error) {
       console.error('Payment error:', error);
       if (error instanceof Error && error.message !== 'Payment cancelled') {
@@ -62,8 +62,8 @@ const PricingPage = () => {
       name: 'Pro',
       icon: Star,
       description: 'For health-conscious individuals',
-      monthlyPrice: 399,
-      yearlyPrice: 3199,
+      monthlyPrice: SUBSCRIPTION_PLANS.pro.monthlyAmount,
+      yearlyPrice: SUBSCRIPTION_PLANS.pro.yearlyAmount,
       savings: '33% off',
       features: [
         'Unlimited scans',
@@ -84,8 +84,8 @@ const PricingPage = () => {
       name: 'Premium',
       icon: Crown,
       description: 'For families & health enthusiasts',
-      monthlyPrice: 799,
-      yearlyPrice: 6399,
+      monthlyPrice: SUBSCRIPTION_PLANS.premium.monthlyAmount,
+      yearlyPrice: SUBSCRIPTION_PLANS.premium.yearlyAmount,
       savings: '33% off',
       features: [
         'Everything in Pro',
@@ -185,7 +185,7 @@ const PricingPage = () => {
                   <div className="text-center mb-6">
                     <div className="flex items-baseline justify-center gap-1">
                       <span className="text-4xl font-bold">
-                        ₹{isYearly ? plan.yearlyPrice : plan.monthlyPrice}
+                        ${isYearly ? plan.yearlyPrice : plan.monthlyPrice}
                       </span>
                       <span className="text-muted-foreground">
                         /{isYearly ? 'year' : 'month'}
@@ -273,7 +273,7 @@ const PricingPage = () => {
               <div>
                 <h3 className="font-semibold mb-2">Can I cancel anytime?</h3>
                 <p className="text-muted-foreground">
-                  Yes! Your subscription remains active until the end of your billing period. No automatic renewals.
+                  Yes! You can cancel your subscription anytime. Your access continues until the end of your billing period.
                 </p>
               </div>
               <div>
