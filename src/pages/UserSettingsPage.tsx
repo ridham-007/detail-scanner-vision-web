@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { User, Save, Globe, MapPin, Bell, Settings as SettingsIcon, Shield, Eye } from 'lucide-react';
+import { User, Save, Globe, MapPin, Bell, Settings as SettingsIcon, Shield, CreditCard, AlertTriangle } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -19,15 +19,30 @@ import { useNotificationSettings } from '@/hooks/useNotificationSettings';
 import { usePrivacySettings, ProfileVisibility } from '@/hooks/usePrivacySettings';
 import { UserPreferencesForm } from '@/components/UserPreferencesForm';
 import SEOHead from '@/components/SEOHead';
+import { useSubscription } from '@/hooks/useSubscription';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const UserSettingsPage = () => {
-  const { user } = useAuth();
+  const { user, session } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [cancellingSubscription, setCancellingSubscription] = useState(false);
   const { settings: notificationSettings, loading: notificationLoading, saving: notificationSaving, updateSetting } = useNotificationSettings();
   const { settings: privacySettings, loading: privacyLoading, saving: privacySaving, updateSetting: updatePrivacySetting } = usePrivacySettings();
+  const { subscribed, tier, subscriptionEnd, loading: subscriptionLoading, checkSubscription } = useSubscription();
   const [profile, setProfile] = useState({
     full_name: '',
     username: '',
@@ -121,6 +136,38 @@ const UserSettingsPage = () => {
     }
   };
 
+  const handleCancelSubscription = async () => {
+    if (!session) return;
+    
+    setCancellingSubscription(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('razorpay-cancel-subscription', {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Subscription Cancelled",
+        description: data.message || "Your subscription will end at the current billing period.",
+      });
+
+      // Refresh subscription status
+      await checkSubscription();
+    } catch (error) {
+      console.error('Error cancelling subscription:', error);
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to cancel subscription",
+        variant: "destructive"
+      });
+    } finally {
+      setCancellingSubscription(false);
+    }
+  };
+
   if (!user) {
     return null;
   }
@@ -137,22 +184,26 @@ const UserSettingsPage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <Tabs defaultValue="profile" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="profile" className="flex items-center gap-2">
                 <User className="h-4 w-4" />
-                Profile
+                <span className="hidden sm:inline">Profile</span>
+              </TabsTrigger>
+              <TabsTrigger value="subscription" className="flex items-center gap-2">
+                <CreditCard className="h-4 w-4" />
+                <span className="hidden sm:inline">Subscription</span>
               </TabsTrigger>
               <TabsTrigger value="preferences" className="flex items-center gap-2">
                 <SettingsIcon className="h-4 w-4" />
-                Preferences
+                <span className="hidden sm:inline">Preferences</span>
               </TabsTrigger>
               <TabsTrigger value="notifications" className="flex items-center gap-2">
                 <Bell className="h-4 w-4" />
-                Notifications
+                <span className="hidden sm:inline">Notifications</span>
               </TabsTrigger>
               <TabsTrigger value="privacy" className="flex items-center gap-2">
                 <Shield className="h-4 w-4" />
-                Privacy
+                <span className="hidden sm:inline">Privacy</span>
               </TabsTrigger>
             </TabsList>
 
@@ -255,6 +306,114 @@ const UserSettingsPage = () => {
                     <Save className="h-4 w-4 mr-2" />
                     {saving ? 'Saving...' : 'Save Profile'}
                   </Button>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="subscription">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CreditCard className="h-5 w-5" />
+                Subscription
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {subscriptionLoading ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                </div>
+              ) : (
+                <>
+                  {/* Current Plan */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-foreground">Current Plan</h3>
+                    
+                    <div className="p-4 border rounded-lg bg-muted/50">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-medium text-lg capitalize">{tier} Plan</p>
+                          {subscribed && subscriptionEnd && (
+                            <p className="text-sm text-muted-foreground">
+                              {tier === 'free' ? 'Free forever' : `Renews on ${new Date(subscriptionEnd).toLocaleDateString()}`}
+                            </p>
+                          )}
+                          {!subscribed && (
+                            <p className="text-sm text-muted-foreground">
+                              You're on the free plan
+                            </p>
+                          )}
+                        </div>
+                        <div className={`px-3 py-1 rounded-full text-sm font-medium ${
+                          subscribed ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'
+                        }`}>
+                          {subscribed ? 'Active' : 'Free'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {!subscribed && (
+                      <Button 
+                        onClick={() => navigate('/pricing')}
+                        className="w-full"
+                      >
+                        Upgrade to Pro or Premium
+                      </Button>
+                    )}
+                  </div>
+
+                  {subscribed && tier !== 'free' && (
+                    <>
+                      <Separator />
+
+                      {/* Cancel Subscription */}
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-foreground">Cancel Subscription</h3>
+                        
+                        <Alert variant="destructive" className="bg-destructive/10 border-destructive/30">
+                          <AlertTriangle className="h-4 w-4" />
+                          <AlertTitle>Cancel your subscription</AlertTitle>
+                          <AlertDescription>
+                            Your subscription will remain active until the end of the current billing period 
+                            ({subscriptionEnd ? new Date(subscriptionEnd).toLocaleDateString() : 'N/A'}). 
+                            After that, you'll be downgraded to the free plan.
+                          </AlertDescription>
+                        </Alert>
+
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button 
+                              variant="destructive" 
+                              className="w-full"
+                              disabled={cancellingSubscription}
+                            >
+                              {cancellingSubscription ? 'Cancelling...' : 'Cancel Subscription'}
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Are you sure you want to cancel?</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Your subscription will remain active until {subscriptionEnd ? new Date(subscriptionEnd).toLocaleDateString() : 'the end of your billing period'}. 
+                                After that, you'll lose access to premium features and be downgraded to the free plan.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Keep Subscription</AlertDialogCancel>
+                              <AlertDialogAction 
+                                onClick={handleCancelSubscription}
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                              >
+                                Yes, Cancel Subscription
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
             </CardContent>
