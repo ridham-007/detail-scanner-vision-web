@@ -257,6 +257,71 @@ serve(async (req) => {
         break;
       }
 
+      case "subscription.updated": {
+        // Subscription updated (plan change, etc.)
+        const subscription = payload.subscription.entity;
+        const notes = subscription.notes || {};
+        const userId = notes.user_id;
+
+        if (userId) {
+          const currentEnd = subscription.current_end 
+            ? new Date(subscription.current_end * 1000).toISOString()
+            : null;
+
+          await supabaseClient
+            .from('user_subscriptions')
+            .update({
+              price_id: subscription.plan_id,
+              current_period_end: currentEnd,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('user_id', userId);
+
+          logStep("Subscription updated", { userId, subscriptionId: subscription.id, newPlanId: subscription.plan_id });
+        }
+        break;
+      }
+
+      case "subscription.paused": {
+        // Subscription paused
+        const subscription = payload.subscription.entity;
+        const notes = subscription.notes || {};
+        const userId = notes.user_id;
+
+        if (userId) {
+          await supabaseClient
+            .from('user_subscriptions')
+            .update({
+              status: 'paused',
+              updated_at: new Date().toISOString(),
+            })
+            .eq('user_id', userId);
+
+          logStep("Subscription paused", { userId, subscriptionId: subscription.id });
+        }
+        break;
+      }
+
+      case "subscription.resumed": {
+        // Subscription resumed from pause
+        const subscription = payload.subscription.entity;
+        const notes = subscription.notes || {};
+        const userId = notes.user_id;
+
+        if (userId) {
+          await supabaseClient
+            .from('user_subscriptions')
+            .update({
+              status: 'active',
+              updated_at: new Date().toISOString(),
+            })
+            .eq('user_id', userId);
+
+          logStep("Subscription resumed", { userId, subscriptionId: subscription.id });
+        }
+        break;
+      }
+
       default:
         logStep("Unhandled event type", { eventType });
     }
