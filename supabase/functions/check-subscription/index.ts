@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import Stripe from "https://esm.sh/stripe@18.5.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
 
 const corsHeaders = {
@@ -26,10 +25,6 @@ serve(async (req) => {
   try {
     logStep("Function started");
 
-    const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
-    if (!stripeKey) throw new Error("STRIPE_SECRET_KEY is not set");
-    logStep("Stripe key verified");
-
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) throw new Error("No authorization header provided");
     logStep("Authorization header found");
@@ -43,11 +38,20 @@ serve(async (req) => {
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
-    const stripe = new Stripe(stripeKey, { apiVersion: "2025-08-27.basil" });
-    const customers = await stripe.customers.list({ email: user.email, limit: 1 });
+    // Check subscription in database
+    const { data: subscription, error: subError } = await supabaseClient
+      .from('user_subscriptions')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('status', 'active')
+      .single();
 
-    if (customers.data.length === 0) {
-      logStep("No customer found, returning unsubscribed state");
+    if (subError && subError.code !== 'PGRST116') {
+      logStep("Database error", { error: subError });
+    }
+
+    if (!subscription) {
+      logStep("No active subscription found in database");
       return new Response(JSON.stringify({ 
         subscribed: false,
         product_id: null,
@@ -59,55 +63,49 @@ serve(async (req) => {
       });
     }
 
-    const customerId = customers.data[0].id;
-    logStep("Found Stripe customer", { customerId });
-
-    const subscriptions = await stripe.subscriptions.list({
-      customer: customerId,
-      status: "active",
-      limit: 1,
-    });
-
-    const hasActiveSub = subscriptions.data.length > 0;
-    let productId = null;
-    let subscriptionEnd = null;
-    let tier = 'free';
-
-    if (hasActiveSub) {
-      const subscription = subscriptions.data[0];
+    // Check if subscription has expired
+    const now = new Date();
+    const subscriptionEnd = subscription.current_period_end ? new Date(subscription.current_period_end) : null;
+    
+    if (subscriptionEnd && subscriptionEnd < now) {
+      logStep("Subscription expired", { endDate: subscriptionEnd });
       
-      // Safely parse subscription end date
-      try {
-        const endTimestamp = subscription.current_period_end;
-        if (endTimestamp && typeof endTimestamp === 'number') {
-          subscriptionEnd = new Date(endTimestamp * 1000).toISOString();
-        }
-      } catch (dateError) {
-        logStep("Warning: Could not parse subscription end date", { error: String(dateError) });
-      }
-      
-      // Safely get product ID
-      if (subscription.items?.data?.[0]?.price?.product) {
-        productId = subscription.items.data[0].price.product as string;
-      }
-      
-      logStep("Active subscription found", { subscriptionId: subscription.id, productId, endDate: subscriptionEnd });
+      // Update subscription status to expired
+      await supabaseClient
+        .from('user_subscriptions')
+        .update({ status: 'expired', updated_at: new Date().toISOString() })
+        .eq('user_id', user.id);
 
-      // Determine tier based on product ID
-      if (productId === 'prod_TZoa3HJibmfYUl' || productId === 'prod_TZobqr5P0RqRhe') {
-        tier = 'pro';
-      } else if (productId === 'prod_TZoa78p3QSJfPH' || productId === 'prod_TZobwol5fO2stX') {
-        tier = 'premium';
-      }
-      logStep("Determined subscription tier", { tier });
-    } else {
-      logStep("No active subscription found");
+      return new Response(JSON.stringify({ 
+        subscribed: false,
+        product_id: null,
+        subscription_end: null,
+        tier: 'free'
+      }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
     }
 
+    // Determine tier from price_id
+    let tier = 'free';
+    const priceId = subscription.price_id || '';
+    if (priceId.includes('premium')) {
+      tier = 'premium';
+    } else if (priceId.includes('pro')) {
+      tier = 'pro';
+    }
+
+    logStep("Active subscription found", { 
+      tier, 
+      endDate: subscription.current_period_end,
+      priceId: subscription.price_id
+    });
+
     return new Response(JSON.stringify({
-      subscribed: hasActiveSub,
-      product_id: productId,
-      subscription_end: subscriptionEnd,
+      subscribed: true,
+      product_id: subscription.price_id,
+      subscription_end: subscription.current_period_end,
       tier: tier
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
