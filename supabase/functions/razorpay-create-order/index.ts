@@ -51,11 +51,13 @@ serve(async (req) => {
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
-    // Create Razorpay order
+    // Create Razorpay order - receipt must be <= 40 chars
+    const shortUserId = user.id.substring(0, 8);
+    const timestamp = Date.now().toString().slice(-8);
     const orderPayload = {
       amount: plan.amount,
       currency: "INR",
-      receipt: `order_${user.id}_${Date.now()}`,
+      receipt: `rcpt_${shortUserId}_${timestamp}`,
       notes: {
         user_id: user.id,
         email: user.email,
