@@ -25,7 +25,7 @@ const PLANS = {
     name: 'Premium Yearly', 
     tier: 'premium', 
     interval: 'yearly',
-    amount: 2499 // $24.99 in cents
+    amount: 2999 // $29.99 in cents
   },
 } as const;
 
