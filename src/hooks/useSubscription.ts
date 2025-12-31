@@ -23,7 +23,7 @@ export const SUBSCRIPTION_PLANS = {
   },
   premium: {
     planId: 'premium_yearly',
-    amount: 24.99, // $24.99/year
+    amount: 29.99, // $29.99/year
     razorpayPlanId: 'plan_RyBqWY2wYKtXMX',
   },
 } as const;
