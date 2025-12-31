@@ -3,8 +3,6 @@ import { Check, Crown, Zap, Sparkles, Star, Users, Shield, Clock } from 'lucide-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { useSubscription, SUBSCRIPTION_PLANS } from '@/hooks/useSubscription';
 import { toast } from 'sonner';
@@ -13,7 +11,6 @@ import SEOHead from '@/components/SEOHead';
 const PricingPage = () => {
   const { user } = useAuth();
   const { tier, subscribed, loading, createSubscription } = useSubscription();
-  const [isYearly, setIsYearly] = useState(true);
   const [processingPlan, setProcessingPlan] = useState<string | null>(null);
 
   const handleSubscribe = async (planType: 'pro' | 'premium') => {
@@ -24,10 +21,7 @@ const PricingPage = () => {
 
     setProcessingPlan(planType);
     try {
-      const planId = isYearly 
-        ? SUBSCRIPTION_PLANS[planType].yearly 
-        : SUBSCRIPTION_PLANS[planType].monthly;
-      await createSubscription(planId);
+      await createSubscription(SUBSCRIPTION_PLANS[planType].planId);
     } catch (error) {
       console.error('Payment error:', error);
       if (error instanceof Error && error.message !== 'Payment cancelled') {
@@ -44,8 +38,7 @@ const PricingPage = () => {
       name: 'Free',
       icon: Zap,
       description: 'Perfect for trying out EaterIQ',
-      monthlyPrice: 0,
-      yearlyPrice: 0,
+      price: 0,
       features: [
         '5 scans per day',
         '7-day scan history',
@@ -62,9 +55,7 @@ const PricingPage = () => {
       name: 'Pro',
       icon: Star,
       description: 'For health-conscious individuals',
-      monthlyPrice: SUBSCRIPTION_PLANS.pro.monthlyAmount,
-      yearlyPrice: SUBSCRIPTION_PLANS.pro.yearlyAmount,
-      savings: '33% off',
+      price: SUBSCRIPTION_PLANS.pro.amount,
       features: [
         'Unlimited scans',
         'Full scan history forever',
@@ -84,9 +75,7 @@ const PricingPage = () => {
       name: 'Premium',
       icon: Crown,
       description: 'For families & health enthusiasts',
-      monthlyPrice: SUBSCRIPTION_PLANS.premium.monthlyAmount,
-      yearlyPrice: SUBSCRIPTION_PLANS.premium.yearlyAmount,
-      savings: '33% off',
+      price: SUBSCRIPTION_PLANS.premium.amount,
       features: [
         'Everything in Pro',
         'Family accounts (up to 5)',
@@ -123,26 +112,6 @@ const PricingPage = () => {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Unlock powerful features to make informed food choices. Start free, upgrade anytime.
             </p>
-          </div>
-
-          {/* Billing Toggle */}
-          <div className="flex items-center justify-center gap-4 mb-12">
-            <Label htmlFor="billing-toggle" className={!isYearly ? 'font-semibold' : 'text-muted-foreground'}>
-              Monthly
-            </Label>
-            <Switch
-              id="billing-toggle"
-              checked={isYearly}
-              onCheckedChange={setIsYearly}
-            />
-            <Label htmlFor="billing-toggle" className={isYearly ? 'font-semibold' : 'text-muted-foreground'}>
-              Yearly
-            </Label>
-            {isYearly && (
-              <Badge variant="secondary" className="bg-primary/10 text-primary">
-                Save 33%
-              </Badge>
-            )}
           </div>
 
           {/* Pricing Cards */}
@@ -185,17 +154,12 @@ const PricingPage = () => {
                   <div className="text-center mb-6">
                     <div className="flex items-baseline justify-center gap-1">
                       <span className="text-4xl font-bold">
-                        ${isYearly ? plan.yearlyPrice : plan.monthlyPrice}
+                        ${plan.price}
                       </span>
                       <span className="text-muted-foreground">
-                        /{isYearly ? 'year' : 'month'}
+                        /year
                       </span>
                     </div>
-                    {plan.savings && isYearly && (
-                      <Badge variant="secondary" className="mt-2">
-                        {plan.savings}
-                      </Badge>
-                    )}
                   </div>
 
                   <div className="space-y-3 flex-1">

@@ -11,35 +11,21 @@ const logStep = (step: string, details?: any) => {
   console.log(`[RAZORPAY-CREATE-SUBSCRIPTION] ${step}${detailsStr}`);
 };
 
-// Razorpay Plan IDs (LIVE MODE) - USD pricing
+// Razorpay Plan IDs (LIVE MODE) - USD pricing (Yearly only)
 const PLANS = {
-  pro_monthly: { 
-    razorpay_plan_id: 'plan_Rwv2e5N7yFy2O2', 
-    name: 'Pro Monthly', 
-    tier: 'pro', 
-    interval: 'monthly',
-    amount: 499 // $4.99 in cents
-  },
   pro_yearly: { 
-    razorpay_plan_id: 'plan_Rwv38T0hGDiRYt', 
+    razorpay_plan_id: 'plan_RyBotV05u0dtMH', 
     name: 'Pro Yearly', 
     tier: 'pro', 
     interval: 'yearly',
-    amount: 3999 // $39.99 in cents
-  },
-  premium_monthly: { 
-    razorpay_plan_id: 'plan_Rwv3c6aNWSnxdh', 
-    name: 'Premium Monthly', 
-    tier: 'premium', 
-    interval: 'monthly',
-    amount: 999 // $9.99 in cents
+    amount: 1499 // $14.99 in cents
   },
   premium_yearly: { 
-    razorpay_plan_id: 'plan_Rwv47oD7xKpNb9', 
+    razorpay_plan_id: 'plan_RyBqWY2wYKtXMX', 
     name: 'Premium Yearly', 
     tier: 'premium', 
     interval: 'yearly',
-    amount: 7999 // $79.99 in cents
+    amount: 2499 // $24.99 in cents
   },
 } as const;
 

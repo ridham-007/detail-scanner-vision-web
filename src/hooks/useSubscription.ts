@@ -14,27 +14,17 @@ export interface SubscriptionState {
   error: string | null;
 }
 
-// Razorpay Plan IDs - USD pricing
+// Razorpay Plan IDs - USD pricing (Yearly only)
 export const SUBSCRIPTION_PLANS = {
   pro: {
-    monthly: 'pro_monthly',
-    yearly: 'pro_yearly',
-    monthlyAmount: 4.99, // $4.99
-    yearlyAmount: 39.99, // $39.99
-    razorpayPlanIds: {
-      monthly: 'plan_RwuIq9KMbyYqaR',
-      yearly: 'plan_RwuKIvtf8b0GOw',
-    }
+    planId: 'pro_yearly',
+    amount: 14.99, // $14.99/year
+    razorpayPlanId: 'plan_RyBotV05u0dtMH',
   },
   premium: {
-    monthly: 'premium_monthly',
-    yearly: 'premium_yearly',
-    monthlyAmount: 9.99, // $9.99
-    yearlyAmount: 79.99, // $79.99
-    razorpayPlanIds: {
-      monthly: 'plan_RwuKpEYCLAhwoJ',
-      yearly: 'plan_RwuM8XilR9mPnG',
-    }
+    planId: 'premium_yearly',
+    amount: 24.99, // $24.99/year
+    razorpayPlanId: 'plan_RyBqWY2wYKtXMX',
   },
 } as const;
 
