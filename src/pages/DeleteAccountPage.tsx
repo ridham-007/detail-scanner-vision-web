@@ -10,8 +10,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { toast } from 'sonner';
 import { Trash2, AlertTriangle, CheckCircle } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const DeleteAccountPage = () => {
   const { user } = useAuth();
@@ -69,9 +67,8 @@ const DeleteAccountPage = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex flex-col bg-background">
-        <Header />
-        <main className="flex-1 container max-w-2xl mx-auto px-4 py-12">
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="container max-w-2xl mx-auto px-4 py-12">
           <Card className="border-green-500/20">
             <CardHeader className="text-center">
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -92,16 +89,14 @@ const DeleteAccountPage = () => {
               </p>
             </CardContent>
           </Card>
-        </main>
-        <Footer />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Header />
-      <main className="flex-1 container max-w-2xl mx-auto px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="container max-w-2xl mx-auto px-4 py-12">
         <Card>
           <CardHeader className="text-center">
             <Trash2 className="w-12 h-12 text-destructive mx-auto mb-4" />
@@ -180,8 +175,7 @@ const DeleteAccountPage = () => {
             </form>
           </CardContent>
         </Card>
-      </main>
-      <Footer />
+      </div>
     </div>
   );
 };
