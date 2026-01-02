@@ -33,6 +33,7 @@ import SubscriptionSuccessPage from "./pages/SubscriptionSuccessPage";
 import ScrollToTop from "./components/scrollToTop";
 import AuthPage from "./pages/AuthPage";
 import CategoriesPage from "./pages/CategoriesPage";
+import DeleteAccountPage from "./pages/DeleteAccountPage";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +79,7 @@ function App() {
                     <Route path="/privacy" element={<PrivacyPage />} />
                     <Route path="/terms" element={<TermsPage />} />
                     <Route path="/support" element={<SupportPage />} />
+                    <Route path="/delete-account" element={<DeleteAccountPage />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>
