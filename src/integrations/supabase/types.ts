@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      account_deletion_requests: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          processed_at: string | null
+          processed_by: string | null
+          reason: string | null
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          processed_at?: string | null
+          processed_by?: string | null
+          reason?: string | null
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          processed_at?: string | null
+          processed_by?: string | null
+          reason?: string | null
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       blog_categories: {
         Row: {
           created_at: string
