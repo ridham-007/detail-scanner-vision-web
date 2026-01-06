@@ -484,6 +484,56 @@ export type Database = {
           },
         ]
       }
+      product_classifications: {
+        Row: {
+          attributes: Json | null
+          barcode: string
+          classification_hash: string | null
+          confidence: string | null
+          created_at: string | null
+          l1_category: string | null
+          l2_category: string | null
+          l3_category: string | null
+          l4_tags: string[] | null
+          l5_tags: string[] | null
+          updated_at: string | null
+        }
+        Insert: {
+          attributes?: Json | null
+          barcode: string
+          classification_hash?: string | null
+          confidence?: string | null
+          created_at?: string | null
+          l1_category?: string | null
+          l2_category?: string | null
+          l3_category?: string | null
+          l4_tags?: string[] | null
+          l5_tags?: string[] | null
+          updated_at?: string | null
+        }
+        Update: {
+          attributes?: Json | null
+          barcode?: string
+          classification_hash?: string | null
+          confidence?: string | null
+          created_at?: string | null
+          l1_category?: string | null
+          l2_category?: string | null
+          l3_category?: string | null
+          l4_tags?: string[] | null
+          l5_tags?: string[] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_classifications_barcode_fkey"
+            columns: ["barcode"]
+            isOneToOne: true
+            referencedRelation: "scanned_products"
+            referencedColumns: ["barcode"]
+          },
+        ]
+      }
       product_feedback: {
         Row: {
           barcode: string
