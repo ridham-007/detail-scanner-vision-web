@@ -246,7 +246,7 @@ export const useProductLookup = () => {
           };
 
           // Save to Supabase for future use
-          await saveToSupabase(product);
+          // await saveToSupabase(product);
           
           return product;
         }
