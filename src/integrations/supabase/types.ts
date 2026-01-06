@@ -22,6 +22,7 @@ export type Database = {
           processed_at: string | null
           processed_by: string | null
           reason: string | null
+          scheduled_for: string | null
           status: string
           user_id: string | null
         }
@@ -32,6 +33,7 @@ export type Database = {
           processed_at?: string | null
           processed_by?: string | null
           reason?: string | null
+          scheduled_for?: string | null
           status?: string
           user_id?: string | null
         }
@@ -42,6 +44,7 @@ export type Database = {
           processed_at?: string | null
           processed_by?: string | null
           reason?: string | null
+          scheduled_for?: string | null
           status?: string
           user_id?: string | null
         }
