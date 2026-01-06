@@ -490,6 +490,7 @@ export type Database = {
           barcode: string
           classification_hash: string | null
           confidence: string | null
+          country: string | null
           created_at: string | null
           l1_category: string | null
           l2_category: string | null
@@ -503,6 +504,7 @@ export type Database = {
           barcode: string
           classification_hash?: string | null
           confidence?: string | null
+          country?: string | null
           created_at?: string | null
           l1_category?: string | null
           l2_category?: string | null
@@ -516,6 +518,7 @@ export type Database = {
           barcode?: string
           classification_hash?: string | null
           confidence?: string | null
+          country?: string | null
           created_at?: string | null
           l1_category?: string | null
           l2_category?: string | null
@@ -842,6 +845,7 @@ export type Database = {
           allergens_analysis: Json | null
           barcode: string
           concerns: string[] | null
+          country: string | null
           created_at: string | null
           description: string | null
           health_score: number | null
@@ -867,6 +871,7 @@ export type Database = {
           allergens_analysis?: Json | null
           barcode: string
           concerns?: string[] | null
+          country?: string | null
           created_at?: string | null
           description?: string | null
           health_score?: number | null
@@ -892,6 +897,7 @@ export type Database = {
           allergens_analysis?: Json | null
           barcode?: string
           concerns?: string[] | null
+          country?: string | null
           created_at?: string | null
           description?: string | null
           health_score?: number | null
