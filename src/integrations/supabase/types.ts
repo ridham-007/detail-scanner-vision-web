@@ -1336,6 +1336,10 @@ export type Database = {
         Returns: boolean
       }
       is_admin_user: { Args: never; Returns: boolean }
+      upsert_token_frequency: {
+        Args: { p_increment?: number; p_token: string }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
