@@ -400,6 +400,66 @@ export type Database = {
         }
         Relationships: []
       }
+      ingredient_rules: {
+        Row: {
+          active: boolean | null
+          category: string
+          confidence: number | null
+          created_at: string | null
+          description: string | null
+          id: string
+          pattern: string
+          priority: number | null
+          rule_type: Database["public"]["Enums"]["ingredient_rule_type"]
+          updated_at: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          category: string
+          confidence?: number | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          pattern: string
+          priority?: number | null
+          rule_type: Database["public"]["Enums"]["ingredient_rule_type"]
+          updated_at?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          category?: string
+          confidence?: number | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          pattern?: string
+          priority?: number | null
+          rule_type?: Database["public"]["Enums"]["ingredient_rule_type"]
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      ingredient_token_frequency: {
+        Row: {
+          first_seen: string | null
+          last_seen: string | null
+          token: string
+          total_count: number | null
+        }
+        Insert: {
+          first_seen?: string | null
+          last_seen?: string | null
+          token: string
+          total_count?: number | null
+        }
+        Update: {
+          first_seen?: string | null
+          last_seen?: string | null
+          token?: string
+          total_count?: number | null
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           action_url: string | null
@@ -1280,6 +1340,7 @@ export type Database = {
     Enums: {
       app_role: "admin" | "moderator" | "user"
       contribution_tier: "guest" | "logged_in" | "verified"
+      ingredient_rule_type: "exact" | "contains" | "regex"
       notification_priority: "low" | "normal" | "high"
       notification_type:
         | "scan_reminder"
@@ -1419,6 +1480,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "moderator", "user"],
       contribution_tier: ["guest", "logged_in", "verified"],
+      ingredient_rule_type: ["exact", "contains", "regex"],
       notification_priority: ["low", "normal", "high"],
       notification_type: [
         "scan_reminder",
