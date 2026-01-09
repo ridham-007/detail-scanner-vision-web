@@ -50,6 +50,78 @@ export type Database = {
         }
         Relationships: []
       }
+      additives: {
+        Row: {
+          acceptable_daily_intake: string | null
+          banned_in: string[] | null
+          category: string | null
+          code: string
+          concerns: Json | null
+          created_at: string | null
+          halal: string | null
+          health_concern: string | null
+          impact: string | null
+          kosher: string | null
+          name: string
+          origin: string | null
+          purpose: string | null
+          rating: string | null
+          requires_warning_in: string[] | null
+          severity: string | null
+          source: string | null
+          updated_at: string | null
+          vegan: string | null
+          vegetarian: string | null
+          warning_text: string | null
+        }
+        Insert: {
+          acceptable_daily_intake?: string | null
+          banned_in?: string[] | null
+          category?: string | null
+          code: string
+          concerns?: Json | null
+          created_at?: string | null
+          halal?: string | null
+          health_concern?: string | null
+          impact?: string | null
+          kosher?: string | null
+          name: string
+          origin?: string | null
+          purpose?: string | null
+          rating?: string | null
+          requires_warning_in?: string[] | null
+          severity?: string | null
+          source?: string | null
+          updated_at?: string | null
+          vegan?: string | null
+          vegetarian?: string | null
+          warning_text?: string | null
+        }
+        Update: {
+          acceptable_daily_intake?: string | null
+          banned_in?: string[] | null
+          category?: string | null
+          code?: string
+          concerns?: Json | null
+          created_at?: string | null
+          halal?: string | null
+          health_concern?: string | null
+          impact?: string | null
+          kosher?: string | null
+          name?: string
+          origin?: string | null
+          purpose?: string | null
+          rating?: string | null
+          requires_warning_in?: string[] | null
+          severity?: string | null
+          source?: string | null
+          updated_at?: string | null
+          vegan?: string | null
+          vegetarian?: string | null
+          warning_text?: string | null
+        }
+        Relationships: []
+      }
       blog_categories: {
         Row: {
           created_at: string
@@ -1104,6 +1176,27 @@ export type Database = {
           },
         ]
       }
+      unknown_additives: {
+        Row: {
+          code: string
+          count: number | null
+          first_seen: string | null
+          last_seen: string | null
+        }
+        Insert: {
+          code: string
+          count?: number | null
+          first_seen?: string | null
+          last_seen?: string | null
+        }
+        Update: {
+          code?: string
+          count?: number | null
+          first_seen?: string | null
+          last_seen?: string | null
+        }
+        Relationships: []
+      }
       user_badges: {
         Row: {
           badge_id: string
@@ -1340,6 +1433,7 @@ export type Database = {
         Returns: undefined
       }
       is_admin_user: { Args: never; Returns: boolean }
+      log_unknown_additive: { Args: { codes: string[] }; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
