@@ -122,6 +122,33 @@ export type Database = {
         }
         Relationships: []
       }
+      allergens: {
+        Row: {
+          category: string
+          code: string
+          created_at: string | null
+          name: string
+          regulatory_sources: string[]
+          severity: string
+        }
+        Insert: {
+          category: string
+          code: string
+          created_at?: string | null
+          name: string
+          regulatory_sources: string[]
+          severity: string
+        }
+        Update: {
+          category?: string
+          code?: string
+          created_at?: string | null
+          name?: string
+          regulatory_sources?: string[]
+          severity?: string
+        }
+        Relationships: []
+      }
       blog_categories: {
         Row: {
           created_at: string
@@ -1197,6 +1224,27 @@ export type Database = {
         }
         Relationships: []
       }
+      unknown_allergens: {
+        Row: {
+          code: string
+          count: number | null
+          first_seen: string | null
+          last_seen: string | null
+        }
+        Insert: {
+          code: string
+          count?: number | null
+          first_seen?: string | null
+          last_seen?: string | null
+        }
+        Update: {
+          code?: string
+          count?: number | null
+          first_seen?: string | null
+          last_seen?: string | null
+        }
+        Relationships: []
+      }
       user_badges: {
         Row: {
           badge_id: string
@@ -1434,6 +1482,7 @@ export type Database = {
       }
       is_admin_user: { Args: never; Returns: boolean }
       log_unknown_additive: { Args: { codes: string[] }; Returns: undefined }
+      log_unknown_allergen: { Args: { codes: string[] }; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
