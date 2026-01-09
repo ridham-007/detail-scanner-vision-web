@@ -469,6 +469,30 @@ export type Database = {
         }
         Relationships: []
       }
+      dietary_rules: {
+        Row: {
+          code: string
+          created_at: string | null
+          disallowed_additives: string[] | null
+          disallowed_allergens: string[] | null
+          disallowed_ingredients: string[] | null
+        }
+        Insert: {
+          code: string
+          created_at?: string | null
+          disallowed_additives?: string[] | null
+          disallowed_allergens?: string[] | null
+          disallowed_ingredients?: string[] | null
+        }
+        Update: {
+          code?: string
+          created_at?: string | null
+          disallowed_additives?: string[] | null
+          disallowed_allergens?: string[] | null
+          disallowed_ingredients?: string[] | null
+        }
+        Relationships: []
+      }
       early_access_subscriptions: {
         Row: {
           created_at: string
