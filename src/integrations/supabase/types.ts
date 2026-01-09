@@ -124,28 +124,49 @@ export type Database = {
       }
       allergens: {
         Row: {
+          alternative_names: string[] | null
           category: string
           code: string
+          common_foods: string[] | null
           created_at: string | null
+          cross_reactivity: string[] | null
           name: string
+          notes: string | null
           regulatory_sources: string[]
           severity: string
+          sub_category: string | null
+          symptoms: string[] | null
+          updated_at: string | null
         }
         Insert: {
+          alternative_names?: string[] | null
           category: string
           code: string
+          common_foods?: string[] | null
           created_at?: string | null
+          cross_reactivity?: string[] | null
           name: string
+          notes?: string | null
           regulatory_sources: string[]
           severity: string
+          sub_category?: string | null
+          symptoms?: string[] | null
+          updated_at?: string | null
         }
         Update: {
+          alternative_names?: string[] | null
           category?: string
           code?: string
+          common_foods?: string[] | null
           created_at?: string | null
+          cross_reactivity?: string[] | null
           name?: string
+          notes?: string | null
           regulatory_sources?: string[]
           severity?: string
+          sub_category?: string | null
+          symptoms?: string[] | null
+          updated_at?: string | null
         }
         Relationships: []
       }
