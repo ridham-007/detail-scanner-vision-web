@@ -544,6 +544,89 @@ export type Database = {
         }
         Relationships: []
       }
+      ingredient_aliases: {
+        Row: {
+          alias: string
+          confidence: number | null
+          id: number
+          ingredient_id: string | null
+          language: string | null
+          normalized_alias: string
+          source: string | null
+        }
+        Insert: {
+          alias: string
+          confidence?: number | null
+          id?: number
+          ingredient_id?: string | null
+          language?: string | null
+          normalized_alias: string
+          source?: string | null
+        }
+        Update: {
+          alias?: string
+          confidence?: number | null
+          id?: number
+          ingredient_id?: string | null
+          language?: string | null
+          normalized_alias?: string
+          source?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ingredient_aliases_ingredient_id_fkey"
+            columns: ["ingredient_id"]
+            isOneToOne: false
+            referencedRelation: "ingredient_master"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ingredient_master: {
+        Row: {
+          additive_classes: string[] | null
+          allergens: string[] | null
+          canonical_name: string
+          created_at: string | null
+          from_palm_oil: string | null
+          id: string
+          ingredient_domain: string
+          nova_role: string | null
+          parent_ids: string[] | null
+          taxonomy_path: string[]
+          vegan: boolean | null
+          vegetarian: boolean | null
+        }
+        Insert: {
+          additive_classes?: string[] | null
+          allergens?: string[] | null
+          canonical_name: string
+          created_at?: string | null
+          from_palm_oil?: string | null
+          id: string
+          ingredient_domain: string
+          nova_role?: string | null
+          parent_ids?: string[] | null
+          taxonomy_path: string[]
+          vegan?: boolean | null
+          vegetarian?: boolean | null
+        }
+        Update: {
+          additive_classes?: string[] | null
+          allergens?: string[] | null
+          canonical_name?: string
+          created_at?: string | null
+          from_palm_oil?: string | null
+          id?: string
+          ingredient_domain?: string
+          nova_role?: string | null
+          parent_ids?: string[] | null
+          taxonomy_path?: string[]
+          vegan?: boolean | null
+          vegetarian?: boolean | null
+        }
+        Relationships: []
+      }
       ingredient_rules: {
         Row: {
           active: boolean | null
@@ -1528,6 +1611,8 @@ export type Database = {
       is_admin_user: { Args: never; Returns: boolean }
       log_unknown_additive: { Args: { codes: string[] }; Returns: undefined }
       log_unknown_allergen: { Args: { codes: string[] }; Returns: undefined }
+      show_limit: { Args: never; Returns: number }
+      show_trgm: { Args: { "": string }; Returns: string[] }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
