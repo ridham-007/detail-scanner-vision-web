@@ -588,6 +588,7 @@ export type Database = {
           allergens: string[] | null
           canonical_name: string
           created_at: string | null
+          display_name: string | null
           from_palm_oil: string | null
           health_impact: string | null
           id: string
@@ -605,6 +606,7 @@ export type Database = {
           allergens?: string[] | null
           canonical_name: string
           created_at?: string | null
+          display_name?: string | null
           from_palm_oil?: string | null
           health_impact?: string | null
           id: string
@@ -622,6 +624,7 @@ export type Database = {
           allergens?: string[] | null
           canonical_name?: string
           created_at?: string | null
+          display_name?: string | null
           from_palm_oil?: string | null
           health_impact?: string | null
           id?: string
