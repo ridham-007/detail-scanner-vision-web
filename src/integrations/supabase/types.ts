@@ -729,6 +729,54 @@ export type Database = {
         }
         Relationships: []
       }
+      nutrient_reference: {
+        Row: {
+          created_at: string | null
+          daily_reference_value: number | null
+          display_name: string
+          high_threshold: number | null
+          id: string
+          is_beneficial: boolean | null
+          key: string
+          low_threshold: number | null
+          moderate_threshold: number | null
+          source: string | null
+          unit: string
+          updated_at: string | null
+          weight_factor: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          daily_reference_value?: number | null
+          display_name: string
+          high_threshold?: number | null
+          id?: string
+          is_beneficial?: boolean | null
+          key: string
+          low_threshold?: number | null
+          moderate_threshold?: number | null
+          source?: string | null
+          unit: string
+          updated_at?: string | null
+          weight_factor?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          daily_reference_value?: number | null
+          display_name?: string
+          high_threshold?: number | null
+          id?: string
+          is_beneficial?: boolean | null
+          key?: string
+          low_threshold?: number | null
+          moderate_threshold?: number | null
+          source?: string | null
+          unit?: string
+          updated_at?: string | null
+          weight_factor?: number | null
+        }
+        Relationships: []
+      }
       product_categories: {
         Row: {
           assigned_by: string | null
