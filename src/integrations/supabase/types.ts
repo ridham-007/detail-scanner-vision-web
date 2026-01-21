@@ -593,7 +593,7 @@ export type Database = {
           ingredient_domain: string
           nova_role: string | null
           parent_ids: string[] | null
-          taxonomy_path: string[]
+          taxonomy_path: string[] | null
           vegan: boolean | null
           vegetarian: boolean | null
         }
@@ -607,7 +607,7 @@ export type Database = {
           ingredient_domain: string
           nova_role?: string | null
           parent_ids?: string[] | null
-          taxonomy_path: string[]
+          taxonomy_path?: string[] | null
           vegan?: boolean | null
           vegetarian?: boolean | null
         }
@@ -621,7 +621,7 @@ export type Database = {
           ingredient_domain?: string
           nova_role?: string | null
           parent_ids?: string[] | null
-          taxonomy_path?: string[]
+          taxonomy_path?: string[] | null
           vegan?: boolean | null
           vegetarian?: boolean | null
         }
@@ -1597,6 +1597,17 @@ export type Database = {
     }
     Functions: {
       generate_slug: { Args: { title: string }; Returns: string }
+      get_ingredient_exact: {
+        Args: { search_term: string }
+        Returns: {
+          allergens: string[]
+          canonical_name: string
+          confidence: number
+          ingredient_domain: string
+          ingredient_id: string
+          nova_role: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1611,6 +1622,18 @@ export type Database = {
       is_admin_user: { Args: never; Returns: boolean }
       log_unknown_additive: { Args: { codes: string[] }; Returns: undefined }
       log_unknown_allergen: { Args: { codes: string[] }; Returns: undefined }
+      resolve_ingredient_taxonomy_paths: { Args: never; Returns: undefined }
+      search_ingredient_fuzzy: {
+        Args: { limit_count?: number; min_sim?: number; search_term: string }
+        Returns: {
+          allergens: string[]
+          canonical_name: string
+          ingredient_domain: string
+          ingredient_id: string
+          nova_role: string
+          similarity: number
+        }[]
+      }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
     }
