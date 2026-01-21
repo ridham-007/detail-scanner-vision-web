@@ -589,10 +589,13 @@ export type Database = {
           canonical_name: string
           created_at: string | null
           from_palm_oil: string | null
+          health_impact: string | null
           id: string
           ingredient_domain: string
           nova_role: string | null
           parent_ids: string[] | null
+          score: number | null
+          short_description: string | null
           taxonomy_path: string[] | null
           vegan: boolean | null
           vegetarian: boolean | null
@@ -603,10 +606,13 @@ export type Database = {
           canonical_name: string
           created_at?: string | null
           from_palm_oil?: string | null
+          health_impact?: string | null
           id: string
           ingredient_domain: string
           nova_role?: string | null
           parent_ids?: string[] | null
+          score?: number | null
+          short_description?: string | null
           taxonomy_path?: string[] | null
           vegan?: boolean | null
           vegetarian?: boolean | null
@@ -617,10 +623,13 @@ export type Database = {
           canonical_name?: string
           created_at?: string | null
           from_palm_oil?: string | null
+          health_impact?: string | null
           id?: string
           ingredient_domain?: string
           nova_role?: string | null
           parent_ids?: string[] | null
+          score?: number | null
+          short_description?: string | null
           taxonomy_path?: string[] | null
           vegan?: boolean | null
           vegetarian?: boolean | null
@@ -1421,6 +1430,48 @@ export type Database = {
         }
         Relationships: []
       }
+      unknown_items_queue: {
+        Row: {
+          created_at: string | null
+          id: string
+          item_type: string
+          normalized_value: string | null
+          notes: string | null
+          occurrence_count: number | null
+          product_code: string | null
+          product_name: string | null
+          raw_value: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          item_type: string
+          normalized_value?: string | null
+          notes?: string | null
+          occurrence_count?: number | null
+          product_code?: string | null
+          product_name?: string | null
+          raw_value: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          item_type?: string
+          normalized_value?: string | null
+          notes?: string | null
+          occurrence_count?: number | null
+          product_code?: string | null
+          product_name?: string | null
+          raw_value?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       user_badges: {
         Row: {
           badge_id: string
@@ -1684,6 +1735,16 @@ export type Database = {
       }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
+      upsert_unknown_item: {
+        Args: {
+          p_item_type: string
+          p_normalized_value: string
+          p_product_code?: string
+          p_product_name?: string
+          p_raw_value: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
