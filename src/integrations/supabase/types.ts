@@ -403,6 +403,65 @@ export type Database = {
         }
         Relationships: []
       }
+      category_master: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_name: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          level: number | null
+          name: string
+          parent_id: string | null
+          path: string | null
+          path_ids: string[] | null
+          product_count: number | null
+          root_category: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_name?: string | null
+          id: string
+          image_url?: string | null
+          is_active?: boolean | null
+          level?: number | null
+          name: string
+          parent_id?: string | null
+          path?: string | null
+          path_ids?: string[] | null
+          product_count?: number | null
+          root_category?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_name?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          level?: number | null
+          name?: string
+          parent_id?: string | null
+          path?: string | null
+          path_ids?: string[] | null
+          product_count?: number | null
+          root_category?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_category_parent"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "category_master"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contact_submissions: {
         Row: {
           category: string
@@ -587,6 +646,7 @@ export type Database = {
           additive_classes: string[] | null
           allergens: string[] | null
           canonical_name: string
+          canonical_name_lower: string | null
           created_at: string | null
           display_name: string | null
           from_palm_oil: string | null
@@ -605,6 +665,7 @@ export type Database = {
           additive_classes?: string[] | null
           allergens?: string[] | null
           canonical_name: string
+          canonical_name_lower?: string | null
           created_at?: string | null
           display_name?: string | null
           from_palm_oil?: string | null
@@ -623,6 +684,7 @@ export type Database = {
           additive_classes?: string[] | null
           allergens?: string[] | null
           canonical_name?: string
+          canonical_name_lower?: string | null
           created_at?: string | null
           display_name?: string | null
           from_palm_oil?: string | null
@@ -1189,28 +1251,75 @@ export type Database = {
         }
         Relationships: []
       }
+      scanned_product_categories: {
+        Row: {
+          barcode: string
+          category_id: string
+          created_at: string | null
+          id: string
+          is_primary: boolean | null
+          product_id: string
+        }
+        Insert: {
+          barcode: string
+          category_id: string
+          created_at?: string | null
+          id?: string
+          is_primary?: boolean | null
+          product_id: string
+        }
+        Update: {
+          barcode?: string
+          category_id?: string
+          created_at?: string | null
+          id?: string
+          is_primary?: boolean | null
+          product_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_spc_category"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "category_master"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_spc_product"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "scanned_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       scanned_products: {
         Row: {
           additive_analysis: Json | null
           allergens_analysis: Json | null
           barcode: string
+          brand: string | null
           concerns: string[] | null
           country: string | null
           created_at: string | null
           description: string | null
+          health_grade: string | null
           health_score: number | null
           id: string
           images: string[] | null
           ingredient_analysis: Json | null
+          ingredient_score: number | null
           ingredients: string | null
           is_health_related_product: boolean | null
           is_published: boolean
           name: string
+          nova_group: number | null
           nutrition_data: Json | null
           nutrition_per_100g: Json | null
           nutrition_score_grade: string | null
           other_good_product_suggestions: Json | null
           positives: string[] | null
+          primary_category: string | null
           recommendations: string[] | null
           retailers: Json | null
           unit: string | null
@@ -1220,23 +1329,28 @@ export type Database = {
           additive_analysis?: Json | null
           allergens_analysis?: Json | null
           barcode: string
+          brand?: string | null
           concerns?: string[] | null
           country?: string | null
           created_at?: string | null
           description?: string | null
+          health_grade?: string | null
           health_score?: number | null
           id?: string
           images?: string[] | null
           ingredient_analysis?: Json | null
+          ingredient_score?: number | null
           ingredients?: string | null
           is_health_related_product?: boolean | null
           is_published?: boolean
           name: string
+          nova_group?: number | null
           nutrition_data?: Json | null
           nutrition_per_100g?: Json | null
           nutrition_score_grade?: string | null
           other_good_product_suggestions?: Json | null
           positives?: string[] | null
+          primary_category?: string | null
           recommendations?: string[] | null
           retailers?: Json | null
           unit?: string | null
@@ -1246,23 +1360,28 @@ export type Database = {
           additive_analysis?: Json | null
           allergens_analysis?: Json | null
           barcode?: string
+          brand?: string | null
           concerns?: string[] | null
           country?: string | null
           created_at?: string | null
           description?: string | null
+          health_grade?: string | null
           health_score?: number | null
           id?: string
           images?: string[] | null
           ingredient_analysis?: Json | null
+          ingredient_score?: number | null
           ingredients?: string | null
           is_health_related_product?: boolean | null
           is_published?: boolean
           name?: string
+          nova_group?: number | null
           nutrition_data?: Json | null
           nutrition_per_100g?: Json | null
           nutrition_score_grade?: string | null
           other_good_product_suggestions?: Json | null
           positives?: string[] | null
+          primary_category?: string | null
           recommendations?: string[] | null
           retailers?: Json | null
           unit?: string | null
@@ -1698,7 +1817,31 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      find_better_alternatives: {
+        Args: { p_barcode: string; p_limit?: number }
+        Returns: {
+          barcode: string
+          brand: string
+          health_grade: string
+          health_score: number
+          image_url: string
+          match_level: number
+          matched_category: string
+          nova_group: number
+          product_id: string
+          product_name: string
+          score_improvement: number
+        }[]
+      }
       generate_slug: { Args: { title: string }; Returns: string }
+      get_category_ancestors: {
+        Args: { p_category_id: string }
+        Returns: {
+          cat_id: string
+          cat_level: number
+          cat_name: string
+        }[]
+      }
       get_ingredient_exact: {
         Args: { search_term: string }
         Returns: {
@@ -1722,6 +1865,14 @@ export type Database = {
         Returns: undefined
       }
       is_admin_user: { Args: never; Returns: boolean }
+      link_product_categories: {
+        Args: {
+          p_barcode: string
+          p_categories: string[]
+          p_product_id: string
+        }
+        Returns: undefined
+      }
       log_unknown_additive: { Args: { codes: string[] }; Returns: undefined }
       log_unknown_allergen: { Args: { codes: string[] }; Returns: undefined }
       resolve_ingredient_taxonomy_paths: { Args: never; Returns: undefined }
@@ -1738,6 +1889,18 @@ export type Database = {
       }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
+      upsert_category: {
+        Args: {
+          p_id: string
+          p_level?: number
+          p_name: string
+          p_parent_id?: string
+          p_path?: string
+          p_path_ids?: string[]
+          p_root_category?: string
+        }
+        Returns: undefined
+      }
       upsert_unknown_item: {
         Args: {
           p_item_type: string
