@@ -1837,6 +1837,10 @@ export type Database = {
         }[]
       }
       generate_slug: { Args: { title: string }; Returns: string }
+      generate_unique_quiz_slug: {
+        Args: { p_quiz_id: string; p_title: string }
+        Returns: string
+      }
       get_category_ancestors: {
         Args: { p_category_id: string }
         Returns: {
