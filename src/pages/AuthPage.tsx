@@ -169,7 +169,7 @@ const AuthPage = () => {
         title="Sign In | EaterIQ"
         description="Sign in or create an account to track your nutrition journey with EaterIQ's AI-powered food intelligence platform."
         keywords="sign in, login, register, create account, EaterIQ"
-        canonicalUrl="https://www.eateriq.com/auth"
+        canonicalUrl="https://www.eateriq.com/auth/"
       />
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <Card className="w-full max-w-md">

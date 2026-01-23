@@ -1,5 +1,17 @@
-
 {
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/quizzes",
+      "destination": "/quiz/",
+      "statusCode": 301
+    },
+    {
+      "source": "/quizzes/",
+      "destination": "/quiz/",
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

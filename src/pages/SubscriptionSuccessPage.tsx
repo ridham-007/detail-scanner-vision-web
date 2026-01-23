@@ -20,7 +20,7 @@ const SubscriptionSuccessPage = () => {
       <SEOHead 
         title="Subscription Activated - EaterIQ"
         description="Your EaterIQ subscription has been activated. Start scanning products with your new premium features."
-        canonicalUrl="https://www.eateriq.com/subscription-success"
+        canonicalUrl="https://www.eateriq.com/subscription-success/"
       />
       <div className="container mx-auto px-4 py-16">
           <div className="max-w-lg mx-auto text-center">

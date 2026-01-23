@@ -156,7 +156,7 @@ const SupportPage = () => {
         title="Support Center | EaterIQ"
         description="Get help with EaterIQ. Contact our support team, report bugs, request features, or browse FAQs."
         keywords="support, help, FAQ, contact, bug report, feature request"
-        canonicalUrl="https://www.eateriq.com/support"
+        canonicalUrl="https://www.eateriq.com/support/"
       />
       <div className="min-h-screen bg-background">
         <AnimatedBackground />

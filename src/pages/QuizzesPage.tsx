@@ -322,7 +322,7 @@ const QuizzesPage = () => {
         keywords="nutrition quiz, food quiz, AI quiz generator, healthy eating quiz, food safety quiz, nutrition knowledge test"
         type="website"
         structuredData={breadcrumbStructuredData}
-        canonicalUrl="https://www.eateriq.com/quizzes"
+        canonicalUrl="https://www.eateriq.com/quiz/"
       />
 
       <AnimatedBackground />

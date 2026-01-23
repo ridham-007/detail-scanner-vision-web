@@ -18,7 +18,7 @@ const NotFound = () => {
       title: "Page Not Found - EaterIQ",
       description: "The page you're looking for doesn't exist. Return to EaterIQ homepage to continue exploring smart food intelligence.",
       keywords: "404, page not found, EaterIQ, error",
-      canonicalUrl: "https://www.eateriq.com/404",
+      canonicalUrl: "https://www.eateriq.com/404/",
     });
 
     // Add noindex meta for 404 pages
