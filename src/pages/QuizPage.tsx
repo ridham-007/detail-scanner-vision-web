@@ -56,6 +56,7 @@ interface Quiz {
   description: string;
   difficulty: string;
   creator_id: string;
+  slug: string;
 }
 
 interface QuizPageProps {
@@ -65,7 +66,7 @@ interface QuizPageProps {
 
 const QuizPage: React.FC = () => {
   const codeRef = useRef(null);
-  const { quizId } = useParams<{ quizId: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const { user, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -114,7 +115,7 @@ const QuizPage: React.FC = () => {
   useEffect(() => {
     fetchQuizData();
     setStartTime(new Date());
-  }, [quizId]);
+  }, [slug]);
 
   useEffect(() => {
     if (!gameOver && timeLeft > 0 && !answerFeedback.show) {
@@ -154,8 +155,8 @@ const QuizPage: React.FC = () => {
     try {
       const { data: quizData, error: quizError } = await supabase
         .from("quizzes")
-        .select("id, title, description, difficulty, creator_id")
-        .eq("id", quizId)
+        .select("id, title, description, difficulty, creator_id, slug")
+        .eq("slug", slug)
         .single();
 
       if (quizError) throw quizError;
@@ -163,7 +164,7 @@ const QuizPage: React.FC = () => {
       const { data: questionsData, error: questionsError } = await supabase
         .from("quiz_questions")
         .select("*")
-        .eq("quiz_id", quizId)
+        .eq("quiz_id", quizData.id)
         .order("question_order");
 
       if (questionsError) throw questionsError;
@@ -324,7 +325,7 @@ const QuizPage: React.FC = () => {
     try {
       const { error } = await supabase.from("quiz_attempts").insert({
         user_id: user.id,
-        quiz_id: quizId,
+        quiz_id: quiz?.id,
         score: finalScore,
         total_questions: questions.length,
         time_taken: timeSpent,
@@ -418,7 +419,7 @@ const QuizPage: React.FC = () => {
     if (!codeRef.current) return;
 
     const shareText = `Check out this ${quiz?.difficulty} quiz: "${quiz?.title}" on EaterIQ!`;
-    const shareUrl = `${window.location.origin}/quiz/${quizId}`;
+    const shareUrl = `${window.location.origin}/quiz/${quiz?.slug}`;
 
     // 1. Clone the node without modifying actual UI
     const clone = codeRef.current.cloneNode(true);
@@ -514,14 +515,14 @@ const QuizPage: React.FC = () => {
     };
   }, [currentQuestion]);
 
-  if (!quizId) {
+  if (!slug) {
     return (
       <div className="min-h-dvh bg-background">
         <div className="flex justify-center items-center h-64 px-4">
           <div className="text-center">
             <p className="text-sm sm:text-base">Quiz not found</p>
 
-            <Link to={"/quizzes"}>
+            <Link to={"/quiz"}>
               <Button aria-label="Back to List" className="mt-4">
                 Back to List
               </Button>
@@ -684,7 +685,7 @@ const QuizPage: React.FC = () => {
                 )}
 
                 <div className="flex flex-col sm:flex-row gap-3 ignoreInShare">
-                  <Link to={"/quizzes"} className="flex-1">
+                  <Link to={"/quiz"} className="flex-1">
                     <Button
                       aria-label="Back to Quizzes"
                       variant="outline"
@@ -730,7 +731,7 @@ const QuizPage: React.FC = () => {
         {/* Quiz Header - Compact and Mobile Optimized */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
-            <Link to={"/quizzes"}>
+            <Link to={"/quiz"}>
               <Button aria-label="Back" variant="outline" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 <span className="hidden sm:inline">Back</span>
@@ -1171,7 +1172,7 @@ const QuizPage: React.FC = () => {
 
       {showLeaderboard && (
         <QuizLeaderboardModal
-          quizId={quizId!}
+          quizId={quiz.id}
           quizTitle={quiz.title}
           open={showLeaderboard}
           onOpenChange={setShowLeaderboard}

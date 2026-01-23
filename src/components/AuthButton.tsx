@@ -49,7 +49,7 @@ const AuthButton = () => {
 
   const navigationItems = [
     { path: '/', label: 'Scanner', icon: Scan },
-    { path: '/quizzes', label: 'Food IQ Tests', icon: Trophy },
+    { path: '/quiz', label: 'Food IQ Tests', icon: Trophy },
     { path: '/blog', label: 'Blog', icon: BookOpen },
     { path: '/pricing', label: 'Pricing', icon: CreditCard },
     { path: '/history', label: 'History', icon: History },

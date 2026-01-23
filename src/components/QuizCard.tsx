@@ -21,11 +21,12 @@ interface Quiz {
   created_at: string;
   creator_id: string;
   is_published?: boolean;
+  slug: string;
 }
 
 interface QuizCardProps {
   quiz: Quiz;
-  onPlay: (quizId: string) => void;
+  onPlay: (slug: string) => void;
   onQuizUpdated?: () => void;
 }
 
@@ -215,7 +216,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
             <div className="flex gap-2">
               <Button 
                 aria-label="Play Quiz"
-                onClick={() => onPlay(quiz.id)} 
+                onClick={() => onPlay(quiz.slug)} 
                 className="flex-1 text-sm h-9"
               >
                 <Play className="h-4 w-4 mr-2" />

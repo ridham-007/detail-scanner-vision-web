@@ -58,7 +58,7 @@ const IndexPage: React.FC = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("quizzes")
-        .select("id, title, description, difficulty, created_at")
+        .select("id, title, description, difficulty, created_at, slug")
         .eq("is_published", true)
         .order("created_at", { ascending: false })
         .limit(4);
@@ -135,9 +135,9 @@ const IndexPage: React.FC = () => {
     setShowEarlyAccessModal(true);
   };
 
-  const handleQuizPlay = (quizId: string) => {
+  const handleQuizPlay = (slug: string) => {
     trackCTAClick("play_quiz_from_landing");
-    navigate(`/quiz/${quizId}`);
+    navigate(`/quiz/${slug}`);
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -572,7 +572,7 @@ const IndexPage: React.FC = () => {
                         </span>
                       </div>
 
-                      <Link to={`/quiz/${quiz.id}`}>
+                      <Link to={`/quiz/${quiz.slug}`}>
                         <Button
                           onClick={() => trackCTAClick("play_quiz_from_home")}
                           className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
@@ -588,7 +588,7 @@ const IndexPage: React.FC = () => {
               </div>
 
               <div className="text-center">
-                <Link to="/quizzes">
+                <Link to="/quiz">
                   <Button
                     variant="outline"
                     size="lg"

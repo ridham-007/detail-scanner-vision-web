@@ -35,7 +35,7 @@ export const getStaticSitemapUrls = (): SitemapUrl[] => {
       priority: 1.0
     },
     {
-      loc: `${baseUrl}/quizzes`,
+      loc: `${baseUrl}/quiz`,
       lastmod: currentDate,
       changefreq: 'daily',
       priority: 0.9
@@ -65,8 +65,9 @@ export const generateQuizSitemapUrls = async (): Promise<SitemapUrl[]> => {
   try {
     const { data: quizzes, error } = await supabase
       .from('quizzes')
-      .select('id, updated_at')
-      .eq('is_published', true);
+      .select('slug, updated_at')
+      .eq('is_published', true)
+      .not('slug', 'is', null);
 
     if (error) {
       console.error('Error fetching quizzes for sitemap:', error);
@@ -75,12 +76,14 @@ export const generateQuizSitemapUrls = async (): Promise<SitemapUrl[]> => {
 
     const baseUrl = 'https://www.eateriq.com';
     
-    return quizzes.map((quiz: { id: string; updated_at: string | null }) => ({
-      loc: `${baseUrl}/quiz/${quiz.id}`,
-      lastmod: quiz.updated_at ? new Date(quiz.updated_at).toISOString().split('T')[0] : undefined,
-      changefreq: 'weekly' as const,
-      priority: 0.8
-    }));
+    return quizzes
+      .filter((quiz): quiz is { slug: string; updated_at: string | null } => quiz.slug !== null)
+      .map((quiz) => ({
+        loc: `${baseUrl}/quiz/${quiz.slug}`,
+        lastmod: quiz.updated_at ? new Date(quiz.updated_at).toISOString().split('T')[0] : undefined,
+        changefreq: 'weekly' as const,
+        priority: 0.8
+      }));
   } catch (error) {
     console.error('Error generating quiz sitemap URLs:', error);
     return [];

@@ -29,6 +29,7 @@ interface Quiz {
   difficulty: 'easy' | 'medium' | 'hard';
   created_at: string;
   creator_id: string;
+  slug: string;
 }
 
 const UserProfilePage = () => {
@@ -90,7 +91,7 @@ const UserProfilePage = () => {
     try {
       const { data, error } = await supabase
         .from('quizzes')
-        .select('id, title, description, difficulty, created_at, creator_id')
+        .select('id, title, description, difficulty, created_at, creator_id, slug')
         .eq('creator_id', userId)
         // .eq('is_published', true)
         .order('created_at', { ascending: false });
@@ -110,8 +111,8 @@ const UserProfilePage = () => {
     }
   };
 
-  const handlePlayQuiz = (quizId: string) => {
-    navigate(`/quiz/${quizId}`);
+  const handlePlayQuiz = (slug: string) => {
+    navigate(`/quiz/${slug}`);
   };
 
   const handleShareProfile = () => {
