@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import {
   Heart,
-  Brain,
-  Zap,
-  Award,
-  Users,
   Mail,
   Shield,
   HelpCircle,
@@ -40,7 +36,7 @@ const Footer = () => {
   return (
     <footer ref={footerRef} role="contentinfo" aria-label="Site footer" className="border-t border-primary/20 bg-muted/20 backdrop-blur">
       <div className="container mx-auto px-4 py-6 md:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {/* Brand Section */}
           <div className="footer-section space-y-4">
             <div className="flex items-center space-x-3">
@@ -61,28 +57,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Features Section */}
-          <div className="footer-section space-y-4">
-            <h3 className="font-semibold text-base md:text-lg" id="footer-features">Features</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground" aria-labelledby="footer-features" role="list">
-              <li className="flex items-center space-x-2 hover:text-foreground transition-colors">
-                <Award className="h-4 w-4 text-primary" aria-hidden="true" />
-                <span>Health Score Analysis</span>
-              </li>
-              <li className="flex items-center space-x-2 hover:text-foreground transition-colors">
-                <Brain className="h-4 w-4 text-primary/80" aria-hidden="true" />
-                <span>AI-Powered Insights</span>
-              </li>
-              <li className="flex items-center space-x-2 hover:text-foreground transition-colors">
-                <Zap className="h-4 w-4 text-primary/80" aria-hidden="true" />
-                <span>Smart Recommendations</span>
-              </li>
-              <li className="flex items-center space-x-2 hover:text-foreground transition-colors">
-                <Users className="h-4 w-4 text-primary/80" aria-hidden="true" />
-                <span>Real-time Scanning</span>
-              </li>
-            </ul>
-          </div>
 
           {/* Support & Resources Section */}
           <nav className="footer-section space-y-4" aria-label="Support and resources">
