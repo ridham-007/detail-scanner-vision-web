@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { toast } from 'sonner';
 import { Trash2, AlertTriangle, CheckCircle } from 'lucide-react';
+import SEOHead from '@/components/SEOHead';
 
 const DeleteAccountPage = () => {
   const { user } = useAuth();
@@ -95,88 +96,95 @@ const DeleteAccountPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="container max-w-2xl mx-auto px-4 py-12">
-        <Card>
-          <CardHeader className="text-center">
-            <Trash2 className="w-12 h-12 text-destructive mx-auto mb-4" />
-            <CardTitle className="text-2xl">Delete Your Account</CardTitle>
-            <CardDescription className="text-base">
-              Request permanent deletion of your EaterIQ account and data
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Alert variant="destructive" className="mb-6">
-              <AlertTriangle className="h-4 w-4" />
-              <AlertDescription>
-                This action is irreversible. All your data will be permanently deleted within 7 days.
-              </AlertDescription>
-            </Alert>
+    <>
+      <SEOHead
+        title="Delete Account | EaterIQ"
+        description="Request deletion of your EaterIQ account and all associated data."
+        canonicalUrl="https://www.eateriq.com/delete-account"
+      />
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="container max-w-2xl mx-auto px-4 py-12">
+          <Card>
+            <CardHeader className="text-center">
+              <Trash2 className="w-12 h-12 text-destructive mx-auto mb-4" />
+              <CardTitle className="text-2xl">Delete Your Account</CardTitle>
+              <CardDescription className="text-base">
+                Request permanent deletion of your EaterIQ account and data
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Alert variant="destructive" className="mb-6">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertDescription>
+                  This action is irreversible. All your data will be permanently deleted within 7 days.
+                </AlertDescription>
+              </Alert>
 
-            <div className="mb-6">
-              <h3 className="font-semibold mb-3">The following data will be deleted:</h3>
-              <ul className="space-y-2">
-                {dataToBeDeleted.map((item, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="text-destructive mt-0.5">•</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address *</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter the email associated with your account"
-                  required
-                  disabled={!!user?.email}
-                />
-                <p className="text-xs text-muted-foreground">
-                  Enter the email address you used to create your account
-                </p>
+              <div className="mb-6">
+                <h3 className="font-semibold mb-3">The following data will be deleted:</h3>
+                <ul className="space-y-2">
+                  {dataToBeDeleted.map((item, index) => (
+                    <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="text-destructive mt-0.5">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="reason">Reason for leaving (optional)</Label>
-                <Textarea
-                  id="reason"
-                  value={reason}
-                  onChange={(e) => setReason(e.target.value)}
-                  placeholder="Help us improve by sharing why you're leaving..."
-                  rows={3}
-                />
-              </div>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email Address *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter the email associated with your account"
+                    required
+                    disabled={!!user?.email}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Enter the email address you used to create your account
+                  </p>
+                </div>
 
-              <div className="flex items-start space-x-3">
-                <Checkbox
-                  id="confirm"
-                  checked={confirmed}
-                  onCheckedChange={(checked) => setConfirmed(checked as boolean)}
-                />
-                <Label htmlFor="confirm" className="text-sm leading-relaxed cursor-pointer">
-                  I understand that this action is irreversible and all my data will be permanently deleted within 7 days.
-                </Label>
-              </div>
+                <div className="space-y-2">
+                  <Label htmlFor="reason">Reason for leaving (optional)</Label>
+                  <Textarea
+                    id="reason"
+                    value={reason}
+                    onChange={(e) => setReason(e.target.value)}
+                    placeholder="Help us improve by sharing why you're leaving..."
+                    rows={3}
+                  />
+                </div>
 
-              <Button
-                type="submit"
-                variant="destructive"
-                className="w-full"
-                disabled={loading || !confirmed || !email}
-              >
-                {loading ? 'Submitting...' : 'Submit Deletion Request'}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+                <div className="flex items-start space-x-3">
+                  <Checkbox
+                    id="confirm"
+                    checked={confirmed}
+                    onCheckedChange={(checked) => setConfirmed(checked as boolean)}
+                  />
+                  <Label htmlFor="confirm" className="text-sm leading-relaxed cursor-pointer">
+                    I understand that this action is irreversible and all my data will be permanently deleted within 7 days.
+                  </Label>
+                </div>
+
+                <Button
+                  type="submit"
+                  variant="destructive"
+                  className="w-full"
+                  disabled={loading || !confirmed || !email}
+                >
+                  {loading ? 'Submitting...' : 'Submit Deletion Request'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

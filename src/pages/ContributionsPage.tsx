@@ -67,6 +67,7 @@ export default function ContributionsPage() {
         title="My Contributions | EaterIQ"
         description="Track your product submissions, earned rewards, and contribution stats on EaterIQ."
         keywords="contributions, product submissions, rewards, badges"
+        canonicalUrl="https://www.eateriq.com/contributions"
       />
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">

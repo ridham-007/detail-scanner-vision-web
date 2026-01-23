@@ -36,6 +36,7 @@ const BlogListPage = () => {
         title="Blog - EaterIQ"
         description="Discover the latest insights about food, nutrition, and healthy eating from EaterIQ experts."
         keywords="food blog, nutrition, healthy eating, food insights"
+        canonicalUrl="https://www.eateriq.com/blog"
       />
       
       <div className="container mx-auto px-4 py-8">

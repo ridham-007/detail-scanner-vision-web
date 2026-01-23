@@ -178,6 +178,7 @@ const UserSettingsPage = () => {
         title="Settings | EaterIQ"
         description="Manage your EaterIQ account settings, preferences, notifications, and privacy options."
         keywords="account settings, user preferences, privacy settings, notifications"
+        canonicalUrl="https://www.eateriq.com/settings"
       />
       <div className="min-h-screen bg-background">
 

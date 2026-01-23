@@ -51,6 +51,7 @@ const CategoriesPage = () => {
       <SEOHead
         title="Product Categories | EaterIQ"
         description="Browse product categories and find items organized by type, nutrition profile, and meal context."
+        canonicalUrl="https://www.eateriq.com/categories"
       />
       
       <div className="min-h-screen dark:bg-[#1E2836]">
