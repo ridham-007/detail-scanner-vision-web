@@ -158,6 +158,7 @@ const FoodScannerPage: React.FC = () => {
         title="Food Scanner | EaterIQ"
         description="Scan any barcode to get instant nutrition insights, health scores, and personalized food recommendations powered by AI."
         keywords="food scanner, barcode scanner, nutrition analysis, health score, food insights"
+        canonicalUrl="https://www.eateriq.com/scanner"
       />
       <div className="space-y-8">
         {/* Upgrade Banner for Free Users */}

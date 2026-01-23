@@ -12,6 +12,7 @@ const PrivacyPage = () => {
         title="Privacy Policy | EaterIQ"
         description="Learn how EaterIQ protects your privacy and handles your personal data. Read our comprehensive privacy policy."
         keywords="privacy policy, data protection, EaterIQ privacy, personal data"
+        canonicalUrl="https://www.eateriq.com/privacy"
       />
       <div className="min-h-screen bg-background">
       <AnimatedBackground />

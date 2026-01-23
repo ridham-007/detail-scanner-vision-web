@@ -22,6 +22,7 @@ const TermsPage = () => {
         title="Terms of Service | EaterIQ"
         description="Read EaterIQ's Terms of Service. Understand your rights and responsibilities when using our AI-powered food intelligence platform."
         keywords="terms of service, user agreement, EaterIQ terms, legal"
+        canonicalUrl="https://www.eateriq.com/terms"
       />
       <div className="min-h-screen bg-background">
       <AnimatedBackground />

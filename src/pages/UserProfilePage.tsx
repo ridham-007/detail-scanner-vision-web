@@ -154,6 +154,7 @@ const UserProfilePage = () => {
         title={`${profile.username}'s Profile | EaterIQ`}
         description={profile.bio || `View ${profile.username}'s profile, quiz scores, and created quizzes on EaterIQ.`}
         keywords="user profile, quiz creator, EaterIQ user"
+        canonicalUrl={`https://www.eateriq.com/user/${profile.username}`}
       />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
