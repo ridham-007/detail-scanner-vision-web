@@ -117,25 +117,21 @@ const SupportPage = () => {
 
   const faqItems = [
     {
-      question: "How does the AI-powered barcode scanner work?",
-      answer: "Our barcode scanner uses advanced AI to analyze product information and provide instant health scores. Simply point your camera at any barcode, and our AI will process the nutritional data to give you personalized insights and recommendations."
+      question: "How does the barcode scanner work?",
+      answer: "Our barcode scanner analyzes product information and provides instant health scores. Simply point your camera at any barcode, and our system will process the nutritional data to give you personalized insights and recommendations."
     },
     {
       question: "How are health scores calculated?",
-      answer: "Health scores are calculated using our proprietary AI algorithm that analyzes multiple factors including nutritional content, ingredient quality, processing level, and dietary guidelines. The score ranges from 1-100, with higher scores indicating healthier choices."
+      answer: "Health scores are calculated using our proprietary algorithm that analyzes multiple factors including nutritional content, ingredient quality, processing level, and dietary guidelines. The score ranges from 1-100, with higher scores indicating healthier choices."
     },
     {
       question: "Can I create custom quizzes?",
-      answer: "Yes! Registered users can create custom quizzes using our AI-powered quiz generator. Simply provide a topic or prompt, choose the difficulty level, and our AI will generate engaging questions for you."
+      answer: "Yes! Registered users can create custom quizzes using our quiz generator. Simply provide a topic or prompt, choose the difficulty level, and the system will generate engaging questions for you."
     },
     {
       question: "Is my data secure and private?",
       answer: "Absolutely. We use enterprise-grade security measures including end-to-end encryption, secure cloud infrastructure, and strict access controls. Your personal data is never shared with third parties without your consent."
     },
-    // {
-    //   question: "How do I update my dietary preferences?",
-    //   answer: "You can update your dietary preferences in the Settings page when logged in. This helps our AI provide more personalized food recommendations and health scores tailored to your specific needs."
-    // },
     {
       question: "What should I do if a barcode scan returns incorrect information?",
       answer: "If you encounter incorrect product information, please report it through this support page. We continuously improve our database and appreciate user feedback to maintain accuracy."
@@ -146,7 +142,7 @@ const SupportPage = () => {
     },
     {
       question: "Can I use EaterIQ offline?",
-      answer: "Currently, EaterIQ requires an internet connection for barcode scanning and AI analysis."
+      answer: "Currently, EaterIQ requires an internet connection for barcode scanning and product analysis."
     }
   ];
 
