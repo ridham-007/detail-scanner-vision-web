@@ -16,10 +16,10 @@ import {
   ArrowRight,
   Clock,
   Sparkles,
-  Search,
   BarChart3,
   AlertTriangle,
   ListChecks,
+  Search,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import AnimatedBackground from "@/components/AnimatedBackground";
@@ -29,7 +29,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -201,7 +200,7 @@ const IndexPage: React.FC = () => {
     "name": "EaterIQ",
     "applicationCategory": "HealthApplication",
     "operatingSystem": "Web Browser",
-    "description": "AI-powered food scanner that analyzes nutrition, ingredients, and additives to help you make healthier food choices.",
+    "description": "Food scanner that analyzes nutrition, ingredients, and additives to help you make healthier food choices.",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -222,13 +221,13 @@ const IndexPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="EaterIQ - AI Food Scanner for Healthier Choices | Free Nutrition Analysis"
-        description="Scan any food product barcode and instantly get AI-powered nutrition analysis, health scores, ingredient warnings, and healthier alternatives. 100% free, no sign-up required."
-        keywords="food scanner, nutrition analysis, healthy eating, barcode scanner, ingredient checker, health score, food additives, allergen detection, AI nutrition app"
+        title="EaterIQ - Food Scanner for Healthier Choices | Free Nutrition Analysis"
+        description="Scan any food product barcode and instantly get nutrition analysis, health scores, ingredient warnings, and healthier alternatives. 100% free, no sign-up required."
+        keywords="food scanner, nutrition analysis, healthy eating, barcode scanner, ingredient checker, health score, food additives, allergen detection, nutrition app"
         canonicalUrl="https://www.eateriq.com/"
         type="website"
-        ogTitle="EaterIQ - Make Smarter Food Choices with AI"
-        ogDescription="Free AI-powered food scanner. Analyze nutrition, detect harmful additives, and find healthier alternatives instantly."
+        ogTitle="EaterIQ - Make Smarter Food Choices"
+        ogDescription="Free food scanner. Analyze nutrition, detect harmful additives, and find healthier alternatives instantly."
         structuredData={homeStructuredData}
       />
       
@@ -236,7 +235,7 @@ const IndexPage: React.FC = () => {
         <AnimatedBackground />
 
         <main className="relative z-10">
-          {/* Hero Section - Redesigned */}
+          {/* Hero Section */}
           <section className="relative py-12 md:py-20 lg:py-24 overflow-hidden" aria-labelledby="hero-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-5xl mx-auto text-center">
@@ -255,7 +254,7 @@ const IndexPage: React.FC = () => {
                 </h1>
                 
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
-                  Scan any barcode and instantly get AI-powered health scores, ingredient analysis, 
+                  Scan any barcode and instantly get health scores, ingredient analysis, 
                   additive warnings, and personalized recommendations. <strong>100% free</strong>, no sign-up required.
                 </p>
 
@@ -336,9 +335,9 @@ const IndexPage: React.FC = () => {
                   },
                   {
                     step: "2",
-                    icon: Brain,
-                    title: "AI Analysis",
-                    description: "Our AI analyzes ingredients, nutrition facts, additives, and allergens to calculate a comprehensive health score.",
+                    icon: Search,
+                    title: "Detailed Analysis",
+                    description: "Our system analyzes ingredients, nutrition facts, additives, and allergens to calculate a comprehensive health score.",
                   },
                   {
                     step: "3",
@@ -448,7 +447,7 @@ const IndexPage: React.FC = () => {
                     Test Your Food Knowledge
                   </h2>
                   <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Challenge yourself with our AI-generated nutrition quizzes and learn while having fun
+                    Challenge yourself with our nutrition quizzes and learn while having fun
                   </p>
                 </header>
 
