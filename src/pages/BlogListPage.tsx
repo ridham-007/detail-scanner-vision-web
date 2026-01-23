@@ -154,7 +154,6 @@ const BlogListPage = () => {
                 </CardContent>
               </Card>
 
-              {/* CTA Card - Scanner */}
               <Card className="bg-primary/5 border-primary/20">
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-xl mb-4">
@@ -162,7 +161,7 @@ const BlogListPage = () => {
                   </div>
                   <h3 className="font-semibold text-foreground mb-2">Try Our Food Scanner</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Scan any product barcode and get instant AI-powered health analysis.
+                    Scan any product barcode and get instant health analysis.
                   </p>
                   <Link to="/#scanner">
                     <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
@@ -173,7 +172,6 @@ const BlogListPage = () => {
                 </CardContent>
               </Card>
 
-              {/* CTA Card - Quiz */}
               <Card>
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-center w-12 h-12 bg-accent/20 rounded-xl mb-4">
@@ -181,7 +179,7 @@ const BlogListPage = () => {
                   </div>
                   <h3 className="font-semibold text-foreground mb-2">Test Your Knowledge</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Challenge yourself with our AI-generated nutrition quizzes.
+                    Challenge yourself with our nutrition quizzes.
                   </p>
                   <Link to="/quiz/">
                     <Button size="sm" variant="outline" className="w-full">
@@ -192,14 +190,13 @@ const BlogListPage = () => {
                 </CardContent>
               </Card>
 
-              {/* About Section */}
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg">About EaterIQ</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    EaterIQ is a free AI-powered food scanner that helps you understand what's in your food. 
+                    EaterIQ is a free food scanner that helps you understand what's in your food. 
                     Scan any barcode to get instant health scores, ingredient analysis, and personalized recommendations.
                   </p>
                   <div className="mt-4">

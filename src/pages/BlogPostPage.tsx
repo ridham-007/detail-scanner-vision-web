@@ -227,7 +227,7 @@ const BlogPostPage = () => {
               <div className="mt-8 p-6 bg-primary/5 rounded-xl border border-primary/20">
                 <h3 className="font-semibold text-foreground mb-3">Ready to make healthier food choices?</h3>
                 <p className="text-muted-foreground text-sm mb-4">
-                  Use our free AI-powered food scanner to analyze any product instantly.
+                  Use our free food scanner to analyze any product instantly.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link to="/#scanner">
@@ -312,7 +312,6 @@ const BlogPostPage = () => {
                 </Card>
               )}
 
-              {/* CTA Card */}
               <Card className="bg-primary/5 border-primary/20">
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-foreground mb-2">Try EaterIQ Free</h3>
