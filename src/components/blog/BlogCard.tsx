@@ -45,7 +45,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           )}
         </div>
         
-        <Link to={`/blog/${post.slug}`} className="group">
+        <Link to={`/blog/${post.slug}/`} className="group">
           <h3 className="text-xl font-bold group-hover:text-primary transition-colors line-clamp-2">
             {post.title}
           </h3>
