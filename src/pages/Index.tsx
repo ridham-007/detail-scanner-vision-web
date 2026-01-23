@@ -21,7 +21,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import FoodScannerPage from "./FoodScannerPage";
 import EarlyAccessModal from "@/components/EarlyAccessModal";
