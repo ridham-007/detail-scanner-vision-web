@@ -33,6 +33,7 @@ interface Quiz {
   created_at: string;
   creator_id: string;
   is_published?: boolean;
+  slug: string;
 }
 
 interface LeaderboardEntry {
@@ -66,7 +67,7 @@ const QuizzesPage = () => {
 
   const breadcrumbStructuredData = generateBreadcrumbStructuredData([
     { name: "Home", url: "https://www.eateriq.com/" },
-    { name: "Quiz Hub", url: "https://www.eateriq.com/quizzes" },
+    { name: "Quiz Hub", url: "https://www.eateriq.com/quiz" },
   ]);
 
   useEffect(() => {
@@ -85,7 +86,7 @@ const QuizzesPage = () => {
       const { data, error } = await supabase
         .from("quizzes")
         .select(
-          "id, title, description, difficulty, created_at, creator_id, is_published"
+          "id, title, description, difficulty, created_at, creator_id, is_published, slug"
         )
         .eq("is_published", true)
         .order("created_at", { ascending: false });
@@ -104,7 +105,7 @@ const QuizzesPage = () => {
       const { data, error } = await supabase
         .from("quizzes")
         .select(
-          "id, title, description, difficulty, created_at, creator_id, is_published"
+          "id, title, description, difficulty, created_at, creator_id, is_published, slug"
         )
         .eq("creator_id", user.id)
         .order("created_at", { ascending: false });
@@ -229,6 +230,13 @@ const QuizzesPage = () => {
 
     setLoading(true);
     try {
+      // Generate slug from title
+      const baseSlug = formData.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      const uniqueSlug = `${baseSlug}-${Date.now().toString(36)}`;
+
       // Create quiz in database
       const { data: quiz, error: quizError } = await supabase
         .from("quizzes")
@@ -239,6 +247,7 @@ const QuizzesPage = () => {
           difficulty: formData.difficulty,
           prompt: formData.prompt,
           is_published: false,
+          slug: uniqueSlug,
         })
         .select()
         .single();
@@ -284,8 +293,8 @@ const QuizzesPage = () => {
     }
   };
 
-  const playQuiz = (quizId: string) => {
-    navigate(`/quiz/${quizId}`);
+  const playQuiz = (slug: string) => {
+    navigate(`/quiz/${slug}`);
   };
 
   return (

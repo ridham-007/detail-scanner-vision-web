@@ -1191,6 +1191,7 @@ export type Database = {
           id: string
           is_published: boolean | null
           prompt: string
+          slug: string | null
           title: string
           updated_at: string | null
         }
@@ -1202,6 +1203,7 @@ export type Database = {
           id?: string
           is_published?: boolean | null
           prompt: string
+          slug?: string | null
           title: string
           updated_at?: string | null
         }
@@ -1213,6 +1215,7 @@ export type Database = {
           id?: string
           is_published?: boolean | null
           prompt?: string
+          slug?: string | null
           title?: string
           updated_at?: string | null
         }

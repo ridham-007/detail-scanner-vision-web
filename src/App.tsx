@@ -60,8 +60,8 @@ function App() {
                     <Route path="/scanner" element={<FoodScannerPage />} />
                     <Route path="/history" element={<ScanHistoryPage />} />
                     <Route path="/shopping-lists" element={<ShoppingListsPage />} />
-                    <Route path="/quizzes" element={<QuizzesPage />} />
-                    <Route path="/quiz/:quizId" element={<QuizPage />} />
+                    <Route path="/quiz" element={<QuizzesPage />} />
+                    <Route path="/quiz/:slug" element={<QuizPage />} />
                     <Route path="/profile/:username" element={<UserProfilePage />} />
                     <Route path="/settings" element={<UserSettingsPage />} />
                     <Route path="/blog" element={<BlogListPage />} />
