@@ -230,12 +230,29 @@ const QuizzesPage = () => {
 
     setLoading(true);
     try {
-      // Generate slug from title
+      // Generate base slug from title
       const baseSlug = formData.title
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
-      const uniqueSlug = `${baseSlug}-${Date.now().toString(36)}`;
+
+      // Check for existing slugs and find next available number
+      const { data: existingSlugs } = await supabase
+        .from("quizzes")
+        .select("slug")
+        .like("slug", `${baseSlug}%`);
+
+      let finalSlug = baseSlug;
+      if (existingSlugs && existingSlugs.length > 0) {
+        const slugSet = new Set(existingSlugs.map(s => s.slug));
+        if (slugSet.has(baseSlug)) {
+          let counter = 2;
+          while (slugSet.has(`${baseSlug}-${counter}`)) {
+            counter++;
+          }
+          finalSlug = `${baseSlug}-${counter}`;
+        }
+      }
 
       // Create quiz in database
       const { data: quiz, error: quizError } = await supabase
@@ -247,7 +264,7 @@ const QuizzesPage = () => {
           difficulty: formData.difficulty,
           prompt: formData.prompt,
           is_published: false,
-          slug: uniqueSlug,
+          slug: finalSlug,
         })
         .select()
         .single();
