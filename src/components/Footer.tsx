@@ -49,7 +49,7 @@ const Footer = () => {
             </p>
             
             {/* App Store Badges */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <a
                 href="https://apps.apple.com/sg/app/eateriq/id6757137222"
                 target="_blank"
@@ -58,9 +58,9 @@ const Footer = () => {
                 className="transition-transform hover:scale-105"
               >
                 <img
-                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                  src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
                   alt="Download on the App Store"
-                  className="h-8"
+                  className="h-[32px]"
                   loading="lazy"
                 />
               </a>
@@ -74,7 +74,7 @@ const Footer = () => {
                 <img
                   src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                   alt="Get it on Google Play"
-                  className="h-8"
+                  className="h-[48px] -my-[8px]"
                   loading="lazy"
                 />
               </a>
