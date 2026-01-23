@@ -724,7 +724,7 @@ const QuizPage: React.FC = () => {
         twitterTitle={`${quiz.title} - Food IQ Quiz`}
         twitterDescription={quiz.description || `Challenge yourself with this ${quiz.difficulty} nutrition quiz!`}
         type="quiz"
-        canonicalUrl={`https://www.eateriq.com/quiz/${quiz.slug}`}
+        canonicalUrl={`https://www.eateriq.com/quiz/${quiz.slug}/`}
       />
       <AnimatedBackground />
 

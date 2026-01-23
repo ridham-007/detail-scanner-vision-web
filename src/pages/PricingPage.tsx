@@ -98,7 +98,7 @@ const PricingPage = () => {
       <SEOHead 
         title="Pricing - EaterIQ"
         description="Choose the perfect plan for your health journey. From free basic features to premium family plans."
-        canonicalUrl="https://www.eateriq.com/pricing"
+        canonicalUrl="https://www.eateriq.com/pricing/"
       />
       <div className="container mx-auto px-4 py-12">
           {/* Hero Section */}

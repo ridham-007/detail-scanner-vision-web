@@ -8,7 +8,7 @@ const ShoppingListsPage = () => {
       <SEOHead
         title="Shopping Lists | EaterIQ"
         description="Create and manage your shopping lists with EaterIQ. Add products from your scans and organize your grocery shopping."
-        canonicalUrl="https://www.eateriq.com/shopping-lists"
+        canonicalUrl="https://www.eateriq.com/shopping-lists/"
       />
       
       <div className="min-h-screen dark:bg-[#1E2836]">

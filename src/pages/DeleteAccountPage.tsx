@@ -100,7 +100,7 @@ const DeleteAccountPage = () => {
       <SEOHead
         title="Delete Account | EaterIQ"
         description="Request deletion of your EaterIQ account and all associated data."
-        canonicalUrl="https://www.eateriq.com/delete-account"
+        canonicalUrl="https://www.eateriq.com/delete-account/"
       />
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="container max-w-2xl mx-auto px-4 py-12">

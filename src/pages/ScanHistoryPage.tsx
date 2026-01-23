@@ -8,7 +8,7 @@ const ScanHistoryPage = () => {
       <SEOHead
         title="Scan History | EaterIQ"
         description="View your product scan history and track your nutrition journey with EaterIQ."
-        canonicalUrl="https://www.eateriq.com/history"
+        canonicalUrl="https://www.eateriq.com/history/"
       />
       
       <div className="min-h-screen dark:bg-[#1E2836]">
