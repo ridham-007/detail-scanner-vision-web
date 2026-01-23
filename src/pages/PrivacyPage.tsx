@@ -49,8 +49,8 @@ const PrivacyPage = () => {
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
                 At EaterIQ, we are committed to protecting your privacy and ensuring the security of your personal information.
-                This privacy policy explains how we collect, use, and safeguard your data when you use our AI-powered food
-                intelligence platform and quiz services.
+                This privacy policy explains how we collect, use, and safeguard your data when you use our food
+                analysis platform and quiz services.
               </p>
               <p className="text-sm text-muted-foreground">
                 Last updated: December 22, 2025
@@ -104,7 +104,7 @@ const PrivacyPage = () => {
               <ul className="text-sm text-muted-foreground space-y-2">
                 <li>• <strong>Service Provision:</strong> To provide barcode scanning, health analysis, and quiz functionality</li>
                 <li>• <strong>Personalization:</strong> To offer personalized food recommendations and quiz suggestions</li>
-                <li>• <strong>Performance:</strong> To improve our AI algorithms and user experience</li>
+                <li>• <strong>Performance:</strong> To improve our analysis tools and user experience</li>
                 <li>• <strong>Communication:</strong> To send important updates about your account and our services</li>
                 <li>• <strong>Analytics:</strong> To understand usage patterns and improve our platform</li>
               </ul>

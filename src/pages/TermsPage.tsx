@@ -20,7 +20,7 @@ const TermsPage = () => {
     <>
       <SEOHead
         title="Terms of Service | EaterIQ"
-        description="Read EaterIQ's Terms of Service. Understand your rights and responsibilities when using our AI-powered food intelligence platform."
+        description="Read EaterIQ's Terms of Service. Understand your rights and responsibilities when using our food analysis platform."
         keywords="terms of service, user agreement, EaterIQ terms, legal"
         canonicalUrl="https://www.eateriq.com/terms/"
       />
@@ -54,7 +54,7 @@ const TermsPage = () => {
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
                 Welcome to EaterIQ! These Terms of Service ("Terms") govern your
-                use of our AI-powered food intelligence platform and quiz
+                use of our food analysis platform and quiz
                 services. By accessing or using EaterIQ, you agree to be bound
                 by these Terms.
               </p>
@@ -114,7 +114,7 @@ const TermsPage = () => {
                   Food Intelligence Features
                 </h3>
                 <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-                  <li>• AI-powered barcode scanning and product analysis</li>
+                  <li>• Barcode scanning and product analysis</li>
                   <li>• Health scores and nutritional information</li>
                   <li>• Personalized food recommendations</li>
                   <li>• Scanning history and progress tracking</li>
@@ -123,7 +123,7 @@ const TermsPage = () => {
               <div>
                 <h3 className="font-semibold mb-2">Quiz Platform</h3>
                 <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-                  <li>• AI-generated quizzes on various topics</li>
+                  <li>• Educational quizzes on various topics</li>
                   <li>• User-created quiz content</li>
                   <li>• Scoring system and leaderboards</li>
                   <li>• Social features and community interaction</li>
@@ -188,7 +188,7 @@ const TermsPage = () => {
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   EaterIQ provides nutritional information and health scores for
-                  educational purposes only. Our AI analysis should not be
+                  educational purposes only. Our analysis should not be
                   considered medical advice. Always consult healthcare
                   professionals for dietary and health decisions.
                 </p>
