@@ -44,9 +44,41 @@ const Footer = () => {
               </div>
               <span className="text-xl font-bold text-foreground">EaterIQ</span>
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
               Scan, understand, and make healthier food choices. Your personal nutrition companion.
             </p>
+            
+            {/* App Store Badges */}
+            <div className="flex flex-wrap gap-2">
+              <a
+                href="https://apps.apple.com/sg/app/eateriq/id6757137222"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Download on the App Store"
+                className="transition-transform hover:scale-105"
+              >
+                <img
+                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                  alt="Download on the App Store"
+                  className="h-8"
+                  loading="lazy"
+                />
+              </a>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.eateriq"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Get it on Google Play"
+                className="transition-transform hover:scale-105"
+              >
+                <img
+                  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                  alt="Get it on Google Play"
+                  className="h-8"
+                  loading="lazy"
+                />
+              </a>
+            </div>
           </div>
 
           {/* Product Links */}
