@@ -1,6 +1,5 @@
 {
   "trailingSlash": true,
-  "cleanUrls": true,
   "redirects": [
     {
       "source": "/quizzes/:path*",
@@ -10,7 +9,7 @@
   ],
   "rewrites": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
