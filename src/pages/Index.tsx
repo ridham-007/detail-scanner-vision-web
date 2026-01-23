@@ -259,7 +259,7 @@ const IndexPage: React.FC = () => {
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                   <Button
                     size="lg"
                     className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg"
@@ -279,6 +279,41 @@ const IndexPage: React.FC = () => {
                       Learn About Nutrition
                     </Button>
                   </Link>
+                </div>
+
+                {/* App Store Badges */}
+                <div className="flex flex-col items-center gap-3 mb-12">
+                  <p className="text-sm text-muted-foreground">Also available on mobile</p>
+                  <div className="flex flex-wrap justify-center gap-3">
+                    <a
+                      href="https://apps.apple.com/sg/app/eateriq/id6757137222"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Download on the App Store"
+                      className="transition-transform hover:scale-105"
+                    >
+                      <img
+                        src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                        alt="Download on the App Store"
+                        className="h-10"
+                        loading="lazy"
+                      />
+                    </a>
+                    <a
+                      href="https://play.google.com/store/apps/details?id=com.eateriq"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Get it on Google Play"
+                      className="transition-transform hover:scale-105"
+                    >
+                      <img
+                        src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                        alt="Get it on Google Play"
+                        className="h-10"
+                        loading="lazy"
+                      />
+                    </a>
+                  </div>
                 </div>
 
                 {/* Feature Pills */}
