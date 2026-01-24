@@ -241,7 +241,7 @@ const IndexPage: React.FC = () => {
               <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
                 
                 {/* Left Column - Content */}
-                <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 md:p-8 text-center lg:text-left order-2 lg:order-1 flex flex-col justify-center">
+                <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8 text-center lg:text-left order-2 lg:order-1 flex flex-col justify-center shadow-sm">
                   <h1 id="hero-heading" className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] tracking-tight mb-4">
                     Know What's in{" "}
                     <span className="text-primary">Your Food</span>
@@ -265,11 +265,11 @@ const IndexPage: React.FC = () => {
 
                   {/* Trust Badges */}
                   <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-6">
-                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full">
+                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full border border-border">
                       <CheckCircle className="h-3.5 w-3.5 text-primary" />
                       <span>100% Free</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full">
+                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full border border-border">
                       <Shield className="h-3.5 w-3.5 text-primary" />
                       <span>No Sign-up</span>
                     </div>
@@ -309,115 +309,108 @@ const IndexPage: React.FC = () => {
                 </div>
 
                 {/* Right Column - Phone Mockup with Food Background */}
-                <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 md:p-8 order-1 lg:order-2 flex justify-center items-center relative overflow-hidden">
+                <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8 order-1 lg:order-2 flex justify-center items-center relative overflow-hidden shadow-sm">
                   {/* Food Background Elements */}
                   <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-4 left-4 text-4xl opacity-[0.06]">🥗</div>
-                    <div className="absolute top-1/4 right-6 text-3xl opacity-[0.05]">🍎</div>
-                    <div className="absolute bottom-1/3 left-8 text-3xl opacity-[0.05]">🥑</div>
-                    <div className="absolute bottom-8 right-10 text-4xl opacity-[0.06]">🥕</div>
-                    <div className="absolute top-1/2 left-1/4 text-2xl opacity-[0.04]">🍇</div>
-                    <div className="absolute bottom-1/4 right-1/4 text-2xl opacity-[0.04]">🥦</div>
+                    <div className="absolute top-6 left-6 text-4xl opacity-[0.08]">🥗</div>
+                    <div className="absolute top-1/4 right-8 text-3xl opacity-[0.07]">🍎</div>
+                    <div className="absolute bottom-1/3 left-10 text-3xl opacity-[0.07]">🥑</div>
+                    <div className="absolute bottom-10 right-12 text-4xl opacity-[0.08]">🥕</div>
+                    <div className="absolute top-1/2 left-1/4 text-2xl opacity-[0.06]">🍇</div>
+                    <div className="absolute bottom-1/4 right-1/4 text-2xl opacity-[0.06]">🥦</div>
                   </div>
 
-                  <div className="relative animate-fade-in z-10">
-                    {/* Phone Frame */}
-                    <div className="relative w-[240px] md:w-[260px] bg-foreground rounded-[2.5rem] p-2 shadow-2xl">
-                      <div className="bg-background rounded-[2.2rem] overflow-hidden">
-                        {/* Status Bar */}
-                        <div className="h-6 bg-background px-5 flex items-center justify-between">
-                          <span className="text-[9px] font-medium text-foreground">9:41</span>
-                          <div className="flex items-center gap-1">
-                            <div className="flex gap-[2px]">
-                              <div className="w-[2px] h-[8px] bg-foreground rounded-sm" />
-                              <div className="w-[2px] h-[6px] bg-foreground rounded-sm" />
-                              <div className="w-[2px] h-[5px] bg-foreground rounded-sm" />
-                              <div className="w-[2px] h-[3px] bg-muted-foreground rounded-sm" />
-                            </div>
-                            <div className="w-5 h-2.5 border border-foreground rounded-sm relative ml-1">
-                              <div className="absolute inset-[1px] right-0.5 bg-primary rounded-[1px]" />
-                              <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-[1px] h-[3px] bg-foreground rounded-r-sm" />
-                            </div>
+                  <div className="relative z-10">
+                    {/* Phone Frame - Simplified & Cleaner */}
+                    <div className="relative w-[220px] md:w-[240px]">
+                      {/* Phone outer frame */}
+                      <div className="bg-foreground rounded-[2rem] p-[6px] shadow-xl">
+                        {/* Phone screen */}
+                        <div className="bg-background rounded-[1.7rem] overflow-hidden">
+                          {/* Notch Area */}
+                          <div className="bg-background pt-2 pb-1 relative">
+                            <div className="mx-auto w-16 h-5 bg-foreground rounded-full" />
                           </div>
-                        </div>
-                        
-                        {/* Dynamic Island */}
-                        <div className="flex justify-center -mt-0.5 mb-1.5">
-                          <div className="w-20 h-6 bg-foreground rounded-full" />
-                        </div>
-                        
-                        {/* App Content Preview */}
-                        <div className="px-3 pb-3">
-                          {/* App Header */}
-                          <div className="flex items-center justify-between mb-3">
-                            <span className="text-sm font-bold text-foreground">EaterIQ</span>
-                            <div className="w-6 h-6 bg-muted rounded-full" />
-                          </div>
-
-                          {/* Product Card Preview */}
-                          <div className="bg-card border border-border rounded-xl p-3 mb-2 shadow-sm">
-                            <div className="flex items-start gap-2 mb-3">
-                              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                                <div className="w-6 h-8 bg-muted-foreground/20 rounded" />
+                          
+                          {/* App Content */}
+                          <div className="px-3 pb-3">
+                            {/* Header with Logo */}
+                            <div className="flex items-center justify-between py-2 mb-2">
+                              <div className="flex items-center gap-1.5">
+                                <div className="w-5 h-5 bg-primary rounded-md flex items-center justify-center">
+                                  <Scan className="w-3 h-3 text-primary-foreground" />
+                                </div>
+                                <span className="text-xs font-bold text-foreground">EaterIQ</span>
                               </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="text-xs font-semibold text-foreground mb-0.5 truncate">Organic Granola</div>
-                                <div className="text-[10px] text-muted-foreground">Nature Valley</div>
+                              <div className="w-5 h-5 bg-muted rounded-full" />
+                            </div>
+
+                            {/* Scanned Product Card */}
+                            <div className="bg-muted/50 border border-border rounded-xl p-3 mb-2">
+                              {/* Product Info Row */}
+                              <div className="flex items-center gap-2 mb-2">
+                                <div className="w-10 h-10 bg-card border border-border rounded-lg flex items-center justify-center">
+                                  <span className="text-lg">🥣</span>
+                                </div>
+                                <div className="flex-1">
+                                  <div className="text-[11px] font-semibold text-foreground">Organic Granola</div>
+                                  <div className="text-[9px] text-muted-foreground">Nature Valley • 350g</div>
+                                </div>
+                              </div>
+                              
+                              {/* Health Score Circle */}
+                              <div className="flex items-center gap-3 bg-card border border-border rounded-lg p-2">
+                                <div className="w-10 h-10 rounded-full border-[3px] border-primary flex items-center justify-center">
+                                  <span className="text-sm font-bold text-primary">85</span>
+                                </div>
+                                <div className="flex-1">
+                                  <div className="text-[10px] font-medium text-foreground">Health Score</div>
+                                  <div className="text-[8px] text-muted-foreground">Good Choice</div>
+                                </div>
+                                <CheckCircle className="w-4 h-4 text-primary" />
                               </div>
                             </div>
                             
-                            {/* Health Score */}
-                            <div className="flex items-center justify-between bg-primary/10 rounded-lg p-2">
-                              <span className="text-[10px] font-medium text-foreground">Health Score</span>
-                              <div className="flex items-center gap-0.5">
-                                <span className="text-lg font-bold text-primary">85</span>
-                                <span className="text-[8px] text-muted-foreground">/100</span>
+                            {/* Quick Tags Row */}
+                            <div className="flex gap-1 mb-2">
+                              <div className="flex-1 bg-primary/10 border border-primary/20 rounded-md py-1.5 text-center">
+                                <span className="text-[8px] font-medium text-primary">✓ Organic</span>
                               </div>
+                              <div className="flex-1 bg-primary/10 border border-primary/20 rounded-md py-1.5 text-center">
+                                <span className="text-[8px] font-medium text-primary">✓ Low Sugar</span>
+                              </div>
+                              <div className="flex-1 bg-primary/10 border border-primary/20 rounded-md py-1.5 text-center">
+                                <span className="text-[8px] font-medium text-primary">✓ No GMO</span>
+                              </div>
+                            </div>
+
+                            {/* View Details Button */}
+                            <div className="bg-primary rounded-lg py-2 text-center">
+                              <span className="text-[9px] font-semibold text-primary-foreground">View Full Analysis →</span>
                             </div>
                           </div>
                           
-                          {/* Quick Info Tags */}
-                          <div className="flex gap-1.5 mb-2">
-                            <div className="flex-1 bg-card border border-border rounded-lg py-1.5 px-2 text-center">
-                              <Leaf className="h-3 w-3 text-primary mx-auto mb-0.5" />
-                              <span className="text-[8px] text-muted-foreground block">Organic</span>
-                            </div>
-                            <div className="flex-1 bg-card border border-border rounded-lg py-1.5 px-2 text-center">
-                              <CheckCircle className="h-3 w-3 text-primary mx-auto mb-0.5" />
-                              <span className="text-[8px] text-muted-foreground block">Low Sugar</span>
-                            </div>
-                            <div className="flex-1 bg-card border border-border rounded-lg py-1.5 px-2 text-center">
-                              <Shield className="h-3 w-3 text-primary mx-auto mb-0.5" />
-                              <span className="text-[8px] text-muted-foreground block">Safe</span>
-                            </div>
+                          {/* Home Indicator */}
+                          <div className="flex justify-center py-2">
+                            <div className="w-20 h-1 bg-foreground/20 rounded-full" />
                           </div>
-
-                          {/* CTA Button */}
-                          <div className="bg-primary rounded-lg py-2 text-center">
-                            <span className="text-[10px] font-semibold text-primary-foreground">View Full Analysis</span>
-                          </div>
-                        </div>
-                        
-                        {/* Home Indicator */}
-                        <div className="flex justify-center pb-1.5">
-                          <div className="w-24 h-1 bg-foreground/30 rounded-full" />
                         </div>
                       </div>
                     </div>
                     
                     {/* Floating Stats Badges */}
-                    <div className="absolute -bottom-2 -left-2 bg-card border border-border rounded-lg px-2.5 py-1.5 shadow-lg">
-                      <div className="flex items-center gap-1.5">
-                        <BarChart3 className="h-3.5 w-3.5 text-primary" />
-                        <span className="text-[10px] font-medium text-foreground">
+                    <div className="absolute -bottom-3 -left-3 bg-card border-2 border-border rounded-xl px-3 py-2 shadow-md">
+                      <div className="flex items-center gap-2">
+                        <BarChart3 className="h-4 w-4 text-primary" />
+                        <span className="text-xs font-semibold text-foreground">
                           {productCount ? formatNumber(productCount) : "23K+"} Products
                         </span>
                       </div>
                     </div>
-                    <div className="absolute -top-2 -right-2 bg-card border border-border rounded-lg px-2.5 py-1.5 shadow-lg">
-                      <div className="flex items-center gap-1.5">
-                        <Award className="h-3.5 w-3.5 text-primary" />
-                        <span className="text-[10px] font-medium text-foreground">
+                    <div className="absolute -top-3 -right-3 bg-card border-2 border-border rounded-xl px-3 py-2 shadow-md">
+                      <div className="flex items-center gap-2">
+                        <Award className="h-4 w-4 text-primary" />
+                        <span className="text-xs font-semibold text-foreground">
                           {userCount ? formatNumber(userCount) : "14K+"} Users
                         </span>
                       </div>
