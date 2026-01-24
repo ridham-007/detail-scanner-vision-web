@@ -1,6 +1,9 @@
+"use client";
 
-import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+"use client";
+
+import React, { useEffect, useState } from 'react';
+
 import { useBlogPostById, useUpdateBlogPost } from '@/hooks/useBlogPosts';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import BlogEditor from '@/components/blog/BlogEditor';
@@ -8,12 +11,14 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ArrowLeft } from 'lucide-react';
-import { Link, Navigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
 import { CreateBlogPost } from '@/types/Blog';
 
 const EditBlogPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  const params = useParams();
+  const id = params?.id as string;
+  const router = useRouter();
   const { data: isAdmin, isLoading: isCheckingAdmin } = useIsAdmin();
   const { data: post, isLoading, error } = useBlogPostById(id!);
   const updatePost = useUpdateBlogPost();
@@ -31,8 +36,14 @@ const EditBlogPage = () => {
     );
   }
 
-  if (!isAdmin) {
-    return <Navigate to="/" replace />;
+  useEffect(() => {
+    if (!isCheckingAdmin && !isAdmin) {
+      router.replace("/");
+    }
+  }, [isAdmin, isCheckingAdmin, router]);
+
+  if (!isAdmin && !isCheckingAdmin) {
+    return null;
   }
 
   const handleSave = async (data: CreateBlogPost) => {
@@ -40,7 +51,7 @@ const EditBlogPage = () => {
     
     try {
       await updatePost.mutateAsync({ id, postData: data });
-      navigate('/admin/blogs');
+      router.push('/admin/blogs');
     } catch (error) {
       console.error('Failed to update blog post:', error);
     }
@@ -74,7 +85,7 @@ const EditBlogPage = () => {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-6">
-        <Link to="/admin/blogs">
+        <Link href="/admin/blogs">
           <Button variant="ghost">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Blog Management

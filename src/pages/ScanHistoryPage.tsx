@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import ScanHistory from '@/components/ScanHistory';
 import SEOHead from '@/components/SEOHead';

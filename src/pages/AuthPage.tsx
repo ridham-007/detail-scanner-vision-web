@@ -1,5 +1,9 @@
+"use client";
+
+"use client";
+
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -18,7 +22,7 @@ const passwordSchema = z.string().min(8, 'Password must be at least 8 characters
 const nameSchema = z.string().min(2, 'Name must be at least 2 characters').optional();
 
 const AuthPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { user, signInWithGoogle, signInWithApple, loading: authLoading } = useAuth();
   
   const [isLoading, setIsLoading] = useState(false);
@@ -34,9 +38,9 @@ const AuthPage = () => {
   // Redirect if already logged in
   useEffect(() => {
     if (user && !authLoading) {
-      navigate('/');
+      router.push('/');
     }
-  }, [user, authLoading, navigate]);
+  }, [user, authLoading, router]);
 
   const validateForm = (isSignUp: boolean) => {
     const newErrors: { email?: string; password?: string; fullName?: string } = {};
@@ -86,7 +90,7 @@ const AuthPage = () => {
       }
       
       toast.success('Welcome back!');
-      navigate('/');
+      router.push('/');
     } catch (error) {
       toast.error('An unexpected error occurred. Please try again.');
     } finally {

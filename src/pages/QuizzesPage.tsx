@@ -1,10 +1,14 @@
+"use client";
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Trophy, Brain, Target, ArrowLeft } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -30,25 +34,25 @@ import { lazy, Suspense } from "react";
 interface Quiz {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   difficulty: "easy" | "medium" | "hard";
-  created_at: string;
+  created_at: string | null;
   creator_id: string;
-  is_published?: boolean;
-  slug: string;
+  is_published?: boolean | null;
+  slug: string | null;
 }
 
 interface LeaderboardEntry {
   id: string;
-  full_name: string;
-  total_score: number;
-  quizzes_completed: number;
+  full_name: string | null;
+  total_score: number | null;
+  quizzes_completed: number | null;
 }
 
 const QuizzesPage = () => {
   const { user } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [myQuizzes, setMyQuizzes] = useState<Quiz[]>([]);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
@@ -174,7 +178,7 @@ useEffect(() => {
       if (recentQuizzes.length >= 2) {
         // limit active -> find oldest quiz within window (earliest created_at)
         const oldest = recentQuizzes[0]; // because ascending order
-        const oldestDate = new Date(oldest.created_at);
+        const oldestDate = new Date(oldest.created_at || Date.now());
         const reset = new Date(oldestDate.getTime() + THIRTY_DAYS_MS);
 
         setIsLimitActive(true);
@@ -325,8 +329,8 @@ useEffect(() => {
   };
 
   const playQuiz = useCallback((slug) => {
-    navigate(`/quiz/${slug}`);
-  }, [navigate]);
+    router.push(`/quiz/${slug}`);
+  }, [router]);
 
   return (
     <div className="min-h-dvh bg-background">
@@ -344,7 +348,7 @@ useEffect(() => {
       </Suspense>
       <main className="h-full container mx-auto px-3 sm:px-4 py-4 sm:py-8 relative z-10 max-w-6xl">
         <div className="h-full w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
-          <Link to={"/"}>
+          <Link href={"/quiz"}>
             <Button
               aria-label="Back to Home"
               variant="outline"
@@ -358,7 +362,7 @@ useEffect(() => {
           </Link>
           <div className="flex flex-col sm:flex-row justify-between text-center w-full items-center gap-3 sm:gap-4">
             {/* Back Button - always visible */}
-            <Link to={"/"}>
+            <Link href={"/"}>
               <Button
                 aria-label="Back to Home"
                 variant="outline"
@@ -553,7 +557,7 @@ useEffect(() => {
                 <p className="text-sm sm:text-base text-muted-foreground mb-4">
                   Please sign in to view your quizzes.
                 </p>
-                <Link to={"/auth"}>
+                <Link href={"/quiz"}>
                   <Button className="bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-300">
                     Sign In
                   </Button>

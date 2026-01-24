@@ -1,3 +1,7 @@
+"use client";
+
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -14,7 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Header from '@/components/Header';
 import AvatarUpload from '@/components/AvatarUpload';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings';
 import { usePrivacySettings, ProfileVisibility } from '@/hooks/usePrivacySettings';
 import { UserPreferencesForm } from '@/components/UserPreferencesForm';
@@ -36,7 +40,7 @@ import {
 const UserSettingsPage = () => {
   const { user, session } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [cancellingSubscription, setCancellingSubscription] = useState(false);
@@ -54,11 +58,11 @@ const UserSettingsPage = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/');
+      router.push('/');
       return;
     }
     fetchProfile();
-  }, [user, navigate]);
+  }, [user, router]);
 
   const fetchProfile = async () => {
     if (!user) return;
@@ -444,7 +448,7 @@ const UserSettingsPage = () => {
                         </Alert>
 
                         <Button 
-                          onClick={() => navigate('/pricing')}
+                          onClick={() => router.push('/pricing')}
                           className="w-full"
                         >
                           Resubscribe

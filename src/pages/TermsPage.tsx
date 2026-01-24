@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -9,7 +12,7 @@ import {
   AlertTriangle,
   Scale,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
@@ -226,7 +229,7 @@ const TermsPage = () => {
             <CardContent>
               <p className="text-sm text-muted-foreground">
                 Your privacy is important to us. Please review our{" "}
-                <Link to={"/privacy"}>
+                <Link href={"/privacy"}>
                   <Button
                     aria-label="Privacy Policy"
                     variant="link"
@@ -291,7 +294,7 @@ const TermsPage = () => {
             <CardContent>
               <p className="text-sm text-muted-foreground">
                 Questions about these Terms? Contact us through our{" "}
-                <Link to="/support">
+                <Link href="/support">
                   <Button
                     aria-label="Support Page"
                     variant="link"

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
@@ -18,7 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Bell, Send, Users, User, Trash2 } from 'lucide-react';
-import { Navigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Database } from '@/integrations/supabase/types';
 
@@ -38,6 +39,7 @@ interface NotificationForm {
 const AdminNotificationsPage = () => {
   const { data: isAdmin, isLoading: isCheckingAdmin } = useIsAdmin();
   const queryClient = useQueryClient();
+  const router = useRouter();
   
   const [form, setForm] = useState<NotificationForm>({
     title: '',
@@ -180,7 +182,8 @@ const AdminNotificationsPage = () => {
   }
 
   if (!isAdmin) {
-    return <Navigate to="/" replace />;
+    router.replace('/');
+    return null;
   }
 
   const notificationTypes: { value: NotificationType; label: string }[] = [

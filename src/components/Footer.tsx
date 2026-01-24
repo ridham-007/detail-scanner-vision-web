@@ -1,5 +1,5 @@
 import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -35,7 +35,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link 
-              to="/" 
+              href="/" 
               className="inline-flex items-center gap-2.5 mb-4 group"
               aria-label="EaterIQ - Go to homepage"
             >
@@ -90,7 +90,7 @@ const Footer = () => {
               {productLinks.map(({ to, label, icon: Icon }) => (
                 <li key={to}>
                   <Link 
-                    to={to}
+                    href={to}
                     className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                   >
                     <Icon className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" />
@@ -110,7 +110,7 @@ const Footer = () => {
               {supportLinks.map(({ to, label, icon: Icon }) => (
                 <li key={to}>
                   <Link 
-                    to={to}
+                    href={to}
                     className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                   >
                     <Icon className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" />
@@ -153,7 +153,7 @@ const Footer = () => {
                 {legalLinks.map(({ to, label }) => (
                   <li key={to}>
                     <Link 
-                      to={to}
+                      href={to}
                       className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {label}

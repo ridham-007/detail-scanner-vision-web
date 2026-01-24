@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.next
+output
+.build
+.cache
+.eslintcache
+.nuxt
+.temp
+.webpack
+.cache-loader
+.parcel-cache

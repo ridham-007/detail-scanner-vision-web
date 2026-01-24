@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CalendarDays, Clock, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -45,7 +45,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           )}
         </div>
         
-        <Link to={`/blog/${post.slug}/`} className="group">
+        <Link href={`/blog/${post.slug}/`} className="group">
           <h3 className="text-xl font-bold group-hover:text-primary transition-colors line-clamp-2">
             {post.title}
           </h3>

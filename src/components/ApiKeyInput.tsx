@@ -13,7 +13,7 @@ interface ApiKeyInputProps {
 }
 
 const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ apiKey, onApiKeyChange, amplitudeKey, onAmplitudeKeyChange }) => {
-  const hasEnvKey = !!import.meta.env.VITE_OPENAI_API_KEY;
+  const hasEnvKey = "NEXT_PUBLIC_OPENAI_API_KEY" in process.env;
   
   return (
     <div className="space-y-4">

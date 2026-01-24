@@ -24,10 +24,10 @@ interface Question {
 interface Quiz {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   difficulty: 'easy' | 'medium' | 'hard';
   creator_id: string;
-  is_published?: boolean;
+  is_published?: boolean | null;
 }
 
 interface EditQuizModalProps {

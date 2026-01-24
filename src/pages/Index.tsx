@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Brain,
@@ -35,7 +37,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { trackCTAClick } from "@/utils/analytics";
 import { supabase } from "@/integrations/supabase/client";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const IndexPage: React.FC = () => {
   // Fetch recent quizzes
@@ -603,7 +605,7 @@ const IndexPage: React.FC = () => {
                           <span>{new Date(quiz.created_at).toLocaleDateString()}</span>
                         </div>
 
-                        <Link to={`/quiz/${quiz.slug}/`}>
+                        <Link href={`/quiz/${quiz.slug}/`}>
                           <Button
                             onClick={() => trackCTAClick("play_quiz_from_home")}
                             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
@@ -619,7 +621,7 @@ const IndexPage: React.FC = () => {
                 </div>
 
                 <div className="text-center">
-                  <Link to="/quiz/">
+                  <Link href="/quiz/">
                     <Button variant="outline" size="lg" className="px-8 border-2">
                       View All Quizzes
                       <ArrowRight className="ml-2 h-5 w-5" />
@@ -680,7 +682,7 @@ const IndexPage: React.FC = () => {
                         </div>
                         
                         <h3 className="font-semibold text-foreground mb-2 line-clamp-2">
-                          <Link to={`/blog/${blog.slug}/`} className="hover:text-primary">
+                          <Link href={`/blog/${blog.slug}/`} className="hover:text-primary">
                             {blog.title}
                           </Link>
                         </h3>
@@ -692,7 +694,7 @@ const IndexPage: React.FC = () => {
                         )}
                         
                         <Link 
-                          to={`/blog/${blog.slug}/`}
+                          href={`/blog/${blog.slug}/`}
                           className="inline-flex items-center text-sm font-medium text-primary hover:underline"
                         >
                           Read Article
@@ -704,7 +706,7 @@ const IndexPage: React.FC = () => {
                 </div>
 
                 <div className="text-center">
-                  <Link to="/blog/">
+                  <Link href="/blog/">
                     <Button variant="outline" size="lg" className="px-8 border-2">
                       View All Articles
                       <ArrowRight className="ml-2 h-5 w-5" />
@@ -735,7 +737,7 @@ const IndexPage: React.FC = () => {
                     <Scan className="mr-2 h-5 w-5" />
                     Scan Your First Product
                   </Button>
-                  <Link to="/quiz/">
+                  <Link href="/quiz/">
                     <Button
                       variant="outline"
                       size="lg"

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -10,7 +12,7 @@ import {
   Mail,
   Globe,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
@@ -240,7 +242,7 @@ const AboutPage = () => {
                 feedback, or partnership inquiries, our team is here to help.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/support">
+                <Link href="/support">
                   <Button className="w-full sm:w-auto">
                     Contact Support
                   </Button>

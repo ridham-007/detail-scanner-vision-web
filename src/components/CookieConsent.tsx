@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Cookie, X, Settings } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { updateAnalyticsConsent } from '@/utils/analytics';
 
 const COOKIE_CONSENT_KEY = 'eateriq_cookie_consent';
@@ -74,7 +74,7 @@ const CookieConsent = () => {
                 <h3 className="font-semibold text-foreground">Cookie Preferences</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   We use cookies to enhance your experience. By continuing to visit this site, you agree to our use of cookies.{' '}
-                  <Link to="/privacy" className="text-primary hover:underline">
+                  <Link href="/privacy" className="text-primary hover:underline">
                     Learn more
                   </Link>
                 </p>

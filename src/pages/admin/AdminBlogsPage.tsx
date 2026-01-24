@@ -1,5 +1,6 @@
+"use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useBlogPosts, useDeleteBlogPost } from '@/hooks/useBlogPosts';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { Button } from '@/components/ui/button';
@@ -19,10 +20,12 @@ import {
   AlertDialogTrigger 
 } from '@/components/ui/alert-dialog';
 import { Plus, Edit, Trash2, Eye, Calendar, Clock } from 'lucide-react';
-import { Link, Navigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { BlogPost } from '@/types/Blog';
 
 const AdminBlogsPage = () => {
+  const router = useRouter();
   const { data: isAdmin, isLoading: isCheckingAdmin } = useIsAdmin();
   const { data: posts, isLoading, error } = useBlogPosts(true); // Include unpublished posts
   const deletePost = useDeleteBlogPost();
@@ -40,8 +43,14 @@ const AdminBlogsPage = () => {
     );
   }
 
-  if (!isAdmin) {
-    return <Navigate to="/" replace />;
+  useEffect(() => {
+    if (!isCheckingAdmin && !isAdmin) {
+      router.replace("/");
+    }
+  }, [isAdmin, isCheckingAdmin, router]);
+
+  if (!isAdmin && !isCheckingAdmin) {
+    return null;
   }
 
   const handleDelete = async (post: BlogPost) => {
@@ -66,7 +75,7 @@ const AdminBlogsPage = () => {
           <h1 className="text-3xl font-bold">Blog Management</h1>
           <p className="text-muted-foreground">Manage your blog posts and content</p>
         </div>
-        <Link to="/admin/blogs/new">
+        <Link href="/admin/blogs/new">
           <Button>
             <Plus className="h-4 w-4 mr-2" />
             New Blog Post
@@ -132,13 +141,13 @@ const AdminBlogsPage = () => {
                     </div>
                     
                     <div className="flex gap-2">
-                      <Link to={`/blog/${post.slug}`}>
+                      <Link href={`/blog/${post.slug}`}>
                         <Button variant="outline" size="sm">
                           <Eye className="h-3 w-3 mr-1" />
                           View
                         </Button>
                       </Link>
-                      <Link to={`/admin/blogs/edit/${post.id}`}>
+                      <Link href={`/admin/blogs/edit/${post.id}`}>
                         <Button variant="outline" size="sm">
                           <Edit className="h-3 w-3 mr-1" />
                           Edit
@@ -233,7 +242,7 @@ const AdminBlogsPage = () => {
                     </div>
                     
                     <div className="flex gap-2">
-                      <Link to={`/admin/blogs/edit/${post.id}`}>
+                      <Link href={`/admin/blogs/edit/${post.id}`}>
                         <Button variant="outline" size="sm">
                           <Edit className="h-3 w-3 mr-1" />
                           Edit

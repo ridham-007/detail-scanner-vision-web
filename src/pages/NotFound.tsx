@@ -1,16 +1,19 @@
-import { useLocation, Link } from "react-router-dom";
+"use client";
+
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Home, ArrowLeft, Search } from "lucide-react";
 import { updatePageSEO } from "@/utils/seo";
 
 const NotFound = () => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     console.error(
       "404 Error: User attempted to access non-existent route:",
-      location.pathname
+      pathname
     );
 
     // Set proper SEO for 404 page
@@ -33,7 +36,7 @@ const NotFound = () => {
         noindexMeta.setAttribute('content', 'index, follow');
       }
     };
-  }, [location.pathname]);
+  }, [pathname]);
 
   return (
     <div className="flex-1 flex items-center justify-center px-4 py-16">
@@ -53,14 +56,14 @@ const NotFound = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild size="lg">
-            <Link to="/">
+            <Link href="/">
               <Home className="h-4 w-4 mr-2" />
               Go Home
             </Link>
           </Button>
           
           <Button asChild variant="outline" size="lg">
-            <Link to="/scanner">
+            <Link href="/scanner">
               <Search className="h-4 w-4 mr-2" />
               Scan a Product
             </Link>
@@ -69,7 +72,7 @@ const NotFound = () => {
 
         <p className="mt-8 text-sm text-muted-foreground">
           Looking for something specific?{" "}
-          <Link to="/support" className="text-primary hover:underline">
+          <Link href="/support" className="text-primary hover:underline">
             Contact Support
           </Link>
         </p>

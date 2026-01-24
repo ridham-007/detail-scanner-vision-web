@@ -1,5 +1,10 @@
+"use client";
+
+"use client";
+
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useQuery } from '@tanstack/react-query';
 import { useBlogPost } from '@/hooks/useBlogPosts';
 import { supabase } from '@/integrations/supabase/client';
@@ -12,8 +17,9 @@ import SEOHead from '@/components/SEOHead';
 import { useToast } from '@/hooks/use-toast';
 
 const BlogPostPage = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { data: post, isLoading, error } = useBlogPost(slug!);
+  const params = useParams();
+  const slug = params?.slug as string;
+  const { data: post, isLoading, error } = useBlogPost(slug);
   const { toast } = useToast();
 
   // Fetch related posts
@@ -87,7 +93,7 @@ const BlogPostPage = () => {
           </AlertDescription>
         </Alert>
         <div className="mt-6 text-center">
-          <Link to="/blog/">
+          <Link href="/blog/">
             <Button>
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to All Articles
@@ -155,11 +161,11 @@ const BlogPostPage = () => {
         <nav className="mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2 text-sm text-muted-foreground">
             <li>
-              <Link to="/" className="hover:text-primary">Home</Link>
+              <Link href="/" className="hover:text-primary">Home</Link>
             </li>
             <li>/</li>
             <li>
-              <Link to="/blog/" className="hover:text-primary">Blog</Link>
+              <Link href="/blog/" className="hover:text-primary">Blog</Link>
             </li>
             <li>/</li>
             <li className="text-foreground font-medium truncate max-w-[200px]">{post.title}</li>
@@ -230,13 +236,13 @@ const BlogPostPage = () => {
                   Use our free food scanner to analyze any product instantly.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <Link to="/#scanner">
+                  <Link href="/#scanner">
                     <Button size="sm" className="bg-primary hover:bg-primary/90">
                       <Scan className="h-4 w-4 mr-2" />
                       Try Food Scanner
                     </Button>
                   </Link>
-                  <Link to="/quiz/">
+                  <Link href="/quiz/">
                     <Button size="sm" variant="outline">
                       <Brain className="h-4 w-4 mr-2" />
                       Take a Quiz
@@ -256,16 +262,16 @@ const BlogPostPage = () => {
                   <CardTitle className="text-lg">Quick Links</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <Link to="/" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Home
                   </Link>
-                  <Link to="/#scanner" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/#scanner" className="block text-sm text-muted-foreground hover:text-primary">
                     → Food Scanner
                   </Link>
-                  <Link to="/quiz/" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/quiz/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Nutrition Quizzes
                   </Link>
-                  <Link to="/blog/" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/blog/" className="block text-sm text-muted-foreground hover:text-primary">
                     → All Articles
                   </Link>
                 </CardContent>
@@ -281,7 +287,7 @@ const BlogPostPage = () => {
                     {relatedPosts.map((relatedPost) => (
                       <Link 
                         key={relatedPost.id} 
-                        to={`/blog/${relatedPost.slug}/`}
+                        href={`/blog/${relatedPost.slug}/`}
                         className="block group"
                       >
                         <div className="flex gap-3">
@@ -318,7 +324,7 @@ const BlogPostPage = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any food product and get instant health insights.
                   </p>
-                  <Link to="/#scanner">
+                  <Link href="/#scanner">
                     <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
                       <Scan className="h-4 w-4 mr-2" />
                       Start Scanning
@@ -337,7 +343,7 @@ const BlogPostPage = () => {
               <h2 id="more-articles-heading" className="text-2xl font-bold text-foreground">
                 More Articles
               </h2>
-              <Link to="/blog/">
+              <Link href="/blog/">
                 <Button variant="outline" size="sm">
                   View All
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -368,7 +374,7 @@ const BlogPostPage = () => {
                       )}
                     </div>
                     <h3 className="font-semibold text-foreground mb-2 line-clamp-2">
-                      <Link to={`/blog/${relatedPost.slug}/`} className="hover:text-primary">
+                      <Link href={`/blog/${relatedPost.slug}/`} className="hover:text-primary">
                         {relatedPost.title}
                       </Link>
                     </h3>

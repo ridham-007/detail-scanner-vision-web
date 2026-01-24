@@ -1,13 +1,17 @@
+"use client";
+
+"use client";
+
 import React, { useEffect } from 'react';
 import { CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useSubscription } from '@/hooks/useSubscription';
 import SEOHead from '@/components/SEOHead';
 
 const SubscriptionSuccessPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { checkSubscription, tier } = useSubscription();
 
   useEffect(() => {
@@ -57,14 +61,14 @@ const SubscriptionSuccessPage = () => {
                 <div className="flex flex-col gap-3">
                   <Button 
                     className="w-full" 
-                    onClick={() => navigate('/scanner')}
+                    onClick={() => router.push('/scanner')}
                   >
                     Start Scanning
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                   <Button 
                     variant="outline" 
-                    onClick={() => navigate('/pricing')}
+                    onClick={() => router.push('/pricing')}
                   >
                     View Your Plan
                   </Button>

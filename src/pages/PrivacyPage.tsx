@@ -1,5 +1,7 @@
+"use client";
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Shield, Eye, Lock, Database } from 'lucide-react';
 import AnimatedBackground from '@/components/AnimatedBackground';
@@ -215,7 +217,7 @@ const PrivacyPage = () => {
                 If you have any questions about this privacy policy or how we handle your data,
                 please don't hesitate to contact us through our{' '}
                 <Link
-                  to="/support"
+                  href="/support"
                   aria-label="Support Page"
                   className="p-0 h-auto font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700"
                 >

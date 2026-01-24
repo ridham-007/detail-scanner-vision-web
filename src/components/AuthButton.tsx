@@ -5,7 +5,7 @@ import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu, BookOpen, Shield, Sh
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { supabase } from '@/integrations/supabase/client';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, usePathname } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -18,8 +18,8 @@ import {
 const AuthButton = () => {
   const { user, signInWithGoogle, signOut, loading } = useAuth();
   const { data: isAdmin } = useIsAdmin();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
   const [username, setUsername] = useState<string | null>(null);
   const [fullName, setFullName] = useState<string | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -92,8 +92,8 @@ const AuthButton = () => {
             {navigationItems.map((item) => (
               <DropdownMenuItem 
                 key={item.path}
-                onClick={() => navigate(item.path)}
-                className={location.pathname === item.path ? 'bg-muted' : ''}
+                onClick={() => router.push(item.path)}
+                className={pathname === item.path ? 'bg-muted' : ''}
               >
                 <item.icon className="h-4 w-4 mr-2" />
                 {item.label}
@@ -104,12 +104,12 @@ const AuthButton = () => {
           
           {/* User Menu Items */}
           {username && (
-            <DropdownMenuItem onClick={() => navigate(`/profile/${username}`)} className=' hover:!bg-primary hover:!text-white'>
+            <DropdownMenuItem onClick={() => router.push(`/profile/${username}`)} className=' hover:!bg-primary hover:!text-white'>
               <User className="h-4 w-4 mr-2" />
               View Profile
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem onClick={() => navigate('/settings')} className=' hover:!bg-primary hover:!text-white'>
+          <DropdownMenuItem onClick={() => router.push('/settings')} className=' hover:!bg-primary hover:!text-white'>
             <Settings className="h-4 w-4 mr-2" />
             Settings
           </DropdownMenuItem>
@@ -118,7 +118,7 @@ const AuthButton = () => {
           {isAdmin && (
             <>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate('/admin/blogs')} className=' hover:!bg-primary hover:!text-white'>
+              <DropdownMenuItem onClick={() => router.push('/admin/blogs')} className=' hover:!bg-primary hover:!text-white'>
                 <Shield className="h-4 w-4 mr-2" />
                 Manage Blogs
               </DropdownMenuItem>
@@ -148,15 +148,15 @@ const AuthButton = () => {
             {navigationItems.map((item) => (
               <DropdownMenuItem 
                 key={item.path}
-                onClick={() => navigate(item.path)}
-                className={location.pathname === item.path ? 'bg-muted' : ''}
+                onClick={() => router.push(item.path)}
+                className={pathname === item.path ? 'bg-muted' : ''}
               >
                 <item.icon className="h-4 w-4 mr-2" />
                 {item.label}
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => navigate('/auth')}>
+            <DropdownMenuItem onClick={() => router.push('/auth')}>
               <LogIn className="h-4 w-4 mr-2" />
               Sign In
             </DropdownMenuItem>
@@ -167,7 +167,7 @@ const AuthButton = () => {
       {/* Desktop Sign In Button */}
       <Button 
         aria-label="Sign In"
-        onClick={() => navigate('/auth')} 
+        onClick={() => router.push('/auth')} 
         className="hidden md:flex bg-primary text-primary-foreground"
       >
         <LogIn className="h-4 w-4 mr-2" />

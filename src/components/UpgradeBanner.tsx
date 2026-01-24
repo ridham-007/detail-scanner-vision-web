@@ -1,7 +1,7 @@
 import React from 'react';
 import { Crown, Zap, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useSubscription } from '@/hooks/useSubscription';
 
 interface UpgradeBannerProps {
@@ -15,7 +15,7 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
   maxScans = 5,
   variant = 'full' 
 }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { tier } = useSubscription();
 
   // Don't show for paid users
@@ -46,7 +46,7 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
         <Button 
           size="sm" 
           variant={isEmpty ? "default" : "outline"}
-          onClick={() => navigate('/pricing')}
+          onClick={() => router.push('/pricing')}
           className="gap-1"
         >
           <Crown className="w-3 h-3" />
@@ -94,7 +94,7 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
         </div>
 
         <Button 
-          onClick={() => navigate('/pricing')}
+          onClick={() => router.push('/pricing')}
           className="gap-2 whitespace-nowrap"
           size="lg"
         >

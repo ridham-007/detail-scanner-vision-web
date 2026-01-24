@@ -1,3 +1,7 @@
+"use client";
+
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -26,7 +30,8 @@ import {
   Sparkles,
   Bolt,
 } from "lucide-react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -53,10 +58,10 @@ interface Question {
 interface Quiz {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   difficulty: string;
   creator_id: string;
-  slug: string;
+  slug: string | null;
 }
 
 interface QuizPageProps {
@@ -65,8 +70,9 @@ interface QuizPageProps {
 }
 
 const QuizPage: React.FC = () => {
-  const codeRef = useRef(null);
-  const { slug } = useParams<{ slug: string }>();
+  const codeRef = useRef<HTMLDivElement>(null);
+  const params = useParams();
+  const slug = params?.slug as string;
   const { user, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -422,7 +428,7 @@ const QuizPage: React.FC = () => {
     const shareUrl = `${window.location.origin}/quiz/${quiz?.slug}`;
 
     // 1. Clone the node without modifying actual UI
-    const clone = codeRef.current.cloneNode(true);
+    const clone = codeRef.current.cloneNode(true) as HTMLElement;
 
     // 2. Remove elements with class "ignoreInShare" from the clone
     const elementsToRemove = clone.querySelectorAll(".ignoreInShare");
@@ -522,7 +528,7 @@ const QuizPage: React.FC = () => {
           <div className="text-center">
             <p className="text-sm sm:text-base">Quiz not found</p>
 
-            <Link to={"/quiz"}>
+            <Link href={"/quiz"}>
               <Button aria-label="Back to List" className="mt-4">
                 Back to List
               </Button>
@@ -685,7 +691,7 @@ const QuizPage: React.FC = () => {
                 )}
 
                 <div className="flex flex-col sm:flex-row gap-3 ignoreInShare">
-                  <Link to={"/quiz"} className="flex-1">
+                  <Link href={"/quiz"} className="flex-1">
                     <Button
                       aria-label="Back to Quizzes"
                       variant="outline"
@@ -732,7 +738,7 @@ const QuizPage: React.FC = () => {
         {/* Quiz Header - Compact and Mobile Optimized */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
-            <Link to={"/quiz"}>
+            <Link href={"/quiz"}>
               <Button aria-label="Back" variant="outline" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 <span className="hidden sm:inline">Back</span>

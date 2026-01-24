@@ -1,16 +1,17 @@
+"use client";
 
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useCreateBlogPost } from '@/hooks/useBlogPosts';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import BlogEditor from '@/components/blog/BlogEditor';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import { Link, Navigate } from 'react-router-dom';
+import Link from 'next/link';
 import { CreateBlogPost } from '@/types/Blog';
 
 const CreateBlogPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { data: isAdmin, isLoading: isCheckingAdmin } = useIsAdmin();
   const createPost = useCreateBlogPost();
 
@@ -27,14 +28,20 @@ const CreateBlogPage = () => {
     );
   }
 
-  if (!isAdmin) {
-    return <Navigate to="/" replace />;
+  useEffect(() => {
+    if (!isCheckingAdmin && !isAdmin) {
+      router.replace("/");
+    }
+  }, [isAdmin, isCheckingAdmin, router]);
+
+  if (!isAdmin && !isCheckingAdmin) {
+    return null;
   }
 
   const handleSave = async (data: CreateBlogPost) => {
     try {
       await createPost.mutateAsync(data);
-      navigate('/admin/blogs');
+      router.push('/admin/blogs');
     } catch (error) {
       console.error('Failed to create blog post:', error);
     }
@@ -43,7 +50,7 @@ const CreateBlogPage = () => {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-6">
-        <Link to="/admin/blogs">
+        <Link href="/admin/blogs">
           <Button variant="ghost">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Blog Management

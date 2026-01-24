@@ -1,5 +1,9 @@
+"use client";
+
+"use client";
+
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,28 +17,29 @@ import SEOHead from '@/components/SEOHead';
 
 interface UserProfile {
   id: string;
-  username: string;
-  bio: string;
-  website: string;
-  avatar_url: string;
-  total_score: number;
-  quizzes_completed: number;
-  created_at: string;
+  username: string | null;
+  bio: string | null;
+  website: string | null;
+  avatar_url: string | null;
+  total_score: number | null;
+  quizzes_completed: number | null;
+  created_at: string | null;
 }
 
 interface Quiz {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   difficulty: 'easy' | 'medium' | 'hard';
-  created_at: string;
+  created_at: string | null;
   creator_id: string;
-  slug: string;
+  slug: string | null;
 }
 
 const UserProfilePage = () => {
-  const { username } = useParams<{ username: string }>();
-  const navigate = useNavigate();
+  const params = useParams();
+  const username = params?.username as string;
+  const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -65,7 +70,7 @@ const UserProfilePage = () => {
             description: "The user profile you're looking for doesn't exist.",
             variant: "destructive"
           });
-          navigate('/');
+          router.push('/');
           return;
         }
         throw error;
@@ -80,7 +85,7 @@ const UserProfilePage = () => {
         description: "Failed to load user profile",
         variant: "destructive"
       });
-      navigate('/');
+      router.push('/');
     } finally {
       setLoading(false);
     }
@@ -112,7 +117,7 @@ const UserProfilePage = () => {
   };
 
   const handlePlayQuiz = (slug: string) => {
-    navigate(`/quiz/${slug}`);
+    router.push(`/quiz/${slug}`);
   };
 
   const handleShareProfile = () => {
@@ -202,7 +207,7 @@ const UserProfilePage = () => {
                     )}
                     <div className="flex items-center gap-1">
                       <Calendar className="h-4 w-4" />
-                      <span>Joined {new Date(profile.created_at).toLocaleDateString()}</span>
+                      <span>Joined {new Date(profile.created_at || Date.now()).toLocaleDateString()}</span>
                     </div>
                   </div>
                 </div>

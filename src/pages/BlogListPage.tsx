@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
 import BlogCard from '@/components/blog/BlogCard';
@@ -7,7 +9,7 @@ import { BookOpen, Search, Scan, Brain, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 import SEOHead from '@/components/SEOHead';
 
 const BlogListPage = () => {
@@ -65,7 +67,7 @@ const BlogListPage = () => {
         <nav className="mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2 text-sm text-muted-foreground">
             <li>
-              <Link to="/" className="hover:text-primary">Home</Link>
+              <Link href="/" className="hover:text-primary">Home</Link>
             </li>
             <li>/</li>
             <li className="text-foreground font-medium">Blog</li>
@@ -139,16 +141,16 @@ const BlogListPage = () => {
                   <CardTitle className="text-lg">Explore EaterIQ</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <Link to="/" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Home
                   </Link>
-                  <Link to="/#scanner" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/#scanner" className="block text-sm text-muted-foreground hover:text-primary">
                     → Food Scanner
                   </Link>
-                  <Link to="/quiz/" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/quiz/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Nutrition Quizzes
                   </Link>
-                  <Link to="/categories/" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/categories/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Browse Categories
                   </Link>
                 </CardContent>
@@ -163,7 +165,7 @@ const BlogListPage = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any product barcode and get instant health analysis.
                   </p>
-                  <Link to="/#scanner">
+                  <Link href="/#scanner">
                     <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
                       Start Scanning Free
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -181,7 +183,7 @@ const BlogListPage = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Challenge yourself with our nutrition quizzes.
                   </p>
-                  <Link to="/quiz/">
+                  <Link href="/quiz/">
                     <Button size="sm" variant="outline" className="w-full">
                       Take a Quiz
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -200,7 +202,7 @@ const BlogListPage = () => {
                     Scan any barcode to get instant health scores, ingredient analysis, and personalized recommendations.
                   </p>
                   <div className="mt-4">
-                    <Link to="/" className="text-sm font-medium text-primary hover:underline">
+                    <Link href="/" className="text-sm font-medium text-primary hover:underline">
                       Learn more about EaterIQ →
                     </Link>
                   </div>
