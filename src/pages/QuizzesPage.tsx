@@ -167,8 +167,8 @@ useEffect(() => {
       const windowStart = new Date(now.getTime() - THIRTY_DAYS_MS);
 
       // keep only quizzes created within last 30 days
-      const recentQuizzes = (data || []).filter((q: any) => {
-        const created = new Date(q.created_at);
+      const recentQuizzes = (data || []).filter((q: { id: string; created_at: string | null }) => {
+        const created = new Date(q.created_at || new Date());
         return created.getTime() >= windowStart.getTime();
       });
 

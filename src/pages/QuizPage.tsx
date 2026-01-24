@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import type { Database } from "@/integrations/supabase/types";
 import {
   Clock,
   Heart,
@@ -44,6 +45,9 @@ import { soundEffects } from "@/utils/soundEffects";
 import confetti from "canvas-confetti";
 import { toPng } from "html-to-image";
 import { useRef } from "react";
+
+type QuizAttemptInsert =
+  Database["public"]["Tables"]["quiz_attempts"]["Insert"];
 
 interface Question {
   id: string;
@@ -98,7 +102,7 @@ const QuizPage: React.FC = () => {
     extraTime: true,
   });
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>(
-    new Array(10).fill(false)
+    new Array(10).fill(false),
   );
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
@@ -188,7 +192,7 @@ const QuizPage: React.FC = () => {
 
   const handleAnswerSelect = async (
     answer: string,
-    isSkip: boolean = false
+    isSkip: boolean = false,
   ) => {
     if (answerFeedback.show) return; // Prevent multiple selections
 
@@ -322,20 +326,22 @@ const QuizPage: React.FC = () => {
     if (!user || !startTime) return;
 
     const timeSpent = Math.floor(
-      (new Date().getTime() - startTime.getTime()) / 1000
+      (new Date().getTime() - startTime.getTime()) / 1000,
     );
 
     const finalScore =
       score + (answer === questions[currentQuestion]?.correct_answer ? 10 : 0);
     setSpentTime(timeSpent);
     try {
-      const { error } = await supabase.from("quiz_attempts").insert({
+      const payload: QuizAttemptInsert = {
         user_id: user.id,
-        quiz_id: quiz?.id,
+        quiz_id: quiz!.id,
         score: finalScore,
         total_questions: questions.length,
         time_taken: timeSpent,
-      });
+      };
+
+      const { error } = await supabase.from("quiz_attempts").insert(payload);
 
       if (error) throw error;
 
@@ -387,7 +393,7 @@ const QuizPage: React.FC = () => {
 
     // Randomly select 2 wrong answers to hide
     const shuffledWrongAnswers = [...wrongAnswers].sort(
-      () => Math.random() - 0.5
+      () => Math.random() - 0.5,
     );
     const answersToHide = shuffledWrongAnswers.slice(0, 2);
 
@@ -500,7 +506,7 @@ const QuizPage: React.FC = () => {
     }
 
     const utterance = new SpeechSynthesisUtterance(
-      questions[currentQuestion].question_text
+      questions[currentQuestion].question_text,
     );
     utterance.rate = 0.8;
     utterance.pitch = 1;
@@ -593,8 +599,8 @@ const QuizPage: React.FC = () => {
                       score > 50
                         ? "text-primary"
                         : score > 30
-                        ? "text-accent"
-                        : "text-destructive"
+                          ? "text-accent"
+                          : "text-destructive"
                     }`}
                   >
                     {score}/100
@@ -603,10 +609,10 @@ const QuizPage: React.FC = () => {
                     {score > 70
                       ? "🏆 Outstanding!"
                       : score > 50
-                      ? "🌟 Great Job!"
-                      : score > 30
-                      ? "👍 Good Effort!"
-                      : "📚 Keep Learning!"}
+                        ? "🌟 Great Job!"
+                        : score > 30
+                          ? "👍 Good Effort!"
+                          : "📚 Keep Learning!"}
                   </div>
                 </div>
 
@@ -723,12 +729,21 @@ const QuizPage: React.FC = () => {
     <div className="min-h-dvh bg-background">
       <SEOHead
         title={`${quiz.title} - Food IQ Quiz | EaterIQ`}
-        description={quiz.description || `Test your knowledge with this ${quiz.difficulty} difficulty nutrition quiz on EaterIQ`}
+        description={
+          quiz.description ||
+          `Test your knowledge with this ${quiz.difficulty} difficulty nutrition quiz on EaterIQ`
+        }
         keywords={`nutrition quiz, food quiz, ${quiz.difficulty} quiz, ${quiz.title}, health knowledge test`}
         ogTitle={`${quiz.title} - Food IQ Quiz`}
-        ogDescription={quiz.description || `Challenge yourself with this ${quiz.difficulty} nutrition quiz!`}
+        ogDescription={
+          quiz.description ||
+          `Challenge yourself with this ${quiz.difficulty} nutrition quiz!`
+        }
         twitterTitle={`${quiz.title} - Food IQ Quiz`}
-        twitterDescription={quiz.description || `Challenge yourself with this ${quiz.difficulty} nutrition quiz!`}
+        twitterDescription={
+          quiz.description ||
+          `Challenge yourself with this ${quiz.difficulty} nutrition quiz!`
+        }
         type="quiz"
         canonicalUrl={`https://www.eateriq.com/quiz/${quiz.slug}/`}
       />
@@ -983,9 +998,7 @@ const QuizPage: React.FC = () => {
                 onClick={speakQuestion}
                 disabled={answerFeedback.show}
                 className={`shrink-0 ${
-                  isSpeaking
-                    ? "bg-primary/10 text-primary"
-                    : ""
+                  isSpeaking ? "bg-primary/10 text-primary" : ""
                 }`}
               >
                 <Volume2
@@ -1030,8 +1043,8 @@ const QuizPage: React.FC = () => {
                         ? "bg-primary/20 border-primary text-primary"
                         : "bg-destructive/20 border-destructive text-destructive"
                       : isCorrectAnswer
-                      ? "bg-primary/10 border-primary/50 text-primary"
-                      : "hover:bg-muted/50"
+                        ? "bg-primary/10 border-primary/50 text-primary"
+                        : "hover:bg-muted/50"
                   } ${answerFeedback.show ? "pointer-events-none" : ""}`}
                   onClick={() => handleAnswerSelect(answer)}
                   disabled={answerFeedback.show}
@@ -1112,9 +1125,7 @@ const QuizPage: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex items-center justify-between mt-1">
-                      <span className="font-semibold text-primary">
-                        XP:
-                      </span>
+                      <span className="font-semibold text-primary">XP:</span>
                       <span className="text-lg font-bold text-secondary">
                         +
                         {comboMultiplier > 1 ? `${15 * comboMultiplier}` : "15"}

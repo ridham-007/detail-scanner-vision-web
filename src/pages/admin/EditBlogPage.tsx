@@ -23,6 +23,17 @@ const EditBlogPage = () => {
   const { data: post, isLoading, error } = useBlogPostById(id!);
   const updatePost = useUpdateBlogPost();
 
+   useEffect(() => {
+    if (!isCheckingAdmin && !isAdmin) {
+      router.replace("/");
+    }
+  }, [isAdmin, isCheckingAdmin, router]);
+
+  if (!isAdmin && !isCheckingAdmin) {
+    return null;
+  }
+
+  
   if (isCheckingAdmin) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -36,15 +47,7 @@ const EditBlogPage = () => {
     );
   }
 
-  useEffect(() => {
-    if (!isCheckingAdmin && !isAdmin) {
-      router.replace("/");
-    }
-  }, [isAdmin, isCheckingAdmin, router]);
-
-  if (!isAdmin && !isCheckingAdmin) {
-    return null;
-  }
+ 
 
   const handleSave = async (data: CreateBlogPost) => {
     if (!id) return;

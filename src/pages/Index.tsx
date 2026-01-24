@@ -28,16 +28,23 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import FoodScannerPage from "./FoodScannerPage";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { trackCTAClick } from "@/utils/analytics";
 import { supabase } from "@/integrations/supabase/client";
 import Link from "next/link";
+
+
+interface HomeBlog {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  featured_image_url: string | null;
+  reading_time: number | null;
+  published_at: string | null;
+}
+
 
 const IndexPage: React.FC = () => {
   // Fetch recent quizzes
@@ -57,29 +64,29 @@ const IndexPage: React.FC = () => {
   });
 
   // Fetch recent blog posts
-  const { data: recentBlogs } = useQuery({
-    queryKey: ["recent-blogs-home"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("blog_posts")
-        .select(`
-          id,
-          title,
-          slug,
-          excerpt,
-          featured_image_url,
-          reading_time,
-          published_at,
-          author:profiles(full_name, avatar_url)
-        `)
-        .eq("is_published", true)
-        .order("published_at", { ascending: false })
-        .limit(3);
+const { data: recentBlogs } = useQuery<HomeBlog[]>({
+  queryKey: ["recent-blogs-home"],
+  queryFn: async (): Promise<HomeBlog[]> => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select(`
+        id,
+        title,
+        slug,
+        excerpt,
+        featured_image_url,
+        reading_time,
+        published_at
+      `)
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
+      .limit(3);
 
-      if (error) throw error;
-      return data;
-    },
-  });
+    if (error) throw error;
+    return data ?? [];
+  },
+});
+
 
   // Fetch product count
   const { data: productCount } = useQuery({
@@ -143,22 +150,26 @@ const IndexPage: React.FC = () => {
     {
       icon: BarChart3,
       title: "Health Score Analysis",
-      description: "Get instant health scores based on nutritional content, additives, and processing level.",
+      description:
+        "Get instant health scores based on nutritional content, additives, and processing level.",
     },
     {
       icon: AlertTriangle,
       title: "Additive Detection",
-      description: "Identify harmful additives, preservatives, and artificial ingredients in your food.",
+      description:
+        "Identify harmful additives, preservatives, and artificial ingredients in your food.",
     },
     {
       icon: ListChecks,
       title: "Allergen Alerts",
-      description: "Automatic detection of common allergens like gluten, dairy, nuts, and more.",
+      description:
+        "Automatic detection of common allergens like gluten, dairy, nuts, and more.",
     },
     {
       icon: TrendingUp,
       title: "Better Alternatives",
-      description: "Discover healthier product alternatives in the same category.",
+      description:
+        "Discover healthier product alternatives in the same category.",
     },
   ];
 
@@ -166,32 +177,38 @@ const IndexPage: React.FC = () => {
     {
       icon: Shield,
       title: "Science-Based Analysis",
-      description: "Our health scores are calculated using peer-reviewed nutritional science and WHO dietary guidelines.",
+      description:
+        "Our health scores are calculated using peer-reviewed nutritional science and WHO dietary guidelines.",
     },
     {
       icon: Zap,
       title: "Instant Results",
-      description: "Get comprehensive nutritional analysis in seconds. No waiting, no complicated processes.",
+      description:
+        "Get comprehensive nutritional analysis in seconds. No waiting, no complicated processes.",
     },
     {
       icon: Heart,
       title: "Personalized Insights",
-      description: "Receive recommendations based on your dietary preferences, allergies, and health goals.",
+      description:
+        "Receive recommendations based on your dietary preferences, allergies, and health goals.",
     },
     {
       icon: Leaf,
       title: "Transparency First",
-      description: "We decode confusing ingredient lists and reveal what's really in your food.",
+      description:
+        "We decode confusing ingredient lists and reveal what's really in your food.",
     },
     {
       icon: Award,
       title: "Trusted by Thousands",
-      description: "Join our growing community of health-conscious consumers making informed choices.",
+      description:
+        "Join our growing community of health-conscious consumers making informed choices.",
     },
     {
       icon: CheckCircle,
       title: "Free to Start",
-      description: "Start scanning for free with no sign-up required. Upgrade anytime for unlimited scans and premium features.",
+      description:
+        "Start scanning for free with no sign-up required. Upgrade anytime for unlimited scans and premium features.",
     },
   ];
 
@@ -199,26 +216,27 @@ const IndexPage: React.FC = () => {
   const homeStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "EaterIQ",
-    "applicationCategory": "HealthApplication",
-    "operatingSystem": "Web Browser",
-    "description": "Food scanner that analyzes nutrition, ingredients, and additives to help you make healthier food choices.",
-    "offers": {
+    name: "EaterIQ",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Web Browser",
+    description:
+      "Food scanner that analyzes nutrition, ingredients, and additives to help you make healthier food choices.",
+    offers: {
       "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "description": "Free tier with optional premium upgrades"
+      price: "0",
+      priceCurrency: "USD",
+      description: "Free tier with optional premium upgrades",
     },
-    "aggregateRating": {
+    aggregateRating: {
       "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": userCount || 14000
+      ratingValue: "4.8",
+      ratingCount: userCount || 14000,
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "EaterIQ",
-      "url": "https://www.eateriq.com"
-    }
+      name: "EaterIQ",
+      url: "https://www.eateriq.com",
+    },
   };
 
   return (
@@ -233,25 +251,31 @@ const IndexPage: React.FC = () => {
         ogDescription="Free food scanner. Analyze nutrition, detect harmful additives, and find healthier alternatives instantly."
         structuredData={homeStructuredData}
       />
-      
+
       <div className="min-h-screen bg-background">
         <AnimatedBackground />
 
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden" aria-labelledby="hero-heading">
+          <section
+            className="relative py-12 md:py-16 lg:py-20 overflow-hidden"
+            aria-labelledby="hero-heading"
+          >
             <div className="container mx-auto px-4">
               <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
-                
                 {/* Left Column - Content */}
                 <div className="text-center lg:text-left order-2 lg:order-1 flex flex-col justify-center py-6 md:py-8">
-                  <h1 id="hero-heading" className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] tracking-tight mb-4">
+                  <h1
+                    id="hero-heading"
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] tracking-tight mb-4"
+                  >
                     Know What's in{" "}
                     <span className="text-primary">Your Food</span>
                   </h1>
-                  
+
                   <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6 max-w-lg mx-auto lg:mx-0">
-                    Scan any product barcode to get instant health scores, ingredient analysis, and healthier alternatives.
+                    Scan any product barcode to get instant health scores,
+                    ingredient analysis, and healthier alternatives.
                   </p>
 
                   {/* CTA */}
@@ -315,12 +339,24 @@ const IndexPage: React.FC = () => {
                 <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-center relative py-8 md:py-10 px-4">
                   {/* Food Background Elements */}
                   <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                    <div className="absolute top-6 left-6 text-4xl opacity-[0.08]">🥗</div>
-                    <div className="absolute top-1/4 right-8 text-3xl opacity-[0.07]">🍎</div>
-                    <div className="absolute bottom-1/3 left-10 text-3xl opacity-[0.07]">🥑</div>
-                    <div className="absolute bottom-10 right-12 text-4xl opacity-[0.08]">🥕</div>
-                    <div className="absolute top-1/2 left-1/4 text-2xl opacity-[0.06]">🍇</div>
-                    <div className="absolute bottom-1/4 right-1/4 text-2xl opacity-[0.06]">🥦</div>
+                    <div className="absolute top-6 left-6 text-4xl opacity-[0.08]">
+                      🥗
+                    </div>
+                    <div className="absolute top-1/4 right-8 text-3xl opacity-[0.07]">
+                      🍎
+                    </div>
+                    <div className="absolute bottom-1/3 left-10 text-3xl opacity-[0.07]">
+                      🥑
+                    </div>
+                    <div className="absolute bottom-10 right-12 text-4xl opacity-[0.08]">
+                      🥕
+                    </div>
+                    <div className="absolute top-1/2 left-1/4 text-2xl opacity-[0.06]">
+                      🍇
+                    </div>
+                    <div className="absolute bottom-1/4 right-1/4 text-2xl opacity-[0.06]">
+                      🥦
+                    </div>
                   </div>
 
                   <div className="relative z-10 p-6">
@@ -331,7 +367,9 @@ const IndexPage: React.FC = () => {
                         <div className="bg-card rounded-[2.3rem] overflow-hidden shadow-inner">
                           {/* Compact Status Bar with Dynamic Island */}
                           <div className="bg-background px-4 pt-2 pb-1 relative flex items-center justify-between">
-                            <span className="text-[10px] font-semibold text-foreground">9:41</span>
+                            <span className="text-[10px] font-semibold text-foreground">
+                              9:41
+                            </span>
                             <div className="w-20 h-6 bg-foreground rounded-full" />
                             <div className="flex items-center gap-1">
                               <div className="flex gap-[1px] items-end">
@@ -345,7 +383,7 @@ const IndexPage: React.FC = () => {
                               </div>
                             </div>
                           </div>
-                          
+
                           {/* App Content */}
                           <div className="px-4 pt-2 pb-3 bg-background min-h-[360px]">
                             {/* App Header */}
@@ -354,7 +392,9 @@ const IndexPage: React.FC = () => {
                                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                                   <Scan className="w-4 h-4 text-primary-foreground" />
                                 </div>
-                                <span className="text-sm font-bold text-foreground">EaterIQ</span>
+                                <span className="text-sm font-bold text-foreground">
+                                  EaterIQ
+                                </span>
                               </div>
                               <div className="w-7 h-7 bg-muted rounded-full flex items-center justify-center">
                                 <Search className="w-3.5 h-3.5 text-muted-foreground" />
@@ -369,46 +409,68 @@ const IndexPage: React.FC = () => {
                                   <span className="text-2xl">🥣</span>
                                 </div>
                                 <div className="flex-1">
-                                  <div className="text-sm font-bold text-foreground mb-0.5">Organic Granola</div>
-                                  <div className="text-xs text-muted-foreground mb-1.5">Nature Valley • 350g</div>
+                                  <div className="text-sm font-bold text-foreground mb-0.5">
+                                    Organic Granola
+                                  </div>
+                                  <div className="text-xs text-muted-foreground mb-1.5">
+                                    Nature Valley • 350g
+                                  </div>
                                   <div className="inline-flex items-center gap-1 bg-primary/10 px-1.5 py-0.5 rounded-full">
                                     <Leaf className="w-3 h-3 text-primary" />
-                                    <span className="text-[10px] text-primary font-medium">Organic</span>
+                                    <span className="text-[10px] text-primary font-medium">
+                                      Organic
+                                    </span>
                                   </div>
                                 </div>
                               </div>
-                              
+
                               {/* Health Score */}
                               <div className="bg-card border border-border rounded-lg p-3 mb-3">
                                 <div className="flex items-center justify-between">
                                   <div>
-                                    <div className="text-xs text-muted-foreground mb-0.5">Health Score</div>
-                                    <div className="flex items-baseline gap-0.5">
-                                      <span className="text-2xl font-bold text-primary">85</span>
-                                      <span className="text-xs text-muted-foreground">/100</span>
+                                    <div className="text-xs text-muted-foreground mb-0.5">
+                                      Health Score
                                     </div>
-                                    <div className="text-[10px] text-primary font-medium">Good Choice ✓</div>
+                                    <div className="flex items-baseline gap-0.5">
+                                      <span className="text-2xl font-bold text-primary">
+                                        85
+                                      </span>
+                                      <span className="text-xs text-muted-foreground">
+                                        /100
+                                      </span>
+                                    </div>
+                                    <div className="text-[10px] text-primary font-medium">
+                                      Good Choice ✓
+                                    </div>
                                   </div>
                                   <div className="w-12 h-12 rounded-full border-[3px] border-primary bg-primary/5 flex items-center justify-center">
                                     <CheckCircle className="w-5 h-5 text-primary" />
                                   </div>
                                 </div>
                               </div>
-                              
+
                               {/* Nutrition Tags */}
                               <div className="flex flex-wrap gap-1.5">
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">Low Sugar</span>
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">High Fiber</span>
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">No Additives</span>
+                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                                  Low Sugar
+                                </span>
+                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                                  High Fiber
+                                </span>
+                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                                  No Additives
+                                </span>
                               </div>
                             </div>
 
                             {/* Action Button */}
                             <div className="bg-primary rounded-xl py-2.5 text-center">
-                              <span className="text-xs font-semibold text-primary-foreground">View Full Analysis</span>
+                              <span className="text-xs font-semibold text-primary-foreground">
+                                View Full Analysis
+                              </span>
                             </div>
                           </div>
-                          
+
                           {/* Home Indicator */}
                           {/* Home Indicator */}
                           <div className="flex justify-center py-2 bg-background">
@@ -417,7 +479,7 @@ const IndexPage: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Floating Stats Badges */}
                     <div className="absolute bottom-2 -left-2 bg-card rounded-2xl px-4 py-3 shadow-xl border border-border/50">
                       <div className="flex items-center gap-2.5">
@@ -428,7 +490,9 @@ const IndexPage: React.FC = () => {
                           <span className="text-sm font-bold text-foreground block">
                             {productCount ? formatNumber(productCount) : "23K+"}
                           </span>
-                          <span className="text-xs text-muted-foreground">Products</span>
+                          <span className="text-xs text-muted-foreground">
+                            Products
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -441,7 +505,9 @@ const IndexPage: React.FC = () => {
                           <span className="text-sm font-bold text-foreground block">
                             {userCount ? formatNumber(userCount) : "14K+"}
                           </span>
-                          <span className="text-xs text-muted-foreground">Users</span>
+                          <span className="text-xs text-muted-foreground">
+                            Users
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -457,7 +523,9 @@ const IndexPage: React.FC = () => {
             className="container mx-auto px-4 py-16 scroll-mt-20"
             aria-labelledby="scanner-heading"
           >
-            <h2 id="scanner-heading" className="sr-only">Food Product Scanner</h2>
+            <h2 id="scanner-heading" className="sr-only">
+              Food Product Scanner
+            </h2>
             <div className="max-w-6xl mx-auto">
               <FoodScannerPage />
             </div>
@@ -471,7 +539,10 @@ const IndexPage: React.FC = () => {
           >
             <div className="container mx-auto px-4">
               <header className="text-center mb-16">
-                <h2 id="how-it-works-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h2
+                  id="how-it-works-heading"
+                  className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                >
                   How EaterIQ Works
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -485,19 +556,22 @@ const IndexPage: React.FC = () => {
                     step: "1",
                     icon: QrCode,
                     title: "Scan Barcode",
-                    description: "Use your camera to scan any product barcode, or search by name in our database of millions of products.",
+                    description:
+                      "Use your camera to scan any product barcode, or search by name in our database of millions of products.",
                   },
                   {
                     step: "2",
                     icon: Search,
                     title: "Detailed Analysis",
-                    description: "Our system analyzes ingredients, nutrition facts, additives, and allergens to calculate a comprehensive health score.",
+                    description:
+                      "Our system analyzes ingredients, nutrition facts, additives, and allergens to calculate a comprehensive health score.",
                   },
                   {
                     step: "3",
                     icon: TrendingUp,
                     title: "Get Insights",
-                    description: "Receive personalized health insights, ingredient warnings, and recommendations for healthier alternatives.",
+                    description:
+                      "Receive personalized health insights, ingredient warnings, and recommendations for healthier alternatives.",
                   },
                 ].map((item, index) => (
                   <article key={index} className="relative text-center">
@@ -507,7 +581,9 @@ const IndexPage: React.FC = () => {
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">
                       Step {item.step}
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      {item.title}
+                    </h3>
                     <p className="text-muted-foreground">{item.description}</p>
                   </article>
                 ))}
@@ -526,7 +602,6 @@ const IndexPage: React.FC = () => {
             </div>
           </section>
 
-
           {/* Why Choose EaterIQ Section */}
           <section
             id="why-eateriq"
@@ -535,11 +610,15 @@ const IndexPage: React.FC = () => {
           >
             <div className="container mx-auto px-4">
               <header className="text-center mb-16">
-                <h2 id="why-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h2
+                  id="why-heading"
+                  className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                >
                   Why Choose EaterIQ?
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  We're on a mission to make food transparency accessible to everyone
+                  We're on a mission to make food transparency accessible to
+                  everyone
                 </p>
               </header>
 
@@ -554,8 +633,12 @@ const IndexPage: React.FC = () => {
                         <item.icon className="h-6 w-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                        <h3 className="font-semibold text-foreground mb-2">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {item.description}
+                        </p>
                       </div>
                     </div>
                   </article>
@@ -573,11 +656,15 @@ const IndexPage: React.FC = () => {
             >
               <div className="container mx-auto px-4">
                 <header className="text-center mb-12">
-                  <h2 id="quizzes-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  <h2
+                    id="quizzes-heading"
+                    className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                  >
                     Test Your Food Knowledge
                   </h2>
                   <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Challenge yourself with our nutrition quizzes and learn while having fun
+                    Challenge yourself with our nutrition quizzes and learn
+                    while having fun
                   </p>
                 </header>
 
@@ -586,7 +673,9 @@ const IndexPage: React.FC = () => {
                     <Card key={quiz.id} className="bg-card border-2 shadow-md">
                       <CardHeader className="pb-3">
                         <div className="flex items-start justify-between mb-2">
-                          <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
+                          <Badge
+                            className={`${getDifficultyColor(quiz.difficulty)} text-xs`}
+                          >
                             {quiz.difficulty.toUpperCase()}
                           </Badge>
                         </div>
@@ -602,7 +691,11 @@ const IndexPage: React.FC = () => {
 
                         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
                           <Calendar className="h-3 w-3" />
-                          <span>{new Date(quiz.created_at).toLocaleDateString()}</span>
+                          <span>
+                            {quiz.created_at
+                              ? new Date(quiz.created_at).toLocaleDateString()
+                              : "N/A"}
+                          </span>
                         </div>
 
                         <Link href={`/quiz/${quiz.slug}/`}>
@@ -622,7 +715,11 @@ const IndexPage: React.FC = () => {
 
                 <div className="text-center">
                   <Link href="/quiz/">
-                    <Button variant="outline" size="lg" className="px-8 border-2">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="px-8 border-2"
+                    >
                       View All Quizzes
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
@@ -641,16 +738,20 @@ const IndexPage: React.FC = () => {
             >
               <div className="container mx-auto px-4">
                 <header className="text-center mb-12">
-                  <h2 id="blog-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  <h2
+                    id="blog-heading"
+                    className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                  >
                     Nutrition Insights & Tips
                   </h2>
                   <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Expert articles to help you understand nutrition and make healthier choices
+                    Expert articles to help you understand nutrition and make
+                    healthier choices
                   </p>
                 </header>
 
                 <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-8">
-                  {recentBlogs.map((blog: any) => (
+                  {recentBlogs.map((blog) => (
                     <article
                       key={blog.id}
                       className="bg-card rounded-xl overflow-hidden border border-border shadow-md"
@@ -676,24 +777,31 @@ const IndexPage: React.FC = () => {
                           {blog.published_at && (
                             <>
                               <span className="mx-1">•</span>
-                              <span>{new Date(blog.published_at).toLocaleDateString()}</span>
+                              <span>
+                                {new Date(
+                                  blog.published_at,
+                                ).toLocaleDateString()}
+                              </span>
                             </>
                           )}
                         </div>
-                        
+
                         <h3 className="font-semibold text-foreground mb-2 line-clamp-2">
-                          <Link href={`/blog/${blog.slug}/`} className="hover:text-primary">
+                          <Link
+                            href={`/blog/${blog.slug}/`}
+                            className="hover:text-primary"
+                          >
                             {blog.title}
                           </Link>
                         </h3>
-                        
+
                         {blog.excerpt && (
                           <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
                             {blog.excerpt}
                           </p>
                         )}
-                        
-                        <Link 
+
+                        <Link
                           href={`/blog/${blog.slug}/`}
                           className="inline-flex items-center text-sm font-medium text-primary hover:underline"
                         >
@@ -707,7 +815,11 @@ const IndexPage: React.FC = () => {
 
                 <div className="text-center">
                   <Link href="/blog/">
-                    <Button variant="outline" size="lg" className="px-8 border-2">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="px-8 border-2"
+                    >
                       View All Articles
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
@@ -721,12 +833,16 @@ const IndexPage: React.FC = () => {
           <section className="py-20" aria-labelledby="cta-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto text-center bg-primary/5 rounded-2xl p-12 border border-primary/20">
-                <h2 id="cta-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h2
+                  id="cta-heading"
+                  className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                >
                   Start Making Healthier Choices Today
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  Join thousands of health-conscious consumers who use EaterIQ to understand what's really in their food. 
-                  It's free, fast, and incredibly insightful.
+                  Join thousands of health-conscious consumers who use EaterIQ
+                  to understand what's really in their food. It's free, fast,
+                  and incredibly insightful.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button

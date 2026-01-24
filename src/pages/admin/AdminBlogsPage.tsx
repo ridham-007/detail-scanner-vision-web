@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useBlogPosts, useDeleteBlogPost } from '@/hooks/useBlogPosts';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { Button } from '@/components/ui/button';
@@ -30,6 +30,16 @@ const AdminBlogsPage = () => {
   const { data: posts, isLoading, error } = useBlogPosts(true); // Include unpublished posts
   const deletePost = useDeleteBlogPost();
 
+   useEffect(() => {
+    if (!isCheckingAdmin && !isAdmin) {
+      router.replace("/");
+    }
+  }, [isAdmin, isCheckingAdmin, router]);
+
+  if (!isAdmin && !isCheckingAdmin) {
+    return null;
+  }
+
   if (isCheckingAdmin) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -41,16 +51,6 @@ const AdminBlogsPage = () => {
         </div>
       </div>
     );
-  }
-
-  useEffect(() => {
-    if (!isCheckingAdmin && !isAdmin) {
-      router.replace("/");
-    }
-  }, [isAdmin, isCheckingAdmin, router]);
-
-  if (!isAdmin && !isCheckingAdmin) {
-    return null;
   }
 
   const handleDelete = async (post: BlogPost) => {

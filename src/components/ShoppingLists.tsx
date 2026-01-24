@@ -14,6 +14,25 @@ import { useShoppingLists } from '@/hooks/useShoppingLists';
 import { useAuth } from '@/contexts/AuthContext';
 import { format } from 'date-fns';
 
+interface ShoppingListItem {
+  id: string;
+  product_name: string;
+  quantity: number;
+  is_purchased: boolean;
+  barcode?: string;
+  notes?: string;
+}
+
+interface ShoppingList {
+  id: string;
+  name: string;
+  description?: string | null;
+  is_completed: boolean;
+  created_at: string;
+  shopping_list_items?: ShoppingListItem[];
+  items?: ShoppingListItem[];
+}
+
 const ShoppingLists = () => {
   const { user } = useAuth();
   const { shoppingLists, isLoading, createShoppingList, updateShoppingList, deleteShoppingList, updateListItem, removeItemFromList } = useShoppingLists();
@@ -134,7 +153,7 @@ const ShoppingLists = () => {
         </Card>
       ) : (
         <div className="grid gap-6">
-          {shoppingLists.map((list:any) => {
+          {shoppingLists.map((list: ShoppingList) => {
             const totalItems = list.shopping_list_items?.length || 0;
             const purchasedItems = list.items?.filter(item => item.is_purchased).length || 0;
             const progress = totalItems > 0 ? (purchasedItems / totalItems) * 100 : 0;

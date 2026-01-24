@@ -60,7 +60,7 @@ const DeleteAccountPage = () => {
 
       setSubmitted(true);
       toast.success('Account deletion request submitted successfully');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error submitting deletion request:', error);
       toast.error('Failed to submit request. Please try again.');
     } finally {

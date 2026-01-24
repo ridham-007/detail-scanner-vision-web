@@ -370,7 +370,7 @@ const UserSettingsPage = () => {
 
                     {!subscribed && (
                       <Button 
-                        onClick={() => navigate('/pricing')}
+                        onClick={() => router.push('/pricing')}
                         className="w-full"
                       >
                         Upgrade to Pro or Premium

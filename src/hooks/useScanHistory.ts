@@ -8,9 +8,10 @@ export interface ScanHistoryItem {
   product_name: string;
   health_score: number | null;
   scanned_at: string;
-  scan_location?: string;
-  notes?: string;
+  scan_location: string | null;
+  notes: string | null;
 }
+
 
 export const useScanHistory = () => {
   const [scanHistory, setScanHistory] = useState<ScanHistoryItem[]>([]);

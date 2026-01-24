@@ -1,5 +1,5 @@
 // This component is deprecated in favor of Next.js Metadata API
-const SEOHead = (props: any) => {
+const SEOHead = (props: Record<string, unknown>) => {
   return null;
 };
 

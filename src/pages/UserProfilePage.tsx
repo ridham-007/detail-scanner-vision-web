@@ -169,7 +169,7 @@ const UserProfilePage = () => {
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row gap-6">
                 <Avatar className="h-24 w-24">
-                  <AvatarImage alt="user avatar" src={profile.avatar_url} />
+                  <AvatarImage alt="user avatar" src={profile.avatar_url ?? undefined} />
                   <AvatarFallback className="text-2xl">
                     {profile.username?.charAt(0)?.toUpperCase()}
                   </AvatarFallback>

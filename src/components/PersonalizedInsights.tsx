@@ -73,7 +73,7 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
             compatible.push('Appears dairy-free');
           }
           break;
-        case 'low-sodium':
+        case 'low-sodium': {
           const sodium = product.nutrition_per_100g.salt_mg || 0;
           if (sodium > 300) {
             alerts.push(`High sodium content: ${sodium}mg`);
@@ -81,6 +81,7 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
             compatible.push('Low sodium option');
           }
           break;
+        }
       }
     });
     

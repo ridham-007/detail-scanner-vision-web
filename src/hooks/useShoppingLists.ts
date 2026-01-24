@@ -17,10 +17,10 @@ export interface ShoppingListItem {
 export interface ShoppingList {
   id: string;
   name: string;
-  description?: string;
+  description?: string | null;
   is_completed: boolean;
-  created_at: string;
-  updated_at: string;
+  created_at: string ;
+  updated_at: string ;
   items?: ShoppingListItem[];
 }
 

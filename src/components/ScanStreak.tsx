@@ -86,7 +86,7 @@ const ScanStreak: React.FC<ScanStreakProps> = ({ productName }) => {
 
     const today = new Date();
     let streakCount = 0;
-    let currentDate = new Date(today);
+    let currentDate = new Date(today.getTime());
     
     // Group dates by day
     const scansByDay = new Set();
@@ -101,7 +101,7 @@ const ScanStreak: React.FC<ScanStreakProps> = ({ productName }) => {
       const dayKey = currentDate.toDateString();
       if (scansByDay.has(dayKey)) {
         streakCount++;
-        currentDate.setDate(currentDate.getDate() - 1);
+        currentDate = new Date(currentDate.getTime() - 24 * 60 * 60 * 1000);
       } else {
         break;
       }

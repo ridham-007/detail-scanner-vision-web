@@ -25,7 +25,7 @@ const NotFound = () => {
     });
 
     // Add noindex meta for 404 pages
-    let noindexMeta = document.querySelector('meta[name="robots"]') as HTMLMetaElement;
+    const noindexMeta = document.querySelector('meta[name="robots"]') as HTMLMetaElement;
     if (noindexMeta) {
       noindexMeta.setAttribute('content', 'noindex, nofollow');
     }
