@@ -236,26 +236,26 @@ const IndexPage: React.FC = () => {
 
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" aria-labelledby="hero-heading">
+          <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden" aria-labelledby="hero-heading">
             <div className="container mx-auto px-4">
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
                 
                 {/* Left Column - Content */}
-                <div className="text-center lg:text-left order-2 lg:order-1">
-                  <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] tracking-tight mb-6">
+                <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 md:p-8 text-center lg:text-left order-2 lg:order-1 flex flex-col justify-center">
+                  <h1 id="hero-heading" className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] tracking-tight mb-4">
                     Know What's in{" "}
                     <span className="text-primary">Your Food</span>
                   </h1>
                   
-                  <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
+                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6 max-w-lg mx-auto lg:mx-0">
                     Scan any product barcode to get instant health scores, ingredient analysis, and healthier alternatives.
                   </p>
 
                   {/* CTA */}
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-6">
                     <Button
                       size="lg"
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-5 text-base font-semibold rounded-xl"
                       onClick={scrollToScanner}
                     >
                       <Scan className="mr-2 h-5 w-5" />
@@ -264,23 +264,19 @@ const IndexPage: React.FC = () => {
                   </div>
 
                   {/* Trust Badges */}
-                  <div className="flex flex-wrap items-center gap-4 justify-center lg:justify-start mb-8">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <CheckCircle className="h-4 w-4 text-primary" />
+                  <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-6">
+                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full">
+                      <CheckCircle className="h-3.5 w-3.5 text-primary" />
                       <span>100% Free</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Shield className="h-4 w-4 text-primary" />
-                      <span>No Sign-up Required</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Award className="h-4 w-4 text-primary" />
-                      <span>{userCount ? formatNumber(userCount) : "14K+"} Users</span>
+                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full">
+                      <Shield className="h-3.5 w-3.5 text-primary" />
+                      <span>No Sign-up</span>
                     </div>
                   </div>
 
                   {/* App Store Badges */}
-                  <div className="flex items-center gap-4 justify-center lg:justify-start">
+                  <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <a
                       href="https://apps.apple.com/sg/app/eateriq/id6757137222"
                       target="_blank"
@@ -291,7 +287,7 @@ const IndexPage: React.FC = () => {
                       <img
                         src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
                         alt="Download on the App Store"
-                        className="h-[40px]"
+                        className="h-[36px]"
                         loading="lazy"
                       />
                     </a>
@@ -305,106 +301,124 @@ const IndexPage: React.FC = () => {
                       <img
                         src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                         alt="Get it on Google Play"
-                        className="h-[60px] -my-[10px]"
+                        className="h-[54px] -my-[9px]"
                         loading="lazy"
                       />
                     </a>
                   </div>
                 </div>
 
-                {/* Right Column - Phone Mockup */}
-                <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-                  <div className="relative animate-fade-in">
+                {/* Right Column - Phone Mockup with Food Background */}
+                <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 md:p-8 order-1 lg:order-2 flex justify-center items-center relative overflow-hidden">
+                  {/* Food Background Elements */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-4 left-4 text-4xl opacity-[0.06]">🥗</div>
+                    <div className="absolute top-1/4 right-6 text-3xl opacity-[0.05]">🍎</div>
+                    <div className="absolute bottom-1/3 left-8 text-3xl opacity-[0.05]">🥑</div>
+                    <div className="absolute bottom-8 right-10 text-4xl opacity-[0.06]">🥕</div>
+                    <div className="absolute top-1/2 left-1/4 text-2xl opacity-[0.04]">🍇</div>
+                    <div className="absolute bottom-1/4 right-1/4 text-2xl opacity-[0.04]">🥦</div>
+                  </div>
+
+                  <div className="relative animate-fade-in z-10">
                     {/* Phone Frame */}
-                    <div className="relative w-[260px] md:w-[300px] bg-foreground rounded-[2.5rem] p-2 shadow-2xl">
+                    <div className="relative w-[240px] md:w-[260px] bg-foreground rounded-[2.5rem] p-2 shadow-2xl">
                       <div className="bg-background rounded-[2.2rem] overflow-hidden">
                         {/* Status Bar */}
-                        <div className="h-7 bg-background px-6 flex items-center justify-between">
-                          <span className="text-[10px] font-medium text-foreground">9:41</span>
+                        <div className="h-6 bg-background px-5 flex items-center justify-between">
+                          <span className="text-[9px] font-medium text-foreground">9:41</span>
                           <div className="flex items-center gap-1">
                             <div className="flex gap-[2px]">
-                              <div className="w-[3px] h-[10px] bg-foreground rounded-sm" />
-                              <div className="w-[3px] h-[8px] bg-foreground rounded-sm" />
-                              <div className="w-[3px] h-[6px] bg-foreground rounded-sm" />
-                              <div className="w-[3px] h-[4px] bg-muted-foreground rounded-sm" />
+                              <div className="w-[2px] h-[8px] bg-foreground rounded-sm" />
+                              <div className="w-[2px] h-[6px] bg-foreground rounded-sm" />
+                              <div className="w-[2px] h-[5px] bg-foreground rounded-sm" />
+                              <div className="w-[2px] h-[3px] bg-muted-foreground rounded-sm" />
                             </div>
-                            <div className="w-6 h-3 border border-foreground rounded-sm relative ml-1">
-                              <div className="absolute inset-[2px] right-1 bg-primary rounded-[1px]" />
-                              <div className="absolute -right-[3px] top-1/2 -translate-y-1/2 w-[2px] h-[4px] bg-foreground rounded-r-sm" />
+                            <div className="w-5 h-2.5 border border-foreground rounded-sm relative ml-1">
+                              <div className="absolute inset-[1px] right-0.5 bg-primary rounded-[1px]" />
+                              <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-[1px] h-[3px] bg-foreground rounded-r-sm" />
                             </div>
                           </div>
                         </div>
                         
                         {/* Dynamic Island */}
-                        <div className="flex justify-center -mt-1 mb-2">
-                          <div className="w-24 h-7 bg-foreground rounded-full" />
+                        <div className="flex justify-center -mt-0.5 mb-1.5">
+                          <div className="w-20 h-6 bg-foreground rounded-full" />
                         </div>
                         
                         {/* App Content Preview */}
-                        <div className="px-4 pb-4">
+                        <div className="px-3 pb-3">
                           {/* App Header */}
-                          <div className="flex items-center justify-between mb-4">
-                            <span className="text-base font-bold text-foreground">EaterIQ</span>
-                            <div className="w-7 h-7 bg-muted rounded-full" />
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-sm font-bold text-foreground">EaterIQ</span>
+                            <div className="w-6 h-6 bg-muted rounded-full" />
                           </div>
 
                           {/* Product Card Preview */}
-                          <div className="bg-card border border-border rounded-2xl p-4 mb-3 shadow-sm">
-                            <div className="flex items-start gap-3 mb-4">
-                              <div className="w-14 h-14 bg-muted rounded-xl flex items-center justify-center flex-shrink-0">
-                                <div className="w-8 h-10 bg-muted-foreground/20 rounded" />
+                          <div className="bg-card border border-border rounded-xl p-3 mb-2 shadow-sm">
+                            <div className="flex items-start gap-2 mb-3">
+                              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
+                                <div className="w-6 h-8 bg-muted-foreground/20 rounded" />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <div className="text-sm font-semibold text-foreground mb-1 truncate">Organic Granola</div>
-                                <div className="text-xs text-muted-foreground">Nature Valley</div>
+                                <div className="text-xs font-semibold text-foreground mb-0.5 truncate">Organic Granola</div>
+                                <div className="text-[10px] text-muted-foreground">Nature Valley</div>
                               </div>
                             </div>
                             
                             {/* Health Score */}
-                            <div className="flex items-center justify-between bg-primary/10 rounded-xl p-3">
-                              <span className="text-xs font-medium text-foreground">Health Score</span>
-                              <div className="flex items-center gap-1">
-                                <span className="text-xl font-bold text-primary">85</span>
-                                <span className="text-[10px] text-muted-foreground">/100</span>
+                            <div className="flex items-center justify-between bg-primary/10 rounded-lg p-2">
+                              <span className="text-[10px] font-medium text-foreground">Health Score</span>
+                              <div className="flex items-center gap-0.5">
+                                <span className="text-lg font-bold text-primary">85</span>
+                                <span className="text-[8px] text-muted-foreground">/100</span>
                               </div>
                             </div>
                           </div>
                           
                           {/* Quick Info Tags */}
-                          <div className="flex gap-2 mb-3">
-                            <div className="flex-1 bg-card border border-border rounded-xl py-2 px-3 text-center">
-                              <Leaf className="h-4 w-4 text-primary mx-auto mb-1" />
-                              <span className="text-[10px] text-muted-foreground block">Organic</span>
+                          <div className="flex gap-1.5 mb-2">
+                            <div className="flex-1 bg-card border border-border rounded-lg py-1.5 px-2 text-center">
+                              <Leaf className="h-3 w-3 text-primary mx-auto mb-0.5" />
+                              <span className="text-[8px] text-muted-foreground block">Organic</span>
                             </div>
-                            <div className="flex-1 bg-card border border-border rounded-xl py-2 px-3 text-center">
-                              <CheckCircle className="h-4 w-4 text-primary mx-auto mb-1" />
-                              <span className="text-[10px] text-muted-foreground block">Low Sugar</span>
+                            <div className="flex-1 bg-card border border-border rounded-lg py-1.5 px-2 text-center">
+                              <CheckCircle className="h-3 w-3 text-primary mx-auto mb-0.5" />
+                              <span className="text-[8px] text-muted-foreground block">Low Sugar</span>
                             </div>
-                            <div className="flex-1 bg-card border border-border rounded-xl py-2 px-3 text-center">
-                              <Shield className="h-4 w-4 text-primary mx-auto mb-1" />
-                              <span className="text-[10px] text-muted-foreground block">Safe</span>
+                            <div className="flex-1 bg-card border border-border rounded-lg py-1.5 px-2 text-center">
+                              <Shield className="h-3 w-3 text-primary mx-auto mb-0.5" />
+                              <span className="text-[8px] text-muted-foreground block">Safe</span>
                             </div>
                           </div>
 
                           {/* CTA Button */}
-                          <div className="bg-primary rounded-xl py-2.5 text-center">
-                            <span className="text-xs font-semibold text-primary-foreground">View Full Analysis</span>
+                          <div className="bg-primary rounded-lg py-2 text-center">
+                            <span className="text-[10px] font-semibold text-primary-foreground">View Full Analysis</span>
                           </div>
                         </div>
                         
                         {/* Home Indicator */}
-                        <div className="flex justify-center pb-2">
-                          <div className="w-28 h-1 bg-foreground/30 rounded-full" />
+                        <div className="flex justify-center pb-1.5">
+                          <div className="w-24 h-1 bg-foreground/30 rounded-full" />
                         </div>
                       </div>
                     </div>
                     
-                    {/* Floating Stats Badge */}
-                    <div className="absolute -bottom-3 -left-3 bg-card border border-border rounded-xl px-3 py-2 shadow-lg animate-fade-in">
-                      <div className="flex items-center gap-2">
-                        <BarChart3 className="h-4 w-4 text-primary" />
-                        <span className="text-xs font-medium text-foreground">
+                    {/* Floating Stats Badges */}
+                    <div className="absolute -bottom-2 -left-2 bg-card border border-border rounded-lg px-2.5 py-1.5 shadow-lg">
+                      <div className="flex items-center gap-1.5">
+                        <BarChart3 className="h-3.5 w-3.5 text-primary" />
+                        <span className="text-[10px] font-medium text-foreground">
                           {productCount ? formatNumber(productCount) : "23K+"} Products
+                        </span>
+                      </div>
+                    </div>
+                    <div className="absolute -top-2 -right-2 bg-card border border-border rounded-lg px-2.5 py-1.5 shadow-lg">
+                      <div className="flex items-center gap-1.5">
+                        <Award className="h-3.5 w-3.5 text-primary" />
+                        <span className="text-[10px] font-medium text-foreground">
+                          {userCount ? formatNumber(userCount) : "14K+"} Users
                         </span>
                       </div>
                     </div>
@@ -489,30 +503,6 @@ const IndexPage: React.FC = () => {
             </div>
           </section>
 
-          {/* Stats Section */}
-          <section className="container mx-auto px-4 py-16" aria-labelledby="stats-heading">
-            <h2 id="stats-heading" className="sr-only">EaterIQ Statistics</h2>
-            <div className="grid md:grid-cols-3 gap-8 text-center">
-              <div>
-                <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
-                  {productCount ? formatNumber(productCount) : "23K+"}
-                </div>
-                <p className="text-muted-foreground text-lg">Products Analyzed</p>
-              </div>
-              <div>
-                <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
-                  99.9%
-                </div>
-                <p className="text-muted-foreground text-lg">Analysis Accuracy</p>
-              </div>
-              <div>
-                <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
-                  {userCount ? formatNumber(userCount) : "14K+"}
-                </div>
-                <p className="text-muted-foreground text-lg">Happy Users</p>
-              </div>
-            </div>
-          </section>
 
           {/* Why Choose EaterIQ Section */}
           <section
