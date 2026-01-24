@@ -241,7 +241,7 @@ const IndexPage: React.FC = () => {
               <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
                 
                 {/* Left Column - Content */}
-                <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8 text-center lg:text-left order-2 lg:order-1 flex flex-col justify-center shadow-sm">
+                <div className="bg-card rounded-2xl p-6 md:p-8 text-center lg:text-left order-2 lg:order-1 flex flex-col justify-center shadow-sm">
                   <h1 id="hero-heading" className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] tracking-tight mb-4">
                     Know What's in{" "}
                     <span className="text-primary">Your Food</span>
@@ -309,7 +309,7 @@ const IndexPage: React.FC = () => {
                 </div>
 
                 {/* Right Column - Phone Mockup with Food Background */}
-                <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8 order-1 lg:order-2 flex justify-center items-center relative overflow-hidden shadow-sm">
+                <div className="bg-card rounded-2xl p-6 md:p-8 order-1 lg:order-2 flex justify-center items-center relative overflow-hidden shadow-sm">
                   {/* Food Background Elements */}
                   <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-6 left-6 text-4xl opacity-[0.08]">🥗</div>
@@ -399,7 +399,7 @@ const IndexPage: React.FC = () => {
                     </div>
                     
                     {/* Floating Stats Badges */}
-                    <div className="absolute -bottom-3 -left-3 bg-card border-2 border-border rounded-xl px-3 py-2 shadow-md">
+                    <div className="absolute -bottom-3 -left-3 bg-card rounded-xl px-3 py-2 shadow-md">
                       <div className="flex items-center gap-2">
                         <BarChart3 className="h-4 w-4 text-primary" />
                         <span className="text-xs font-semibold text-foreground">
@@ -407,7 +407,7 @@ const IndexPage: React.FC = () => {
                         </span>
                       </div>
                     </div>
-                    <div className="absolute -top-3 -right-3 bg-card border-2 border-border rounded-xl px-3 py-2 shadow-md">
+                    <div className="absolute -top-3 -right-3 bg-card rounded-xl px-3 py-2 shadow-md">
                       <div className="flex items-center gap-2">
                         <Award className="h-4 w-4 text-primary" />
                         <span className="text-xs font-semibold text-foreground">
