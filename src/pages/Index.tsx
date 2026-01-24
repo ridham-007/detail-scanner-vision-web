@@ -322,99 +322,94 @@ const IndexPage: React.FC = () => {
 
                   <div className="relative z-10 p-6">
                     {/* Modern Phone Frame */}
-                    <div className="relative w-[300px] md:w-[340px]">
+                    <div className="relative w-[260px] md:w-[290px]">
                       {/* Phone outer shell - subtle bezel */}
-                      <div className="bg-foreground/10 rounded-[3rem] p-1 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
-                        <div className="bg-card rounded-[2.8rem] overflow-hidden shadow-inner">
-                          {/* Status Bar with Dynamic Island */}
-                          <div className="bg-background px-6 pt-4 pb-2 relative">
-                            <div className="flex items-center justify-between">
-                              <span className="text-xs font-semibold text-foreground">9:41</span>
-                              <div className="flex items-center gap-1.5">
-                                <div className="flex gap-[2px] items-end">
-                                  <div className="w-[3px] h-[5px] bg-foreground rounded-[1px]" />
-                                  <div className="w-[3px] h-[7px] bg-foreground rounded-[1px]" />
-                                  <div className="w-[3px] h-[9px] bg-foreground rounded-[1px]" />
-                                  <div className="w-[3px] h-[11px] bg-foreground rounded-[1px]" />
-                                </div>
-                                <div className="w-7 h-3.5 border-2 border-foreground rounded-[4px] relative ml-1">
-                                  <div className="absolute inset-[2px] right-1 bg-primary rounded-[2px]" />
-                                  <div className="absolute -right-[4px] top-1/2 -translate-y-1/2 w-[2px] h-2 bg-foreground rounded-r-sm" />
-                                </div>
+                      <div className="bg-foreground/10 rounded-[2.5rem] p-1 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
+                        <div className="bg-card rounded-[2.3rem] overflow-hidden shadow-inner">
+                          {/* Compact Status Bar with Dynamic Island */}
+                          <div className="bg-background px-4 pt-2 pb-1 relative flex items-center justify-between">
+                            <span className="text-[10px] font-semibold text-foreground">9:41</span>
+                            <div className="w-20 h-6 bg-foreground rounded-full" />
+                            <div className="flex items-center gap-1">
+                              <div className="flex gap-[1px] items-end">
+                                <div className="w-[2px] h-[4px] bg-foreground rounded-[1px]" />
+                                <div className="w-[2px] h-[6px] bg-foreground rounded-[1px]" />
+                                <div className="w-[2px] h-[8px] bg-foreground rounded-[1px]" />
+                                <div className="w-[2px] h-[10px] bg-foreground rounded-[1px]" />
+                              </div>
+                              <div className="w-5 h-2.5 border border-foreground rounded-[3px] relative ml-0.5">
+                                <div className="absolute inset-[1px] right-0.5 bg-primary rounded-[1px]" />
                               </div>
                             </div>
-                            {/* Dynamic Island */}
-                            <div className="absolute left-1/2 -translate-x-1/2 top-2.5 w-28 h-8 bg-foreground rounded-full" />
                           </div>
                           
                           {/* App Content */}
-                          <div className="px-5 pt-3 pb-4 bg-background min-h-[420px]">
+                          <div className="px-4 pt-2 pb-3 bg-background min-h-[360px]">
                             {/* App Header */}
-                            <div className="flex items-center justify-between mb-5">
-                              <div className="flex items-center gap-2.5">
-                                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-sm">
-                                  <Scan className="w-5 h-5 text-primary-foreground" />
-                                </div>
-                                <span className="text-lg font-bold text-foreground">EaterIQ</span>
-                              </div>
+                            <div className="flex items-center justify-between mb-3">
                               <div className="flex items-center gap-2">
-                                <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
-                                  <Search className="w-5 h-5 text-muted-foreground" />
+                                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                                  <Scan className="w-4 h-4 text-primary-foreground" />
                                 </div>
+                                <span className="text-sm font-bold text-foreground">EaterIQ</span>
+                              </div>
+                              <div className="w-7 h-7 bg-muted rounded-full flex items-center justify-center">
+                                <Search className="w-3.5 h-3.5 text-muted-foreground" />
                               </div>
                             </div>
 
                             {/* Product Result Card */}
-                            <div className="bg-muted/30 border border-border rounded-2xl p-4 mb-4">
+                            <div className="bg-muted/30 border border-border rounded-xl p-3 mb-3">
                               {/* Product Header */}
-                              <div className="flex items-start gap-4 mb-4">
-                                <div className="w-20 h-20 bg-card border border-border rounded-2xl flex items-center justify-center shadow-sm">
-                                  <span className="text-4xl">🥣</span>
+                              <div className="flex items-start gap-3 mb-3">
+                                <div className="w-14 h-14 bg-card border border-border rounded-xl flex items-center justify-center">
+                                  <span className="text-2xl">🥣</span>
                                 </div>
-                                <div className="flex-1 pt-1">
-                                  <div className="text-base font-bold text-foreground mb-1">Organic Granola</div>
-                                  <div className="text-sm text-muted-foreground mb-2">Nature Valley • 350g</div>
-                                  <div className="inline-flex items-center gap-1.5 bg-primary/10 px-2 py-1 rounded-full">
-                                    <Leaf className="w-3.5 h-3.5 text-primary" />
-                                    <span className="text-xs text-primary font-medium">Organic</span>
+                                <div className="flex-1">
+                                  <div className="text-sm font-bold text-foreground mb-0.5">Organic Granola</div>
+                                  <div className="text-xs text-muted-foreground mb-1.5">Nature Valley • 350g</div>
+                                  <div className="inline-flex items-center gap-1 bg-primary/10 px-1.5 py-0.5 rounded-full">
+                                    <Leaf className="w-3 h-3 text-primary" />
+                                    <span className="text-[10px] text-primary font-medium">Organic</span>
                                   </div>
                                 </div>
                               </div>
                               
                               {/* Health Score */}
-                              <div className="bg-card border border-border rounded-xl p-4 mb-4 shadow-sm">
+                              <div className="bg-card border border-border rounded-lg p-3 mb-3">
                                 <div className="flex items-center justify-between">
                                   <div>
-                                    <div className="text-sm text-muted-foreground mb-1">Health Score</div>
-                                    <div className="flex items-baseline gap-1">
-                                      <span className="text-4xl font-bold text-primary">85</span>
-                                      <span className="text-sm text-muted-foreground">/100</span>
+                                    <div className="text-xs text-muted-foreground mb-0.5">Health Score</div>
+                                    <div className="flex items-baseline gap-0.5">
+                                      <span className="text-2xl font-bold text-primary">85</span>
+                                      <span className="text-xs text-muted-foreground">/100</span>
                                     </div>
-                                    <div className="text-xs text-primary font-medium mt-1">Good Choice ✓</div>
+                                    <div className="text-[10px] text-primary font-medium">Good Choice ✓</div>
                                   </div>
-                                  <div className="w-16 h-16 rounded-full border-4 border-primary bg-primary/5 flex items-center justify-center">
-                                    <CheckCircle className="w-8 h-8 text-primary" />
+                                  <div className="w-12 h-12 rounded-full border-[3px] border-primary bg-primary/5 flex items-center justify-center">
+                                    <CheckCircle className="w-5 h-5 text-primary" />
                                   </div>
                                 </div>
                               </div>
                               
                               {/* Nutrition Tags */}
-                              <div className="flex flex-wrap gap-2">
-                                <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full">Low Sugar</span>
-                                <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full">High Fiber</span>
-                                <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full">No Additives</span>
+                              <div className="flex flex-wrap gap-1.5">
+                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">Low Sugar</span>
+                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">High Fiber</span>
+                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">No Additives</span>
                               </div>
                             </div>
 
                             {/* Action Button */}
-                            <div className="bg-primary rounded-2xl py-4 text-center shadow-sm">
-                              <span className="text-base font-semibold text-primary-foreground">View Full Analysis</span>
+                            <div className="bg-primary rounded-xl py-2.5 text-center">
+                              <span className="text-xs font-semibold text-primary-foreground">View Full Analysis</span>
                             </div>
                           </div>
                           
                           {/* Home Indicator */}
-                          <div className="flex justify-center py-3 bg-background">
-                            <div className="w-32 h-1.5 bg-foreground/20 rounded-full" />
+                          {/* Home Indicator */}
+                          <div className="flex justify-center py-2 bg-background">
+                            <div className="w-24 h-1 bg-foreground/20 rounded-full" />
                           </div>
                         </div>
                       </div>
