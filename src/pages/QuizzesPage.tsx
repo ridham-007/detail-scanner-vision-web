@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -23,6 +24,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { lazy, Suspense } from "react";
 
 
 interface Quiz {
@@ -56,6 +58,7 @@ const QuizzesPage = () => {
   const [userQuizCount, setUserQuizCount] = useState(0);
   // NEW: whether user is currently blocked from creating (2 quizzes in active 30-day window)
   const [isLimitActive, setIsLimitActive] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
   // NEW: when the limit window resets (Date or null)
   const [limitResetDate, setLimitResetDate] = useState<Date | null>(null);
@@ -70,24 +73,25 @@ const QuizzesPage = () => {
     { name: "Quiz Hub", url: "https://www.eateriq.com/quiz" },
   ]);
 
-  useEffect(() => {
-    fetchQuizzes();
+useEffect(() => {
+  fetchQuizzes();
+
+  runIdle(() => {
     fetchLeaderboard();
 
     if (user) {
       fetchMyQuizzes();
-      fetchUserQuizCount(); // 🟢 NEW: check how many created this month
+      fetchUserQuizCount();
     }
-  }, [user]);
+  });
+}, [user]);
 
 
   const fetchQuizzes = async () => {
     try {
       const { data, error } = await supabase
         .from("quizzes")
-        .select(
-          "id, title, description, difficulty, created_at, creator_id, is_published, slug"
-        )
+        .select("id, title, description, difficulty, created_at, creator_id, is_published, slug")
         .eq("is_published", true)
         .order("created_at", { ascending: false });
 
@@ -95,8 +99,11 @@ const QuizzesPage = () => {
       setQuizzes(data || []);
     } catch (error) {
       console.error("Error fetching quizzes:", error);
+    } finally {
+      setPageLoading(false);
     }
   };
+
 
   const fetchMyQuizzes = async () => {
     if (!user) return;
@@ -189,6 +196,13 @@ const QuizzesPage = () => {
   const handleQuizUpdated = () => {
     fetchQuizzes();
     fetchMyQuizzes();
+  };
+  const runIdle = (cb) => {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(cb);
+    } else {
+      setTimeout(cb, 200);
+    }
   };
 
 
@@ -310,9 +324,9 @@ const QuizzesPage = () => {
     }
   };
 
-  const playQuiz = (slug: string) => {
+  const playQuiz = useCallback((slug) => {
     navigate(`/quiz/${slug}`);
-  };
+  }, [navigate]);
 
   return (
     <div className="min-h-dvh bg-background">
@@ -325,7 +339,9 @@ const QuizzesPage = () => {
         canonicalUrl="https://www.eateriq.com/quiz/"
       />
 
-      <AnimatedBackground />
+      <Suspense fallback={null}>
+        <AnimatedBackground />
+      </Suspense>
       <main className="h-full container mx-auto px-3 sm:px-4 py-4 sm:py-8 relative z-10 max-w-6xl">
         <div className="h-full w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
           <Link to={"/"}>
@@ -459,26 +475,40 @@ const QuizzesPage = () => {
           </TabsList>
 
           <TabsContent value="all-quizzes" className="space-y-4 sm:space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {quizzes?.map((quiz) => (
-                <QuizCard
-                  key={quiz.id}
-                  quiz={quiz}
-                  onPlay={playQuiz}
-                  onQuizUpdated={handleQuizUpdated}
-                />
-              ))}
-            </div>
-            {quizzes?.length === 0 && (
-              <div className="text-center py-8 sm:py-12">
-                <Brain className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-base sm:text-lg font-semibold mb-2">
-                  No quizzes yet
-                </h3>
-                <p className="text-sm sm:text-base text-muted-foreground">
-                  Be the first to create a quiz!
-                </p>
+            {pageLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-[220px] rounded-xl bg-muted animate-pulse"
+                  />
+                ))}
               </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                  {quizzes?.map((quiz) => (
+                    <QuizCard
+                      key={quiz.id}
+                      quiz={quiz}
+                      onPlay={playQuiz}
+                      onQuizUpdated={handleQuizUpdated}
+                    />
+                  ))}
+                </div>
+
+                {quizzes?.length === 0 && (
+                  <div className="text-center py-8 sm:py-12">
+                    <Brain className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
+                    <h3 className="text-base sm:text-lg font-semibold mb-2">
+                      No quizzes yet
+                    </h3>
+                    <p className="text-sm sm:text-base text-muted-foreground">
+                      Be the first to create a quiz!
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </TabsContent>
 
