@@ -188,8 +188,8 @@ const IndexPage: React.FC = () => {
     },
     {
       icon: CheckCircle,
-      title: "100% Free Forever",
-      description: "No hidden fees, no premium tiers for basic features. Everyone deserves access to food transparency.",
+      title: "Free to Start",
+      description: "Start scanning for free with no sign-up required. Upgrade anytime for unlimited scans and premium features.",
     },
   ];
 
@@ -204,7 +204,8 @@ const IndexPage: React.FC = () => {
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "USD"
+      "priceCurrency": "USD",
+      "description": "Free tier with optional premium upgrades"
     },
     "aggregateRating": {
       "@type": "AggregateRating",
@@ -222,7 +223,7 @@ const IndexPage: React.FC = () => {
     <>
       <SEOHead
         title="EaterIQ - Food Scanner for Healthier Choices | Free Nutrition Analysis"
-        description="Scan any food product barcode and instantly get nutrition analysis, health scores, ingredient warnings, and healthier alternatives. 100% free, no sign-up required."
+        description="Scan any food product barcode and instantly get nutrition analysis, health scores, ingredient warnings, and healthier alternatives. Free to start, no sign-up required."
         keywords="food scanner, nutrition analysis, healthy eating, barcode scanner, ingredient checker, health score, food additives, allergen detection, nutrition app"
         canonicalUrl="https://www.eateriq.com/"
         type="website"
@@ -267,7 +268,7 @@ const IndexPage: React.FC = () => {
                   <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-6">
                     <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full border border-border">
                       <CheckCircle className="h-3.5 w-3.5 text-primary" />
-                      <span>100% Free</span>
+                      <span>Free to Start</span>
                     </div>
                     <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full border border-border">
                       <Shield className="h-3.5 w-3.5 text-primary" />
