@@ -1,5 +1,5 @@
 import React from 'react';
-import TermsPage from '@/pages/TermsPage';
+import TermsPage from '@/views/TermsPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

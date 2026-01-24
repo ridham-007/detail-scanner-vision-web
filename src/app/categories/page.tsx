@@ -1,5 +1,5 @@
 import React from 'react';
-import CategoriesPage from '@/pages/CategoriesPage';
+import CategoriesPage from '@/views/CategoriesPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

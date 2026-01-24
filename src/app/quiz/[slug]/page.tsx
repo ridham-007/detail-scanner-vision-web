@@ -1,5 +1,5 @@
 import React from 'react';
-import QuizPage from '@/pages/QuizPage';
+import QuizPage from '@/views/QuizPage';
 import { Metadata } from 'next';
 import { supabase } from '@/integrations/supabase/client';
 

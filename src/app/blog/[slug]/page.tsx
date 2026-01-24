@@ -1,5 +1,5 @@
 import React from 'react';
-import BlogPostPage from '@/pages/BlogPostPage';
+import BlogPostPage from '@/views/BlogPostPage';
 import { Metadata } from 'next';
 import { supabase } from '@/integrations/supabase/client';
 

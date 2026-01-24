@@ -1,5 +1,5 @@
 import React from 'react';
-import UserProfilePage from '@/pages/UserProfilePage';
+import UserProfilePage from '@/views/UserProfilePage';
 import { Metadata } from 'next';
 import { supabase } from '@/integrations/supabase/client';
 

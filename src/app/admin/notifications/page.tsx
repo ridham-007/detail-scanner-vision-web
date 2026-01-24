@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminNotificationsPage from '@/pages/admin/AdminNotificationsPage';
+import AdminNotificationsPage from '@/views/admin/AdminNotificationsPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

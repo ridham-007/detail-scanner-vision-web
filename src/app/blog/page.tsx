@@ -1,5 +1,5 @@
 import React from 'react';
-import BlogListPage from '@/pages/BlogListPage';
+import BlogListPage from '@/views/BlogListPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

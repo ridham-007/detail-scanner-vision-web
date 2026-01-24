@@ -1,5 +1,5 @@
 import React from 'react';
-import ScanHistoryPage from '@/pages/ScanHistoryPage';
+import ScanHistoryPage from '@/views/ScanHistoryPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

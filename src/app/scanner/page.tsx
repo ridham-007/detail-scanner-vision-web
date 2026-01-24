@@ -1,5 +1,5 @@
 import React from 'react';
-import FoodScannerPage from '@/pages/FoodScannerPage';
+import FoodScannerPage from '@/views/FoodScannerPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

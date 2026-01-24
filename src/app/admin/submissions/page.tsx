@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductSubmissionsPage from '@/pages/admin/ProductSubmissionsPage';
+import ProductSubmissionsPage from '@/views/admin/ProductSubmissionsPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

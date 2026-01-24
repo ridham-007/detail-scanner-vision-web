@@ -1,5 +1,5 @@
 import React from 'react';
-import DeleteAccountPage from '@/pages/DeleteAccountPage';
+import DeleteAccountPage from '@/views/DeleteAccountPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

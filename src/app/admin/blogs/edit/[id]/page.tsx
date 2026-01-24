@@ -1,5 +1,5 @@
 import React from 'react';
-import EditBlogPage from '@/pages/admin/EditBlogPage';
+import EditBlogPage from '@/views/admin/EditBlogPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

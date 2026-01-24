@@ -1,5 +1,5 @@
 import React from 'react';
-import SubscriptionSuccessPage from '@/pages/SubscriptionSuccessPage';
+import SubscriptionSuccessPage from '@/views/SubscriptionSuccessPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

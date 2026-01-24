@@ -1,5 +1,5 @@
 import React from 'react';
-import PrivacyPage from '@/pages/PrivacyPage';
+import PrivacyPage from '@/views/PrivacyPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

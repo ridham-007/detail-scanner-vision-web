@@ -1,5 +1,5 @@
 import React from 'react';
-import SupportPage from '@/pages/SupportPage';
+import SupportPage from '@/views/SupportPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

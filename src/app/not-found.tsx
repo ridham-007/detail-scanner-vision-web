@@ -1,5 +1,5 @@
 import React from 'react';
-import NotFound from '@/pages/NotFound';
+import NotFound from '@/views/NotFound';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
