@@ -236,143 +236,133 @@ const IndexPage: React.FC = () => {
 
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="relative py-12 md:py-20 lg:py-28 overflow-hidden" aria-labelledby="hero-heading">
+          <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" aria-labelledby="hero-heading">
             <div className="container mx-auto px-4">
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
                 
                 {/* Left Column - Content */}
-                <div className="text-center lg:text-left">
-                  {/* Badge */}
-                  <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-6">
-                    <Sparkles className="h-4 w-4" />
-                    <span>Free Food Intelligence</span>
-                  </div>
-
-                  {/* Main Heading */}
-                  <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
-                    Know What's Really in{" "}
+                <div className="text-center lg:text-left order-2 lg:order-1">
+                  <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] tracking-tight mb-6">
+                    Know What's in{" "}
                     <span className="text-primary">Your Food</span>
                   </h1>
                   
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                    Scan any barcode to instantly decode ingredients, detect harmful additives, 
-                    and get science-backed health scores. Make informed choices for you and your family.
+                  <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
+                    Scan any product barcode to get instant health scores, ingredient analysis, and healthier alternatives.
                   </p>
 
                   {/* CTA */}
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
                     <Button
                       size="lg"
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl"
                       onClick={scrollToScanner}
                     >
                       <Scan className="mr-2 h-5 w-5" />
-                      Scan a Product
+                      Try It Free
                     </Button>
-                    <Link to="/categories">
-                      <Button
-                        variant="outline"
-                        size="lg"
-                        className="px-8 py-6 text-lg rounded-xl border-2 w-full sm:w-auto"
-                      >
-                        Browse Products
-                      </Button>
-                    </Link>
                   </div>
 
                   {/* App Store Badges */}
-                  <div className="flex flex-col sm:flex-row items-center lg:items-start gap-3">
-                    <span className="text-sm text-muted-foreground">Get the app:</span>
-                    <div className="flex items-center gap-3">
-                      <a
-                        href="https://apps.apple.com/sg/app/eateriq/id6757137222"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Download on the App Store"
-                        className="transition-opacity hover:opacity-80"
-                      >
-                        <img
-                          src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
-                          alt="Download on the App Store"
-                          className="h-[36px]"
-                          loading="lazy"
-                        />
-                      </a>
-                      <a
-                        href="https://play.google.com/store/apps/details?id=com.eateriq"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Get it on Google Play"
-                        className="transition-opacity hover:opacity-80"
-                      >
-                        <img
-                          src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                          alt="Get it on Google Play"
-                          className="h-[54px] -my-[9px]"
-                          loading="lazy"
-                        />
-                      </a>
-                    </div>
+                  <div className="flex items-center gap-4 justify-center lg:justify-start">
+                    <a
+                      href="https://apps.apple.com/sg/app/eateriq/id6757137222"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Download on the App Store"
+                      className="transition-opacity hover:opacity-80"
+                    >
+                      <img
+                        src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
+                        alt="Download on the App Store"
+                        className="h-[40px]"
+                        loading="lazy"
+                      />
+                    </a>
+                    <a
+                      href="https://play.google.com/store/apps/details?id=com.eateriq"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Get it on Google Play"
+                      className="transition-opacity hover:opacity-80"
+                    >
+                      <img
+                        src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                        alt="Get it on Google Play"
+                        className="h-[60px] -my-[10px]"
+                        loading="lazy"
+                      />
+                    </a>
                   </div>
                 </div>
 
-                {/* Right Column - Feature Cards */}
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Stats Card */}
-                  <div className="col-span-2 bg-card border border-border rounded-2xl p-6 shadow-sm">
-                    <div className="flex items-center justify-around text-center">
-                      <div>
-                        <div className="text-3xl md:text-4xl font-bold text-foreground">
-                          {productCount ? formatNumber(productCount) : "23K+"}
+                {/* Right Column - Phone Mockup */}
+                <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+                  <div className="relative">
+                    {/* Phone Frame */}
+                    <div className="relative w-[280px] md:w-[320px] bg-foreground rounded-[3rem] p-3 shadow-2xl">
+                      <div className="bg-background rounded-[2.5rem] overflow-hidden">
+                        {/* Phone Notch */}
+                        <div className="h-8 bg-background flex items-center justify-center">
+                          <div className="w-20 h-5 bg-foreground rounded-full" />
                         </div>
-                        <p className="text-sm text-muted-foreground mt-1">Products</p>
-                      </div>
-                      <div className="w-px h-12 bg-border" />
-                      <div>
-                        <div className="text-3xl md:text-4xl font-bold text-foreground">
-                          {userCount ? formatNumber(userCount) : "14K+"}
+                        
+                        {/* App Content Preview */}
+                        <div className="p-4 pb-8">
+                          {/* Product Card Preview */}
+                          <div className="bg-card border border-border rounded-2xl p-4 mb-4">
+                            <div className="flex items-center gap-3 mb-3">
+                              <div className="w-12 h-12 bg-muted rounded-xl flex items-center justify-center">
+                                <Scan className="h-6 w-6 text-muted-foreground" />
+                              </div>
+                              <div className="flex-1">
+                                <div className="h-3 bg-muted rounded w-24 mb-2" />
+                                <div className="h-2 bg-muted/60 rounded w-16" />
+                              </div>
+                            </div>
+                            
+                            {/* Health Score */}
+                            <div className="flex items-center justify-between bg-primary/10 rounded-xl p-3">
+                              <span className="text-sm font-medium text-foreground">Health Score</span>
+                              <div className="flex items-center gap-2">
+                                <span className="text-2xl font-bold text-primary">85</span>
+                                <span className="text-xs text-muted-foreground">/100</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* Quick Stats */}
+                          <div className="grid grid-cols-3 gap-2">
+                            <div className="bg-card border border-border rounded-xl p-3 text-center">
+                              <CheckCircle className="h-4 w-4 text-primary mx-auto mb-1" />
+                              <span className="text-xs text-muted-foreground">Low Sugar</span>
+                            </div>
+                            <div className="bg-card border border-border rounded-xl p-3 text-center">
+                              <Leaf className="h-4 w-4 text-primary mx-auto mb-1" />
+                              <span className="text-xs text-muted-foreground">Organic</span>
+                            </div>
+                            <div className="bg-card border border-border rounded-xl p-3 text-center">
+                              <Shield className="h-4 w-4 text-primary mx-auto mb-1" />
+                              <span className="text-xs text-muted-foreground">No Additives</span>
+                            </div>
+                          </div>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-1">Users</p>
-                      </div>
-                      <div className="w-px h-12 bg-border" />
-                      <div>
-                        <div className="text-3xl md:text-4xl font-bold text-primary">A+</div>
-                        <p className="text-sm text-muted-foreground mt-1">Accuracy</p>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Feature Cards */}
-                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:border-primary/30 transition-colors">
-                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center mb-3">
-                      <BarChart3 className="h-5 w-5 text-primary" />
+                    
+                    {/* Floating Badge */}
+                    <div className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl px-4 py-2 shadow-lg">
+                      <div className="flex items-center gap-2">
+                        <div className="flex -space-x-2">
+                          <div className="w-6 h-6 bg-primary/20 rounded-full border-2 border-background" />
+                          <div className="w-6 h-6 bg-primary/30 rounded-full border-2 border-background" />
+                          <div className="w-6 h-6 bg-primary/40 rounded-full border-2 border-background" />
+                        </div>
+                        <span className="text-sm font-medium text-foreground">
+                          {userCount ? formatNumber(userCount) : "14K+"}+ users
+                        </span>
+                      </div>
                     </div>
-                    <h3 className="font-semibold text-foreground mb-1">Health Score</h3>
-                    <p className="text-sm text-muted-foreground">Instant ratings based on nutrition science</p>
-                  </div>
-
-                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:border-primary/30 transition-colors">
-                    <div className="w-10 h-10 bg-destructive/10 rounded-xl flex items-center justify-center mb-3">
-                      <AlertTriangle className="h-5 w-5 text-destructive" />
-                    </div>
-                    <h3 className="font-semibold text-foreground mb-1">Additive Alerts</h3>
-                    <p className="text-sm text-muted-foreground">Spot harmful chemicals & preservatives</p>
-                  </div>
-
-                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:border-primary/30 transition-colors">
-                    <div className="w-10 h-10 bg-accent/50 rounded-xl flex items-center justify-center mb-3">
-                      <Shield className="h-5 w-5 text-accent-foreground" />
-                    </div>
-                    <h3 className="font-semibold text-foreground mb-1">Allergen Detection</h3>
-                    <p className="text-sm text-muted-foreground">Auto-detect gluten, dairy, nuts & more</p>
-                  </div>
-
-                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:border-primary/30 transition-colors">
-                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center mb-3">
-                      <TrendingUp className="h-5 w-5 text-primary" />
-                    </div>
-                    <h3 className="font-semibold text-foreground mb-1">Better Options</h3>
-                    <p className="text-sm text-muted-foreground">Discover healthier alternatives</p>
                   </div>
                 </div>
               </div>
