@@ -133,6 +133,60 @@ const PrivacyPage = () => {
 
           <Card>
             <CardHeader>
+              <CardTitle>Cookies & Tracking Technologies</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                We use cookies and similar technologies to enhance your experience:
+              </p>
+              <ul className="text-sm text-muted-foreground space-y-2">
+                <li>• <strong>Essential Cookies:</strong> Required for basic site functionality and security</li>
+                <li>• <strong>Analytics Cookies:</strong> Help us understand how visitors interact with our site (with your consent)</li>
+                <li>• <strong>Preference Cookies:</strong> Remember your settings and preferences</li>
+              </ul>
+              <p className="text-sm text-muted-foreground">
+                You can manage your cookie preferences through our cookie consent banner or your browser settings.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Third-Party Services & Advertising</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                We may display advertisements from third-party ad networks. These networks may use cookies to serve ads based on your prior visits to our website or other websites.
+              </p>
+              <ul className="text-sm text-muted-foreground space-y-2">
+                <li>• <strong>Google AdSense:</strong> We may use Google AdSense to display advertisements. Google uses cookies to serve ads based on your interests.</li>
+                <li>• <strong>Opt-Out:</strong> You can opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-primary underline">Google Ads Settings</a></li>
+              </ul>
+              <p className="text-sm text-muted-foreground">
+                Third-party vendors, including Google, use cookies to serve ads based on your prior visits. You may opt out of personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-primary underline">www.aboutads.info</a>.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Data Retention</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                We retain your personal data only for as long as necessary:
+              </p>
+              <ul className="text-sm text-muted-foreground space-y-2">
+                <li>• <strong>Account Data:</strong> Retained until you delete your account</li>
+                <li>• <strong>Scan History:</strong> Retained for 2 years or until account deletion</li>
+                <li>• <strong>Analytics Data:</strong> Anonymized and retained for up to 26 months</li>
+                <li>• <strong>Support Inquiries:</strong> Retained for 3 years for quality assurance</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
               <CardTitle>Your Rights</CardTitle>
             </CardHeader>
             <CardContent>
