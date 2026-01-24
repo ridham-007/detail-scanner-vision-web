@@ -43,6 +43,15 @@ export async function generateMetadata(
   };
 }
 
-export default function Page() {
-  return <BlogPostPage />;
+export default async function Page({ params }: Props) {
+  const { slug } = await params;
+  const { data, error } = await supabase
+        .from('blog_posts')
+        .select(`
+          *,
+          author:profiles(id, full_name, username, avatar_url)
+        `)
+        .eq('slug', slug)
+        .single();
+  return <BlogPostPage data={data} error={error} />;
 }

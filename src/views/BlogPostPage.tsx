@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import React from 'react';
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -16,10 +14,10 @@ import { CalendarDays, Clock, ArrowLeft, Share2, ArrowRight, Scan, Brain, BookOp
 import SEOHead from '@/components/SEOHead';
 import { useToast } from '@/hooks/use-toast';
 
-const BlogPostPage = () => {
+const BlogPostPage = ({ data: post, error }) => {
   const params = useParams();
   const slug = params?.slug as string;
-  const { data: post, isLoading, error } = useBlogPost(slug);
+  // const { data: posts, isLoading, error } = useBlogPost(slug);
   const { toast } = useToast();
 
   // Fetch related posts
@@ -68,21 +66,21 @@ const BlogPostPage = () => {
     });
   };
 
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Skeleton className="h-8 w-24 mb-6" />
-        <Skeleton className="h-12 w-3/4 mb-4" />
-        <Skeleton className="h-6 w-1/2 mb-8" />
-        <Skeleton className="h-64 w-full mb-8" />
-        <div className="space-y-4">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-3/4" />
-        </div>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="container mx-auto px-4 py-8 max-w-4xl">
+  //       <Skeleton className="h-8 w-24 mb-6" />
+  //       <Skeleton className="h-12 w-3/4 mb-4" />
+  //       <Skeleton className="h-6 w-1/2 mb-8" />
+  //       <Skeleton className="h-64 w-full mb-8" />
+  //       <div className="space-y-4">
+  //         <Skeleton className="h-4 w-full" />
+  //         <Skeleton className="h-4 w-full" />
+  //         <Skeleton className="h-4 w-3/4" />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   if (error || !post) {
     return (
