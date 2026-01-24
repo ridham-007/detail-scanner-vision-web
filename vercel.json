@@ -1,10 +1,9 @@
 {
-  "trailingSlash": true,
   "redirects": [
     {
       "source": "/quizzes/:path*",
       "destination": "/quiz/:path*",
-      "statusCode": 301
+      "permanent": true
     }
   ],
   "rewrites": [
