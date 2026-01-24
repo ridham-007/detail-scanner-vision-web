@@ -236,64 +236,143 @@ const IndexPage: React.FC = () => {
 
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" aria-labelledby="hero-heading">
+          <section className="relative py-12 md:py-20 lg:py-28 overflow-hidden" aria-labelledby="hero-heading">
             <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto text-center">
-                {/* Main Heading */}
-                <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-                  Know What's Really in{" "}
-                  <span className="text-primary">Your Food</span>
-                </h1>
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
                 
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
-                  Scan any barcode to get instant health scores, ingredient analysis, 
-                  and personalized recommendations. <strong className="text-foreground">100% free</strong>.
-                </p>
+                {/* Left Column - Content */}
+                <div className="text-center lg:text-left">
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+                    <Sparkles className="h-4 w-4" />
+                    <span>Free Food Intelligence</span>
+                  </div>
 
-                {/* Single Primary CTA */}
-                <div className="flex justify-center mb-10">
-                  <Button
-                    size="lg"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
-                    onClick={scrollToScanner}
-                  >
-                    <Scan className="mr-3 h-5 w-5" />
-                    Start Scanning
-                  </Button>
+                  {/* Main Heading */}
+                  <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
+                    Know What's Really in{" "}
+                    <span className="text-primary">Your Food</span>
+                  </h1>
+                  
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+                    Scan any barcode to instantly decode ingredients, detect harmful additives, 
+                    and get science-backed health scores. Make informed choices for you and your family.
+                  </p>
+
+                  {/* CTA */}
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+                    <Button
+                      size="lg"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
+                      onClick={scrollToScanner}
+                    >
+                      <Scan className="mr-2 h-5 w-5" />
+                      Scan a Product
+                    </Button>
+                    <Link to="/categories">
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="px-8 py-6 text-lg rounded-xl border-2 w-full sm:w-auto"
+                      >
+                        Browse Products
+                      </Button>
+                    </Link>
+                  </div>
+
+                  {/* App Store Badges */}
+                  <div className="flex flex-col sm:flex-row items-center lg:items-start gap-3">
+                    <span className="text-sm text-muted-foreground">Get the app:</span>
+                    <div className="flex items-center gap-3">
+                      <a
+                        href="https://apps.apple.com/sg/app/eateriq/id6757137222"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Download on the App Store"
+                        className="transition-opacity hover:opacity-80"
+                      >
+                        <img
+                          src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
+                          alt="Download on the App Store"
+                          className="h-[36px]"
+                          loading="lazy"
+                        />
+                      </a>
+                      <a
+                        href="https://play.google.com/store/apps/details?id=com.eateriq"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Get it on Google Play"
+                        className="transition-opacity hover:opacity-80"
+                      >
+                        <img
+                          src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                          alt="Get it on Google Play"
+                          className="h-[54px] -my-[9px]"
+                          loading="lazy"
+                        />
+                      </a>
+                    </div>
+                  </div>
                 </div>
 
-                {/* App Store Badges */}
-                <div className="flex flex-col items-center gap-4">
-                  <p className="text-sm text-muted-foreground">Get the app</p>
-                  <div className="flex items-center gap-4">
-                    <a
-                      href="https://apps.apple.com/sg/app/eateriq/id6757137222"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Download on the App Store"
-                      className="transition-opacity hover:opacity-80"
-                    >
-                      <img
-                        src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
-                        alt="Download on the App Store"
-                        className="h-[44px]"
-                        loading="lazy"
-                      />
-                    </a>
-                    <a
-                      href="https://play.google.com/store/apps/details?id=com.eateriq"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Get it on Google Play"
-                      className="transition-opacity hover:opacity-80"
-                    >
-                      <img
-                        src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                        alt="Get it on Google Play"
-                        className="h-[66px] -my-[11px]"
-                        loading="lazy"
-                      />
-                    </a>
+                {/* Right Column - Feature Cards */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Stats Card */}
+                  <div className="col-span-2 bg-card border border-border rounded-2xl p-6 shadow-sm">
+                    <div className="flex items-center justify-around text-center">
+                      <div>
+                        <div className="text-3xl md:text-4xl font-bold text-foreground">
+                          {productCount ? formatNumber(productCount) : "23K+"}
+                        </div>
+                        <p className="text-sm text-muted-foreground mt-1">Products</p>
+                      </div>
+                      <div className="w-px h-12 bg-border" />
+                      <div>
+                        <div className="text-3xl md:text-4xl font-bold text-foreground">
+                          {userCount ? formatNumber(userCount) : "14K+"}
+                        </div>
+                        <p className="text-sm text-muted-foreground mt-1">Users</p>
+                      </div>
+                      <div className="w-px h-12 bg-border" />
+                      <div>
+                        <div className="text-3xl md:text-4xl font-bold text-primary">A+</div>
+                        <p className="text-sm text-muted-foreground mt-1">Accuracy</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Feature Cards */}
+                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:border-primary/30 transition-colors">
+                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center mb-3">
+                      <BarChart3 className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="font-semibold text-foreground mb-1">Health Score</h3>
+                    <p className="text-sm text-muted-foreground">Instant ratings based on nutrition science</p>
+                  </div>
+
+                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:border-primary/30 transition-colors">
+                    <div className="w-10 h-10 bg-destructive/10 rounded-xl flex items-center justify-center mb-3">
+                      <AlertTriangle className="h-5 w-5 text-destructive" />
+                    </div>
+                    <h3 className="font-semibold text-foreground mb-1">Additive Alerts</h3>
+                    <p className="text-sm text-muted-foreground">Spot harmful chemicals & preservatives</p>
+                  </div>
+
+                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:border-primary/30 transition-colors">
+                    <div className="w-10 h-10 bg-accent/50 rounded-xl flex items-center justify-center mb-3">
+                      <Shield className="h-5 w-5 text-accent-foreground" />
+                    </div>
+                    <h3 className="font-semibold text-foreground mb-1">Allergen Detection</h3>
+                    <p className="text-sm text-muted-foreground">Auto-detect gluten, dairy, nuts & more</p>
+                  </div>
+
+                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:border-primary/30 transition-colors">
+                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center mb-3">
+                      <TrendingUp className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="font-semibold text-foreground mb-1">Better Options</h3>
+                    <p className="text-sm text-muted-foreground">Discover healthier alternatives</p>
                   </div>
                 </div>
               </div>
