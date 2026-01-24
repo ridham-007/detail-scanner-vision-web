@@ -309,9 +309,9 @@ const IndexPage: React.FC = () => {
                 </div>
 
                 {/* Right Column - Phone Mockup with Food Background */}
-                <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-center relative overflow-hidden py-6 md:py-8">
+                <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-center relative py-8 md:py-10 px-4">
                   {/* Food Background Elements */}
-                  <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute inset-0 pointer-events-none overflow-hidden">
                     <div className="absolute top-6 left-6 text-4xl opacity-[0.08]">🥗</div>
                     <div className="absolute top-1/4 right-8 text-3xl opacity-[0.07]">🍎</div>
                     <div className="absolute bottom-1/3 left-10 text-3xl opacity-[0.07]">🥑</div>
@@ -320,117 +320,131 @@ const IndexPage: React.FC = () => {
                     <div className="absolute bottom-1/4 right-1/4 text-2xl opacity-[0.06]">🥦</div>
                   </div>
 
-                  <div className="relative z-10">
-                    {/* Modern Phone Frame - Slim bezel */}
-                    <div className="relative w-[280px] md:w-[320px]">
-                      {/* Phone frame - thin silver/gray bezel */}
-                      <div className="bg-muted-foreground/20 rounded-[2.5rem] p-[3px] shadow-2xl">
-                        <div className="bg-card rounded-[2.4rem] overflow-hidden border border-border">
-                          {/* Status Bar */}
-                          <div className="bg-card px-5 pt-3 pb-1 flex items-center justify-between">
-                            <span className="text-[11px] font-semibold text-foreground">9:41</span>
-                            <div className="absolute left-1/2 -translate-x-1/2 w-24 h-7 bg-foreground rounded-full" />
-                            <div className="flex items-center gap-1">
-                              <div className="flex gap-[2px] items-end">
-                                <div className="w-[3px] h-[6px] bg-foreground rounded-[1px]" />
-                                <div className="w-[3px] h-[8px] bg-foreground rounded-[1px]" />
-                                <div className="w-[3px] h-[10px] bg-foreground rounded-[1px]" />
-                                <div className="w-[3px] h-[12px] bg-foreground rounded-[1px]" />
-                              </div>
-                              <div className="w-6 h-3 border-2 border-foreground rounded-[3px] relative ml-1">
-                                <div className="absolute inset-[2px] right-1 bg-primary rounded-[1px]" />
-                                <div className="absolute -right-[3px] top-1/2 -translate-y-1/2 w-[2px] h-2 bg-foreground rounded-r-sm" />
+                  <div className="relative z-10 p-6">
+                    {/* Modern Phone Frame */}
+                    <div className="relative w-[300px] md:w-[340px]">
+                      {/* Phone outer shell - subtle bezel */}
+                      <div className="bg-foreground/10 rounded-[3rem] p-1 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
+                        <div className="bg-card rounded-[2.8rem] overflow-hidden shadow-inner">
+                          {/* Status Bar with Dynamic Island */}
+                          <div className="bg-background px-6 pt-4 pb-2 relative">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-semibold text-foreground">9:41</span>
+                              <div className="flex items-center gap-1.5">
+                                <div className="flex gap-[2px] items-end">
+                                  <div className="w-[3px] h-[5px] bg-foreground rounded-[1px]" />
+                                  <div className="w-[3px] h-[7px] bg-foreground rounded-[1px]" />
+                                  <div className="w-[3px] h-[9px] bg-foreground rounded-[1px]" />
+                                  <div className="w-[3px] h-[11px] bg-foreground rounded-[1px]" />
+                                </div>
+                                <div className="w-7 h-3.5 border-2 border-foreground rounded-[4px] relative ml-1">
+                                  <div className="absolute inset-[2px] right-1 bg-primary rounded-[2px]" />
+                                  <div className="absolute -right-[4px] top-1/2 -translate-y-1/2 w-[2px] h-2 bg-foreground rounded-r-sm" />
+                                </div>
                               </div>
                             </div>
+                            {/* Dynamic Island */}
+                            <div className="absolute left-1/2 -translate-x-1/2 top-2.5 w-28 h-8 bg-foreground rounded-full" />
                           </div>
                           
                           {/* App Content */}
-                          <div className="px-4 pt-4 pb-2 bg-background">
+                          <div className="px-5 pt-3 pb-4 bg-background min-h-[420px]">
                             {/* App Header */}
-                            <div className="flex items-center justify-between mb-4">
-                              <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-primary rounded-xl flex items-center justify-center">
-                                  <Scan className="w-4 h-4 text-primary-foreground" />
+                            <div className="flex items-center justify-between mb-5">
+                              <div className="flex items-center gap-2.5">
+                                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-sm">
+                                  <Scan className="w-5 h-5 text-primary-foreground" />
                                 </div>
-                                <span className="text-base font-bold text-foreground">EaterIQ</span>
+                                <span className="text-lg font-bold text-foreground">EaterIQ</span>
                               </div>
                               <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
-                                  <Search className="w-4 h-4 text-muted-foreground" />
+                                <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
+                                  <Search className="w-5 h-5 text-muted-foreground" />
                                 </div>
                               </div>
                             </div>
 
                             {/* Product Result Card */}
-                            <div className="bg-card border border-border rounded-2xl p-4 mb-3 shadow-sm">
+                            <div className="bg-muted/30 border border-border rounded-2xl p-4 mb-4">
                               {/* Product Header */}
-                              <div className="flex items-start gap-3 mb-4">
-                                <div className="w-16 h-16 bg-muted rounded-xl flex items-center justify-center">
-                                  <span className="text-3xl">🥣</span>
+                              <div className="flex items-start gap-4 mb-4">
+                                <div className="w-20 h-20 bg-card border border-border rounded-2xl flex items-center justify-center shadow-sm">
+                                  <span className="text-4xl">🥣</span>
                                 </div>
-                                <div className="flex-1">
-                                  <div className="text-sm font-bold text-foreground mb-1">Organic Granola</div>
-                                  <div className="text-xs text-muted-foreground mb-2">Nature Valley • 350g</div>
-                                  <div className="flex items-center gap-1">
-                                    <Leaf className="w-3 h-3 text-primary" />
-                                    <span className="text-[10px] text-primary font-medium">Organic Certified</span>
+                                <div className="flex-1 pt-1">
+                                  <div className="text-base font-bold text-foreground mb-1">Organic Granola</div>
+                                  <div className="text-sm text-muted-foreground mb-2">Nature Valley • 350g</div>
+                                  <div className="inline-flex items-center gap-1.5 bg-primary/10 px-2 py-1 rounded-full">
+                                    <Leaf className="w-3.5 h-3.5 text-primary" />
+                                    <span className="text-xs text-primary font-medium">Organic</span>
                                   </div>
                                 </div>
                               </div>
                               
                               {/* Health Score */}
-                              <div className="bg-primary/5 rounded-xl p-3 mb-3">
+                              <div className="bg-card border border-border rounded-xl p-4 mb-4 shadow-sm">
                                 <div className="flex items-center justify-between">
                                   <div>
-                                    <div className="text-xs text-muted-foreground mb-1">Health Score</div>
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-3xl font-bold text-primary">85</span>
-                                      <span className="text-xs text-muted-foreground">/100</span>
+                                    <div className="text-sm text-muted-foreground mb-1">Health Score</div>
+                                    <div className="flex items-baseline gap-1">
+                                      <span className="text-4xl font-bold text-primary">85</span>
+                                      <span className="text-sm text-muted-foreground">/100</span>
                                     </div>
+                                    <div className="text-xs text-primary font-medium mt-1">Good Choice ✓</div>
                                   </div>
-                                  <div className="w-14 h-14 rounded-full border-4 border-primary flex items-center justify-center bg-card">
-                                    <CheckCircle className="w-6 h-6 text-primary" />
+                                  <div className="w-16 h-16 rounded-full border-4 border-primary bg-primary/5 flex items-center justify-center">
+                                    <CheckCircle className="w-8 h-8 text-primary" />
                                   </div>
                                 </div>
                               </div>
                               
                               {/* Nutrition Tags */}
                               <div className="flex flex-wrap gap-2">
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">Low Sugar</span>
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">High Fiber</span>
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">No Additives</span>
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full">Low Sugar</span>
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full">High Fiber</span>
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full">No Additives</span>
                               </div>
                             </div>
 
                             {/* Action Button */}
-                            <div className="bg-primary rounded-xl py-3 text-center">
-                              <span className="text-sm font-semibold text-primary-foreground">View Full Analysis</span>
+                            <div className="bg-primary rounded-2xl py-4 text-center shadow-sm">
+                              <span className="text-base font-semibold text-primary-foreground">View Full Analysis</span>
                             </div>
                           </div>
                           
                           {/* Home Indicator */}
-                          <div className="flex justify-center py-2 bg-background">
-                            <div className="w-28 h-1 bg-foreground/20 rounded-full" />
+                          <div className="flex justify-center py-3 bg-background">
+                            <div className="w-32 h-1.5 bg-foreground/20 rounded-full" />
                           </div>
                         </div>
                       </div>
                     </div>
                     
                     {/* Floating Stats Badges */}
-                    <div className="absolute -bottom-4 -left-4 bg-card rounded-xl px-4 py-2.5 shadow-lg border border-border">
-                      <div className="flex items-center gap-2">
-                        <BarChart3 className="h-5 w-5 text-primary" />
-                        <span className="text-sm font-semibold text-foreground">
-                          {productCount ? formatNumber(productCount) : "23K+"} Products
-                        </span>
+                    <div className="absolute bottom-2 -left-2 bg-card rounded-2xl px-4 py-3 shadow-xl border border-border/50">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <BarChart3 className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <span className="text-sm font-bold text-foreground block">
+                            {productCount ? formatNumber(productCount) : "23K+"}
+                          </span>
+                          <span className="text-xs text-muted-foreground">Products</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="absolute -top-4 -right-4 bg-card rounded-xl px-4 py-2.5 shadow-lg border border-border">
-                      <div className="flex items-center gap-2">
-                        <Award className="h-5 w-5 text-primary" />
-                        <span className="text-sm font-semibold text-foreground">
-                          {userCount ? formatNumber(userCount) : "14K+"} Users
-                        </span>
+                    <div className="absolute top-2 -right-2 bg-card rounded-2xl px-4 py-3 shadow-xl border border-border/50">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <Award className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <span className="text-sm font-bold text-foreground block">
+                            {userCount ? formatNumber(userCount) : "14K+"}
+                          </span>
+                          <span className="text-xs text-muted-foreground">Users</span>
+                        </div>
                       </div>
                     </div>
                   </div>
