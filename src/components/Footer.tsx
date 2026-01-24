@@ -1,4 +1,4 @@
-import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText, Users } from "lucide-react";
+import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -11,7 +11,6 @@ const Footer = () => {
   ];
 
   const supportLinks = [
-    { to: "/about", label: "About Us", icon: Users },
     { to: "/support", label: "Help Center", icon: HelpCircle },
     { to: "/contributions", label: "Contribute Data", icon: BookOpen },
     { to: "/blog", label: "Health Blog", icon: FileText },
@@ -28,9 +27,9 @@ const Footer = () => {
       aria-label="Site footer"
       itemScope 
       itemType="https://schema.org/WPFooter"
-      className="border-t border-border bg-card/50 backdrop-blur-sm"
+      className="border-t border-border bg-card/50 backdrop-blur-sm mt-8"
     >
-      <div className="container mx-auto px-4 py-10 md:py-12">
+      <div className="container mx-auto px-4 py-10 md:py-12 ">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           
           {/* Brand Section */}

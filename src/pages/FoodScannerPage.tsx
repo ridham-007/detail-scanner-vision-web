@@ -160,7 +160,7 @@ const FoodScannerPage: React.FC = () => {
         keywords="food scanner, barcode scanner, nutrition analysis, health score, food insights"
         canonicalUrl="https://www.eateriq.com/scanner/"
       />
-      <div className="space-y-8">
+      <div className="space-y-8 pt-4 container">
         {/* Upgrade Banner for Free Users */}
       {!isUnlimited && (
         <UpgradeBanner 
@@ -267,7 +267,7 @@ const FoodScannerPage: React.FC = () => {
       </div>
 
       {/* Product Details Section */}
-      <div ref={productDetailsRef}>
+      <div ref={productDetailsRef} className="mb-[50px]">
         <ProductDetails 
           product={currentProduct} 
           isLoading={isLoading} 
@@ -275,6 +275,8 @@ const FoodScannerPage: React.FC = () => {
           scannedBarcode={lastScannedBarcode}
         />
       </div>
+
+      <div className="h-[10px]" />
     </div>
     </>
   );
