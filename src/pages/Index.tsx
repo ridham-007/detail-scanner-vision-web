@@ -236,66 +236,47 @@ const IndexPage: React.FC = () => {
 
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="relative py-12 md:py-20 lg:py-24 overflow-hidden" aria-labelledby="hero-heading">
+          <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden" aria-labelledby="hero-heading">
             <div className="container mx-auto px-4">
-              <div className="max-w-5xl mx-auto text-center">
-                {/* Trust Badge */}
-                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-                  <Sparkles className="h-4 w-4" />
-                  <span>Trusted by {userCount ? formatNumber(userCount) : "14K+"} users</span>
-                  <span className="mx-2">•</span>
-                  <span>{productCount ? formatNumber(productCount) : "23K+"} products analyzed</span>
-                </div>
-
+              <div className="max-w-4xl mx-auto text-center">
                 {/* Main Heading */}
                 <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
                   Know What's Really in{" "}
                   <span className="text-primary">Your Food</span>
                 </h1>
                 
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
-                  Scan any barcode and instantly get health scores, ingredient analysis, 
-                  additive warnings, and personalized recommendations. <strong>100% free</strong>, no sign-up required.
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
+                  Scan any barcode to get instant health scores, ingredient analysis, 
+                  and personalized recommendations. <strong className="text-foreground">100% free</strong>.
                 </p>
 
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                {/* Single Primary CTA */}
+                <div className="flex justify-center mb-10">
                   <Button
                     size="lg"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
                     onClick={scrollToScanner}
                   >
                     <Scan className="mr-3 h-5 w-5" />
-                    Scan a Product Now
+                    Start Scanning
                   </Button>
-                  
-                  <Link to="/blog/">
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="px-8 py-6 text-lg rounded-xl border-2"
-                    >
-                      <BookOpen className="mr-2 h-5 w-5" />
-                      Learn About Nutrition
-                    </Button>
-                  </Link>
                 </div>
 
                 {/* App Store Badges */}
-                <div className="flex flex-col items-center gap-3 mb-12">
-                  <p className="text-sm text-muted-foreground">Also available on mobile</p>
-                  <div className="flex flex-wrap justify-center items-center gap-3">
+                <div className="flex flex-col items-center gap-4">
+                  <p className="text-sm text-muted-foreground">Get the app</p>
+                  <div className="flex items-center gap-4">
                     <a
                       href="https://apps.apple.com/sg/app/eateriq/id6757137222"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Download on the App Store"
-                      className="transition-transform hover:scale-105"
+                      className="transition-opacity hover:opacity-80"
                     >
                       <img
                         src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
                         alt="Download on the App Store"
-                        className="h-[40px]"
+                        className="h-[44px]"
                         loading="lazy"
                       />
                     </a>
@@ -304,29 +285,16 @@ const IndexPage: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Get it on Google Play"
-                      className="transition-transform hover:scale-105"
+                      className="transition-opacity hover:opacity-80"
                     >
                       <img
                         src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                         alt="Get it on Google Play"
-                        className="h-[60px] -my-[10px]"
+                        className="h-[66px] -my-[11px]"
                         loading="lazy"
                       />
                     </a>
                   </div>
-                </div>
-
-                {/* Feature Pills */}
-                <div className="flex flex-wrap justify-center gap-3">
-                  {features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2 text-sm"
-                    >
-                      <feature.icon className="h-4 w-4 text-primary" />
-                      <span className="text-foreground font-medium">{feature.title}</span>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
