@@ -62,24 +62,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: post.canonical_url || canonicalUrl,
     },
-    // openGraph: {
-    //   type: 'article',
-    //   title: post.og_title || post.title,
-    //   description: post.og_description || post.excerpt || undefined,
-    //   url: canonicalUrl,
-    //   images: [
-    //     {
-    //       url: post.og_image || post.featured_image_url || '/og-image.png',
-    //       width: 1200,
-    //       height: 630,
-    //       alt: post.title,
-    //     },
-    //   ],
-    //   publishedTime: post.published_at,
-    //   modifiedTime: post.updated_at,
-    //   authors: [post.author?.full_name || post.author?.username || 'EaterIQ Team'],
-    //   section: 'Food & Nutrition',
-    // },
+    openGraph: {
+      type: 'article',
+      title: post.og_title || post.title,
+      description: post.og_description || post.excerpt || undefined,
+      url: canonicalUrl,
+      images: [
+        {
+          url: post.og_image || post.featured_image_url || '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      publishedTime: post.published_at || undefined,
+      modifiedTime: post.updated_at,
+      authors: [post.author?.full_name || post.author?.username || 'EaterIQ Team'],
+      section: 'Food & Nutrition',
+    },
     twitter: {
       card: 'summary_large_image',
       title: post.twitter_title || post.title,
