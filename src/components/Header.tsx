@@ -50,7 +50,7 @@ const Header = () => {
 
   const navigationItems = [
     { path: "/", label: "Scanner" },
-    { path: "/quiz", label: "Food IQ Tests" },
+    { path: "/quiz", label: "Quiz" },
     { path: "/blog", label: "Blogs" },
     { path: "/pricing", label: "Pricing" },
   ];
