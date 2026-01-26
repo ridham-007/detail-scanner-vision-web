@@ -88,7 +88,7 @@ const CreateQuizModal: React.FC<CreateQuizModalProps> = ({
           </div>
 
           <div>
-            <Label htmlFor="prompt">Quiz Topic/Prompt for AI</Label>
+            <Label htmlFor="prompt">Quiz Topic</Label>
             <Textarea
               id="prompt"
               value={formData.prompt}
