@@ -459,18 +459,6 @@ export default async function BlogPostPage({ params }: Props) {
                   </Link>
                 </CardContent>
               </Card>
-
-              {/* Disclaimer Card */}
-              <Card className="bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800">
-                <CardContent className="pt-4 pb-4">
-                  <div className="flex items-start gap-2">
-                    <AlertTriangle className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
-                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                      Content is for informational purposes only. Consult a healthcare professional for medical advice.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </aside>
         </div>
