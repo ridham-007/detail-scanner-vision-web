@@ -1,10 +1,6 @@
 "use client";
-
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import ThemeToggle from "./ThemeToggle";
 import AuthButton from "./AuthButton";
@@ -18,35 +14,8 @@ import {
 import { Shield, FileText, Package, Bell } from "lucide-react";
 
 const Header = () => {
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
   const pathname = usePathname();
-  const { user } = useAuth();
   const { data: isAdmin } = useIsAdmin();
-
-  useEffect(() => {
-    const tl = gsap.timeline();
-
-    tl.from(
-        titleRef.current,
-        {
-          x: -50,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power2.out",
-        }
-      )
-      .from(
-        subtitleRef.current,
-        {
-          y: 20,
-          opacity: 0,
-          duration: 0.4,
-          ease: "power2.out",
-        },
-        "-=0.2"
-      );
-  }, []);
 
   const navigationItems = [
     { path: "/", label: "Scanner" },
@@ -70,13 +39,13 @@ const Header = () => {
             </Link>
             <Link href={'/'} className="cursor-pointer group" aria-label="EaterIQ - Smart Food Intelligence">
               <h2
-                ref={titleRef}
+                // ref={titleRef}
                 className="text-2xl md:text-3xl font-bold text-primary group-hover:text-primary/80 transition-all duration-300"
               >
                 EaterIQ
               </h2>
               <p
-                ref={subtitleRef}
+                // ref={subtitleRef}
                 className="text-xs md:text-sm text-muted-foreground/80 group-hover:text-muted-foreground transition-colors duration-300"
               >
                 Smart Food Intelligence & Brain Bites
