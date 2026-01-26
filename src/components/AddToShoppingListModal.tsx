@@ -12,6 +12,13 @@ import { Plus, ShoppingCart, Package } from 'lucide-react';
 import { useShoppingLists } from '@/hooks/useShoppingLists';
 import { useAuth } from '@/contexts/AuthContext';
 
+interface ShoppingList {
+  id: string;
+  name: string;
+  shopping_list_items?: Array<{ id: string }>;
+  is_completed?: boolean;
+}
+
 interface AddToShoppingListModalProps {
   barcode?: string;
   productName: string;
@@ -143,7 +150,7 @@ export const AddToShoppingListModal: React.FC<AddToShoppingListModalProps> = ({
                   <SelectValue placeholder="Select a shopping list" />
                 </SelectTrigger>
                 <SelectContent>
-                  {shoppingLists.map((list:any) => (
+                  {shoppingLists.map((list: ShoppingList) => (
                     <SelectItem key={list.id} value={list.id}>
                       <div className="flex items-center justify-between w-full">
                         <span>{list.name}</span>

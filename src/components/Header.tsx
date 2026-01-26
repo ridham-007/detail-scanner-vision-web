@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { useLocation, Link } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import ThemeToggle from "./ThemeToggle";
@@ -17,7 +20,7 @@ import { Shield, FileText, Package, Bell } from "lucide-react";
 const Header = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const location = useLocation();
+  const pathname = usePathname();
   const { user } = useAuth();
   const { data: isAdmin } = useIsAdmin();
 
@@ -47,7 +50,7 @@ const Header = () => {
 
   const navigationItems = [
     { path: "/", label: "Scanner" },
-    { path: "/quiz", label: "Food IQ Tests" },
+    { path: "/quiz", label: "Quiz" },
     { path: "/blog", label: "Blogs" },
     { path: "/pricing", label: "Pricing" },
   ];
@@ -60,12 +63,12 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Link to="/" aria-label="EaterIQ Home">
+            <Link href="/" aria-label="EaterIQ Home">
               <div className="h-20 w-20 rounded-2xl flex items-center justify-center transition-all duration-300">
                 <span className="text-4xl filter" role="img" aria-label="Avocado logo">🥑</span>
               </div>
             </Link>
-            <Link to={'/'} className="cursor-pointer group" aria-label="EaterIQ - Smart Food Intelligence">
+            <Link href={'/'} className="cursor-pointer group" aria-label="EaterIQ - Smart Food Intelligence">
               <h2
                 ref={titleRef}
                 className="text-2xl md:text-3xl font-bold text-primary group-hover:text-primary/80 transition-all duration-300"
@@ -86,19 +89,19 @@ const Header = () => {
             <nav className="hidden md:flex items-center gap-6" role="navigation" aria-label="Main navigation">
               {navigationItems.map((item) => (
                 <Link
-                  to={item.path}
+                  href={item.path}
                   aria-label={item.label}
-                  aria-current={location.pathname === item.path ? "page" : undefined}
+                  aria-current={pathname === item.path ? "page" : undefined}
                   key={item.path}
                   className={`font-medium transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
-                    location.pathname === item.path
+                    pathname === item.path
                       ? "text-primary font-bold"
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
                   {item.label}
                   <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                    location.pathname === item.path 
+                    pathname === item.path 
                       ? "w-full" 
                       : "w-0 group-hover:w-full"
                   }`}></span>
@@ -114,19 +117,19 @@ const Header = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild>
-                      <Link to="/admin/blogs" className="flex items-center gap-2 cursor-pointer">
+                      <Link href="/admin/blogs" className="flex items-center gap-2 cursor-pointer">
                         <FileText className="h-4 w-4" />
                         Blog Management
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link to="/admin/submissions" className="flex items-center gap-2 cursor-pointer">
+                      <Link href="/admin/submissions" className="flex items-center gap-2 cursor-pointer">
                         <Package className="h-4 w-4" />
                         Product Submissions
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link to="/admin/notifications" className="flex items-center gap-2 cursor-pointer">
+                      <Link href="/admin/notifications" className="flex items-center gap-2 cursor-pointer">
                         <Bell className="h-4 w-4" />
                         Notifications
                       </Link>

@@ -7,7 +7,8 @@ import { Play, Calendar, Trophy, EyeOff, Eye, Edit, User, Shield } from 'lucide-
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import QuizLeaderboardModal from './QuizLeaderboardModal';
@@ -16,12 +17,12 @@ import EditQuizModal from './EditQuizModal';
 interface Quiz {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   difficulty: 'easy' | 'medium' | 'hard';
-  created_at: string;
+  created_at: string | null;
   creator_id: string;
-  is_published?: boolean;
-  slug: string;
+  is_published?: boolean | null;
+  slug: string | null;
 }
 
 interface QuizCardProps {
@@ -33,7 +34,7 @@ interface QuizCardProps {
 const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   const { user } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -70,7 +71,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
 
   const handleCreatorClick = () => {
     if (creator && creator.username) {
-      navigate(`/profile/${creator.username}`);
+      router.push(`/profile/${creator.username}`);
     }
   };
 
@@ -188,7 +189,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               
               {/* Creator Info */}
               <Link
-              to={creator && creator.username ? `/profile/${creator.username}` : ''} 
+              href={creator && creator.username ? `/profile/${creator.username}` : ''} 
                 className={`flex items-center gap-2 transition-opacity ${creator && creator.username ? 'cursor-pointer hover:opacity-80' : 'cursor-default'}`}
               >
                 <Avatar className="h-6 w-6">
@@ -210,13 +211,13 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
           </p>
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3 sm:mb-4">
             <Calendar className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
-            <span className="truncate">{new Date(quiz.created_at).toLocaleDateString()}</span>
+            <span className="truncate">{new Date(quiz.created_at || Date.now()).toLocaleDateString()}</span>
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex gap-2">
               <Button 
                 aria-label="Play Quiz"
-                onClick={() => onPlay(quiz.slug)} 
+                onClick={() => onPlay(quiz.slug!)} 
                 className="flex-1 text-sm h-9"
               >
                 <Play className="h-4 w-4 mr-2" />

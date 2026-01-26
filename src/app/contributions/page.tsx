@@ -1,0 +1,12 @@
+import React from 'react';
+import ContributionsPage from '@/views/ContributionsPage';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'My Contributions | EaterIQ',
+  description: 'View your contributions.',
+};
+
+export default function Page() {
+  return <ContributionsPage />;
+}

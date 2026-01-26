@@ -53,9 +53,35 @@ export const TIER_LIMITS = {
   },
 } as const;
 
+interface RazorpayCheckoutOptions {
+  key: string;
+  subscription_id: string;
+  name: string;
+  description: string;
+  prefill: {
+    email: string;
+    name: string;
+  };
+  theme: {
+    color: string;
+  };
+  handler: (response: unknown) => void;
+  modal: {
+    ondismiss: () => void;
+  };
+}
+
+interface RazorpayInstance {
+  open: () => void;
+}
+
+interface RazorpayConstructor {
+  new (options: RazorpayCheckoutOptions): RazorpayInstance;
+}
+
 declare global {
   interface Window {
-    Razorpay: any;
+    Razorpay: RazorpayConstructor;
   }
 }
 
@@ -157,7 +183,7 @@ export const useSubscription = () => {
         theme: {
           color: '#22c55e',
         },
-        handler: async (response: any) => {
+        handler: async (response: unknown) => {
           try {
             // For subscriptions, Razorpay automatically handles recurring payments
             // The webhook will update the subscription status

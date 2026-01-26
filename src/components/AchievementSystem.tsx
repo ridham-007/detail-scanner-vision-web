@@ -26,7 +26,7 @@ interface UserStats {
   lowSodiumProducts: number;
 }
 
-const AchievementSystem: React.FC<{ productData?: any }> = ({ productData }) => {
+const AchievementSystem: React.FC<{ productData?: unknown }> = ({ productData }) => {
   const [userStats, setUserStats] = useState<UserStats>({
     totalScans: 0,
     healthyScans: 0,
@@ -146,7 +146,6 @@ const AchievementSystem: React.FC<{ productData?: any }> = ({ productData }) => 
 
     const today = new Date();
     let streakCount = 0;
-    let currentDate = new Date(today);
     
     const scansByDay = new Set();
     dates.forEach(dateStr => {
@@ -155,11 +154,14 @@ const AchievementSystem: React.FC<{ productData?: any }> = ({ productData }) => 
       scansByDay.add(dayKey);
     });
 
+    let daysBack = 0;
     while (true) {
+      const currentDate = new Date(today);
+      currentDate.setDate(currentDate.getDate() - daysBack);
       const dayKey = currentDate.toDateString();
       if (scansByDay.has(dayKey)) {
         streakCount++;
-        currentDate.setDate(currentDate.getDate() - 1);
+        daysBack++;
       } else {
         break;
       }

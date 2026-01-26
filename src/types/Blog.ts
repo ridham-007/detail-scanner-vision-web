@@ -27,7 +27,7 @@ export interface BlogPost {
   // Additional SEO fields
   reading_time?: number;
   word_count?: number;
-  schema_markup?: any;
+  schema_markup?: Record<string, unknown>;
   
   // Relations
   author?: {

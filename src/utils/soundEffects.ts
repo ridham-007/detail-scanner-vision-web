@@ -1,26 +1,34 @@
-
+"use client";
 // Sound effects utility using Web Audio API
 class SoundEffects {
   private audioContext: AudioContext | null = null;
 
   constructor() {
-    // Initialize AudioContext when first used
-    this.initializeAudioContext();
+    // Don't initialize here - wait until first use on client
   }
 
   private initializeAudioContext() {
+    // Only run on client
+    if (typeof window === 'undefined') return;
+
     try {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      this.audioContext = new (
+        window.AudioContext ||
+        (window as Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+      )();
     } catch (error) {
       console.warn('Web Audio API not supported:', error);
     }
   }
 
   private async ensureAudioContext() {
+    // Only initialize on client when actually needed
+    if (typeof window === 'undefined') return;
+
     if (!this.audioContext) {
       this.initializeAudioContext();
     }
-    
+
     if (this.audioContext?.state === 'suspended') {
       await this.audioContext.resume();
     }
@@ -57,28 +65,30 @@ class SoundEffects {
 
     // Create a more dramatic wrong answer sound with multiple tones
     const frequencies = [300, 250, 200, 150]; // Descending sequence
-    
+
     frequencies.forEach((freq, index) => {
       setTimeout(() => {
-        const oscillator = this.audioContext!.createOscillator();
-        const gainNode = this.audioContext!.createGain();
+        if (!this.audioContext) return;
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
 
         oscillator.connect(gainNode);
-        gainNode.connect(this.audioContext!.destination);
+        gainNode.connect(this.audioContext.destination);
 
         // Each tone gets progressively lower and more distorted
-        oscillator.frequency.setValueAtTime(freq, this.audioContext!.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(freq * 0.7, this.audioContext!.currentTime + 0.15);
-        
+        oscillator.frequency.setValueAtTime(freq, this.audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(freq * 0.7, this.audioContext.currentTime + 0.15);
+
         // Use square wave for more harsh, buzzer-like sound
         oscillator.type = 'square';
-        
-        // Volume decreases with each tone but still audible
-        gainNode.gain.setValueAtTime(0.25 - (index * 0.05), this.audioContext!.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext!.currentTime + 0.15);
 
-        oscillator.start(this.audioContext!.currentTime);
-        oscillator.stop(this.audioContext!.currentTime + 0.15);
+        // Volume decreases with each tone but still audible
+        gainNode.gain.setValueAtTime(0.25 - (index * 0.05), this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.15);
+
+        oscillator.start(this.audioContext.currentTime);
+        oscillator.stop(this.audioContext.currentTime + 0.15);
       }, index * 80); // Stagger each tone by 80ms for dramatic effect
     });
   }
@@ -153,7 +163,7 @@ class SoundEffects {
 
     // Create a simple fanfare with multiple tones
     const frequencies = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-    
+
     frequencies.forEach((freq, index) => {
       setTimeout(() => {
         this.playNote(freq, 0.2, 'sine');
@@ -180,5 +190,5 @@ class SoundEffects {
   }
 }
 
-// Create a singleton instance
+// Create a singleton instance - safe now because constructor doesn't access window
 export const soundEffects = new SoundEffects();

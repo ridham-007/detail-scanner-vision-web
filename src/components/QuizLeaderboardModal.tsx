@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trophy, Medal, Award, Clock, Target } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
+} from "@/components/ui/dialog";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Trophy, Medal, Award, Clock, Target } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface QuizAttempt {
   id: string;
   score: number;
   total_questions: number;
-  time_taken: number;
-  completed_at: string;
-          profiles: {
-            username: string;
-            avatar_url: string;
-          } | null;
+  time_taken: number | null;
+  completed_at: string | null;
+  profiles: {
+    username: string;
+    avatar_url: string;
+  } | null;
 }
 
 interface QuizLeaderboardModalProps {
@@ -33,7 +33,7 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
   open,
   onOpenChange,
   quizId,
-  quizTitle
+  quizTitle,
 }) => {
   const [leaderboard, setLeaderboard] = useState<QuizAttempt[]>([]);
   const [loading, setLoading] = useState(false);
@@ -50,9 +50,9 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
     try {
       // Get all quiz attempts for this quiz
       const { data: attempts, error: attemptsError } = await supabase
-        .from('quiz_attempts')
-        .select('id, score, total_questions, time_taken, completed_at, user_id')
-        .eq('quiz_id', quizId);
+        .from("quiz_attempts")
+        .select("id, score, total_questions, time_taken, completed_at, user_id")
+        .eq("quiz_id", quizId);
 
       if (attemptsError) throw attemptsError;
 
@@ -63,21 +63,26 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
 
       // Group attempts by user_id and find the best attempt for each user
       const userBestAttempts = new Map();
-      
-      attempts.forEach(attempt => {
+
+      attempts.forEach((attempt) => {
         const userId = attempt.user_id;
         const existing = userBestAttempts.get(userId);
-        
+
         if (!existing) {
           userBestAttempts.set(userId, attempt);
         } else {
           // Compare attempts to find the best one
-          const isBetter = 
-            attempt.score > existing.score || 
-            (attempt.score === existing.score && attempt.time_taken < existing.time_taken) ||
-            (attempt.score === existing.score && attempt.time_taken === existing.time_taken && 
-             new Date(attempt.completed_at) > new Date(existing.completed_at));
-          
+          const isBetter =
+            attempt.score > existing.score ||
+            (attempt.score === existing.score &&
+              (attempt.time_taken ?? Infinity) <
+                (existing.time_taken ?? Infinity)) ||
+            (attempt.score === existing.score &&
+              (attempt.time_taken ?? Infinity) ===
+                (existing.time_taken ?? Infinity) &&
+              new Date(attempt.completed_at ?? 0) >
+                new Date(existing.completed_at ?? 0));
+
           if (isBetter) {
             userBestAttempts.set(userId, attempt);
           }
@@ -90,7 +95,7 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
           if (a.score !== b.score) {
             return b.score - a.score; // Higher score first
           }
-          return a.time_taken - b.time_taken; // Lower time first
+          return (a.time_taken ?? Infinity) - (b.time_taken ?? Infinity); // Lower time first
         })
         .slice(0, 10); // Top 10
 
@@ -100,39 +105,41 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
       }
 
       // Get unique user IDs
-      const userIds = bestAttempts.map(attempt => attempt.user_id);
+      const userIds = bestAttempts.map((attempt) => attempt.user_id);
 
       // Fetch profiles for these users (only public data)
       const { data: profiles, error: profilesError } = await supabase
-        .from('profiles')
-        .select('id, username, avatar_url')
-        .in('id', userIds);
+        .from("profiles")
+        .select("id, username, avatar_url")
+        .in("id", userIds);
 
       if (profilesError) throw profilesError;
 
       // Combine the data
-      const leaderboardData = bestAttempts.map(attempt => {
-        const profile = profiles?.find(p => p.id === attempt.user_id);
+      const leaderboardData = bestAttempts.map((attempt) => {
+        const profile = profiles?.find((p) => p.id === attempt.user_id);
         return {
           id: attempt.id,
           score: attempt.score,
           total_questions: attempt.total_questions,
           time_taken: attempt.time_taken,
           completed_at: attempt.completed_at,
-          profiles: profile ? {
-            username: profile.username || 'Anonymous Player',
-            avatar_url: profile.avatar_url || ''
-          } : null
+          profiles: profile
+            ? {
+                username: profile.username || "Anonymous Player",
+                avatar_url: profile.avatar_url || "",
+              }
+            : null,
         };
       });
 
       setLeaderboard(leaderboardData);
     } catch (error) {
-      console.error('Error fetching quiz leaderboard:', error);
+      console.error("Error fetching quiz leaderboard:", error);
       toast({
         title: "Error",
         description: "Failed to load leaderboard",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -157,10 +164,10 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
   };
 
   const formatTime = (seconds: number | null) => {
-    if (!seconds) return 'N/A';
+    if (!seconds) return "N/A";
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
   const getScorePercentage = (score: number, totalQuestions: number) => {
@@ -185,44 +192,62 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
           ) : leaderboard.length > 0 ? (
             <div className="space-y-3">
               {leaderboard.map((attempt, index) => (
-                <Card key={attempt.id} className={`${
-                  index === 0 ? 'border-yellow-200 bg-yellow-50 dark:bg-yellow-950/20' :
-                  index === 1 ? 'border-gray-200 bg-gray-50 dark:bg-gray-950/20' :
-                  index === 2 ? 'border-amber-200 bg-amber-50 dark:bg-amber-950/20' :
-                  'border-muted'
-                }`}>
+                <Card
+                  key={attempt.id}
+                  className={`${
+                    index === 0
+                      ? "border-yellow-200 bg-yellow-50 dark:bg-yellow-950/20"
+                      : index === 1
+                        ? "border-gray-200 bg-gray-50 dark:bg-gray-950/20"
+                        : index === 2
+                          ? "border-amber-200 bg-amber-50 dark:bg-amber-950/20"
+                          : "border-muted"
+                  }`}
+                >
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         {getRankIcon(index)}
                         <div>
                           <p className="font-semibold">
-                            {attempt.profiles?.username || 'Anonymous Player'}
+                            {attempt.profiles?.username || "Anonymous Player"}
                           </p>
                           <p className="text-sm text-muted-foreground">
-                            Best attempt: {new Date(attempt.completed_at).toLocaleDateString()}
+                            Best attempt:{" "}
+                            {attempt.completed_at
+                              ? new Date(
+                                  attempt.completed_at,
+                                ).toLocaleDateString()
+                              : "N/A"}
                           </p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-4 text-sm">
                         <div className="text-center">
                           <div className="font-bold text-emerald-600 text-lg">
-                            {getScorePercentage(attempt.score, attempt.total_questions)}%
+                            {getScorePercentage(
+                              attempt.score,
+                              attempt.total_questions,
+                            )}
+                            %
                           </div>
                           <div className="text-muted-foreground">
                             {attempt.score}/{attempt.total_questions * 10} pts
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-1 text-muted-foreground">
                           <Clock className="h-4 w-4" />
                           <span>{formatTime(attempt.time_taken)}</span>
                         </div>
-                        
+
                         <div className="flex items-center gap-1 text-muted-foreground">
                           <Target className="h-4 w-4" />
-                          <span>{Math.floor(attempt.score / 10)}/{attempt.total_questions}</span>
+                          <span>
+                            {Math.floor(attempt.score / 10)}/
+                            {attempt.total_questions}
+                          </span>
                         </div>
                       </div>
                     </div>

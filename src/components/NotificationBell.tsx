@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Bell, Check, CheckCheck, Trash2, X, Trophy, AlertTriangle, Calendar, Lightbulb, Brain, Clock } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications, NotificationType } from '@/hooks/useNotifications';
 import { Button } from '@/components/ui/button';
@@ -33,7 +33,7 @@ const getNotificationIcon = (type: NotificationType) => {
 
 const NotificationBell: React.FC = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const {
     notifications,
@@ -51,7 +51,7 @@ const NotificationBell: React.FC = () => {
     markAsRead(notification.id);
     if (notification.action_url) {
       setOpen(false);
-      navigate(notification.action_url);
+      router.push(notification.action_url);
     }
   };
 

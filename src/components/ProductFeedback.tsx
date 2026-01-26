@@ -50,7 +50,7 @@ const ProductFeedback: React.FC<ProductFeedbackProps> = ({ barcode }) => {
       const helpful = allFeedback?.filter(f => f.feedback_type === 'helpful').length || 0;
       const not_helpful = allFeedback?.filter(f => f.feedback_type === 'not_helpful').length || 0;
 
-      let userFeedback = null;
+      let userFeedback: 'helpful' | 'not_helpful' | null = null;
       
       // Get user's feedback if logged in
       if (user) {
