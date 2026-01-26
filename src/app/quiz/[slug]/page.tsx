@@ -173,39 +173,6 @@ export default async function QuizPlayPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      {/* Server-rendered SEO content (hidden visually but crawlable) */}
-      <section className="sr-only">
-        <h1>{quiz.title} - Nutrition Quiz</h1>
-        <p>
-          {quiz.description || `Test your knowledge with this ${quiz.difficulty} difficulty nutrition quiz on EaterIQ.`}
-        </p>
-        <h2>Quiz Details</h2>
-        <ul>
-          <li>Difficulty: {quiz.difficulty}</li>
-          <li>Number of Questions: {questions.length}</li>
-          <li>Time per Question: 30 seconds</li>
-          <li>Total Time: Approximately {Math.ceil(questions.length * 0.5)} minutes</li>
-        </ul>
-        <h2>Features</h2>
-        <ul>
-          <li>Timed questions with 30 seconds per question</li>
-          <li>Power-ups: 50/50, Skip Question, Extra Time</li>
-          <li>Score tracking and leaderboard</li>
-          <li>Achievement badges for streaks and speed</li>
-          <li>Share your results with friends</li>
-        </ul>
-        <h2>Sample Questions</h2>
-        <ol>
-          {questions.slice(0, 3).map((q, index) => (
-            <li key={q.id}>Question {index + 1}: {q.question_text}</li>
-          ))}
-        </ol>
-        <p>
-          <a href="/quiz/">Browse more nutrition quizzes</a> or 
-          <a href="/scanner/">try our food scanner</a> to learn more about nutrition.
-        </p>
-      </section>
-
       {/* Client Component for Interactive Quiz */}
       <QuizPlayClient 
         initialQuiz={quiz} 

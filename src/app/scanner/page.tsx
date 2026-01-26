@@ -135,32 +135,6 @@ export default function FoodScannerPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Server-rendered SEO content (hidden visually but crawlable) */}
-      <section className="sr-only">
-        <h1>Food Scanner - Analyze Any Product Instantly</h1>
-        <p>
-          EaterIQ's free food scanner helps you make healthier food choices. 
-          Scan any barcode to get instant nutrition insights, health scores, 
-          ingredient analysis, and personalized recommendations.
-        </p>
-        <h2>Features</h2>
-        <ul>
-          <li>Instant barcode scanning with your camera</li>
-          <li>Comprehensive health score calculation</li>
-          <li>Detailed ingredient breakdown and analysis</li>
-          <li>Additive and allergen warnings</li>
-          <li>Personalized dietary recommendations</li>
-          <li>Access to 1M+ products database</li>
-        </ul>
-        <h2>How It Works</h2>
-        <ol>
-          <li>Point your camera at any food product barcode</li>
-          <li>EaterIQ instantly analyzes the product</li>
-          <li>Get a detailed health score and breakdown</li>
-          <li>Make informed decisions about what you eat</li>
-        </ol>
-      </section>
-
       {/* Client Component for Interactive Functionality */}
       <FoodScannerClient />
     </>

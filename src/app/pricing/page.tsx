@@ -184,62 +184,6 @@ export default function PricingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Server-rendered SEO content (hidden visually but crawlable) */}
-      <section className="sr-only">
-        <h1>EaterIQ Pricing - Choose Your Health Journey Plan</h1>
-        <p>
-          Unlock powerful features to make informed food choices with EaterIQ. 
-          Choose from our Free, Pro, or Premium plans to fit your health journey needs.
-        </p>
-        
-        <h2>Available Plans</h2>
-        
-        <h3>Free Plan - $0/year</h3>
-        <p>Perfect for trying out EaterIQ</p>
-        <ul>
-          <li>5 scans per day</li>
-          <li>7-day scan history</li>
-          <li>Basic health scores</li>
-          <li>Standard ingredient breakdown</li>
-          <li>Community support</li>
-        </ul>
-        
-        <h3>Pro Plan - $29/year</h3>
-        <p>For health-conscious individuals</p>
-        <ul>
-          <li>Unlimited scans</li>
-          <li>Full scan history forever</li>
-          <li>Personalized health insights</li>
-          <li>Allergy and dietary alerts</li>
-          <li>Shopping list integration</li>
-          <li>Export scan data</li>
-          <li>Ad-free experience</li>
-          <li>Priority support</li>
-        </ul>
-        
-        <h3>Premium Plan - $79/year</h3>
-        <p>For families and health enthusiasts</p>
-        <ul>
-          <li>Everything in Pro</li>
-          <li>Family accounts for up to 5 members</li>
-          <li>Meal recommendations</li>
-          <li>Nutrition goal tracking</li>
-          <li>Progress reports</li>
-          <li>Product comparison tools</li>
-          <li>Early access to new features</li>
-          <li>2x contribution point rewards</li>
-          <li>Exclusive community access</li>
-        </ul>
-        
-        <h2>Why Choose EaterIQ?</h2>
-        <ul>
-          <li>Secure payments</li>
-          <li>Cancel anytime</li>
-          <li>10,000+ users trust us</li>
-          <li>7-day money-back guarantee</li>
-        </ul>
-      </section>
-
       {/* Client Component for Interactive Functionality */}
       <PricingClient />
     </>

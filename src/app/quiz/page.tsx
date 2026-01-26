@@ -183,35 +183,6 @@ export default async function QuizPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Server-rendered SEO content (hidden visually but crawlable) */}
-      <section className="sr-only">
-        <h1>Nutrition Quizzes - Test Your Food Knowledge</h1>
-        <p>
-          Challenge yourself with fun and educational quizzes about nutrition, food safety, 
-          and healthy eating. Learn while you play and compete with other food enthusiasts.
-        </p>
-        <h2>Available Quizzes</h2>
-        <ul>
-          {quizzes.slice(0, 20).map((quiz) => (
-            <li key={quiz.id}>
-              <a href={`/quiz/${quiz.slug}/`}>
-                {quiz.title} - {quiz.difficulty} difficulty
-              </a>
-              {quiz.description && <p>{quiz.description}</p>}
-            </li>
-          ))}
-        </ul>
-        <h2>Features</h2>
-        <ul>
-          <li>Wide variety of nutrition and food safety topics</li>
-          <li>Multiple difficulty levels: Easy, Medium, Hard</li>
-          <li>Create your own custom quizzes</li>
-          <li>Compete on the leaderboard</li>
-          <li>Track your progress and scores</li>
-          <li>Learn interesting food facts</li>
-        </ul>
-      </section>
-
       {/* Client Component for Interactive Functionality */}
       <QuizzesClient 
         initialQuizzes={quizzes} 
