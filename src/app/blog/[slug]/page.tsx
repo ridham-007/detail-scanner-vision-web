@@ -234,30 +234,6 @@ export default async function BlogPostPage({ params }: Props) {
 
               {/* Author and Meta Info */}
               <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-6">
-                {/* Author Info */}
-                {/* <div className="flex items-center gap-2">
-                  {post.author?.avatar_url ? (
-                    <img
-                      src={post.author.avatar_url}
-                      alt={authorName}
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                      <User className="h-4 w-4 text-primary" aria-hidden="true" />
-                    </div>
-                  )}
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium text-foreground">
-                      {authorName}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      from EaterIQ
-                    </span>
-                  </div>
-                </div> */}
-
-                {/* <span className="hidden sm:block text-muted-foreground/50">•</span> */}
 
                 {/* Date */}
                 <div className="flex items-center gap-2">
