@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import React, { useEffect } from 'react';
 import { CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
