@@ -36,7 +36,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const UserSettingsPage = () => {
-  const { user, session } = useAuth();
+  const { user, session, loading: userLoading } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -55,7 +55,7 @@ const UserSettingsPage = () => {
   });
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !userLoading) {
       router.push('/');
       return;
     }
