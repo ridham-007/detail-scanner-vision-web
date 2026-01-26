@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const canonicalUrl = `https://www.eateriq.com/blog/${slug}/`;
+  const canonicalUrl = `https://www.eateriq.com/blog/${slug}`;
   const authorName = post.author?.full_name || post.author?.username || 'EaterIQ Team';
   const authorDisplayName = `${authorName} from EaterIQ`;
 
@@ -421,7 +421,7 @@ export default async function BlogPostPage({ params }: Props) {
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 src={relatedPost.featured_image_url}
-                                alt=""
+                                alt={relatedPost.title}
                                 className="w-full h-full object-cover"
                                 loading="lazy"
                               />
@@ -498,7 +498,7 @@ export default async function BlogPostPage({ params }: Props) {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={relatedPost.featured_image_url}
-                        alt=""
+                        alt={relatedPost.title}
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
