@@ -1,25 +1,9 @@
+// components/Footer.tsx
 import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText } from "lucide-react";
 import Link from "next/link";
 
-const Footer = () => {
+export default function Footer() {
   const currentYear = new Date().getFullYear();
-
-  const productLinks = [
-    { to: "/scanner", label: "Food Scanner", icon: Smartphone },
-    { to: "/categories", label: "Browse Categories", icon: BookOpen },
-    { to: "/quiz", label: "Health Quizzes", icon: FileText },
-  ];
-
-  const supportLinks = [
-    { to: "/support", label: "Help Center", icon: HelpCircle },
-    { to: "/contributions", label: "Contribute Data", icon: BookOpen },
-    { to: "/blog", label: "Health Blog", icon: FileText },
-  ];
-
-  const legalLinks = [
-    { to: "/privacy", label: "Privacy Policy" },
-    { to: "/terms", label: "Terms of Service" },
-  ];
 
   return (
     <footer 
@@ -29,7 +13,7 @@ const Footer = () => {
       itemType="https://schema.org/WPFooter"
       className="border-t border-border bg-card/50 backdrop-blur-sm mt-8"
     >
-      <div className="container mx-auto px-4 py-10 md:py-12 ">
+      <div className="container mx-auto px-4 py-10 md:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           
           {/* Brand Section */}
@@ -87,17 +71,33 @@ const Footer = () => {
               Product
             </h3>
             <ul className="space-y-3">
-              {productLinks.map(({ to, label, icon: Icon }) => (
-                <li key={to}>
-                  <Link 
-                    href={to}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                  >
-                    <Icon className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" />
-                    {label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link 
+                  href="/scanner/"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                >
+                  <Smartphone className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
+                  Food Scanner
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/categories/"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                >
+                  <BookOpen className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
+                  Browse Categories
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/quiz/"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                >
+                  <FileText className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
+                  Health Quizzes
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -107,17 +107,33 @@ const Footer = () => {
               Resources
             </h3>
             <ul className="space-y-3">
-              {supportLinks.map(({ to, label, icon: Icon }) => (
-                <li key={to}>
-                  <Link 
-                    href={to}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                  >
-                    <Icon className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" />
-                    {label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link 
+                  href="/support/"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                >
+                  <HelpCircle className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
+                  Help Center
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/contributions/"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                >
+                  <BookOpen className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
+                  Contribute Data
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/blog/"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                >
+                  <FileText className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
+                  Health Blog
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -133,9 +149,18 @@ const Footer = () => {
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                   itemProp="email"
                 >
-                  <Mail className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" />
+                  <Mail className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
                   hello@eateriq.com
                 </a>
+              </li>
+              <li>
+                <Link 
+                  href="/about/"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                >
+                  <Shield className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
+                  About Us
+                </Link>
               </li>
             </ul>
           </address>
@@ -150,16 +175,22 @@ const Footer = () => {
             
             <nav aria-label="Legal navigation" className="order-1 sm:order-2">
               <ul className="flex items-center gap-6">
-                {legalLinks.map(({ to, label }) => (
-                  <li key={to}>
-                    <Link 
-                      href={to}
-                      className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link 
+                    href="/privacy/"
+                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    href="/terms/"
+                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>
@@ -167,6 +198,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
