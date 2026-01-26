@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Scan any food barcode to get instant nutrition insights, health scores, ingredient analysis, and personalized recommendations. Free to use.',
   keywords: ['food scanner', 'barcode scanner', 'nutrition analysis', 'health score', 'food insights', 'ingredient checker', 'calorie scanner', 'food label scanner'],
   alternates: {
-    canonical: 'https://www.eateriq.com/scanner/',
+    canonical: 'https://www.eateriq.com/scanner',
   },
   openGraph: {
     type: 'website',

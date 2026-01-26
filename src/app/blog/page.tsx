@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: 'Discover expert articles about food, nutrition, healthy eating, and making informed food choices. Learn how to read food labels, understand additives, and improve your diet.',
   keywords: ['nutrition blog', 'food articles', 'healthy eating tips', 'food labels', 'nutrition facts', 'dietary advice', 'healthy recipes', 'food additives'],
   alternates: {
-    canonical: 'https://www.eateriq.com/blog/',
+    canonical: 'https://www.eateriq.com/blog',
   },
   openGraph: {
     type: 'website',

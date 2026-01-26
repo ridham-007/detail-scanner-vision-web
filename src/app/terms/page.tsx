@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   description: 'Read EaterIQ\'s Terms of Service. Understand your rights and responsibilities when using our food analysis platform, quiz services, and community features.',
   keywords: ['terms of service', 'user agreement', 'EaterIQ terms', 'legal', 'terms and conditions', 'user rights'],
   alternates: {
-    canonical: 'https://www.eateriq.com/terms/',
+    canonical: 'https://www.eateriq.com/terms',
   },
   openGraph: {
     type: 'website',

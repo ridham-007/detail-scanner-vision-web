@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   description: 'Learn how EaterIQ protects your privacy and handles your personal data. Read our comprehensive privacy policy covering data collection, security, cookies, and your rights.',
   keywords: ['privacy policy', 'data protection', 'EaterIQ privacy', 'personal data', 'GDPR', 'data security', 'cookie policy'],
   alternates: {
-    canonical: 'https://www.eateriq.com/privacy/',
+    canonical: 'https://www.eateriq.com/privacy',
   },
   openGraph: {
     type: 'website',

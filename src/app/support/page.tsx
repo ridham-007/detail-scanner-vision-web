@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   description: 'Get help with EaterIQ. Contact our support team, report bugs, request features, or browse our comprehensive FAQ section for quick answers.',
   keywords: ['support', 'help', 'FAQ', 'contact', 'bug report', 'feature request', 'EaterIQ help', 'customer support'],
   alternates: {
-    canonical: 'https://www.eateriq.com/support/',
+    canonical: 'https://www.eateriq.com/support',
   },
   openGraph: {
     type: 'website',

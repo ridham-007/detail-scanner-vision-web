@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   description: 'Choose the perfect EaterIQ plan for your health journey. Free basic features, Pro for individuals with unlimited scans, or Premium for families. Simple, transparent pricing.',
   keywords: ['EaterIQ pricing', 'food scanner subscription', 'nutrition app plans', 'health app pricing', 'food tracking subscription'],
   alternates: {
-    canonical: 'https://www.eateriq.com/pricing/',
+    canonical: 'https://www.eateriq.com/pricing',
   },
   openGraph: {
     type: 'website',
     title: 'Pricing - Affordable Plans | EaterIQ',
     description: 'Choose the perfect plan for your health journey. From free basic features to premium family plans.',
-    url: 'https://www.eateriq.com/pricing/',
+    url: 'https://www.eateriq.com/pricing',
     siteName: 'EaterIQ',
     images: [
       {

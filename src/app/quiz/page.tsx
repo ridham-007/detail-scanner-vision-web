@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Challenge yourself with fun and educational quizzes about nutrition, food safety, and healthy eating. Create custom quizzes and compete with other food enthusiasts.',
   keywords: ['nutrition quiz', 'food quiz', 'healthy eating quiz', 'food safety quiz', 'nutrition knowledge test', 'food trivia', 'diet quiz'],
   alternates: {
-    canonical: 'https://www.eateriq.com/quiz/',
+    canonical: 'https://www.eateriq.com/quiz',
   },
   openGraph: {
     type: 'website',
