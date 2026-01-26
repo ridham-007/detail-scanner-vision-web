@@ -305,13 +305,13 @@ export default async function QuizPage() {
                 {quizzes.map((quiz) => (
                   <article key={quiz.id}>
                     <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
-                      <CardHeader className="pb-3">
+                      <CardHeader className="pb-3 h-[130px]">
                         <div className="flex items-start justify-between mb-2">
                           <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
                             {quiz.difficulty.toUpperCase()}
                           </Badge>
                         </div>
-                        <CardTitle className="text-lg font-semibold line-clamp-2 capitalize">
+                        <CardTitle className="text-lg font-semibold capitalize h-[48px] overflow-hidden">
                           <Link 
                             href={`/quiz/${quiz.slug}/`}
                             className="hover:text-primary transition-colors"
@@ -322,7 +322,7 @@ export default async function QuizPage() {
                       </CardHeader>
                       <CardContent className="flex-1 flex flex-col pt-0">
                         {quiz.description && (
-                          <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">
+                          <p className="text-sm text-muted-foreground mb-4 h-[44px] overflow-hidden">
                             {quiz.description}
                           </p>
                         )}
