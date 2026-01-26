@@ -24,7 +24,7 @@ import QuizHubClient from '@/components/quiz/QuizzesClient';
 // Static metadata for SEO
 export const metadata: Metadata = {
   title: 'Nutrition Quizzes - Test Your Food Knowledge | EaterIQ',
-  description: 'Challenge yourself with fun and educational quizzes about nutrition, food safety, and healthy eating. Create custom quizzes and compete with other food enthusiasts.',
+  description: 'Challenge yourself with fun and educational quizzes about nutrition, food safety, and healthy eating. Create quizzes and compete with food enthusiasts.',
   keywords: ['nutrition quiz', 'food quiz', 'healthy eating quiz', 'food safety quiz', 'nutrition knowledge test', 'food trivia', 'diet quiz'],
   alternates: {
     canonical: 'https://www.eateriq.com/quiz/',
