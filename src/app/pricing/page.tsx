@@ -6,7 +6,7 @@ import PricingClient from '@/components/pricing/PricingClient';
 // Static metadata for SEO
 export const metadata: Metadata = {
   title: 'Pricing - Affordable Plans for Your Health Journey | EaterIQ',
-  description: 'Choose the perfect EaterIQ plan for your health journey. Free basic features, Pro for individuals with unlimited scans, or Premium for families. Simple, transparent pricing.',
+  description: 'Choose the right EaterIQ plan for your health journey. Free basics, Pro with unlimited scans, or Premium for families. Simple, transparent pricing.',
   keywords: ['EaterIQ pricing', 'food scanner subscription', 'nutrition app plans', 'health app pricing', 'food tracking subscription'],
   alternates: {
     canonical: 'https://www.eateriq.com/pricing',
