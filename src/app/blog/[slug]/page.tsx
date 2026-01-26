@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const canonicalUrl = `https://www.eateriq.com/blog/${slug}/`;
+  const canonicalUrl = `https://www.eateriq.com/blog/${slug}`;
 
   return {
     title: post.meta_title || `${post.title} | EaterIQ`,
@@ -128,7 +128,7 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const canonicalUrl = `https://www.eateriq.com/blog/${slug}/`;
+  const canonicalUrl = `https://www.eateriq.com/blog/${slug}`;
   const authorName = post.author?.full_name || post.author?.username || 'EaterIQ Team';
 
   // JSON-LD Schema (no window usage!)
