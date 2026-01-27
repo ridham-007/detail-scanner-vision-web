@@ -33,7 +33,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link href="/" aria-label="EaterIQ Home">
-              <div className="h-20 w-20 rounded-2xl flex items-center justify-center transition-all duration-300">
+              <div className="h-10 w-10 sm:h-20 sm:w-20 rounded-2xl flex items-center justify-center transition-all duration-300">
                 <span className="text-4xl filter" role="img" aria-label="Avocado logo">🥑</span>
               </div>
             </Link>

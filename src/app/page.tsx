@@ -250,10 +250,10 @@ export default async function HomePage() {
             className="relative py-12 md:py-16 lg:py-20 overflow-hidden"
             aria-labelledby="hero-heading"
           >
-            <div className="container mx-auto px-4">
-              <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
+            <div className="container mx-auto px-12">
+              <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-stretch mx-auto">
                 {/* Left Column - Content */}
-                <div className="text-center lg:text-left order-2 lg:order-1 flex flex-col justify-center py-6 md:py-8">
+                <div className="text-center lg:text-left order-1 flex flex-col justify-center py-6 md:py-8">
                   <h1
                     id="hero-heading"
                     className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] tracking-tight mb-4"
@@ -320,7 +320,7 @@ export default async function HomePage() {
                 </div>
 
                 {/* Right Column - Phone Mockup */}
-                <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-center relative py-8 md:py-10 px-4">
+                <div className="order-2 flex justify-center lg:justify-end items-center relative py-8 md:py-10 px-4">
                   {/* Food Background Elements */}
                   <div className="absolute inset-0 pointer-events-none overflow-hidden">
                     <div className="absolute top-6 left-6 text-4xl opacity-[0.08]">🥗</div>
@@ -463,7 +463,7 @@ export default async function HomePage() {
             aria-labelledby="scanner-heading"
           >
             <h2 id="scanner-heading" className="sr-only">Food Product Scanner</h2>
-            <div className="max-w-6xl mx-auto">
+            <div className="mx-auto">
               <FoodScannerPage />
             </div>
           </section>
