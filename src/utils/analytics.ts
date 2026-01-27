@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-export const GA_MEASUREMENT_ID = "G-YK2C6Q3ZMW";
+export const GA_MEASUREMENT_ID = "G-Y80603VYMC";
 export const AMPLITUDE_API_KEY =
   process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY || "";
 
