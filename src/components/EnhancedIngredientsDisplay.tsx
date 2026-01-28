@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { List, AlertTriangle, Shield, ChevronDown, ChevronUp } from 'lucide-react';
+import { AlertTriangle, Shield, ChevronDown, ChevronUp, Info } from 'lucide-react';
 
 interface EnhancedIngredientsDisplayProps {
   ingredients: string;
@@ -17,7 +17,7 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Enhanced data validation - only show if we have meaningful ingredients data
+  // Enhanced data validation
   if (!ingredients || 
       ingredients.trim() === '' || 
       ingredients.toLowerCase() === 'not available' ||
@@ -26,160 +26,137 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
     return null;
   }
 
-  // Common harmful additives and allergens for highlighting
-  const harmfulAdditives = [
-    'sodium nitrite', 'high fructose corn syrup', 'trans fat', 'artificial colors',
-    'monosodium glutamate', 'msg', 'sodium benzoate', 'potassium sorbate',
-    'bha', 'bht', 'tbhq', 'propyl gallate', 'artificial flavors'
-  ];
-
-  const commonAllergens = [
-    'milk', 'eggs', 'fish', 'shellfish', 'tree nuts', 'peanuts', 
-    'wheat', 'soybeans', 'gluten', 'soy', 'dairy'
-  ];
-
-  // Process ingredients text to highlight concerning items
-  // const processIngredients = (text: string): React.ReactNode[] => {
-  //   const words = text.split(/[\s,]+/);
-  //   return words.map((word, index) => {
-  //     const cleanWord = word.toLowerCase().replace(/[^\w]/g, '');
-  //     const isHarmful = harmfulAdditives.some(additive => 
-  //       cleanWord.includes(additive.replace(/\s/g, '')) || additive.includes(cleanWord)
-  //     );
-  //     const isAllergen = commonAllergens.some(allergen => 
-  //       cleanWord.includes(allergen) || allergen.includes(cleanWord)
-  //     );
-
-  //     if (isHarmful) {
-  //       return (
-  //         <span key={`harmful-${index}`} className="bg-destructive/20 text-destructive px-1 rounded">
-  //           {word}
-  //         </span>
-  //       );
-  //     }
-  //     if (isAllergen) {
-  //       return (
-  //         <span key={`allergen-${index}`} className="bg-accent/20 text-accent-foreground px-1 rounded">
-  //           {word}
-  //         </span>
-  //       );
-  //     }
-  //     return <span key={`word-${index}`}>{word}</span>;
-  //   }).reduce<React.ReactNode[]>((prev, curr, index) => {
-  //     if (index === 0) return [curr];
-  //     return [...prev, ' ', curr];
-  //   }, []);
-  // };
-
-  const processIngredients = (text: string): React.ReactNode => {
-  return <p className="text-base ">{text}</p>;
-  // .text-muted-foreground 
-};
-
   const ingredientsList = ingredients.split(',').map(ing => ing.trim());
-  const displayedIngredients = isExpanded ? ingredientsList : ingredientsList.slice(0, 5);
-  const hasMore = ingredientsList.length > 5;
+  const displayLimit = 8;
+  const displayedIngredients = isExpanded ? ingredientsList : ingredientsList.slice(0, displayLimit);
+  const hasMore = ingredientsList.length > displayLimit;
+  const hasAlerts = allergens.length > 0 || additives.length > 0;
 
   return (
-    <Card className="w-full animate-fade-in ">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          {/* <List className="h-5 w-5 text-primary" /> */}
-          <span role="img" aria-label="ingredients">🧪</span>
-          Ingredients Analysis
-          {(allergens.length > 0 || additives.length > 0) && (
-            <Badge variant="secondary" className="text-xs">
-              {allergens.length + additives.length} alerts
-            </Badge>
+    <div className="w-full space-y-4">
+      {/* Alert Cards - Top Priority */}
+      {hasAlerts && (
+        <div className="grid gap-3 md:grid-cols-2">
+          {allergens.length > 0 && (
+            <Card className="border-amber-200 bg-amber-50/50 shadow-sm">
+              <CardContent className="pt-5 pb-4">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-amber-100 rounded-lg">
+                    <AlertTriangle className="h-5 w-5 text-amber-600" />
+                  </div>
+                  <div className="flex-1 space-y-2">
+                    <h3 className="font-semibold text-amber-900 text-sm">
+                      Allergen Warning
+                    </h3>
+                    <div className="flex flex-wrap gap-1.5">
+                      {allergens.map((allergen, index) => (
+                        <Badge 
+                          key={index} 
+                          className="bg-amber-100 text-amber-800 border-amber-200 hover:bg-amber-200 text-xs font-medium"
+                        >
+                          {allergen}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4 ">
-        {/* Alerts Section */}
-        {(allergens.length > 0 || additives.length > 0) && (
-          <div className="space-y-3">
-            {allergens.length > 0 && (
-              <div className="p-3 bg-accent/10 rounded-lg border border-accent/20">
-                <div className="flex items-center gap-2 mb-2">
-                  <AlertTriangle className="h-4 w-4 text-accent-foreground" />
-                  <span className="font-medium text-accent-foreground">Allergen Alert</span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {allergens.map((allergen, index) => (
-                    <Badge key={index} variant="outline" className="border-accent/30 text-accent-foreground">
-                      {allergen}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            )}
 
-            {additives.length > 0 && (
-              <div className="p-3 bg-destructive/10 rounded-lg border border-destructive/20">
-                <div className="flex items-center gap-2 mb-2">
-                  <Shield className="h-4 w-4 text-destructive" />
-                  <span className="font-medium text-destructive">Additives Found</span>
+          {additives.length > 0 && (
+            <Card className="border-rose-200 bg-rose-50/50 shadow-sm">
+              <CardContent className="pt-5 pb-4">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-rose-100 rounded-lg">
+                    <Shield className="h-5 w-5 text-rose-600" />
+                  </div>
+                  <div className="flex-1 space-y-2">
+                    <h3 className="font-semibold text-rose-900 text-sm">
+                      Additives Detected
+                    </h3>
+                    <div className="flex flex-wrap gap-1.5">
+                      {additives.map((additive, index) => (
+                        <Badge 
+                          key={index} 
+                          className="bg-rose-100 text-rose-800 border-rose-200 hover:bg-rose-200 text-xs font-medium"
+                        >
+                          {additive}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {additives.map((additive, index) => (
-                    <Badge key={index} variant="outline" className="border-destructive/30 text-destructive">
-                      {additive}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Ingredients List */}
-        <div className="space-y-3  ">
-          <h4 className="font-medium text-lg ">Full Ingredients List</h4>
-          <div className="p-4 bg-muted/60 rounded-lg">
-            <p className="text-sm text-foreground leading-relaxed">
-              {processIngredients(ingredients)}
-            </p>
-          </div>
-
-          {/* Expand/Collapse for long ingredient lists */}
-          {/* {hasMore && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="w-full flex items-center gap-2"
-            >
-              {isExpanded ? (
-                <>
-                  <ChevronUp className="h-4 w-4" />
-                  Show Less
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="h-4 w-4" />
-                  Show All {ingredientsList.length} Ingredients
-                </>
-              )}
-            </Button>
-          )} */}
+              </CardContent>
+            </Card>
+          )}
         </div>
+      )}
 
-        {/* Legend */}
-        {/* <div className="pt-3 border-t">
-          <p className="text-xs text-muted-foreground mb-2">Legend:</p>
-          <div className="flex flex-wrap gap-3 text-xs">
-            <div className="flex items-center gap-1">
-              <span className="w-3 h-3 bg-destructive/20 rounded"></span>
-              <span>Concerning additives</span>
+      {/* Main Ingredients Card */}
+      <Card className="shadow-sm border-slate-200">
+        <CardHeader className="pb-4">
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 bg-blue-50 rounded-lg">
+                <span className="text-2xl" role="img" aria-label="ingredients">🧪</span>
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900">Ingredients</h2>
+                <p className="text-xs text-slate-500 font-normal mt-0.5">
+                  {ingredientsList.length} ingredient{ingredientsList.length !== 1 ? 's' : ''} listed
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="w-3 h-3 bg-accent/20 rounded"></span>
-              <span>Common allergens</span>
+            {hasAlerts && (
+              <Badge variant="secondary" className="bg-slate-100 text-slate-700 border-slate-200">
+                <AlertTriangle className="h-3 w-3 mr-1" />
+                {allergens.length + additives.length}
+              </Badge>
+            )}
+          </CardTitle>
+        </CardHeader>
+        
+        <CardContent className="space-y-4">
+          {/* Ingredients Grid */}
+          <div className="space-y-2">
+            <div className="flex flex-wrap gap-2">
+              {displayedIngredients.map((ingredient, index) => (
+                <div
+                  key={index}
+                  className="px-3 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors"
+                >
+                  <span className="text-sm text-slate-700 font-medium">
+                    {ingredient}
+                  </span>
+                </div>
+              ))}
             </div>
+
+            {/* Expand/Collapse Button */}
+            {hasMore && (
+              <Button
+                variant="ghost"
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="w-full mt-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+              >
+                {isExpanded ? (
+                  <>
+                    <ChevronUp className="h-4 w-4 mr-2" />
+                    Show Less
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="h-4 w-4 mr-2" />
+                    Show {ingredientsList.length - displayLimit} More Ingredients
+                  </>
+                )}
+              </Button>
+            )}
           </div>
-        </div> */}
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
