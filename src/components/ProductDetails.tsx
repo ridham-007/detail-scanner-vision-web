@@ -1,31 +1,30 @@
-
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import { Lightbulb, Image as ImageIcon, Heart, ShoppingCart } from 'lucide-react';
-import NoProductData from './NoProductData';
-import AnimatedHealthScore from './AnimatedHealthScore';
-import EnhancedIngredientsDisplay from './EnhancedIngredientsDisplay';
-import NutritionComparison from './NutritionComparison';
-import ProductImageCarousel from './ProductImageCarousel';
-import ScanStreak from './ScanStreak';
-import AchievementSystem from './AchievementSystem';
-import PersonalizedInsights from './PersonalizedInsights';
-import SocialProof from './SocialProof';
-import HealthInsights from './HealthInsights';
-import ProductFeedback from './ProductFeedback';
-import ProductCategories from './ProductCategories';
-import { AddToShoppingListModal } from '@/components/AddToShoppingListModal';
-import { useFavorites } from '@/hooks/useFavorites';
-import { ProductData } from '@/types/ProductData';
-import { NutritionScoreGrade } from './NutritionScoreGrade';
-import { AllergenAnalysisCard } from './AllergenAnalysisCard';
-import { AdditiveAnalysisCard } from './AdditiveAnalysisCard';
-import { IngredientAnalysisCard } from './IngredientAnalysisCard';
-import { NutritionDataCard } from './NutritionDataCard';
-import { HealthierAlternatives } from './HealthierAlternatives';
+import React, { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Lightbulb,
+  Image as ImageIcon,
+  Heart,
+  ShoppingCart,
+} from "lucide-react";
+import NoProductData from "./NoProductData";
+import AnimatedHealthScore from "./AnimatedHealthScore";
+import EnhancedIngredientsDisplay from "./EnhancedIngredientsDisplay";
+import NutritionComparison from "./NutritionComparison";
+import ProductImageCarousel from "./ProductImageCarousel";
+import { AddToShoppingListModal } from "@/components/AddToShoppingListModal";
+import { useFavorites } from "@/hooks/useFavorites";
+import { ProductData } from "@/types/ProductData";
+import { NutritionScoreGrade } from "./NutritionScoreGrade";
+import { AllergenAnalysisCard } from "./AllergenAnalysisCard";
+import { AdditiveAnalysisCard } from "./AdditiveAnalysisCard";
+import { IngredientAnalysisCard } from "./IngredientAnalysisCard";
+import { NutritionDataCard } from "./NutritionDataCard";
+import { fetchAlternatives, AlternativeProduct } from "@/lib/api/alternatives";
+import AlternativesModal from "@/components/AlternativesModal";
+import HealthInsights from "./HealthInsights";
+import { HealthierAlternatives } from "./HealthierAlternatives";
 
 interface ProductDetailsProps {
   product: ProductData | null;
@@ -34,45 +33,83 @@ interface ProductDetailsProps {
   scannedBarcode?: string;
 }
 
-const ProductDetails: React.FC<ProductDetailsProps> = ({ 
-  product, 
-  isLoading, 
+const ProductDetails: React.FC<ProductDetailsProps> = ({
+  product,
+  isLoading,
   showNoDataState = false,
-  scannedBarcode 
+  scannedBarcode,
 }) => {
-  const [showAddToListModal, setShowAddToListModal] = useState(false);
   const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
+
+  /* -------------------- Alternatives State -------------------- */
+  const [showAlternatives, setShowAlternatives] = useState(false);
+  const [loadingAlternatives, setLoadingAlternatives] = useState(false);
+  const [alternatives, setAlternatives] = useState<AlternativeProduct[]>([]);
+  const [alternativesError, setAlternativesError] = useState<string | null>(
+    null,
+  );
+  const [alternativesOpen, setAlternativesOpen] = useState(false);
+
+  const handleAlternativesClick = async () => {
+    if (!product) return;
+
+    setAlternativesOpen(true);
+    setLoadingAlternatives(true);
+
+    try {
+      const data = await fetchAlternatives(product.barcode);
+      setAlternatives(data.alternatives || []);
+    } catch {
+      setAlternatives([]);
+    } finally {
+      setLoadingAlternatives(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <Card className="w-full overflow-hidden border-0 shadow-xl">
         <CardContent className="p-0">
           <div className="relative bg-primary/5">
             <div className="max-w-7xl mx-auto px-8 py-16">
-              
               {/* Animated background elements */}
               <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute -top-10 -left-10 w-20 h-20 bg-blue-200 dark:bg-blue-800 rounded-full animate-pulse opacity-30"></div>
-                <div className="absolute top-20 -right-5 w-16 h-16 bg-purple-200 dark:bg-purple-800 rounded-full animate-pulse opacity-20" style={{animationDelay: '0.5s'}}></div>
-                <div className="absolute bottom-10 left-1/4 w-12 h-12 bg-pink-200 dark:bg-pink-800 rounded-full animate-pulse opacity-25" style={{animationDelay: '1s'}}></div>
-                <div className="absolute bottom-20 right-1/3 w-8 h-8 bg-indigo-200 dark:bg-indigo-800 rounded-full animate-pulse opacity-30" style={{animationDelay: '1.5s'}}></div>
+                <div
+                  className="absolute top-20 -right-5 w-16 h-16 bg-purple-200 dark:bg-purple-800 rounded-full animate-pulse opacity-20"
+                  style={{ animationDelay: "0.5s" }}
+                ></div>
+                <div
+                  className="absolute bottom-10 left-1/4 w-12 h-12 bg-pink-200 dark:bg-pink-800 rounded-full animate-pulse opacity-25"
+                  style={{ animationDelay: "1s" }}
+                ></div>
+                <div
+                  className="absolute bottom-20 right-1/3 w-8 h-8 bg-indigo-200 dark:bg-indigo-800 rounded-full animate-pulse opacity-30"
+                  style={{ animationDelay: "1.5s" }}
+                ></div>
               </div>
 
               <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                
                 {/* Product Image Skeleton */}
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="relative">
                     <div className="w-64 h-64 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
                       <div className="w-full h-full bg-muted animate-pulse relative">
                         {/* Scanning line effect */}
-                        <div className="absolute inset-0 bg-primary/20 opacity-50 animate-pulse" 
-                             style={{animation: 'slide-scan 2s ease-in-out infinite'}}>
-                        </div>
+                        <div
+                          className="absolute inset-0 bg-primary/20 opacity-50 animate-pulse"
+                          style={{
+                            animation: "slide-scan 2s ease-in-out infinite",
+                          }}
+                        ></div>
                       </div>
                     </div>
                     {/* Floating dots */}
                     <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-400 rounded-full animate-bounce"></div>
-                    <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.5s'}}></div>
+                    <div
+                      className="absolute -bottom-2 -left-2 w-3 h-3 bg-purple-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.5s" }}
+                    ></div>
                   </div>
                 </div>
 
@@ -84,7 +121,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       <div className="h-8 bg-muted rounded-lg animate-pulse w-4/5"></div>
                       <div className="h-6 bg-muted rounded-lg animate-pulse w-3/5"></div>
                     </div>
-                    
+
                     {/* Stats skeleton */}
                     <div className="grid grid-cols-2 gap-4 pt-4">
                       <div className="text-center lg:text-left">
@@ -114,7 +151,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                         <div className="w-12 h-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
                       </div>
                       {/* Rotating ring */}
-                      <div className="absolute inset-2 rounded-full border-4 border-transparent border-t-blue-400 animate-spin" style={{animationDuration: '3s'}}></div>
+                      <div
+                        className="absolute inset-2 rounded-full border-4 border-transparent border-t-blue-400 animate-spin"
+                        style={{ animationDuration: "3s" }}
+                      ></div>
                     </div>
                     <div className="space-y-2">
                       <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24 mx-auto animate-pulse"></div>
@@ -129,10 +169,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 <div className="flex items-center justify-center gap-3 text-gray-600 dark:text-gray-400">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    <div
+                      className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.1s" }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
                   </div>
-                  <span className="text-lg font-medium">Analyzing product...</span>
+                  <span className="text-lg font-medium">
+                    Analyzing product...
+                  </span>
                 </div>
                 <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
                   Getting nutritional information and health insights
@@ -155,7 +203,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         <CardContent className="flex items-center justify-center h-48">
           <div className="text-center space-y-2">
             <ImageIcon size={48} className="mx-auto text-muted-foreground/50" />
-            <p className="text-muted-foreground">Scan a barcode to view product details</p>
+            <p className="text-muted-foreground">
+              Scan a barcode to view product details
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -178,13 +228,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
             <div className="relative max-w-7xl mx-auto px-6 py-12">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
-                
                 {/* Product Image - Enhanced with Better Styling */}
                 <div className="flex justify-center">
                   <div className="relative group">
                     <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity"></div>
                     <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-xl border border-border/50">
-                      <ProductImageCarousel images={product.images} productName={product.name} />
+                      <ProductImageCarousel
+                        images={product.images}
+                        productName={product.name}
+                      />
                     </div>
                   </div>
                 </div>
@@ -200,32 +252,49 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                         {product.name}
                       </h1>
                     </div>
-                    
+
                     {/* Enhanced Action Buttons */}
                     <div className="flex items-center justify-center lg:justify-start gap-3 pt-4">
                       <Button
-                        variant={isFavorite(product.barcode) ? "default" : "outline"}
+                        onClick={handleAlternativesClick}
+                        className="flex items-center gap-2 hover:scale-105 transition-transform"
+                      >
+                        Alternatives
+                      </Button>
+
+                      <Button
+                        variant={
+                          isFavorite(product.barcode) ? "default" : "outline"
+                        }
                         size="sm"
                         onClick={() => {
                           if (isFavorite(product.barcode)) {
                             removeFromFavorites(product.barcode);
                           } else {
-                            addToFavorites(product.barcode, product.name, product.health_score);
+                            addToFavorites(
+                              product.barcode,
+                              product.name,
+                              product.health_score,
+                            );
                           }
                         }}
                         className="flex items-center gap-2 hover:scale-105 transition-transform"
                       >
-                        <Heart 
-                          className={`w-4 h-4 ${isFavorite(product.barcode) ? 'fill-current' : ''}`} 
+                        <Heart
+                          className={`w-4 h-4 ${isFavorite(product.barcode) ? "fill-current" : ""}`}
                         />
-                        {isFavorite(product.barcode) ? 'Favorited' : 'Favorite'}
+                        {isFavorite(product.barcode) ? "Favorited" : "Favorite"}
                       </Button>
 
                       <AddToShoppingListModal
                         barcode={product.barcode}
                         productName={product.name}
                       >
-                        <Button variant="outline" size="sm" className="flex items-center gap-2 hover:scale-105 transition-transform">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="flex items-center gap-2 hover:scale-105 transition-transform"
+                        >
                           <ShoppingCart className="w-4 h-4" />
                           Add to List
                         </Button>
@@ -268,12 +337,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                     <div className="relative">
                       <div className="absolute -inset-8 bg-primary/10 rounded-full blur-2xl"></div>
                       <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-border/50">
-                        <AnimatedHealthScore 
-                          score={product.health_score} 
+                        <AnimatedHealthScore
+                          score={product.health_score}
                           size={140}
                           categoryRank={12}
                           categoryTotal={47}
-                        /> 
+                        />
                       </div>
                     </div>
                   </div>
@@ -283,6 +352,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
           </div>
         </CardContent>
       </Card>
+
+      <AlternativesModal
+        open={alternativesOpen}
+        onOpenChange={setAlternativesOpen}
+        alternatives={alternatives}
+        loading={loadingAlternatives}
+      />
 
       {/* Nutrition Score Grade */}
       {product.nutrition_score_grade && (
@@ -294,7 +370,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       )}
 
       {/* Health Insights */}
-      <HealthInsights positives={product.positives} concerns={product.concerns} />
+      <HealthInsights
+        positives={product.positives}
+        concerns={product.concerns}
+      />
 
       {/* Allergen Analysis */}
       {product.allergens_analysis && product.allergens_analysis.length > 0 && (
@@ -312,27 +391,27 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       )}
 
       {/* Ingredient Analysis */}
-      {product.ingredient_analysis && product.ingredient_analysis.length > 0 && (
-        <IngredientAnalysisCard ingredients={product.ingredient_analysis} />
-      )}
+      {product.ingredient_analysis &&
+        product.ingredient_analysis.length > 0 && (
+          <IngredientAnalysisCard ingredients={product.ingredient_analysis} />
+        )}
 
       {/* Enhanced Components */}
       {/* <ScanStreak productName={product.name} /> */}
-      
+
       {/* <AchievementSystem productData={product} /> */}
-      
-      
-      <NutritionComparison 
-        nutrition={product.nutrition_per_100g} 
+
+      <NutritionComparison
+        nutrition={product.nutrition_per_100g}
         productName={product.name}
       />
-      
-      <EnhancedIngredientsDisplay 
-        ingredients={product.ingredients || ''} 
+
+      <EnhancedIngredientsDisplay
+        ingredients={product.ingredients || ""}
         allergens={product.nutrition_per_100g.allergens}
         additives={product.nutrition_per_100g.additives}
       />
-      
+
       {/* <SocialProof barcode={product.barcode} productName={product.name} /> */}
 
       {/* Recommendations - Enhanced Design */}
@@ -341,7 +420,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
           <CardContent className="p-8 space-y-6">
             <div className="text-center space-y-3">
               <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 px-4 py-2 rounded-full">
-                <Lightbulb size={18} className="text-blue-600 dark:text-blue-400" />
+                <Lightbulb
+                  size={18}
+                  className="text-blue-600 dark:text-blue-400"
+                />
                 <h4 className="font-semibold text-blue-700 dark:text-blue-300">
                   Smart Recommendations
                 </h4>
@@ -356,9 +438,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   <div className="absolute inset-0 bg-accent/10"></div>
                   <div className="relative flex items-start gap-4 p-5 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-xl border border-blue-200/50 dark:border-blue-800/50">
                     <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
-                      <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">{index + 1}</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">
+                        {index + 1}
+                      </span>
                     </div>
-                    <p className="text-foreground leading-relaxed">{recommendation}</p>
+                    <p className="text-foreground leading-relaxed">
+                      {recommendation}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -369,14 +455,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
       {/* Healthier Alternatives - Classification-based */}
       <HealthierAlternatives 
-        barcode={product.barcode} 
-        currentHealthScore={product.health_score} 
+        barcode={product.barcode}
+        currentHealthScore={product.health_score}
       />
       {/* Product Categories */}
       {/* <ProductCategories barcode={product.barcode} /> */}
-      
+
       {/* User Feedback Section */}
-        {/* <ProductFeedback barcode={product.barcode} /> */}
+      {/* <ProductFeedback barcode={product.barcode} /> */}
     </div>
   );
 };
