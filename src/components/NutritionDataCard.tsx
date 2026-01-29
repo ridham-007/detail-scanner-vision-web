@@ -22,6 +22,7 @@ const getNutrientIcon = (nutrient: string) => {
     sodium: "🧂",
     fat: "💧",
     fiber: "🌿",
+    alcohol: "🍷",
   };
 
   const key = nutrient.toLowerCase();

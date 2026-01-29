@@ -2,6 +2,7 @@
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ImageIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface Alternative {
   name: string;
@@ -52,6 +53,12 @@ export default function AlternativesModal({
   alternatives,
   loading,
 }: Props) {
+  const router = useRouter();
+
+  const handleProductClick = (barcode: string) => {
+    onOpenChange(false); // close modal
+    router.push(`/product/${barcode}`); // navigate
+  };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-7xl p-10">
@@ -77,7 +84,14 @@ export default function AlternativesModal({
             {alternatives.map((item, index) => (
               <div
                 key={item.barcode}
-                className="flex items-center gap-6 p-6 border border-[#76a63f] rounded-2xl bg-background hover:shadow-lg hover:shadow-[#76a63f]/50 transition"
+                onClick={() => handleProductClick(item.barcode)}
+                className="
+      flex items-center gap-6 p-6
+      border border-[#76a63f] rounded-2xl
+      bg-background cursor-pointer
+      hover:shadow-lg hover:shadow-[#76a63f]/50
+      transition
+    "
               >
                 {/* IMAGE */}
                 <div className="w-24 h-24 rounded-xl bg-muted border flex items-center justify-center overflow-hidden shrink-0">

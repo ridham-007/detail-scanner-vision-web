@@ -55,10 +55,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
     setAlternativesOpen(true);
     setLoadingAlternatives(true);
+    console.log("📦 Product barcode:", product.barcode);
 
     try {
       const data = await fetchAlternatives(product.barcode);
+      console.log("✅ API response received:", data);
       setAlternatives(data.alternatives || []);
+      console.log("🧠 Alternatives count:", data.alternatives?.length || 0);
     } catch {
       setAlternatives([]);
     } finally {
@@ -245,23 +248,49 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 <div className="text-center lg:text-left space-y-6">
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Badge variant="secondary" className="mb-2">
+                      <Badge variant="secondary" className="mb-4">
                         Product Analysis
                       </Badge>
                       <h1 className="text-2xl lg:text-3xl font-bold text-foreground leading-tight tracking-tight">
                         {product.name}
                       </h1>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                          Barcode
+                        </span>
+                        <span className="font-mono text-sm bg-muted px-2 py-1 rounded-md border">
+                          {product.barcode}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Enhanced Action Buttons */}
-                    <div className="flex items-center justify-center lg:justify-start gap-3 pt-4">
+                    <div
+                      className="
+    flex flex-col 
+    sm:flex-row 
+    sm:flex-wrap
+    items-stretch 
+    sm:items-center 
+    justify-center 
+    lg:justify-start 
+    gap-3 
+    pt-4
+  "
+                    >
+                      {/* Alternatives – primary CTA */}
                       <Button
                         onClick={handleAlternativesClick}
-                        className="flex items-center gap-2 hover:scale-105 transition-transform"
+                        className="
+      flex items-center justify-center gap-2
+      w-full sm:w-auto
+      hover:scale-105 transition-transform
+    "
                       >
                         Alternatives
                       </Button>
 
+                      {/* Favorite */}
                       <Button
                         variant={
                           isFavorite(product.barcode) ? "default" : "outline"
@@ -278,14 +307,21 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                             );
                           }
                         }}
-                        className="flex items-center gap-2 hover:scale-105 transition-transform"
+                        className="
+      flex items-center justify-center gap-2
+      w-full sm:w-auto
+      hover:scale-105 transition-transform
+    "
                       >
                         <Heart
-                          className={`w-4 h-4 ${isFavorite(product.barcode) ? "fill-current" : ""}`}
+                          className={`w-4 h-4 ${
+                            isFavorite(product.barcode) ? "fill-current" : ""
+                          }`}
                         />
                         {isFavorite(product.barcode) ? "Favorited" : "Favorite"}
                       </Button>
 
+                      {/* Add to List */}
                       <AddToShoppingListModal
                         barcode={product.barcode}
                         productName={product.name}
@@ -293,7 +329,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                         <Button
                           variant="outline"
                           size="sm"
-                          className="flex items-center gap-2 hover:scale-105 transition-transform"
+                          className="
+        flex items-center justify-center gap-2
+        w-full sm:w-auto
+        hover:scale-105 transition-transform
+      "
                         >
                           <ShoppingCart className="w-4 h-4" />
                           Add to List
@@ -454,7 +494,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       )}
 
       {/* Healthier Alternatives - Classification-based */}
-      <HealthierAlternatives 
+      <HealthierAlternatives
         barcode={product.barcode}
         currentHealthScore={product.health_score}
       />
