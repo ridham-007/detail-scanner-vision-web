@@ -32,7 +32,9 @@ interface Quiz {
   created_at: string | null;
   creator_id: string;
   slug: string | null;
+  is_published: boolean | null; // ✅ ADD THIS
 }
+
 
 const UserProfilePage = () => {
   const params = useParams();
@@ -94,7 +96,7 @@ const UserProfilePage = () => {
     try {
       const { data, error } = await supabase
         .from('quizzes')
-        .select('id, title, description, difficulty, created_at, creator_id, slug')
+        .select('id, title, description, difficulty, created_at, creator_id, slug, is_published')
         .eq('creator_id', userId)
         // .eq('is_published', true)
         .order('created_at', { ascending: false });
@@ -113,6 +115,13 @@ const UserProfilePage = () => {
       setQuizzesLoading(false);
     }
   };
+
+  const handleQuizUpdated = () => {
+    if (profile?.id) {
+      fetchUserQuizzes(profile.id);
+    }
+  };
+
 
   const handlePlayQuiz = (slug: string) => {
     router.push(`/quiz/${slug}`);
@@ -161,111 +170,112 @@ const UserProfilePage = () => {
       />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Profile Header */}
-          <Card>
-            <CardContent className="p-8">
-              <div className="flex flex-col md:flex-row gap-6">
-                <Avatar className="h-24 w-24">
-                  <AvatarImage alt="user avatar" src={profile.avatar_url ?? undefined} />
-                  <AvatarFallback className="text-2xl">
-                    {profile.username?.charAt(0)?.toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                
-                <div className="flex-1">
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                    <div>
-                      <h1 className="text-3xl font-bold">{profile.username}</h1>
-                      <p className="text-muted-foreground">@{profile.username}</p>
-                      {profile.bio && (
-                        <p className="mt-2 text-muted-foreground">{profile.bio}</p>
-                      )}
-                    </div>
-                    
-                    <Button aria-label="Share Profile" onClick={handleShareProfile} variant="outline">
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Share Profile
-                    </Button>
-                  </div>
-                  
-                  <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
-                    {profile.website && (
-                      <div className="flex items-center gap-1">
-                        <Globe className="h-4 w-4" />
-                        <a 
-                          href={profile.website} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="hover:text-primary underline"
-                        >
-                          {profile.website.replace(/^https?:\/\//, '')}
-                        </a>
-                      </div>
-                    )}
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      <span>Joined {new Date(profile.created_at || Date.now()).toLocaleDateString()}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Stats */}
-              <div className="mt-6 flex gap-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-emerald-600">{profile.total_score}</div>
-                  <div className="text-sm text-muted-foreground">Total Score</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">{profile.quizzes_completed}</div>
-                  <div className="text-sm text-muted-foreground">Quizzes Completed</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">{quizzes.length}</div>
-                  <div className="text-sm text-muted-foreground">Quizzes Created</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="max-w-4xl mx-auto space-y-8">
+            {/* Profile Header */}
+            <Card>
+              <CardContent className="p-8">
+                <div className="flex flex-col md:flex-row gap-6">
+                  <Avatar className="h-24 w-24">
+                    <AvatarImage alt="user avatar" src={profile.avatar_url ?? undefined} />
+                    <AvatarFallback className="text-2xl">
+                      {profile.username?.charAt(0)?.toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
 
-          {/* Created Quizzes */}
-          <Card>
-            <CardHeader>
-              <h2 className="!flex gap-2 items-center font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">
-                <Trophy className="h-5 w-5" />
-                Created Quizzes
-              </h2>
-            </CardHeader>
-            <CardContent>
-              {quizzesLoading ? (
-                <div className="flex justify-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+                  <div className="flex-1">
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                      <div>
+                        <h1 className="text-3xl font-bold">{profile.username}</h1>
+                        <p className="text-muted-foreground">@{profile.username}</p>
+                        {profile.bio && (
+                          <p className="mt-2 text-muted-foreground">{profile.bio}</p>
+                        )}
+                      </div>
+
+                      <Button aria-label="Share Profile" onClick={handleShareProfile} variant="outline">
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Share Profile
+                      </Button>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
+                      {profile.website && (
+                        <div className="flex items-center gap-1">
+                          <Globe className="h-4 w-4" />
+                          <a
+                            href={profile.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-primary underline"
+                          >
+                            {profile.website.replace(/^https?:\/\//, '')}
+                          </a>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-4 w-4" />
+                        <span>Joined {new Date(profile.created_at || Date.now()).toLocaleDateString()}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              ) : quizzes.length > 0 ? (
-                <div className="grid gap-4 md:grid-cols-2">
-                  {quizzes.map((quiz) => (
-                    <QuizCard
-                      key={quiz.id}
-                      quiz={quiz}
-                      onPlay={handlePlayQuiz}
-                    />
-                  ))}
+
+                {/* Stats */}
+                <div className="mt-6 flex gap-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-emerald-600">{profile.total_score}</div>
+                    <div className="text-sm text-muted-foreground">Total Score</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600">{profile.quizzes_completed}</div>
+                    <div className="text-sm text-muted-foreground">Quizzes Completed</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">{quizzes.length}</div>
+                    <div className="text-sm text-muted-foreground">Quizzes Created</div>
+                  </div>
                 </div>
-              ) : (
-                <div className="text-center py-8">
-                  <Trophy className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No quizzes yet</h3>
-                  <p className="text-muted-foreground">
-                    {profile.username} hasn't created any public quizzes yet.
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+
+            {/* Created Quizzes */}
+            <Card>
+              <CardHeader>
+                <h2 className="!flex gap-2 items-center font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">
+                  <Trophy className="h-5 w-5" />
+                  Created Quizzes
+                </h2>
+              </CardHeader>
+              <CardContent>
+                {quizzesLoading ? (
+                  <div className="flex justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+                  </div>
+                ) : quizzes.length > 0 ? (
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {quizzes.map((quiz) => (
+                      <QuizCard
+                        key={quiz.id}
+                        quiz={quiz}
+                        onPlay={handlePlayQuiz}
+                        onQuizUpdated={handleQuizUpdated}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <Trophy className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">No quizzes yet</h3>
+                    <p className="text-muted-foreground">
+                      {profile.username} hasn't created any public quizzes yet.
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

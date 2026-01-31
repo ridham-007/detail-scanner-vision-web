@@ -38,6 +38,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [published, setPublished] = useState(quiz.is_published === true);
   const { data: isAdmin } = useIsAdmin();
 
   // Fetch creator profile
@@ -49,7 +50,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
         .select('id, full_name, avatar_url, username')
         .eq('id', quiz.creator_id)
         .single();
-      
+
       if (error) throw error;
       return data;
     },
@@ -89,9 +90,9 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   const handleTogglePublish = async () => {
     if (!user || (quiz.creator_id !== user.id && !isAdmin)) return;
 
-    const newPublishedState = !quiz.is_published;
+    const newPublishedState = quiz.is_published === true ? false : true;
     setIsUpdating(true);
-    
+
     try {
       const { error } = await supabase
         .from('quizzes')
@@ -102,14 +103,17 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
 
       toast({
         title: newPublishedState ? "Quiz Published" : "Quiz Unpublished",
-        description: newPublishedState 
-          ? "Quiz has been published successfully." 
+        description: newPublishedState
+          ? "Quiz has been published successfully."
           : "Quiz has been unpublished successfully.",
       });
+
+      setPublished(newPublishedState);
 
       if (onQuizUpdated) {
         onQuizUpdated();
       }
+
     } catch (error) {
       console.error('Error updating quiz:', error);
       toast({
@@ -124,13 +128,13 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
 
   const handleDeleteQuiz = async () => {
     if (!user || (quiz.creator_id !== user.id && !isAdmin)) return;
-    
+
     if (!confirm('Are you sure you want to delete this quiz? This action cannot be undone.')) {
       return;
     }
 
     setIsUpdating(true);
-    
+
     try {
       const { error } = await supabase
         .from('quizzes')
@@ -160,7 +164,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
   };
 
   const isMyQuiz = user && quiz.creator_id === user.id;
-  const isPublished = quiz.is_published !== false;
+  const isPublished = published;
   const canManageQuiz = isMyQuiz || isAdmin;
 
   return (
@@ -186,10 +190,10 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                   </Badge>
                 )}
               </div>
-              
+
               {/* Creator Info */}
               <Link
-              href={creator && creator.username ? `/profile/${creator.username}` : ''} 
+                href={creator && creator.username ? `/profile/${creator.username}` : ''}
                 className={`flex items-center gap-2 transition-opacity ${creator && creator.username ? 'cursor-pointer hover:opacity-80' : 'cursor-default'}`}
               >
                 <Avatar className="h-6 w-6">
@@ -215,16 +219,16 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex gap-2">
-              <Button 
+              <Button
                 aria-label="Play Quiz"
-                onClick={() => onPlay(quiz.slug!)} 
+                onClick={() => onPlay(quiz.slug!)}
                 className="flex-1 text-sm h-9"
               >
                 <Play className="h-4 w-4 mr-2" />
                 Play Quiz
               </Button>
               {user && (
-                <Button 
+                <Button
                   aria-label="Leaderboard"
                   onClick={() => setShowLeaderboard(true)}
                   variant="outline"
@@ -254,11 +258,10 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                   variant="outline"
                   size="sm"
                   disabled={isUpdating}
-                  className={`flex-1 h-9 ${
-                    isPublished 
-                      ? 'text-red-600 hover:text-red-700 hover:bg-red-50' 
+                  className={`flex-1 h-9 ${isPublished
+                      ? 'text-red-600 hover:text-red-700 hover:bg-red-50'
                       : 'text-green-600 hover:text-green-700 hover:bg-green-50'
-                  }`}
+                    }`}
                 >
                   {isPublished ? (
                     <>
@@ -303,7 +306,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               open={showEditModal}
               onOpenChange={setShowEditModal}
               quiz={quiz}
-              onQuizUpdated={onQuizUpdated || (() => {})}
+              onQuizUpdated={onQuizUpdated || (() => { })}
             />
           )}
         </>
