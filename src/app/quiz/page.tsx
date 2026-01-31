@@ -305,13 +305,13 @@ export default async function QuizPage() {
                 {quizzes.map((quiz) => (
                   <article key={quiz.id}>
                     <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
-                      <CardHeader className="pb-3 h-[130px]">
+                      <CardHeader className="pb-3 min-h-[140px]">
                         <div className="flex items-start justify-between mb-2">
                           <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
                             {quiz.difficulty.toUpperCase()}
                           </Badge>
                         </div>
-                        <CardTitle className="text-lg font-semibold capitalize h-[48px] overflow-hidden">
+                        <CardTitle className="text-lg font-semibold capitalize line-clamp-2 min-h-[52px] leading-relaxed">
                           <Link 
                             href={`/quiz/${quiz.slug}/`}
                             className="hover:text-primary transition-colors"
