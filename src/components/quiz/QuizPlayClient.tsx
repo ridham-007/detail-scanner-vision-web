@@ -68,6 +68,16 @@ interface QuizPlayClientProps {
   initialQuestions: Question[];
 }
 
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+
 export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPlayClientProps) {
   const codeRef = useRef<HTMLDivElement>(null);
   const { user, signInWithGoogle } = useAuth();
@@ -75,8 +85,9 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
   const router = useRouter();
 
   const [quiz] = useState<Quiz>(initialQuiz);
-  const [questions] = useState<Question[]>(initialQuestions);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [questions] = useState<Question[]>(() =>
+    shuffleArray(initialQuestions)
+  ); const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30);
   const [selectedAnswer, setSelectedAnswer] = useState<string>("");
@@ -509,13 +520,12 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               <CardContent className="space-y-6">
                 <div className="relative">
                   <div
-                    className={`text-4xl sm:text-5xl font-bold ${
-                      score > 50
+                    className={`text-4xl sm:text-5xl font-bold ${score > 50
                         ? "text-primary"
                         : score > 30
                           ? "text-accent"
                           : "text-destructive"
-                    }`}
+                      }`}
                   >
                     {score}/100
                   </div>
@@ -738,11 +748,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                 <div className="text-center animate-pulse">
                   <div className="flex items-center gap-1">
                     <Flame
-                      className={`h-4 w-4 ${
-                        streak >= 3
+                      className={`h-4 w-4 ${streak >= 3
                           ? "text-destructive animate-bounce"
                           : "text-destructive/80"
-                      }`}
+                        }`}
                       aria-hidden="true"
                     />
                     <div className="text-lg sm:text-xl font-bold text-destructive">
@@ -772,11 +781,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
             </div>
             <div className="text-center">
               <div
-                className={`text-xl sm:text-2xl font-bold font-mono ${
-                  timeLeft <= 10
+                className={`text-xl sm:text-2xl font-bold font-mono ${timeLeft <= 10
                     ? "text-destructive animate-pulse"
                     : "text-primary"
-                }`}
+                  }`}
               >
                 {timeLeft}s
               </div>
@@ -842,11 +850,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               size="sm"
               onClick={useFiftyFifty}
               disabled={!lifelines.fiftyFifty || answerFeedback.show}
-              className={`flex flex-col items-center gap-1 h-auto py-2 ${
-                !lifelines.fiftyFifty
+              className={`flex flex-col items-center gap-1 h-auto py-2 ${!lifelines.fiftyFifty
                   ? "opacity-50 bg-muted"
                   : "bg-primary hover:bg-primary/90 text-primary-foreground"
-              }`}
+                }`}
             >
               <Users className="h-4 w-4" aria-hidden="true" />
               <span className="text-xs">50:50</span>
@@ -860,11 +867,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               size="sm"
               onClick={useSkipQuestion}
               disabled={!lifelines.skipQuestion || answerFeedback.show}
-              className={`flex flex-col items-center gap-1 h-auto py-2 ${
-                !lifelines.skipQuestion
+              className={`flex flex-col items-center gap-1 h-auto py-2 ${!lifelines.skipQuestion
                   ? "opacity-50 bg-muted"
                   : "bg-accent hover:bg-accent/90 text-accent-foreground"
-              }`}
+                }`}
             >
               <Lightbulb className="h-4 w-4" aria-hidden="true" />
               <span className="text-xs">Skip</span>
@@ -878,11 +884,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               size="sm"
               onClick={useExtraTime}
               disabled={!lifelines.extraTime || answerFeedback.show}
-              className={`flex flex-col items-center gap-1 h-auto py-2 ${
-                !lifelines.extraTime
+              className={`flex flex-col items-center gap-1 h-auto py-2 ${!lifelines.extraTime
                   ? "opacity-50 bg-muted"
                   : "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
-              }`}
+                }`}
             >
               <Clock className="h-4 w-4" aria-hidden="true" />
               <span className="text-xs">+15s</span>
@@ -906,9 +911,8 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                 size="sm"
                 onClick={speakQuestion}
                 disabled={answerFeedback.show}
-                className={`shrink-0 ${
-                  isSpeaking ? "bg-primary/10 text-primary" : ""
-                }`}
+                className={`shrink-0 ${isSpeaking ? "bg-primary/10 text-primary" : ""
+                  }`}
               >
                 <Volume2
                   className={`h-4 w-4 ${isSpeaking ? "animate-pulse" : ""}`}
@@ -947,24 +951,22 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                   aria-label={`Answer ${letter}`}
                   key={index}
                   variant="outline"
-                  className={`w-full text-left justify-start h-auto p-4 text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] border-2 ${
-                    isSelectedAnswer
+                  className={`w-full text-left justify-start h-auto p-4 text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] border-2 ${isSelectedAnswer
                       ? answerFeedback.isCorrect
                         ? "bg-primary/20 border-primary text-primary"
                         : "bg-destructive/20 border-destructive text-destructive"
                       : isCorrectAnswer
                         ? "bg-primary/10 border-primary/50 text-primary"
                         : "hover:bg-muted/50"
-                  } ${answerFeedback.show ? "pointer-events-none" : ""}`}
+                    } ${answerFeedback.show ? "pointer-events-none" : ""}`}
                   onClick={() => handleAnswerSelect(answer)}
                   disabled={answerFeedback.show}
                 >
                   <div
-                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mr-3 font-bold text-xs shrink-0 ${
-                      isSelectedAnswer || isCorrectAnswer
+                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mr-3 font-bold text-xs shrink-0 ${isSelectedAnswer || isCorrectAnswer
                         ? "bg-background"
                         : "bg-muted"
-                    }`}
+                      }`}
                   >
                     {letter}
                   </div>
@@ -999,9 +1001,8 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
       {answerFeedback.show && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in p-4">
           <div
-            className={`bg-card rounded-2xl p-6 max-w-sm w-full text-center transform transition-all duration-500 animate-scale-in border-4 ${
-              answerFeedback.isCorrect ? "border-primary" : "border-destructive"
-            }`}
+            className={`bg-card rounded-2xl p-6 max-w-sm w-full text-center transform transition-all duration-500 animate-scale-in border-4 ${answerFeedback.isCorrect ? "border-primary" : "border-destructive"
+              }`}
           >
             {answerFeedback.isCorrect ? (
               <div className="text-primary">
