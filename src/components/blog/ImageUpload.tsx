@@ -7,6 +7,8 @@ import { Upload, Copy, Check, X, Image } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
+import { convertToWebP } from '@/lib/image-utils';
+
 interface ImageUploadProps {
   onImageUploaded?: (url: string) => void;
 }
@@ -45,13 +47,18 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded }) => {
     setUploading(true);
 
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      // Convert to WebP
+      const webpBlob = await convertToWebP(file);
+      const webpFile = new File([webpBlob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
+        type: 'image/webp',
+      });
+
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.webp`;
       const filePath = `${fileName}`;
 
       const { error: uploadError } = await supabase.storage
         .from('blog-images')
-        .upload(filePath, file);
+        .upload(filePath, webpFile);
 
       if (uploadError) {
         throw uploadError;
@@ -61,16 +68,16 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded }) => {
         .from('blog-images')
         .getPublicUrl(filePath);
 
-      const newImage = { name: file.name, url: publicUrl };
+      const newImage = { name: webpFile.name, url: publicUrl };
       setUploadedImages(prev => [newImage, ...prev]);
-      
+
       if (onImageUploaded) {
         onImageUploaded(publicUrl);
       }
 
       toast({
         title: 'Success!',
-        description: 'Image uploaded successfully.',
+        description: 'Image uploaded and converted to WebP successfully.',
       });
 
       // Reset file input
