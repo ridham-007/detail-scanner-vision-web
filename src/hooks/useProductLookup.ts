@@ -136,6 +136,24 @@ export const useProductLookup = () => {
     if (!user) return;
 
     try {
+      // Check if product was already scanned by this user recently (e.g., today)
+      // or just check if it exists at all to prevent duplicates
+      const { data: existingEntry } = await supabase
+        .from("scan_history")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("barcode", product.barcode)
+        .maybeSingle();
+
+      if (existingEntry) {
+        // If it exists, we might want to update the scanned_at timestamp
+        await supabase
+          .from("scan_history")
+          .update({ scanned_at: new Date().toISOString() })
+          .eq("id", existingEntry.id);
+        return;
+      }
+
       await supabase.from("scan_history").insert({
         user_id: user.id,
         barcode: product.barcode,
@@ -143,8 +161,8 @@ export const useProductLookup = () => {
         health_score: product.health_score,
         scanned_at: new Date().toISOString(),
       });
-    } catch {
-      // silent
+    } catch (err) {
+      console.error("Error saving scan history:", err);
     }
   };
 

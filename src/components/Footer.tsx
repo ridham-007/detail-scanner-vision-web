@@ -1,25 +1,47 @@
+"use client";
+
 // components/Footer.tsx
-import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText } from "lucide-react";
+import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText, Facebook, Twitter } from "lucide-react";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { toast } = useToast();
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const email = "hello@eateriq.com";
+    navigator.clipboard.writeText(email).then(() => {
+      toast({
+        title: "Email Copied",
+        description: "Email address copied to clipboard!",
+      });
+    }).catch(() => {
+      toast({
+        title: "Error",
+        description: "Failed to copy email.",
+        variant: "destructive",
+      });
+    });
+  };
+
 
   return (
-    <footer 
-      role="contentinfo" 
+    <footer
+      role="contentinfo"
       aria-label="Site footer"
-      itemScope 
+      itemScope
       itemType="https://schema.org/WPFooter"
       className="border-t border-border bg-card/50 backdrop-blur-sm mt-8"
     >
       <div className="container mx-auto px-4 py-10 md:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          
+
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="inline-flex items-center gap-2.5 mb-4 group"
               aria-label="EaterIQ - Go to homepage"
             >
@@ -31,7 +53,7 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
               Scan, understand, and make healthier food choices. Your personal nutrition companion.
             </p>
-            
+
             {/* App Store Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <a
@@ -72,7 +94,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link 
+                <Link
                   href="/scanner/"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                 >
@@ -81,7 +103,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link 
+                <Link
                   href="/categories/"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                 >
@@ -90,7 +112,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link 
+                <Link
                   href="/quiz/"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                 >
@@ -108,7 +130,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link 
+                <Link
                   href="/support/"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                 >
@@ -117,7 +139,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link 
+                <Link
                   href="/contributions/"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                 >
@@ -126,7 +148,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link 
+                <Link
                   href="/blog/"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                 >
@@ -139,12 +161,14 @@ export default function Footer() {
 
           {/* Contact Section */}
           <address className="not-italic">
+
+
             <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
               Contact
             </h3>
             <ul className="space-y-3">
               <li>
-                <a 
+                <a
                   href="mailto:hello@eateriq.com"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                   itemProp="email"
@@ -154,7 +178,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link 
+                <Link
                   href="/about/"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                 >
@@ -163,6 +187,36 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
+
+            <div className="pt-2">
+              <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
+                Social
+              </h3>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61587144212003"
+                  className="bg-primary/10 p-2 rounded-full text-primary hover:bg-primary/20 transition-colors"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://x.com/Eaateriq"
+                  className="bg-primary/10 p-2 rounded-full text-primary hover:bg-primary/20 transition-colors"
+                  aria-label="Twitter"
+                >
+                  <Twitter className="h-4 w-4" />
+                </a>
+                <a
+                  href="mailto:hello@eateriq.com"
+                  onClick={handleCopyEmail}
+                  className="bg-primary/10 p-2 rounded-full text-primary hover:bg-primary/20 transition-colors cursor-pointer"
+                  aria-label="Copy Email"
+                >
+                  <Mail className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
           </address>
         </div>
 
@@ -172,11 +226,11 @@ export default function Footer() {
             <p className="text-xs text-muted-foreground order-2 sm:order-1">
               © {currentYear} EaterIQ. All rights reserved.
             </p>
-            
+
             <nav aria-label="Legal navigation" className="order-1 sm:order-2">
               <ul className="flex items-center gap-6">
                 <li>
-                  <Link 
+                  <Link
                     href="/privacy/"
                     className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                   >
@@ -184,7 +238,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link 
+                  <Link
                     href="/terms/"
                     className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                   >
