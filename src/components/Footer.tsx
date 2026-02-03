@@ -1,7 +1,7 @@
 "use client";
 
 // components/Footer.tsx
-import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText, Facebook, Twitter } from "lucide-react";
+import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText, Facebook, Twitter, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 
@@ -118,6 +118,15 @@ export default function Footer() {
                 >
                   <FileText className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
                   Health Quizzes
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/compare/"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                >
+                  <TrendingUp className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
+                  Food Battle
                 </Link>
               </li>
             </ul>
