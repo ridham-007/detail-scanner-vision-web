@@ -1,0 +1,10 @@
+import ProductComparisonPage from '@/views/ProductComparisonPage';
+
+export const metadata = {
+    title: 'Food Battle - Compare Products',
+    description: 'Compare two products side-by-side to find the healthier option.',
+};
+
+export default function Page() {
+    return <ProductComparisonPage />;
+}
