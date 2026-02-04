@@ -28,7 +28,7 @@ export const updatePageSEO = (config: SEOConfig) => {
     description = 'AI-powered barcode scanner and quiz platform for smarter food choices',
     keywords = 'barcode scanner, food scanner, nutrition app, health score, AI food quiz',
     image = 'https://www.eateriq.com/eater-iq.png',
-    url = window.location.href,
+    url = typeof window !== 'undefined' ? window.location.href : 'https://www.eateriq.com',
     type = 'website',
     structuredData,
     ogTitle,
@@ -48,7 +48,7 @@ export const updatePageSEO = (config: SEOConfig) => {
   const updateMeta = (name: string, content: string, property = false) => {
     const selector = property ? `meta[property="${name}"]` : `meta[name="${name}"]`;
     let meta = document.querySelector(selector) as HTMLMetaElement;
-    
+
     if (!meta) {
       meta = document.createElement('meta');
       if (property) {
@@ -58,21 +58,21 @@ export const updatePageSEO = (config: SEOConfig) => {
       }
       document.head.appendChild(meta);
     }
-    
+
     meta.setAttribute('content', content);
   };
 
   // Update basic meta tags
   updateMeta('description', description);
   updateMeta('keywords', keywords);
-  
+
   // Update Open Graph tags
   updateMeta('og:title', ogTitle || title, true);
   updateMeta('og:description', ogDescription || description, true);
   updateMeta('og:image', ogImage || image, true);
   updateMeta('og:url', canonicalUrl || url, true);
   updateMeta('og:type', type, true);
-  
+
   // Update Twitter tags
   updateMeta('twitter:title', twitterTitle || title);
   updateMeta('twitter:description', twitterDescription || description);
@@ -153,7 +153,7 @@ export const generateQuizStructuredData = (quiz: {
   }
 });
 
-export const generateBreadcrumbStructuredData = (breadcrumbs: Array<{name: string, url: string}>) => ({
+export const generateBreadcrumbStructuredData = (breadcrumbs: Array<{ name: string, url: string }>) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": breadcrumbs.map((crumb, index) => ({

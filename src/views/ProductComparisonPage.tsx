@@ -6,21 +6,15 @@ import { Button } from '@/components/ui/button';
 import { Plus, Trophy, X, ArrowRightLeft } from 'lucide-react';
 import { ProductData } from '@/types/ProductData';
 import { useProductLookup } from '@/hooks/useProductLookup';
-import BarcodeScanner from '@/components/BarcodeScanner';
-import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { useScanHistory } from '@/hooks/useScanHistory';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import ProductSelectionModal from '@/components/ProductSelectionModal';
 
 const ProductComparisonPage = () => {
     const [productA, setProductA] = useState<ProductData | null>(null);
     const [productB, setProductB] = useState<ProductData | null>(null);
     const [activeSlot, setActiveSlot] = useState<'A' | 'B' | null>(null);
-    const [manualBarcode, setManualBarcode] = useState('');
-    const [isScanning, setIsScanning] = useState(false);
 
-    const { lookupProduct, isLoading } = useProductLookup();
-    const { scanHistory, isLoading: isHistoryLoading, fetchScanHistory } = useScanHistory();
+    const { lookupProduct } = useProductLookup();
 
     // Debug: Log products when they change
     React.useEffect(() => {
@@ -28,27 +22,10 @@ const ProductComparisonPage = () => {
         if (productB) console.log("Product B Data:", productB);
     }, [productA, productB]);
 
-    // Fetch history when simple opening the modal
-    React.useEffect(() => {
-        if (activeSlot) {
-            fetchScanHistory();
-        }
-    }, [activeSlot]);
-
-    const handleLookup = async (barcode: string) => {
-        if (!activeSlot) return;
-
-        setIsScanning(false);
-        const product = await lookupProduct(barcode);
-
-        if (product) {
-            if (activeSlot === 'A') setProductA(product);
-            else setProductB(product);
-            setActiveSlot(null);
-            setManualBarcode('');
-        } else {
-            toast.error("Product not found");
-        }
+    const handleSelectProduct = (product: ProductData) => {
+        if (activeSlot === 'A') setProductA(product);
+        else setProductB(product);
+        setActiveSlot(null);
     };
 
     const clearSlot = (slot: 'A' | 'B') => {
@@ -78,7 +55,7 @@ const ProductComparisonPage = () => {
         }
 
         // 3. Try finding in nutrition_data array
-        if (product.nutrition_data) {
+        if (Array.isArray(product.nutrition_data)) {
             const item = product.nutrition_data.find(n => n.key === key || fallbackKeys.includes(n.key));
             if (item?.value) {
                 return parseValue(item.value);
@@ -90,20 +67,20 @@ const ProductComparisonPage = () => {
 
     // Configuration for all fields we want to compare
     const comparisonFields = [
-        { label: "Energy (Calories)", key: "calories_kcal", fallbacks: ["energy", "energy_kcal", "calories"], unit: "kcal", lowerIsBetter: true },
-        { label: "Energy (kJ)", key: "energy_kj", fallbacks: ["energy_kj"], unit: "kJ", lowerIsBetter: true },
-        { label: "Carbohydrates", key: "carbohydrates_g", fallbacks: ["carbohydrates"], unit: "g", lowerIsBetter: false }, // Moderation usually
-        { label: "Sugars", key: "sugar_g", fallbacks: ["sugars", "sugar"], unit: "g", lowerIsBetter: true },
-        { label: "Total Fat", key: "total_fat_g", fallbacks: ["fat", "total_fat"], unit: "g", lowerIsBetter: true },
-        { label: "Saturated Fat", key: "saturated_fat_g", fallbacks: ["saturated-fat", "saturated_fat"], unit: "g", lowerIsBetter: true },
-        { label: "Trans Fat", key: "trans_fat_g", fallbacks: ["trans-fat", "trans_fat"], unit: "g", lowerIsBetter: true },
-        { label: "Proteins", key: "protein_g", fallbacks: ["proteins", "protein"], unit: "g", lowerIsBetter: false },
-        { label: "Fiber", key: "fiber_g", fallbacks: ["fiber", "fibre"], unit: "g", lowerIsBetter: false },
-        { label: "Salt", key: "salt_mg", fallbacks: ["salt"], unit: "mg", lowerIsBetter: true },
-        { label: "Sodium", key: "sodium_mg", fallbacks: ["sodium"], unit: "mg", lowerIsBetter: true },
-        { label: "Cholesterol", key: "cholesterol_mg", fallbacks: ["cholesterol"], unit: "mg", lowerIsBetter: true },
-        { label: "Calcium", key: "calcium_mg", fallbacks: ["calcium"], unit: "mg", lowerIsBetter: false },
-        { label: "Iron", key: "iron_mg", fallbacks: ["iron"], unit: "mg", lowerIsBetter: false },
+        { label: "Energy (Calories)", key: "calories_kcal", fallbacks: ["energy", "energy_kcal", "calories", "energy-kcal", "kcal"], unit: "kcal", lowerIsBetter: true },
+        { label: "Energy (kJ)", key: "energy_kj", fallbacks: ["energy_kj", "energy-kj", "kj"], unit: "kJ", lowerIsBetter: true },
+        { label: "Carbohydrates", key: "carbohydrates_g", fallbacks: ["carbohydrates", "carbohydrate", "carbs", "total_carbohydrates", "total-carbohydrate"], unit: "g", lowerIsBetter: false }, // Moderation usually
+        { label: "Sugars", key: "sugar_g", fallbacks: ["sugars", "sugar", "total_sugars", "total-sugars"], unit: "g", lowerIsBetter: true },
+        { label: "Total Fat", key: "total_fat_g", fallbacks: ["fat", "total_fat", "total-fat", "fat_g"], unit: "g", lowerIsBetter: true },
+        { label: "Saturated Fat", key: "saturated_fat_g", fallbacks: ["saturated-fat", "saturated_fat", "saturated", "saturates"], unit: "g", lowerIsBetter: true },
+        { label: "Trans Fat", key: "trans_fat_g", fallbacks: ["trans-fat", "trans_fat", "trans"], unit: "g", lowerIsBetter: true },
+        { label: "Proteins", key: "protein_g", fallbacks: ["proteins", "protein", "protein_g"], unit: "g", lowerIsBetter: false },
+        { label: "Fiber", key: "fiber_g", fallbacks: ["fiber", "fibre", "dietary_fiber", "dietary-fiber"], unit: "g", lowerIsBetter: false },
+        { label: "Salt", key: "salt_mg", fallbacks: ["salt", "salt_g"], unit: "mg", lowerIsBetter: true },
+        { label: "Sodium", key: "sodium_mg", fallbacks: ["sodium", "sodium_g"], unit: "mg", lowerIsBetter: true },
+        { label: "Cholesterol", key: "cholesterol_mg", fallbacks: ["cholesterol", "cholesterol_g"], unit: "mg", lowerIsBetter: true },
+        { label: "Calcium", key: "calcium_mg", fallbacks: ["calcium", "calcium_g"], unit: "mg", lowerIsBetter: false },
+        { label: "Iron", key: "iron_mg", fallbacks: ["iron", "iron_g"], unit: "mg", lowerIsBetter: false },
     ];
 
     const calculateWinner = () => {
@@ -154,90 +131,6 @@ const ProductComparisonPage = () => {
             <p className="text-muted-foreground text-sm">Tap to search or scan</p>
         </Card>
     );
-
-    const getHealthScoreColor = (score: number | null) => {
-        if (!score) return "bg-gray-200 text-gray-700";
-        if (score >= 80) return "bg-green-100 text-green-700";
-        if (score >= 60) return "bg-yellow-100 text-yellow-700";
-        return "bg-red-100 text-red-700";
-    };
-
-    const SelectionModal = () => {
-        if (!activeSlot) return null;
-        return (
-            <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <Card className="w-full max-w-md max-h-[90vh] flex flex-col">
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                        <CardTitle>Select Product {activeSlot}</CardTitle>
-                        <Button variant="ghost" size="icon" onClick={() => setActiveSlot(null)}>
-                            <X className="w-4 h-4" />
-                        </Button>
-                    </CardHeader>
-                    <CardContent className="space-y-4 flex-1 overflow-hidden flex flex-col">
-                        <Tabs defaultValue="scan" className="flex-1 flex flex-col overflow-hidden">
-                            <TabsList className="grid w-full grid-cols-2">
-                                <TabsTrigger value="scan">Scan / Search</TabsTrigger>
-                                <TabsTrigger value="history">History</TabsTrigger>
-                            </TabsList>
-                            <TabsContent value="scan" className="mt-4 space-y-4">
-                                <div>
-                                    <div className="mb-4">
-                                        <BarcodeScanner
-                                            isScanning={isScanning}
-                                            onToggleScanning={() => setIsScanning(!isScanning)}
-                                            onScan={handleLookup}
-                                        />
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <Input
-                                            placeholder="Enter barcode..."
-                                            value={manualBarcode}
-                                            onChange={(e) => setManualBarcode(e.target.value)}
-                                        />
-                                        <Button onClick={() => handleLookup(manualBarcode)} disabled={isLoading}>
-                                            {isLoading ? '...' : 'Search'}
-                                        </Button>
-                                    </div>
-                                    <div className="mt-4 text-xs text-muted-foreground bg-muted p-2 rounded">
-                                        Samples: 8906000610077 (Chips), 8906019779840 (Nuts)
-                                    </div>
-                                </div>
-                            </TabsContent>
-                            <TabsContent value="history" className="flex-1 overflow-hidden mt-4">
-                                <div className="h-[400px] overflow-y-auto pr-2 space-y-2">
-                                    {isHistoryLoading ? (
-                                        <div className="text-center py-8 text-muted-foreground">Loading history...</div>
-                                    ) : scanHistory.length === 0 ? (
-                                        <div className="text-center py-8 text-muted-foreground">
-                                            No scan history found.
-                                        </div>
-                                    ) : (
-                                        scanHistory.map((item) => (
-                                            <div
-                                                key={item.id}
-                                                className="flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 cursor-pointer transition-colors"
-                                                onClick={() => handleLookup(item.barcode)}
-                                            >
-                                                <div className="flex-1 min-w-0 mr-2">
-                                                    <h4 className="font-medium text-sm truncate">{item.product_name}</h4>
-                                                    <div className="text-xs text-muted-foreground truncate">
-                                                        {new Date(item.scanned_at).toLocaleDateString()}
-                                                    </div>
-                                                </div>
-                                                <div className={`text-xs font-bold px-2 py-1 rounded ${getHealthScoreColor(item.health_score)}`}>
-                                                    {item.health_score ?? '-'}
-                                                </div>
-                                            </div>
-                                        ))
-                                    )}
-                                </div>
-                            </TabsContent>
-                        </Tabs>
-                    </CardContent>
-                </Card>
-            </div>
-        )
-    }
 
     const ComparisonRow = ({ field }: { field: typeof comparisonFields[0] }) => {
         let valA = getNutrientValue(productA!, field.key, field.fallbacks);
@@ -368,7 +261,12 @@ const ProductComparisonPage = () => {
                 </Card>
             )}
 
-            <SelectionModal />
+            <ProductSelectionModal
+                isOpen={!!activeSlot}
+                slot={activeSlot}
+                onClose={() => setActiveSlot(null)}
+                onSelect={handleSelectProduct}
+            />
         </div>
     );
 };
