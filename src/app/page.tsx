@@ -28,6 +28,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import FoodScannerPage from "@/views/FoodScannerPage";
 import ScrollToScannerButton from "@/components/home/ScrollToScannerButton";
+import HealthCalculators from "@/components/HealthCalculators";
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -326,7 +327,6 @@ export default async function HomePage() {
                       aria-label="Download on the App Store"
                       className="transition-opacity hover:opacity-80"
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
                         alt="Download on the App Store"
@@ -341,7 +341,6 @@ export default async function HomePage() {
                       aria-label="Get it on Google Play"
                       className="transition-opacity hover:opacity-80"
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                         alt="Get it on Google Play"
@@ -662,6 +661,8 @@ export default async function HomePage() {
               </div>
             </div>
           </section>
+
+          <HealthCalculators />
 
           {/* Key Features Section */}
           <section className="py-20" aria-labelledby="features-heading">
@@ -1016,7 +1017,6 @@ export default async function HomePage() {
                     >
                       {blog.featured_image_url && (
                         <div className="aspect-[16/9] w-full overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={blog.featured_image_url}
                             alt={blog.title}
