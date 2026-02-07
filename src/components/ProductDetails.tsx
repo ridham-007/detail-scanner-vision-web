@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ import { fetchAlternatives, AlternativeProduct } from "@/lib/api/alternatives";
 import AlternativesModal from "@/components/AlternativesModal";
 import HealthInsights from "./HealthInsights";
 import { HealthierAlternatives } from "./HealthierAlternatives";
+import { useProductImage } from "@/hooks/useProductImage";
 
 interface ProductDetailsProps {
   product: ProductData | null;
@@ -50,18 +52,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   );
   const [alternativesOpen, setAlternativesOpen] = useState(false);
 
+  const { apiImage, imageLoading } = useProductImage(
+    product?.barcode,
+    product?.images,
+  );
+
   const handleAlternativesClick = async () => {
     if (!product) return;
 
     setAlternativesOpen(true);
     setLoadingAlternatives(true);
-    console.log("📦 Product barcode:", product.barcode);
 
     try {
       const data = await fetchAlternatives(product.barcode);
-      console.log("✅ API response received:", data);
       setAlternatives(data.alternatives || []);
-      console.log("🧠 Alternatives count:", data.alternatives?.length || 0);
     } catch {
       setAlternatives([]);
     } finally {
@@ -215,6 +219,16 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     );
   }
 
+  const finalImages = () => {
+    if (product?.images?.length) return product.images;
+
+    if (apiImage) return [apiImage];
+
+    if (imageLoading) return [];
+
+    return [];
+  };
+
   return (
     <div className="space-y-8">
       {/* Main Product Card - Completely Redesigned */}
@@ -236,10 +250,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   <div className="relative group">
                     <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity"></div>
                     <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-xl border border-border/50">
-                      <ProductImageCarousel
-                        images={product.images}
-                        productName={product.name}
-                      />
+                      {imageLoading ? (
+                        // ===== SHIMMER FRAME =====
+                        <div className="w-64 h-64 bg-muted rounded-2xl animate-pulse flex items-center justify-center">
+                          <div className="space-y-3 text-center">
+                            
+                          </div>
+                        </div>
+                      ) : (
+                        <ProductImageCarousel
+                          images={finalImages()}
+                          productName={product.name}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
