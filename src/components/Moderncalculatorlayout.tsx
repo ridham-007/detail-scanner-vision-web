@@ -231,7 +231,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
 
             {/* CENTER */}
             <div className="lg:col-span-6">
-              <div className="bg-white rounded-3xl border shadow-sm">
+              <div className="bg-white rounded-3xl border overflow-hidden shadow-sm">
                 <div className="p-6 border-b bg-green-50">
                   <div className="flex items-center gap-3">
                     <Calculator className="h-6 w-6 text-[#84B44C]" />

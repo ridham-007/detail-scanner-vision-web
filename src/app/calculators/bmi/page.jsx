@@ -348,12 +348,51 @@ const BMICalculator = () => {
     ],
   };
 
+  const faq = [
+      {
+        question: "What is a unit converter?",
+        answer:
+          "A unit converter is a tool that converts a numerical value from one unit of measurement to another equivalent unit within the same category.",
+      },
+      {
+        question: "Which unit categories are supported?",
+        answer:
+          "The converter supports multiple categories such as length, weight, temperature, area, volume, speed, and more based on the units.json configuration.",
+      },
+      {
+        question: "How does unit conversion work?",
+        answer:
+          "Most units are converted via a common base unit. The input value is first converted to the base unit and then to the target unit.",
+      },
+      {
+        question: "Why is temperature conversion different?",
+        answer:
+          "Temperature conversions are non-linear and use specific mathematical formulas instead of simple multiplication or division.",
+      },
+      {
+        question: "Can I add my own units?",
+        answer:
+          "Yes. You can easily add or modify units by editing the units.json file and defining the conversion logic.",
+      },
+      {
+        question: "Is the unit conversion accurate?",
+        answer:
+          "Yes. The calculator uses precise base-unit conversion logic to ensure accurate and reliable results.",
+      },
+      {
+        question: "Why does the result update automatically?",
+        answer:
+          "The result recalculates instantly whenever you change the input value or selected units, providing a real-time conversion experience.",
+      },
+    ];
+
   return (
     <ModernCalculatorLayout
       title="BMI Calculator"
       description="Calculate your Body Mass Index (BMI) and track your progress with instant results and a colorful, interactive progress chart."
       icon={Scale}
       details={details}
+      faq={faq}
     >
       {calculatorContent}
     </ModernCalculatorLayout>

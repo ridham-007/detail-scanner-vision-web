@@ -136,39 +136,37 @@ export default function HealthCalculators() {
             </article>
           </Link>
 
-          {/* ================= Water Intake Card ================= */}
-          <article
-            // onClick={() => router.push("/water-calculator")}
-            className="group relative bg-card rounded-2xl p-8 border-2 border-border hover:border-primary/50 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <Link href="/calculators/waterintake">
+            <article className="group relative bg-card rounded-2xl p-8 border-2 border-border hover:border-primary/50 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            <div className="relative z-10">
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110">
-                <Droplet className="h-8 w-8 text-white" />
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110">
+                  <Droplet className="h-8 w-8 text-white" />
+                </div>
+
+                <h3 className="text-2xl font-bold mb-3">Water Intake</h3>
+
+                <p className="text-muted-foreground mb-6">
+                  Find out how much water you should drink daily.
+                </p>
+
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    Personalized hydration goals
+                  </li>
+                </ul>
+
+                <div className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                  <span>Calculate Now</span>
+                  <ArrowRight className="h-4 w-4" />
+                </div>
               </div>
 
-              <h3 className="text-2xl font-bold mb-3">Water Intake</h3>
-
-              <p className="text-muted-foreground mb-6">
-                Find out how much water you should drink daily.
-              </p>
-
-              <ul className="space-y-2 mb-6">
-                <li className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  Personalized hydration goals
-                </li>
-              </ul>
-
-              <div className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                <span>Calculate Now</span>
-                <ArrowRight className="h-4 w-4" />
-              </div>
-            </div>
-
-            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl" />
-          </article>
+              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl" />
+            </article>
+          </Link>
         </div>
 
         {/* FOOTER BUTTON */}
