@@ -7,20 +7,19 @@ import {
   AlertCircle,
   TrendingUp,
   Calendar,
-  Scale
+  Scale,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
-  Filler,
 } from "chart.js";
 import ModernCalculatorLayout from "@/components/Moderncalculatorlayout";
 import { calculatorConfig } from "@/data/calculatorConfig";
@@ -29,12 +28,10 @@ import HowToUse from "@/components/calculator/HowToUse";
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
-  Legend,
-  Filler
+  Legend
 );
 
 const BMICalculator = () => {
@@ -122,26 +119,15 @@ const BMICalculator = () => {
       {
         label: "BMI Progress",
         data: bmiData,
-        borderColor: "#a655f7", // emerald green
-        backgroundColor: (context) => {
-          const chart = context.chart;
-          const { ctx, chartArea } = chart;
-          if (!chartArea) return null;
-          const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-          gradient.addColorStop(0, "rgba(166, 85, 247, 0.18)"); // soft green bottom
-          gradient.addColorStop(0.5, "rgba(166, 85, 247, 0.18)"); // blue mid
-          gradient.addColorStop(1, "rgba(166, 85, 247, 0.18)"); // pink top
-          return gradient;
-        },
-        borderWidth: 3,
-        fill: true,
-        tension: 0.4,
-        pointBackgroundColor: "#a655f7", // blue
-        pointBorderColor: "#fff",
-        pointBorderWidth: 2,
-        pointHoverRadius: 8,
-        pointHoverBackgroundColor: "#a655f7", // green hover
-        pointRadius: 6,
+        backgroundColor: bmiData.map((v) => {
+          if (v < 18.5) return "#3b82f6";
+          if (v < 25) return "#22c55e";
+          if (v < 30) return "#eab308";
+          return "#ef4444";
+        }),
+        borderRadius: 10,
+        barThickness: 26,
+        hoverBackgroundColor: "#a655f7",
       },
     ],
   };
@@ -256,8 +242,14 @@ const BMICalculator = () => {
         <div className="space-y-6">
           <div className={`p-6 rounded-2xl border-2 ${getBMIBgColor()}`}>
             <div className="text-center mb-4">
-              <div className="text-sm font-medium text-muted-foreground mb-2">Your BMI</div>
-              <div className={`text-4xl font-bold text-primary ${getBMIColor()}`}>{bmi}</div>
+              <div className="text-sm font-medium text-muted-foreground mb-2">
+                Your BMI
+              </div>
+              <div
+                className={`text-4xl font-bold text-primary ${getBMIColor()}`}
+              >
+                {bmi}
+              </div>
               <div className={`text-lg font-semibold mt-2 ${getBMIColor()}`}>
                 {getCategory(bmi)}
               </div>
@@ -277,15 +269,21 @@ const BMICalculator = () => {
               </div>
               <div className="flex justify-between items-center p-3 bg-green-50 border border-green-200 rounded-lg">
                 <span className="font-medium">Normal weight</span>
-                <span className="text-green-600 font-semibold">18.5 - 24.9</span>
+                <span className="text-green-600 font-semibold">
+                  18.5 - 24.9
+                </span>
               </div>
               <div className="flex justify-between items-center p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <span className="font-medium">Overweight</span>
-                <span className="text-yellow-600 font-semibold">25.0 - 29.9</span>
+                <span className="text-yellow-600 font-semibold">
+                  25.0 - 29.9
+                </span>
               </div>
               <div className="flex justify-between items-center p-3 bg-red-50 border border-red-200 rounded-lg">
                 <span className="font-medium">Obese</span>
-                <span className="text-red-600 font-semibold">30.0 and above</span>
+                <span className="text-red-600 font-semibold">
+                  30.0 and above
+                </span>
               </div>
             </div>
           </div>
@@ -297,7 +295,7 @@ const BMICalculator = () => {
                 BMI Progress Tracking
               </h3>
               <div className="h-64">
-                <Line
+                <Bar
                   data={chartData}
                   options={{
                     responsive: true,

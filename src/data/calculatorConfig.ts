@@ -1,4 +1,4 @@
-import { Scale, Droplets, Flame } from "lucide-react";
+import { Scale, Droplets, Flame, Target, Zap, Baby } from "lucide-react";
 
 // Inline HowToUse data for BMI - Simplified for cleaner file
 const bmiHowToUse = {
@@ -466,6 +466,469 @@ Using a personalized hydration estimate encourages mindful drinking habits witho
     },
   ],
 };
+const tdeeHowToUse = {
+  title: "How to Use the TDEE Calculator",
+
+  intro: `
+Knowing your caloric needs on a day-to-day basis is crucial in managing your weight successfully. The concept of Total Daily Energy Expenditure, also known as TDEE, takes into account the total number of calories your body sheds on a daily basis.
+
+Though many of you pay attention to only the calories you are consuming, understanding your expenditure of calories is equally significant. Consuming calories above your TDEE value causes you to gain weight, whereas burning calories below your TDEE value makes you lean. Your TDEE value can be known by using a TDEE calculator.
+
+This calculator not only uses BMR calculations but also adjusts the value according to the activity you perform. This gives a very accurate idea about how much calories you burn each day.
+
+That being said, whether you want to lose weight, build muscle mass, or simply maintain your current body weight, this TDEE calculator ensures you are always making well-informed decisions in your pursuit of healthy lifestyle choices.
+  `,
+
+  steps: [
+    {
+      title: "Enter Your Basic Details",
+      description: `
+To begin, you'll want to input your age, as well as whether you are male or female, height, and weight. These variables have a direct impact on BMR, which is used as a basis to calculate TDE
+
+Data accuracy will lead to a much more precise estimation of calories.
+      `,
+    },
+    {
+      title: "Select Your Activity Level",
+      description: `
+Select your activity level from sedentary to very active that best fits your lifestyle.
+
+This is very important, as exercising the body leads to increased expenditure of calories each day.
+      `,
+    },
+    {
+      title: "Calculate Your TDEE",
+      description: `
+Enter all of the above information to calculate your Total Daily Energy Expenditure.
+
+How To Get Started Title Page: Title: Nutritional Needs for a Healthy Life Author: [Author Name] Report Title: Understanding Nutritional
+      `,
+    },
+    {
+      title: "Adjust Calories Based on Your Goal",
+      description: `
+Set your personal TDEE as a basis:
+• Reduce calorie intake to lose weight
+     • Healthy eating habits
+• Increase caloric intake by eating more.
+
+• Consume caloric intake close to TDEE for weight maintenance
+      `,
+    },
+    {
+      title: "Recalculate as Your Body Changes",
+      description: `
+Small change equals lasting success. Your TDEE will automatically update as you change your weight, level of physical activity, or goals.
+      `,
+    },
+  ],
+
+  benefits: [
+    "Personalized daily calorie estimation",
+    "Supports weight loss, gain, and maintenance goals",
+    "Accounts for lifestyle and activity level",
+    "Based on proven scientific formulas",
+    "Helps avoid under- or over-eating",
+    "Simple and quick to use",
+    "Ideal for long-term health planning",
+  ],
+
+  useCases: [
+    "Weight loss planning",
+    "Muscle gain and bulking",
+    "Maintaining current body weight",
+    "Designing meal plans",
+    "Tracking fitness progress",
+    "Understanding calorie balance",
+    "Improving nutrition awareness",
+  ],
+
+  whoShouldUse: `
+Anwendungsbereich des TDEE-Rechners
+The TDEE calculator may be applied to anyone who wishes to effectively manage their weight. This may include bodybuilders, athletes, beginners, as well as those who
+
+It is also useful for individuals switching between phases such as weight reduction and maintenance as well as adjusting their caloric intake following a change in their lifestyles.
+  `,
+
+  formulas: [
+    {
+      title: "BMR (Mifflin-St Jeor Equation)",
+      formula: "Men: BMR = (10 × weight) + (6.25 × height) − (5 × age) + 5",
+      explanation: `
+This formula estimates the number of calories your body needs at rest and is widely considered one of the most accurate BMR formulas.
+      `,
+    },
+    {
+      title: "TDEE Formula",
+      formula: "TDEE = BMR × Activity Factor",
+      explanation: `
+Activity factors range from sedentary to very active and account for physical movement and exercise throughout the day.
+      `,
+    },
+  ],
+
+  tips: [
+    "Choose an honest activity level for accuracy",
+    "Use TDEE as a starting point, not a strict rule",
+    "Create small calorie deficits or surpluses",
+    "Recalculate TDEE after significant weight changes",
+    "Combine calorie tracking with strength training",
+    "Focus on nutrition quality, not just calories",
+    "Be patient and consistent with your plan",
+  ],
+
+  limitations: [
+    "Provides estimated values, not exact numbers",
+    "Does not account for metabolic adaptations",
+    "Activity level selection is subjective",
+    "Does not replace professional dietary advice",
+    "Daily calorie burn may fluctuate",
+    "Not designed for medical diagnosis",
+  ],
+
+  resources: [
+    {
+      label: "What Is TDEE?",
+      url: "https://www.healthline.com/nutrition/tdee",
+    },
+    {
+      label: "Mifflin-St Jeor Equation Explained",
+      url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6019055/",
+    },
+    {
+      label: "Calories and Weight Management",
+      url: "https://www.cdc.gov/healthyweight",
+    },
+  ],
+};
+const proteinHowToUse = {
+  title: "How to Use the Protein Calculator",
+
+  intro: `
+Protein is regarded as one of the macronutrients that play an important role in maintaining human health. Protein is very important for muscles, immunity, enzymes, hormones, and for overall health. Unlike carbs and fats, protein intake differs from person to person according to his/her activities, structure, and health goals.
+
+The Protein Calculator will enable you to determine the daily protein intake requirements based on your weight, age, sex, and activity levels. Unlike general advice, the protein calculator will enable you to establish your own daily protein requirement requirements.
+
+Too many people either are not getting enough protein, which works slowly on recovery and metabolism for their muscles, or are getting too much without realizing their body requirements. This tool is designed to find a balanced use of protein that works well on muscle development and health.
+
+Whether it is for muscle gain, fat loss, weight management, or simply improving the quality of your nutrition, the Protein Calculator is the very starting point you need. `,
+
+  steps: [
+    {
+      title: "Enter Your Basic Information",
+      description: `
+To begin with, you will be required to provide details regarding age, height, weight, and whether you are a male or female user. All these details play a significant role in deciding lean body mass, basal
+
+It is important to have accurate information to generate reliable daily values of proteins.
+      `,
+    },
+    {
+      title: "Select Your Activity Level",
+      description: `
+You can choose the activity level according to your activity pattern from light activities to strenuous training.
+
+The body requires more proteins depending on high activity levels in order to repair and renovate muscles.
+      `,
+    },
+    {
+      title: "Calculate Your Daily Protein Intake",
+      description: `
+After all data is filled out, calculate to see how many grams of daily protein intake are recommended.
+
+This is more of a realistic goal that you can attain every day than a hard and fast rule to be followed.
+      `,
+    },
+    {
+      title: "Distribute Protein Across Meals",
+      description: `
+Distribute protein doses evenly throughout the day to promote muscle protein synthesis and feelings of fullness.
+
+Regular consumption is better than consuming most of it in a single sitting.
+      `,
+    },
+    {
+      title: "Track Progress Over Time",
+      description: `
+Notice your body reaction for several weeks. Make changes if your energy outputs, rates of recovery, or body compositions vary.      `,
+    },
+  ],
+
+  benefits: [
+    "Personalized daily protein recommendations",
+    "Supports muscle growth and recovery",
+    "Helps preserve lean mass during weight loss",
+    "Improves satiety and appetite control",
+    "Adaptable to different activity levels",
+    "Encourages balanced nutrition",
+    "Easy to understand and follow",
+  ],
+
+  useCases: [
+    "Muscle building and strength training",
+    "Weight loss and fat reduction",
+    "Healthy weight maintenance",
+    "Athletic performance support",
+    "Meal planning and diet structuring",
+    "Recovery after exercise",
+    "Improving overall diet quality",
+  ],
+
+  whoShouldUse: `
+Protein Calculator is designed to be used on an adult scale of the amount of protein the user needs daily. This is an effective tool to employ when one is starting on fitness or is an avid fitness practitioner or is on the weight-loss or muscle-building phases of fitness.
+
+Also, it might be beneficial for people who are experiencing tiredness, difficulty with muscle recovery, and imbalances in their diet.`,
+
+  formulas: [
+    {
+      title: "Protein Requirement Based on Body Weight",
+      formula: `
+Sedentary: 0.8 g per kg of body weight  
+Moderately Active: 1.0–1.2 g per kg  
+Active / Training: 1.2–1.6 g per kg  
+Intense Training / Muscle Building: 1.6–2.0 g per kg
+      `,
+      explanation: `
+Protein needs scale with physical activity and training intensity. Higher activity increases muscle breakdown and recovery needs, requiring more protein.
+      `,
+    },
+    {
+      title: "Protein Distribution Per Meal",
+      formula: "Daily Protein ÷ Number of Meals",
+      explanation: `
+Dividing protein evenly across meals helps maximize muscle protein synthesis throughout the day.
+      `,
+    },
+  ],
+
+  tips: [
+    "Distribute protein evenly across meals",
+    "Aim for 20–30g protein per meal when possible",
+    "Prioritize whole food protein sources",
+    "Increase protein slightly during weight loss",
+    "Pair protein with strength training for best results",
+    "Stay hydrated to support protein metabolism",
+    "Adjust intake based on recovery and energy levels",
+  ],
+
+  limitations: [
+    "Provides estimated ranges, not exact requirements",
+    "Does not account for medical conditions",
+    "Individual digestion and absorption may vary",
+    "Protein needs can fluctuate day to day",
+    "Not a replacement for professional dietary advice",
+    "Does not assess protein quality directly",
+  ],
+
+  faqs: [
+    {
+      question: "How much protein do I need per day?",
+      answer: `
+Protein needs depend on body weight and activity level. Most adults require between 0.8 and 1.6 grams per kilogram of body weight per day.
+      `,
+    },
+    {
+      question: "Is eating too much protein harmful?",
+      answer: `
+For healthy individuals, moderate high-protein intake is generally safe. Extremely excessive intake over long periods may stress the kidneys in people with existing kidney issues.
+      `,
+    },
+    {
+      question: "Do I need protein supplements?",
+      answer: `
+Supplements are optional. Whole foods can meet protein needs, but supplements can be convenient when dietary intake is insufficient.
+      `,
+    },
+    {
+      question: "Does protein help with weight loss?",
+      answer: `
+Yes. Protein increases satiety, preserves muscle mass, and slightly boosts metabolism, making it beneficial during weight loss.
+      `,
+    },
+  ],
+
+  uniqueInsights: `
+Many people focus on total protein intake but overlook consistency. Consuming adequate protein spread across the day is often more effective than high intake concentrated in one meal.
+
+This calculator encourages sustainable habits rather than extreme targets. Viewing protein intake as a flexible range allows room for lifestyle variation while still supporting health and fitness goals.
+  `,
+
+  resources: [
+    {
+      label: "Protein and Muscle Health",
+      url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6566799/",
+    },
+    {
+      label: "Dietary Protein Explained",
+      url: "https://www.healthline.com/nutrition/how-much-protein-per-day",
+    },
+    {
+      label: "Protein Intake and Weight Management",
+      url: "https://www.hsph.harvard.edu/nutritionsource/what-should-you-eat/protein/",
+    },
+  ],
+};
+const pregnancyHowToUse = {
+  title: "How to Use the Pregnancy Calculator",
+
+  intro: `
+Pregnancy is a very unique and private experience, and knowledge of key dates and milestones can help expecting parents feel more educated and ready for any situation. The Pregnancy Calculator calculates your estimated due date and monitors your pregnant months by recognized medical calculations.
+
+The given calculator will help you calculate a gestation period according to various dates such as the first day of the last menstrual period (LMP), the date of conception, dates of ultrasound measurements, dates of IVF transfer, as well as other dates. Because it is hard to pinpoint the conception dates accurately, a standardized approach is used by medical professionals.
+
+This is more of a guide so that you do not have a specific date, but rather an approximate window during which your due date is, and other important milestones that you are expected to reach during pregnancy.
+
+If you are pregnant for the first time or monitoring your pregnancy progress, this calculator will provide you with an accurate idea of your progress. `,
+
+  steps: [
+    {
+      title: "Choose the Calculation Method",
+      description: `
+First, select how you will calculate your pregnancy timeline: from LMP, conception date, ultrasound data, or your IVF transfer date.
+
+Different methods are useful depending on the information that one has.
+      `,
+    },
+    {
+      title: "Enter the Relevant Date",
+      description: `
+Give the date that corresponds to your chosen method, such as the first date of your last menstrual period or the date of embryo transfer.
+
+Precise dates lead to better results when estimates are made.
+      `,
+    },
+    {
+      title: "Select Average Cycle Length (If Applicable)",
+      description: `
+If you are using the LMP date method, you can then enter your average menstrual cycle length.      `,
+    },
+    {
+      title: "Calculate Pregnancy Timeline",
+      description: `
+Once all inputs have been entered, calculate to see your estimated due date, current gestational age, and pregnancy milestones.      `,
+    },
+    {
+      title: "Use Results as a Guideline",
+      description: `
+Consider the calculated dates to be estimates. Not all pregnancies have the same length, and actual delivery may happen prior to or after those dates.      `,
+    },
+  ],
+
+  benefits: [
+    "Estimates pregnancy due date using multiple methods",
+    "Tracks gestational age and pregnancy progress",
+    "Supports planning and milestone awareness",
+    "Uses medically accepted calculation approaches",
+    "Easy to use and understand",
+    "Helpful throughout all pregnancy stages",
+    "Provides clarity without medical jargon",
+  ],
+
+  useCases: [
+    "Estimating pregnancy due date",
+    "Tracking pregnancy milestones",
+    "Planning prenatal appointments",
+    "Understanding gestational age",
+    "Supporting IVF pregnancy tracking",
+    "Monitoring trimester progression",
+    "General pregnancy awareness",
+  ],
+
+  whoShouldUse: `
+The Pregnancy Calculator is appropriate for those pregnant or planning to conceive and wishing to have a general idea of their dates.
+
+In a natural conception, or with the aid of reproduction biotechnologies such as IVF, or with ultrasound date estimation, it can be used in any stage of pregnancy. `,
+
+  formulas: [
+    {
+      title: "Naegeles Rule (LMP Method)",
+      formula: "Due Date = First Day of Last Menstrual Period + 280 days",
+      explanation: `
+Naegele’s Rule is the most commonly used method to estimate pregnancy due dates based on the first day of the last menstrual period.
+      `,
+    },
+    {
+      title: "Conception-Based Calculation",
+      formula: "Due Date = Conception Date + 266 days",
+      explanation: `
+This method estimates pregnancy length from the estimated date of conception rather than menstrual cycles.
+      `,
+    },
+    {
+      title: "IVF Pregnancy Calculation",
+      formula: "Due Date = Embryo Transfer Date + 261–263 days",
+      explanation: `
+For IVF pregnancies, calculations are adjusted based on embryo age at transfer to align with standard gestational timelines.
+      `,
+    },
+  ],
+
+  tips: [
+    "Remember that due dates are estimates",
+    "Only about 5% of babies are born on their exact due date",
+    "Full-term pregnancy ranges from 37 to 42 weeks",
+    "Early ultrasounds may adjust due dates",
+    "Track milestones rather than fixating on dates",
+    "Consult healthcare providers for medical guidance",
+    "Use the calculator for planning, not diagnosis",
+  ],
+
+  limitations: [
+    "Provides estimates, not guaranteed dates",
+    "Cycle length assumptions may vary",
+    "Does not replace ultrasound confirmation",
+    "Pregnancy duration differs between individuals",
+    "Not intended for medical decision-making",
+    "Does not assess pregnancy health or risk",
+  ],
+
+  faqs: [
+    {
+      question: "How accurate is the pregnancy due date?",
+      answer: `
+The calculated due date is an estimate. Only a small percentage of babies are born on the exact due date, with most deliveries occurring within a few weeks before or after.
+      `,
+    },
+    {
+      question: "What does LMP mean?",
+      answer: `
+LMP stands for Last Menstrual Period. It refers to the first day of your last menstrual cycle and is commonly used to estimate pregnancy length.
+      `,
+    },
+    {
+      question: "Can ultrasound change my due date?",
+      answer: `
+Yes. Early ultrasound measurements can provide a more accurate estimate of gestational age and may adjust the due date.
+      `,
+    },
+    {
+      question: "How is IVF pregnancy calculated?",
+      answer: `
+IVF pregnancy dating is based on the embryo transfer date and embryo age, which allows for precise adjustment of gestational age.
+      `,
+    },
+  ],
+
+  uniqueInsights: `
+Pregnancy calculators are tools for guidance, not prediction. Each pregnancy develops differently, and factors such as genetics, health, and environment influence delivery timing.
+
+This calculator emphasizes understanding pregnancy progression rather than focusing solely on a single due date, helping expectant parents stay informed and flexible.
+  `,
+
+  resources: [
+    {
+      label: "Pregnancy Due Date Explained",
+      url: "https://www.acog.org/womens-health/faqs/due-dates",
+    },
+    {
+      label: "Understanding Pregnancy Weeks and Trimesters",
+      url: "https://www.nhs.uk/pregnancy/week-by-week/",
+    },
+    {
+      label: "IVF Pregnancy Dating",
+      url: "https://www.ncbi.nlm.nih.gov/books/NBK279106/",
+    },
+  ],
+};
 
 export interface CalculatorConfig {
   title: string;
@@ -611,29 +1074,175 @@ export const calculatorConfig: Record<string, CalculatorConfig> = {
     },
     faqs: [
       {
-      question: "Why does body weight affect water needs?",
-      answer: `
+        question: "Why does body weight affect water needs?",
+        answer: `
 Larger bodies require more water to support basic physiological functions and maintain fluid balance.
       `,
-    },
-    {
-      question: "Does exercise increase water requirements?",
-      answer: `
+      },
+      {
+        question: "Does exercise increase water requirements?",
+        answer: `
 Yes. Physical activity leads to fluid loss through sweat, increasing hydration needs.
       `,
-    },
-    {
-      question: "Is thirst a reliable indicator?",
-      answer: `
+      },
+      {
+        question: "Is thirst a reliable indicator?",
+        answer: `
 Thirst often signals mild dehydration. Drinking regularly helps prevent this from occurring.
       `,
-    },
-    {
-      question: "Do foods count toward water intake?",
-      answer: `
+      },
+      {
+        question: "Do foods count toward water intake?",
+        answer: `
 Yes. Many fruits and vegetables contain significant amounts of water and contribute to hydration.
       `,
+      },
+    ],
+  },
+  tdee: {
+    title: "TDEE Calculator",
+    description:
+      "Calculate your Total Daily Energy Expenditure (TDEE) to understand your daily caloric needs for weight management, including detailed breakdowns and historical tracking.",
+    path: "/calculators/tdee",
+    category: "health",
+    icon: Target,
+    howToUse: tdeeHowToUse,
+    details: {
+      whatIs:
+        "TDEE (Total Daily Energy Expenditure) represents the total number of calories you burn in a day, including your basal metabolic rate and physical activity.",
+      howItWorks:
+        "The calculator first determines your BMR using the Mifflin-St Jeor equation, then multiplies it by an activity factor.",
+      tips: [
+        "Use TDEE to determine calorie intake for weight goals",
+        "Create a 500-calorie deficit to lose 1 pound per week",
+        "Add 500 calories daily to gain 1 pound per week",
+        "Recalculate TDEE as your weight changes significantly",
+        "Consider tracking calories to validate your TDEE",
+      ],
     },
+    faqs: [
+      {
+        question: "What is TDEE?",
+        answer:
+          "TDEE (Total Daily Energy Expenditure) is the total number of calories your body burns in a day, including basic bodily functions (BMR), physical activity, and digestion.",
+      },
+      {
+        question: "How is TDEE calculated?",
+        answer:
+          "TDEE is calculated by first determining your Basal Metabolic Rate (BMR) using the Mifflin-St Jeor equation, then multiplying it by an activity factor based on your lifestyle.",
+      },
+      {
+        question: "Which activity level should I choose?",
+        answer:
+          "Choose the activity level that best matches your average weekly routine. If unsure, it's better to select a lower activity level and adjust based on real-world results.",
+      },
+      {
+        question: "Can I use TDEE to lose or gain weight?",
+        answer:
+          "Yes. Eating about 500 calories below your TDEE can help you lose roughly 1 pound per week, while eating 500 calories above your TDEE can help you gain weight gradually.",
+      },
+      {
+        question: "How often should I recalculate my TDEE?",
+        answer:
+          "You should recalculate your TDEE whenever your weight, activity level, or body composition changes significantly, or every few months for accuracy.",
+      },
+    ],
+  },
+  protein: {
+    title: "Protein Calculator",
+    description:
+      "Calculate your daily protein requirements with progress tracking to optimize muscle growth, weight management, and overall health based on your activity level.",
+    path: "/calculators/protein",
+    icon: Zap,
+    category: "health",
+    howToUse: proteinHowToUse,
+    details: {
+      whatIs:
+        "A protein calculator determines your daily protein needs based on your body weight, activity level, age, and gender. Protein is essential for muscle maintenance, repair, and growth, and requirements vary significantly based on your lifestyle and objectives.",
+      howItWorks:
+        "The calculator uses established formulas that consider your activity level. Base requirements start at 0.8g per kg for sedentary individuals and increase up to 1.6g+ per kg for athletes and those building muscle. It also calculates your BMR and total caloric needs to show protein as a percentage of your total intake.",
+      tips: [
+        "Distribute protein evenly throughout the day for optimal absorption",
+        "Aim for 20-30g of protein per meal for muscle protein synthesis",
+        "Complete proteins contain all essential amino acids",
+        "Higher protein needs during weight loss help preserve muscle mass",
+        "Quality matters - choose lean, high-quality protein sources",
+        "Track your progress over time to ensure consistency",
+      ],
+    },
+    faqs: [
+      {
+        question: "How much protein do I need per day?",
+        answer:
+          "Daily protein needs depend on body weight, activity level, and goals. Sedentary adults typically need about 0.8g per kg of body weight, while active individuals and athletes may require 1.2–1.6g per kg or more.",
+      },
+      {
+        question: "Is eating too much protein harmful?",
+        answer:
+          "For healthy individuals, higher protein intake is generally safe. However, extremely high protein intake over long periods may stress the kidneys in people with existing kidney conditions. Always consult a healthcare professional if unsure.",
+      },
+      {
+        question: "Should protein intake change during weight loss?",
+        answer:
+          "Yes. Increasing protein intake during weight loss helps preserve muscle mass, improves satiety, and supports metabolic health. Many experts recommend the higher end of protein ranges when dieting.",
+      },
+      {
+        question: "Does protein timing matter?",
+        answer:
+          "Total daily protein intake matters most, but distributing protein evenly across meals (20–30g per meal) can improve muscle protein synthesis and recovery.",
+      },
+      {
+        question: "Are plant-based proteins as effective as animal proteins?",
+        answer:
+          "Plant-based proteins can be just as effective if consumed in adequate amounts and variety. Combining different plant protein sources helps ensure all essential amino acids are included.",
+      },
+    ],
+  },
+  pregnancy: {
+    title: "Pregnancy Calculator",
+    description:
+      "Estimate due dates and pregnancy milestones based on LMP, conception, ultrasound, or IVF data.",
+    path: "/calculators/pregnancy",
+    icon: Baby,
+    category: "health",
+    howToUse: pregnancyHowToUse,
+    details: {
+      whatIs:
+        "A pregnancy calculator estimates your due date and tracks pregnancy progress using your LMP, due date, conception, ultrasound, or IVF date.",
+      howItWorks:
+        "It applies Naegele's rule (adding 280 days to the last menstrual period) or equivalent adjustments for other calculation types.",
+      tips: [
+        "Due dates are estimates — only 5% of babies are born exactly on that day.",
+        "Full-term pregnancy is 37–42 weeks.",
+        "Consult your doctor for personalized medical advice.",
+      ],
+    },
+    faqs: [
+      {
+        question: "How accurate is the pregnancy due date?",
+        answer:
+          "The calculated due date is an estimate. Only about 5% of babies are born on their exact due date. Most pregnancies last between 37 and 42 weeks.",
+      },
+      {
+        question: "What is LMP and why is it used?",
+        answer:
+          "LMP stands for Last Menstrual Period. It is commonly used to estimate pregnancy duration because ovulation and conception dates are often uncertain.",
+      },
+      {
+        question: "Can ultrasound dating change my due date?",
+        answer:
+          "Yes. Early ultrasounds, especially in the first trimester, can provide a more accurate gestational age and may adjust the estimated due date.",
+      },
+      {
+        question: "How is pregnancy calculated for IVF?",
+        answer:
+          "For IVF pregnancies, calculations are based on the embryo transfer date and embryo age (day 3, 5, or 6), then adjusted to align with standard gestational age counting.",
+      },
+      {
+        question: "What does full-term pregnancy mean?",
+        answer:
+          "A full-term pregnancy typically ranges from 37 to 42 weeks. Babies born before 37 weeks are considered preterm.",
+      },
     ],
   },
 };

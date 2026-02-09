@@ -266,10 +266,8 @@ export default function CalorieCalculator() {
       <div className="w-full">
         <form onSubmit={calculateCalories}>
           <div className="space-y-6">
-
             {/* Units + Age + Gender */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
               {/* Unit Type */}
               <div className="space-y-2">
                 <div className="flex gap-4">
@@ -298,7 +296,7 @@ export default function CalorieCalculator() {
                 <label>Age (15–80)</label>
                 <input
                   type="number"
-                  className="w-full border rounded p-2"
+                  className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                 />
@@ -336,7 +334,7 @@ export default function CalorieCalculator() {
                   <div>
                     <label>Height (cm)</label>
                     <input
-                      className="w-full border p-2 rounded"
+                      className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                       value={heightCm}
                       onChange={(e) => setHeightCm(e.target.value)}
                     />
@@ -345,7 +343,7 @@ export default function CalorieCalculator() {
                   <div>
                     <label>Weight (kg)</label>
                     <input
-                      className="w-full border p-2 rounded"
+                      className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                       value={weightKg}
                       onChange={(e) => setWeightKg(e.target.value)}
                     />
@@ -357,14 +355,14 @@ export default function CalorieCalculator() {
                     <label>Height (ft / in)</label>
                     <div className="flex gap-2">
                       <input
-                        className="w-full border p-2 rounded"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                         placeholder="ft"
                         value={heightFt}
                         onChange={(e) => setHeightFt(e.target.value)}
                       />
 
                       <input
-                        className="w-full border p-2 rounded"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                         placeholder="in"
                         value={heightIn}
                         onChange={(e) => setHeightIn(e.target.value)}
@@ -375,7 +373,7 @@ export default function CalorieCalculator() {
                   <div>
                     <label>Weight (lb)</label>
                     <input
-                      className="w-full border p-2 rounded"
+                      className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                       value={weightLb}
                       onChange={(e) => setWeightLb(e.target.value)}
                     />
@@ -388,7 +386,7 @@ export default function CalorieCalculator() {
             <div>
               <label>Activity Level</label>
               <select
-                className="w-full border p-2 rounded"
+                className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                 value={activity}
                 onChange={(e) => setActivity(e.target.value)}
               >
@@ -412,11 +410,10 @@ export default function CalorieCalculator() {
 
             {showSettings && (
               <div className="border rounded p-4 bg-gray-50 space-y-4">
-
                 <div>
                   <label>BMR Formula</label>
                   <select
-                    className="w-full border p-2 rounded"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                     value={bmrFormula}
                     onChange={(e) => setBmrFormula(e.target.value)}
                   >
@@ -429,7 +426,7 @@ export default function CalorieCalculator() {
                 <div>
                   <label>Result Unit</label>
                   <div className="flex gap-4">
-                    <label>
+                    <label className="flex gap-2">
                       <input
                         type="radio"
                         checked={resultUnit === "kcal"}
@@ -438,7 +435,7 @@ export default function CalorieCalculator() {
                       Calories
                     </label>
 
-                    <label>
+                    <label className="flex gap-2">
                       <input
                         type="radio"
                         checked={resultUnit === "kj"}
@@ -453,7 +450,7 @@ export default function CalorieCalculator() {
                   <div>
                     <label>Body Fat %</label>
                     <input
-                      className="w-full border p-2 rounded"
+                      className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                       value={bodyFat}
                       onChange={(e) => setBodyFat(e.target.value)}
                     />
@@ -466,7 +463,7 @@ export default function CalorieCalculator() {
             <div className="flex gap-4">
               <button
                 type="submit"
-                className="w-full bg-primary text-white py-4 rounded"
+                className="w-full bg-primary text-primary-foreground py-4 rounded-xl font-semibold text-sm xl:text-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-all"
               >
                 Calculate
               </button>
@@ -474,7 +471,7 @@ export default function CalorieCalculator() {
               <button
                 type="button"
                 onClick={clearForm}
-                className="px-8 bg-gray-200 py-4 rounded"
+                className="px-8 bg-gray-100 hover:bg-gray-300 text-gray-700 py-4 rounded-xl font-semibold text-sm xl:text-lg transition-all duration-300"
               >
                 Clear
               </button>
@@ -484,14 +481,17 @@ export default function CalorieCalculator() {
 
         {results && (
           <div className="space-y-4 py-6">
-            <Card className="p-6">
+            {/* Main Wrapper */}
+            <div className="p-6 border rounded-xl bg-white shadow-sm">
               <div className="space-y-6">
                 <h3 className="text-lg font-semibold">
                   Your Daily Calorie Needs
                 </h3>
 
+                {/* Top Cards Row */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Card className="p-4 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+                  {/* BMR */}
+                  <div className="p-4 rounded-xl bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/20 shadow-sm">
                     <div className="text-center">
                       <p className="text-sm text-muted-foreground">
                         BMR (at rest)
@@ -503,9 +503,10 @@ export default function CalorieCalculator() {
                         {unitLabel}
                       </p>
                     </div>
-                  </Card>
+                  </div>
 
-                  <Card className="p-4 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+                  {/* Maintenance */}
+                  <div className="p-4 rounded-xl bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/20 shadow-sm">
                     <div className="text-center">
                       <p className="text-sm text-muted-foreground">
                         Maintenance
@@ -517,9 +518,10 @@ export default function CalorieCalculator() {
                         {unitLabel}
                       </p>
                     </div>
-                  </Card>
+                  </div>
 
-                  <Card className="p-4">
+                  {/* Guideline */}
+                  <div className="p-4 rounded-xl border bg-gray-50 shadow-sm">
                     <div className="text-center">
                       <p className="text-sm text-muted-foreground">
                         Goal guideline (approx.)
@@ -528,11 +530,12 @@ export default function CalorieCalculator() {
                         ±500 and ±1000 Calories/day ≈ ±0.5 kg and ±1 kg per week
                       </p>
                     </div>
-                  </Card>
+                  </div>
                 </div>
 
+                {/* Goals Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Card className="p-4">
+                  <div className="p-4 rounded-xl border shadow-sm">
                     <div className="text-center">
                       <p className="text-sm text-muted-foreground">
                         Lose 0.5 kg/week (approx.)
@@ -544,8 +547,9 @@ export default function CalorieCalculator() {
                         {unitLabel}
                       </p>
                     </div>
-                  </Card>
-                  <Card className="p-4">
+                  </div>
+
+                  <div className="p-4 rounded-xl border shadow-sm">
                     <div className="text-center">
                       <p className="text-sm text-muted-foreground">
                         Lose 1 kg/week (approx.)
@@ -557,8 +561,9 @@ export default function CalorieCalculator() {
                         {unitLabel}
                       </p>
                     </div>
-                  </Card>
-                  <Card className="p-4">
+                  </div>
+
+                  <div className="p-4 rounded-xl border shadow-sm">
                     <div className="text-center">
                       <p className="text-sm text-muted-foreground">
                         Gain 0.5 kg/week (approx.)
@@ -570,8 +575,9 @@ export default function CalorieCalculator() {
                         {unitLabel}
                       </p>
                     </div>
-                  </Card>
-                  <Card className="p-4">
+                  </div>
+
+                  <div className="p-4 rounded-xl border shadow-sm">
                     <div className="text-center">
                       <p className="text-sm text-muted-foreground">
                         Gain 1 kg/week (approx.)
@@ -583,11 +589,11 @@ export default function CalorieCalculator() {
                         {unitLabel}
                       </p>
                     </div>
-                  </Card>
+                  </div>
                 </div>
 
-                {/* Chart */}
-                <div className="h-64">
+                {/* Chart Section */}
+                <div className="h-64 border rounded-xl p-3 bg-white shadow-sm">
                   <Bar
                     data={{
                       labels: [
@@ -606,12 +612,15 @@ export default function CalorieCalculator() {
                             showSettings && resultUnit === "kj"
                               ? results.bmr * KJ_PER_KCAL
                               : results.bmr,
+
                             showSettings && resultUnit === "kj"
                               ? results.maintenance * KJ_PER_KCAL
                               : results.maintenance,
+
                             showSettings && resultUnit === "kj"
                               ? results.loseOneKg * KJ_PER_KCAL
                               : results.loseOneKg,
+
                             showSettings && resultUnit === "kj"
                               ? results.gainOneKg * KJ_PER_KCAL
                               : results.gainOneKg,
@@ -650,7 +659,7 @@ export default function CalorieCalculator() {
                   />
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         )}
       </div>

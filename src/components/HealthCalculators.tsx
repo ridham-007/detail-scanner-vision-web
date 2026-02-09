@@ -15,7 +15,7 @@ import { calculatorConfig } from "../data/calculatorConfig";
 // import { useRouter } from "next/navigation";
 
 export default function HealthCalculators() {
-  const calculators = Object.values(calculatorConfig);
+  const calculators = Object.values(calculatorConfig).slice(0, 3);
 
   return (
     <section
