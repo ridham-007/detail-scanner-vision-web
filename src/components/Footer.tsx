@@ -165,6 +165,15 @@ export default function Footer() {
                   Health Blog
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/dietary-guides/"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                >
+                  <FileText className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
+                  Dietary Cheat Sheets
+                </Link>
+              </li>
             </ul>
           </nav>
 

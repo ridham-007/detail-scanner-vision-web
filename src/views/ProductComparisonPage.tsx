@@ -9,6 +9,7 @@ import { useProductLookup } from '@/hooks/useProductLookup';
 import BarcodeScanner from '@/components/BarcodeScanner';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
+import ProductSelectionModal from '@/components/ProductSelectionModal';
 
 const ProductComparisonPage = () => {
     const [productA, setProductA] = useState<ProductData | null>(null);
@@ -39,6 +40,11 @@ const ProductComparisonPage = () => {
         } else {
             toast.error("Product not found");
         }
+    }
+    const handleSelectProduct = (product: ProductData) => {
+        if (activeSlot === 'A') setProductA(product);
+        else setProductB(product);
+        setActiveSlot(null);
     };
 
     const clearSlot = (slot: 'A' | 'B') => {
@@ -57,18 +63,18 @@ const ProductComparisonPage = () => {
     // Robust getter for nutrition values
     const getNutrientValue = (product: ProductData, key: string, fallbackKeys: string[] = []): number | null => {
         // 1. Try nutrition_per_100g
-        const p100g = product.nutrition_per_100g as any;
+        const p100g = product.nutrition_per_100g as Record<string, unknown> | undefined;
         if (p100g?.[key] !== undefined && p100g?.[key] !== null) {
-            return p100g[key];
+            return p100g[key] as number;
         }
 
         // 2. Try simple aliases in nutrition_per_100g
         for (const k of fallbackKeys) {
-            if (p100g?.[k] !== undefined && p100g?.[k] !== null) return p100g[k];
+            if (p100g?.[k] !== undefined && p100g?.[k] !== null) return p100g[k] as number;
         }
 
         // 3. Try finding in nutrition_data array
-        if (product.nutrition_data) {
+        if (Array.isArray(product.nutrition_data)) {
             const item = product.nutrition_data.find(n => n.key === key || fallbackKeys.includes(n.key));
             if (item?.value) {
                 return parseValue(item.value);
@@ -80,20 +86,20 @@ const ProductComparisonPage = () => {
 
     // Configuration for all fields we want to compare
     const comparisonFields = [
-        { label: "Energy (Calories)", key: "calories_kcal", fallbacks: ["energy", "energy_kcal", "calories"], unit: "kcal", lowerIsBetter: true },
-        { label: "Energy (kJ)", key: "energy_kj", fallbacks: ["energy_kj"], unit: "kJ", lowerIsBetter: true },
-        { label: "Carbohydrates", key: "carbohydrates_g", fallbacks: ["carbohydrates"], unit: "g", lowerIsBetter: false }, // Moderation usually
-        { label: "Sugars", key: "sugar_g", fallbacks: ["sugars", "sugar"], unit: "g", lowerIsBetter: true },
-        { label: "Total Fat", key: "total_fat_g", fallbacks: ["fat", "total_fat"], unit: "g", lowerIsBetter: true },
-        { label: "Saturated Fat", key: "saturated_fat_g", fallbacks: ["saturated-fat", "saturated_fat"], unit: "g", lowerIsBetter: true },
-        { label: "Trans Fat", key: "trans_fat_g", fallbacks: ["trans-fat", "trans_fat"], unit: "g", lowerIsBetter: true },
-        { label: "Proteins", key: "protein_g", fallbacks: ["proteins", "protein"], unit: "g", lowerIsBetter: false },
-        { label: "Fiber", key: "fiber_g", fallbacks: ["fiber", "fibre"], unit: "g", lowerIsBetter: false },
-        { label: "Salt", key: "salt_mg", fallbacks: ["salt"], unit: "mg", lowerIsBetter: true },
-        { label: "Sodium", key: "sodium_mg", fallbacks: ["sodium"], unit: "mg", lowerIsBetter: true },
-        { label: "Cholesterol", key: "cholesterol_mg", fallbacks: ["cholesterol"], unit: "mg", lowerIsBetter: true },
-        { label: "Calcium", key: "calcium_mg", fallbacks: ["calcium"], unit: "mg", lowerIsBetter: false },
-        { label: "Iron", key: "iron_mg", fallbacks: ["iron"], unit: "mg", lowerIsBetter: false },
+        { label: "Energy (Calories)", key: "calories_kcal", fallbacks: ["energy", "energy_kcal", "calories", "energy-kcal", "kcal"], unit: "kcal", lowerIsBetter: true },
+        { label: "Energy (kJ)", key: "energy_kj", fallbacks: ["energy_kj", "energy-kj", "kj"], unit: "kJ", lowerIsBetter: true },
+        { label: "Carbohydrates", key: "carbohydrates_g", fallbacks: ["carbohydrates", "carbohydrate", "carbs", "total_carbohydrates", "total-carbohydrate"], unit: "g", lowerIsBetter: false }, // Moderation usually
+        { label: "Sugars", key: "sugar_g", fallbacks: ["sugars", "sugar", "total_sugars", "total-sugars"], unit: "g", lowerIsBetter: true },
+        { label: "Total Fat", key: "total_fat_g", fallbacks: ["fat", "total_fat", "total-fat", "fat_g"], unit: "g", lowerIsBetter: true },
+        { label: "Saturated Fat", key: "saturated_fat_g", fallbacks: ["saturated-fat", "saturated_fat", "saturated", "saturates"], unit: "g", lowerIsBetter: true },
+        { label: "Trans Fat", key: "trans_fat_g", fallbacks: ["trans-fat", "trans_fat", "trans"], unit: "g", lowerIsBetter: true },
+        { label: "Proteins", key: "protein_g", fallbacks: ["proteins", "protein", "protein_g"], unit: "g", lowerIsBetter: false },
+        { label: "Fiber", key: "fiber_g", fallbacks: ["fiber", "fibre", "dietary_fiber", "dietary-fiber"], unit: "g", lowerIsBetter: false },
+        { label: "Salt", key: "salt_mg", fallbacks: ["salt", "salt_g"], unit: "mg", lowerIsBetter: true },
+        { label: "Sodium", key: "sodium_mg", fallbacks: ["sodium", "sodium_g"], unit: "mg", lowerIsBetter: true },
+        { label: "Cholesterol", key: "cholesterol_mg", fallbacks: ["cholesterol", "cholesterol_g"], unit: "mg", lowerIsBetter: true },
+        { label: "Calcium", key: "calcium_mg", fallbacks: ["calcium", "calcium_g"], unit: "mg", lowerIsBetter: false },
+        { label: "Iron", key: "iron_mg", fallbacks: ["iron", "iron_g"], unit: "mg", lowerIsBetter: false },
     ];
 
     const calculateWinner = () => {
@@ -187,8 +193,8 @@ const ProductComparisonPage = () => {
     }
 
     const ComparisonRow = ({ field }: { field: typeof comparisonFields[0] }) => {
-        let valA = getNutrientValue(productA!, field.key, field.fallbacks);
-        let valB = getNutrientValue(productB!, field.key, field.fallbacks);
+        const valA = getNutrientValue(productA!, field.key, field.fallbacks);
+        const valB = getNutrientValue(productB!, field.key, field.fallbacks);
 
         // FEATURE: Hide row if BOTH are missing
         if (valA === null && valB === null) return null;
@@ -315,9 +321,12 @@ const ProductComparisonPage = () => {
                 </Card>
             )}
 
-
-
-            <SelectionModal />
+            <ProductSelectionModal
+                isOpen={!!activeSlot}
+                slot={activeSlot}
+                onClose={() => setActiveSlot(null)}
+                onSelect={handleSelectProduct}
+            />
         </div>
     );
 };

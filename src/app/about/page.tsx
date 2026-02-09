@@ -26,7 +26,7 @@ import {
 // Static metadata for SEO
 export const metadata: Metadata = {
   title: 'About EaterIQ - Our Mission to Transform Food Transparency',
-  description: 'Learn about EaterIQ\'s mission to help consumers make healthier food choices. Discover our story, values, and commitment to food transparency through barcode scanning and nutritional analysis.',
+  description: 'Learn about EaterIQ’s mission to help people make healthier food choices. Discover our story, values, and commitment to food transparency through barcode scanning.',
   keywords: ['about EaterIQ', 'food transparency', 'nutrition app', 'health technology', 'food scanner company', 'healthy eating', 'food analysis'],
   alternates: {
     canonical: 'https://www.eateriq.com/about',

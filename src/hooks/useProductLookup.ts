@@ -248,5 +248,84 @@ export const useProductLookup = () => {
     }
   };
 
-  return { lookupProduct, isLoading };
+  /* ---------------------------------------------
+     SEARCH BY NAME
+  --------------------------------------------- */
+  const searchProductsByName = async (query: string): Promise<ProductData[]> => {
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from("scanned_products")
+        .select("*")
+        .ilike("name", `%${query}%`)
+        .eq("is_published", true)
+        .limit(10);
+
+      if (error || !data) return [];
+
+      return data.map(item => {
+        const nutritionData = item.nutrition_per_100g as any;
+        const defaultNutrition = {
+          calories_kcal: null,
+          total_fat_g: null,
+          saturated_fat_g: null,
+          trans_fat_g: null,
+          polyunsaturated_fat_g: null,
+          monounsaturated_fat_g: null,
+          cholesterol_mg: null,
+          carbohydrates_g: null,
+          sugar_g: null,
+          sugar_alcohols_g: null,
+          fiber_g: null,
+          soluble_fibre_g: null,
+          insoluble_fibre_g: null,
+          protein_g: null,
+          salt_mg: null,
+          vitamin_a_iu: null,
+          vitamin_c_mg: null,
+          calcium_mg: null,
+          iron_mg: null,
+          potassium_mg: null,
+          magnesium_mg: null,
+          zinc_mg: null,
+          allergens: [],
+          additives: [],
+        };
+        const rawData = item as any;
+
+        return {
+          barcode: item.barcode,
+          name: item.name,
+          description: item.description || undefined,
+          health_score: item.health_score || 0,
+          unit: item.unit || "",
+          nutrition_per_100g:
+            nutritionData && typeof nutritionData === "object"
+              ? { ...defaultNutrition, ...nutritionData }
+              : defaultNutrition,
+          positives: item.positives || [],
+          concerns: item.concerns || [],
+          recommendations: item.recommendations || [],
+          images: item.images || [],
+          ingredients: item.ingredients || "",
+          other_good_product_suggestions: rawData.other_good_product_suggestions || [],
+          retailers: rawData.retailers || [],
+          is_health_related_product: rawData.is_health_related_product !== false,
+          nutrition_score_grade: rawData.nutrition_score_grade || undefined,
+          allergens_analysis: rawData.allergens_analysis || [],
+          additive_analysis: rawData.additive_analysis || [],
+          ingredient_analysis: rawData.ingredient_analysis || [],
+          nutrition_data: rawData.nutrition_data || [],
+        } as ProductData;
+      });
+
+    } catch (err) {
+      console.error("Search error:", err);
+      return [];
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { lookupProduct, searchProductsByName, isLoading };
 };

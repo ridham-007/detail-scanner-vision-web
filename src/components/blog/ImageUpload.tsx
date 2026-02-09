@@ -170,7 +170,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded }) => {
                   <img
                     src={image.url}
                     alt={image.name}
-                    className="w-12 h-12 object-cover rounded"
+                    className="w-12 h-12 object-contain rounded bg-gray-50"
                   />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">{image.name}</p>
