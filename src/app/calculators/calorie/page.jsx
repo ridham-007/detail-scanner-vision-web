@@ -266,226 +266,227 @@ export default function CalorieCalculator() {
     <ModernCalculatorLayout
       title="Calorie Calculator"
       description="Calculate your daily caloric needs for weight maintenance, loss, or gain"
+      path="/calculators/calorie"
       details={details}
     >
       <div className="w-full">
         <form onSubmit={calculateCalories}>
-        <div className="space-y-6">
+          <div className="space-y-6">
 
-          {/* Units + Age + Gender */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Units + Age + Gender */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-            {/* Unit Type */}
-            <div className="space-y-2">
-              <div className="flex gap-4">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    checked={unitType === "metric"}
-                    onChange={() => setUnitType("metric")}
-                  />
-                  Metric (cm, kg)
-                </label>
+              {/* Unit Type */}
+              <div className="space-y-2">
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      checked={unitType === "metric"}
+                      onChange={() => setUnitType("metric")}
+                    />
+                    Metric (cm, kg)
+                  </label>
 
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    checked={unitType === "us"}
-                    onChange={() => setUnitType("us")}
-                  />
-                  US (ft/in, lb)
-                </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      checked={unitType === "us"}
+                      onChange={() => setUnitType("us")}
+                    />
+                    US (ft/in, lb)
+                  </label>
+                </div>
+              </div>
+
+              {/* Age */}
+              <div className="space-y-2">
+                <label>Age (15–80)</label>
+                <input
+                  type="number"
+                  className="w-full border rounded p-2"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                />
+              </div>
+
+              {/* Gender */}
+              <div className="space-y-3">
+                <label>Gender</label>
+                <div className="flex gap-6">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      checked={gender === "male"}
+                      onChange={() => setGender("male")}
+                    />
+                    Male
+                  </label>
+
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      checked={gender === "female"}
+                      onChange={() => setGender("female")}
+                    />
+                    Female
+                  </label>
+                </div>
               </div>
             </div>
 
-            {/* Age */}
-            <div className="space-y-2">
-              <label>Age (15–80)</label>
+            {/* Height / Weight */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {unitType === "metric" ? (
+                <>
+                  <div>
+                    <label>Height (cm)</label>
+                    <input
+                      className="w-full border p-2 rounded"
+                      value={heightCm}
+                      onChange={(e) => setHeightCm(e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label>Weight (kg)</label>
+                    <input
+                      className="w-full border p-2 rounded"
+                      value={weightKg}
+                      onChange={(e) => setWeightKg(e.target.value)}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <label>Height (ft / in)</label>
+                    <div className="flex gap-2">
+                      <input
+                        className="w-full border p-2 rounded"
+                        placeholder="ft"
+                        value={heightFt}
+                        onChange={(e) => setHeightFt(e.target.value)}
+                      />
+
+                      <input
+                        className="w-full border p-2 rounded"
+                        placeholder="in"
+                        value={heightIn}
+                        onChange={(e) => setHeightIn(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label>Weight (lb)</label>
+                    <input
+                      className="w-full border p-2 rounded"
+                      value={weightLb}
+                      onChange={(e) => setWeightLb(e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Activity */}
+            <div>
+              <label>Activity Level</label>
+              <select
+                className="w-full border p-2 rounded"
+                value={activity}
+                onChange={(e) => setActivity(e.target.value)}
+              >
+                {ACTIVITY_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Advanced */}
+            <div className="flex items-center gap-2">
               <input
-                type="number"
-                className="w-full border rounded p-2"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
+                type="checkbox"
+                checked={showSettings}
+                onChange={(e) => setShowSettings(e.target.checked)}
               />
+              <label>Use advanced settings</label>
             </div>
 
-            {/* Gender */}
-            <div className="space-y-3">
-              <label>Gender</label>
-              <div className="flex gap-6">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    checked={gender === "male"}
-                    onChange={() => setGender("male")}
-                  />
-                  Male
-                </label>
+            {showSettings && (
+              <div className="border rounded p-4 bg-gray-50 space-y-4">
 
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    checked={gender === "female"}
-                    onChange={() => setGender("female")}
-                  />
-                  Female
-                </label>
-              </div>
-            </div>
-          </div>
-
-          {/* Height / Weight */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {unitType === "metric" ? (
-              <>
                 <div>
-                  <label>Height (cm)</label>
-                  <input
+                  <label>BMR Formula</label>
+                  <select
                     className="w-full border p-2 rounded"
-                    value={heightCm}
-                    onChange={(e) => setHeightCm(e.target.value)}
-                  />
+                    value={bmrFormula}
+                    onChange={(e) => setBmrFormula(e.target.value)}
+                  >
+                    <option value="mifflin">Mifflin–St Jeor</option>
+                    <option value="harris">Revised Harris–Benedict</option>
+                    <option value="katch">Katch–McArdle</option>
+                  </select>
                 </div>
 
                 <div>
-                  <label>Weight (kg)</label>
-                  <input
-                    className="w-full border p-2 rounded"
-                    value={weightKg}
-                    onChange={(e) => setWeightKg(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div>
-                  <label>Height (ft / in)</label>
-                  <div className="flex gap-2">
-                    <input
-                      className="w-full border p-2 rounded"
-                      placeholder="ft"
-                      value={heightFt}
-                      onChange={(e) => setHeightFt(e.target.value)}
-                    />
+                  <label>Result Unit</label>
+                  <div className="flex gap-4">
+                    <label>
+                      <input
+                        type="radio"
+                        checked={resultUnit === "kcal"}
+                        onChange={() => setResultUnit("kcal")}
+                      />
+                      Calories
+                    </label>
 
-                    <input
-                      className="w-full border p-2 rounded"
-                      placeholder="in"
-                      value={heightIn}
-                      onChange={(e) => setHeightIn(e.target.value)}
-                    />
+                    <label>
+                      <input
+                        type="radio"
+                        checked={resultUnit === "kj"}
+                        onChange={() => setResultUnit("kj")}
+                      />
+                      kJ
+                    </label>
                   </div>
                 </div>
 
-                <div>
-                  <label>Weight (lb)</label>
-                  <input
-                    className="w-full border p-2 rounded"
-                    value={weightLb}
-                    onChange={(e) => setWeightLb(e.target.value)}
-                  />
-                </div>
-              </>
+                {bmrFormula === "katch" && (
+                  <div>
+                    <label>Body Fat %</label>
+                    <input
+                      className="w-full border p-2 rounded"
+                      value={bodyFat}
+                      onChange={(e) => setBodyFat(e.target.value)}
+                    />
+                  </div>
+                )}
+              </div>
             )}
-          </div>
 
-          {/* Activity */}
-          <div>
-            <label>Activity Level</label>
-            <select
-              className="w-full border p-2 rounded"
-              value={activity}
-              onChange={(e) => setActivity(e.target.value)}
-            >
-              {ACTIVITY_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </div>
+            {/* Buttons */}
+            <div className="flex gap-4">
+              <button
+                type="submit"
+                className="w-full bg-primary text-white py-4 rounded"
+              >
+                Calculate
+              </button>
 
-          {/* Advanced */}
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={showSettings}
-              onChange={(e) => setShowSettings(e.target.checked)}
-            />
-            <label>Use advanced settings</label>
-          </div>
-
-          {showSettings && (
-            <div className="border rounded p-4 bg-gray-50 space-y-4">
-
-              <div>
-                <label>BMR Formula</label>
-                <select
-                  className="w-full border p-2 rounded"
-                  value={bmrFormula}
-                  onChange={(e) => setBmrFormula(e.target.value)}
-                >
-                  <option value="mifflin">Mifflin–St Jeor</option>
-                  <option value="harris">Revised Harris–Benedict</option>
-                  <option value="katch">Katch–McArdle</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Result Unit</label>
-                <div className="flex gap-4">
-                  <label>
-                    <input
-                      type="radio"
-                      checked={resultUnit === "kcal"}
-                      onChange={() => setResultUnit("kcal")}
-                    />
-                    Calories
-                  </label>
-
-                  <label>
-                    <input
-                      type="radio"
-                      checked={resultUnit === "kj"}
-                      onChange={() => setResultUnit("kj")}
-                    />
-                    kJ
-                  </label>
-                </div>
-              </div>
-
-              {bmrFormula === "katch" && (
-                <div>
-                  <label>Body Fat %</label>
-                  <input
-                    className="w-full border p-2 rounded"
-                    value={bodyFat}
-                    onChange={(e) => setBodyFat(e.target.value)}
-                  />
-                </div>
-              )}
+              <button
+                type="button"
+                onClick={clearForm}
+                className="px-8 bg-gray-200 py-4 rounded"
+              >
+                Clear
+              </button>
             </div>
-          )}
-
-          {/* Buttons */}
-          <div className="flex gap-4">
-            <button
-              type="submit"
-              className="w-full bg-primary text-white py-4 rounded"
-            >
-              Calculate
-            </button>
-
-            <button
-              type="button"
-              onClick={clearForm}
-              className="px-8 bg-gray-200 py-4 rounded"
-            >
-              Clear
-            </button>
           </div>
-        </div>
-      </form>
+        </form>
 
         {results && (
           <div className="space-y-4 py-6">

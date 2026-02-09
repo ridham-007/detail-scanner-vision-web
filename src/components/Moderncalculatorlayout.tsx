@@ -9,12 +9,12 @@ import {
   Zap,
   Shield,
 } from "lucide-react";
-// import { Link, useNavigate } from '@/lib/react-router-dom-shim';
-// import Header from "@/components/layout/Header";
-// import Footer from "@/components/layout/Footer";
-// import { useMeta } from "@/lib/useMeta";
-// import { calculatorData } from "@/data/calculatorData";
-// import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { calculatorData } from "@/data/calculatorData";
+import CalculatorSearch from "@/components/CalculatorSearch";
+import RelatedCalculators from "@/components/RelatedCalculators";
+import type { Metadata } from "next";
+import { Link } from "@/lib/react-router-dom-shim";
 
 /* ================= TYPES ================= */
 
@@ -52,21 +52,147 @@ const BASE_URL = "https://calcifyai.com";
 
 /* ================= CATEGORY MAPPING ================= */
 
-// const getCategoryInfo = (path: string): { name: string; path: string } | null => {
-//   const categoryMap: Record<string, { name: string; path: string }> = {
-//     financial: { name: "Finance", path: "/finance" },
-//     health: { name: "Health", path: "/health" },
-//     business: { name: "Business", path: "/business-tools" },
-//     utility: { name: "Utility", path: "/utility" },
-//   };
+const getCategoryInfo = (path: string): { name: string; path: string } | null => {
+  const categoryMap: Record<string, { name: string; path: string }> = {
+    financial: { name: "Finance", path: "/finance" },
+    health: { name: "Health", path: "/health" },
+    business: { name: "Business", path: "/business-tools" },
+    utility: { name: "Utility", path: "/utility" },
+  };
 
-//   for (const [category, calcs] of Object.entries(calculatorData)) {
-//     if (calcs.some((c) => c.path === path)) {
-//       return categoryMap[category] || null;
-//     }
-//   }
-//   return null;
-// };
+  for (const [category, calcs] of Object.entries(calculatorData)) {
+    if (calcs.some((c) => c.path === path)) {
+      return categoryMap[category] || null;
+    }
+  }
+  return null;
+};
+
+/* ================= RELATED CALCULATORS HELPER ================= */
+
+const getRelatedCalculators = (path: string) => {
+  let currentCategory: keyof typeof calculatorData | null = null;
+  let currentIndex = -1;
+
+  for (const [category, calcs] of Object.entries(calculatorData)) {
+    const index = calcs.findIndex((c) => c.path === path);
+    if (index !== -1) {
+      currentCategory = category as keyof typeof calculatorData;
+      currentIndex = index;
+      break;
+    }
+  }
+
+  if (!currentCategory || currentIndex === -1) return [];
+
+  const categoryCalcs = calculatorData[currentCategory];
+  const result: typeof categoryCalcs = [];
+
+  for (let i = 1; i < categoryCalcs.length; i++) {
+    const calc = categoryCalcs[(currentIndex + i) % categoryCalcs.length];
+    if (calc.path !== path) {
+      result.push(calc);
+    }
+    if (result.length === 4) break;
+  }
+
+  return result;
+};
+
+/* ================= METADATA GENERATOR ================= */
+
+export function generateCalculatorMetadata({
+  title,
+  description,
+  path,
+  metaTitle,
+  metaDescription,
+  keywords,
+}: Pick<ModernCalculatorLayoutProps, "title" | "description" | "path" | "metaTitle" | "metaDescription" | "keywords">): Metadata {
+  const fullUrl = `${BASE_URL}${path}`;
+  const seoTitle = metaTitle || `${title} | Free Online Calculator - CalcifyAI`;
+  const seoDescription =
+    metaDescription ||
+    `${description} Use our free ${title.toLowerCase()} for accurate, instant results.`;
+  const seoKeywords = keywords || generateCalculatorKeywords(title);
+
+  return {
+    title: seoTitle,
+    description: seoDescription,
+    keywords: seoKeywords,
+    alternates: {
+      canonical: fullUrl,
+    },
+    openGraph: {
+      title: seoTitle,
+      description: seoDescription,
+      url: fullUrl,
+      images: [`${BASE_URL}/og-image.png`],
+      type: "website",
+    },
+  };
+}
+
+/* ================= JSON-LD COMPONENTS ================= */
+
+function CalculatorJsonLd({
+  title,
+  description,
+  url,
+}: {
+  title: string;
+  description: string;
+  url: string;
+}) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: title,
+    description,
+    url,
+    applicationCategory: "CalculatorApplication",
+    operatingSystem: "Any",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CalcifyAI",
+      url: BASE_URL,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+function FAQJsonLd({ faq }: { faq: FAQItem[] }) {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+    />
+  );
+}
 
 /* ================= COMPONENT ================= */
 
@@ -147,27 +273,30 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
   const seoDescription =
     metaDescription ||
     `${description} Use our free ${title.toLowerCase()} for accurate, instant results.`;
-  const seoKeywords = keywords || generateCalculatorKeywords(title);
 
-  // useMeta({
-  //   title: seoTitle,
-  //   description: seoDescription,
-  //   keywords: seoKeywords,
-  //   canonical: fullUrl,
-  //   ogTitle: seoTitle,
-  //   ogDescription: seoDescription,
-  //   ogImage: `${BASE_URL}/og-image.png`,
-  //   ogType: "website",
-  // });
+  const categoryInfo = getCategoryInfo(path);
+  const relatedCalculators = getRelatedCalculators(path);
+
+  // useMeta has been replaced by generateCalculatorMetadata export
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-50">
+      {/* JSON-LD Structured Data */}
+      <CalculatorJsonLd title={title} description={seoDescription} url={fullUrl} />
+      {faq && faq.length > 0 && <FAQJsonLd faq={faq} />}
       {/* <Header /> */}
 
       {/* ================= HERO ================= */}
-      <section className="pt-24 pb-12 relative overflow-hidden">
+      <section className="pt-12 pb-12 relative overflow-hidden">
         <div className="container mx-auto px-4">
-          {/* <Breadcrumbs /> */}
+          <Breadcrumbs
+            items={[
+              ...(categoryInfo
+                ? [{ label: categoryInfo.name, path: categoryInfo.path }]
+                : [{ label: "All Calculators", path: "/categories" }]),
+              { label: title }
+            ]}
+          />
 
           <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-3 mb-6">
@@ -212,21 +341,19 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
           <div className="grid lg:grid-cols-12 gap-8">
             {/* LEFT SIDEBAR */}
             <div className="lg:col-span-3">
-              <div className="bg-white rounded-2xl border p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <Search className="h-5 w-5 text-[#84B44C]" />
-                  <h3 className="font-semibold">Search</h3>
-                </div>
-
-                <input
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full border rounded-xl p-3"
-                  placeholder="Search calculators..."
-                />
+              <CalculatorSearch />
+              {/* Related Calculators */}
+              <div className="mt-8">
+                {relatedCalculators.length > 0 && (
+                  <RelatedCalculators
+                    calculators={relatedCalculators.map((calc) => ({
+                      path: calc.path,
+                      title: calc.title,
+                      iconName: calc.icon.name,
+                    }))}
+                  />
+                )}
               </div>
-
-              {/* SEARCH RESULTS COMMENTED CODE PRESERVED */}
             </div>
 
             {/* CENTER */}
@@ -253,6 +380,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
             <div className="lg:col-span-3">
               {details && (
                 <div className="space-y-4">
+                  {/* Related Calculators removed from here */}
                   <div className="bg-white rounded-2xl border p-5">
                     <h3 className="font-semibold mb-2 flex gap-2">
                       <Info className="text-[#84B44C]" />
@@ -271,7 +399,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
                         </h3>
                       </div>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        
+
                         {details.howItWorks}
                       </p>
                     </div>

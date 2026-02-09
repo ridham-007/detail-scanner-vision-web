@@ -14,6 +14,8 @@ import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
 import ModernCalculatorLayout from "@/components/Moderncalculatorlayout";
+import { calculatorConfig } from "@/data/calculatorConfig";
+import HowToUse from "@/components/calculator/HowToUse";
 
 const num = (v) => parseFloat(v) || 0;
 
@@ -233,22 +235,20 @@ const WaterIntakeCalculator = () => {
               <button
                 type="button"
                 onClick={() => setWeightUnit("kg")}
-                className={`flex-1 py-3 rounded-lg font-medium transition-all ${
-                  weightUnit === "kg"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary hover:bg-secondary/80"
-                }`}
+                className={`flex-1 py-3 rounded-lg font-medium transition-all ${weightUnit === "kg"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary hover:bg-secondary/80"
+                  }`}
               >
                 Kilograms (kg)
               </button>
               <button
                 type="button"
                 onClick={() => setWeightUnit("lbs")}
-                className={`flex-1 py-3 rounded-lg font-medium transition-all ${
-                  weightUnit === "lbs"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary hover:bg-secondary/80"
-                }`}
+                className={`flex-1 py-3 rounded-lg font-medium transition-all ${weightUnit === "lbs"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary hover:bg-secondary/80"
+                  }`}
               >
                 Pounds (lbs)
               </button>
@@ -277,11 +277,10 @@ const WaterIntakeCalculator = () => {
               key={level.value}
               type="button"
               onClick={() => setActivityLevel(level.value)}
-              className={`p-3 rounded-xl text-center transition-all ${
-                activityLevel === level.value
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary hover:bg-secondary/80"
-              }`}
+              className={`p-3 rounded-xl text-center transition-all ${activityLevel === level.value
+                ? "bg-primary text-primary-foreground"
+                : "bg-secondary hover:bg-secondary/80"
+                }`}
             >
               <div className="font-medium text-sm">{level.label}</div>
               <div className="text-xs opacity-70">{level.desc}</div>
@@ -325,11 +324,10 @@ const WaterIntakeCalculator = () => {
               key={c.value}
               type="button"
               onClick={() => setClimate(c.value)}
-              className={`p-3 rounded-xl text-center transition-all ${
-                climate === c.value
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary hover:bg-secondary/80"
-              }`}
+              className={`p-3 rounded-xl text-center transition-all ${climate === c.value
+                ? "bg-primary text-primary-foreground"
+                : "bg-secondary hover:bg-secondary/80"
+                }`}
             >
               <div className="text-2xl mb-1">{c.icon}</div>
               <div className="font-medium text-sm">{c.label}</div>
@@ -416,14 +414,12 @@ const WaterIntakeCalculator = () => {
               {results.ounces} oz • {results.glasses} glasses
             </div>
             <div
-              className={`inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full ${
-                getHydrationLevel(results.glasses).bg
-              }/20`}
+              className={`inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full ${getHydrationLevel(results.glasses).bg
+                }/20`}
             >
               <span
-                className={`font-semibold ${
-                  getHydrationLevel(results.glasses).color
-                }`}
+                className={`font-semibold ${getHydrationLevel(results.glasses).color
+                  }`}
               >
                 {getHydrationLevel(results.glasses).level} Hydration Target
               </span>
@@ -462,49 +458,48 @@ const WaterIntakeCalculator = () => {
           {(results.exerciseBonus > 0 ||
             results.climateBonus !== 0 ||
             results.caffeineBonus > 0) && (
-            <div className="bg-card border rounded-xl p-4">
-              <h4 className="font-semibold mb-3">Personalized Adjustments</h4>
-              <div className="space-y-2">
-                {results.exerciseBonus > 0 && (
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      Exercise ({exerciseMinutes} min)
-                    </span>
-                    <span className="font-medium text-green-600">
-                      +{results.exerciseBonus} ml
-                    </span>
-                  </div>
-                )}
-                {results.climateBonus !== 0 && (
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      Climate ({climate})
-                    </span>
-                    <span
-                      className={`font-medium ${
-                        results.climateBonus >= 0
+              <div className="bg-card border rounded-xl p-4">
+                <h4 className="font-semibold mb-3">Personalized Adjustments</h4>
+                <div className="space-y-2">
+                  {results.exerciseBonus > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        Exercise ({exerciseMinutes} min)
+                      </span>
+                      <span className="font-medium text-green-600">
+                        +{results.exerciseBonus} ml
+                      </span>
+                    </div>
+                  )}
+                  {results.climateBonus !== 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        Climate ({climate})
+                      </span>
+                      <span
+                        className={`font-medium ${results.climateBonus >= 0
                           ? "text-green-600"
                           : "text-amber-600"
-                      }`}
-                    >
-                      {results.climateBonus >= 0 ? "+" : ""}
-                      {results.climateBonus} ml
-                    </span>
-                  </div>
-                )}
-                {results.caffeineBonus > 0 && (
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      Caffeine offset ({caffeineIntake} drinks)
-                    </span>
-                    <span className="font-medium text-green-600">
-                      +{results.caffeineBonus} ml
-                    </span>
-                  </div>
-                )}
+                          }`}
+                      >
+                        {results.climateBonus >= 0 ? "+" : ""}
+                        {results.climateBonus} ml
+                      </span>
+                    </div>
+                  )}
+                  {results.caffeineBonus > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        Caffeine offset ({caffeineIntake} drinks)
+                      </span>
+                      <span className="font-medium text-green-600">
+                        +{results.caffeineBonus} ml
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
           {/* Hydration Schedule */}
           <div className="bg-card border rounded-xl overflow-hidden">
@@ -634,13 +629,17 @@ const WaterIntakeCalculator = () => {
     },
   ];
 
+  const waterConfig = calculatorConfig.waterintake;
+
   return (
     <ModernCalculatorLayout
-      title="Water Intake Calculator"
-      description="Calculate your optimal daily water intake based on weight, activity level, and lifestyle factors. Stay properly hydrated for better health."
+      title={waterConfig.title}
+      description={waterConfig.description}
       icon={Droplets}
-      details={details}
-      faq={faq}
+      path={waterConfig.path}
+      details={waterConfig.details}
+      faq={waterConfig.faqs}
+      howToUse={<HowToUse {...waterConfig.howToUse} />}
     >
       {calculatorContent}
     </ModernCalculatorLayout>
