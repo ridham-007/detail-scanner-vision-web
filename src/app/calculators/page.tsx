@@ -10,13 +10,13 @@ export default function AllCalculatorsPage() {
   const calculators = Object.values(calculatorConfig);
 
   return (
-    <section className="bg-gradient-to-br from-primary/5 via-background to-primary/5 py-20 min-h-screen">
+    <section className=" py-20 min-h-screen">
       <div className="container mx-auto px-4">
 
         <div className="mb-6">
           <Breadcrumbs
             items={[
-              { label: "All Calculators", path: "/calculators" },
+              { label: "All Calculators" },
             ]}
           />
         </div>

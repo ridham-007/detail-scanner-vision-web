@@ -214,7 +214,6 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
       className="
       min-h-screen
       bg-gradient-to-br
-      from-[#84B44C]/30 via-white to-[#84B44C]/30
       dark:from-gray-900 dark:via-gray-950 dark:to-gray-900
     "
     >
