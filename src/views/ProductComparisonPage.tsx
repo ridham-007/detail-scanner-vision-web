@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Plus, Trophy, X, ArrowRightLeft } from 'lucide-react';
 import { ProductData } from '@/types/ProductData';
 import { useProductLookup } from '@/hooks/useProductLookup';
+import BarcodeScanner from '@/components/BarcodeScanner';
+import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import ProductSelectionModal from '@/components/ProductSelectionModal';
 
@@ -13,8 +15,10 @@ const ProductComparisonPage = () => {
     const [productA, setProductA] = useState<ProductData | null>(null);
     const [productB, setProductB] = useState<ProductData | null>(null);
     const [activeSlot, setActiveSlot] = useState<'A' | 'B' | null>(null);
+    const [manualBarcode, setManualBarcode] = useState('');
+    const [isScanning, setIsScanning] = useState(false);
 
-    const { lookupProduct } = useProductLookup();
+    const { lookupProduct, isLoading } = useProductLookup();
 
     // Debug: Log products when they change
     React.useEffect(() => {
@@ -22,6 +26,21 @@ const ProductComparisonPage = () => {
         if (productB) console.log("Product B Data:", productB);
     }, [productA, productB]);
 
+    const handleLookup = async (barcode: string) => {
+        if (!activeSlot) return;
+
+        setIsScanning(false);
+        const product = await lookupProduct(barcode);
+
+        if (product) {
+            if (activeSlot === 'A') setProductA(product);
+            else setProductB(product);
+            setActiveSlot(null);
+            setManualBarcode('');
+        } else {
+            toast.error("Product not found");
+        }
+    }
     const handleSelectProduct = (product: ProductData) => {
         if (activeSlot === 'A') setProductA(product);
         else setProductB(product);
@@ -44,14 +63,14 @@ const ProductComparisonPage = () => {
     // Robust getter for nutrition values
     const getNutrientValue = (product: ProductData, key: string, fallbackKeys: string[] = []): number | null => {
         // 1. Try nutrition_per_100g
-        const p100g = product.nutrition_per_100g as any;
+        const p100g = product.nutrition_per_100g as Record<string, unknown> | undefined;
         if (p100g?.[key] !== undefined && p100g?.[key] !== null) {
-            return p100g[key];
+            return p100g[key] as number;
         }
 
         // 2. Try simple aliases in nutrition_per_100g
         for (const k of fallbackKeys) {
-            if (p100g?.[k] !== undefined && p100g?.[k] !== null) return p100g[k];
+            if (p100g?.[k] !== undefined && p100g?.[k] !== null) return p100g[k] as number;
         }
 
         // 3. Try finding in nutrition_data array
@@ -132,9 +151,50 @@ const ProductComparisonPage = () => {
         </Card>
     );
 
+    const SelectionModal = () => {
+        if (!activeSlot) return null;
+        return (
+            <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <Card className="w-full max-w-md">
+                    <CardHeader className="flex flex-row items-center justify-between">
+                        <CardTitle>Select Product {activeSlot}</CardTitle>
+                        <Button variant="ghost" size="icon" onClick={() => setActiveSlot(null)}>
+                            <X className="w-4 h-4" />
+                        </Button>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        {/* Reuse Barcode Scanner if needed, or simple input for MVP */}
+                        <div>
+                            <div className="mb-4">
+                                <BarcodeScanner
+                                    isScanning={isScanning}
+                                    onToggleScanning={() => setIsScanning(!isScanning)}
+                                    onScan={handleLookup}
+                                />
+                            </div>
+                            <div className="flex gap-2">
+                                <Input
+                                    placeholder="Enter barcode..."
+                                    value={manualBarcode}
+                                    onChange={(e) => setManualBarcode(e.target.value)}
+                                />
+                                <Button onClick={() => handleLookup(manualBarcode)} disabled={isLoading}>
+                                    {isLoading ? '...' : 'Search'}
+                                </Button>
+                            </div>
+                            <div className="mt-4 text-xs text-muted-foreground bg-muted p-2 rounded">
+                                Samples: 8906000610077 (Chips), 8906019779840 (Nuts)
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
+
     const ComparisonRow = ({ field }: { field: typeof comparisonFields[0] }) => {
-        let valA = getNutrientValue(productA!, field.key, field.fallbacks);
-        let valB = getNutrientValue(productB!, field.key, field.fallbacks);
+        const valA = getNutrientValue(productA!, field.key, field.fallbacks);
+        const valB = getNutrientValue(productB!, field.key, field.fallbacks);
 
         // FEATURE: Hide row if BOTH are missing
         if (valA === null && valB === null) return null;

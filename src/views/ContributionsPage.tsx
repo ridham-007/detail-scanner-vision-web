@@ -53,7 +53,7 @@ export default function ContributionsPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <Package className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" />
-            <h2 className="text-xl font-semibold mb-2">Sign In Required</h2>
+            <h1 className="text-xl font-semibold mb-2">Sign In Required</h1>
             <p className="text-muted-foreground">
               Please sign in to view your contributions and earn rewards.
             </p>
