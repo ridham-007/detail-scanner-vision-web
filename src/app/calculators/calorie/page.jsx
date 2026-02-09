@@ -13,6 +13,8 @@ import {
 import { Calculator } from "lucide-react";
 import { toast } from "sonner";
 import ModernCalculatorLayout from "@/components/Moderncalculatorlayout";
+import { calculatorConfig } from "@/data/calculatorConfig";
+import HowToUse from "@/components/calculator/HowToUse";
 
 ChartJS.register(
   CategoryScale,
@@ -249,25 +251,17 @@ export default function CalorieCalculator() {
     gain: "#a655f7",
   };
 
-  const details = {
-    whatIs:
-      "This calorie calculator estimates your daily calorie needs using standard BMR equations and your activity level, similar to the calculator from  .",
-    howItWorks:
-      "By default it uses the Mifflin–St Jeor equation in Calories per day. You can optionally enable advanced settings to choose a different BMR formula, use body fat %, and show results in kilojoules.",
-    tips: [
-      "A daily deficit of ~500 Calories is often associated with ~0.5 kg/week weight loss (approximate).",
-      "A daily surplus of ~500 Calories is often associated with ~0.5 kg/week weight gain (approximate).",
-      "Use the same units consistently when tracking weight over time.",
-      "Talk to a healthcare professional before making large changes to your diet or activity level.",
-    ],
-  };
+  const calorieConfig = calculatorConfig.calorie;
 
   return (
     <ModernCalculatorLayout
-      title="Calorie Calculator"
-      description="Calculate your daily caloric needs for weight maintenance, loss, or gain"
-      path="/calculators/calorie"
-      details={details}
+      title={calorieConfig.title}
+      description={calorieConfig.description}
+      icon={Calculator}
+      path={calorieConfig.path}
+      details={calorieConfig.details}
+      faq={calorieConfig.faqs}
+      howToUse={<HowToUse {...calorieConfig.howToUse} />}
     >
       <div className="w-full">
         <form onSubmit={calculateCalories}>

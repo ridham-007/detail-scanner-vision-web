@@ -15,6 +15,7 @@ import CalculatorSearch from "@/components/CalculatorSearch";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import type { Metadata } from "next";
 import { Link } from "@/lib/react-router-dom-shim";
+import FoodBattle from "@/components/FoodBattleBanner";
 
 /* ================= TYPES ================= */
 
@@ -49,24 +50,6 @@ const generateCalculatorKeywords = (title: string): string => {
 };
 
 const BASE_URL = "https://calcifyai.com";
-
-/* ================= CATEGORY MAPPING ================= */
-
-// const getCategoryInfo = (path: string): { name: string; path: string } | null => {
-//   const categoryMap: Record<string, { name: string; path: string }> = {
-//     financial: { name: "Finance", path: "/finance" },
-//     health: { name: "Health", path: "/health" },
-//     business: { name: "Business", path: "/business-tools" },
-//     utility: { name: "Utility", path: "/utility" },
-//   };
-
-//   for (const [category, calcs] of Object.entries(calculatorData)) {
-//     if (calcs.some((c) => c.path === path)) {
-//       return categoryMap[category] || null;
-//     }
-//   }
-//   return null;
-// };
 
 /* ================= RELATED CALCULATORS HELPER ================= */
 
@@ -217,88 +200,32 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
   metaDescription,
   keywords,
 }) => {
-  const [searchTerm, setSearchTerm] = React.useState("");
   const [expandedFaq, setExpandedFaq] = React.useState<number | null>(null);
-  // const navigate = useNavigate();
-
-  /* 🔎 SEARCH RESULTS */
-  // const searchResults = React.useMemo(() => {
-  //   if (!searchTerm.trim()) return [];
-
-  //   const term = searchTerm.toLowerCase();
-  //   // const allCalcs = Object.values(calculatorData).flat();
-
-  //   return allCalcs
-  //     .map((calc) => {
-  //       const title = calc.title.toLowerCase();
-  //       const description = calc.description.toLowerCase();
-
-  //       let score = 0;
-
-  //       if (title === term) score = 100;
-  //       else if (title.startsWith(term)) score = 80;
-  //       else if (new RegExp(`\\b${term}\\b`).test(title)) score = 60;
-  //       else if (title.includes(term)) score = 40;
-  //       else if (description.includes(term)) score = 20;
-
-  //       return score > 0 ? { ...calc, score } : null;
-  //     })
-  //     .filter(Boolean)
-  //     .sort((a, b) => b.score - a.score);
-  // }, [searchTerm]);
-
-  /* 🔗 RELATED CALCULATORS */
-  // const relatedCalculators = React.useMemo(() => {
-  //   let currentCategory: keyof typeof calculatorData | null = null;
-  //   let currentIndex = -1;
-
-  //   Object.entries(calculatorData).forEach(([category, calcs]) => {
-  //     const index = calcs.findIndex((c) => c.path === path);
-  //     if (index !== -1) {
-  //       currentCategory = category as keyof typeof calculatorData;
-  //       currentIndex = index;
-  //     }
-  //   });
-
-  //   if (!currentCategory || currentIndex === -1) return [];
-
-  //   const categoryCalcs = calculatorData[currentCategory];
-  //   const result = [];
-
-  //   for (let i = 1; i < categoryCalcs.length; i++) {
-  //     const calc = categoryCalcs[(currentIndex + i) % categoryCalcs.length];
-  //     if (calc.path !== path) {
-  //       result.push(calc);
-  //     }
-  //     if (result.length === 4) break;
-  //   }
-
-  //   return result;
-  // }, [path]);
 
   const fullUrl = `${BASE_URL}${path}`;
-  const seoTitle = metaTitle || `${title} | Free Online Calculator - CalcifyAI`;
   const seoDescription =
     metaDescription ||
     `${description} Use our free ${title.toLowerCase()} for accurate, instant results.`;
 
-  // const categoryInfo = getCategoryInfo(path);
   const relatedCalculators = getRelatedCalculators(path);
 
-  // useMeta has been replaced by generateCalculatorMetadata export
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-50">
-      {/* JSON-LD Structured Data */}
+    <div
+      className="
+      min-h-screen
+      bg-gradient-to-br
+      from-[#84B44C]/30 via-white to-[#84B44C]/30
+      dark:from-gray-900 dark:via-gray-950 dark:to-gray-900
+    "
+    >
       <CalculatorJsonLd
         title={title}
         description={seoDescription}
         url={fullUrl}
       />
       {faq && faq.length > 0 && <FAQJsonLd faq={faq} />}
-      {/* <Header /> */}
 
-      {/* ================= HERO ================= */}
+      {/* HERO */}
       <section className="pt-12 pb-12 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <Breadcrumbs
@@ -313,30 +240,28 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
               <div className="p-4 bg-[#84B44C] rounded-2xl">
                 <Icon className="h-10 w-10 text-white" />
               </div>
-
-              <span className="px-4 py-2 bg-[#84B44C] text-white rounded-full text-sm">
-                Free Tool
-              </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 dark:text-white">
+              {title}
+            </h1>
 
-            <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
               {description}
             </p>
 
             <div className="flex justify-center gap-4 flex-wrap">
-              <span className="px-4 py-2 border rounded-full flex items-center gap-2">
+              <span className="px-4 py-2 border dark:border-gray-700 rounded-full flex items-center gap-2 dark:text-gray-200">
                 <Shield className="h-4 w-4 text-[#84B44C]" />
                 100% Free
               </span>
 
-              <span className="px-4 py-2 border rounded-full flex items-center gap-2">
+              <span className="px-4 py-2 border dark:border-gray-700 rounded-full flex items-center gap-2 dark:text-gray-200">
                 <Zap className="h-4 w-4 text-[#84B44C]" />
                 Instant Results
               </span>
 
-              <span className="px-4 py-2 border rounded-full flex items-center gap-2">
+              <span className="px-4 py-2 border dark:border-gray-700 rounded-full flex items-center gap-2 dark:text-gray-200">
                 <TrendingUp className="h-4 w-4 text-[#84B44C]" />
                 Accurate
               </span>
@@ -345,15 +270,15 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
         </div>
       </section>
 
-      {/* ================= MAIN ================= */}
+      {/* MAIN */}
       <section className="pb-16">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-12 gap-8">
-            {/* LEFT SIDEBAR */}
-            <div className="lg:col-span-3">
+            {/* LEFT */}
+            <div className="lg:col-span-3 gap-6 flex flex-col">
               <CalculatorSearch />
-              {/* Related Calculators */}
-              <div className="mt-8">
+
+              <div>
                 {relatedCalculators.length > 0 && (
                   <RelatedCalculators
                     calculators={relatedCalculators.map((calc) => ({
@@ -364,23 +289,26 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
                   />
                 )}
               </div>
+              <FoodBattle />
             </div>
 
             {/* CENTER */}
             <div className="lg:col-span-6">
-              <div className="bg-white rounded-3xl border overflow-hidden shadow-sm">
-                <div className="p-6 border-b bg-green-50">
+              <div className="bg-white dark:bg-gray-900 rounded-3xl border dark:border-gray-700 overflow-hidden shadow-sm">
+                <div className="p-6 border-b dark:border-gray-700 bg-[#84B44C]/20 dark:bg-gray-800">
                   <div className="flex items-center gap-3">
                     <Calculator className="h-6 w-6 text-[#84B44C]" />
-                    <h2 className="text-xl font-semibold">Calculate Now</h2>
+                    <h2 className="text-xl font-semibold dark:text-white">
+                      Calculate Now
+                    </h2>
                   </div>
                 </div>
 
-                <div className="p-6">{children}</div>
+                <div className="p-6 dark:text-gray-200">{children}</div>
               </div>
 
               {howToUse && (
-                <div className="mt-6 bg-white p-6 rounded-2xl border">
+                <div className="mt-6 bg-white dark:bg-gray-900 p-6 rounded-2xl border dark:border-gray-700 dark:text-gray-200">
                   {howToUse}
                 </div>
               )}
@@ -390,41 +318,46 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
             <div className="lg:col-span-3">
               {details && (
                 <div className="space-y-4">
-                  {/* Related Calculators removed from here */}
-                  <div className="bg-white rounded-2xl border p-5">
-                    <h3 className="font-semibold mb-2 flex gap-2">
+                  <div className="bg-white dark:bg-gray-900 rounded-2xl border dark:border-gray-700 p-5">
+                    <h3 className="font-semibold mb-2 flex gap-2 dark:text-white">
                       <Info className="text-[#84B44C]" />
                       What is this?
                     </h3>
 
-                    <p className="text-sm text-gray-600">{details.whatIs}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      {details.whatIs}
+                    </p>
                   </div>
 
-                  <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-border/50 overflow-hidden">
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border dark:border-gray-700 overflow-hidden">
                     <div className="p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <Calculator className="h-5 w-5 text-[#84B44C]" />
-                        <h3 className="font-bold text-foreground">
+                        <h3 className="font-bold dark:text-white">
                           How it works
                         </h3>
                       </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
                         {details.howItWorks}
                       </p>
                     </div>
                   </div>
 
                   {details.tips && (
-                    <div className="bg-green-50 rounded-2xl p-5 border border-green-200">
-                      <h3 className="font-semibold mb-3 flex gap-2">
+                    <div className="bg-[#84B44C]/20 dark:bg-gray-800 rounded-2xl p-5 border dark:border-gray-700">
+                      <h3 className="font-semibold mb-3 flex gap-2 dark:text-white">
                         <Sparkles className="text-[#84B44C]" />
                         Tips
                       </h3>
 
                       <ul className="space-y-2">
                         {details.tips.map((tip, i) => (
-                          <li key={i} className="flex gap-2 text-sm">
-                            <span className="w-5 h-5 bg-[#84B44C] text-white rounded-full flex items-center justify-center text-xs">
+                          <li
+                            key={i}
+                            className="flex gap-2 text-sm dark:text-gray-200"
+                          >
+                            <span className="w-6 h-6 min-w-[24px] min-h-[24px] flex-shrink-0 bg-[#84B44C] text-white rounded-full flex items-center justify-center text-xs font-medium">
                               {i + 1}
                             </span>
                             {tip}
@@ -440,29 +373,34 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
         </div>
       </section>
 
-      {/* FAQ SECTION PRESERVED */}
+      {/* FAQ */}
       {faq && faq.length > 0 && (
-        <section className="py-16 bg-green-50">
+        <section className="py-16 bg-[#84B44C]/40 dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-8">
+            <h2 className="text-3xl font-bold text-center mb-8 dark:text-white">
               Frequently Asked Questions
             </h2>
 
             <div className="space-y-4">
               {faq.map((item, index) => (
-                <div key={index} className="bg-white rounded-2xl border">
+                <div
+                  key={index}
+                  className="bg-white dark:bg-gray-800 rounded-2xl border dark:border-gray-700"
+                >
                   <button
                     onClick={() =>
                       setExpandedFaq(expandedFaq === index ? null : index)
                     }
-                    className="w-full p-6 text-left flex justify-between"
+                    className="w-full p-6 text-left flex justify-between dark:text-white"
                   >
                     <span>{item.question}</span>
                     <span className="text-[#84B44C]">↓</span>
                   </button>
 
                   {expandedFaq === index && (
-                    <div className="px-6 pb-6 text-gray-600">{item.answer}</div>
+                    <div className="px-6 pb-6 text-gray-600 dark:text-gray-300">
+                      {item.answer}
+                    </div>
                   )}
                 </div>
               ))}
@@ -470,8 +408,6 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
           </div>
         </section>
       )}
-
-      {/* <Footer /> */}
     </div>
   );
 };
