@@ -52,21 +52,21 @@ const BASE_URL = "https://calcifyai.com";
 
 /* ================= CATEGORY MAPPING ================= */
 
-const getCategoryInfo = (path: string): { name: string; path: string } | null => {
-  const categoryMap: Record<string, { name: string; path: string }> = {
-    financial: { name: "Finance", path: "/finance" },
-    health: { name: "Health", path: "/health" },
-    business: { name: "Business", path: "/business-tools" },
-    utility: { name: "Utility", path: "/utility" },
-  };
+// const getCategoryInfo = (path: string): { name: string; path: string } | null => {
+//   const categoryMap: Record<string, { name: string; path: string }> = {
+//     financial: { name: "Finance", path: "/finance" },
+//     health: { name: "Health", path: "/health" },
+//     business: { name: "Business", path: "/business-tools" },
+//     utility: { name: "Utility", path: "/utility" },
+//   };
 
-  for (const [category, calcs] of Object.entries(calculatorData)) {
-    if (calcs.some((c) => c.path === path)) {
-      return categoryMap[category] || null;
-    }
-  }
-  return null;
-};
+//   for (const [category, calcs] of Object.entries(calculatorData)) {
+//     if (calcs.some((c) => c.path === path)) {
+//       return categoryMap[category] || null;
+//     }
+//   }
+//   return null;
+// };
 
 /* ================= RELATED CALCULATORS HELPER ================= */
 
@@ -108,7 +108,15 @@ export function generateCalculatorMetadata({
   metaTitle,
   metaDescription,
   keywords,
-}: Pick<ModernCalculatorLayoutProps, "title" | "description" | "path" | "metaTitle" | "metaDescription" | "keywords">): Metadata {
+}: Pick<
+  ModernCalculatorLayoutProps,
+  | "title"
+  | "description"
+  | "path"
+  | "metaTitle"
+  | "metaDescription"
+  | "keywords"
+>): Metadata {
   const fullUrl = `${BASE_URL}${path}`;
   const seoTitle = metaTitle || `${title} | Free Online Calculator - CalcifyAI`;
   const seoDescription =
@@ -274,7 +282,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
     metaDescription ||
     `${description} Use our free ${title.toLowerCase()} for accurate, instant results.`;
 
-  const categoryInfo = getCategoryInfo(path);
+  // const categoryInfo = getCategoryInfo(path);
   const relatedCalculators = getRelatedCalculators(path);
 
   // useMeta has been replaced by generateCalculatorMetadata export
@@ -282,7 +290,11 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-50">
       {/* JSON-LD Structured Data */}
-      <CalculatorJsonLd title={title} description={seoDescription} url={fullUrl} />
+      <CalculatorJsonLd
+        title={title}
+        description={seoDescription}
+        url={fullUrl}
+      />
       {faq && faq.length > 0 && <FAQJsonLd faq={faq} />}
       {/* <Header /> */}
 
@@ -291,10 +303,8 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
         <div className="container mx-auto px-4">
           <Breadcrumbs
             items={[
-              ...(categoryInfo
-                ? [{ label: categoryInfo.name, path: categoryInfo.path }]
-                : [{ label: "All Calculators", path: "/categories" }]),
-              { label: title }
+              { label: "All Calculators", path: "/calculators" },
+              { label: title },
             ]}
           />
 
@@ -399,7 +409,6 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
                         </h3>
                       </div>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-
                         {details.howItWorks}
                       </p>
                     </div>

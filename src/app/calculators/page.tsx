@@ -1,50 +1,46 @@
 "use client";
 
 import React from "react";
-import {
-  Calculator,
-  Activity,
-  Zap,
-  Droplet,
-  CheckCircle,
-  ArrowRight,
-} from "lucide-react";
 import Link from "next/link";
-import { calculatorConfig } from "../data/calculatorConfig";
-// import BMI from "../app/calculators/bmi"
-// import { useRouter } from "next/navigation";
+import { ArrowRight, Calculator } from "lucide-react";
+import { calculatorConfig } from "../../data/calculatorConfig";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
-export default function HealthCalculators() {
+export default function AllCalculatorsPage() {
   const calculators = Object.values(calculatorConfig);
 
   return (
-    <section
-      id="health-calculators"
-      className="bg-gradient-to-br from-primary/5 via-background to-primary/5 py-20"
-      aria-labelledby="calculators-heading"
-    >
+    <section className="bg-gradient-to-br from-primary/5 via-background to-primary/5 py-20 min-h-screen">
       <div className="container mx-auto px-4">
+
+        <div className="mb-6">
+          <Breadcrumbs
+            items={[
+              { label: "All Calculators", path: "/calculators" },
+            ]}
+          />
+        </div>
+
+        {/* HEADER */}
         <header className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
-            <Calculator className="h-5 w-5 text-primary" aria-hidden="true" />
+            <Calculator className="h-5 w-5 text-primary" />
             <span className="text-sm font-semibold text-primary">
-              Health Tools
+              All Tools
             </span>
           </div>
 
-          <h2
-            id="calculators-heading"
-            className="text-3xl md:text-4xl font-bold text-foreground mb-4"
-          >
-            Free Health Calculators
-          </h2>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            All Health Calculators
+          </h1>
 
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Track your health metrics with our science-based calculators and get
-            personalized insights
+            Explore our complete collection of science-based calculators to
+            track your health, fitness and wellness goals.
           </p>
         </header>
 
+        {/* CALCULATOR GRID */}
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
           {calculators.map((calc, index) => {
             const Icon = calc.icon;
@@ -72,18 +68,14 @@ export default function HealthCalculators() {
                     </div>
 
                     {/* TITLE */}
-                    <h3
-                      className="text-2xl font-bold text-foreground mb-3 
-                      group-hover:text-primary transition-colors"
-                    >
+                    <h3 className="text-2xl font-bold text-foreground mb-3 
+                      group-hover:text-primary transition-colors">
                       {calc.title}
                     </h3>
 
                     {/* DESCRIPTION - FIXED HEIGHT */}
-                    <p
-                      className="text-muted-foreground mb-6 leading-relaxed 
-                      line-clamp-3 min-h-[72px]"
-                    >
+                    <p className="text-muted-foreground mb-6 leading-relaxed 
+                      line-clamp-3 min-h-[72px]">
                       {calc.description}
                     </p>
 
@@ -120,19 +112,11 @@ export default function HealthCalculators() {
           })}
         </div>
 
-        {/* FOOTER BUTTON */}
-        <div className="text-center pt-8">
-          <Link href="/calculators">
-            <button className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-primary to-primary/80 px-8 py-3 rounded-xl font-semibold text-md">
-              <Calculator className="h-5 w-5" />
-              <span>Show All Health Calculators</span>
-              <ArrowRight className="h-5 w-5" />
-            </button>
-          </Link>
-
-          <p className="text-sm text-muted-foreground mt-4">
-            10+ more calculators available including protein intake, ideal
-            weight, body fat percentage & more
+        {/* BOTTOM INFO */}
+        <div className="text-center mt-12">
+          <p className="text-sm text-muted-foreground">
+            More calculators coming soon including protein intake, ideal weight,
+            body fat percentage & wellness tools
           </p>
         </div>
       </div>
