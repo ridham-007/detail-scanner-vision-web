@@ -88,7 +88,7 @@ async function getRecentQuizzes() {
     .limit(4);
 
   if (error) {
-    console.error("Error fetching quizzes:", error);
+    console.error("Error fetching quizzes:", JSON.stringify(error, null, 2));
     return [];
   }
   return data || [];
@@ -105,7 +105,7 @@ async function getRecentBlogs() {
     .limit(3);
 
   if (error) {
-    console.error("Error fetching blogs:", error);
+    console.error("Error fetching blogs:", JSON.stringify(error, null, 2));
     return [];
   }
   return data || [];
@@ -118,7 +118,7 @@ async function getProductCount() {
     .eq("is_published", true);
 
   if (error) {
-    console.error("Error fetching product count:", error);
+    console.error("Error fetching product count:", JSON.stringify(error, null, 2));
     return 23000;
   }
   return (count || 0) + 23000;
@@ -130,7 +130,7 @@ async function getUserCount() {
     .select("*", { count: "exact", head: true });
 
   if (error) {
-    console.error("Error fetching user count:", error);
+    console.error("Error fetching user count:", JSON.stringify(error, null, 2));
     return 14000;
   }
   return (count || 0) + 14000;
