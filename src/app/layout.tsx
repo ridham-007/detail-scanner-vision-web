@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Providers } from "@/components/Providers";
+import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "../index.css";
@@ -18,13 +19,15 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
         <Providers>
-          <div className="min-h-screen bg-background flex flex-col w-full">
-            <Header />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </div>
+          <AnalyticsProvider>
+            <div className="min-h-screen bg-background flex flex-col w-full">
+              <Header />
+              <main className="flex-1">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </AnalyticsProvider>
         </Providers>
       </body>
     </html>
