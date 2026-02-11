@@ -163,3 +163,85 @@ export const generateBreadcrumbStructuredData = (breadcrumbs: Array<{ name: stri
     "item": crumb.url
   }))
 });
+export const BASE_URL = "https://www.eateriq.com";
+
+export function generateCalculatorKeywords(title: string): string[] {
+  const baseKeywords = [
+    "calculator",
+    "health tool",
+    "fitness calculator",
+    "nutrition calculator",
+    "wellness",
+    "health metrics",
+    "body analysis",
+  ];
+  return [`${title.toLowerCase()} calculator`, ...baseKeywords];
+}
+
+import { Metadata } from "next";
+
+export function generateCalculatorMetadata({
+  title,
+  description,
+  path,
+  metaTitle,
+  metaDescription,
+  keywords,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string[];
+}): Metadata {
+  const finalTitle = metaTitle || `${title} - Free Online Health Tool | EaterIQ`;
+  const finalDescription =
+    metaDescription ||
+    description ||
+    `Use our free ${title} to track your health metrics. Simple, accurate, and easy to use.`;
+  const finalKeywords = keywords || generateCalculatorKeywords(title);
+  const url = `${BASE_URL}${path}`;
+  const imageUrl = `${BASE_URL}/og-calculators.jpg`; // Default calculator OG image
+
+  return {
+    title: finalTitle,
+    description: finalDescription,
+    keywords: finalKeywords,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: finalTitle,
+      description: finalDescription,
+      url: url,
+      siteName: "EaterIQ",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: finalTitle,
+      description: finalDescription,
+      images: [imageUrl],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+  };
+}
