@@ -23,7 +23,7 @@ import {
 // Static metadata for SEO
 export const metadata: Metadata = {
   title: 'Privacy Policy - How We Protect Your Data | EaterIQ',
-  description: 'Learn how EaterIQ protects your privacy and handles your personal data. Read our comprehensive privacy policy covering data collection, security, cookies, and your rights.',
+  description: 'Learn how EaterIQ protects your privacy and personal data. Read our privacy policy covering data collection, security, cookies, and your rights.',
   keywords: ['privacy policy', 'data protection', 'EaterIQ privacy', 'personal data', 'GDPR', 'data security', 'cookie policy'],
   alternates: {
     canonical: 'https://www.eateriq.com/privacy',

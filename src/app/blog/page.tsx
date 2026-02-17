@@ -12,7 +12,7 @@ import { BlogPost } from '@/types/Blog';
 // Static metadata for blog listing page
 export const metadata: Metadata = {
   title: 'Nutrition Blog - Expert Food & Health Articles | EaterIQ',
-  description: 'Discover expert articles about food, nutrition, healthy eating, and making informed food choices. Learn how to read food labels, understand additives, and improve your diet.',
+  description: 'Discover expert articles on food, nutrition, and healthy eating. Learn to read food labels, understand additives, and improve your diet.',
   keywords: ['nutrition blog', 'food articles', 'healthy eating tips', 'food labels', 'nutrition facts', 'dietary advice', 'healthy recipes', 'food additives'],
   alternates: {
     canonical: 'https://www.eateriq.com/blog',

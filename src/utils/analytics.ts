@@ -8,7 +8,7 @@ declare global {
       targetId: string,
       config?: Record<string, unknown>,
     ) => void;
-    dataLayer: Record<string, unknown>[];
+    dataLayer: (Record<string, unknown> | any[])[];
   }
 }
 
