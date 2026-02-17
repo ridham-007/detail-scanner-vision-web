@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { generateCalculatorMetadata } from "@/utils/seo";
 import { calculatorConfig } from "@/data/calculatorConfig";
 import CalculatorLayoutWrapper from "@/components/calculator/CalculatorLayoutWrapper";
@@ -17,8 +17,10 @@ export const generateMetadata = () => {
 
 export default function CalorieCalculatorPage() {
     return (
+        <Suspense>
         <CalculatorLayoutWrapper calculatorId="calorie">
             <CalorieCalculator />
         </CalculatorLayoutWrapper>
+        </Suspense>
     );
 }

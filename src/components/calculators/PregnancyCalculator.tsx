@@ -792,6 +792,7 @@ const PregnancyCalculator: React.FC = () => {
                     trimester: row.trimesterLabel,
                     milestones: row.milestone,
                   }))}
+                  format={() => {}}
                 />
               </div>
               <div className="p-4  text-xs text-muted-foreground">

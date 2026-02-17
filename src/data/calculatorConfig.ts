@@ -934,7 +934,9 @@ export interface CalculatorConfig {
   title: string;
   description: string;
   path: string;
-  icon: any;
+  icon: React.ComponentType<{
+    className?: string;
+}>;
   category: "health" | "financial" | "business" | "utility" | "other";
   faqs?: Array<{ question: string; answer: string }>;
   details?: {
