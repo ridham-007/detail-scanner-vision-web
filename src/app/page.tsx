@@ -29,6 +29,7 @@ import { Badge } from "@/components/ui/badge";
 import FoodScannerPage from "@/views/FoodScannerPage";
 import ScrollToScannerButton from "@/components/home/ScrollToScannerButton";
 import HealthCalculators from "@/components/HealthCalculators";
+import Image from "next/image";
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -119,7 +120,10 @@ async function getProductCount() {
     .eq("is_published", true);
 
   if (error) {
-    console.error("Error fetching product count:", JSON.stringify(error, null, 2));
+    console.error(
+      "Error fetching product count:",
+      JSON.stringify(error, null, 2),
+    );
     return 23000;
   }
   return (count || 0) + 23000;
@@ -320,32 +324,38 @@ export default async function HomePage() {
 
                   {/* App Store Badges */}
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
+                    {/* Apple */}
                     <a
                       href="https://apps.apple.com/sg/app/eateriq/id6757137222"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Download on the App Store"
-                      className="transition-opacity hover:opacity-80"
+                      className="inline-block transition-opacity hover:opacity-80"
                     >
-                      <img
-                        src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
+                      <Image
+                        src="/appstore.webp"
                         alt="Download on the App Store"
-                        className="h-[36px]"
-                        loading="lazy"
+                        width={324}
+                        height={108}
+                        className="h-[40px] sm:h-[46px] w-[120px] sm:w-[138px] object-contain"
+                        priority
                       />
                     </a>
+
+                    {/* Google */}
                     <a
                       href="https://play.google.com/store/apps/details?id=com.eateriq"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Get it on Google Play"
-                      className="transition-opacity hover:opacity-80"
+                      className="inline-block transition-opacity hover:opacity-80"
                     >
-                      <img
-                        src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                      <Image
+                        src="/googleplay.webp"
                         alt="Get it on Google Play"
-                        className="h-[54px] -my-[9px]"
-                        loading="lazy"
+                        width={646}
+                        height={250}
+                        className="h-[4 0px] sm:h-[46px] w-[120px] sm:w-[138px] object-contain"
                       />
                     </a>
                   </div>
@@ -515,7 +525,8 @@ export default async function HomePage() {
                     </div>
 
                     {/* Floating Stats Badges */}
-                    <div className="
+                    <div
+                      className="
   absolute 
   bottom-2 sm:bottom-4 
   left-1 sm:-left-2
