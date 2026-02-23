@@ -323,39 +323,34 @@ export default async function HomePage() {
                   </div>
 
                   {/* App Store Badges */}
-                  <div className="flex items-center gap-3 justify-center lg:justify-start">
-                    {/* Apple */}
+                  <div className="flex items-center gap-4 justify-center lg:justify-start">
                     <a
                       href="https://apps.apple.com/sg/app/eateriq/id6757137222"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="Download on the App Store"
-                      className="inline-block transition-opacity hover:opacity-80"
+                      className="transition-opacity hover:opacity-80"
                     >
                       <Image
                         src="/appstore.webp"
                         alt="Download on the App Store"
-                        width={324}
-                        height={108}
-                        className="h-[40px] sm:h-[46px] w-[120px] sm:w-[138px] object-contain"
-                        priority
+                        width={160}
+                        height={50}
+                        className="w-[160px] h-auto"
                       />
                     </a>
 
-                    {/* Google */}
                     <a
                       href="https://play.google.com/store/apps/details?id=com.eateriq"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="Get it on Google Play"
-                      className="inline-block transition-opacity hover:opacity-80"
+                      className="transition-opacity hover:opacity-80"
                     >
                       <Image
                         src="/googleplay.webp"
                         alt="Get it on Google Play"
-                        width={646}
-                        height={250}
-                        className="h-[4 0px] sm:h-[46px] w-[120px] sm:w-[138px] object-contain"
+                        width={160}
+                        height={50}
+                        className="w-[160px] h-auto"
                       />
                     </a>
                   </div>
@@ -530,7 +525,8 @@ export default async function HomePage() {
   absolute 
   bottom-2 sm:bottom-4 
   left-1 sm:-left-2
-  scale-[0.9] sm:scale-100 bg-card rounded-2xl px-4 py-3 shadow-xl border border-border/50">
+  scale-[0.9] sm:scale-100 bg-card rounded-2xl px-4 py-3 shadow-xl border border-border/50"
+                    >
                       <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
                           <BarChart3
