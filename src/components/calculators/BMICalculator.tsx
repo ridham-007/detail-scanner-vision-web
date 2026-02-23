@@ -143,6 +143,7 @@ const BMICalculator = () => {
                         </label>
                         <input
                             type="number"
+                            aria-label="Age"
                             min="2"
                             max="120"
                             value={age}
@@ -192,6 +193,7 @@ const BMICalculator = () => {
                         </label>
                         <input
                             type="number"
+                            aria-label="Height"
                             min="50"
                             max="250"
                             value={height}
@@ -209,6 +211,7 @@ const BMICalculator = () => {
                         </label>
                         <input
                             type="number"
+                            aria-label="Weight"
                             min="10"
                             max="300"
                             value={weight}

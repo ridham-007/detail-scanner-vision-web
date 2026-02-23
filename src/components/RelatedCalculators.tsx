@@ -19,9 +19,9 @@ const RelatedCalculators: React.FC<RelatedCalculatorsProps> = ({
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-2xl border dark:border-gray-700 p-5">
-      <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">
+      <span className="font-semibold mb-4 text-gray-900 dark:text-white">
         Related Calculators
-      </h3>
+      </span>
 
       <div className="grid grid-cols-2 gap-3">
         {calculators.map((calc, i) => (

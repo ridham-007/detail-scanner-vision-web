@@ -283,6 +283,7 @@ export default function CalorieCalculator() {
                             <label>Age (15–80)</label>
                             <input
                                 type="number"
+                                aria-label="Age"
                                 className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                                 value={age}
                                 onChange={(e) => setAge(e.target.value)}
@@ -322,6 +323,7 @@ export default function CalorieCalculator() {
                                     <label>Height (cm)</label>
                                     <input
                                         className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
+                                        aria-label="Height"
                                         value={heightCm}
                                         onChange={(e) => setHeightCm(e.target.value)}
                                     />
@@ -331,6 +333,7 @@ export default function CalorieCalculator() {
                                     <label>Weight (kg)</label>
                                     <input
                                         className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
+                                        aria-label="Weight"
                                         value={weightKg}
                                         onChange={(e) => setWeightKg(e.target.value)}
                                     />
@@ -343,6 +346,7 @@ export default function CalorieCalculator() {
                                     <div className="flex gap-2">
                                         <input
                                             className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
+                                            aria-label="Height (ft)"
                                             placeholder="ft"
                                             value={heightFt}
                                             onChange={(e) => setHeightFt(e.target.value)}
@@ -350,6 +354,7 @@ export default function CalorieCalculator() {
 
                                         <input
                                             className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
+                                            aria-label="Height (in)"
                                             placeholder="in"
                                             value={heightIn}
                                             onChange={(e) => setHeightIn(e.target.value)}
@@ -361,6 +366,7 @@ export default function CalorieCalculator() {
                                     <label>Weight (lb)</label>
                                     <input
                                         className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
+                                        aria-label="Weight (lb)"
                                         value={weightLb}
                                         onChange={(e) => setWeightLb(e.target.value)}
                                     />
@@ -374,6 +380,7 @@ export default function CalorieCalculator() {
                         <label>Activity Level</label>
                         <select
                             className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
+                            aria-label="Activity Level"
                             value={activity}
                             onChange={(e) => setActivity(e.target.value)}
                         >
@@ -389,6 +396,7 @@ export default function CalorieCalculator() {
                     <div className="flex items-center gap-2">
                         <input
                             type="checkbox"
+                            aria-label="Advance Settings"
                             checked={showSettings}
                             onChange={(e) => setShowSettings(e.target.checked)}
                         />
@@ -401,6 +409,7 @@ export default function CalorieCalculator() {
                                 <label>BMR Formula</label>
                                 <select
                                     className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
+                                    aria-label="BMR Formula"
                                     value={bmrFormula}
                                     onChange={(e) => setBmrFormula(e.target.value)}
                                 >
@@ -438,6 +447,7 @@ export default function CalorieCalculator() {
                                     <label>Body Fat %</label>
                                     <input
                                         className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
+                                        aria-label="Body Fat %"
                                         value={bodyFat}
                                         onChange={(e) => setBodyFat(e.target.value)}
                                     />

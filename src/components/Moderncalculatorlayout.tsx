@@ -274,7 +274,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-12 gap-8">
             {/* LEFT */}
-            <div className="lg:col-span-3 gap-6 flex flex-col">
+            <div className="order-2 lg:order-1 lg:col-span-3 gap-6 flex flex-col">
               <CalculatorSearch />
 
               <div>
@@ -292,7 +292,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
             </div>
 
             {/* CENTER */}
-            <div className="lg:col-span-6">
+            <div className="order-1 lg:order-2 lg:col-span-6">
               <div className="bg-white dark:bg-gray-900 rounded-3xl border dark:border-gray-700 overflow-hidden shadow-sm">
                 <div className="p-6 border-b dark:border-gray-700 bg-[#84B44C]/20 dark:bg-gray-800">
                   <div className="flex items-center gap-3">
@@ -314,7 +314,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
             </div>
 
             {/* RIGHT */}
-            <div className="lg:col-span-3">
+            <div className="order-3 lg:order-3 lg:col-span-3">
               {details && (
                 <div className="space-y-4">
                   <div className="bg-white dark:bg-gray-900 rounded-2xl border dark:border-gray-700 p-5">

@@ -203,6 +203,7 @@ const TDEECalculator = () => {
                         </label>
                         <input
                             type="number"
+                            aria-label="Weight"
                             value={weight}
                             onChange={(e) => setWeight(e.target.value)}
                             min="30"
@@ -219,6 +220,7 @@ const TDEECalculator = () => {
                         </label>
                         <input
                             type="number"
+                            aria-label="Height"
                             value={height}
                             onChange={(e) => setHeight(e.target.value)}
                             min="50"
@@ -235,6 +237,7 @@ const TDEECalculator = () => {
                         </label>
                         <input
                             type="number"
+                            aria-label="Age"
                             value={age}
                             onChange={(e) => setAge(e.target.value)}
                             min="15"
@@ -282,6 +285,7 @@ const TDEECalculator = () => {
                         </label>
                         <select
                             value={activity}
+                            aria-label="Activity Level"
                             onChange={(e) => setActivity(e.target.value)}
                             className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                         >

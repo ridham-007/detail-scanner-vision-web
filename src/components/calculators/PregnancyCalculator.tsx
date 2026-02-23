@@ -314,6 +314,7 @@ const PregnancyCalculator: React.FC = () => {
           </label>
           <select
             value={calcType}
+            aria-label="Calculate Based On"
             onChange={(e) => setCalcType(e.target.value)}
             className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
             required
@@ -336,6 +337,7 @@ const PregnancyCalculator: React.FC = () => {
               </label>
               <input
                 type="date"
+                aria-label="First Day of Your Last Period"
                 value={inputDate}
                 onChange={(e) => setInputDate(e.target.value)}
                 required
@@ -350,6 +352,7 @@ const PregnancyCalculator: React.FC = () => {
               </label>
               <select
                 value={cycleLength}
+                aria-label="Average Length of Your Cycles"
                 onChange={(e) => setCycleLength(e.target.value)}
                 className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
                 required
@@ -372,6 +375,7 @@ const PregnancyCalculator: React.FC = () => {
             </label>
             <input
               type="date"
+              aria-label="Your Due Date"
               value={inputDate}
               onChange={(e) => setInputDate(e.target.value)}
               required
@@ -390,6 +394,7 @@ const PregnancyCalculator: React.FC = () => {
             </label>
             <input
               type="date"
+              aria-label="Conception Date"
               value={inputDate}
               onChange={(e) => setInputDate(e.target.value)}
               required
@@ -409,6 +414,7 @@ const PregnancyCalculator: React.FC = () => {
               </label>
               <input
                 type="date"
+                aria-label="Ultrasound Date"
                 value={inputDate}
                 onChange={(e) => setInputDate(e.target.value)}
                 required
@@ -424,6 +430,7 @@ const PregnancyCalculator: React.FC = () => {
                 </label>
                 <input
                   type="number"
+                  aria-label="Length of Pregnancy at the Time (weeks)"
                   inputMode="numeric"
                   min={0}
                   max={45}
@@ -439,6 +446,7 @@ const PregnancyCalculator: React.FC = () => {
                 </label>
                 <input
                   type="number"
+                  aria-label="Days (0–6)"
                   inputMode="numeric"
                   min={0}
                   max={6}
@@ -461,6 +469,7 @@ const PregnancyCalculator: React.FC = () => {
               </label>
               <input
                 type="date"
+                aria-label="Transfer Date"
                 value={inputDate}
                 onChange={(e) => setInputDate(e.target.value)}
                 required

@@ -27,9 +27,9 @@ export default function FoodBattleBanner() {
             <Swords className="h-6 w-6 text-white" />
           </div>
 
-          <h3 className="text-lg font-bold dark:text-white">
+          <span className="text-lg font-bold dark:text-white">
             Food Battle
-          </h3>
+          </span>
         </div>
 
         {/* DESCRIPTION */}

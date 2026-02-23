@@ -146,7 +146,7 @@ const ProductComparisonPage = () => {
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                 <Plus className="w-8 h-8 text-primary" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Add Product {slot}</h3>
+            <span className="text-xl font-semibold mb-2">Add Product {slot}</span>
             <p className="text-muted-foreground text-sm">Tap to search or scan</p>
         </Card>
     );

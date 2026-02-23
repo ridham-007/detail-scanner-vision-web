@@ -43,7 +43,7 @@ const CalculatorSearch = () => {
     <div className="bg-white dark:bg-gray-900 rounded-2xl border dark:border-gray-700 p-4">
       <div className="flex items-center gap-2 mb-3">
         <Search className="h-5 w-5 text-[#84B44C]" />
-        <h3 className="font-semibold dark:text-white">Search</h3>
+        <span className="font-semibold dark:text-white">Search</span>
       </div>
 
       <input

@@ -267,6 +267,7 @@ const ProteinCalculator: React.FC = () => {
             </label>
             <input
               type="number"
+              aria-label="Age"
               required
               value={age}
               onChange={(e) => setAge(e.target.value)}
@@ -282,6 +283,7 @@ const ProteinCalculator: React.FC = () => {
             </label>
             <input
               type="number"
+              aria-label="Height"
               required
               value={height}
               onChange={(e) => setHeight(e.target.value)}
@@ -299,6 +301,7 @@ const ProteinCalculator: React.FC = () => {
             </label>
             <input
               type="number"
+              aria-label="Weight"
               required
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
@@ -315,6 +318,7 @@ const ProteinCalculator: React.FC = () => {
             </label>
             <select
               value={gender}
+              aria-label="Gender"
               required
               onChange={(e) => setGender(e.target.value)}
               className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
@@ -331,6 +335,7 @@ const ProteinCalculator: React.FC = () => {
           </label>
           <select
             value={activityLevel}
+            aria-label="Activity Level"
             required
             onChange={(e) => setActivityLevel(e.target.value)}
             className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-lg"
