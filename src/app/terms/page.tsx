@@ -160,7 +160,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <section>
-                  <h3 className="font-semibold mb-2">Account Creation</h3>
+                  <span className="font-semibold mb-2">Account Creation</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• You must provide accurate and complete information</li>
                     <li>• You are responsible for maintaining account security</li>
@@ -169,7 +169,7 @@ export default function TermsPage() {
                   </ul>
                 </section>
                 <section>
-                  <h3 className="font-semibold mb-2">Acceptable Use</h3>
+                  <span className="font-semibold mb-2">Acceptable Use</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• Use EaterIQ for personal, non-commercial purposes</li>
                     <li>• Do not share false or misleading information</li>
@@ -190,7 +190,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <section>
-                  <h3 className="font-semibold mb-2">Food Intelligence Features</h3>
+                  <span className="font-semibold mb-2">Food Intelligence Features</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• Barcode scanning and product analysis</li>
                     <li>• Health scores and nutritional information</li>
@@ -199,7 +199,7 @@ export default function TermsPage() {
                   </ul>
                 </section>
                 <section>
-                  <h3 className="font-semibold mb-2">Quiz Platform</h3>
+                  <span className="font-semibold mb-2">Quiz Platform</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• Educational quizzes on nutrition and food topics</li>
                     <li>• User-created quiz content</li>
@@ -220,7 +220,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <section>
-                  <h3 className="font-semibold mb-2">Free & Paid Plans</h3>
+                  <span className="font-semibold mb-2">Free & Paid Plans</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• EaterIQ offers both free and paid subscription plans</li>
                     <li>• Paid subscriptions are billed annually</li>
@@ -229,7 +229,7 @@ export default function TermsPage() {
                   </ul>
                 </section>
                 <section>
-                  <h3 className="font-semibold mb-2">Pricing Changes</h3>
+                  <span className="font-semibold mb-2">Pricing Changes</span>
                   <p className="text-sm text-muted-foreground">
                     We reserve the right to modify our pricing. Existing subscribers 
                     will be notified at least 30 days before any price changes affect 
@@ -249,7 +249,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <section>
-                  <h3 className="font-semibold mb-2">User-Generated Content</h3>
+                  <span className="font-semibold mb-2">User-Generated Content</span>
                   <p className="text-sm text-muted-foreground mb-2">
                     When you create quizzes or submit content to EaterIQ:
                   </p>
@@ -261,7 +261,7 @@ export default function TermsPage() {
                   </ul>
                 </section>
                 <section>
-                  <h3 className="font-semibold mb-2">Our Intellectual Property</h3>
+                  <span className="font-semibold mb-2">Our Intellectual Property</span>
                   <p className="text-sm text-muted-foreground">
                     EaterIQ's technology, algorithms, design, and branding are our
                     intellectual property. You may not copy, modify, or redistribute 
@@ -281,7 +281,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <section>
-                  <h3 className="font-semibold mb-2">Health Information Disclaimer</h3>
+                  <span className="font-semibold mb-2">Health Information Disclaimer</span>
                   <p className="text-sm text-muted-foreground">
                     EaterIQ provides nutritional information and health scores for
                     educational purposes only. Our analysis should not be considered 
@@ -290,7 +290,7 @@ export default function TermsPage() {
                   </p>
                 </section>
                 <section>
-                  <h3 className="font-semibold mb-2">Service Availability</h3>
+                  <span className="font-semibold mb-2">Service Availability</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• We strive for 99% uptime but cannot guarantee uninterrupted service</li>
                     <li>• Features may be added, modified, or removed with notice</li>
@@ -298,7 +298,7 @@ export default function TermsPage() {
                   </ul>
                 </section>
                 <section>
-                  <h3 className="font-semibold mb-2">Limitation of Liability</h3>
+                  <span className="font-semibold mb-2">Limitation of Liability</span>
                   <p className="text-sm text-muted-foreground">
                     To the maximum extent permitted by law, EaterIQ shall not be
                     liable for any indirect, incidental, special, or consequential

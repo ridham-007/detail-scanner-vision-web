@@ -89,9 +89,9 @@ export default function Footer() {
 
           {/* Product Links */}
           <nav aria-label="Product navigation">
-            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
+            <span className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
               Product
-            </h3>
+            </span>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -134,9 +134,9 @@ export default function Footer() {
 
           {/* Support Links */}
           <nav aria-label="Support navigation">
-            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
+            <span className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
               Resources
-            </h3>
+            </span>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -181,9 +181,9 @@ export default function Footer() {
           <address className="not-italic">
 
 
-            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
+            <span className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
               Contact
-            </h3>
+            </span>
             <ul className="space-y-3">
               <li>
                 <a
@@ -207,9 +207,9 @@ export default function Footer() {
             </ul>
 
             <div className="pt-2">
-              <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
+              <span className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
                 Social
-              </h3>
+              </span>
               <div className="flex items-center gap-3">
                 <a
                   href="https://www.facebook.com/profile.php?id=61587144212003"

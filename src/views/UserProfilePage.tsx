@@ -1,17 +1,26 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { User, Globe, MapPin, Calendar, Trophy, Play, ExternalLink } from 'lucide-react';
-import Header from '@/components/Header';
-import QuizCard from '@/components/QuizCard';
-import SEOHead from '@/components/SEOHead';
+import React, { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  User,
+  Globe,
+  MapPin,
+  Calendar,
+  Trophy,
+  Play,
+  ExternalLink,
+} from "lucide-react";
+import Header from "@/components/Header";
+import QuizCard from "@/components/QuizCard";
+import SEOHead from "@/components/SEOHead";
+import Image from "next/image";
 
 interface UserProfile {
   id: string;
@@ -28,13 +37,12 @@ interface Quiz {
   id: string;
   title: string;
   description: string | null;
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty: "easy" | "medium" | "hard";
   created_at: string | null;
   creator_id: string;
   slug: string | null;
   is_published: boolean | null; // ✅ ADD THIS
 }
-
 
 const UserProfilePage = () => {
   const params = useParams();
@@ -58,19 +66,21 @@ const UserProfilePage = () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('profiles')
-        .select('id, username, bio, website, avatar_url, total_score, quizzes_completed, created_at')
-        .eq('username', username)
+        .from("profiles")
+        .select(
+          "id, username, bio, website, avatar_url, total_score, quizzes_completed, created_at",
+        )
+        .eq("username", username)
         .single();
 
       if (error) {
-        if (error.code === 'PGRST116') {
+        if (error.code === "PGRST116") {
           toast({
             title: "User not found",
             description: "The user profile you're looking for doesn't exist.",
-            variant: "destructive"
+            variant: "destructive",
           });
-          router.push('/');
+          router.push("/");
           return;
         }
         throw error;
@@ -79,13 +89,13 @@ const UserProfilePage = () => {
       setProfile(data);
       fetchUserQuizzes(data.id);
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      console.error("Error fetching user profile:", error);
       toast({
         title: "Error",
         description: "Failed to load user profile",
-        variant: "destructive"
+        variant: "destructive",
       });
-      router.push('/');
+      router.push("/");
     } finally {
       setLoading(false);
     }
@@ -95,21 +105,23 @@ const UserProfilePage = () => {
     setQuizzesLoading(true);
     try {
       const { data, error } = await supabase
-        .from('quizzes')
-        .select('id, title, description, difficulty, created_at, creator_id, slug, is_published')
-        .eq('creator_id', userId)
+        .from("quizzes")
+        .select(
+          "id, title, description, difficulty, created_at, creator_id, slug, is_published",
+        )
+        .eq("creator_id", userId)
         // .eq('is_published', true)
-        .order('created_at', { ascending: false });
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
 
       setQuizzes(data || []);
     } catch (error) {
-      console.error('Error fetching user quizzes:', error);
+      console.error("Error fetching user quizzes:", error);
       toast({
         title: "Error",
         description: "Failed to load user quizzes",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setQuizzesLoading(false);
@@ -122,7 +134,6 @@ const UserProfilePage = () => {
     }
   };
 
-
   const handlePlayQuiz = (slug: string) => {
     router.push(`/quiz/${slug}`);
   };
@@ -131,7 +142,7 @@ const UserProfilePage = () => {
     navigator.clipboard.writeText(window.location.href);
     toast({
       title: "Link copied!",
-      description: "Profile link has been copied to clipboard"
+      description: "Profile link has been copied to clipboard",
     });
   };
 
@@ -153,7 +164,9 @@ const UserProfilePage = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center py-16">
             <h1 className="text-2xl font-bold mb-4">User not found</h1>
-            <p className="text-muted-foreground">The user profile you're looking for doesn't exist.</p>
+            <p className="text-muted-foreground">
+              The user profile you're looking for doesn't exist.
+            </p>
           </div>
         </div>
       </div>
@@ -164,7 +177,10 @@ const UserProfilePage = () => {
     <>
       <SEOHead
         title={`${profile.username}'s Profile | EaterIQ`}
-        description={profile.bio || `View ${profile.username}'s profile, quiz scores, and created quizzes on EaterIQ.`}
+        description={
+          profile.bio ||
+          `View ${profile.username}'s profile, quiz scores, and created quizzes on EaterIQ.`
+        }
         keywords="user profile, quiz creator, EaterIQ user"
         canonicalUrl={`https://www.eateriq.com/user/${profile.username}/`}
       />
@@ -175,8 +191,16 @@ const UserProfilePage = () => {
             <Card>
               <CardContent className="p-8">
                 <div className="flex flex-col md:flex-row gap-6">
-                  <Avatar className="h-24 w-24">
-                    <AvatarImage alt="user avatar" src={profile.avatar_url ?? undefined} />
+                  <Avatar className="h-24 w-24 overflow-hidden">
+                    <AvatarImage
+                      alt={`${profile.username}'s profile picture`}
+                      src={
+                        profile.avatar_url
+                          ? profile.avatar_url.replace(/=s\d+-c/, "=s256-c")
+                          : undefined
+                      }
+                      className="object-cover"
+                    />
                     <AvatarFallback className="text-2xl">
                       {profile.username?.charAt(0)?.toUpperCase()}
                     </AvatarFallback>
@@ -185,14 +209,24 @@ const UserProfilePage = () => {
                   <div className="flex-1">
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                       <div>
-                        <h1 className="text-3xl font-bold">{profile.username}</h1>
-                        <p className="text-muted-foreground">@{profile.username}</p>
+                        <h1 className="text-3xl font-bold">
+                          {profile.username}
+                        </h1>
+                        <p className="text-muted-foreground">
+                          @{profile.username}
+                        </p>
                         {profile.bio && (
-                          <p className="mt-2 text-muted-foreground">{profile.bio}</p>
+                          <p className="mt-2 text-muted-foreground">
+                            {profile.bio}
+                          </p>
                         )}
                       </div>
 
-                      <Button aria-label="Share Profile" onClick={handleShareProfile} variant="outline">
+                      <Button
+                        aria-label="Share Profile"
+                        onClick={handleShareProfile}
+                        variant="outline"
+                      >
                         <ExternalLink className="h-4 w-4 mr-2" />
                         Share Profile
                       </Button>
@@ -208,13 +242,18 @@ const UserProfilePage = () => {
                             rel="noopener noreferrer"
                             className="hover:text-primary underline"
                           >
-                            {profile.website.replace(/^https?:\/\//, '')}
+                            {profile.website.replace(/^https?:\/\//, "")}
                           </a>
                         </div>
                       )}
                       <div className="flex items-center gap-1">
                         <Calendar className="h-4 w-4" />
-                        <span>Joined {new Date(profile.created_at || Date.now()).toLocaleDateString()}</span>
+                        <span>
+                          Joined{" "}
+                          {new Date(
+                            profile.created_at || Date.now(),
+                          ).toLocaleDateString()}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -223,16 +262,28 @@ const UserProfilePage = () => {
                 {/* Stats */}
                 <div className="mt-6 flex gap-6">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-emerald-600">{profile.total_score}</div>
-                    <div className="text-sm text-muted-foreground">Total Score</div>
+                    <div className="text-2xl font-bold text-emerald-600">
+                      {profile.total_score}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Total Score
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">{profile.quizzes_completed}</div>
-                    <div className="text-sm text-muted-foreground">Quizzes Completed</div>
+                    <div className="text-2xl font-bold text-blue-600">
+                      {profile.quizzes_completed}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Quizzes Completed
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">{quizzes.length}</div>
-                    <div className="text-sm text-muted-foreground">Quizzes Created</div>
+                    <div className="text-2xl font-bold text-purple-600">
+                      {quizzes.length}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Quizzes Created
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -265,7 +316,9 @@ const UserProfilePage = () => {
                 ) : (
                   <div className="text-center py-8">
                     <Trophy className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">No quizzes yet</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                      No quizzes yet
+                    </h3>
                     <p className="text-muted-foreground">
                       {profile.username} hasn't created any public quizzes yet.
                     </p>

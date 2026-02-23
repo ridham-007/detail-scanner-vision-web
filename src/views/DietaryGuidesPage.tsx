@@ -14,7 +14,7 @@ const cheatSheetData = {
         description: "The ultimate guide to plant-based eating, hidden ingredients, and easy swaps.",
         icon: <Leaf className="w-8 h-8" />,
         color: "bg-green-100 text-green-700",
-        btnColor: "bg-green-600 hover:bg-green-700",
+        btnColor: "bg-green-800 hover:bg-green-900",
         content: (
             <div className="space-y-6 text-left font-sans">
                 <div className="p-4 bg-red-50 border border-red-100 rounded-xl">
@@ -68,7 +68,7 @@ const cheatSheetData = {
         description: "Master the low-carb lifestyle. Know your macros and avoid hidden sugar traps.",
         icon: <Droplet className="w-8 h-8" />,
         color: "bg-blue-100 text-blue-700",
-        btnColor: "bg-blue-600 hover:bg-blue-700",
+        btnColor: "bg-blue-800 hover:bg-blue-900",
         content: (
             <div className="space-y-6 text-left font-sans">
                 <div className="grid grid-cols-2 gap-4">
@@ -119,7 +119,7 @@ const cheatSheetData = {
         description: "Navigating grains, labels, and cross-contamination risks.",
         icon: <Wheat className="w-8 h-8" />,
         color: "bg-amber-100 text-amber-700",
-        btnColor: "bg-amber-600 hover:bg-amber-700",
+        btnColor: "bg-amber-800 hover:bg-amber-900",
         content: (
             <div className="space-y-6 text-left font-sans">
                 <div className="p-4 bg-red-50 border border-red-100 rounded-xl">
@@ -153,7 +153,7 @@ const cheatSheetData = {
         description: "Translate confusing E-numbers into plain English. Know what's safe.",
         icon: <Database className="w-8 h-8" />,
         color: "bg-purple-100 text-purple-700",
-        btnColor: "bg-purple-600 hover:bg-purple-700",
+        btnColor: "bg-purple-800 hover:bg-purple-900",
         content: (
             <div className="space-y-6 text-left font-sans">
                 <table className="w-full text-sm border-collapse">

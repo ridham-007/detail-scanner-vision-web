@@ -13,6 +13,7 @@ const Progress = React.forwardRef<
 >(({ className, value, indicatorClassName, ...props }, ref) => (
   <ProgressPrimitive.Root
     ref={ref}
+    aria-label="Progress Score"
     className={cn(
       "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
       className

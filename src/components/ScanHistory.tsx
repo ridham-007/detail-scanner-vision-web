@@ -1,18 +1,42 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { History, Trash2, Calendar, BarChart3, TrendingUp, Loader2 } from 'lucide-react';
-import { useScanHistory } from '@/hooks/useScanHistory';
-import { useAuth } from '@/contexts/AuthContext';
-import { format } from 'date-fns';
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
+  History,
+  Trash2,
+  Calendar,
+  BarChart3,
+  TrendingUp,
+  Loader2,
+} from "lucide-react";
+import { useScanHistory } from "@/hooks/useScanHistory";
+import { useAuth } from "@/contexts/AuthContext";
+import { format } from "date-fns";
 
 const ScanHistory = () => {
   const { user } = useAuth();
-  const { scanHistory, isLoading, error, deleteScanHistoryItem, clearAllHistory, stats } = useScanHistory();
+  const {
+    scanHistory,
+    isLoading,
+    error,
+    deleteScanHistoryItem,
+    clearAllHistory,
+    stats,
+  } = useScanHistory();
 
   if (!user) {
     return (
@@ -20,8 +44,12 @@ const ScanHistory = () => {
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <History className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-lg font-medium mb-2">Sign in to view your scan history</h3>
-            <p className="text-muted-foreground">Track your scanned products and health insights</p>
+            <span className="text-lg font-medium mb-2">
+              Sign in to view your scan history
+            </span>
+            <p className="text-muted-foreground">
+              Track your scanned products and health insights
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -46,7 +74,9 @@ const ScanHistory = () => {
       <Card className="w-full max-w-4xl mx-auto">
         <CardContent className="pt-6">
           <div className="text-center py-8">
-            <div className="text-destructive mb-2">Error loading scan history</div>
+            <div className="text-destructive mb-2">
+              Error loading scan history
+            </div>
             <p className="text-sm text-muted-foreground">{error}</p>
           </div>
         </CardContent>
@@ -55,10 +85,10 @@ const ScanHistory = () => {
   }
 
   const getHealthScoreBadgeVariant = (score: number | null) => {
-    if (!score) return 'secondary';
-    if (score >= 80) return 'default';
-    if (score >= 60) return 'secondary';
-    return 'destructive';
+    if (!score) return "secondary";
+    if (score >= 80) return "default";
+    if (score >= 60) return "secondary";
+    return "destructive";
   };
 
   return (
@@ -120,12 +150,16 @@ const ScanHistory = () => {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Clear scan history?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This will permanently delete all your scan history. This action cannot be undone.
+                    This will permanently delete all your scan history. This
+                    action cannot be undone.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={clearAllHistory} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                  <AlertDialogAction
+                    onClick={clearAllHistory}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  >
                     Clear All
                   </AlertDialogAction>
                 </AlertDialogFooter>
@@ -137,8 +171,10 @@ const ScanHistory = () => {
           {scanHistory.length === 0 ? (
             <div className="text-center py-8">
               <History className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <h3 className="text-lg font-medium mb-2">No scans yet</h3>
-              <p className="text-muted-foreground">Start scanning products to build your history</p>
+              <span className="text-lg font-medium mb-2">No scans yet</span>
+              <p className="text-muted-foreground">
+                Start scanning products to build your history
+              </p>
             </div>
           ) : (
             <ScrollArea className="h-[460px] pr-4">
@@ -148,26 +184,46 @@ const ScanHistory = () => {
                     <div className="flex sm:items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
                       <div className="flex-1 space-y-1">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                          <h4 className="font-medium text-sm">{item.product_name}</h4>
-                          <Badge variant={getHealthScoreBadgeVariant(item.health_score)} className='w-fit'>
-                            {item.health_score || 'N/A'}
+                          <span className="font-medium text-sm">
+                            {item.product_name}
+                          </span>
+                          <Badge
+                            variant={getHealthScoreBadgeVariant(
+                              item.health_score,
+                            )}
+                            className={`
+    w-fit font-semibold
+    ${
+      item.health_score && item.health_score < 60 ? "bg-red-600 text-white" : ""
+    }
+  `}
+                          >
+                            {item.health_score || "N/A"}
                           </Badge>
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-xs text-muted-foreground">
                           <span>Barcode: {item.barcode}</span>
-                          <span>{format(new Date(item.scanned_at), 'MMM d, yyyy HH:mm')}</span>
+                          <span>
+                            {format(
+                              new Date(item.scanned_at),
+                              "MMM d, yyyy HH:mm",
+                            )}
+                          </span>
                         </div>
                       </div>
                       <Button
                         variant="ghost"
                         size="sm"
+                        aria-label={`Delete scan for ${item.product_name}`}
                         onClick={() => deleteScanHistoryItem(item.id)}
-                        className=" p-0 text-muted-foreground hover:text-destructive flex justify-end"
+                        className="p-0 text-muted-foreground hover:text-destructive flex justify-end"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </Button>
                     </div>
-                    {index < scanHistory.length - 1 && <Separator className="my-2" />}
+                    {index < scanHistory.length - 1 && (
+                      <Separator className="my-2" />
+                    )}
                   </div>
                 ))}
               </div>

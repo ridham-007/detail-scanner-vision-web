@@ -64,7 +64,7 @@ const ShoppingLists = () => {
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-lg font-medium mb-2">Sign in to view your shopping lists</h3>
+            <span className="text-lg font-medium mb-2">Sign in to view your shopping lists</span>
             <p className="text-muted-foreground">Create and manage your shopping lists</p>
           </div>
         </CardContent>
@@ -142,7 +142,7 @@ const ShoppingLists = () => {
           <CardContent className="pt-6">
             <div className="text-center py-12">
               <ShoppingCart className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-              <h3 className="text-xl font-medium mb-2">No shopping lists yet</h3>
+              <span className="text-xl font-medium mb-2">No shopping lists yet</span>
               <p className="text-muted-foreground mb-6">Create your first shopping list to get started</p>
               <Button onClick={() => setShowCreateModal(true)} className="flex items-center gap-2">
                 <Plus className="w-4 h-4" />
@@ -254,9 +254,9 @@ const ShoppingLists = () => {
                                 <div className="flex items-center gap-2">
                                   <Package className="w-4 h-4 text-muted-foreground" />
                                   <div className="flex-1">
-                                    <h4 className={`font-medium text-sm ${item.is_purchased ? 'line-through text-muted-foreground' : ''}`}>
+                                    <span className={`font-medium text-sm ${item.is_purchased ? 'line-through text-muted-foreground' : ''}`}>
                                       {item.product_name}
-                                    </h4>
+                                    </span>
                                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                       <span>Qty: {item.quantity}</span>
                                       {item.barcode && <span>• {item.barcode}</span>}

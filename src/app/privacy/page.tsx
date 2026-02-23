@@ -157,7 +157,7 @@ export default function PrivacyPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <section>
-                  <h3 className="font-semibold mb-2">Account Information</h3>
+                  <span className="font-semibold mb-2">Account Information</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• Email address and profile information</li>
                     <li>• Username and display name</li>
@@ -165,7 +165,7 @@ export default function PrivacyPage() {
                   </ul>
                 </section>
                 <section>
-                  <h3 className="font-semibold mb-2">Food Scanning Data</h3>
+                  <span className="font-semibold mb-2">Food Scanning Data</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• Barcode scan results and product information</li>
                     <li>• Health scores and nutritional analysis</li>
@@ -173,7 +173,7 @@ export default function PrivacyPage() {
                   </ul>
                 </section>
                 <section>
-                  <h3 className="font-semibold mb-2">Quiz Activity</h3>
+                  <span className="font-semibold mb-2">Quiz Activity</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• Quiz scores and completion rates</li>
                     <li>• Created quizzes and their content</li>
@@ -431,9 +431,9 @@ export default function PrivacyPage() {
                       <Shield className="h-5 w-5 text-primary" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <span className="font-semibold group-hover:text-primary transition-colors">
                         Terms of Service
-                      </h3>
+                      </span>
                       <p className="text-sm text-muted-foreground">
                         Read our terms and conditions
                       </p>
@@ -450,9 +450,9 @@ export default function PrivacyPage() {
                       <Mail className="h-5 w-5 text-accent-foreground" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <span className="font-semibold group-hover:text-primary transition-colors">
                         Contact Support
-                      </h3>
+                      </span>
                       <p className="text-sm text-muted-foreground">
                         Get help with your account
                       </p>
@@ -475,9 +475,9 @@ export default function PrivacyPage() {
                       <Scan className="h-4 w-4 text-primary" aria-hidden="true" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      <span className="font-semibold text-sm group-hover:text-primary transition-colors">
                         Food Scanner
-                      </h3>
+                      </span>
                     </div>
                   </CardContent>
                 </Card>
@@ -490,9 +490,9 @@ export default function PrivacyPage() {
                       <BookOpen className="h-4 w-4 text-accent-foreground" aria-hidden="true" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      <span className="font-semibold text-sm group-hover:text-primary transition-colors">
                         Nutrition Blog
-                      </h3>
+                      </span>
                     </div>
                   </CardContent>
                 </Card>
@@ -505,9 +505,9 @@ export default function PrivacyPage() {
                       <Brain className="h-4 w-4 text-secondary-foreground" aria-hidden="true" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      <span className="font-semibold text-sm group-hover:text-primary transition-colors">
                         Quiz Hub
-                      </h3>
+                      </span>
                     </div>
                   </CardContent>
                 </Card>

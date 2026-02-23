@@ -45,7 +45,7 @@ export default function BlogCard({ post }: BlogCardProps) {
             <div className="aspect-video overflow-hidden">
               <img
                 src={post.featured_image_url}
-                alt=""
+                alt={post.title}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 loading="lazy"
               />
