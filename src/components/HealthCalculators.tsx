@@ -123,7 +123,7 @@ export default function HealthCalculators() {
         {/* FOOTER BUTTON */}
         <div className="text-center pt-8">
           <Link href="/calculators">
-            <button className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-primary to-primary/80 px-8 py-3 rounded-xl font-semibold text-md">
+            <button className="group relative text-white inline-flex items-center gap-3 bg-gradient-to-r from-primary to-primary/80 px-8 py-3 rounded-xl font-semibold text-md">
               <Calculator className="h-5 w-5" />
               <span>Show All Health Calculators</span>
               <ArrowRight className="h-5 w-5" />

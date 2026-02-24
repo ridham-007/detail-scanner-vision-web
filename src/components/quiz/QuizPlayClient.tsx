@@ -42,7 +42,8 @@ import { soundEffects } from "@/utils/soundEffects";
 import confetti from "canvas-confetti";
 import { toPng } from "html-to-image";
 
-type QuizAttemptInsert = Database["public"]["Tables"]["quiz_attempts"]["Insert"];
+type QuizAttemptInsert =
+  Database["public"]["Tables"]["quiz_attempts"]["Insert"];
 
 interface Question {
   id: string;
@@ -77,8 +78,10 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled;
 }
 
-
-export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPlayClientProps) {
+export default function QuizPlayClient({
+  initialQuiz,
+  initialQuestions,
+}: QuizPlayClientProps) {
   const codeRef = useRef<HTMLDivElement>(null);
   const { user, signInWithGoogle } = useAuth();
   const { toast } = useToast();
@@ -86,8 +89,9 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
 
   const [quiz] = useState<Quiz>(initialQuiz);
   const [questions] = useState<Question[]>(() =>
-    shuffleArray(initialQuestions)
-  ); const [currentQuestion, setCurrentQuestion] = useState(0);
+    shuffleArray(initialQuestions),
+  );
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30);
   const [selectedAnswer, setSelectedAnswer] = useState<string>("");
@@ -108,7 +112,7 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
     extraTime: true,
   });
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>(
-    new Array(10).fill(false)
+    new Array(10).fill(false),
   );
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
@@ -164,7 +168,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
     }
   }, [currentQuestion, questions]);
 
-  const handleAnswerSelect = async (answer: string, isSkip: boolean = false) => {
+  const handleAnswerSelect = async (
+    answer: string,
+    isSkip: boolean = false,
+  ) => {
     if (answerFeedback.show) return;
 
     setSelectedAnswer(answer);
@@ -281,7 +288,7 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
     if (!user || !startTime) return;
 
     const timeSpent = Math.floor(
-      (new Date().getTime() - startTime.getTime()) / 1000
+      (new Date().getTime() - startTime.getTime()) / 1000,
     );
 
     const finalScore =
@@ -343,7 +350,9 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
 
     const q = questions[currentQuestion];
     const wrongAnswers = [q.wrong_answer_1, q.wrong_answer_2, q.wrong_answer_3];
-    const shuffledWrongAnswers = [...wrongAnswers].sort(() => Math.random() - 0.5);
+    const shuffledWrongAnswers = [...wrongAnswers].sort(
+      () => Math.random() - 0.5,
+    );
     const answersToHide = shuffledWrongAnswers.slice(0, 2);
 
     setHiddenAnswers(answersToHide);
@@ -447,7 +456,7 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
     }
 
     const utterance = new SpeechSynthesisUtterance(
-      questions[currentQuestion].question_text
+      questions[currentQuestion].question_text,
     );
     utterance.rate = 0.8;
     utterance.pitch = 1;
@@ -478,16 +487,22 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
         >
           {/* Breadcrumb */}
           <nav className="mb-4" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+            <ol className="flex items-center gap-2 text-sm text-muted-foreground/90">
               <li>
-                <Link href="/" className="hover:text-primary">Home</Link>
+                <Link href="/" className="hover:text-primary">
+                  Home
+                </Link>
               </li>
               <li aria-hidden="true">/</li>
               <li>
-                <Link href="/quiz/" className="hover:text-primary">Quiz Hub</Link>
+                <Link href="/quiz/" className="hover:text-primary">
+                  Quiz Hub
+                </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium truncate max-w-[150px]">{quiz.title}</li>
+              <li className="text-foreground font-medium truncate max-w-[150px]">
+                {quiz.title}
+              </li>
             </ol>
           </nav>
 
@@ -495,7 +510,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
             <Card className="text-center border-2 border-primary/20 bg-card">
               <CardHeader className="pb-4">
                 <div className="relative">
-                  <Trophy className="h-16 w-16 sm:h-20 sm:w-20 text-primary mx-auto mb-4 animate-bounce" aria-hidden="true" />
+                  <Trophy
+                    className="h-16 w-16 sm:h-20 sm:w-20 text-primary mx-auto mb-4 animate-bounce"
+                    aria-hidden="true"
+                  />
                   {score > 70 && (
                     <div className="absolute -top-2 -right-2">
                       <Star
@@ -520,12 +538,13 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               <CardContent className="space-y-6">
                 <div className="relative">
                   <div
-                    className={`text-4xl sm:text-5xl font-bold ${score > 50
+                    className={`text-4xl sm:text-5xl font-bold ${
+                      score > 50
                         ? "text-primary"
                         : score > 30
                           ? "text-accent"
                           : "text-destructive"
-                      }`}
+                    }`}
                   >
                     {score}/100
                   </div>
@@ -542,14 +561,20 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="bg-muted rounded-lg p-3">
-                    <Target className="h-5 w-5 mx-auto mb-1 text-primary" aria-hidden="true" />
+                    <Target
+                      className="h-5 w-5 mx-auto mb-1 text-primary"
+                      aria-hidden="true"
+                    />
                     <div className="font-semibold">
                       {Math.floor(score / 10)}/{questions.length}
                     </div>
                     <div className="text-xs text-muted-foreground">Correct</div>
                   </div>
                   <div className="bg-muted rounded-lg p-3">
-                    <Clock className="h-5 w-5 mx-auto mb-1 text-accent" aria-hidden="true" />
+                    <Clock
+                      className="h-5 w-5 mx-auto mb-1 text-accent"
+                      aria-hidden="true"
+                    />
                     <div className="font-semibold">
                       {(() => {
                         const minutes = Math.floor(spentTime / 60);
@@ -564,9 +589,21 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                 {score > 50 && (
                   <div className="bg-primary/10 p-4 rounded-xl border-2 border-primary/20">
                     <div className="flex items-center justify-center gap-2 mb-2">
-                      <Star className="h-5 w-5 text-accent" fill="currentColor" aria-hidden="true" />
-                      <Star className="h-6 w-6 text-accent" fill="currentColor" aria-hidden="true" />
-                      <Star className="h-5 w-5 text-accent" fill="currentColor" aria-hidden="true" />
+                      <Star
+                        className="h-5 w-5 text-accent"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      />
+                      <Star
+                        className="h-6 w-6 text-accent"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      />
+                      <Star
+                        className="h-5 w-5 text-accent"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      />
                     </div>
                     <p className="text-primary font-medium">
                       🌟 Outstanding Achievement! 🌟
@@ -600,8 +637,13 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                 {user && (
                   <div className="ignoreInShare bg-primary/10 p-4 rounded-xl border-2 border-primary/20">
                     <div className="flex items-center justify-center gap-2 mb-2">
-                      <CheckCircle className="h-5 w-5 text-primary" aria-hidden="true" />
-                      <span className="font-medium text-primary">Score Saved!</span>
+                      <CheckCircle
+                        className="h-5 w-5 text-primary"
+                        aria-hidden="true"
+                      />
+                      <span className="font-medium text-primary">
+                        Score Saved!
+                      </span>
                     </div>
                     <p className="text-sm text-primary/80">
                       Your achievement is now on the leaderboard!
@@ -611,7 +653,11 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
 
                 <div className="flex flex-col sm:flex-row gap-3 ignoreInShare">
                   <Link href={"/quiz"} className="flex-1">
-                    <Button aria-label="Back to Quizzes" variant="outline" className="w-full">
+                    <Button
+                      aria-label="Back to Quizzes"
+                      variant="outline"
+                      className="w-full"
+                    >
                       <ArrowLeft className="h-4 w-4 mr-2" aria-hidden="true" />
                       Back to Quizzes
                     </Button>
@@ -628,18 +674,30 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
 
                 {/* Related Links */}
                 <div className="pt-4 border-t ignoreInShare">
-                  <p className="text-sm text-muted-foreground mb-3">Continue Learning</p>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Continue Learning
+                  </p>
                   <div className="grid grid-cols-2 gap-2">
                     <Link href="/scanner/" className="group">
                       <div className="p-3 rounded-lg border hover:border-primary transition-colors flex items-center gap-2">
-                        <Scan className="h-4 w-4 text-primary" aria-hidden="true" />
-                        <span className="text-sm font-medium group-hover:text-primary">Food Scanner</span>
+                        <Scan
+                          className="h-4 w-4 text-primary"
+                          aria-hidden="true"
+                        />
+                        <span className="text-sm font-medium group-hover:text-primary">
+                          Food Scanner
+                        </span>
                       </div>
                     </Link>
                     <Link href="/blog/" className="group">
                       <div className="p-3 rounded-lg border hover:border-primary transition-colors flex items-center gap-2">
-                        <BookOpen className="h-4 w-4 text-primary" aria-hidden="true" />
-                        <span className="text-sm font-medium group-hover:text-primary">Read Articles</span>
+                        <BookOpen
+                          className="h-4 w-4 text-primary"
+                          aria-hidden="true"
+                        />
+                        <span className="text-sm font-medium group-hover:text-primary">
+                          Read Articles
+                        </span>
                       </div>
                     </Link>
                   </div>
@@ -662,14 +720,21 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
         <nav className="mb-4" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2 text-sm text-muted-foreground">
             <li>
-              <Link href="/" className="hover:text-primary">Home</Link>
+              <Link href="/" className="hover:text-primary">
+                Home
+              </Link>
             </li>
             <li aria-hidden="true">/</li>
             <li>
-              <Link href="/quiz/" className="hover:text-primary">Quiz Hub</Link>
+              <Link href="/quiz/" className="hover:text-primary">
+                Quiz Hub
+              </Link>
             </li>
             <li aria-hidden="true">/</li>
-            <li className="text-foreground font-medium truncate max-w-[150px]" aria-current="page">
+            <li
+              className="text-foreground font-medium truncate max-w-[150px]"
+              aria-current="page"
+            >
               {quiz.title}
             </li>
           </ol>
@@ -748,10 +813,11 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                 <div className="text-center animate-pulse">
                   <div className="flex items-center gap-1">
                     <Flame
-                      className={`h-4 w-4 ${streak >= 3
+                      className={`h-4 w-4 ${
+                        streak >= 3
                           ? "text-destructive animate-bounce"
                           : "text-destructive/80"
-                        }`}
+                      }`}
                       aria-hidden="true"
                     />
                     <div className="text-lg sm:text-xl font-bold text-destructive">
@@ -770,7 +836,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               {comboMultiplier > 1 && (
                 <div className="text-center">
                   <div className="flex items-center gap-1">
-                    <Bolt className="h-4 w-4 text-accent animate-pulse" aria-hidden="true" />
+                    <Bolt
+                      className="h-4 w-4 text-accent animate-pulse"
+                      aria-hidden="true"
+                    />
                     <div className="text-lg sm:text-xl font-bold text-accent">
                       x{comboMultiplier}
                     </div>
@@ -781,10 +850,11 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
             </div>
             <div className="text-center">
               <div
-                className={`text-xl sm:text-2xl font-bold font-mono ${timeLeft <= 10
+                className={`text-xl sm:text-2xl font-bold font-mono ${
+                  timeLeft <= 10
                     ? "text-destructive animate-pulse"
                     : "text-primary"
-                  }`}
+                }`}
               >
                 {timeLeft}s
               </div>
@@ -802,7 +872,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               {perfectAnswers > 0 && (
                 <>
                   <span className="mx-2">•</span>
-                  <Sparkles className="h-3 w-3 text-primary" aria-hidden="true" />
+                  <Sparkles
+                    className="h-3 w-3 text-primary"
+                    aria-hidden="true"
+                  />
                   Perfect Answers: {perfectAnswers}
                 </>
               )}
@@ -812,14 +885,21 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
 
         {/* Guest Notice */}
         {!user && (
-          <Card className="bg-accent/10 border-accent/20 mb-4">
+          <Card className="bg-accent text-accent-foreground mb-4">
             <CardContent className="p-3">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2 min-w-0">
-                  <LogIn className="h-4 w-4 text-accent shrink-0" aria-hidden="true" />
+                  <LogIn
+                    className="h-4 w-4 text-accent shrink-0"
+                    aria-hidden="true"
+                  />
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-accent">Playing as guest</p>
-                    <p className="text-xs text-accent/80 truncate">Sign in to save score</p>
+                    <p className="text-sm font-medium text-foreground">
+                      Playing as guest
+                    </p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      Sign in to save score
+                    </p>
                   </div>
                 </div>
                 <Button
@@ -850,10 +930,11 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               size="sm"
               onClick={useFiftyFifty}
               disabled={!lifelines.fiftyFifty || answerFeedback.show}
-              className={`flex flex-col items-center gap-1 h-auto py-2 ${!lifelines.fiftyFifty
+              className={`flex flex-col items-center gap-1 h-auto py-2 ${
+                !lifelines.fiftyFifty
                   ? "opacity-50 bg-muted"
                   : "bg-primary hover:bg-primary/90 text-primary-foreground"
-                }`}
+              }`}
             >
               <Users className="h-4 w-4" aria-hidden="true" />
               <span className="text-xs">50:50</span>
@@ -867,10 +948,11 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               size="sm"
               onClick={useSkipQuestion}
               disabled={!lifelines.skipQuestion || answerFeedback.show}
-              className={`flex flex-col items-center gap-1 h-auto py-2 ${!lifelines.skipQuestion
+              className={`flex flex-col items-center gap-1 h-auto py-2 ${
+                !lifelines.skipQuestion
                   ? "opacity-50 bg-muted"
                   : "bg-accent hover:bg-accent/90 text-accent-foreground"
-                }`}
+              }`}
             >
               <Lightbulb className="h-4 w-4" aria-hidden="true" />
               <span className="text-xs">Skip</span>
@@ -884,10 +966,11 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               size="sm"
               onClick={useExtraTime}
               disabled={!lifelines.extraTime || answerFeedback.show}
-              className={`flex flex-col items-center gap-1 h-auto py-2 ${!lifelines.extraTime
+              className={`flex flex-col items-center gap-1 h-auto py-2 ${
+                !lifelines.extraTime
                   ? "opacity-50 bg-muted"
                   : "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
-                }`}
+              }`}
             >
               <Clock className="h-4 w-4" aria-hidden="true" />
               <span className="text-xs">+15s</span>
@@ -911,8 +994,9 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                 size="sm"
                 onClick={speakQuestion}
                 disabled={answerFeedback.show}
-                className={`shrink-0 ${isSpeaking ? "bg-primary/10 text-primary" : ""
-                  }`}
+                className={`shrink-0 ${
+                  isSpeaking ? "bg-primary/10 text-primary" : ""
+                }`}
               >
                 <Volume2
                   className={`h-4 w-4 ${isSpeaking ? "animate-pulse" : ""}`}
@@ -951,22 +1035,24 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                   aria-label={`Answer ${letter}`}
                   key={index}
                   variant="outline"
-                  className={`w-full text-left justify-start h-auto p-4 text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] border-2 ${isSelectedAnswer
+                  className={`w-full text-left justify-start h-auto p-4 text-sm sm:text-base transition-all duration-300 hover:scale-[1.02] border-2 ${
+                    isSelectedAnswer
                       ? answerFeedback.isCorrect
                         ? "bg-primary/20 border-primary text-primary"
                         : "bg-destructive/20 border-destructive text-destructive"
                       : isCorrectAnswer
                         ? "bg-primary/10 border-primary/50 text-primary"
                         : "hover:bg-muted/50"
-                    } ${answerFeedback.show ? "pointer-events-none" : ""}`}
+                  } ${answerFeedback.show ? "pointer-events-none" : ""}`}
                   onClick={() => handleAnswerSelect(answer)}
                   disabled={answerFeedback.show}
                 >
                   <div
-                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mr-3 font-bold text-xs shrink-0 ${isSelectedAnswer || isCorrectAnswer
+                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mr-3 font-bold text-xs shrink-0 ${
+                      isSelectedAnswer || isCorrectAnswer
                         ? "bg-background"
                         : "bg-muted"
-                      }`}
+                    }`}
                   >
                     {letter}
                   </div>
@@ -974,9 +1060,15 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                   {isSelectedAnswer && (
                     <div className="ml-auto">
                       {answerFeedback.isCorrect ? (
-                        <CheckCircle className="h-5 w-5 text-primary" aria-hidden="true" />
+                        <CheckCircle
+                          className="h-5 w-5 text-primary"
+                          aria-hidden="true"
+                        />
                       ) : (
-                        <XCircle className="h-5 w-5 text-destructive" aria-hidden="true" />
+                        <XCircle
+                          className="h-5 w-5 text-destructive"
+                          aria-hidden="true"
+                        />
                       )}
                     </div>
                   )}
@@ -1001,13 +1093,17 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
       {answerFeedback.show && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in p-4">
           <div
-            className={`bg-card rounded-2xl p-6 max-w-sm w-full text-center transform transition-all duration-500 animate-scale-in border-4 ${answerFeedback.isCorrect ? "border-primary" : "border-destructive"
-              }`}
+            className={`bg-card rounded-2xl p-6 max-w-sm w-full text-center transform transition-all duration-500 animate-scale-in border-4 ${
+              answerFeedback.isCorrect ? "border-primary" : "border-destructive"
+            }`}
           >
             {answerFeedback.isCorrect ? (
               <div className="text-primary">
                 <div className="relative mb-4">
-                  <CheckCircle className="h-20 w-20 mx-auto animate-bounce" aria-hidden="true" />
+                  <CheckCircle
+                    className="h-20 w-20 mx-auto animate-bounce"
+                    aria-hidden="true"
+                  />
                   <div className="absolute -top-2 -right-2">
                     <Star
                       className="h-8 w-8 text-accent animate-spin"
@@ -1022,20 +1118,28 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                 <div className="space-y-2">
                   <div className="bg-primary/10 rounded-lg p-3">
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-primary">Points:</span>
+                      <span className="font-semibold text-primary">
+                        Points:
+                      </span>
                       <span className="text-lg font-bold text-primary">
-                        +{comboMultiplier > 1 ? `${10 * comboMultiplier}` : "10"}
+                        +
+                        {comboMultiplier > 1 ? `${10 * comboMultiplier}` : "10"}
                         {comboMultiplier > 1 && (
-                          <span className="text-sm ml-1">(x{comboMultiplier})</span>
+                          <span className="text-sm ml-1">
+                            (x{comboMultiplier})
+                          </span>
                         )}
                       </span>
                     </div>
                     <div className="flex items-center justify-between mt-1">
                       <span className="font-semibold text-primary">XP:</span>
                       <span className="text-lg font-bold text-secondary">
-                        +{comboMultiplier > 1 ? `${15 * comboMultiplier}` : "15"}
+                        +
+                        {comboMultiplier > 1 ? `${15 * comboMultiplier}` : "15"}
                         {timeLeft >= 25 && (
-                          <span className="text-sm ml-1 text-accent">(+10 speed bonus!)</span>
+                          <span className="text-sm ml-1 text-accent">
+                            (+10 speed bonus!)
+                          </span>
                         )}
                       </span>
                     </div>
@@ -1043,7 +1147,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
                   {streak > 0 && (
                     <div className="bg-destructive/10 rounded-lg p-2">
                       <div className="flex items-center justify-center gap-2">
-                        <Flame className="h-4 w-4 text-destructive" aria-hidden="true" />
+                        <Flame
+                          className="h-4 w-4 text-destructive"
+                          aria-hidden="true"
+                        />
                         <span className="text-sm font-medium text-destructive">
                           {streak} Question Streak! 🔥
                         </span>
@@ -1057,7 +1164,10 @@ export default function QuizPlayClient({ initialQuiz, initialQuestions }: QuizPl
               </div>
             ) : (
               <div className="text-destructive">
-                <XCircle className="h-20 w-20 mx-auto mb-4 animate-pulse" aria-hidden="true" />
+                <XCircle
+                  className="h-20 w-20 mx-auto mb-4 animate-pulse"
+                  aria-hidden="true"
+                />
                 <h3 className="text-2xl font-bold text-destructive mb-3">
                   ❌ Incorrect!
                 </h3>
