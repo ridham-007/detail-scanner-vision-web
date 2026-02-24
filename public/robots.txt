@@ -28,8 +28,12 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: Google-adstxt
+Allow: /app-ads.txt
+
+User-agent: AdsBot-Google
+Allow: /
+
 # Sitemap location
 Sitemap: https://www.eateriq.com/sitemap.xml
 
-# Crawl delay
-Crawl-delay: 1
