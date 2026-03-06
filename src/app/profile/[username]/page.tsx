@@ -13,10 +13,9 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { username } = await params;
 
-  // Fetch data
   const { data: profile } = await supabase
     .from('profiles')
-    .select('username, bio, avatar_url')
+    .select('full_name, username, bio, avatar_url')
     .eq('username', username)
     .single();
 
@@ -26,11 +25,13 @@ export async function generateMetadata(
     };
   }
 
+  const displayName = profile.full_name || profile.username;
+
   return {
-    title: `${profile.username} | EaterIQ Profile`,
-    description: profile.bio || `Check out ${profile.username}'s profile on EaterIQ.`,
+    title: `${displayName} | EaterIQ Profile`,
+    description: profile.bio || `Check out ${displayName}'s profile on EaterIQ.`,
     openGraph: {
-      title: `${profile.username} | EaterIQ Profile`,
+      title: `${displayName} | EaterIQ Profile`,
       description: profile.bio || undefined,
       images: [profile.avatar_url || '/avatar-placeholder.png'],
     },

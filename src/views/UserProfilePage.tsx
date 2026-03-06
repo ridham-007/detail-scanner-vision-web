@@ -24,6 +24,7 @@ import Image from "next/image";
 
 interface UserProfile {
   id: string;
+  full_name: string | null;
   username: string | null;
   bio: string | null;
   website: string | null;
@@ -68,7 +69,7 @@ const UserProfilePage = () => {
       const { data, error } = await supabase
         .from("profiles")
         .select(
-          "id, username, bio, website, avatar_url, total_score, quizzes_completed, created_at",
+          "id, full_name, username, bio, website, avatar_url, total_score, quizzes_completed, created_at",
         )
         .eq("username", username)
         .single();
@@ -173,13 +174,15 @@ const UserProfilePage = () => {
     );
   }
 
+  const displayName = profile.full_name || profile.username;
+
   return (
     <>
       <SEOHead
-        title={`${profile.username}'s Profile | EaterIQ`}
+        title={`${displayName}'s Profile | EaterIQ`}
         description={
           profile.bio ||
-          `View ${profile.username}'s profile, quiz scores, and created quizzes on EaterIQ.`
+          `View ${displayName}'s profile, quiz scores, and created quizzes on EaterIQ.`
         }
         keywords="user profile, quiz creator, EaterIQ user"
         canonicalUrl={`https://www.eateriq.com/user/${profile.username}/`}
@@ -210,7 +213,7 @@ const UserProfilePage = () => {
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                       <div>
                         <h1 className="text-3xl font-bold">
-                          {profile.username}
+                          {profile.full_name || profile.username}
                         </h1>
                         <p className="text-muted-foreground">
                           @{profile.username}

@@ -332,8 +332,8 @@ const UserSettingsPage = () => {
                                   username: e.target.value.toLowerCase(),
                                 })
                               }
-                              placeholder="Enter a unique username (lowercase, alphanumeric, _, -)"
-                              pattern="^[a-z0-9_-]+$"
+                              placeholder="Enter a unique username (lowercase, alphanumeric, _, -, .)"
+                              pattern="^[a-z0-9_.-]+$"
                             />
                           </div>
 
@@ -452,13 +452,12 @@ const UserSettingsPage = () => {
                                 )}
                               </div>
                               <div
-                                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                  cancelAtPeriodEnd
-                                    ? "bg-orange-500/20 text-orange-600 dark:text-orange-400"
-                                    : subscribed
-                                      ? "bg-primary/20 text-primary"
-                                      : "bg-muted text-muted-foreground"
-                                }`}
+                                className={`px-3 py-1 rounded-full text-sm font-medium ${cancelAtPeriodEnd
+                                  ? "bg-orange-500/20 text-orange-600 dark:text-orange-400"
+                                  : subscribed
+                                    ? "bg-primary/20 text-primary"
+                                    : "bg-muted text-muted-foreground"
+                                  }`}
                               >
                                 {cancelAtPeriodEnd
                                   ? "Cancelled"
@@ -504,8 +503,8 @@ const UserSettingsPage = () => {
                                     the end of the current billing period (
                                     {subscriptionEnd
                                       ? new Date(
-                                          subscriptionEnd,
-                                        ).toLocaleDateString()
+                                        subscriptionEnd,
+                                      ).toLocaleDateString()
                                       : "N/A"}
                                     ). After that, you'll be downgraded to the
                                     free plan.
@@ -534,8 +533,8 @@ const UserSettingsPage = () => {
                                         until{" "}
                                         {subscriptionEnd
                                           ? new Date(
-                                              subscriptionEnd,
-                                            ).toLocaleDateString()
+                                            subscriptionEnd,
+                                          ).toLocaleDateString()
                                           : "the end of your billing period"}
                                         . After that, you'll lose access to
                                         premium features and be downgraded to
@@ -580,8 +579,8 @@ const UserSettingsPage = () => {
                                   <strong>
                                     {subscriptionEnd
                                       ? new Date(
-                                          subscriptionEnd,
-                                        ).toLocaleDateString()
+                                        subscriptionEnd,
+                                      ).toLocaleDateString()
                                       : "the end of your billing period"}
                                   </strong>
                                   . After that, you'll be downgraded to the free

@@ -317,10 +317,10 @@ export default function DietaryGuidesView() {
 
             {/* Interactive Modal */}
             <Dialog open={!!selectedSheet} onOpenChange={(open) => !open && setSelectedSheet(null)}>
-                <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto sm:rounded-3xl p-0 gap-0 overflow-hidden no-print">
+                <DialogContent className="max-w-3xl max-h-[90vh] flex flex-col overflow-hidden sm:rounded-3xl p-0 gap-0 no-print">
                     {selectedSheet && (
                         <>
-                            <div className={`p-8 ${cheatSheetData[selectedSheet].color.replace('text-', 'bg-').replace('100', '50')}`}>
+                            <div className={`p-8 shrink-0 ${cheatSheetData[selectedSheet].color.replace('text-', 'bg-').replace('100', '50')}`}>
                                 <DialogHeader>
                                     <div className="flex items-start gap-5">
                                         <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shrink-0 bg-white shadow-lg`}>
@@ -336,11 +336,11 @@ export default function DietaryGuidesView() {
                                 </DialogHeader>
                             </div>
 
-                            <div className="p-8">
+                            <div className="p-8 overflow-y-auto flex-1">
                                 {cheatSheetData[selectedSheet].content}
                             </div>
 
-                            <DialogFooter className="p-6 bg-muted/20 border-t flex flex-row items-center justify-between gap-4">
+                            <DialogFooter className="p-6 bg-muted/20 border-t flex flex-row items-center justify-between gap-4 shrink-0">
                                 <div className="text-xs text-muted-foreground hidden sm:block">
                                     Trusted by 10,000+ users
                                 </div>
