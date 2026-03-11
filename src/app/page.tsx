@@ -603,7 +603,7 @@ export default async function HomePage() {
 
               <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {/* Step 1 */}
-                <article className="relative text-center">
+                <article className="relative text-center pt-6">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
                     <QrCode
                       className="h-8 w-8 text-primary"
@@ -623,7 +623,7 @@ export default async function HomePage() {
                 </article>
 
                 {/* Step 2 */}
-                <article className="relative text-center">
+                <article className="relative text-center pt-6">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
                     <Search
                       className="h-8 w-8 text-primary"
@@ -643,7 +643,7 @@ export default async function HomePage() {
                 </article>
 
                 {/* Step 3 */}
-                <article className="relative text-center">
+                <article className="relative text-center pt-6">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
                     <TrendingUp
                       className="h-8 w-8 text-primary"
@@ -932,7 +932,7 @@ export default async function HomePage() {
 
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                   {recentQuizzes.map((quiz) => (
-                    <Card key={quiz.id} className="bg-card border-2 shadow-md">
+                    <Card key={quiz.id} className="bg-card border-2 shadow-md flex flex-col h-full">
                       <CardHeader className="pb-3">
                         <div className="flex items-start justify-between mb-2">
                           <Badge
@@ -951,7 +951,7 @@ export default async function HomePage() {
                         </CardTitle>
                       </CardHeader>
 
-                      <CardContent className="pt-0">
+                      <CardContent className="pt-0 flex flex-col flex-grow">
                         <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                           {quiz.description}
                         </p>
@@ -965,15 +965,17 @@ export default async function HomePage() {
                           </time>
                         </div>
 
-                        <Link href={`/quiz/${quiz.slug}/`}>
-                          <Button
-                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-                            size="sm"
-                          >
-                            <Play className="h-4 w-4 mr-2" aria-hidden="true" />
-                            Play Quiz
-                          </Button>
-                        </Link>
+                        <div className="mt-auto">
+                          <Link href={`/quiz/${quiz.slug}/`}>
+                            <Button
+                              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                              size="sm"
+                            >
+                              <Play className="h-4 w-4 mr-2" aria-hidden="true" />
+                              Play Quiz
+                            </Button>
+                          </Link>
+                        </div>
                       </CardContent>
                     </Card>
                   ))}

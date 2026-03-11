@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
@@ -15,12 +16,19 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog";import { useSubscription } from '@/hooks/useSubscription';
 
 export default function QuizHubClient() {
   const { user } = useAuth();
   const { toast } = useToast();
-  
+  const { tier } = useSubscription();
+  const router = useRouter();
+
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,6 +37,7 @@ export default function QuizHubClient() {
   const [limitResetDate, setLimitResetDate] = useState<Date | null>(null);
   const [showLimitDialog, setShowLimitDialog] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   useEffect(() => {
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
@@ -82,6 +91,11 @@ export default function QuizHubClient() {
 
   const handleCreateQuizClick = () => {
     if (user) {
+      if (tier === 'free') {
+        setShowUpgradeModal(true);
+        return;
+      }
+
       if (isLimitActive) {
         if (isMobile) {
           setShowLimitDialog(true);
@@ -176,7 +190,7 @@ export default function QuizHubClient() {
 
       setShowCreateModal(false);
       fetchUserQuizCount();
-      
+
       // Refresh the page to show new quiz
       window.location.reload();
     } catch (error) {
@@ -276,6 +290,62 @@ export default function QuizHubClient() {
           <Button onClick={() => setShowLimitDialog(false)} className="mt-4 w-full">
             Got it
           </Button>
+        </DialogContent>
+
+        
+      </Dialog>
+
+      <Dialog open={showUpgradeModal} onOpenChange={setShowUpgradeModal}>
+        <DialogContent className="max-w-md p-8">
+
+          <div className="flex flex-col items-center text-center space-y-4">
+
+            {/* Badge */}
+            <span className="text-xs font-medium bg-muted px-3 py-1 rounded-full">
+              PRO FEATURE
+            </span>
+
+            {/* Title */}
+            <h2 className="text-xl font-semibold">
+              Create Your Own Quiz
+            </h2>
+
+            {/* Description */}
+            <p className="text-sm text-muted-foreground max-w-sm">
+              You've discovered a Pro feature. Upgrade to create AI-powered quizzes
+              and share them with the community.
+            </p>
+
+            {/* Feature Pills */}
+            <div className="flex flex-wrap justify-center gap-2 pt-2">
+
+              <span className="text-xs border rounded-full px-3 py-1">
+                ⚡ AI quiz generation
+              </span>
+
+              <span className="text-xs border rounded-full px-3 py-1">
+                🧠 Unlimited quizzes
+              </span>
+
+              <span className="text-xs border rounded-full px-3 py-1">
+                🌍 Share with others
+              </span>
+
+            </div>
+
+            {/* CTA */}
+            <Button
+              className="mt-4"
+              onClick={() => {
+                setShowUpgradeModal(false);
+                router.push("/pricing");
+              }}
+            >
+              ⭐  Upgrade to Pro
+            </Button>
+
+          </div>
+
         </DialogContent>
       </Dialog>
     </>

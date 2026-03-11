@@ -1,15 +1,19 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, Trophy, X, ArrowRightLeft } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Plus, Trophy, X, ArrowRightLeft, Zap } from 'lucide-react';
 import { ProductData } from '@/types/ProductData';
 import { useProductLookup } from '@/hooks/useProductLookup';
 import BarcodeScanner from '@/components/BarcodeScanner';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import ProductSelectionModal from '@/components/ProductSelectionModal';
+import { useSubscription } from '@/hooks/useSubscription';
+import { useFoodBattleLimit } from '@/hooks/useFoodBattleLimit';
 
 const ProductComparisonPage = () => {
     const [productA, setProductA] = useState<ProductData | null>(null);
@@ -19,6 +23,16 @@ const ProductComparisonPage = () => {
     const [isScanning, setIsScanning] = useState(false);
 
     const { lookupProduct, isLoading } = useProductLookup();
+    const { tier } = useSubscription();
+    const router = useRouter();
+    const {
+        canBattle,
+        battlesLeft,
+        maxBattles,
+        recordBattle,
+    } = useFoodBattleLimit();
+
+    const isPro = tier !== 'free';
 
     // Debug: Log products when they change
     React.useEffect(() => {
@@ -26,24 +40,64 @@ const ProductComparisonPage = () => {
         if (productB) console.log("Product B Data:", productB);
     }, [productA, productB]);
 
+    const handleOpenSlot = (slot: 'A' | 'B') => {
+        if (isPro || canBattle) {
+            setActiveSlot(slot);
+            return;
+        }
+
+        // No more free battles: go to paywall
+        router.push('/pricing');
+    };
+
     const handleLookup = async (barcode: string) => {
         if (!activeSlot) return;
 
+        if (!isPro && !canBattle) {
+            toast.error("You've used all Food Battles for today. Upgrade to Pro for unlimited battles.");
+            return;
+        }
+
         setIsScanning(false);
+        const otherProduct = activeSlot === 'A' ? productB : productA;
+        const currentHadProduct = activeSlot === 'A' ? !!productA : !!productB;
+
         const product = await lookupProduct(barcode);
 
         if (product) {
             if (activeSlot === 'A') setProductA(product);
             else setProductB(product);
+
+            // Count a battle when a pair is completed for the first time
+            if (!isPro && otherProduct && !currentHadProduct) {
+                recordBattle();
+            }
+
             setActiveSlot(null);
             setManualBarcode('');
         } else {
             toast.error("Product not found");
         }
-    }
+    };
+
     const handleSelectProduct = (product: ProductData) => {
+        if (!activeSlot) return;
+
+        if (!isPro && !canBattle) {
+            toast.error("You've used all Food Battles for today. Upgrade to Pro for unlimited battles.");
+            return;
+        }
+
+        const otherProduct = activeSlot === 'A' ? productB : productA;
+        const currentHadProduct = activeSlot === 'A' ? !!productA : !!productB;
+
         if (activeSlot === 'A') setProductA(product);
         else setProductB(product);
+
+        if (!isPro && otherProduct && !currentHadProduct) {
+            recordBattle();
+        }
+
         setActiveSlot(null);
     };
 
@@ -142,7 +196,10 @@ const ProductComparisonPage = () => {
     const winner = calculateWinner();
 
     const EmptySlot = ({ slot }: { slot: 'A' | 'B' }) => (
-        <Card className="h-full border-dashed border-2 flex flex-col items-center justify-center p-8 text-center bg-muted/20 hover:bg-muted/40 transition-colors cursor-pointer" onClick={() => setActiveSlot(slot)}>
+        <Card
+            className="h-full border-dashed border-2 flex flex-col items-center justify-center p-8 text-center bg-muted/20 hover:bg-muted/40 transition-colors cursor-pointer"
+            onClick={() => handleOpenSlot(slot)}
+        >
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                 <Plus className="w-8 h-8 text-primary" />
             </div>
@@ -222,12 +279,74 @@ const ProductComparisonPage = () => {
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-5xl">
-            <div className="text-center mb-8">
-                <h1 className="text-4xl font-bold flex items-center justify-center gap-3 mb-2">
-                    <ArrowRightLeft className="w-8 h-8 text-primary" />
-                    Food Battle
-                </h1>
-                <p className="text-muted-foreground">Compare two products and find the healthier choice</p>
+            <div className="mb-8 flex flex-col items-center gap-4">
+                <div className="text-center">
+                    <h1 className="text-4xl font-bold flex items-center justify-center gap-3 mb-2">
+                        <ArrowRightLeft className="w-8 h-8 text-primary" />
+                        Food Battle
+                    </h1>
+                    <p className="text-muted-foreground">
+                        Pit two products head‑to‑head and see which one wins for your health.
+                    </p>
+                </div>
+
+                <div className="flex items-center justify-center gap-3">
+                    {isPro ? (
+                        <Badge className="bg-primary text-primary-foreground px-3 py-1 text-xs font-semibold">
+                            PRO • Unlimited battles & ad‑free
+                        </Badge>
+                    ) : (
+                        <>
+                            <Badge variant="outline" className="flex items-center gap-1 text-xs">
+                                <Zap className="w-3 h-3 text-primary" />
+                                {typeof battlesLeft === 'number' && Number.isFinite(battlesLeft)
+                                    ? `${battlesLeft} battle${battlesLeft === 1 ? '' : 's'} left today`
+                                    : 'Daily battles available'}
+                            </Badge>
+                            <span className="text-xs text-muted-foreground">
+                                Free: {maxBattles}/day, Pro: unlimited
+                            </span>
+                        </>
+                    )}
+                </div>
+
+                {/* Battles exhausted card for free users when limit is reached */}
+                {!isPro && battlesLeft === 0 && (
+                    <Card className="w-full max-w-xl border-primary/40 bg-primary/5">
+                        <CardHeader className="pb-3">
+                            <div className="flex justify-center">
+                                <Badge className="bg-primary text-primary-foreground text-[11px] tracking-wide uppercase">
+                                    Battles exhausted
+                                </Badge>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="space-y-4 text-center pb-6">
+                            <h2 className="text-lg font-semibold">
+                                Unlock Unlimited Battles
+                            </h2>
+                            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                                You&apos;ve used all of today&apos;s free Food Battles.
+                                Go Pro to compare products head‑to‑head without limits.
+                            </p>
+                            <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
+                                <Badge variant="outline" className="px-3 py-1 flex items-center gap-1">
+                                    <Zap className="w-3 h-3 text-primary" />
+                                    Unlimited battles
+                                </Badge>
+                                <Badge variant="outline" className="px-3 py-1 flex items-center gap-1">
+                                    <ArrowRightLeft className="w-3 h-3 text-primary" />
+                                    Full nutrition comparison
+                                </Badge>
+                            </div>
+                            <Button
+                                className="mt-2 w-full sm:w-auto"
+                                onClick={() => router.push('/pricing')}
+                            >
+                                Upgrade to Pro
+                            </Button>
+                        </CardContent>
+                    </Card>
+                )}
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 mb-8">

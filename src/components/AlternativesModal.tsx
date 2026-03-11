@@ -1,10 +1,12 @@
 "use client";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, ArrowRight, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { fetchProductImage } from "../lib/api/productImage";
+import { Button } from "@/components/ui/button";
+import { useSubscription } from "@/hooks/useSubscription";
 
 interface Alternative {
   name: string;
@@ -51,6 +53,8 @@ export default function AlternativesModal({
   loading,
 }: Props) {
   const router = useRouter();
+  const { tier } = useSubscription();
+  const isPro = tier !== "free";
 
   const [resolvedImages, setResolvedImages] = useState<
     Record<string, string | null>
@@ -102,7 +106,41 @@ export default function AlternativesModal({
           </h1>
         </div>
 
-        {loading && (
+        {/* Free users: show upgrade message instead of list */}
+        {!isPro && !loading && (
+          <div className="max-w-xl space-y-4">
+            <p className="text-base font-medium">
+              Want to see healthier alternatives tailored to you?
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Upgrade to Pro to unlock full access to better product suggestions
+              with improved health scores and personalized recommendations.
+            </p>
+            <ul className="text-sm text-muted-foreground space-y-1">
+              <li className="flex items-center gap-2">
+                <Zap className="w-4 h-4 text-primary" />
+                Unlimited healthier alternatives
+              </li>
+              <li className="flex items-center gap-2">
+                <ImageIcon className="w-4 h-4 text-primary" />
+                Rich product images and details
+              </li>
+            </ul>
+            <Button
+              className="mt-2"
+              onClick={() => {
+                onOpenChange(false);
+                router.push("/pricing");
+              }}
+            >
+              Upgrade to Pro
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        )}
+
+        {/* Pro users: show real alternatives */}
+        {isPro && loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {Array.from({ length: 6 }).map((_, i) => (
               <AlternativeSkeleton key={i} />
@@ -110,7 +148,7 @@ export default function AlternativesModal({
           </div>
         )}
 
-        {!loading && (
+        {isPro && !loading && alternatives.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {alternatives.map((item, index) => (
               <div
@@ -182,7 +220,7 @@ export default function AlternativesModal({
           </div>
         )}
 
-        {!loading && alternatives.length === 0 && (
+        {isPro && !loading && alternatives.length === 0 && (
           <p className="text-muted-foreground">
             No healthier alternatives found for this product.
           </p>

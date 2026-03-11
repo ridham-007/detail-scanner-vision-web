@@ -928,27 +928,6 @@ const UserSettingsPage = () => {
                           <div className="flex items-center justify-between py-2">
                             <div className="space-y-1">
                               <Label className="text-sm font-medium">
-                                Personalized Ads
-                              </Label>
-                              <p className="text-sm text-muted-foreground">
-                                Show ads tailored to your interests
-                              </p>
-                            </div>
-                            <Switch
-                              checked={privacySettings.personalized_ads}
-                              onCheckedChange={(checked) =>
-                                updatePrivacySetting(
-                                  "personalized_ads",
-                                  checked,
-                                )
-                              }
-                              disabled={privacySaving}
-                            />
-                          </div>
-
-                          <div className="flex items-center justify-between py-2">
-                            <div className="space-y-1">
-                              <Label className="text-sm font-medium">
                                 Location Services
                               </Label>
                               <p className="text-sm text-muted-foreground">

@@ -282,10 +282,6 @@ export default function PricingPage() {
                 </div>
                 <div className="flex items-start gap-2 text-muted-foreground">
                   <span className="w-4 h-4 mt-0.5 flex-shrink-0 text-center" aria-hidden="true">−</span>
-                  <span className="text-sm">Ads displayed</span>
-                </div>
-                <div className="flex items-start gap-2 text-muted-foreground">
-                  <span className="w-4 h-4 mt-0.5 flex-shrink-0 text-center" aria-hidden="true">−</span>
                   <span className="text-sm">Limited history</span>
                 </div>
                 <div className="flex items-start gap-2 text-muted-foreground">
@@ -484,16 +480,6 @@ export default function PricingPage() {
                 </tr>
                 <tr className="border-b">
                   <td className="py-3 px-4">Personalized Insights</td>
-                  <td className="text-center py-3 px-4">−</td>
-                  <td className="text-center py-3 px-4 bg-primary/5">
-                    <Check className="w-4 h-4 text-primary mx-auto" aria-hidden="true" />
-                  </td>
-                  <td className="text-center py-3 px-4">
-                    <Check className="w-4 h-4 text-primary mx-auto" aria-hidden="true" />
-                  </td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-3 px-4">Ad-Free Experience</td>
                   <td className="text-center py-3 px-4">−</td>
                   <td className="text-center py-3 px-4 bg-primary/5">
                     <Check className="w-4 h-4 text-primary mx-auto" aria-hidden="true" />

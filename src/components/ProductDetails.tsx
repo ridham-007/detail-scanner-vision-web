@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +29,8 @@ import AlternativesModal from "@/components/AlternativesModal";
 import HealthInsights from "./HealthInsights";
 import { HealthierAlternatives } from "./HealthierAlternatives";
 import { useProductImage } from "@/hooks/useProductImage";
+import { SubscriptionGate } from "@/subscription/SubscriptionGate";
+import { useFeatureAccess } from "@/subscription/useFeatureAccess";
 
 interface ProductDetailsProps {
   product: ProductData | null;
@@ -432,48 +436,54 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         </Card>
       )}
 
-      {/* Health Insights */}
+      {/* Health Insights (always visible summary) */}
       <HealthInsights
         positives={product.positives}
         concerns={product.concerns}
       />
 
-      {/* Allergen Analysis */}
-      {product.allergens_analysis && product.allergens_analysis.length > 0 && (
-        <AllergenAnalysisCard allergens={product.allergens_analysis} />
-      )}
-
-      {/* Nutrition Data Analysis */}
-      {product.nutrition_data && product.nutrition_data.length > 0 && (
-        <NutritionDataCard nutritionData={product.nutrition_data} />
-      )}
-
-      {/* Additive Analysis */}
-      {product.additive_analysis && product.additive_analysis.length > 0 && (
-        <AdditiveAnalysisCard additives={product.additive_analysis} />
-      )}
-
-      {/* Ingredient Analysis */}
-      {product.ingredient_analysis &&
-        product.ingredient_analysis.length > 0 && (
-          <IngredientAnalysisCard ingredients={product.ingredient_analysis} />
+      {/* Detailed nutrition, ingredient and additive analysis – Pro feature */}
+      <SubscriptionGate feature="product_full_nutrition" mode="block">
+        {/* Allergen Analysis */}
+        {product.allergens_analysis && product.allergens_analysis.length > 0 && (
+          <AllergenAnalysisCard allergens={product.allergens_analysis} />
         )}
+
+        {/* Nutrition Data Analysis */}
+        {product.nutrition_data && product.nutrition_data.length > 0 && (
+          <NutritionDataCard nutritionData={product.nutrition_data} />
+        )}
+
+        {/* Additive Analysis */}
+        {product.additive_analysis && product.additive_analysis.length > 0 && (
+          <AdditiveAnalysisCard additives={product.additive_analysis} />
+        )}
+
+        {/* Ingredient Analysis */}
+        {product.ingredient_analysis &&
+          product.ingredient_analysis.length > 0 && (
+            <IngredientAnalysisCard ingredients={product.ingredient_analysis} />
+          )}
+
+        <NutritionComparison
+          nutrition={product.nutrition_per_100g}
+          productName={product.name}
+        />
+      </SubscriptionGate>
 
       {/* Enhanced Components */}
       {/* <ScanStreak productName={product.name} /> */}
 
       {/* <AchievementSystem productData={product} /> */}
 
-      <NutritionComparison
-        nutrition={product.nutrition_per_100g}
-        productName={product.name}
-      />
-
-      <EnhancedIngredientsDisplay
-        ingredients={product.ingredients || ""}
-        allergens={product.nutrition_per_100g.allergens}
-        additives={product.nutrition_per_100g.additives}
-      />
+      {/* Ingredients + allergen/additive chips – Pro feature with teaser */}
+      <SubscriptionGate feature="product_allergens" mode="teaser">
+        <EnhancedIngredientsDisplay
+          ingredients={product.ingredients || ""}
+          allergens={product.nutrition_per_100g.allergens}
+          additives={product.nutrition_per_100g.additives}
+        />
+      </SubscriptionGate>
 
       {/* <SocialProof barcode={product.barcode} productName={product.name} /> */}
 
@@ -516,11 +526,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         </Card>
       )}
 
-      {/* Healthier Alternatives - Classification-based */}
-      <HealthierAlternatives
-        barcode={product.barcode}
-        currentHealthScore={product.health_score}
-      />
+      {/* Healthier Alternatives - Classification-based (Pro) */}
+      <SubscriptionGate feature="product_alternatives" mode="block">
+        <HealthierAlternatives
+          barcode={product.barcode}
+          currentHealthScore={product.health_score}
+        />
+      </SubscriptionGate>
       {/* Product Categories */}
       {/* <ProductCategories barcode={product.barcode} /> */}
 

@@ -270,45 +270,6 @@ export default function PrivacyPage() {
               </CardContent>
             </Card>
 
-            {/* Third-Party Services */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Third-Party Services & Advertising</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  We may display advertisements from third-party ad networks. These networks may use cookies to serve ads based on your prior visits to our website or other websites.
-                </p>
-                <ul className="text-sm text-muted-foreground space-y-3">
-                  <li>
-                    <strong>Google AdSense:</strong> We may use Google AdSense to display advertisements. Google uses cookies to serve ads based on your interests.
-                  </li>
-                  <li>
-                    <strong>Opt-Out:</strong> You can opt out of personalized advertising by visiting{' '}
-                    <a 
-                      href="https://www.google.com/settings/ads" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-primary underline hover:text-primary/80"
-                    >
-                      Google Ads Settings
-                    </a>
-                  </li>
-                </ul>
-                <p className="text-sm text-muted-foreground">
-                  Third-party vendors, including Google, use cookies to serve ads based on your prior visits. You may opt out of personalized advertising by visiting{' '}
-                  <a 
-                    href="https://www.aboutads.info/choices/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-primary underline hover:text-primary/80"
-                  >
-                    www.aboutads.info
-                  </a>.
-                </p>
-              </CardContent>
-            </Card>
-
             {/* Data Retention */}
             <Card>
               <CardHeader>

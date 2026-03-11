@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -7,11 +8,16 @@ import { Separator } from '@/components/ui/separator';
 import { Heart, Trash2, ShoppingCart, Package, Calendar, Loader2 } from 'lucide-react';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useAuth } from '@/contexts/AuthContext';
+import { useSubscription } from '@/hooks/useSubscription';
 import { AddToShoppingListModal } from '@/components/AddToShoppingListModal';
 import { format } from 'date-fns';
 
+const MAX_FREE_FAVORITES = 10;
+
 const Favorites = () => {
   const { user } = useAuth();
+  const { tier } = useSubscription();
+  const router = useRouter();
   const { favorites, isLoading, removeFromFavorites } = useFavorites();
 
   const getHealthScoreBadgeVariant = (score: number | null) => {
@@ -48,6 +54,8 @@ const Favorites = () => {
     );
   }
 
+  const isFreeTier = tier === 'free';
+
   return (
     <div className="w-full max-w-2xl mx-auto space-y-6">
       {/* Header */}
@@ -62,6 +70,25 @@ const Favorites = () => {
           </p>
         </CardHeader>
       </Card>
+
+      {/* Free tier limit notice */}
+      {isFreeTier && favorites.length >= MAX_FREE_FAVORITES && (
+        <Card className="border-dashed border-primary/40 bg-primary/5">
+          <CardContent className="pt-4 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold">
+                Favourites limit reached ({favorites.length}/{MAX_FREE_FAVORITES})
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Upgrade to Pro to save unlimited favourite products.
+              </p>
+            </div>
+            <Button size="sm" onClick={() => router.push('/pricing')}>
+              Upgrade to Pro
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Favorites List */}
       {favorites.length === 0 ? (

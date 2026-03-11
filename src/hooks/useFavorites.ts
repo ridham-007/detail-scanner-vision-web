@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { useSubscription } from '@/hooks/useSubscription';
 
 export interface FavoriteItem {
   id: string;
@@ -16,6 +17,7 @@ export const useFavorites = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
+  const { tier } = useSubscription();
 
   const fetchFavorites = async () => {
     if (!user) return;
@@ -52,6 +54,17 @@ export const useFavorites = () => {
         title: 'Login Required',
         description: 'Please login to add favorites',
         variant: 'destructive'
+      });
+      return;
+    }
+
+    const MAX_FREE_FAVORITES = 10;
+
+    if (tier === 'free' && favorites.length >= MAX_FREE_FAVORITES) {
+      toast({
+        title: 'Favourites limit reached',
+        description: `Free accounts can save up to ${MAX_FREE_FAVORITES} favourites. Upgrade to Pro for unlimited favourites.`,
+        variant: 'destructive',
       });
       return;
     }

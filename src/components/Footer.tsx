@@ -36,7 +36,7 @@ export default function Footer() {
       className="border-t border-border bg-card/50 backdrop-blur-sm mt-8"
     >
       <div className="container mx-auto px-4 py-10 md:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
 
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
@@ -80,7 +80,7 @@ export default function Footer() {
                 <img
                   src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                   alt="Get it on Google Play"
-                  className="h-[48px] -my-[8px]"
+                  className="h-[36px]"
                   loading="lazy"
                 />
               </a>
@@ -89,9 +89,9 @@ export default function Footer() {
 
           {/* Product Links */}
           <nav aria-label="Product navigation">
-            <span className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
+            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide block">
               Product
-            </span>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -134,9 +134,9 @@ export default function Footer() {
 
           {/* Support Links */}
           <nav aria-label="Support navigation">
-            <span className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
+            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide block">
               Resources
-            </span>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -181,9 +181,9 @@ export default function Footer() {
           <address className="not-italic">
 
 
-            <span className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
+            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide block">
               Contact
-            </span>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <a
@@ -206,10 +206,10 @@ export default function Footer() {
               </li>
             </ul>
 
-            <div className="pt-2">
-              <span className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide">
+            <div className="mt-3  ">
+              <h3 className="font-semibold text-foreground mb-3 text-sm uppercase tracking-wide block">
                 Social
-              </span>
+              </h3>
               <div className="flex items-center gap-3">
                 <a
                   href="https://www.facebook.com/profile.php?id=61587144212003"

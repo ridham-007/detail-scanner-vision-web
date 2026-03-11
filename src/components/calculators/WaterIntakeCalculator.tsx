@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
+import { SubscriptionGate } from "@/subscription/SubscriptionGate";
 
 const num = (v: string) => parseFloat(v) || 0;
 
@@ -414,7 +415,7 @@ const WaterIntakeCalculator = () => {
       {/* Results */}
       {results && (
         <div className="space-y-6">
-          {/* Main Result */}
+          {/* Main Result – free headline */}
           <div className="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 rounded-2xl p-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Droplets className="h-6 w-6 text-blue-500" />
@@ -443,148 +444,151 @@ const WaterIntakeCalculator = () => {
             </div>
           </div>
 
-          {/* Quick Stats */}
-          <div className="grid md:grid-cols-4 gap-4">
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">
-                {results.totalMl}
+          {/* Detailed schedule, breakdown and tips – Pro feature */}
+          <SubscriptionGate feature="calculator_detailed" mode="block">
+            {/* Quick Stats */}
+            <div className="grid md:grid-cols-4 gap-4">
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-blue-600">
+                  {results.totalMl}
+                </div>
+                <div className="text-sm text-muted-foreground">ml per day</div>
               </div>
-              <div className="text-sm text-muted-foreground">ml per day</div>
-            </div>
-            <div className="bg-cyan-50 border border-cyan-200 rounded-xl p-4 text-center">
-              <div className="text-2xl font-bold text-cyan-600">
-                {results.cups}
+              <div className="bg-cyan-50 border border-cyan-200 rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-cyan-600">
+                  {results.cups}
+                </div>
+                <div className="text-sm text-muted-foreground">cups (8oz)</div>
               </div>
-              <div className="text-sm text-muted-foreground">cups (8oz)</div>
-            </div>
-            <div className="bg-teal-50 border border-teal-200 rounded-xl p-4 text-center">
-              <div className="text-2xl font-bold text-teal-600">
-                {results.hourlyMl} ml
+              <div className="bg-teal-50 border border-teal-200 rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-teal-600">
+                  {results.hourlyMl} ml
+                </div>
+                <div className="text-sm text-muted-foreground">per hour</div>
               </div>
-              <div className="text-sm text-muted-foreground">per hour</div>
-            </div>
-            <div className="bg-sky-50 border border-sky-200 rounded-xl p-4 text-center">
-              <div className="text-2xl font-bold text-sky-600">
-                {results.hourlyOz} oz
+              <div className="bg-sky-50 border border-sky-200 rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-sky-600">
+                  {results.hourlyOz} oz
+                </div>
+                <div className="text-sm text-muted-foreground">per hour</div>
               </div>
-              <div className="text-sm text-muted-foreground">per hour</div>
             </div>
-          </div>
 
-          {/* Adjustments Made */}
-          {(results.exerciseBonus > 0 ||
-            results.climateBonus !== 0 ||
-            results.caffeineBonus > 0) && (
+            {/* Adjustments Made */}
+            {(results.exerciseBonus > 0 ||
+              results.climateBonus !== 0 ||
+              results.caffeineBonus > 0) && (
+              <div className="bg-card border rounded-xl p-4">
+                <h4 className="font-semibold mb-3">Personalized Adjustments</h4>
+                <div className="space-y-2">
+                  {results.exerciseBonus > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        Exercise ({exerciseMinutes} min)
+                      </span>
+                      <span className="font-medium text-green-600">
+                        +{results.exerciseBonus} ml
+                      </span>
+                    </div>
+                  )}
+                  {results.climateBonus !== 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        Climate ({climate})
+                      </span>
+                      <span
+                        className={`font-medium ${
+                          results.climateBonus >= 0
+                            ? "text-green-600"
+                            : "text-amber-600"
+                        }`}
+                      >
+                        {results.climateBonus >= 0 ? "+" : ""}
+                        {results.climateBonus} ml
+                      </span>
+                    </div>
+                  )}
+                  {results.caffeineBonus > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        Caffeine offset ({caffeineIntake} drinks)
+                      </span>
+                      <span className="font-medium text-green-600">
+                        +{results.caffeineBonus} ml
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Hydration Schedule */}
+            <div className="bg-card border rounded-xl overflow-hidden">
+              <div className="bg-blue-50 px-4 py-3 border-b">
+                <h4 className="font-semibold text-blue-700 flex items-center gap-2">
+                  <Clock className="h-4 w-4" />
+                  Suggested Hydration Schedule
+                </h4>
+              </div>
+              <div className="divide-y">
+                {results.schedule.map((item: any, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between px-4 py-3"
+                  >
+                    <div>
+                      <div className="font-medium">
+                        {item.time} - {item.event}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {item.note}
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-blue-600">
+                        {item.amount} ml
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {item.amountOz} oz
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Visual Progress */}
             <div className="bg-card border rounded-xl p-4">
-              <h4 className="font-semibold mb-3">Personalized Adjustments</h4>
-              <div className="space-y-2">
-                {results.exerciseBonus > 0 && (
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      Exercise ({exerciseMinutes} min)
+              <h4 className="font-semibold mb-4">Daily Progress Tracker</h4>
+              <div className="space-y-3">
+                {[...Array(results.glasses)].map((_, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <span className="text-sm text-muted-foreground w-16">
+                      Glass {i + 1}
                     </span>
-                    <span className="font-medium text-green-600">
-                      +{results.exerciseBonus} ml
-                    </span>
-                  </div>
-                )}
-                {results.climateBonus !== 0 && (
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      Climate ({climate})
-                    </span>
-                    <span
-                      className={`font-medium ${
-                        results.climateBonus >= 0
-                          ? "text-green-600"
-                          : "text-amber-600"
-                      }`}
-                    >
-                      {results.climateBonus >= 0 ? "+" : ""}
-                      {results.climateBonus} ml
+                    <Progress value={0} className="flex-1 h-3" />
+                    <span className="text-sm font-medium w-16 text-right">
+                      250 ml
                     </span>
                   </div>
-                )}
-                {results.caffeineBonus > 0 && (
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      Caffeine offset ({caffeineIntake} drinks)
-                    </span>
-                    <span className="font-medium text-green-600">
-                      +{results.caffeineBonus} ml
-                    </span>
-                  </div>
-                )}
+                ))}
               </div>
+              <p className="text-sm text-muted-foreground mt-4 text-center">
+                Check off each glass as you drink throughout the day!
+              </p>
             </div>
-          )}
 
-          {/* Hydration Schedule */}
-          <div className="bg-card border rounded-xl overflow-hidden">
-            <div className="bg-blue-50 px-4 py-3 border-b">
-              <h4 className="font-semibold text-blue-700 flex items-center gap-2">
-                <Clock className="h-4 w-4" />
-                Suggested Hydration Schedule
-              </h4>
+            {/* Tips */}
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
+              <strong>💧 Hydration Tips:</strong>
+              <ul className="mt-2 space-y-1 list-disc list-inside">
+                <li>Start your day with a glass of water before coffee</li>
+                <li>Keep a water bottle visible on your desk</li>
+                <li>Set hourly reminders if you forget to drink</li>
+                <li>Eat water-rich foods like cucumbers and watermelon</li>
+              </ul>
             </div>
-            <div className="divide-y">
-              {results.schedule.map((item: any, index: number) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between px-4 py-3"
-                >
-                  <div>
-                    <div className="font-medium">
-                      {item.time} - {item.event}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {item.note}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-blue-600">
-                      {item.amount} ml
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {item.amountOz} oz
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Visual Progress */}
-          <div className="bg-card border rounded-xl p-4">
-            <h4 className="font-semibold mb-4">Daily Progress Tracker</h4>
-            <div className="space-y-3">
-              {[...Array(results.glasses)].map((_, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <span className="text-sm text-muted-foreground w-16">
-                    Glass {i + 1}
-                  </span>
-                  <Progress value={0} className="flex-1 h-3" />
-                  <span className="text-sm font-medium w-16 text-right">
-                    250 ml
-                  </span>
-                </div>
-              ))}
-            </div>
-            <p className="text-sm text-muted-foreground mt-4 text-center">
-              Check off each glass as you drink throughout the day!
-            </p>
-          </div>
-
-          {/* Tips */}
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
-            <strong>💧 Hydration Tips:</strong>
-            <ul className="mt-2 space-y-1 list-disc list-inside">
-              <li>Start your day with a glass of water before coffee</li>
-              <li>Keep a water bottle visible on your desk</li>
-              <li>Set hourly reminders if you forget to drink</li>
-              <li>Eat water-rich foods like cucumbers and watermelon</li>
-            </ul>
-          </div>
+          </SubscriptionGate>
         </div>
       )}
     </form>

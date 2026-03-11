@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -25,10 +26,13 @@ import {
 } from "lucide-react";
 import { useScanHistory } from "@/hooks/useScanHistory";
 import { useAuth } from "@/contexts/AuthContext";
+import { useSubscription } from "@/hooks/useSubscription";
 import { format } from "date-fns";
 
 const ScanHistory = () => {
   const { user } = useAuth();
+  const { tier } = useSubscription();
+  const router = useRouter();
   const {
     scanHistory,
     isLoading,
@@ -168,6 +172,21 @@ const ScanHistory = () => {
           )}
         </CardHeader>
         <CardContent>
+          {tier === "free" && scanHistory.length >= 10 && (
+            <div className="mb-4 rounded-lg border border-dashed border-primary/40 bg-primary/5 px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold">
+                  Showing your last 10 scans
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Upgrade to Pro to unlock your full scan history.
+                </p>
+              </div>
+              <Button size="sm" onClick={() => router.push("/pricing")}>
+                Upgrade to Pro
+              </Button>
+            </div>
+          )}
           {scanHistory.length === 0 ? (
             <div className="text-center py-8">
               <History className="h-12 w-12 mx-auto text-muted-foreground mb-4" />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useSubscription } from '@/hooks/useSubscription';
 
 export interface ScanHistoryItem {
   id: string;
@@ -18,20 +19,28 @@ export const useScanHistory = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
+  const { tier } = useSubscription();
 
-  const fetchScanHistory = async (limit: number = 50) => {
+  const fetchScanHistory = async (limit?: number) => {
     if (!user) return;
 
     setIsLoading(true);
     setError(null);
 
     try {
+      const effectiveLimit =
+        typeof limit === 'number'
+          ? limit
+          : tier === 'free'
+          ? 10
+          : 100;
+
       const { data, error } = await supabase
         .from('scan_history')
         .select('*')
         .eq('user_id', user.id)
         .order('scanned_at', { ascending: false })
-        .limit(limit);
+        .limit(effectiveLimit);
 
       if (error) {
         throw error;
@@ -114,7 +123,7 @@ export const useScanHistory = () => {
     } else {
       setScanHistory([]);
     }
-  }, [user]);
+  }, [user, tier]);
 
   return {
     scanHistory,
