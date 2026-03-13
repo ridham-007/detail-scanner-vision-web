@@ -157,7 +157,7 @@ export default function TermsPage() {
                   By using this app, you also agree to the standard Apple
                   Licensed Application End User License Agreement (EULA):
                   <a
-                    href="https://www.apple.com/legal/internet-services/itunes/dev/stgcu/"
+                    href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
                     className="underline ml-1"
                   >
                     View Apple EULA
