@@ -76,7 +76,7 @@ const webPageSchema = {
   "name": "EaterIQ Terms of Service",
   "description": "Terms and conditions for using EaterIQ's food analysis platform and quiz services",
   "url": "https://www.eateriq.com/terms/",
-  "lastReviewed": "2025-01-25",
+  "lastReviewed": "2026-03-12",
   "mainContentOfPage": {
     "@type": "WebPageElement",
     "cssSelector": "main"
@@ -111,10 +111,14 @@ export default function TermsPage() {
           <nav className="mb-6" aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-muted-foreground">
               <li>
-                <Link href="/" className="hover:text-primary">Home</Link>
+                <Link href="/" className="hover:text-primary">
+                  Home
+                </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium" aria-current="page">Terms of Service</li>
+              <li className="text-foreground font-medium" aria-current="page">
+                Terms of Service
+              </li>
             </ol>
           </nav>
 
@@ -123,9 +127,7 @@ export default function TermsPage() {
             <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">
               Terms of Service
             </h1>
-            <p className="text-muted-foreground">
-              Your agreement with EaterIQ
-            </p>
+            <p className="text-muted-foreground">Your agreement with EaterIQ</p>
           </header>
 
           {/* Content */}
@@ -134,18 +136,32 @@ export default function TermsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+                  <FileText
+                    className="h-5 w-5 text-emerald-600"
+                    aria-hidden="true"
+                  />
                   Agreement Overview
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground">
-                  Welcome to EaterIQ! These Terms of Service ("Terms") govern your
-                  use of our food analysis platform and quiz services. By accessing 
-                  or using EaterIQ, you agree to be bound by these Terms.
+                  Welcome to EaterIQ! These Terms of Service ("Terms") govern
+                  your use of our food analysis platform and quiz services. By
+                  accessing or using EaterIQ, you agree to be bound by these
+                  Terms.
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  <strong>Last updated:</strong> January 25, 2026
+                  <strong>Last updated:</strong> March 12, 2026
+                </p>
+                <p className="text-xs text-muted-foreground mt-2 italic">
+                  By using this app, you also agree to the standard Apple
+                  Licensed Application End User License Agreement (EULA):
+                  <a
+                    href="https://www.apple.com/legal/internet-services/itunes/dev/stgcu/"
+                    className="underline ml-1"
+                  >
+                    View Apple EULA
+                  </a>
                 </p>
               </CardContent>
             </Card>
@@ -162,10 +178,16 @@ export default function TermsPage() {
                 <section>
                   <span className="font-semibold mb-2">Account Creation</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-                    <li>• You must provide accurate and complete information</li>
-                    <li>• You are responsible for maintaining account security</li>
+                    <li>
+                      • You must provide accurate and complete information
+                    </li>
+                    <li>
+                      • You are responsible for maintaining account security
+                    </li>
                     <li>• One account per person is permitted</li>
-                    <li>• You must be at least 13 years old to use our service</li>
+                    <li>
+                      • You must be at least 13 years old to use our service
+                    </li>
                   </ul>
                 </section>
                 <section>
@@ -173,8 +195,12 @@ export default function TermsPage() {
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• Use EaterIQ for personal, non-commercial purposes</li>
                     <li>• Do not share false or misleading information</li>
-                    <li>• Respect other users and maintain a positive community</li>
-                    <li>• Do not attempt to reverse engineer or hack our services</li>
+                    <li>
+                      • Respect other users and maintain a positive community
+                    </li>
+                    <li>
+                      • Do not attempt to reverse engineer or hack our services
+                    </li>
                   </ul>
                 </section>
               </CardContent>
@@ -184,13 +210,18 @@ export default function TermsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Shield className="h-5 w-5 text-purple-600" aria-hidden="true" />
+                  <Shield
+                    className="h-5 w-5 text-purple-600"
+                    aria-hidden="true"
+                  />
                   Service Description
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <section>
-                  <span className="font-semibold mb-2">Food Intelligence Features</span>
+                  <span className="font-semibold mb-2">
+                    Food Intelligence Features
+                  </span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• Barcode scanning and product analysis</li>
                     <li>• Health scores and nutritional information</li>
@@ -214,16 +245,44 @@ export default function TermsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="h-5 w-5 text-green-600" aria-hidden="true" />
+                  <CreditCard
+                    className="h-5 w-5 text-green-600"
+                    aria-hidden="true"
+                  />
                   Subscription & Payments
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <section>
+                  <span className="font-semibold mb-2">
+                    Auto-Renewable Subscriptions
+                  </span>
+                  <ul className="text-sm text-muted-foreground space-y-1 ml-4">
+                    <li>
+                      • Payment will be charged to your Apple ID account at the
+                      confirmation of purchase.
+                    </li>
+                    <li>
+                      • Subscription automatically renews unless it is canceled
+                      at least 24 hours before the end of the current period.
+                    </li>
+                    <li>
+                      • Your account will be charged for renewal within 24 hours
+                      prior to the end of the current period.
+                    </li>
+                    <li>
+                      • You can manage and cancel your subscriptions by going to
+                      your account settings on the App Store after purchase.
+                    </li>
+                  </ul>
+                </section>
+                <section>
                   <span className="font-semibold mb-2">Free & Paid Plans</span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-                    <li>• EaterIQ offers both free and paid subscription plans</li>
-                    <li>• Paid subscriptions are billed annually</li>
+                    <li>
+                      • EaterIQ offers both free and paid subscription plans
+                    </li>
+                    <li>• Paid subscriptions are billed Monthly/annually</li>
                     <li>• You may cancel your subscription at any time</li>
                     <li>• Refunds are available within 7 days of purchase</li>
                   </ul>
@@ -231,9 +290,9 @@ export default function TermsPage() {
                 <section>
                   <span className="font-semibold mb-2">Pricing Changes</span>
                   <p className="text-sm text-muted-foreground">
-                    We reserve the right to modify our pricing. Existing subscribers 
-                    will be notified at least 30 days before any price changes affect 
-                    their subscription.
+                    We reserve the right to modify our pricing. Existing
+                    subscribers will be notified at least 30 days before any
+                    price changes affect their subscription.
                   </p>
                 </section>
               </CardContent>
@@ -243,29 +302,46 @@ export default function TermsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-yellow-600" aria-hidden="true" />
+                  <AlertTriangle
+                    className="h-5 w-5 text-yellow-600"
+                    aria-hidden="true"
+                  />
                   Content & Intellectual Property
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <section>
-                  <span className="font-semibold mb-2">User-Generated Content</span>
+                  <span className="font-semibold mb-2">
+                    User-Generated Content
+                  </span>
                   <p className="text-sm text-muted-foreground mb-2">
                     When you create quizzes or submit content to EaterIQ:
                   </p>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
                     <li>• You retain ownership of your original content</li>
-                    <li>• You grant us a license to use, display, and distribute your content</li>
-                    <li>• You are responsible for ensuring your content doesn't infringe others' rights</li>
-                    <li>• We may remove content that violates our community guidelines</li>
+                    <li>
+                      • You grant us a license to use, display, and distribute
+                      your content
+                    </li>
+                    <li>
+                      • You are responsible for ensuring your content doesn't
+                      infringe others' rights
+                    </li>
+                    <li>
+                      • We may remove content that violates our community
+                      guidelines
+                    </li>
                   </ul>
                 </section>
                 <section>
-                  <span className="font-semibold mb-2">Our Intellectual Property</span>
+                  <span className="font-semibold mb-2">
+                    Our Intellectual Property
+                  </span>
                   <p className="text-sm text-muted-foreground">
-                    EaterIQ's technology, algorithms, design, and branding are our
-                    intellectual property. You may not copy, modify, or redistribute 
-                    our proprietary technology without written permission.
+                    EaterIQ's technology, algorithms, design, and branding are
+                    our intellectual property. You may not copy, modify, or
+                    redistribute our proprietary technology without written
+                    permission.
                   </p>
                 </section>
               </CardContent>
@@ -281,28 +357,42 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <section>
-                  <span className="font-semibold mb-2">Health Information Disclaimer</span>
+                  <span className="font-semibold mb-2">
+                    Health Information Disclaimer
+                  </span>
                   <p className="text-sm text-muted-foreground">
-                    EaterIQ provides nutritional information and health scores for
-                    educational purposes only. Our analysis should not be considered 
-                    medical advice. Always consult healthcare professionals for 
-                    dietary and health decisions.
+                    EaterIQ provides nutritional information and health scores
+                    for educational purposes only. Our analysis should not be
+                    considered medical advice. Always consult healthcare
+                    professionals for dietary and health decisions.
                   </p>
                 </section>
                 <section>
-                  <span className="font-semibold mb-2">Service Availability</span>
+                  <span className="font-semibold mb-2">
+                    Service Availability
+                  </span>
                   <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-                    <li>• We strive for 99% uptime but cannot guarantee uninterrupted service</li>
-                    <li>• Features may be added, modified, or removed with notice</li>
-                    <li>• We are not liable for temporary service interruptions</li>
+                    <li>
+                      • We strive for 99% uptime but cannot guarantee
+                      uninterrupted service
+                    </li>
+                    <li>
+                      • Features may be added, modified, or removed with notice
+                    </li>
+                    <li>
+                      • We are not liable for temporary service interruptions
+                    </li>
                   </ul>
                 </section>
                 <section>
-                  <span className="font-semibold mb-2">Limitation of Liability</span>
+                  <span className="font-semibold mb-2">
+                    Limitation of Liability
+                  </span>
                   <p className="text-sm text-muted-foreground">
                     To the maximum extent permitted by law, EaterIQ shall not be
-                    liable for any indirect, incidental, special, or consequential
-                    damages resulting from your use of our service.
+                    liable for any indirect, incidental, special, or
+                    consequential damages resulting from your use of our
+                    service.
                   </p>
                 </section>
               </CardContent>
@@ -312,19 +402,22 @@ export default function TermsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Lock className="h-5 w-5 text-indigo-600" aria-hidden="true" />
+                  <Lock
+                    className="h-5 w-5 text-indigo-600"
+                    aria-hidden="true"
+                  />
                   Privacy & Data Protection
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Your privacy is important to us. Please review our{' '}
+                  Your privacy is important to us. Please review our{" "}
                   <Link
                     href="/privacy/"
                     className="font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
                   >
                     Privacy Policy
-                  </Link>{' '}
+                  </Link>{" "}
                   to understand how we collect, use, and protect your personal
                   information.
                 </p>
@@ -335,7 +428,10 @@ export default function TermsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Gavel className="h-5 w-5 text-orange-600" aria-hidden="true" />
+                  <Gavel
+                    className="h-5 w-5 text-orange-600"
+                    aria-hidden="true"
+                  />
                   Prohibited Activities
                 </CardTitle>
               </CardHeader>
@@ -346,11 +442,17 @@ export default function TermsPage() {
                 <ul className="text-sm text-muted-foreground space-y-2 ml-4">
                   <li>• Using the service for any illegal purpose</li>
                   <li>• Harassing, threatening, or intimidating other users</li>
-                  <li>• Uploading malicious code or attempting to hack the platform</li>
+                  <li>
+                    • Uploading malicious code or attempting to hack the
+                    platform
+                  </li>
                   <li>• Creating fake accounts or impersonating others</li>
                   <li>• Scraping or collecting user data without permission</li>
                   <li>• Circumventing any security measures</li>
-                  <li>• Using automated tools to access the service without authorization</li>
+                  <li>
+                    • Using automated tools to access the service without
+                    authorization
+                  </li>
                 </ul>
               </CardContent>
             </Card>
@@ -359,7 +461,10 @@ export default function TermsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <RefreshCw className="h-5 w-5 text-gray-600" aria-hidden="true" />
+                  <RefreshCw
+                    className="h-5 w-5 text-gray-600"
+                    aria-hidden="true"
+                  />
                   Termination
                 </CardTitle>
               </CardHeader>
@@ -368,11 +473,24 @@ export default function TermsPage() {
                   Either party may terminate this agreement at any time:
                 </p>
                 <ul className="text-sm text-muted-foreground space-y-2 ml-4">
-                  <li>• You may delete your account through the settings page</li>
-                  <li>• We may suspend or terminate accounts that violate these terms</li>
-                  <li>• Upon termination, your access to the service will be discontinued</li>
-                  <li>• Some provisions of these terms may survive termination</li>
-                  <li>• You may request a copy of your data before account deletion</li>
+                  <li>
+                    • You may delete your account through the settings page
+                  </li>
+                  <li>
+                    • We may suspend or terminate accounts that violate these
+                    terms
+                  </li>
+                  <li>
+                    • Upon termination, your access to the service will be
+                    discontinued
+                  </li>
+                  <li>
+                    • Some provisions of these terms may survive termination
+                  </li>
+                  <li>
+                    • You may request a copy of your data before account
+                    deletion
+                  </li>
                 </ul>
               </CardContent>
             </Card>
@@ -387,10 +505,11 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  These Terms shall be governed by and construed in accordance with 
-                  the laws of India, without regard to its conflict of law provisions. 
-                  Any disputes arising from these Terms shall be resolved through 
-                  arbitration in accordance with applicable law.
+                  These Terms shall be governed by and construed in accordance
+                  with the laws of India, without regard to its conflict of law
+                  provisions. Any disputes arising from these Terms shall be
+                  resolved through arbitration in accordance with applicable
+                  law.
                 </p>
               </CardContent>
             </Card>
@@ -402,10 +521,11 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  We may update these Terms periodically. Significant changes will
-                  be communicated through our platform or via email. Continued use
-                  of EaterIQ after changes constitutes acceptance of the updated
-                  Terms. We encourage you to review this page regularly.
+                  We may update these Terms periodically. Significant changes
+                  will be communicated through our platform or via email.
+                  Continued use of EaterIQ after changes constitutes acceptance
+                  of the updated Terms. We encourage you to review this page
+                  regularly.
                 </p>
               </CardContent>
             </Card>
@@ -420,7 +540,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Questions about these Terms? Contact us through our{' '}
+                  Questions about these Terms? Contact us through our{" "}
                   <Link
                     href="/support/"
                     className="font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
@@ -435,13 +555,18 @@ export default function TermsPage() {
 
           {/* Related Links */}
           <section className="mt-12 pt-8 border-t">
-            <h2 className="text-xl font-bold mb-6 text-center">Related Pages</h2>
+            <h2 className="text-xl font-bold mb-6 text-center">
+              Related Pages
+            </h2>
             <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
               <Link href="/privacy/" className="group">
                 <Card className="h-full hover:shadow-md transition-shadow">
                   <CardContent className="p-4 flex items-center gap-4">
                     <div className="p-3 rounded-full bg-primary/10">
-                      <Lock className="h-5 w-5 text-primary" aria-hidden="true" />
+                      <Lock
+                        className="h-5 w-5 text-primary"
+                        aria-hidden="true"
+                      />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold group-hover:text-primary transition-colors">
@@ -451,7 +576,10 @@ export default function TermsPage() {
                         How we protect your data
                       </p>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true" />
+                    <ArrowRight
+                      className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors"
+                      aria-hidden="true"
+                    />
                   </CardContent>
                 </Card>
               </Link>
@@ -460,7 +588,10 @@ export default function TermsPage() {
                 <Card className="h-full hover:shadow-md transition-shadow">
                   <CardContent className="p-4 flex items-center gap-4">
                     <div className="p-3 rounded-full bg-accent/20">
-                      <Mail className="h-5 w-5 text-accent-foreground" aria-hidden="true" />
+                      <Mail
+                        className="h-5 w-5 text-accent-foreground"
+                        aria-hidden="true"
+                      />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold group-hover:text-primary transition-colors">
@@ -470,7 +601,10 @@ export default function TermsPage() {
                         Get help with your account
                       </p>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true" />
+                    <ArrowRight
+                      className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors"
+                      aria-hidden="true"
+                    />
                   </CardContent>
                 </Card>
               </Link>
@@ -479,13 +613,18 @@ export default function TermsPage() {
 
           {/* Explore More */}
           <section className="mt-8">
-            <h2 className="text-xl font-bold mb-6 text-center">Explore EaterIQ</h2>
+            <h2 className="text-xl font-bold mb-6 text-center">
+              Explore EaterIQ
+            </h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
               <Link href="/scanner/" className="group">
                 <Card className="h-full hover:shadow-md transition-shadow">
                   <CardContent className="p-4 flex items-center gap-3">
                     <div className="p-2 rounded-full bg-primary/10">
-                      <Scan className="h-4 w-4 text-primary" aria-hidden="true" />
+                      <Scan
+                        className="h-4 w-4 text-primary"
+                        aria-hidden="true"
+                      />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
@@ -500,7 +639,10 @@ export default function TermsPage() {
                 <Card className="h-full hover:shadow-md transition-shadow">
                   <CardContent className="p-4 flex items-center gap-3">
                     <div className="p-2 rounded-full bg-accent/20">
-                      <BookOpen className="h-4 w-4 text-accent-foreground" aria-hidden="true" />
+                      <BookOpen
+                        className="h-4 w-4 text-accent-foreground"
+                        aria-hidden="true"
+                      />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
@@ -515,7 +657,10 @@ export default function TermsPage() {
                 <Card className="h-full hover:shadow-md transition-shadow">
                   <CardContent className="p-4 flex items-center gap-3">
                     <div className="p-2 rounded-full bg-secondary/20">
-                      <Brain className="h-4 w-4 text-secondary-foreground" aria-hidden="true" />
+                      <Brain
+                        className="h-4 w-4 text-secondary-foreground"
+                        aria-hidden="true"
+                      />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
