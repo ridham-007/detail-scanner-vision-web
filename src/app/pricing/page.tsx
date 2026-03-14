@@ -20,6 +20,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import SubscribeButton from '@/components/pricing/SubscribeButton';
+import FAQSection from '@/app/pricing/FAQSection';
+
 export const SUBSCRIPTION_PLANS = {
   pro: {
     planId: 'pro_yearly',
@@ -520,80 +522,7 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="max-w-3xl mx-auto mb-16">
-          <h2 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <details className="group border rounded-lg" open>
-              <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                Can I cancel anytime?
-                <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div className="px-4 pb-4 text-muted-foreground">
-                Yes! You can cancel your subscription anytime. Your access continues until the end of your billing period. No questions asked, no hidden fees.
-              </div>
-            </details>
-            
-            <details className="group border rounded-lg">
-              <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                What happens to my data if I downgrade?
-                <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div className="px-4 pb-4 text-muted-foreground">
-                Your scan history is preserved, but you&apos;ll only be able to view the most recent 7 days on the free plan. If you upgrade again, your full history will be restored.
-              </div>
-            </details>
-            
-            <details className="group border rounded-lg">
-              <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                Do you offer refunds?
-                <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div className="px-4 pb-4 text-muted-foreground">
-                We offer a 7-day money-back guarantee for new subscribers. If you&apos;re not satisfied with your purchase, contact our support team within 7 days for a full refund.
-              </div>
-            </details>
-            
-            <details className="group border rounded-lg">
-              <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                How do family accounts work?
-                <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div className="px-4 pb-4 text-muted-foreground">
-                Premium subscribers can invite up to 5 family members. Each member gets their own profile with personalized insights, preferences, and dietary alerts. Perfect for families who want to eat healthier together.
-              </div>
-            </details>
-            
-            <details className="group border rounded-lg">
-              <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                What payment methods do you accept?
-                <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div className="px-4 pb-4 text-muted-foreground">
-                We accept all major credit cards (Visa, Mastercard, American Express), debit cards, and UPI payments through our secure payment processor. All transactions are encrypted and secure.
-              </div>
-            </details>
-
-            <details className="group border rounded-lg">
-              <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                Is there a free trial?
-                <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div className="px-4 pb-4 text-muted-foreground">
-                Our Free plan is essentially an unlimited trial! You can use EaterIQ with 5 scans per day forever, no credit card required. When you&apos;re ready for unlimited scans and premium features, upgrade anytime.
-              </div>
-            </details>
-
-            <details className="group border rounded-lg">
-              <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                Can I switch plans later?
-                <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <div className="px-4 pb-4 text-muted-foreground">
-                Absolutely! You can upgrade or downgrade your plan at any time. When upgrading, you&apos;ll get immediate access to new features. When downgrading, changes take effect at your next billing cycle.
-              </div>
-            </details>
-          </div>
-        </section>
+        <FAQSection />
 
         {/* CTA Section */}
         <section className="text-center mb-16 bg-primary/5 rounded-2xl p-8 max-w-4xl mx-auto">
