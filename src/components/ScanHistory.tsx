@@ -172,11 +172,11 @@ const ScanHistory = () => {
           )}
         </CardHeader>
         <CardContent>
-          {tier === "free" && scanHistory.length >= 10 && (
+          {tier === "free" && stats.totalScans >= 10 && (
             <div className="mb-4 rounded-lg border border-dashed border-primary/40 bg-primary/5 px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
                 <p className="text-sm font-semibold">
-                  Showing your last 10 scans
+                  Showing your latest unique scans
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   Upgrade to Pro to unlock your full scan history.
@@ -200,10 +200,13 @@ const ScanHistory = () => {
               <div className="space-y-3">
                 {scanHistory.map((item, index) => (
                   <div key={item.id}>
-                    <div className="flex sm:items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
+                    <div 
+                      className="flex sm:items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors cursor-pointer group"
+                      onClick={() => router.push(`/product/${item.barcode}`)}
+                    >
                       <div className="flex-1 space-y-1">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                          <span className="font-medium text-sm">
+                          <span className="font-medium text-sm group-hover:text-primary transition-colors">
                             {item.product_name}
                           </span>
                           <Badge
@@ -234,7 +237,10 @@ const ScanHistory = () => {
                         variant="ghost"
                         size="sm"
                         aria-label={`Delete scan for ${item.product_name}`}
-                        onClick={() => deleteScanHistoryItem(item.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteScanHistoryItem(item.id);
+                        }}
                         className="p-0 text-muted-foreground hover:text-destructive flex justify-end"
                       >
                         <Trash2 className="h-4 w-4" aria-hidden="true" />

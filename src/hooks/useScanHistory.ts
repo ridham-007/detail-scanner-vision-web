@@ -16,6 +16,7 @@ export interface ScanHistoryItem {
 
 export const useScanHistory = () => {
   const [scanHistory, setScanHistory] = useState<ScanHistoryItem[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
@@ -35,9 +36,9 @@ export const useScanHistory = () => {
           ? 10
           : 100;
 
-      const { data, error } = await supabase
+      const { data, error, count } = await supabase
         .from('scan_history')
-        .select('*')
+        .select('*', { count: 'exact' })
         .eq('user_id', user.id)
         .order('scanned_at', { ascending: false })
         .limit(effectiveLimit);
@@ -46,7 +47,23 @@ export const useScanHistory = () => {
         throw error;
       }
 
-      setScanHistory(data || []);
+      if (data) {
+        // Deduplicate by barcode, keeping only the first (latest) occurrence
+        const uniqueHistory = data.reduce((acc: ScanHistoryItem[], current) => {
+          const isDuplicate = acc.some(item => item.barcode === current.barcode);
+          if (!isDuplicate) {
+            acc.push(current);
+          }
+          return acc;
+        }, []);
+        setScanHistory(uniqueHistory);
+      } else {
+        setScanHistory([]);
+      }
+      
+      if (count !== null) {
+        setTotalCount(count);
+      }
     } catch (err) {
       console.error('Error fetching scan history:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch scan history');
@@ -71,6 +88,7 @@ export const useScanHistory = () => {
 
       // Update local state
       setScanHistory(prev => prev.filter(item => item.id !== id));
+      setTotalCount(prev => Math.max(0, prev - 1));
     } catch (err) {
       console.error('Error deleting scan history item:', err);
       setError(err instanceof Error ? err.message : 'Failed to delete item');
@@ -91,6 +109,7 @@ export const useScanHistory = () => {
       }
 
       setScanHistory([]);
+      setTotalCount(0);
     } catch (err) {
       console.error('Error clearing scan history:', err);
       setError(err instanceof Error ? err.message : 'Failed to clear history');
@@ -98,7 +117,7 @@ export const useScanHistory = () => {
   };
 
   const getStatsFromHistory = () => {
-    const totalScans = scanHistory.length;
+    const totalScans = totalCount;
     const averageHealthScore = scanHistory.length > 0 
       ? scanHistory.reduce((sum, item) => sum + (item.health_score || 0), 0) / scanHistory.length
       : 0;
