@@ -33,10 +33,10 @@ export default function Footer() {
       aria-label="Site footer"
       itemScope
       itemType="https://schema.org/WPFooter"
-      className="border-t border-border bg-card/50 backdrop-blur-sm mt-8"
+      className="mt-10 border-t border-border/70 bg-[rgba(255,250,244,0.86)] backdrop-blur-xl"
     >
       <div className="container mx-auto px-4 py-10 md:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 items-start gap-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 shadow-product sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
 
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
@@ -45,13 +45,13 @@ export default function Footer() {
               className="inline-flex items-center gap-2.5 mb-4 group"
               aria-label="EaterIQ - Go to homepage"
             >
-              <div className="h-10 w-10 rounded-xl bg-primary/15 flex items-center justify-center group-hover:bg-primary/25 transition-colors">
-                <span className="text-xl" role="img" aria-label="Avocado">🥑</span>
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-orange-200/70 bg-gradient-to-br from-orange-200 via-orange-300 to-orange-500 text-orange-950 shadow-[var(--shadow-warm)] transition-transform group-hover:scale-105">
+                <Smartphone className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-foreground">EaterIQ</span>
+              <span className="text-xl font-extrabold tracking-tight text-foreground">EaterIQ</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
-              Scan, understand, and make healthier food choices. Your personal nutrition companion.
+              Scan, understand, and choose better food with the same warm, helpful experience as the app.
             </p>
 
             {/* App Store Badges */}
@@ -222,14 +222,14 @@ export default function Footer() {
               <div className="flex items-center gap-3">
                 <a
                   href="https://www.facebook.com/profile.php?id=61587144212003"
-                  className="bg-primary/10 p-2 rounded-full text-primary hover:bg-primary/20 transition-colors"
+                  className="rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
                   aria-label="Facebook"
                 >
                   <Facebook className="h-4 w-4" />
                 </a>
                 <a
                   href="https://x.com/Eaateriq"
-                  className="bg-primary/10 p-2 rounded-full text-primary hover:bg-primary/20 transition-colors"
+                  className="rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
                   aria-label="Twitter"
                 >
                   <Twitter className="h-4 w-4" />
@@ -237,7 +237,7 @@ export default function Footer() {
                 <a
                   href="mailto:hello@eateriq.com"
                   onClick={handleCopyEmail}
-                  className="bg-primary/10 p-2 rounded-full text-primary hover:bg-primary/20 transition-colors cursor-pointer"
+                  className="cursor-pointer rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
                   aria-label="Copy Email"
                 >
                   <Mail className="h-4 w-4" />

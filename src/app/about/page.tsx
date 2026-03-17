@@ -142,12 +142,12 @@ export default function AboutPage() {
           </nav>
 
           {/* Hero Section */}
-          <header className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <header className="mb-16 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-800">
               <Sparkles className="h-4 w-4" aria-hidden="true" />
               Empowering Healthier Choices
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
               About <span className="text-primary">EaterIQ</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -157,7 +157,7 @@ export default function AboutPage() {
           </header>
 
           {/* Mission Section */}
-          <Card className="mb-12">
+          <Card className="mb-12 rounded-[30px] border-white/70 bg-white/88 shadow-product">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-2xl">
                 <Target className="h-6 w-6 text-primary" aria-hidden="true" />
@@ -188,7 +188,7 @@ export default function AboutPage() {
             <h2 id="stats-heading" className="sr-only">EaterIQ Statistics</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {stats.map((stat, index) => (
-                <Card key={index} className="text-center">
+                <Card key={index} className="rounded-[28px] border-white/70 bg-white/88 text-center shadow-product">
                   <CardContent className="pt-6">
                     <div className="text-3xl font-bold text-primary mb-1">
                       {stat.value}
@@ -209,10 +209,10 @@ export default function AboutPage() {
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {/* Transparency */}
-              <Card>
+              <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50 shadow-[var(--shadow-soft)]">
                       <Shield className="h-6 w-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>
@@ -226,10 +226,10 @@ export default function AboutPage() {
               </Card>
 
               {/* Health First */}
-              <Card>
+              <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50 shadow-[var(--shadow-soft)]">
                       <Heart className="h-6 w-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>
@@ -243,10 +243,10 @@ export default function AboutPage() {
               </Card>
 
               {/* Community Driven */}
-              <Card>
+              <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50 shadow-[var(--shadow-soft)]">
                       <Users className="h-6 w-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>

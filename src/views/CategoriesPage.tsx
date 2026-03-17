@@ -56,31 +56,31 @@ const CategoriesPage = () => {
         canonicalUrl="https://www.eateriq.com/categories/"
       />
       
-      <div className="min-h-screen dark:bg-[#1E2836]">
+      <div className="min-h-screen">
         <div className="container mx-auto px-4 py-8">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-primary mb-4">
+          <div className="mb-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
+            <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground">
               Product Categories
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               Discover products organized by type, nutrition profile, and meal context to make informed choices.
             </p>
           </div>
 
-          <div className="relative mb-8 max-w-md mx-auto">
+          <div className="relative mx-auto mb-8 max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               placeholder="Search categories..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="rounded-full border-white/70 bg-white/90 pl-10 shadow-[var(--shadow-soft)]"
             />
           </div>
 
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <Card key={i} className="animate-pulse">
+                <Card key={i} className="animate-pulse rounded-[28px] border-white/70 bg-white/88 shadow-product">
                   <CardHeader>
                     <div className="h-6 bg-muted rounded w-3/4" />
                   </CardHeader>
@@ -96,11 +96,11 @@ const CategoriesPage = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredCategories?.map((category) => (
-                <Card key={category.id} className="hover:shadow-lg transition-shadow">
+                <Card key={category.id} className="rounded-[28px] border-white/70 bg-white/88 transition-shadow hover:shadow-[var(--shadow-warm)]">
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
                       {category.name}
-                      <Badge variant="outline" className="ml-2">
+                      <Badge variant="outline" className="ml-2 rounded-full border-orange-200/80 bg-orange-50 text-orange-800">
                         {category.subcategories?.length || 0} types
                       </Badge>
                     </CardTitle>
@@ -117,7 +117,7 @@ const CategoriesPage = () => {
                         return (
                           <div 
                             key={subcategory.id}
-                            className="flex items-center justify-between p-2 rounded-lg hover:bg-muted/50 transition-colors"
+                            className="flex items-center justify-between rounded-[20px] border border-orange-100/60 bg-orange-50/40 p-3 transition-colors hover:bg-orange-50/80"
                           >
                             <div>
                               <div className="font-medium text-sm">

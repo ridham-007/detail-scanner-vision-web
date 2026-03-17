@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Shield, FileText, Package, Bell, BookOpen } from "lucide-react";
+import { Shield, FileText, Package, Bell, BookOpen, ScanLine, Sparkles } from "lucide-react";
 
 const Header = () => {
   const pathname = usePathname();
@@ -27,28 +27,26 @@ const Header = () => {
   return (
     <header 
       role="banner"
-      className="sticky top-0 z-50 w-full border-b border-primary/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm"
+      className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/90 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70"
     >
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between rounded-[28px] border border-white/60 bg-white/80 px-4 py-3 shadow-product">
           <div className="flex items-center space-x-3">
             <Link href="/" aria-label="EaterIQ Home">
-              <div className="h-10 w-10 sm:h-20 sm:w-20 rounded-2xl flex items-center justify-center transition-all duration-300">
-                <span className="text-4xl filter" role="img" aria-label="Avocado logo">🥑</span>
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/50 bg-gradient-to-br from-orange-300 via-orange-400 to-orange-600 text-white shadow-[var(--shadow-warm)] transition-transform duration-300 hover:scale-105">
+                <ScanLine className="h-5 w-5" />
               </div>
             </Link>
             <Link href={'/'} className="cursor-pointer group" aria-label="EaterIQ - Smart Food Intelligence">
               <h2
-                // ref={titleRef}
-                className="text-2xl md:text-3xl font-bold text-primary group-hover:text-primary/80 transition-all duration-300"
+                className="text-2xl font-extrabold tracking-tight text-foreground transition-all duration-300 group-hover:text-primary md:text-3xl"
               >
                 EaterIQ
               </h2>
               <p
-                // ref={subtitleRef}
-                className="text-xs md:text-sm text-muted-foreground/80 group-hover:text-muted-foreground transition-colors duration-300"
+                className="text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/70 md:text-sm"
               >
-                Smart Food Intelligence & Brain Bites
+                Bright scans, smarter food choices
               </p>
             </Link>
           </div>
@@ -65,11 +63,11 @@ const Header = () => {
                   className={`font-medium transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
                     pathname === item.path
                       ? "text-primary font-bold"
-                      : "text-muted-foreground hover:text-primary"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {item.label}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  <span className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-primary transition-all duration-300 ${
                     pathname === item.path 
                       ? "w-full" 
                       : "w-0 group-hover:w-full"
@@ -79,10 +77,11 @@ const Header = () => {
 
               {/* Resources Dropdown */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground hover:text-primary transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm">
+                <DropdownMenuTrigger className="flex items-center gap-1 rounded-sm font-medium text-muted-foreground transition-all duration-300 hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
                   Resources
+                  <Sparkles className="h-3.5 w-3.5 text-primary/70" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuContent align="start" className="w-52 rounded-2xl border-border/80 bg-white/95 shadow-product">
                   <DropdownMenuItem asChild>
                     <Link href="/user-guide" className="flex items-center gap-2 cursor-pointer">
                       <BookOpen className="h-4 w-4" />
@@ -107,11 +106,11 @@ const Header = () => {
               {/* Admin Dropdown */}
               {isAdmin && (
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground hover:text-primary transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm">
+                  <DropdownMenuTrigger className="flex items-center gap-1 rounded-sm font-medium text-muted-foreground transition-all duration-300 hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
                     <Shield className="h-4 w-4" />
                     Admin
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
+                  <DropdownMenuContent align="end" className="rounded-2xl border-border/80 bg-white/95 shadow-product">
                     <DropdownMenuItem asChild>
                       <Link href="/admin/blogs" className="flex items-center gap-2 cursor-pointer">
                         <FileText className="h-4 w-4" />

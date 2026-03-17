@@ -23,7 +23,7 @@ export default function ScrollToScannerButton({ variant = 'default' }: ScrollToS
     return (
       <Button
         size="lg"
-        className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg rounded-xl shadow-lg"
+        className="rounded-2xl bg-foreground px-8 py-6 text-lg text-primary-foreground shadow-[var(--shadow-warm)] hover:bg-foreground/92"
         onClick={scrollToScanner}
       >
         <Scan className="mr-2 h-5 w-5" aria-hidden="true" />
@@ -36,7 +36,7 @@ export default function ScrollToScannerButton({ variant = 'default' }: ScrollToS
     return (
       <Button
         size="lg"
-        className="bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+        className="rounded-2xl bg-primary px-8 text-primary-foreground shadow-[var(--shadow-warm)] hover:bg-primary/92"
         onClick={scrollToScanner}
       >
         Try It Now - It&apos;s Free
@@ -48,7 +48,7 @@ export default function ScrollToScannerButton({ variant = 'default' }: ScrollToS
   return (
     <Button
       size="lg"
-      className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-5 text-base font-semibold rounded-xl"
+      className="rounded-2xl bg-primary px-6 py-5 text-base font-semibold text-primary-foreground shadow-[var(--shadow-warm)] hover:bg-primary/92"
       onClick={scrollToScanner}
     >
       <Scan className="mr-2 h-5 w-5" aria-hidden="true" />

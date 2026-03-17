@@ -70,11 +70,13 @@ const DeleteAccountPage = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(var(--accent),0.14),transparent_30%),linear-gradient(180deg,rgb(var(--background)),rgba(var(--accent-soft),0.22))] flex items-center justify-center">
         <div className="container max-w-2xl mx-auto px-4 py-12">
-          <Card className="border-green-500/20">
+          <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
             <CardHeader className="text-center">
-              <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+              <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-[28px] bg-emerald-50 text-emerald-700">
+                <CheckCircle className="h-10 w-10" />
+              </div>
               <CardTitle className="text-2xl">Request Submitted</CardTitle>
               <CardDescription className="text-base">
                 Your account deletion request has been received
@@ -104,25 +106,27 @@ const DeleteAccountPage = () => {
         description="Request deletion of your EaterIQ account and all associated data."
         canonicalUrl="https://www.eateriq.com/delete-account/"
       />
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(var(--accent),0.14),transparent_30%),linear-gradient(180deg,rgb(var(--background)),rgba(var(--accent-soft),0.22))] flex items-center justify-center">
         <div className="container max-w-2xl mx-auto px-4 py-12">
-          <Card>
+          <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
             <CardHeader className="text-center">
-              <Trash2 className="w-12 h-12 text-destructive mx-auto mb-4" />
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-rose-50 text-rose-700">
+                <Trash2 className="h-8 w-8" />
+              </div>
               <CardTitle className="text-2xl">Delete Your Account</CardTitle>
               <CardDescription className="text-base">
                 Request permanent deletion of your EaterIQ account and data
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Alert variant="destructive" className="mb-6">
+              <Alert variant="destructive" className="mb-6 rounded-2xl border-rose-200 bg-rose-50 text-rose-900">
                 <AlertTriangle className="h-4 w-4" />
                 <AlertDescription>
                   This action is irreversible. All your data will be permanently deleted within 7 days.
                 </AlertDescription>
               </Alert>
 
-              <div className="mb-6">
+              <div className="mb-6 rounded-[28px] border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/35 p-5">
                 <h3 className="font-semibold mb-3">The following data will be deleted:</h3>
                 <ul className="space-y-2">
                   {dataToBeDeleted.map((item, index) => (
@@ -145,6 +149,7 @@ const DeleteAccountPage = () => {
                     placeholder="Enter the email associated with your account"
                     required
                     disabled={!!user?.email}
+                    className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white"
                   />
                   <p className="text-xs text-muted-foreground">
                     Enter the email address you used to create your account
@@ -159,6 +164,7 @@ const DeleteAccountPage = () => {
                     onChange={(e) => setReason(e.target.value)}
                     placeholder="Help us improve by sharing why you're leaving..."
                     rows={3}
+                    className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white"
                   />
                 </div>
 
@@ -176,7 +182,7 @@ const DeleteAccountPage = () => {
                 <Button
                   type="submit"
                   variant="destructive"
-                  className="w-full"
+                  className="w-full rounded-full"
                   disabled={loading || !confirmed || !email}
                 >
                   {loading ? 'Submitting...' : 'Submit Deletion Request'}

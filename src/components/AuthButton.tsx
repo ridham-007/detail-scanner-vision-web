@@ -68,14 +68,14 @@ const AuthButton = () => {
   };
 
   if (loading) {
-    return <Button aria-label="Loading..." variant="outline" disabled>Loading...</Button>;
+    return <Button aria-label="Loading..." variant="outline" disabled className="rounded-full border-white/70 bg-white/80">Loading...</Button>;
   }
 
   if (user) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button aria-label="User Menu" variant="outline" size="sm" className="gap-2 hover:bg-primary hover:text-white">
+          <Button aria-label="User Menu" variant="outline" size="sm" className="gap-2 rounded-full border-white/70 bg-white/85 shadow-[var(--shadow-soft)] hover:bg-orange-50 hover:text-foreground">
             <Avatar className="h-6 w-6">
               <AvatarImage alt="user avatar" src={avatarUrl || undefined}/>
               <AvatarFallback className="text-xs">
@@ -86,14 +86,14 @@ const AuthButton = () => {
             <Menu className="h-4 w-4 md:hidden" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuContent align="end" className="w-56 rounded-3xl border-white/70 bg-white/95 p-2 shadow-product backdrop-blur-sm">
           {/* Mobile Navigation Items */}
           <div className="md:hidden">
             {navigationItems.map((item) => (
               <DropdownMenuItem 
                 key={item.path}
                 onClick={() => router.push(item.path)}
-                className={pathname === item.path ? 'bg-muted' : ''}
+                className={pathname === item.path ? 'bg-orange-50 text-foreground' : 'rounded-2xl'}
               >
                 <item.icon className="h-4 w-4 mr-2" />
                 {item.label}
@@ -104,12 +104,12 @@ const AuthButton = () => {
           
           {/* User Menu Items */}
           {username && (
-            <DropdownMenuItem onClick={() => router.push(`/profile/${username}`)} className=' hover:!bg-primary hover:!text-white'>
+            <DropdownMenuItem onClick={() => router.push(`/profile/${username}`)} className='rounded-2xl hover:!bg-orange-50 hover:!text-foreground'>
               <User className="h-4 w-4 mr-2" />
               View Profile
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem onClick={() => router.push('/settings')} className=' hover:!bg-primary hover:!text-white'>
+          <DropdownMenuItem onClick={() => router.push('/settings')} className='rounded-2xl hover:!bg-orange-50 hover:!text-foreground'>
             <Settings className="h-4 w-4 mr-2" />
             Settings
           </DropdownMenuItem>
@@ -118,14 +118,14 @@ const AuthButton = () => {
           {isAdmin && (
             <>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => router.push('/admin/blogs')} className=' hover:!bg-primary hover:!text-white'>
+              <DropdownMenuItem onClick={() => router.push('/admin/blogs')} className='rounded-2xl hover:!bg-orange-50 hover:!text-foreground'>
                 <Shield className="h-4 w-4 mr-2" />
                 Manage Blogs
               </DropdownMenuItem>
             </>
           )}
           
-          <DropdownMenuItem onClick={signOut} className=' hover:!bg-primary hover:!text-white'>
+          <DropdownMenuItem onClick={signOut} className='rounded-2xl hover:!bg-orange-50 hover:!text-foreground'>
             <LogOut className="h-4 w-4 mr-2" />
             Sign Out
           </DropdownMenuItem>
@@ -140,23 +140,23 @@ const AuthButton = () => {
       <div className="md:hidden">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button aria-label="Mobile Menu" variant="outline" size="sm">
+            <Button aria-label="Mobile Menu" variant="outline" size="sm" className="rounded-full border-white/70 bg-white/85 shadow-[var(--shadow-soft)]">
               <Menu className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuContent align="end" className="w-56 rounded-3xl border-white/70 bg-white/95 p-2 shadow-product backdrop-blur-sm">
             {navigationItems.map((item) => (
               <DropdownMenuItem 
                 key={item.path}
                 onClick={() => router.push(item.path)}
-                className={pathname === item.path ? 'bg-muted' : ''}
+                className={pathname === item.path ? 'bg-orange-50 text-foreground' : 'rounded-2xl'}
               >
                 <item.icon className="h-4 w-4 mr-2" />
                 {item.label}
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => router.push('/auth')}>
+            <DropdownMenuItem onClick={() => router.push('/auth')} className="rounded-2xl hover:!bg-orange-50 hover:!text-foreground">
               <LogIn className="h-4 w-4 mr-2" />
               Sign In
             </DropdownMenuItem>
@@ -168,7 +168,7 @@ const AuthButton = () => {
       <Button 
         aria-label="Sign In"
         onClick={() => router.push('/auth')} 
-        className="hidden md:flex bg-primary text-primary-foreground"
+        className="hidden rounded-full shadow-[var(--shadow-warm)] md:flex"
       >
         <LogIn className="h-4 w-4 mr-2" />
         Sign In

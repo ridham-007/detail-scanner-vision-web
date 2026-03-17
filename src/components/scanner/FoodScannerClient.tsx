@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, Scan, BookOpen, Brain, ArrowRight } from 'lucide-react';
+import { Search, Scan, BookOpen, Brain, ArrowRight, Sparkles, ShieldCheck } from 'lucide-react';
 import BarcodeScanner from '@/components/BarcodeScanner';
 import ProductDetails from '@/components/ProductDetails';
 import { useProductLookup } from '@/hooks/useProductLookup';
@@ -171,29 +171,31 @@ export default function FoodScannerClient() {
       </nav>
 
       {/* Hero Section */}
-      <header className="text-center space-y-6 py-8">
+      <header className="space-y-6 rounded-[32px] border border-white/60 bg-white/80 px-6 py-10 text-center shadow-product backdrop-blur-sm md:px-10">
         <div className="space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 shadow-[var(--shadow-soft)]">
+            <Sparkles className="h-4 w-4" />
+            Scanner built for quick, confident choices
+          </div>
           <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
             Food Scanner
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Decode product quality in seconds. Get instant nutrition insights and make informed food choices.
+            Decode product quality in seconds with the same bright, practical guidance you see in the app.
           </p>
         </div>
 
         {/* Quick stats */}
-        <div className="flex items-center justify-center gap-8 mt-8">
-          <div className="text-center">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6">
+          <div className="min-w-[112px] rounded-[22px] border border-orange-100/80 bg-orange-50/70 px-5 py-4 text-center">
             <div className="text-2xl font-bold text-primary">1M+</div>
             <div className="text-sm text-muted-foreground">Products</div>
           </div>
-          <div className="w-px h-8 bg-border" aria-hidden="true"></div>
-          <div className="text-center">
+          <div className="min-w-[112px] rounded-[22px] border border-orange-100/80 bg-orange-50/70 px-5 py-4 text-center">
             <div className="text-2xl font-bold text-primary">10s</div>
             <div className="text-sm text-muted-foreground">Analysis</div>
           </div>
-          <div className="w-px h-8 bg-border" aria-hidden="true"></div>
-          <div className="text-center">
+          <div className="min-w-[112px] rounded-[22px] border border-orange-100/80 bg-orange-50/70 px-5 py-4 text-center">
             <div className="text-2xl font-bold text-primary">100%</div>
             <div className="text-sm text-muted-foreground">Free</div>
           </div>
@@ -202,10 +204,10 @@ export default function FoodScannerClient() {
 
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Scanner Section */}
-        <Card className="border-none shadow-[var(--shadow-product)] bg-primary/5">
+        <Card className="overflow-hidden rounded-[30px] border border-white/60 bg-[linear-gradient(180deg,rgba(255,237,213,0.72),rgba(255,250,244,0.96))] shadow-product">
           <CardHeader className="pb-6">
             <CardTitle className="flex items-center gap-3 text-2xl font-bold">
-              <div className="p-3 rounded-full bg-primary/20">
+              <div className="rounded-2xl bg-white/70 p-3 shadow-[var(--shadow-soft)]">
                 <Scan className="h-6 w-6 text-primary" aria-hidden="true" />
               </div>
               Instant Scan
@@ -224,11 +226,11 @@ export default function FoodScannerClient() {
         </Card>
 
         {/* Manual Entry Section */}
-        <Card className="border-none shadow-[var(--shadow-product)] bg-gradient-to-br from-secondary/30 to-accent/20">
+        <Card className="overflow-hidden rounded-[30px] border border-white/60 bg-white/84 shadow-product">
           <CardHeader className="pb-6">
             <CardTitle className="flex items-center gap-3 text-2xl font-bold">
-              <div className="p-3 rounded-full bg-secondary/20">
-                <Search className="h-6 w-6 text-secondary-foreground" aria-hidden="true" />
+              <div className="rounded-2xl bg-orange-50 p-3 shadow-[var(--shadow-soft)]">
+                <Search className="h-6 w-6 text-primary" aria-hidden="true" />
               </div>
               Manual Entry
             </CardTitle>
@@ -244,7 +246,7 @@ export default function FoodScannerClient() {
                 value={manualBarcode}
                 onChange={(e) => setManualBarcode(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleManualLookup()}
-                className="text-base py-6 border-2 border-border/50 focus:border-primary rounded-xl"
+                className="rounded-2xl border-2 border-orange-100/80 bg-[rgba(255,250,244,0.94)] py-6 text-base focus:border-primary"
                 aria-label="Barcode number"
               />
               <Button
@@ -252,29 +254,37 @@ export default function FoodScannerClient() {
                 onClick={handleManualLookup}
                 disabled={isLoading || !manualBarcode.trim()}
                 size="lg"
-                className="px-6 py-6 rounded-xl"
+                className="rounded-2xl bg-foreground px-6 py-6 text-primary-foreground shadow-[var(--shadow-warm)] hover:bg-foreground/92"
               >
                 <Search className="h-5 w-5" aria-hidden="true" />
               </Button>
             </div>
-            <div className="p-4 bg-muted/40 rounded-xl border border-border/30">
+            <div className="rounded-[22px] border border-orange-100/80 bg-orange-50/60 p-4">
               <p className="text-sm text-muted-foreground">
                 <span className="font-bold text-foreground">Try these samples:</span>
               </p>
               <div className="mt-2 space-y-1">
                 <button
                   onClick={() => setManualBarcode('8906000610077')}
-                  className="block text-sm text-primary hover:underline"
+                  className="block text-sm font-semibold text-primary hover:underline"
                 >
                   8906000610077 (Crispy Potatoes)
                 </button>
                 <button
                   onClick={() => setManualBarcode('8906019779840')}
-                  className="block text-sm text-primary hover:underline"
+                  className="block text-sm font-semibold text-primary hover:underline"
                 >
                   8906019779840 (Mix Dry Fruits)
                 </button>
               </div>
+            </div>
+            <div className="flex items-start gap-3 rounded-[22px] border border-orange-100/80 bg-white/80 p-4">
+              <div className="mt-0.5 rounded-full bg-orange-50 p-2">
+                <ShieldCheck className="h-4 w-4 text-primary" />
+              </div>
+              <p className="text-sm leading-6 text-muted-foreground">
+                The scanner stays lightweight and fast, then opens the richer ingredient and nutrition breakdown below.
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -291,14 +301,14 @@ export default function FoodScannerClient() {
       </div>
 
       {/* SEO-friendly content section (visible) */}
-      <section className="py-12 border-t">
+      <section className="border-t border-border/70 py-12">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6 text-center">
+          <h2 className="mb-6 text-center text-2xl font-extrabold">
             How the Food Scanner Works
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center p-6">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="rounded-[26px] border border-white/65 bg-white/82 p-6 text-center shadow-product">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-50">
                 <span className="text-xl font-bold text-primary">1</span>
               </div>
               <h3 className="font-semibold mb-2">Scan the Barcode</h3>
@@ -306,8 +316,8 @@ export default function FoodScannerClient() {
                 Point your camera at any food product barcode or enter it manually.
               </p>
             </div>
-            <div className="text-center p-6">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="rounded-[26px] border border-white/65 bg-white/82 p-6 text-center shadow-product">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-50">
                 <span className="text-xl font-bold text-primary">2</span>
               </div>
               <h3 className="font-semibold mb-2">Instant Analysis</h3>
@@ -315,8 +325,8 @@ export default function FoodScannerClient() {
                 EaterIQ analyzes ingredients, nutrition facts, and additives in seconds.
               </p>
             </div>
-            <div className="text-center p-6">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="rounded-[26px] border border-white/65 bg-white/82 p-6 text-center shadow-product">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-50">
                 <span className="text-xl font-bold text-primary">3</span>
               </div>
               <h3 className="font-semibold mb-2">Get Insights</h3>
@@ -329,13 +339,13 @@ export default function FoodScannerClient() {
       </section>
 
       {/* Related Links for Internal Linking */}
-      <section className="py-8 border-t">
+      <section className="border-t border-border/70 py-8">
         <h2 className="text-xl font-bold mb-6 text-center">
           Explore More
         </h2>
         <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
           <Link href="/blog/" className="group">
-            <Card className="h-full hover:shadow-md transition-shadow">
+            <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
               <CardContent className="p-4 flex items-center gap-4">
                 <div className="p-3 rounded-full bg-primary/10">
                   <BookOpen className="h-5 w-5 text-primary" aria-hidden="true" />
@@ -353,7 +363,7 @@ export default function FoodScannerClient() {
             </Card>
           </Link>
           <Link href="/quiz/" className="group">
-            <Card className="h-full hover:shadow-md transition-shadow">
+            <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
               <CardContent className="p-4 flex items-center gap-4">
                 <div className="p-3 rounded-full bg-accent/20">
                   <Brain className="h-5 w-5 text-accent-foreground" aria-hidden="true" />
@@ -374,13 +384,13 @@ export default function FoodScannerClient() {
       </section>
 
       {/* FAQ Section (Visible, matches schema) */}
-      <section className="py-8 border-t">
+      <section className="border-t border-border/70 py-8">
         <h2 className="text-xl font-bold mb-6 text-center">
           Frequently Asked Questions
         </h2>
         <div className="max-w-2xl mx-auto space-y-4">
-          <details className="group border rounded-lg">
-            <summary className="p-4 cursor-pointer font-medium flex items-center justify-between">
+          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
+            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
               How does the food scanner work?
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
             </summary>
@@ -390,8 +400,8 @@ export default function FoodScannerClient() {
               health score and detailed breakdown.
             </div>
           </details>
-          <details className="group border rounded-lg">
-            <summary className="p-4 cursor-pointer font-medium flex items-center justify-between">
+          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
+            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
               Is the food scanner free to use?
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
             </summary>
@@ -400,8 +410,8 @@ export default function FoodScannerClient() {
               nutrition insights without any cost.
             </div>
           </details>
-          <details className="group border rounded-lg">
-            <summary className="p-4 cursor-pointer font-medium flex items-center justify-between">
+          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
+            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
               What information does the scanner provide?
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
             </summary>

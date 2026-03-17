@@ -257,15 +257,15 @@ export default async function QuizPage() {
           </nav>
 
           {/* Hero Section */}
-          <header className="text-center mb-12">
+          <header className="mb-12 text-center">
             <Badge className="mb-4" variant="secondary">
               <Brain className="w-3 h-3 mr-1" aria-hidden="true" />
               {quizzes.length}+ Quizzes Available
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl">
               Quiz Hub
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+            <p className="mx-auto mb-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
               Challenge yourself with fun and educational nutrition quizzes. 
               Test your food knowledge, learn new facts, and compete with others!
             </p>
@@ -292,8 +292,8 @@ export default async function QuizPage() {
 
           {/* All Quizzes Section */}
           <section className="mb-16" aria-labelledby="all-quizzes-heading">
-            <div className="flex items-center justify-between mb-8">
-              <h2 id="all-quizzes-heading" className="text-2xl font-bold flex items-center gap-2">
+            <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h2 id="all-quizzes-heading" className="flex items-center gap-2 text-2xl font-bold">
                 <Brain className="w-6 h-6 text-primary" aria-hidden="true" />
                 All Quizzes
               </h2>
@@ -304,14 +304,14 @@ export default async function QuizPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {quizzes.map((quiz) => (
                   <article key={quiz.id}>
-                    <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
-                      <CardHeader className="pb-3 min-h-[140px]">
+                      <Card className="flex h-full flex-col transition-shadow hover:shadow-lg">
+                      <CardHeader className="min-h-[120px] pb-3 sm:min-h-[140px]">
                         <div className="flex items-start justify-between mb-2">
                           <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
                             {quiz.difficulty.toUpperCase()}
                           </Badge>
                         </div>
-                        <CardTitle className="text-lg font-semibold capitalize line-clamp-2 min-h-[52px] leading-relaxed">
+                        <CardTitle className="min-h-[48px] text-lg font-semibold capitalize leading-relaxed line-clamp-2 sm:min-h-[52px]">
                           <Link 
                             href={`/quiz/${quiz.slug}/`}
                             className="hover:text-primary transition-colors"
@@ -322,7 +322,7 @@ export default async function QuizPage() {
                       </CardHeader>
                       <CardContent className="flex-1 flex flex-col pt-0">
                         {quiz.description && (
-                          <p className="text-sm text-muted-foreground mb-4 h-[44px] overflow-hidden">
+                          <p className="mb-4 min-h-[40px] text-sm text-muted-foreground sm:min-h-[44px]">
                             {quiz.description}
                           </p>
                         )}
@@ -415,12 +415,12 @@ export default async function QuizPage() {
           )} */}
 
           {/* How It Works Section */}
-          <section className="mb-16 py-12 bg-muted/30 rounded-2xl" aria-labelledby="how-it-works-heading">
-            <div className="max-w-4xl mx-auto px-6">
+          <section className="mb-16 rounded-2xl bg-muted/30 py-10 sm:py-12" aria-labelledby="how-it-works-heading">
+            <div className="mx-auto max-w-4xl px-4 sm:px-6">
               <h2 id="how-it-works-heading" className="text-2xl font-bold mb-8 text-center">
                 How Quiz Hub Works
               </h2>
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid gap-8 md:grid-cols-3">
                 <div className="text-center">
                   <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl font-bold text-primary">1</span>
@@ -457,7 +457,7 @@ export default async function QuizPage() {
             <h2 id="topics-heading" className="text-2xl font-bold mb-8 text-center">
               Quiz Topics We Cover
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
                 <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
                 <span className="text-sm font-medium">Nutrition Basics</span>

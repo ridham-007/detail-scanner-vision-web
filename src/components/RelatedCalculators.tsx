@@ -18,8 +18,8 @@ const RelatedCalculators: React.FC<RelatedCalculatorsProps> = ({
   if (calculators.length === 0) return null;
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl border dark:border-gray-700 p-5">
-      <span className="font-semibold mb-4 text-gray-900 dark:text-white">
+    <div className="rounded-[28px] border border-white/70 bg-white/88 p-5 shadow-product">
+      <span className="mb-4 font-semibold text-foreground">
         Related Calculators
       </span>
 
@@ -30,24 +30,24 @@ const RelatedCalculators: React.FC<RelatedCalculatorsProps> = ({
             to={calc.path}
             className="
               flex flex-col p-4 
-              rounded-xl 
-              border border-gray-100 dark:border-gray-700
-              hover:border-gray-200 dark:hover:border-gray-600
-              hover:shadow-sm 
-              transition-all group 
-              bg-white dark:bg-gray-800
+              rounded-[22px]
+              border border-orange-100/70
+              hover:border-orange-200/80
+              hover:shadow-[var(--shadow-soft)]
+              transition-all group
+              bg-orange-50/35
             "
           >
             <div
               className="
                 w-10 h-10 
-                bg-green-50 dark:bg-gray-700
-                text-[#84B44C] 
-                rounded-xl 
+                bg-orange-50
+                text-primary
+                rounded-2xl
                 flex items-center justify-center 
                 mb-3 
                 group-hover:scale-105 
-                transition-transform
+                transition-transform shadow-[var(--shadow-soft)]
               "
             >
               <Calculator className="h-5 w-5" />
@@ -56,8 +56,8 @@ const RelatedCalculators: React.FC<RelatedCalculatorsProps> = ({
             <span
               className="
                 text-sm font-semibold 
-                text-gray-900 dark:text-gray-100
-                group-hover:text-[#84B44C] 
+                text-foreground
+                group-hover:text-primary
                 transition-colors leading-tight
               "
             >

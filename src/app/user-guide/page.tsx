@@ -112,13 +112,13 @@ export default function UserGuidePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(var(--accent),0.1),transparent_24%),linear-gradient(180deg,rgb(var(--background)),rgba(var(--accent-soft),0.14))]">
       {/* Hero Section */}
-      <section className="relative py-12 md:py-24 overflow-hidden border-b border-border animate-fade-in">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background -z-10" />
+      <section className="relative overflow-hidden border-b border-border animate-fade-in py-12 md:py-24">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(251,146,60,0.12),transparent_50%)]" />
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-left md:text-center">
-            <Badge variant="outline" className="mb-4 py-1 px-4 border-primary/20 bg-primary/5 text-primary animate-scale-in text-[10px] md:text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
+          <div className="mx-auto max-w-4xl rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-left shadow-product backdrop-blur-sm md:text-center">
+            <Badge variant="outline" className="mb-4 animate-scale-in rounded-full border-orange-200/70 bg-orange-50 px-4 py-1 text-[10px] font-bold uppercase tracking-widest text-orange-800 backdrop-blur-sm md:text-xs">
               <BookOpen className="h-3 w-3 md:h-4 md:w-4 mr-2" />
               User Guide
             </Badge>
@@ -129,11 +129,11 @@ export default function UserGuidePage() {
               Decipher labels, compare nutrients, and track your health in real-time.
             </p>
             <div className="flex flex-col sm:flex-row justify-start md:justify-center gap-4">
-              <Button onClick={() => scrollToSection('getting-started')} size="lg" className="rounded-xl md:rounded-2xl px-8 md:px-10 h-12 md:h-14 text-sm md:text-base font-bold shadow-lg shadow-primary/10 hover-scale bg-primary">
+              <Button onClick={() => scrollToSection('getting-started')} size="lg" className="h-12 rounded-full bg-primary px-8 text-sm font-bold shadow-[var(--shadow-warm)] md:h-14 md:px-10 md:text-base">
                 Get Started <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
               <Link href="/support">
-                <Button variant="outline" size="lg" className="rounded-xl md:rounded-2xl px-8 h-12 md:h-14 text-sm md:text-base font-bold hover-scale border-border bg-background/50">
+                <Button variant="outline" size="lg" className="h-12 rounded-full border-orange-200/80 bg-white/90 px-8 text-sm font-bold md:h-14 md:text-base">
                   Support
                 </Button>
               </Link>
@@ -147,13 +147,13 @@ export default function UserGuidePage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
 
           {/* Mobile Navigation (Sticky on small screens) */}
-          <div className="lg:hidden sticky top-[56px] z-30 -mx-4 px-4 py-3 bg-background/60 backdrop-blur-xl border-b border-border/50 mb-8 overflow-hidden">
+          <div className="lg:hidden sticky top-[56px] z-30 -mx-4 mb-8 overflow-hidden border-b border-orange-100/80 bg-background/70 px-4 py-3 backdrop-blur-xl">
             <div className="flex overflow-x-auto pb-1 gap-2 no-scrollbar snap-x scroll-smooth">
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-[11px] font-bold whitespace-nowrap snap-start hover:bg-primary/10 shadow-sm"
+                  className="flex-shrink-0 snap-start whitespace-nowrap rounded-full border border-orange-200/80 bg-orange-50 px-4 py-2 text-[11px] font-bold shadow-[var(--shadow-soft)]"
                 >
                   <div className="text-primary">
                     {React.cloneElement(section.icon as React.ReactElement, { className: "h-3 w-3" })}
@@ -166,13 +166,13 @@ export default function UserGuidePage() {
 
           {/* Sticky Sidebar Nav (Desktop only) */}
           <aside className="lg:col-span-1 hidden lg:block animate-fade-in">
-            <div className="sticky top-24 space-y-1 p-2 rounded-2xl bg-muted/30 border border-border shadow-sm">
+            <div className="sticky top-24 space-y-1 rounded-[28px] border border-white/70 bg-white/88 p-2 shadow-product">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60 mb-3 mt-2 ml-4">Table of Contents</p>
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all hover:bg-white dark:hover:bg-background hover:shadow-sm text-muted-foreground hover:text-primary group text-left"
+                  className="group flex w-full items-center gap-3 rounded-[20px] px-4 py-3 text-left text-sm font-semibold text-muted-foreground transition-all hover:bg-orange-50/80 hover:text-primary hover:shadow-[var(--shadow-soft)]"
                 >
                   <div className="transition-transform group-hover:scale-110 shrink-0">
                     {React.cloneElement(section.icon as React.ReactElement, { className: "h-4 w-4" })}
@@ -195,7 +195,7 @@ export default function UserGuidePage() {
                 <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Getting Started</h2>
               </div>
 
-              <div className="bg-card border border-border/50 rounded-3xl p-6 md:p-8 mb-12 shadow-sm relative overflow-hidden group">
+              <div className="mb-12 overflow-hidden rounded-3xl border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] relative group md:p-8">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl" />
                 <p className="text-sm md:text-lg leading-relaxed mb-8 font-medium text-foreground/80">
                   Welcome back! Maximize your <span className="text-primary font-bold">EaterIQ</span> experience with these three essential steps:
@@ -245,7 +245,7 @@ export default function UserGuidePage() {
                         { s: 2, t: 'Point & Scan', d: 'Hover over barcodes or ingredients labels.' },
                         { s: 3, t: 'Get Insights', d: 'View scores, warnings, and alternatives.' }
                       ].map((step) => (
-                        <div key={step.s} className="flex gap-4 items-start p-4 bg-primary/5 rounded-2xl border border-primary/10">
+                    <div key={step.s} className="flex gap-4 items-start rounded-2xl border border-primary/10 bg-white p-4 shadow-[var(--shadow-soft)]">
                           <div className="shrink-0 w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-black text-xs shadow-sm shadow-primary/20">
                             {step.s}
                           </div>
@@ -275,7 +275,7 @@ export default function UserGuidePage() {
                   <h3 className="text-lg md:text-2xl font-bold mb-4 md:mb-6">Global Health Scores</h3>
                   <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                     {scoreLevels.map((level) => (
-                      <div key={level.label} className="p-3 md:p-5 rounded-2xl bg-card border border-border hover:shadow-md transition-shadow">
+                      <div key={level.label} className="rounded-2xl border border-white/70 bg-white/95 p-3 transition-shadow hover:shadow-[var(--shadow-soft)] md:p-5">
                         <div className={`w-8 h-8 md:w-14 md:h-14 rounded-lg md:rounded-2xl ${level.color} flex items-center justify-center text-white font-black text-xs md:text-xl mb-3`}>
                           {level.range.split('-')[1]}
                         </div>
@@ -342,7 +342,7 @@ export default function UserGuidePage() {
                     Free users get <strong>3 battles per day</strong>. Upgrade to <strong>Pro</strong> for unlimited comparisons.
                   </p>
                 </div>
-                <div className="p-6 rounded-2xl bg-muted/50 border border-border shadow-sm">
+                <div className="rounded-2xl border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)]">
                   <h4 className="font-bold flex items-center gap-2 text-sm mb-3">
                     <Info className="h-4 w-4 text-primary" />
                     Green Highlights
@@ -381,7 +381,7 @@ export default function UserGuidePage() {
                 ))}
               </div>
 
-              <div className="bg-muted/30 border border-border/50 rounded-3xl p-6 md:p-8 mb-8">
+              <div className="mb-8 rounded-3xl border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] md:p-8">
                 <h4 className="font-bold mb-4 text-sm md:text-base tracking-tight">Quiz Categories</h4>
                 <div className="flex flex-wrap gap-2 md:gap-3">
                   {['Nutrition Basics', 'Food Safety', 'Vitamins & Minerals', 'Food Labels', 'Superfoods', 'Diet Myths'].map(cat => (
@@ -402,7 +402,7 @@ export default function UserGuidePage() {
 
               <div className="space-y-6 md:space-y-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
-                  <div className="p-6 bg-card border border-orange-100 rounded-[2rem] shadow-sm">
+                  <div className="rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)]">
                     <h3 className="text-lg font-bold mb-3">Preferences</h3>
                     <p className="text-[11px] md:text-sm text-muted-foreground mb-4">Set your diet in Settings for targeted scanning alerts.</p>
                     <div className="flex flex-wrap gap-2">
@@ -411,7 +411,7 @@ export default function UserGuidePage() {
                       ))}
                     </div>
                   </div>
-                  <div className="p-6 bg-card border border-red-100 rounded-[2rem] shadow-sm">
+                  <div className="rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)]">
                     <h3 className="text-lg font-bold mb-3">Allergies</h3>
                     <p className="text-[11px] md:text-sm text-muted-foreground mb-4">Identify critical triggers before you buy. Warnings appear instantly.</p>
                     <div className="flex flex-wrap gap-2">
@@ -444,7 +444,7 @@ export default function UserGuidePage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-stretch">
-                <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8 shadow-sm">
+                <div className="rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] md:p-8">
                   <h4 className="font-black text-sm uppercase tracking-widest text-red-600 mb-4">AI Smart Swaps</h4>
                   <p className="text-[11px] md:text-base text-muted-foreground/80 leading-relaxed mb-6 font-medium">Instantly find products in the same category with cleaner labels and better metrics.</p>
                   <ul className="space-y-4 list-none pl-0">
@@ -501,7 +501,7 @@ export default function UserGuidePage() {
                   { name: 'Goals', desc: 'Target weights.' },
                   { name: 'Support', desc: 'Wellness tips.' }
                 ].map((calc, i) => (
-                  <div key={i} className="p-4 bg-card border border-border/50 rounded-2xl hover:border-teal-400 transition-all shadow-sm group text-center md:text-left">
+                  <div key={i} className="group rounded-2xl border border-white/70 bg-white/95 p-4 text-center shadow-[var(--shadow-soft)] transition-all hover:border-teal-300 md:text-left">
                     <h4 className="font-bold text-[11px] md:text-sm mb-1 group-hover:text-teal-600 m-0">{calc.name}</h4>
                     <p className="text-[9px] md:text-xs text-muted-foreground m-0 leading-tight font-medium">{calc.desc}</p>
                   </div>
@@ -525,7 +525,7 @@ export default function UserGuidePage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-stretch">
-                <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8">
+                <div className="rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] md:p-8">
                   <h4 className="font-bold text-sm mb-4 m-0">Submission Pipeline</h4>
                   <div className="space-y-4">
                     {[
@@ -559,7 +559,7 @@ export default function UserGuidePage() {
                 <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Smart Lists</h2>
               </div>
 
-              <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8 shadow-sm relative overflow-hidden">
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] md:p-8">
                 <div className="flex flex-col lg:flex-row gap-8 items-center">
                     <div className="flex-1 space-y-4">
                        <h4 className="font-bold text-lg m-0">Dynamic Sync</h4>
@@ -613,7 +613,7 @@ export default function UserGuidePage() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                 <div className="p-6 md:p-8 rounded-[2rem] bg-card border border-border shadow-sm hover:border-pink-200 transition-all hover:shadow-md group">
+                 <div className="group rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] transition-all hover:border-pink-200 md:p-8">
                     <div className="w-10 h-10 md:w-12 md:h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
                       <ListOrdered className="h-5 w-5 md:h-6 md:w-6 text-pink-500" />
                     </div>
@@ -625,7 +625,7 @@ export default function UserGuidePage() {
                        </Button>
                     </Link>
                  </div>
-                 <div className="p-6 md:p-8 rounded-[2rem] bg-card border border-border shadow-sm hover:border-pink-200 transition-all hover:shadow-md group">
+                 <div className="group rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] transition-all hover:border-pink-200 md:p-8">
                     <div className="w-10 h-10 md:w-12 md:h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
                       <TrendingUp className="h-5 w-5 md:h-6 md:w-6 text-pink-500" />
                     </div>

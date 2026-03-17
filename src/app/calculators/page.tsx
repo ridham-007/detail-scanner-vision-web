@@ -10,7 +10,7 @@ export default function AllCalculatorsPage() {
   const calculators = Object.values(calculatorConfig);
 
   return (
-    <section className=" py-20 min-h-screen">
+    <section className="min-h-screen py-20">
       <div className="container mx-auto px-4">
 
         <div className="mb-6">
@@ -22,15 +22,15 @@ export default function AllCalculatorsPage() {
         </div>
 
         {/* HEADER */}
-        <header className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
+        <header className="mb-16 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2">
             <Calculator className="h-5 w-5 text-primary" />
             <span className="text-sm font-semibold text-primary">
               All Tools
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h1 className="mb-4 text-3xl font-black tracking-tight text-foreground md:text-4xl">
             All Health Calculators
           </h1>
 
@@ -48,8 +48,8 @@ export default function AllCalculatorsPage() {
             return (
               <Link key={index} href={calc.path}>
                 <article
-                  className="group relative bg-card rounded-2xl p-8 border-2 border-border 
-                  hover:border-primary/50 shadow-lg hover:shadow-2xl transition-all duration-300 
+                  className="group relative h-full cursor-pointer overflow-hidden rounded-[30px] border border-white/70
+                  bg-white/90 p-8 shadow-product transition-all duration-300 hover:border-orange-200/80 hover:shadow-[var(--shadow-warm)]
                   cursor-pointer overflow-hidden h-full flex flex-col"
                 >
                   <div
@@ -60,9 +60,8 @@ export default function AllCalculatorsPage() {
                   <div className="relative z-10 flex flex-col flex-grow">
                     {/* ICON */}
                     <div
-                      className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 
-                      rounded-2xl flex items-center justify-center mb-6 
-                      group-hover:scale-110 transition-transform duration-300 shadow-lg"
+                      className="mb-6 flex h-16 w-16 items-center justify-center rounded-[22px] bg-primary
+                      shadow-[var(--shadow-warm)] group-hover:scale-110 transition-transform duration-300"
                     >
                       <Icon className="h-8 w-8 text-white" />
                     </div>
@@ -103,7 +102,7 @@ export default function AllCalculatorsPage() {
 
                   <div
                     className="absolute -bottom-10 -right-10 w-32 h-32 
-                    bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 
+                    bg-orange-100/70 rounded-full blur-2xl group-hover:bg-orange-200/70
                     transition-colors"
                   />
                 </article>

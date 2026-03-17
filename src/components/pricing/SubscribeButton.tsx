@@ -43,7 +43,7 @@ export default function SubscribeButton({ planType, planName, popular = false }:
   if (isCurrentPlan) {
     return (
       <div className="relative">
-        <Button variant="outline" className="w-full" disabled>
+        <Button variant="outline" className="w-full rounded-full border-orange-200/80 bg-white/90" disabled>
           Current Plan
         </Button>
       </div>
@@ -52,7 +52,7 @@ export default function SubscribeButton({ planType, planName, popular = false }:
 
   return (
     <Button 
-      className={`w-full ${popular ? 'bg-primary hover:bg-primary/90' : ''}`}
+      className={`w-full rounded-full shadow-[var(--shadow-warm)] ${popular ? 'bg-primary hover:bg-primary/90' : ''}`}
       onClick={handleSubscribe}
       disabled={loading || processingPlan}
     >

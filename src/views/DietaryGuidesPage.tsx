@@ -213,15 +213,15 @@ export default function DietaryGuidesView() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-16 max-w-7xl min-h-screen">
-            <div className="text-center mb-16 space-y-6 no-print">
-                <div className="inline-flex items-center justify-center p-4 bg-primary/10 rounded-2xl mb-2 animate-in fade-in zoom-in duration-500">
+        <div className="container mx-auto min-h-screen max-w-7xl px-4 py-12 sm:py-16">
+            <div className="no-print mb-16 space-y-6 rounded-[32px] border border-white/60 bg-white/82 px-5 py-8 text-center shadow-product backdrop-blur-sm sm:px-6 sm:py-10">
+                <div className="mb-2 inline-flex items-center justify-center rounded-[22px] bg-orange-50 p-4 shadow-[var(--shadow-soft)] animate-in fade-in zoom-in duration-500">
                     <FileText className="w-10 h-10 text-primary" />
                 </div>
-                <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-green-600">
+                <h1 className="bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl md:text-6xl">
                     Dietary Cheat Sheets
                 </h1>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-xl">
                     Expert-curated, reliable guides for every lifestyle. <br className="hidden md:block" />
                     Click any card to view the full cheat sheet and print it for your fridge.
                 </p>
@@ -231,12 +231,12 @@ export default function DietaryGuidesView() {
                 {(Object.entries(cheatSheetData) as [keyof typeof cheatSheetData, any][]).map(([key, data]) => (
                     <Card
                         key={key}
-                        className="group relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-2 hover:border-transparent cursor-pointer flex flex-col h-full ring-offset-2 hover:ring-2 ring-primary/20"
+                        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[30px] border border-white/70 bg-white/90 shadow-product transition-all duration-300 hover:-translate-y-2 hover:border-orange-200/80 hover:shadow-[var(--shadow-warm)] ring-offset-2 hover:ring-2 ring-primary/20"
                         onClick={() => setSelectedSheet(key)}
                     >
                         <div className={`absolute top-0 left-0 w-full h-2 ${data.btnColor}`} />
                         <CardHeader className="text-center pb-4 pt-8">
-                            <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl mb-4 ${data.color} shadow-inner group-hover:scale-110 transition-transform duration-500`}>
+                            <div className={`mb-4 mx-auto flex h-20 w-20 items-center justify-center rounded-[24px] text-3xl shadow-[var(--shadow-soft)] group-hover:scale-110 transition-transform duration-500 ${data.color}`}>
                                 {data.icon}
                             </div>
                             <CardTitle className="text-xl font-bold">{data.title}</CardTitle>
@@ -244,7 +244,7 @@ export default function DietaryGuidesView() {
                         <CardContent className="flex-1 text-center">
                             <p className="text-muted-foreground text-sm leading-relaxed">{data.description}</p>
 
-                            <div className="mt-8 p-6 bg-muted/20 rounded-xl border border-dashed border-muted-foreground/20 group-hover:border-primary/30 transition-colors">
+                            <div className="mt-8 rounded-[22px] border border-dashed border-orange-100/80 bg-orange-50/40 p-6 transition-colors group-hover:border-primary/30">
                                 <div className="flex flex-col items-center gap-2">
                                     <FileText className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">Click to Preview</span>
@@ -252,7 +252,7 @@ export default function DietaryGuidesView() {
                             </div>
                         </CardContent>
                         <CardFooter className="pt-0 pb-6">
-                            <Button className={`w-full gap-2 shadow-md transition-all ${data.btnColor} text-white border-none`} size="lg">
+                            <Button className={`w-full gap-2 rounded-full shadow-[var(--shadow-warm)] transition-all ${data.btnColor} text-white border-none`} size="lg">
                                 <Printer className="w-4 h-4" /> View & Print
                             </Button>
                         </CardFooter>
@@ -263,7 +263,7 @@ export default function DietaryGuidesView() {
             {/* Print Layout (Hidden on screen) */}
             <div className={`hidden print:block print-only-section ${!selectedSheet ? 'print:hidden' : ''}`}>
                 {selectedSheet && (
-                    <div className="max-w-[21cm] mx-auto p-10 bg-white min-h-screen">
+                    <div className="mx-auto min-h-screen max-w-[21cm] bg-white p-4 sm:p-10">
                         {/* Header */}
                         <div className="flex items-center justify-between border-b-4 border-black pb-6 mb-10">
                             <div className="flex items-center gap-4">
@@ -317,18 +317,18 @@ export default function DietaryGuidesView() {
 
             {/* Interactive Modal */}
             <Dialog open={!!selectedSheet} onOpenChange={(open) => !open && setSelectedSheet(null)}>
-                <DialogContent className="max-w-3xl max-h-[90vh] flex flex-col overflow-hidden sm:rounded-3xl p-0 gap-0 no-print">
+                <DialogContent className="no-print max-h-[90vh] max-w-[calc(100vw-1rem)] gap-0 overflow-hidden rounded-[32px] border-white/70 bg-white/95 p-0 shadow-product sm:max-w-3xl">
                     {selectedSheet && (
                         <>
-                            <div className={`p-8 shrink-0 ${cheatSheetData[selectedSheet].color.replace('text-', 'bg-').replace('100', '50')}`}>
+                            <div className={`shrink-0 p-5 sm:p-8 ${cheatSheetData[selectedSheet].color.replace('text-', 'bg-').replace('100', '50')}`}>
                                 <DialogHeader>
-                                    <div className="flex items-start gap-5">
-                                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shrink-0 bg-white shadow-lg`}>
+                                    <div className="flex items-start gap-4 sm:gap-5">
+                                        <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-2xl shadow-lg sm:h-16 sm:w-16 sm:text-3xl`}>
                                             {cheatSheetData[selectedSheet].icon}
                                         </div>
                                         <div>
-                                            <DialogTitle className="text-3xl font-bold mb-2">{cheatSheetData[selectedSheet].title}</DialogTitle>
-                                            <DialogDescription className="text-lg text-foreground/80">
+                                            <DialogTitle className="mb-2 text-2xl font-bold sm:text-3xl">{cheatSheetData[selectedSheet].title}</DialogTitle>
+                                            <DialogDescription className="text-sm text-foreground/80 sm:text-lg">
                                                 {cheatSheetData[selectedSheet].description}
                                             </DialogDescription>
                                         </div>
@@ -336,11 +336,11 @@ export default function DietaryGuidesView() {
                                 </DialogHeader>
                             </div>
 
-                            <div className="p-8 overflow-y-auto flex-1">
+                            <div className="flex-1 overflow-y-auto p-5 sm:p-8">
                                 {cheatSheetData[selectedSheet].content}
                             </div>
 
-                            <DialogFooter className="p-6 bg-muted/20 border-t flex flex-row items-center justify-between gap-4 shrink-0">
+                            <DialogFooter className="flex shrink-0 flex-col items-stretch justify-between gap-4 border-t bg-muted/20 p-4 sm:flex-row sm:items-center sm:p-6">
                                 <div className="text-xs text-muted-foreground hidden sm:block">
                                     Trusted by 10,000+ users
                                 </div>

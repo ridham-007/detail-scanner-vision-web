@@ -52,10 +52,10 @@ export default function FAQSection() {
     <section className="max-w-5xl mx-auto mb-16 px-4 ">
       {/* Header */}
       <div className="text-center mb-10">
-        <span className="inline-block text-xs font-medium tracking-widest uppercase text-primary bg-primary/10 px-4 py-1.5 rounded-full mb-3">
+        <span className="mb-3 inline-block rounded-full border border-orange-200/70 bg-orange-50 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-orange-800">
           Got questions?
         </span>
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+        <h2 className="text-3xl font-black tracking-tight text-foreground md:text-4xl">
           We&apos;ve got{' '}
           <em className="not-italic text-primary">answers</em>
         </h2>
@@ -70,12 +70,11 @@ export default function FAQSection() {
               key={idx}
               onClick={() => toggle(idx)}
               className={`
-                rounded-2xl border cursor-pointer transition-all duration-200 overflow-hidden
+                overflow-hidden rounded-[28px] border cursor-pointer transition-all duration-200
                 ${isActive
-                  ? 'border-primary shadow-[0_4px_24px_rgba(16,185,129,0.12)]'
-                  : 'border-gray-100 hover:border-primary hover:shadow-[0_4px_20px_rgba(16,185,129,0.08)]'
+                  ? 'border-orange-200/80 bg-white shadow-[var(--shadow-warm)]'
+                  : 'border-white/70 bg-white/90 hover:border-orange-200/80 hover:shadow-[var(--shadow-soft)]'
                 }
-                bg-white
               `}
             >
               {/* Question row */}
@@ -83,18 +82,18 @@ export default function FAQSection() {
                 <span
                   className={`
                     w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-medium flex-shrink-0 mt-0.5 transition-colors duration-200
-                    ${isActive ? 'bg-primary text-primary-foreground' : 'bg-slate-100 text-gray-500'}
+                    ${isActive ? 'bg-primary text-primary-foreground' : 'bg-orange-100 text-orange-700'}
                   `}
                 >
                   {faq.num}
                 </span>
-                <span className="flex-1 text-mg font-medium text-gray-900 leading-snug">
+                <span className="flex-1 text-mg font-medium text-foreground leading-snug">
                   {faq.q}
                 </span>
                 <span
                   className={`
                     text-xs flex-shrink-0 mt-0.5 ml-1 transition-all duration-200
-                    ${isActive ? 'rotate-45 text-primary' : 'text-gray-400'}
+                    ${isActive ? 'rotate-45 text-primary' : 'text-orange-300'}
                   `}
                 >
                   +
@@ -108,8 +107,8 @@ export default function FAQSection() {
                   ${isActive ? 'max-h-40' : 'max-h-0'}
                 `}
               >
-                <div className="px-4 pb-4 pl-[3.25rem] border-t border-gray-50">
-                  <p className="pt-3 text-sm text-gray-500 leading-relaxed">
+                <div className="border-t border-orange-100/70 px-4 pb-4 pl-[3.25rem]">
+                  <p className="pt-3 text-sm leading-relaxed text-muted-foreground">
                     {faq.a}
                   </p>
                 </div>
@@ -120,16 +119,16 @@ export default function FAQSection() {
       </div>
 
       {/* Support CTA */}
-      <div className="flex items-center justify-between gap-4 bg-primary/10 border border-primary/20 rounded-2xl px-6 py-4">
+      <div className="flex flex-col items-start justify-between gap-4 rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.78),rgba(255,250,244,0.98))] px-5 py-4 shadow-product sm:flex-row sm:items-center sm:px-6">
         <div>
-          <p className="font-medium text-primary text-md">Still have questions?</p>
-          <p className="text-sm text-primary/70 mt-0.5">Our support team usually replies within a few hours.</p>
+          <p className="text-md font-medium text-foreground">Still have questions?</p>
+          <p className="mt-0.5 text-sm text-muted-foreground">Our support team usually replies within a few hours.</p>
         </div>
         <Link
                   href="/support/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                  className="inline-flex w-full items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary sm:w-auto"
                 >
-        <button className="bg-primary hover:bg-primary/90 transition-colors text-primary-foreground text-sm font-medium px-5 py-2 rounded-full whitespace-nowrap">
+        <button className="w-full whitespace-nowrap rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground shadow-[var(--shadow-warm)] transition-colors hover:bg-primary/90 sm:w-auto">
           Contact support →
         </button>
         </Link>

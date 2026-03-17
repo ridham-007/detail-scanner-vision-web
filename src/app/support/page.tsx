@@ -204,8 +204,8 @@ export default function SupportPage() {
           </nav>
 
           {/* Header */}
-          <header className="text-center mb-10">
-            <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">
+          <header className="mb-10 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
+            <h1 className="mb-2 text-3xl font-black tracking-tight text-foreground sm:text-4xl">
               Support Center
             </h1>
             <p className="text-muted-foreground">
@@ -220,11 +220,11 @@ export default function SupportPage() {
               <ContactForm />
 
               {/* Other Ways to Reach Us - Server Rendered */}
-              <Card>
+              <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Mail
-                      className="h-5 w-5 text-blue-600"
+                      className="h-5 w-5 text-primary"
                       aria-hidden="true"
                     />
                     Other Ways to Reach Us
@@ -233,7 +233,7 @@ export default function SupportPage() {
                 <CardContent className="space-y-4">
                   <div className="flex items-start gap-3">
                     <Bug
-                      className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-500"
                       aria-hidden="true"
                     />
                     <div>
@@ -247,7 +247,7 @@ export default function SupportPage() {
 
                   <div className="flex items-start gap-3">
                     <Lightbulb
-                      className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-500"
                       aria-hidden="true"
                     />
                     <div>

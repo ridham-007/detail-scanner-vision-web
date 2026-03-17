@@ -68,9 +68,11 @@ export function ContributorStats() {
 
   if (!isLoggedIn) {
     return (
-      <Card>
+      <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
         <CardContent className="py-8 text-center">
-          <Award className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" />
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-3xl bg-[rgb(var(--accent-soft))]/55 text-[rgb(var(--accent-foreground))]">
+            <Award className="h-7 w-7" />
+          </div>
           <p className="text-muted-foreground">
             Sign in to view your contribution stats
           </p>
@@ -81,7 +83,7 @@ export function ContributorStats() {
 
   if (loading) {
     return (
-      <Card>
+      <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
         <CardContent className="py-8">
           <div className="animate-pulse space-y-4">
             <div className="h-6 bg-muted rounded w-1/3"></div>
@@ -94,10 +96,9 @@ export function ContributorStats() {
   }
 
   const tierColors = {
-    guest: "bg-muted text-muted-foreground",
-    logged_in: "bg-primary/10 text-primary",
-    verified:
-      "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
+    guest: "border border-[rgb(var(--accent))]/15 bg-[rgb(var(--accent-soft))]/55 text-muted-foreground",
+    logged_in: "border border-[rgb(var(--accent))]/20 bg-[rgb(var(--accent))]/10 text-[rgb(var(--accent-foreground))]",
+    verified: "border border-amber-200 bg-amber-50 text-amber-800",
   };
 
   const tierLabels = {
@@ -112,7 +113,7 @@ export function ContributorStats() {
 
   return (
     <div className="space-y-4">
-      <Card>
+      <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg">Contribution Level</CardTitle>
@@ -123,7 +124,7 @@ export function ContributorStats() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-3 bg-muted/50 rounded-lg">
+            <div className="rounded-2xl border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/40 p-3 text-center">
               <div className="text-2xl font-bold text-foreground">
                 {stats?.contributionPoints || 0}
               </div>
@@ -131,7 +132,7 @@ export function ContributorStats() {
                 <Coins className="w-3 h-3" /> Points
               </div>
             </div>
-            <div className="text-center p-3 bg-muted/50 rounded-lg">
+            <div className="rounded-2xl border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/40 p-3 text-center">
               <div className="text-2xl font-bold text-foreground">
                 {stats?.totalSubmissions || 0}
               </div>
@@ -139,7 +140,7 @@ export function ContributorStats() {
                 <TrendingUp className="w-3 h-3" /> Submitted
               </div>
             </div>
-            <div className="text-center p-3 bg-muted/50 rounded-lg">
+            <div className="rounded-2xl border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/40 p-3 text-center">
               <div className="text-2xl font-bold text-primary">
                 {stats?.approvedSubmissions || 0}
               </div>
@@ -147,7 +148,7 @@ export function ContributorStats() {
                 <CheckCircle2 className="w-3 h-3" /> Approved
               </div>
             </div>
-            <div className="text-center p-3 bg-muted/50 rounded-lg">
+            <div className="rounded-2xl border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/40 p-3 text-center">
               <div className="text-2xl font-bold text-foreground">
                 {stats?.accuracyRate?.toFixed(0) || 0}%
               </div>
@@ -177,7 +178,7 @@ export function ContributorStats() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
         <CardHeader className="pb-2">
           <CardTitle className="text-lg flex items-center gap-2">
             <Award className="w-5 h-5" /> Badges
@@ -192,15 +193,15 @@ export function ContributorStats() {
                   key={badge.id}
                   className={`p-3 rounded-lg border text-center transition-all ${
                     isEarned
-                      ? "bg-primary/5 border-primary/30"
-                      : "bg-muted/40 border-border"
+                      ? "border-[rgb(var(--accent))]/25 bg-[rgb(var(--accent-soft))]/45"
+                      : "border-white/60 bg-[rgb(var(--accent-soft))]/20"
                   }`}
                 >
                   <div
                     className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-2 ${
                       isEarned
-                        ? "bg-primary/15 text-primary"
-                        : "bg-muted text-foreground"
+                        ? "bg-[rgb(var(--accent))]/15 text-[rgb(var(--accent-foreground))]"
+                        : "bg-white text-foreground"
                     }`}
                   >
                     {iconMap[badge.icon] || <Star className="w-5 h-5" />}

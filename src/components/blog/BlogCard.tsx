@@ -39,14 +39,14 @@ export default function BlogCard({ post }: BlogCardProps) {
 
   return (
     <article>
-      <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow">
+      <Card className="h-full overflow-hidden rounded-[28px] border-white/70 bg-white/88 shadow-product transition-shadow hover:shadow-[var(--shadow-warm)]">
         <Link href={`/blog/${post.slug}/`} className="block">
           {post.featured_image_url && (
             <div className="aspect-video overflow-hidden">
               <img
                 src={post.featured_image_url}
                 alt={post.title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                 loading="lazy"
               />
             </div>

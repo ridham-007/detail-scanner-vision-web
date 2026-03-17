@@ -38,7 +38,7 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
             placeholder="Search articles..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+            className="rounded-full border-white/70 bg-white/90 pl-10 shadow-[var(--shadow-soft)]"
             aria-label="Search blog articles"
           />
         </div>

@@ -51,15 +51,15 @@ const HowToUse: React.FC<HowToUseProps> = ({
   uniqueInsights,
 }) => {
   return (
-    <div className="space-y-10 text-gray-700 dark:text-gray-300">
+    <div className="space-y-10 text-foreground">
       {/* Intro Section */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+        <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground">
           <BookOpen className="w-6 h-6 text-primary" />
           {title}
         </h2>
 
-        <div className="prose prose-green dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+        <div className="prose max-w-none whitespace-pre-line leading-relaxed text-muted-foreground">
           {intro}
         </div>
       </div>
@@ -67,7 +67,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       {/* Steps Section */}
       {steps && steps.length > 0 && (
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-xl font-semibold text-foreground">
             Step-by-Step Guide
           </h3>
 
@@ -75,24 +75,18 @@ const HowToUse: React.FC<HowToUseProps> = ({
             {steps.map((step, index) => (
               <div
                 key={index}
-                className="
-                  flex gap-4 p-4 
-                  bg-gray-50 dark:bg-gray-800 
-                  rounded-xl 
-                  border border-gray-100 dark:border-gray-700
-                  transition-all hover:shadow-md
-                "
+                className="flex gap-4 rounded-[22px] border border-orange-100/70 bg-orange-50/35 p-4 transition-all hover:shadow-[var(--shadow-soft)]"
               >
                 <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary/10 text-primary font-bold rounded-full">
                   {index + 1}
                 </div>
 
                 <div className="space-y-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
+                  <h4 className="font-semibold text-foreground">
                     {step.title}
                   </h4>
 
-                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+                  <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
                     {step.description}
                   </p>
                 </div>
@@ -106,7 +100,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       <div className="grid md:grid-cols-2 gap-8">
         {benefits && benefits.length > 0 && (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-xl font-semibold text-foreground">
               Benefits
             </h3>
 
@@ -114,7 +108,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
               {benefits.map((benefit, index) => (
                 <li
                   key={index}
-                  className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300"
+                  className="flex items-start gap-3 text-sm text-muted-foreground"
                 >
                   <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <span>{benefit}</span>
@@ -126,7 +120,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
 
         {useCases && useCases.length > 0 && (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-xl font-semibold text-foreground">
               Common Use Cases
             </h3>
 
@@ -134,7 +128,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
               {useCases.map((useCase, index) => (
                 <li
                   key={index}
-                  className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300"
+                  className="flex items-start gap-3 text-sm text-muted-foreground"
                 >
                   <ChevronRight className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                   <span>{useCase}</span>
@@ -147,12 +141,12 @@ const HowToUse: React.FC<HowToUseProps> = ({
 
       {/* Who Should Use */}
       {whoShouldUse && (
-        <div className="bg-blue-50 dark:bg-blue-950 p-6 rounded-2xl border border-blue-100 dark:border-blue-900">
-          <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-200 mb-2">
+        <div className="rounded-[24px] border border-orange-100/80 bg-orange-50/60 p-6">
+          <h3 className="mb-2 text-lg font-semibold text-foreground">
             Who is this for?
           </h3>
 
-          <p className="text-blue-800 dark:text-blue-300 text-sm leading-relaxed whitespace-pre-line">
+          <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
             {whoShouldUse}
           </p>
         </div>
@@ -161,7 +155,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       {/* Formulas Section */}
       {formulas && formulas.length > 0 && (
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-xl font-semibold text-foreground">
             Formulas Used
           </h3>
 
@@ -169,7 +163,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
             {formulas.map((item, index) => (
               <div
                 key={index}
-                className="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto"
+                className="overflow-x-auto rounded-[24px] bg-foreground p-6 text-white"
               >
                 <div className="font-mono text-sm mb-2 text-green-400">
                   {item.title}
@@ -179,7 +173,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
                   {item.formula}
                 </div>
 
-                <p className="text-gray-400 text-xs leading-relaxed whitespace-pre-line">
+                <p className="whitespace-pre-line text-xs leading-relaxed text-white/70">
                   {item.explanation}
                 </p>
               </div>
@@ -192,7 +186,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       <div className="grid md:grid-cols-2 gap-8">
         {tips && tips.length > 0 && (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+            <h3 className="flex items-center gap-2 text-xl font-semibold text-foreground">
               <Lightbulb className="w-5 h-5 text-yellow-500" />
               Pro Tips
             </h3>
@@ -201,7 +195,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
               {tips.map((tip, index) => (
                 <li
                   key={index}
-                  className="text-sm text-gray-600 dark:text-gray-300 flex gap-2"
+                  className="flex gap-2 text-sm text-muted-foreground"
                 >
                   <span className="w-1.5 h-1.5 bg-yellow-400 rounded-full mt-2 flex-shrink-0" />
                   {tip}
@@ -213,7 +207,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
 
         {limitations && limitations.length > 0 && (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+            <h3 className="flex items-center gap-2 text-xl font-semibold text-foreground">
               <AlertTriangle className="w-5 h-5 text-orange-500" />
               Limitations
             </h3>
@@ -222,7 +216,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
               {limitations.map((limit, index) => (
                 <li
                   key={index}
-                  className="text-sm text-gray-600 dark:text-gray-300 flex gap-2"
+                  className="flex gap-2 text-sm text-muted-foreground"
                 >
                   <span className="w-1.5 h-1.5 bg-orange-400 rounded-full mt-2 flex-shrink-0" />
                   {limit}
@@ -235,12 +229,12 @@ const HowToUse: React.FC<HowToUseProps> = ({
 
       {/* Unique Insights */}
       {uniqueInsights && (
-        <div className="border-l-4 border-primary pl-6 py-2">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        <div className="border-l-4 border-primary py-2 pl-6">
+          <h3 className="mb-2 text-lg font-semibold text-foreground">
             Unique Insight
           </h3>
 
-          <p className="text-gray-600 dark:text-gray-300 italic whitespace-pre-line">
+          <p className="whitespace-pre-line italic text-muted-foreground">
             {uniqueInsights}
           </p>
         </div>
@@ -248,8 +242,8 @@ const HowToUse: React.FC<HowToUseProps> = ({
 
       {/* Resources */}
       {resources && resources.length > 0 && (
-        <div className="pt-6 border-t dark:border-gray-700">
-          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+        <div className="border-t border-orange-100/80 pt-6">
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
             Helpful Resources
           </h3>
 

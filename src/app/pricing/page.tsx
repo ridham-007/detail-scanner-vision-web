@@ -228,25 +228,25 @@ export default function PricingPage() {
         </nav>
 
         {/* Hero Section */}
-        <header className="text-center mb-12">
-          <Badge className="mb-4" variant="secondary">
+        <header className="mb-12 rounded-[32px] border border-white/60 bg-white/82 px-5 py-8 text-center shadow-product backdrop-blur-sm sm:px-6 sm:py-10">
+          <Badge className="mb-4 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-orange-800" variant="secondary">
             <Sparkles className="w-3 h-3 mr-1" aria-hidden="true" />
             Simple, transparent pricing
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="mb-4 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
             Choose Your Health Journey
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Unlock powerful features to make informed food choices. Start free, upgrade anytime.
           </p>
         </header>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
+        <div className="mx-auto mb-16 grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-3">
           {/* Free Plan */}
-          <Card className="relative flex flex-col">
+          <Card className="relative flex flex-col rounded-[30px] border-white/70 bg-white/88 shadow-product">
             <CardHeader className="text-center pb-4">
-              <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 shadow-[var(--shadow-soft)]">
                 <Zap className="w-6 h-6 text-primary" aria-hidden="true" />
               </div>
               <CardTitle className="text-2xl">Free</CardTitle>
@@ -294,7 +294,7 @@ export default function PricingPage() {
 
               <div className="mt-6">
                 <Link href="/#scanner">
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full rounded-full border-orange-200/80 bg-white/90">
                     Get Started Free
                   </Button>
                 </Link>
@@ -303,15 +303,15 @@ export default function PricingPage() {
           </Card>
 
           {/* Pro Plan */}
-          <Card className="relative flex flex-col border-primary shadow-lg scale-105">
+          <Card className="relative flex flex-col rounded-[30px] border-orange-300/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.85),rgba(255,250,244,0.98))] shadow-[var(--shadow-warm)] lg:scale-105">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <Badge className="bg-primary text-primary-foreground">
+              <Badge className="rounded-full bg-primary px-4 py-1 text-primary-foreground shadow-[var(--shadow-warm)]">
                 Most Popular
               </Badge>
             </div>
             
             <CardHeader className="text-center pb-4">
-              <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/90 shadow-[var(--shadow-soft)]">
                 <Star className="w-6 h-6 text-primary" aria-hidden="true" />
               </div>
               <CardTitle className="text-2xl">Pro</CardTitle>
@@ -372,9 +372,9 @@ export default function PricingPage() {
           </Card>
 
           {/* Premium Plan */}
-          <Card className="relative flex flex-col">
+          <Card className="relative flex flex-col rounded-[30px] border-white/70 bg-white/88 shadow-product">
             <CardHeader className="text-center pb-4">
-              <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 shadow-[var(--shadow-soft)]">
                 <Crown className="w-6 h-6 text-primary" aria-hidden="true" />
               </div>
               <CardTitle className="text-2xl">Premium</CardTitle>
@@ -455,15 +455,15 @@ export default function PricingPage() {
         </section>
 
         {/* Feature Comparison */}
-        <section className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-2xl font-bold text-center mb-8">Compare Plans</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
+        <section className="mx-auto mb-16 max-w-4xl">
+          <h2 className="mb-8 text-center text-2xl font-bold">Compare Plans</h2>
+          <div className="overflow-x-auto rounded-[28px] border border-white/70 bg-white/88 shadow-product">
+            <table className="min-w-[640px] w-full border-collapse text-sm sm:text-base">
               <thead>
                 <tr className="border-b">
                   <th className="text-left py-3 px-4">Feature</th>
                   <th className="text-center py-3 px-4">Free</th>
-                  <th className="text-center py-3 px-4 bg-primary/5">Pro</th>
+                  <th className="bg-orange-50/80 text-center py-3 px-4">Pro</th>
                   <th className="text-center py-3 px-4">Premium</th>
                 </tr>
               </thead>
@@ -471,19 +471,19 @@ export default function PricingPage() {
                 <tr className="border-b">
                   <td className="py-3 px-4">Daily Scans</td>
                   <td className="text-center py-3 px-4">5</td>
-                  <td className="text-center py-3 px-4 bg-primary/5 font-semibold text-primary">Unlimited</td>
+                  <td className="bg-orange-50/80 text-center py-3 px-4 font-semibold text-primary">Unlimited</td>
                   <td className="text-center py-3 px-4">Unlimited</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-3 px-4">Scan History</td>
                   <td className="text-center py-3 px-4">7 days</td>
-                  <td className="text-center py-3 px-4 bg-primary/5 font-semibold text-primary">Forever</td>
+                  <td className="bg-orange-50/80 text-center py-3 px-4 font-semibold text-primary">Forever</td>
                   <td className="text-center py-3 px-4">Forever</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-3 px-4">Personalized Insights</td>
                   <td className="text-center py-3 px-4">−</td>
-                  <td className="text-center py-3 px-4 bg-primary/5">
+                  <td className="bg-orange-50/80 text-center py-3 px-4">
                     <Check className="w-4 h-4 text-primary mx-auto" aria-hidden="true" />
                   </td>
                   <td className="text-center py-3 px-4">
@@ -493,7 +493,7 @@ export default function PricingPage() {
                 <tr className="border-b">
                   <td className="py-3 px-4">Allergy &amp; Dietary Alerts</td>
                   <td className="text-center py-3 px-4">−</td>
-                  <td className="text-center py-3 px-4 bg-primary/5">
+                  <td className="bg-orange-50/80 text-center py-3 px-4">
                     <Check className="w-4 h-4 text-primary mx-auto" aria-hidden="true" />
                   </td>
                   <td className="text-center py-3 px-4">
@@ -503,13 +503,13 @@ export default function PricingPage() {
                 <tr className="border-b">
                   <td className="py-3 px-4">Family Accounts</td>
                   <td className="text-center py-3 px-4">−</td>
-                  <td className="text-center py-3 px-4 bg-primary/5">−</td>
+                  <td className="bg-orange-50/80 text-center py-3 px-4">−</td>
                   <td className="text-center py-3 px-4 font-semibold text-primary">Up to 5</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-3 px-4">Priority Support</td>
                   <td className="text-center py-3 px-4">−</td>
-                  <td className="text-center py-3 px-4 bg-primary/5">
+                  <td className="bg-orange-50/80 text-center py-3 px-4">
                     <Check className="w-4 h-4 text-primary mx-auto" aria-hidden="true" />
                   </td>
                   <td className="text-center py-3 px-4">
@@ -525,20 +525,20 @@ export default function PricingPage() {
         <FAQSection />
 
         {/* CTA Section */}
-        <section className="text-center mb-16 bg-primary/5 rounded-2xl p-8 max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4">Ready to Start Your Health Journey?</h2>
-          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+        <section className="mx-auto mb-16 max-w-4xl rounded-[32px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.78),rgba(255,250,244,0.98))] p-6 text-center shadow-product sm:p-8">
+          <h2 className="mb-4 text-2xl font-bold">Ready to Start Your Health Journey?</h2>
+          <p className="mx-auto mb-6 max-w-xl text-muted-foreground">
             Try EaterIQ free today. No credit card required. Upgrade anytime to unlock premium features and take control of your nutrition.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/#scanner">
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Link href="/#scanner" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full rounded-full bg-primary shadow-[var(--shadow-warm)] hover:bg-primary/90">
                 <Scan className="w-4 h-4 mr-2" aria-hidden="true" />
                 Try Free Scanner
               </Button>
             </Link>
-            <Link href="/quiz/">
-              <Button size="lg" variant="outline">
+            <Link href="/quiz/" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full rounded-full border-orange-200/80 bg-white/90">
                 <Brain className="w-4 h-4 mr-2" aria-hidden="true" />
                 Take a Quiz
               </Button>
@@ -549,11 +549,11 @@ export default function PricingPage() {
         {/* Related Links */}
         <section className="max-w-3xl mx-auto">
           <h2 className="text-xl font-bold mb-6 text-center">Explore EaterIQ</h2>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <Link href="/#scanner" className="group">
-              <Card className="h-full hover:shadow-md transition-shadow">
+              <Card className="h-full rounded-[28px] border-white/70 bg-white/88 transition-shadow hover:shadow-[var(--shadow-soft)]">
                 <CardContent className="p-4 flex items-center gap-4">
-                  <div className="p-3 rounded-full bg-primary/10">
+                  <div className="rounded-2xl bg-orange-50 p-3 shadow-[var(--shadow-soft)]">
                     <Scan className="h-5 w-5 text-primary" aria-hidden="true" />
                   </div>
                   <div className="flex-1">
@@ -570,9 +570,9 @@ export default function PricingPage() {
             </Link>
             
             <Link href="/blog/" className="group">
-              <Card className="h-full hover:shadow-md transition-shadow">
+              <Card className="h-full rounded-[28px] border-white/70 bg-white/88 transition-shadow hover:shadow-[var(--shadow-soft)]">
                 <CardContent className="p-4 flex items-center gap-4">
-                  <div className="p-3 rounded-full bg-accent/20">
+                  <div className="rounded-2xl bg-orange-50 p-3 shadow-[var(--shadow-soft)]">
                     <BookOpen className="h-5 w-5 text-accent-foreground" aria-hidden="true" />
                   </div>
                   <div className="flex-1">
@@ -589,9 +589,9 @@ export default function PricingPage() {
             </Link>
             
             <Link href="/quiz/" className="group">
-              <Card className="h-full hover:shadow-md transition-shadow">
+              <Card className="h-full rounded-[28px] border-white/70 bg-white/88 transition-shadow hover:shadow-[var(--shadow-soft)]">
                 <CardContent className="p-4 flex items-center gap-4">
-                  <div className="p-3 rounded-full bg-secondary/20">
+                  <div className="rounded-2xl bg-orange-50 p-3 shadow-[var(--shadow-soft)]">
                     <Brain className="h-5 w-5 text-secondary-foreground" aria-hidden="true" />
                   </div>
                   <div className="flex-1">

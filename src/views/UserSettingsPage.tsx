@@ -221,11 +221,16 @@ const UserSettingsPage = () => {
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
+            <div className="mb-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 text-center shadow-product backdrop-blur-sm">
+              <h1 className="text-3xl font-black tracking-tight text-foreground sm:text-4xl">Settings</h1>
+              <p className="mt-3 text-muted-foreground">Manage your account, subscription, notifications, and privacy in one place.</p>
+            </div>
             <Tabs defaultValue="profile" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-5">
+              <div className="overflow-x-auto pb-1">
+              <TabsList className="grid h-auto min-w-[640px] grid-cols-5 rounded-[24px] bg-orange-50 p-1 shadow-[var(--shadow-soft)]">
                 <TabsTrigger
                   value="profile"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <User className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Profile</span>
@@ -234,7 +239,7 @@ const UserSettingsPage = () => {
 
                 <TabsTrigger
                   value="subscription"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <CreditCard className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Subscription</span>
@@ -243,7 +248,7 @@ const UserSettingsPage = () => {
 
                 <TabsTrigger
                   value="preferences"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <SettingsIcon className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Preferences</span>
@@ -252,7 +257,7 @@ const UserSettingsPage = () => {
 
                 <TabsTrigger
                   value="notifications"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <Bell className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Notifications</span>
@@ -261,16 +266,17 @@ const UserSettingsPage = () => {
 
                 <TabsTrigger
                   value="privacy"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <Shield className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Privacy</span>
                   <span className="sr-only sm:hidden">Privacy</span>
                 </TabsTrigger>
               </TabsList>
+              </div>
 
               <TabsContent value="profile">
-                <Card>
+                <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <User className="h-5 w-5" />

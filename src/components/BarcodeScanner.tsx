@@ -155,34 +155,34 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
 
   return (
     <div 
-      className="relative w-full h-64 bg-muted rounded-lg overflow-hidden"
+      className="relative h-72 w-full overflow-hidden rounded-[28px] border border-white/70 bg-[linear-gradient(180deg,rgba(255,250,244,0.98),rgba(255,237,213,0.82))] shadow-[var(--shadow-soft)]"
       role="region"
       aria-label="Barcode scanner"
       aria-live="polite"
     >
       <div className="absolute inset-0">
-        <div className="absolute inset-4 border-2 border-primary/80 rounded-lg bg-transparent">
-          <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-destructive rounded-tl-lg"></div>
-          <div className="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-destructive rounded-tr-lg"></div>
-          <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-destructive rounded-bl-lg"></div>
-          <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-destructive rounded-br-lg"></div>
+        <div className="absolute inset-4 rounded-[24px] border-2 border-primary/80 bg-transparent">
+          <div className="absolute -left-1 -top-1 h-7 w-7 rounded-tl-xl border-l-4 border-t-4 border-orange-500"></div>
+          <div className="absolute -right-1 -top-1 h-7 w-7 rounded-tr-xl border-r-4 border-t-4 border-orange-500"></div>
+          <div className="absolute -bottom-1 -left-1 h-7 w-7 rounded-bl-xl border-b-4 border-l-4 border-orange-500"></div>
+          <div className="absolute -bottom-1 -right-1 h-7 w-7 rounded-br-xl border-b-4 border-r-4 border-orange-500"></div>
         </div>
 
         <div
           ref={scannerRef}
-          className="absolute inset-4 overflow-hidden rounded-lg"
+          className="absolute inset-4 overflow-hidden rounded-[24px]"
           aria-hidden={!isScanning}
         >
-          <div className="w-full h-1 bg-destructive opacity-80 animate-pulse" aria-hidden="true"></div>
+          <div className="h-1.5 w-full animate-pulse bg-orange-500/90" aria-hidden="true"></div>
         </div>
 
-        <div className="flex flex-col !justify-center !items-center">
-          <div className="!flex flex-col ">
+        <div className="flex flex-col !items-center !justify-center">
+          <div className="!flex flex-col">
             {!isScanning && (
-              <div className="absolute inset-0 bg-background/90 flex flex-col items-center justify-center ">
-                <div className="absolute top-20">
-                  <p className="text-lg font-medium text-center">Ready to Scan</p>
-                  <p className="text-sm text-muted-foreground">
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/78 backdrop-blur-[2px]">
+                <div className="rounded-[24px] border border-white/70 bg-white/80 px-8 py-6 text-center shadow-[var(--shadow-soft)]">
+                  <p className="text-lg font-semibold text-center text-foreground">Ready to Scan</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
                     {isInitialized
                       ? 'Click "Start Scan" to begin'
                       : "Initializing..."}
@@ -192,13 +192,13 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
             )}
           </div>
 
-          <div className="absolute bottom-7 left-1/2 transform -translate-x-1/2 flex gap-2 z-50">
+          <div className="absolute bottom-7 left-1/2 z-50 flex -translate-x-1/2 transform gap-2">
             <Button
               aria-label={isScanning ? "Stop Scan" : "Start Scan"}
               onClick={onToggleScanning}
               variant={isScanning ? "destructive" : "default"}
               size="sm"
-              className="flex items-center gap-2 shadow-lg"
+              className="flex items-center gap-2 rounded-2xl shadow-[var(--shadow-warm)]"
               disabled={!isInitialized}
             >
               {isScanning ? <CameraOff size={16} /> : <Camera size={16} />}
@@ -211,7 +211,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
                 onClick={toggleFlash}
                 variant="outline"
                 size="sm"
-                className="flex items-center gap-2 shadow-lg bg-background/90"
+                className="flex items-center gap-2 rounded-2xl border-orange-100/80 bg-background/90 shadow-[var(--shadow-soft)]"
               >
                 {flashOn ? <FlashlightOff size={16} /> : <Flashlight size={16} />}
                 Flash

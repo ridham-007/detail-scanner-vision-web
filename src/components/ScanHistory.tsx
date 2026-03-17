@@ -44,7 +44,7 @@ const ScanHistory = () => {
 
   if (!user) {
     return (
-      <Card className="w-full max-w-4xl mx-auto">
+      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-white/70 bg-white/85 shadow-product">
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <History className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
@@ -62,7 +62,7 @@ const ScanHistory = () => {
 
   if (isLoading) {
     return (
-      <Card className="w-full max-w-4xl mx-auto">
+      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-white/70 bg-white/85 shadow-product">
         <CardContent className="pt-6">
           <div className="flex items-center justify-center py-8">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -75,7 +75,7 @@ const ScanHistory = () => {
 
   if (error) {
     return (
-      <Card className="w-full max-w-4xl mx-auto">
+      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-white/70 bg-white/85 shadow-product">
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <div className="text-destructive mb-2">
@@ -98,11 +98,11 @@ const ScanHistory = () => {
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-3 gap-4">
-        <Card>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Card className="rounded-[24px] border-white/70 bg-white/85 shadow-[var(--shadow-soft)]">
           <CardContent className="pt-4">
             <div className="flex items-center space-x-2">
-              <BarChart3 className="hidden sm:flex h-6 w-6 text-blue-500 shrink-0" />
+              <BarChart3 className="hidden h-6 w-6 shrink-0 text-primary sm:flex" />
               <div>
                 <p className="text-sm font-medium">Total Scans</p>
                 <p className="text-2xl font-bold">{stats.totalScans}</p>
@@ -111,10 +111,10 @@ const ScanHistory = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="rounded-[24px] border-white/70 bg-white/85 shadow-[var(--shadow-soft)]">
           <CardContent className="pt-4">
             <div className="flex items-center space-x-2">
-              <TrendingUp className="hidden sm:flex h-6 w-6  text-green-500" />
+              <TrendingUp className="hidden h-6 w-6 text-orange-500 sm:flex" />
               <div>
                 <p className="text-sm font-medium">Avg Score</p>
                 <p className="text-2xl font-bold">{stats.averageHealthScore}</p>
@@ -123,10 +123,10 @@ const ScanHistory = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="rounded-[24px] border-white/70 bg-white/85 shadow-[var(--shadow-soft)]">
           <CardContent className="pt-4">
             <div className="flex items-center space-x-2">
-              <Calendar className="hidden sm:flex h-6 w-6 text-purple-500" />
+              <Calendar className="hidden h-6 w-6 text-amber-600 sm:flex" />
               <div>
                 <p className="text-sm font-medium">This Week</p>
                 <p className="text-2xl font-bold">{stats.recentScans}</p>
@@ -137,8 +137,8 @@ const ScanHistory = () => {
       </div>
 
       {/* Scan History */}
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
+      <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
+        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <CardTitle className="flex items-center gap-2">
             <History className="h-5 w-5" />
             Scan History
@@ -146,7 +146,7 @@ const ScanHistory = () => {
           {scanHistory.length > 0 && (
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="rounded-full border-orange-200/80 bg-white/90 shadow-[var(--shadow-soft)]">
                   Clear All
                 </Button>
               </AlertDialogTrigger>
@@ -173,7 +173,7 @@ const ScanHistory = () => {
         </CardHeader>
         <CardContent>
           {tier === "free" && stats.totalScans >= 10 && (
-            <div className="mb-4 rounded-lg border border-dashed border-primary/40 bg-primary/5 px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="mb-4 flex flex-col gap-3 rounded-[24px] border border-dashed border-orange-200/80 bg-orange-50/80 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-semibold">
                   Showing your latest unique scans
@@ -182,7 +182,7 @@ const ScanHistory = () => {
                   Upgrade to Pro to unlock your full scan history.
                 </p>
               </div>
-              <Button size="sm" onClick={() => router.push("/pricing")}>
+              <Button size="sm" onClick={() => router.push("/pricing")} className="rounded-full shadow-[var(--shadow-soft)]">
                 Upgrade to Pro
               </Button>
             </div>
@@ -196,12 +196,12 @@ const ScanHistory = () => {
               </p>
             </div>
           ) : (
-            <ScrollArea className="h-[460px] pr-4">
+            <ScrollArea className="h-[60vh] max-h-[460px] pr-2 sm:pr-4">
               <div className="space-y-3">
                 {scanHistory.map((item, index) => (
                   <div key={item.id}>
                     <div 
-                      className="flex sm:items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors cursor-pointer group"
+                      className="group flex cursor-pointer flex-col gap-3 rounded-[22px] border border-orange-100/70 bg-white/80 p-3 transition-colors hover:bg-orange-50/80 sm:flex-row sm:items-center sm:justify-between"
                       onClick={() => router.push(`/product/${item.barcode}`)}
                     >
                       <div className="flex-1 space-y-1">
@@ -241,7 +241,7 @@ const ScanHistory = () => {
                           e.stopPropagation();
                           deleteScanHistoryItem(item.id);
                         }}
-                        className="p-0 text-muted-foreground hover:text-destructive flex justify-end"
+                        className="flex justify-end p-0 text-muted-foreground hover:text-destructive sm:self-start"
                       >
                         <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </Button>

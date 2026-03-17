@@ -132,8 +132,8 @@ export default function PrivacyPage() {
           </nav>
 
           {/* Header */}
-          <header className="text-center mb-10">
-            <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">
+          <header className="mb-10 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
+            <h1 className="mb-2 text-3xl font-black tracking-tight text-foreground sm:text-4xl">
               Privacy Policy
             </h1>
             <p className="text-muted-foreground">
@@ -144,11 +144,11 @@ export default function PrivacyPage() {
           {/* Content */}
           <div className="space-y-6">
             {/* Overview */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield
-                    className="h-5 w-5 text-emerald-600"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Data Protection Overview
@@ -169,11 +169,11 @@ export default function PrivacyPage() {
             </Card>
 
             {/* Information We Collect */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Database
-                    className="h-5 w-5 text-blue-600"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Information We Collect
@@ -231,10 +231,10 @@ export default function PrivacyPage() {
             </Card>
 
             {/* How We Use Your Information */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Eye className="h-5 w-5 text-purple-600" aria-hidden="true" />
+                  <Eye className="h-5 w-5 text-primary" aria-hidden="true" />
                   How We Use Your Information
                 </CardTitle>
               </CardHeader>
@@ -270,10 +270,10 @@ export default function PrivacyPage() {
             </Card>
 
             {/* Data Security */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Lock className="h-5 w-5 text-red-600" aria-hidden="true" />
+                  <Lock className="h-5 w-5 text-primary" aria-hidden="true" />
                   Data Security & Storage
                 </CardTitle>
               </CardHeader>
@@ -304,7 +304,7 @@ export default function PrivacyPage() {
             </Card>
 
             {/* Cookies */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Cookie
@@ -341,7 +341,7 @@ export default function PrivacyPage() {
             </Card>
 
             {/* Data Retention */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Clock
@@ -382,11 +382,11 @@ export default function PrivacyPage() {
             </Card>
 
             {/* Your Rights */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <UserCheck
-                    className="h-5 w-5 text-green-600"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Your Rights
@@ -426,7 +426,7 @@ export default function PrivacyPage() {
             </Card>
 
             {/* Children's Privacy */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle>Children's Privacy</CardTitle>
               </CardHeader>
@@ -442,7 +442,7 @@ export default function PrivacyPage() {
             </Card>
 
             {/* Changes to Policy */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle>Changes to This Policy</CardTitle>
               </CardHeader>
@@ -458,10 +458,10 @@ export default function PrivacyPage() {
             </Card>
 
             {/* Contact Us */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Mail className="h-5 w-5 text-blue-600" aria-hidden="true" />
+                  <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
                   Contact Us
                 </CardTitle>
               </CardHeader>
@@ -489,9 +489,9 @@ export default function PrivacyPage() {
             </h2>
             <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
               <Link href="/terms/" className="group">
-                <Card className="h-full hover:shadow-md transition-shadow">
+                <Card className="h-full rounded-[28px] border-white/70 bg-white/88 transition-shadow hover:shadow-[var(--shadow-soft)]">
                   <CardContent className="p-4 flex items-center gap-4">
-                    <div className="p-3 rounded-full bg-primary/10">
+                    <div className="rounded-2xl bg-orange-50 p-3 shadow-[var(--shadow-soft)]">
                       <Shield
                         className="h-5 w-5 text-primary"
                         aria-hidden="true"
@@ -514,9 +514,9 @@ export default function PrivacyPage() {
               </Link>
 
               <Link href="/support/" className="group">
-                <Card className="h-full hover:shadow-md transition-shadow">
+                <Card className="h-full rounded-[28px] border-white/70 bg-white/88 transition-shadow hover:shadow-[var(--shadow-soft)]">
                   <CardContent className="p-4 flex items-center gap-4">
-                    <div className="p-3 rounded-full bg-accent/20">
+                    <div className="rounded-2xl bg-orange-50 p-3 shadow-[var(--shadow-soft)]">
                       <Mail
                         className="h-5 w-5 text-accent-foreground"
                         aria-hidden="true"

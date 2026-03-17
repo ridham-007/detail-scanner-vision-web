@@ -98,10 +98,10 @@ export default function AlternativesModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl p-10">
+      <DialogContent className="max-h-[90vh] max-w-[calc(100vw-1.5rem)] overflow-y-auto rounded-[28px] p-4 sm:max-w-4xl sm:p-6 lg:max-w-7xl lg:p-10">
 
-        <div className="mb-10">
-          <h1 className="text-4xl font-semibold tracking-tight">
+        <div className="mb-6 sm:mb-8 lg:mb-10">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
             Healthier Alternatives
           </h1>
         </div>
@@ -127,7 +127,7 @@ export default function AlternativesModal({
               </li>
             </ul>
             <Button
-              className="mt-2"
+              className="mt-2 w-full sm:w-auto"
               onClick={() => {
                 onOpenChange(false);
                 router.push("/pricing");

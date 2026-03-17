@@ -104,27 +104,27 @@ const Favorites = () => {
           </CardContent>
         </Card>
       ) : (
-        <Card>
+        <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
           <CardContent className="pt-6">
-            <ScrollArea className="h-[600px] pr-4">
+            <ScrollArea className="h-[65vh] max-h-[600px] pr-2 sm:pr-4">
               <div className="space-y-4">
                 {favorites.map((favorite, index) => (
                   <div key={favorite.id}>
-                    <div className="flex items-center justify-between p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
-                      <div className="flex items-center gap-4 flex-1">
+                    <div className="flex flex-col gap-4 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/50 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex min-w-0 flex-1 items-start gap-4 sm:items-center">
                         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                           <Package className="w-5 h-5 text-primary" />
                         </div>
                         
-                        <div className="flex-1 space-y-1">
-                          <div className="flex items-center gap-2">
-                            <h4 className="font-medium text-sm">{favorite.product_name}</h4>
+                        <div className="min-w-0 flex-1 space-y-1">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h4 className="truncate font-medium text-sm">{favorite.product_name}</h4>
                             <Badge variant={getHealthScoreBadgeVariant(favorite.health_score)}>
                               {favorite.health_score || 'N/A'}
                             </Badge>
                           </div>
-                          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                            <span>Barcode: {favorite.barcode}</span>
+                          <div className="flex flex-col gap-1 text-xs text-muted-foreground sm:flex-row sm:items-center sm:gap-4">
+                            <span className="break-all">Barcode: {favorite.barcode}</span>
                             <span className="flex items-center gap-1">
                               <Calendar className="w-3 h-3" />
                               {format(new Date(favorite.created_at), 'MMM d, yyyy')}
@@ -133,12 +133,12 @@ const Favorites = () => {
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                         <AddToShoppingListModal
                           barcode={favorite.barcode}
                           productName={favorite.product_name}
                         >
-                          <Button variant="outline" size="sm" className="flex items-center gap-1">
+                          <Button variant="outline" size="sm" className="flex w-full items-center justify-center gap-1 sm:w-auto">
                             <ShoppingCart className="w-3 h-3" />
                             Add to List
                           </Button>
@@ -147,6 +147,7 @@ const Favorites = () => {
                         <Button
                           variant="ghost"
                           size="sm"
+                          className="w-full sm:w-auto"
                           onClick={() => removeFromFavorites(favorite.barcode)}
                           className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive"
                         >
