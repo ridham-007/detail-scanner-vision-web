@@ -62,6 +62,24 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				health: {
+					excellent: 'hsl(var(--health-excellent))',
+					good: 'hsl(var(--health-good))',
+					fair: 'hsl(var(--health-fair))',
+					poor: 'hsl(var(--health-poor))',
+				},
+				benefit: {
+					DEFAULT: 'hsl(var(--benefit))',
+					bg: 'hsl(var(--benefit-bg))',
+				},
+				concern: {
+					DEFAULT: 'hsl(var(--concern))',
+					bg: 'hsl(var(--concern-bg))',
+				},
+				neutral: {
+					DEFAULT: 'hsl(var(--neutral))',
+					bg: 'hsl(var(--neutral-bg))',
 				}
 			},
 			borderRadius: {
@@ -138,6 +156,10 @@ export default {
 				'scale-out': 'scale-out 0.2s ease-out',
 				'slide-in-right': 'slide-in-right 0.3s ease-out',
 				'slide-out-right': 'slide-out-right 0.3s ease-out'
+			},
+			boxShadow: {
+				'product': 'var(--shadow-product)',
+				'health-score': 'var(--shadow-health-score)',
 			}
 		}
 	},

@@ -348,6 +348,24 @@ export default function SupportPage() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <Link
+                    href="/user-guide/"
+                    className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    → User Guide
+                  </Link>
+                  <Link
+                    href="/dietary-guides/"
+                    className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    → Dietary Cheat Sheets
+                  </Link>
+                  <Link
+                    href="/pricing/"
+                    className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    → Pricing & Plans
+                  </Link>
+                  <Link
                     href="/privacy/"
                     className="block text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
@@ -358,12 +376,6 @@ export default function SupportPage() {
                     className="block text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     → Terms of Service
-                  </Link>
-                  <Link
-                    href="/pricing/"
-                    className="block text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    → Pricing & Plans
                   </Link>
                 </CardContent>
               </Card>
