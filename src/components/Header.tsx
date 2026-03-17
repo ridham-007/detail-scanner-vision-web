@@ -22,7 +22,6 @@ const Header = () => {
     { path: "/quiz", label: "Quiz" },
     { path: "/blog", label: "Blogs" },
     { path: "/pricing", label: "Pricing" },
-    { path: "/favorites", label: "Favorites" },
   ];
 
   return (
@@ -99,6 +98,12 @@ const Header = () => {
                     <Link href="/support" className="flex items-center gap-2 cursor-pointer">
                       <Shield className="h-4 w-4" />
                       Support Center
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/favorites" className="flex items-center gap-2 cursor-pointer">
+                      <Heart className="h-4 w-4" />
+                      Favorites
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
