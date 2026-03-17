@@ -113,37 +113,57 @@ export default function UserGuidePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative py-12 md:py-24 overflow-hidden border-b border-border animate-fade-in">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background -z-10" />
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-left md:text-center">
-            <Badge variant="outline" className="mb-4 py-1 px-4 border-primary/20 bg-primary/5 text-primary animate-scale-in text-[10px] md:text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
-              <BookOpen className="h-3 w-3 md:h-4 md:w-4 mr-2" />
-              User Guide
-            </Badge>
-            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black tracking-tight text-foreground mb-4 md:mb-8 leading-tight">
-              Master <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-500">EaterIQ</span>
-            </h1>
-            <p className="text-base md:text-2xl text-muted-foreground leading-relaxed mb-6 md:mb-10 max-w-2xl mx-auto">
-              Decipher labels, compare nutrients, and track your health in real-time.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-start md:justify-center gap-4">
-              <Button onClick={() => scrollToSection('getting-started')} size="lg" className="rounded-xl md:rounded-2xl px-8 md:px-10 h-12 md:h-14 text-sm md:text-base font-bold shadow-lg shadow-primary/10 hover-scale bg-primary">
-                Get Started <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-              <Link href="/support">
-                <Button variant="outline" size="lg" className="rounded-xl md:rounded-2xl px-8 h-12 md:h-14 text-sm md:text-base font-bold hover-scale border-border bg-background/50">
-                  Support
-                </Button>
+      <div className="container mx-auto px-4 py-8">
+        {/* Breadcrumb */}
+        <nav className="mb-6" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+            <li>
+              <Link href="/" className="hover:text-primary">
+                Home
               </Link>
-            </div>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li className="text-foreground font-medium" aria-current="page">
+              User Guide
+            </li>
+          </ol>
+        </nav>
+
+        {/* Header (match Support/Blog styling) */}
+        <header className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
+            <BookOpen className="h-8 w-8 text-primary" aria-hidden="true" />
           </div>
-        </div>
-      </section>
+          <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">
+            Master <span className="text-foreground">EaterIQ</span>
+          </h1>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Decipher labels, compare nutrients, and track your health in real-time.
+          </p>
+
+          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+            <Button
+              onClick={() => scrollToSection("getting-started")}
+              size="lg"
+              className="px-8 h-12 font-bold"
+            >
+              Get Started <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+            <Link href="/support">
+              <Button
+                variant="outline"
+                size="lg"
+                className="px-8 h-12 font-bold"
+              >
+                Support
+              </Button>
+            </Link>
+          </div>
+        </header>
+      </div>
 
       {/* Main Content Area */}
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
 
           {/* Mobile Navigation (Sticky on small screens) */}
@@ -250,8 +270,10 @@ export default function UserGuidePage() {
                             {step.s}
                           </div>
                           <div>
-                            <p className="text-sm font-bold m-0 text-primary-foreground/90">{step.t}</p>
-                            <p className="text-[10px] text-primary/70 m-0 font-medium leading-tight">{step.d}</p>
+                            <p className="text-sm font-bold m-0 text-foreground">{step.t}</p>
+                            <p className="text-[10px] text-muted-foreground m-0 font-medium leading-tight">
+                              {step.d}
+                            </p>
                           </div>
                         </div>
                       ))}
