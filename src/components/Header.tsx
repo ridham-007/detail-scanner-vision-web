@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Shield, FileText, Package, Bell, BookOpen, ScanLine, Sparkles } from "lucide-react";
+import { Shield, FileText, Package, Bell, BookOpen, ScanLine, Sparkles, Heart } from "lucide-react";
 
 const Header = () => {
   const pathname = usePathname();
@@ -22,6 +22,7 @@ const Header = () => {
     { path: "/quiz", label: "Quiz" },
     { path: "/blog", label: "Blogs" },
     { path: "/pricing", label: "Pricing" },
+    { path: "/favorites", label: "Favorites" },
   ];
 
   return (
