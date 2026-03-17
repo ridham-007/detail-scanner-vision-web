@@ -123,7 +123,7 @@ export default function TermsPage() {
           </nav>
 
           {/* Header */}
-          <header className="mb-10 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
+          <header className="mb-10 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center backdrop-blur-sm">
             <h1 className="mb-2 text-3xl font-black tracking-tight text-foreground sm:text-4xl">
               Terms of Service
             </h1>

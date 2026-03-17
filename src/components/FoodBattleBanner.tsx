@@ -10,7 +10,7 @@ export default function FoodBattleBanner() {
       <div
         className="
         group flex max-w-full cursor-pointer flex-col gap-4 rounded-[28px] border border-orange-200/80
-        bg-[linear-gradient(180deg,rgba(255,237,213,0.78),rgba(255,250,244,0.98))]
+        bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))]
         p-5 shadow-product transition-all duration-300 hover:shadow-[var(--shadow-warm)]
       "
       >

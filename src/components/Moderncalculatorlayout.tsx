@@ -228,7 +228,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
             ]}
           />
 
-          <div className="mx-auto max-w-5xl rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
+          <div className="mx-auto max-w-5xl rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center backdrop-blur-sm">
             <div className="inline-flex items-center gap-3 mb-6">
               <div className="rounded-[24px] bg-primary p-4 shadow-[var(--shadow-warm)]">
                 <Icon className="h-10 w-10 text-white" />
@@ -288,7 +288,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
             {/* CENTER */}
             <div className="order-1 lg:order-2 lg:col-span-6">
               <div className="overflow-hidden rounded-[30px] border border-white/70 bg-white/90 shadow-product">
-                <div className="border-b border-orange-100/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.72),rgba(255,250,244,0.98))] p-6">
+                <div className="border-b border-orange-100/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-6">
                   <div className="flex items-center gap-3">
                     <Calculator className="h-6 w-6 text-primary" />
                     <h2 className="text-xl font-semibold text-foreground">
@@ -338,7 +338,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
                   </div>
 
                   {details.tips && (
-                    <div className="rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.78),rgba(255,250,244,0.98))] p-5 shadow-product">
+                    <div className="rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-5 shadow-product">
                       <h3 className="mb-3 flex gap-2 font-semibold text-foreground">
                         <Sparkles className="text-primary" />
                         Tips
@@ -368,7 +368,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
 
       {/* FAQ */}
       {faq && faq.length > 0 && (
-        <section className="py-16 bg-[#84B44C]/40 dark:bg-gray-900">
+        <section className="py-16 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-8 dark:text-white">
               Frequently Asked Questions
@@ -387,7 +387,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
                     className="w-full p-6 text-left flex justify-between dark:text-white"
                   >
                     <span>{item.question}</span>
-                    <span className="text-[#84B44C]">↓</span>
+                    <span className="text-primary">↓</span>
                   </button>
 
                   {expandedFaq === index && (

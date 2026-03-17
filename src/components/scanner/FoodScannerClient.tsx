@@ -238,7 +238,7 @@ export default function FoodScannerClient() {
 
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Scanner Section */}
-        <Card className="overflow-hidden rounded-[30px] border border-white/60 bg-[linear-gradient(180deg,rgba(255,237,213,0.72),rgba(255,250,244,0.96))] shadow-product">
+        <Card className="overflow-hidden rounded-[30px] border border-white/60 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] shadow-product">
           <CardHeader className="pb-6">
             <CardTitle className="flex items-center gap-3 text-2xl font-bold">
               <div className="rounded-2xl bg-white/70 p-3 shadow-[var(--shadow-soft)]">
@@ -280,7 +280,7 @@ export default function FoodScannerClient() {
                 value={manualBarcode}
                 onChange={(e) => setManualBarcode(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleManualLookup()}
-                className="rounded-2xl border-2 border-orange-100/80 bg-[rgba(255,250,244,0.94)] py-6 text-base focus:border-primary"
+                className="rounded-2xl border-2 border-orange-100/80 bg-[rgba(255,250,244,0.94)] py-6 text-base"
                 aria-label="Barcode number"
               />
               <Button

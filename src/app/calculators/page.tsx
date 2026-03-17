@@ -22,7 +22,7 @@ export default function AllCalculatorsPage() {
         </div>
 
         {/* HEADER */}
-        <header className="mb-16 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
+        <header className="mb-16 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center backdrop-blur-sm">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2">
             <Calculator className="h-5 w-5 text-primary" />
             <span className="text-sm font-semibold text-primary">
@@ -30,7 +30,7 @@ export default function AllCalculatorsPage() {
             </span>
           </div>
 
-          <h1 className="mb-4 text-3xl font-black tracking-tight text-foreground md:text-4xl">
+          <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             All Health Calculators
           </h1>
 
