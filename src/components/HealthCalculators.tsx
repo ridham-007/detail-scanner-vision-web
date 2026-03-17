@@ -48,11 +48,11 @@ export default function HealthCalculators() {
             return (
               <Link key={index} href={calc.path}>
                 <article
-                  className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[30px] border border-white/65 bg-white/84 p-6 shadow-product transition-all duration-300 hover:-translate-y-1 hover:border-orange-200/80 hover:shadow-[var(--shadow-warm)] sm:p-8"
+                  className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[30px] border border-white/65 bg-white/84 p-6  transition-all duration-300 hover:-translate-y-1 hover:border-orange-200/80 hover:shadow-[var(--shadow-warm)] sm:p-8"
                 >
                   <div
                     className="absolute inset-0 bg-gradient-to-br from-orange-100/60 via-transparent 
-                    to-orange-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    to-orange-50 opacity-0 transition-opacity duration-300 group-hover:opacity-50"
                   />
 
                   <div className="relative z-10 flex flex-col flex-grow">
@@ -103,7 +103,7 @@ export default function HealthCalculators() {
 
                   <div
                     className="absolute -bottom-10 -right-10 w-32 h-32 
-                    bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 
+                    bg-primary/10 rounded-full blur-xl group-hover:bg-primary/10 
                     transition-colors"
                   />
                 </article>

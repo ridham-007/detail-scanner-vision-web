@@ -192,7 +192,7 @@ export default async function BlogListPage() {
                 </CardContent>
               </Card>
 
-              <Card className="rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.78),rgba(255,250,244,0.98))] shadow-product">
+              <Card className="rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] shadow-product">
                 <CardContent className="pt-6">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/90 shadow-[var(--shadow-soft)]">
                     <Scan className="h-6 w-6 text-primary" aria-hidden="true" />

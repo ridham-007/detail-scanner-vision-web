@@ -304,7 +304,7 @@ export default async function QuizPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {quizzes.map((quiz) => (
                   <article key={quiz.id}>
-                      <Card className="flex h-full flex-col transition-shadow hover:shadow-lg">
+                      <Card className="flex h-full flex-col transition-shadow hover:shadow-md">
                       <CardHeader className="min-h-[120px] pb-3 sm:min-h-[140px]">
                         <div className="flex items-start justify-between mb-2">
                           <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
@@ -572,7 +572,7 @@ export default async function QuizPage() {
           </section>
 
           {/* CTA Section */}
-          <section className="mb-16 text-center bg-primary/5 rounded-2xl p-8">
+          <section className="mb-16 text-center bg-muted/30 rounded-2xl p-8">
             <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" aria-hidden="true" />
             <h2 className="text-2xl font-bold mb-4">Ready to Test Your Knowledge?</h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">

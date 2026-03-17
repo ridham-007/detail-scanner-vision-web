@@ -885,7 +885,7 @@ export default function QuizPlayClient({
 
         {/* Guest Notice */}
         {!user && (
-          <Card className="bg-accent text-accent-foreground mb-4">
+          <Card className="bg-accent/30 text-accent-foreground mb-4">
             <CardContent className="p-3">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2 min-w-0">
@@ -951,7 +951,7 @@ export default function QuizPlayClient({
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.skipQuestion
                   ? "opacity-50 bg-muted"
-                  : "bg-accent hover:bg-accent/90 text-accent-foreground"
+                  : "bg-accent/60 hover:bg-accent/50 text-accent-foreground"
               }`}
             >
               <Lightbulb className="h-4 w-4" aria-hidden="true" />
@@ -969,7 +969,7 @@ export default function QuizPlayClient({
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.extraTime
                   ? "opacity-50 bg-muted"
-                  : "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                  : "bg-secondary/60 hover:bg-secondary/50 text-secondary-foreground"
               }`}
             >
               <Clock className="h-4 w-4" aria-hidden="true" />

@@ -326,7 +326,7 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
 
               {/* CTA Section */}
-              <div className="rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.78),rgba(255,250,244,0.98))] p-6 shadow-product">
+              <div className="rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-6 shadow-product">
                 <h2 className="font-semibold text-foreground mb-3">
                   Ready to make healthier food choices?
                 </h2>
@@ -447,7 +447,7 @@ export default async function BlogPostPage({ params }: Props) {
               )}
 
               {/* CTA Card */}
-              <Card className="rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.78),rgba(255,250,244,0.98))] shadow-product">
+              <Card className="rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] shadow-product">
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-foreground mb-2">Try EaterIQ Free</h3>
                   <p className="text-sm text-muted-foreground mb-4">
