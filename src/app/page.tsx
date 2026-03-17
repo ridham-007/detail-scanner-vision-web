@@ -294,7 +294,7 @@ export default async function HomePage() {
                   </div>
                   <h1
                     id="hero-heading"
-                    className="mb-4 text-[2rem] font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl"
+                    className="mb-4 text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl"
                   >
                     Bright health guidance for every barcode in your kitchen.
                   </h1>

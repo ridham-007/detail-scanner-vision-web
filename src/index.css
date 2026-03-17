@@ -39,7 +39,7 @@
         --neutral-bg: 210 20% 97%;
         --gradient-hero: linear-gradient(135deg, hsl(27 100% 86%), hsl(32 100% 95%));
         --gradient-health: linear-gradient(135deg, hsl(var(--health-excellent)), hsl(var(--health-good)));
-        --shadow-product: 0 18px 40px -18px hsl(22 31% 14% / 0.16);
+        --shadow-product: 0 18px 40px -18px hsl(12 15% 7% / 0.06);
         --shadow-health-score: 0 14px 30px -14px hsl(var(--primary) / 0.28);
         --shadow-soft: 0 10px 24px -14px hsl(22 31% 14% / 0.12);
         --shadow-warm: 0 16px 36px -18px hsl(var(--primary) / 0.24);

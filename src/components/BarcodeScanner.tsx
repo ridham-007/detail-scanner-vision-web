@@ -175,7 +175,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
         <div className="flex flex-col !items-center !justify-center">
           <div className="!flex flex-col">
             {!isScanning && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/78 backdrop-blur-[2px]">
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 px-2">
                 <div className="rounded-[24px] border border-white/70 bg-white/80 px-8 py-6 text-center shadow-[var(--shadow-soft)]">
                   <p className="text-lg font-semibold text-center text-foreground">Ready to Scan</p>
                   <p className="mt-1 text-sm text-muted-foreground">

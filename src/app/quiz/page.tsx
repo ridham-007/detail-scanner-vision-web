@@ -292,7 +292,7 @@ export default async function QuizPage() {
 
           {/* All Quizzes Section */}
           <section className="mb-16" aria-labelledby="all-quizzes-heading">
-            <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mb-8 flex gap-3 sm:flex-row sm:items-center sm:justify-between">
               <h2 id="all-quizzes-heading" className="flex items-center gap-2 text-2xl font-bold">
                 <Brain className="w-6 h-6 text-primary" aria-hidden="true" />
                 All Quizzes
