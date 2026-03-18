@@ -4,7 +4,7 @@ export const fetchProductImage = async (
 ): Promise<string | null> => {
   if (!barcode) return null;
 
-  const url = `https://barcode-scanner-webn.onrender.com/api/product/image/${barcode}`;
+  const url = `https://api.eateriq.com/api/product/image/${barcode}`;
 
   try {
     const res = await fetch(url);

@@ -90,7 +90,7 @@ export const useProductLookup = () => {
   ): Promise<ProductData | null> => {
     try {
       const response = await fetch(
-        `https://barcode-scanner-webn.onrender.com/api/product/${barcode}`,
+        `https://api.eateriq.com/api/product/${barcode}`,
         { headers: { Accept: "application/json" } }
       );
 

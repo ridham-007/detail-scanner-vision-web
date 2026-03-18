@@ -7,7 +7,7 @@ export interface AlternativeProduct {
 
 export async function fetchAlternatives(barcode: string) {
   const res = await fetch(
-    `https://barcode-scanner-webn.onrender.com/alternatives/product/${barcode}/full`
+    `https://api.eateriq.com/alternatives/product/${barcode}/full`
   );
 
   if (!res.ok) {
