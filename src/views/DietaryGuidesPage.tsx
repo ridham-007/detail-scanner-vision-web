@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 // --- Rich Content Data ---
 const cheatSheetData = {
@@ -214,24 +215,32 @@ export default function DietaryGuidesView() {
 
     return (
         <div className="container mx-auto px-4 py-16 max-w-7xl min-h-screen">
+            {/* Breadcrumb */}
+            <nav className="mb-6" aria-label="Breadcrumb">
+                <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <li>
+                        <Link href="/" className="hover:text-primary">Home</Link>
+                    </li>
+                    <li aria-hidden="true">/</li>
+                    <li className="text-foreground font-medium" aria-current="page">
+                        Dietary Guides
+                    </li>
+                </ol>
+            </nav>
+
             <div className="text-center mb-16 space-y-6 no-print">
-                {/* Badge - matches Quiz Hub / User Guide style */}
                 <div className="flex justify-center mb-5">
                     <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5">
                         <FileText className="h-3.5 w-3.5 text-primary" />
                         <span className="text-xs font-semibold text-primary tracking-wide">Expert-Curated Guides</span>
                     </div>
                 </div>
-
-                {/* Heading - consistent with User Guide & Quiz Hub */}
                 <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground">
                     Dietary{" "}
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                         Cheat Sheets
                     </span>
                 </h1>
-
-                {/* Subtitle */}
                 <p className="text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
                     Expert-curated guides for every lifestyle. Click any card to view the full cheat sheet and print it for your fridge.
                 </p>

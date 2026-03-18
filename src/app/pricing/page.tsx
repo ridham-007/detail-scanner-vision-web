@@ -40,7 +40,8 @@ export const SUBSCRIPTION_PLANS = {
     razorpayPlanId: "plan_RyBqWY2wYKtXMX",
   },
 } as const;
-// Static metadata for SEO
+
+// ── SEO ───────────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   title: "Pricing - Affordable Plans for Your Health Journey | EaterIQ",
   description:
@@ -168,7 +169,6 @@ const breadcrumbSchema = {
   ],
 };
 
-// FAQ Schema
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -216,22 +216,13 @@ const faqSchema = {
   ],
 };
 
+// ── Page ──────────────────────────────────────────────────────────────────────
 export default function PricingPage() {
   return (
     <>
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <div className="container mx-auto px-4 py-12">
         {/* Breadcrumb */}
