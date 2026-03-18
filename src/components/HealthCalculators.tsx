@@ -16,7 +16,7 @@ export default function HealthCalculators() {
   return (
     <section
       id="health-calculators"
-      className="bg-[linear-gradient(180deg,rgba(255,250,244,0.68),rgba(255,247,237,0.88))] py-14 sm:py-20"
+      className="py-14 sm:py-20"
       aria-labelledby="calculators-heading"
     >
       <div className="container mx-auto px-4">

@@ -33,10 +33,10 @@ export default function Footer() {
       aria-label="Site footer"
       itemScope
       itemType="https://schema.org/WPFooter"
-      className="mt-10 border-t border-border/70 bg-[rgba(255,250,244,0.86)] backdrop-blur-xl"
+      className="mt-10 border-t border-border/70 backdrop-blur-xl"
     >
       <div className="container mx-auto px-4 py-10 md:py-12">
-        <div className="grid grid-cols-1 items-start gap-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 shadow-product sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+        <div className="grid grid-cols-1 items-start gap-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
 
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">

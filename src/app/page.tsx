@@ -268,14 +268,14 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
-      <div className="min-h-screen bg-background">
-        <main className="relative z-10">
+      {/* <div className="min-h-screen bg-background"> */}
+
           {/* Hero Section */}
           <section
             className="relative overflow-hidden py-10 sm:py-12 md:py-16 lg:py-20"
             aria-labelledby="hero-heading"
           >
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(circle_at_top_right,rgba(251,146,60,0.20),transparent_32%),radial-gradient(circle_at_top_left,rgba(254,215,170,0.42),transparent_28%)]" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-[32rem]" />
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div
                 className="
@@ -287,7 +287,7 @@ export default async function HomePage() {
 "
               >
                 {/* Left Column - Content */}
-                <div className="order-1 flex flex-col justify-center rounded-[32px] border border-white/60 bg-white/78 px-5 py-7 text-center shadow-product backdrop-blur-sm sm:px-6 md:px-8 md:py-10 lg:text-left">
+                <div className="order-1 flex flex-col justify-center rounded-[32px] border border-white/60 bg-white/78 px-5 py-7 text-center sm:px-6 md:px-8 md:py-10 lg:text-left">
                   <div className="mb-5 inline-flex items-center gap-2 self-center rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 lg:self-start">
                     <Sparkles className="h-4 w-4" />
                     Fresh scans, smarter food choices
@@ -581,7 +581,7 @@ export default async function HomePage() {
             <h2 id="scanner-heading" className="sr-only">
               Food Product Scanner
             </h2>
-            <div className="mx-auto rounded-[32px] border border-white/60 bg-white/78 p-2 shadow-product backdrop-blur-sm sm:p-3 md:p-5">
+            <div className="mx-auto rounded-[32px] border border-white/60 bg-white/78 p-2 sm:p-3 md:p-5">
               <FoodScannerPage />
             </div>
           </section>
@@ -589,12 +589,12 @@ export default async function HomePage() {
           {/* How It Works Section */}
           <section
             id="how-it-works"
-            className="bg-[rgba(255,247,237,0.78)] py-14 sm:py-20"
+            className="py-14 sm:py-20"
             aria-labelledby="how-it-works-heading"
           >
             <div className="container mx-auto px-4">
               <header className="mb-12 text-center sm:mb-16">
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-white/80 px-4 py-2 text-sm font-semibold text-orange-800 shadow-[var(--shadow-soft)]">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold text-orange-800 shadow-[var(--shadow-soft)]">
                   <QrCode className="h-4 w-4" />
                   Simple from first scan to insight
                 </div>
@@ -611,7 +611,7 @@ export default async function HomePage() {
 
               <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
                 {/* Step 1 */}
-                <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center shadow-product">
+                <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center">
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-orange-50">
                     <QrCode
                       className="h-8 w-8 text-primary"
@@ -631,7 +631,7 @@ export default async function HomePage() {
                 </article>
 
                 {/* Step 2 */}
-                <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center shadow-product">
+                <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center">
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-orange-50">
                     <Search
                       className="h-8 w-8 text-primary"
@@ -651,7 +651,7 @@ export default async function HomePage() {
                 </article>
 
                 {/* Step 3 */}
-                <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center shadow-product">
+                <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center">
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-orange-50">
                     <TrendingUp
                       className="h-8 w-8 text-primary"
@@ -773,7 +773,7 @@ export default async function HomePage() {
           {/* Why Choose EaterIQ Section */}
           <section
             id="why-eateriq"
-            className="bg-[rgba(255,250,244,0.72)] py-14 sm:py-20"
+            className="py-14 sm:py-20"
             aria-labelledby="why-heading"
           >
             <div className="container mx-auto px-4">
@@ -1013,7 +1013,7 @@ export default async function HomePage() {
           {recentBlogs && recentBlogs.length > 0 && (
             <section
               id="blog"
-              className="bg-[rgba(255,247,237,0.72)] py-14 sm:py-20"
+              className="py-14 sm:py-20"
               aria-labelledby="blog-heading"
             >
               <div className="container mx-auto px-4">
@@ -1115,7 +1115,7 @@ export default async function HomePage() {
           {/* Final CTA Section */}
           <section className="py-14 sm:py-20" aria-labelledby="cta-heading">
             <div className="container mx-auto px-4">
-              <div className="mx-auto max-w-4xl rounded-[34px] border border-white/65 bg-[linear-gradient(135deg,rgba(255,237,213,0.86),rgba(255,250,244,0.96))] p-6 text-center shadow-[var(--shadow-warm)] sm:p-8 lg:p-12">
+              <div className="mx-auto max-w-4xl rounded-[34px] border border-white/65 p-6 text-center shadow-[var(--shadow-warm)] sm:p-8 lg:p-12">
                 <h2
                   id="cta-heading"
                   className="mb-4 text-3xl font-extrabold text-foreground md:text-4xl"
@@ -1219,8 +1219,7 @@ export default async function HomePage() {
               </div>
             </div>
           </section>
-        </main>
-      </div>
+      {/* </div> */}
     </>
   );
 }

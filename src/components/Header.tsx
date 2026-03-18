@@ -27,10 +27,10 @@ const Header = () => {
   return (
     <header 
       role="banner"
-      className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/90 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70"
+      className="sticky top-0 z-50 w-full bg-transparent"
     >
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between rounded-[28px] border border-white/60 bg-white/80 px-4 py-3 shadow-product">
+        <div className="flex items-center justify-between rounded-[28px] border border-white/60 px-4 py-3 shadow-product bg-white">
           <div className="flex items-center space-x-3">
             <Link href="/" aria-label="EaterIQ Home">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/50 bg-gradient-to-br from-orange-300 via-orange-400 to-orange-600 text-white shadow-[var(--shadow-warm)] transition-transform duration-300 hover:scale-105">
@@ -137,7 +137,7 @@ const Header = () => {
             <div className="flex items-center gap-2 md:gap-4">
               <NotificationBell />
               <AuthButton />
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
             </div>
           </div>
         </div>

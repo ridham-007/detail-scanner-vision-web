@@ -155,17 +155,13 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
 
   return (
     <div 
-      className="relative h-72 w-full overflow-hidden rounded-[28px] border border-white/70 bg-[linear-gradient(180deg,rgba(255,250,244,0.98),rgba(255,237,213,0.82))] shadow-[var(--shadow-soft)]"
+      className="relative h-72 w-full overflow-hidden rounded-[28px] border border-white/70 bg-[linear-gradient(180deg,rgba(255,250,244,0.98),rgba(255,237,213,0.82))]"
       role="region"
       aria-label="Barcode scanner"
       aria-live="polite"
     >
       <div className="absolute inset-0">
         <div className="absolute inset-4 rounded-[24px] border-2 border-primary/80 bg-transparent">
-          <div className="absolute -left-1 -top-1 h-7 w-7 rounded-tl-xl border-l-4 border-t-4 border-orange-500"></div>
-          <div className="absolute -right-1 -top-1 h-7 w-7 rounded-tr-xl border-r-4 border-t-4 border-orange-500"></div>
-          <div className="absolute -bottom-1 -left-1 h-7 w-7 rounded-bl-xl border-b-4 border-l-4 border-orange-500"></div>
-          <div className="absolute -bottom-1 -right-1 h-7 w-7 rounded-br-xl border-b-4 border-r-4 border-orange-500"></div>
         </div>
 
         <div
