@@ -149,14 +149,25 @@ export default async function BlogListPage() {
         </nav>
 
         {/* Header */}
-        <header className="mb-12 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
-          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-[22px] bg-orange-50 shadow-[var(--shadow-soft)]">
-            <BookOpen className="h-8 w-8 text-primary" aria-hidden="true" />
+        <header className="mb-12 pt-4 pb-2 text-center">
+          {/* Badge */}
+          <div className="flex justify-center mb-5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5">
+              <BookOpen className="h-3.5 w-3.5 text-primary" />
+              <span className="text-xs font-semibold text-primary tracking-wide">Nutrition Insights & Tips</span>
+            </div>
           </div>
-          <h1 className="mb-4 text-4xl font-black tracking-tight">
-            Nutrition Insights & Tips
+
+          {/* Heading */}
+          <h1 className="mb-4 text-4xl sm:text-5xl font-black tracking-tight text-foreground">
+            Nutrition{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+              Insights & Tips
+            </span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+
+          {/* Subtitle */}
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Expert articles to help you understand food labels, nutrition facts, and make healthier choices for you and your family.
           </p>
         </header>

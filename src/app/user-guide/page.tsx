@@ -97,10 +97,10 @@ const sections = [
 ];
 
 const scoreLevels = [
-  { label: "Excellent", range: "80-100", color: "bg-health-excellent", description: "Minimal additives, high nutritional value, and clean ingredients." },
-  { label: "Good", range: "60-79", color: "bg-health-good", description: "Generally healthy with some minor nutritional concerns." },
-  { label: "Fair", range: "40-59", color: "bg-health-fair", description: "Contains several concerning ingredients or low nutritional density." },
-  { label: "Poor", range: "0-39", color: "bg-health-poor", description: "High in harmful additives, sugar, or ultra-processed ingredients." }
+  { label: "Excellent", range: "80–100", score: "100", color: "bg-green-500", textColor: "text-green-700", bgColor: "bg-green-50", borderColor: "border-green-100", description: "Minimal additives, high nutritional value, and clean ingredients." },
+  { label: "Good", range: "60–79", score: "79", color: "bg-yellow-400", textColor: "text-yellow-700", bgColor: "bg-yellow-50", borderColor: "border-yellow-100", description: "Generally healthy with some minor nutritional concerns." },
+  { label: "Fair", range: "40–59", score: "59", color: "bg-orange-400", textColor: "text-orange-700", bgColor: "bg-orange-50", borderColor: "border-orange-100", description: "Contains several concerning ingredients or low nutritional density." },
+  { label: "Poor", range: "0–39", score: "39", color: "bg-red-500", textColor: "text-red-700", bgColor: "bg-red-50", borderColor: "border-red-100", description: "High in harmful additives, sugar, or ultra-processed ingredients." }
 ];
 
 export default function UserGuidePage() {
@@ -112,51 +112,89 @@ export default function UserGuidePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(var(--accent),0.1),transparent_24%),linear-gradient(180deg,rgb(var(--background)),rgba(var(--accent-soft),0.14))]">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-border animate-fade-in py-12 md:py-24">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(251,146,60,0.12),transparent_50%)]" />
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-4xl rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-left shadow-product backdrop-blur-sm md:text-center">
-            <Badge variant="outline" className="mb-4 animate-scale-in rounded-full border-orange-200/70 bg-orange-50 px-4 py-1 text-[10px] font-bold uppercase tracking-widest text-orange-800 backdrop-blur-sm md:text-xs">
-              <BookOpen className="h-3 w-3 md:h-4 md:w-4 mr-2" />
-              User Guide
-            </Badge>
-            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black tracking-tight text-foreground mb-4 md:mb-8 leading-tight">
-              Master <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-500">EaterIQ</span>
-            </h1>
-            <p className="text-base md:text-2xl text-muted-foreground leading-relaxed mb-6 md:mb-10 max-w-2xl mx-auto">
-              Decipher labels, compare nutrients, and track your health in real-time.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-start md:justify-center gap-4">
-              <Button onClick={() => scrollToSection('getting-started')} size="lg" className="h-12 rounded-full bg-primary px-8 text-sm font-bold shadow-[var(--shadow-warm)] md:h-14 md:px-10 md:text-base">
-                Get Started <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-              <Link href="/support">
-                <Button variant="outline" size="lg" className="h-12 rounded-full border-orange-200/80 bg-white/90 px-8 text-sm font-bold md:h-14 md:text-base">
-                  Support
-                </Button>
-              </Link>
+    <div className="min-h-screen bg-background">
+      <main className="container mx-auto px-4 py-8 relative z-10 max-w-6xl">
+
+        {/* Breadcrumb */}
+        <nav className="mb-6" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+            <li>
+              <Link href="/" className="hover:text-primary">Home</Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li className="text-foreground font-medium" aria-current="page">User Guide</li>
+          </ol>
+        </nav>
+
+        {/* ── HERO HEADER ── */}
+        {/* ── HERO HEADER ── */}
+        <header className="mb-12 pt-4 pb-2 text-center">
+          {/* Badge */}
+          <div className="flex justify-center mb-5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5">
+              <BookOpen className="h-3.5 w-3.5 text-primary" />
+              <span className="text-xs font-semibold text-primary tracking-wide">Live Product Guide</span>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Main Content Area */}
-      <main className="container mx-auto px-4 py-16">
+          {/* Heading */}
+          <h1 className="mb-4 text-4xl sm:text-5xl font-black tracking-tight text-foreground">
+            Your Complete{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+              User Guide
+            </span>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed mb-8">
+            Step-by-step playbooks to scan smarter, compare foods, and turn every grocery trip into healthier choices.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
+            <Button
+              onClick={() => scrollToSection("getting-started")}
+              size="lg"
+              className="w-full sm:w-auto rounded-full px-10 h-12 text-base font-bold shadow-lg shadow-primary/20"
+            >
+              Start in 3 Steps <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+            <Link href="/support" className="w-full sm:w-auto">
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto rounded-full px-10 h-12 text-base font-bold"
+              >
+                Talk to Support
+              </Button>
+            </Link>
+          </div>
+
+          {/* Trust row */}
+          <div className="flex flex-wrap items-center justify-center gap-5 text-sm text-muted-foreground">
+            <div className="inline-flex items-center gap-1.5 text-emerald-600 font-semibold">
+              <CheckCircle2 className="h-4 w-4" />
+              10,000+ scans guided
+            </div>
+            <span className="text-border hidden sm:inline">•</span>
+            <span>Updated for the latest E-numbers and nutrition science.</span>
+          </div>
+        </header>
+
+        {/* ── MAIN LAYOUT ── */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
 
-          {/* Mobile Navigation (Sticky on small screens) */}
-          <div className="lg:hidden sticky top-[56px] z-30 -mx-4 mb-8 overflow-hidden border-b border-orange-100/80 bg-background/70 px-4 py-3 backdrop-blur-xl">
+          {/* Mobile sticky tab-bar */}
+          <div className="lg:hidden sticky top-[56px] z-30 -mx-4 px-4 py-3 bg-background/80 backdrop-blur-xl border-b border-border/50 mb-8">
             <div className="flex overflow-x-auto pb-1 gap-2 no-scrollbar snap-x scroll-smooth">
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className="flex-shrink-0 snap-start whitespace-nowrap rounded-full border border-orange-200/80 bg-orange-50 px-4 py-2 text-[11px] font-bold shadow-[var(--shadow-soft)]"
+                  className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-xs font-bold whitespace-nowrap snap-start hover:bg-primary/10 shadow-sm"
                 >
                   <div className="text-primary">
-                    {React.cloneElement(section.icon as React.ReactElement, { className: "h-3 w-3" })}
+                    {React.cloneElement(section.icon as React.ReactElement, { className: "h-3.5 w-3.5" })}
                   </div>
                   {section.title}
                 </button>
@@ -164,15 +202,17 @@ export default function UserGuidePage() {
             </div>
           </div>
 
-          {/* Sticky Sidebar Nav (Desktop only) */}
+          {/* Desktop sticky sidebar */}
           <aside className="lg:col-span-1 hidden lg:block animate-fade-in">
-            <div className="sticky top-24 space-y-1 rounded-[28px] border border-white/70 bg-white/88 p-2 shadow-product">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60 mb-3 mt-2 ml-4">Table of Contents</p>
+            <div className="sticky top-24 space-y-1 p-2 rounded-2xl bg-muted/30 border border-border shadow-sm">
+              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60 mb-3 mt-2 ml-4">
+                Table of Contents
+              </p>
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className="group flex w-full items-center gap-3 rounded-[20px] px-4 py-3 text-left text-sm font-semibold text-muted-foreground transition-all hover:bg-orange-50/80 hover:text-primary hover:shadow-[var(--shadow-soft)]"
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all hover:bg-white dark:hover:bg-background hover:shadow-sm text-muted-foreground hover:text-primary group text-left"
                 >
                   <div className="transition-transform group-hover:scale-110 shrink-0">
                     {React.cloneElement(section.icon as React.ReactElement, { className: "h-4 w-4" })}
@@ -183,104 +223,111 @@ export default function UserGuidePage() {
             </div>
           </aside>
 
-          {/* Guide Content */}
+          {/* ── GUIDE CONTENT ── */}
           <div className="lg:col-span-3 space-y-24 max-w-4xl animate-fade-in">
 
-            {/* Getting Started Section */}
+            {/* ── 1. GETTING STARTED ── */}
             <section id="getting-started" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-yellow-50 rounded-xl md:rounded-2xl shadow-sm border border-yellow-100">
-                  <Zap className="h-5 w-5 md:h-8 md:w-8 text-yellow-500" />
+                <div className="p-2.5 bg-yellow-50 rounded-2xl shadow-sm border border-yellow-100">
+                  <Zap className="h-6 w-6 text-yellow-500" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Getting Started</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Getting Started</h2>
               </div>
 
-              <div className="mb-12 overflow-hidden rounded-3xl border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] relative group md:p-8">
+              <div className="bg-card border border-border/50 rounded-3xl p-6 md:p-8 mb-8 shadow-sm relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl" />
-                <p className="text-sm md:text-lg leading-relaxed mb-8 font-medium text-foreground/80">
+                <p className="text-base leading-relaxed mb-8 font-medium text-foreground/80">
                   Welcome back! Maximize your <span className="text-primary font-bold">EaterIQ</span> experience with these three essential steps:
                 </p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                   {[
-                    { step: 1, title: 'Dietary Profile', desc: 'Configure your needs in Settings for smart alerts.', icon: <User className="h-3 w-3" /> },
-                    { step: 2, title: 'Instant Scan', desc: 'Point at any barcode for deep nutrition analysis.', icon: <Scan className="h-3 w-3" /> },
-                    { step: 3, title: 'Smart Swap', desc: 'Identify better choices with our AI alternative engine.', icon: <TrendingUp className="h-3 w-3" /> }
+                    { step: 1, title: "Dietary Profile", desc: "Configure your needs in Settings for smart alerts.", icon: <User className="h-4 w-4" /> },
+                    { step: 2, title: "Instant Scan", desc: "Point at any barcode for deep nutrition analysis.", icon: <Scan className="h-4 w-4" /> },
+                    { step: 3, title: "Smart Swap", desc: "Identify better choices with our AI alternative engine.", icon: <TrendingUp className="h-4 w-4" /> }
                   ].map((item) => (
-                    <div key={item.step} className="p-5 bg-yellow-50/50 rounded-2xl border border-yellow-100 hover:border-yellow-200 transition-all hover:bg-yellow-50 relative group">
+                    <div key={item.step} className="p-5 bg-yellow-50 rounded-2xl border border-yellow-100 hover:border-yellow-200 transition-all hover:bg-yellow-50/80 relative">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="h-8 w-8 bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center font-black text-[10px] shadow-sm">
-                           {React.cloneElement(item.icon as React.ReactElement, { className: "h-4 w-4" })}
+                        <div className="h-8 w-8 bg-yellow-200 text-yellow-700 rounded-xl flex items-center justify-center shadow-sm">
+                          {item.icon}
                         </div>
-                        <h4 className="font-bold text-sm m-0 text-yellow-900">{item.title}</h4>
+                        <h4 className="font-bold text-sm text-yellow-900">{item.title}</h4>
                       </div>
-                      <p className="text-[11px] text-yellow-800/70 m-0 leading-relaxed font-medium">{item.desc}</p>
-                      <div className="absolute top-3 right-3 text-[10px] font-black text-yellow-500/20">{item.step}</div>
+                      <p className="text-sm text-yellow-800/80 leading-relaxed font-medium">{item.desc}</p>
+                      <div className="absolute top-3 right-4 text-lg font-black text-yellow-200">{item.step}</div>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-8 flex items-center gap-3 p-4 bg-primary/5 rounded-2xl border border-primary/10">
-                  <ShieldCheck className="h-4 w-4 text-primary shrink-0" />
-                  <p className="text-[11px] md:text-sm text-primary/80 m-0 font-semibold italic">Privacy First: Your data stays locally on your device.</p>
+                  <ShieldCheck className="h-5 w-5 text-primary shrink-0" />
+                  <p className="text-sm text-primary/80 font-semibold">Privacy First: Your data stays locally on your device.</p>
                 </div>
               </div>
             </section>
 
+            {/* ── 2. FOOD SCANNER ── */}
             <section id="food-scanner" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-primary/5 rounded-xl md:rounded-2xl shadow-sm border border-primary/10">
-                  <Scan className="h-5 w-5 md:h-8 md:w-8 text-primary" />
+                <div className="p-2.5 bg-primary/5 rounded-2xl shadow-sm border border-primary/10">
+                  <Scan className="h-6 w-6 text-primary" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Food Scanner</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Food Scanner</h2>
               </div>
 
-              <div className="space-y-8 md:space-y-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div className="space-y-10">
+                {/* How to Analyze */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   <div className="order-2 md:order-1">
-                    <h3 className="text-lg md:text-2xl font-bold mb-4">How to Analyze</h3>
+                    <h3 className="text-xl font-bold mb-5">How to Analyze</h3>
                     <div className="space-y-4">
                       {[
-                        { s: 1, t: 'Grant Permissions', d: 'Enable camera access for instant scanning.' },
-                        { s: 2, t: 'Point & Scan', d: 'Hover over barcodes or ingredients labels.' },
-                        { s: 3, t: 'Get Insights', d: 'View scores, warnings, and alternatives.' }
+                        { s: 1, t: "Grant Permissions", d: "Enable camera access for instant scanning." },
+                        { s: 2, t: "Point & Scan", d: "Hover over barcodes or ingredients labels." },
+                        { s: 3, t: "Get Insights", d: "View scores, warnings, and alternatives." }
                       ].map((step) => (
-                    <div key={step.s} className="flex gap-4 items-start rounded-2xl border border-primary/10 bg-white p-4 shadow-[var(--shadow-soft)]">
-                          <div className="shrink-0 w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-black text-xs shadow-sm shadow-primary/20">
+                        <div key={step.s} className="flex gap-4 items-start p-4 bg-primary/5 rounded-2xl border border-primary/10">
+                          <div className="shrink-0 w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-black text-sm shadow-sm shadow-primary/20">
                             {step.s}
                           </div>
                           <div>
-                            <p className="text-sm font-bold m-0 text-primary-foreground/90">{step.t}</p>
-                            <p className="text-[10px] text-primary/70 m-0 font-medium leading-tight">{step.d}</p>
+                            <p className="text-sm font-bold text-foreground">{step.t}</p>
+                            <p className="text-sm text-muted-foreground mt-0.5 leading-snug">{step.d}</p>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
-                  <div className="order-1 md:order-2 bg-gradient-to-br from-muted/50 to-muted p-4 sm:p-8 rounded-[2rem] border border-border/50 flex items-center justify-center overflow-hidden">
-                    <div className="relative w-full max-w-[140px] sm:max-w-[240px] aspect-[9/16] bg-card rounded-[2rem] border-[4px] border-foreground/10 overflow-hidden shadow-xl">
-                       <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                          <div className="relative mb-4">
-                            <Scan className="h-10 w-10 text-primary animate-pulse" />
-                            <div className="absolute -inset-2 bg-primary/20 blur-xl -z-10 rounded-full" />
-                          </div>
-                          <p className="text-[10px] font-black uppercase text-foreground">Scanner Active</p>
-                          <div className="w-4/5 h-0.5 bg-primary/30 rounded-full mt-2" />
-                       </div>
+
+                  {/* Scanner mockup */}
+                  <div className="order-1 md:order-2 bg-gradient-to-br from-muted/50 to-muted p-8 rounded-[2rem] border border-border/50 flex items-center justify-center">
+                    <div className="relative w-full max-w-[200px] aspect-[9/16] bg-card rounded-[2rem] border-[4px] border-foreground/10 overflow-hidden shadow-xl">
+                      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                        <div className="relative mb-4">
+                          <Scan className="h-12 w-12 text-primary animate-pulse" />
+                          <div className="absolute -inset-3 bg-primary/15 blur-xl -z-10 rounded-full" />
+                        </div>
+                        <p className="text-xs font-black uppercase text-foreground tracking-wider">Scanner Active</p>
+                        <div className="w-4/5 h-0.5 bg-primary/30 rounded-full mt-2" />
+                      </div>
                     </div>
                   </div>
                 </div>
 
+                {/* Health Score Key */}
                 <div>
-                  <h3 className="text-lg md:text-2xl font-bold mb-4 md:mb-6">Global Health Scores</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
+                  <h3 className="text-xl font-bold mb-5">Global Health Scores</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {scoreLevels.map((level) => (
-                      <div key={level.label} className="rounded-2xl border border-white/70 bg-white/95 p-3 transition-shadow hover:shadow-[var(--shadow-soft)] md:p-5">
-                        <div className={`w-8 h-8 md:w-14 md:h-14 rounded-lg md:rounded-2xl ${level.color} flex items-center justify-center text-white font-black text-xs md:text-xl mb-3`}>
-                          {level.range.split('-')[1]}
+                      <div key={level.label} className={`p-5 rounded-2xl border ${level.bgColor} ${level.borderColor} flex items-start gap-4`}>
+                        <div className={`w-12 h-12 rounded-xl ${level.color} flex items-center justify-center text-white font-black text-base shrink-0`}>
+                          {level.score}
                         </div>
-                        <h4 className="font-bold text-xs md:text-lg mb-1">{level.label}</h4>
-                        <p className="text-[9px] md:text-sm text-muted-foreground m-0 leading-tight md:leading-relaxed truncate md:whitespace-normal">{level.description}</p>
+                        <div>
+                          <h4 className={`font-bold text-base mb-1 ${level.textColor}`}>{level.label}</h4>
+                          <p className="text-sm text-foreground/70 leading-relaxed">{level.description}</p>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -288,385 +335,426 @@ export default function UserGuidePage() {
               </div>
             </section>
 
-            {/* Food Battle Section */}
+            {/* ── 3. FOOD BATTLE ── */}
             <section id="food-battle" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-blue-50 rounded-xl md:rounded-2xl shadow-sm border border-blue-100">
-                  <TrendingUp className="h-5 w-5 md:h-8 md:w-8 text-blue-500" />
+                <div className="p-2.5 bg-blue-50 rounded-2xl shadow-sm border border-blue-100">
+                  <TrendingUp className="h-6 w-6 text-blue-500" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Food Battle</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Food Battle</h2>
               </div>
-              
-              <div className="bg-blue-50/50 rounded-3xl p-6 md:p-10 relative overflow-hidden border border-blue-100 mb-6 shadow-sm">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/30 rounded-full -mr-32 -mt-32 blur-3xl opacity-50" />
-                <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-blue-900">
+
+              <div className="bg-blue-50 rounded-3xl p-6 md:p-10 relative overflow-hidden border border-blue-100 mb-6 shadow-sm">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/40 rounded-full -mr-32 -mt-32 blur-3xl" />
+                <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   <div className="space-y-4">
-                    <Badge className="bg-blue-100 text-blue-700 border-none py-1 px-3 text-[10px] font-bold uppercase tracking-widest">Vs Mode Engaged</Badge>
-                    <h4 className="font-black text-2xl md:text-4xl m-0 leading-tight">Nutrient Duel</h4>
-                    <p className="text-xs md:text-base text-blue-800/70 leading-relaxed font-medium">Compare macros and additives head-to-head. Our AI selects the definitive winner.</p>
-                    
-                    <div className="flex items-center gap-6 bg-white/50 backdrop-blur-lg rounded-2xl p-6 border border-blue-200 shadow-inner">
+                    <Badge className="bg-blue-100 text-blue-700 border-none py-1 px-3 text-xs font-bold uppercase tracking-widest">
+                      VS Mode Engaged
+                    </Badge>
+                    <h4 className="font-black text-2xl md:text-3xl text-blue-900 leading-tight">Nutrient Duel</h4>
+                    <p className="text-sm md:text-base text-blue-700 leading-relaxed font-medium">
+                      Compare macros and additives head-to-head. Our AI selects the definitive winner.
+                    </p>
+
+                    <div className="flex items-center gap-6 bg-white/70 backdrop-blur-lg rounded-2xl p-5 border border-blue-200 shadow-inner">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 md:w-14 md:h-14 bg-blue-100/50 rounded-xl flex items-center justify-center font-black text-blue-700 text-sm md:text-xl border border-blue-200 shadow-sm">A</div>
-                        <span className="text-2xl md:text-3xl font-black text-blue-300 italic uppercase tracking-tighter">vs</span>
+                        <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center font-black text-blue-700 text-lg border border-blue-200 shadow-sm">A</div>
+                        <span className="text-2xl font-black text-blue-300 italic uppercase tracking-tight">vs</span>
                         <div className="relative">
-                          <div className="w-10 h-10 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center font-black text-blue-600 text-sm md:text-xl shadow-[0_0_25px_rgba(255,255,255,0.7)]">B</div>
-                          <div className="absolute -top-3 -right-3 h-5 px-1.5 bg-yellow-400 text-black text-[8px] font-black rounded-full flex items-center shadow-lg border-2 border-white">WINNER</div>
+                          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center font-black text-blue-600 text-lg shadow-md">B</div>
+                          <div className="absolute -top-3 -right-3 h-5 px-2 bg-yellow-400 text-black text-xs font-black rounded-full flex items-center shadow border-2 border-white">WIN</div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="hidden md:block">
-                    <div className="space-y-4">
-                       <p className="text-sm font-bold text-blue-400 uppercase tracking-widest m-0">Pro Features</p>
-                       <ul className="space-y-4 list-none pl-0">
-                          {['Direct Nutrient Comparison', '15+ Health Parameters', 'Smart Highlight Engine'].map((f, i) => (
-                             <li key={i} className="flex items-center gap-3 text-sm font-bold text-blue-800/90">
-                                <div className="h-2 w-2 rounded-full bg-blue-400" />
-                                {f}
-                             </li>
-                          ))}
-                       </ul>
-                    </div>
+
+                  <div className="hidden md:block space-y-4">
+                    <p className="text-xs font-bold text-blue-400 uppercase tracking-widest">Pro Features</p>
+                    <ul className="space-y-4 list-none pl-0">
+                      {["Direct Nutrient Comparison", "15+ Health Parameters", "Smart Highlight Engine"].map((f, i) => (
+                        <li key={i} className="flex items-center gap-3 text-sm font-bold text-blue-800">
+                          <div className="h-2 w-2 rounded-full bg-blue-400 shrink-0" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                <div className="p-6 rounded-2xl bg-blue-50/50 border border-blue-100 shadow-sm">
-                  <h4 className="font-bold flex items-center gap-2 text-sm mb-3 text-blue-900">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 shadow-sm">
+                  <h4 className="font-bold flex items-center gap-2 text-sm mb-2 text-blue-900">
                     <Zap className="h-4 w-4 text-blue-600" />
                     Daily Limits
                   </h4>
-                  <p className="text-[11px] text-blue-800/70 m-0 leading-relaxed font-medium">
+                  <p className="text-sm text-blue-700 leading-relaxed">
                     Free users get <strong>3 battles per day</strong>. Upgrade to <strong>Pro</strong> for unlimited comparisons.
                   </p>
                 </div>
-                <div className="rounded-2xl border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)]">
-                  <h4 className="font-bold flex items-center gap-2 text-sm mb-3">
+                <div className="p-5 rounded-2xl bg-muted/50 border border-border shadow-sm">
+                  <h4 className="font-bold flex items-center gap-2 text-sm mb-2 text-foreground">
                     <Info className="h-4 w-4 text-primary" />
                     Green Highlights
                   </h4>
-                  <p className="text-[11px] text-muted-foreground m-0 leading-relaxed font-medium">
-                    We highlight the winning nutrient in <strong>green</strong> (Lower for Sugars, Higher for Protein).
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    We highlight the winning nutrient in <strong className="text-foreground">green</strong> — lower for sugars, higher for protein.
                   </p>
                 </div>
               </div>
             </section>
 
-            {/* Health Quizzes Section */}
+            {/* ── 4. HEALTH QUIZZES ── */}
             <section id="health-quizzes" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-purple-50 rounded-xl md:rounded-2xl shadow-sm border border-purple-100">
-                  <Brain className="h-5 w-5 md:h-8 md:w-8 text-purple-500" />
+                <div className="p-2.5 bg-purple-50 rounded-2xl shadow-sm border border-purple-100">
+                  <Brain className="h-6 w-6 text-purple-500" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Quiz Hub</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Health Quizzes</h2>
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-8">
+
+              {/* Lifelines */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 {[
-                  { icon: <Zap className="h-4 w-4" />, title: '50:50', desc: 'Removes 2 wrong answers.', color: 'purple' },
-                  { icon: <Bolt className="h-4 w-4" />, title: 'Skip', desc: 'Jump to next question.', color: 'blue' },
-                  { icon: <Clock className="h-4 w-4" />, title: 'Time+', desc: 'Add 15s to the timer.', color: 'amber' }
-                ].map(lifeline => (
-                  <div key={lifeline.title} className={`p-4 rounded-2xl border bg-${lifeline.color}-50/30 border-${lifeline.color}-100 flex items-center gap-4 hover:shadow-sm transition-shadow`}>
-                    <div className={`p-2 bg-${lifeline.color}-100 rounded-lg text-${lifeline.color}-600 shrink-0 shadow-sm`}>
+                  { icon: <Zap className="h-5 w-5" />, title: "50:50", desc: "Removes 2 wrong answers to simplify your choice.", iconBg: "bg-purple-100", iconColor: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100" },
+                  { icon: <Bolt className="h-5 w-5" />, title: "Skip", desc: "Jump to the next question without a penalty.", iconBg: "bg-blue-100", iconColor: "text-blue-600", bg: "bg-blue-50", border: "border-blue-100" },
+                  { icon: <Clock className="h-5 w-5" />, title: "Time+", desc: "Add 15 seconds back to the countdown timer.", iconBg: "bg-amber-100", iconColor: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100" }
+                ].map((lifeline) => (
+                  <div key={lifeline.title} className={`p-5 rounded-2xl border ${lifeline.bg} ${lifeline.border} flex items-start gap-4 hover:shadow-sm transition-shadow`}>
+                    <div className={`p-2.5 ${lifeline.iconBg} rounded-xl ${lifeline.iconColor} shrink-0 shadow-sm`}>
                       {lifeline.icon}
                     </div>
                     <div>
-                      <h4 className="font-bold text-xs md:text-sm m-0">{lifeline.title}</h4>
-                      <p className="text-[10px] text-muted-foreground m-0 leading-tight font-medium">{lifeline.desc}</p>
+                      <h4 className="font-bold text-sm mb-1 text-foreground">{lifeline.title}</h4>
+                      <p className="text-sm text-muted-foreground leading-snug">{lifeline.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="mb-8 rounded-3xl border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] md:p-8">
-                <h4 className="font-bold mb-4 text-sm md:text-base tracking-tight">Quiz Categories</h4>
-                <div className="flex flex-wrap gap-2 md:gap-3">
-                  {['Nutrition Basics', 'Food Safety', 'Vitamins & Minerals', 'Food Labels', 'Superfoods', 'Diet Myths'].map(cat => (
-                    <Badge key={cat} variant="outline" className="border-purple-200 text-purple-600 bg-white text-[10px] md:text-xs py-1 px-3 rounded-lg shadow-sm">{cat}</Badge>
+              {/* Categories */}
+              <div className="bg-muted/30 border border-border/50 rounded-3xl p-6 md:p-8">
+                <h4 className="font-bold mb-4 text-base text-foreground tracking-tight">Quiz Categories</h4>
+                <div className="flex flex-wrap gap-2.5">
+                  {["Nutrition Basics", "Food Safety", "Vitamins & Minerals", "Food Labels", "Superfoods", "Diet Myths"].map((cat) => (
+                    <Badge key={cat} variant="outline" className="border-purple-200 text-purple-700 bg-white text-sm py-1.5 px-4 rounded-lg shadow-sm font-medium">
+                      {cat}
+                    </Badge>
                   ))}
                 </div>
               </div>
             </section>
 
-            {/* History & Profile Section */}
+            {/* ── 5. HISTORY & PROFILE ── */}
             <section id="history-profile" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-orange-50 rounded-xl md:rounded-2xl shadow-sm border border-orange-100">
-                  <User className="h-5 w-5 md:h-8 md:w-8 text-orange-500" />
+                <div className="p-2.5 bg-orange-50 rounded-2xl shadow-sm border border-orange-100">
+                  <User className="h-6 w-6 text-orange-500" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Account & Profile</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">History & Profile</h2>
               </div>
 
-              <div className="space-y-6 md:space-y-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
-                  <div className="rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)]">
-                    <h3 className="text-lg font-bold mb-3">Preferences</h3>
-                    <p className="text-[11px] md:text-sm text-muted-foreground mb-4">Set your diet in Settings for targeted scanning alerts.</p>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="p-6 bg-card border border-orange-100 rounded-[2rem] shadow-sm">
+                    <h3 className="text-lg font-bold mb-2 text-foreground">Preferences</h3>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                      Set your diet in Settings for targeted scanning alerts.
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                      {['Vegan', 'Halal', 'Keto'].map(opt => (
-                        <Badge key={opt} className="bg-orange-50 text-orange-700 hover:bg-orange-100 border-none px-3 py-1 text-[10px] rounded-full">{opt}</Badge>
+                      {["Vegan", "Halal", "Keto"].map((opt) => (
+                        <Badge key={opt} className="bg-orange-100 text-orange-700 hover:bg-orange-200 border-none px-3 py-1 text-sm rounded-full font-medium">
+                          {opt}
+                        </Badge>
                       ))}
                     </div>
                   </div>
-                  <div className="rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)]">
-                    <h3 className="text-lg font-bold mb-3">Allergies</h3>
-                    <p className="text-[11px] md:text-sm text-muted-foreground mb-4">Identify critical triggers before you buy. Warnings appear instantly.</p>
+                  <div className="p-6 bg-card border border-red-100 rounded-[2rem] shadow-sm">
+                    <h3 className="text-lg font-bold mb-2 text-foreground">Allergies</h3>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                      Identify critical triggers before you buy. Warnings appear instantly on scan.
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                       {['Nuts', 'Dairy', 'Soy'].map(opt => (
-                          <Badge key={opt} className="bg-red-50 text-red-700 hover:bg-red-100 border-none px-3 py-1 text-[10px] rounded-full">{opt}</Badge>
-                       ))}
+                      {["Nuts", "Dairy", "Soy"].map((opt) => (
+                        <Badge key={opt} className="bg-red-100 text-red-700 hover:bg-red-200 border-none px-3 py-1 text-sm rounded-full font-medium">
+                          {opt}
+                        </Badge>
+                      ))}
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-orange-50/50 border border-orange-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center shadow-sm">
+                <div className="bg-orange-50 border border-orange-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center shadow-sm">
                   <div className="flex-1 text-center md:text-left">
-                    <h4 className="text-orange-900 font-bold mb-2">Exclusive Pro Tools</h4>
-                    <p className="text-xs md:text-sm text-orange-800/70 mb-0">Unlimited history, deep reports, and ad-free labeling.</p>
+                    <h4 className="text-orange-900 font-bold text-base mb-1">Exclusive Pro Tools</h4>
+                    <p className="text-sm text-orange-700 leading-relaxed">Unlimited history, deep reports, and ad-free labeling.</p>
                   </div>
                   <Link href="/pricing" className="w-full md:w-auto">
-                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-black px-8">UPGRADE NOW</Button>
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold px-8 h-11">
+                      Upgrade Now
+                    </Button>
                   </Link>
                 </div>
               </div>
             </section>
 
-            {/* Healthier Alternatives Section */}
+            {/* ── 6. HEALTHIER ALTERNATIVES ── */}
             <section id="alternatives" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-red-50 rounded-xl md:rounded-2xl shadow-sm border border-red-100">
-                  <Heart className="h-5 w-5 md:h-8 md:w-8 text-red-500" />
+                <div className="p-2.5 bg-red-50 rounded-2xl shadow-sm border border-red-100">
+                  <Heart className="h-6 w-6 text-red-500" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Better Choices</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Healthier Alternatives</h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-stretch">
-                <div className="rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+                <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8 shadow-sm">
                   <h4 className="font-black text-sm uppercase tracking-widest text-red-600 mb-4">AI Smart Swaps</h4>
-                  <p className="text-[11px] md:text-base text-muted-foreground/80 leading-relaxed mb-6 font-medium">Instantly find products in the same category with cleaner labels and better metrics.</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                    Instantly find products in the same category with cleaner labels and better nutritional metrics.
+                  </p>
                   <ul className="space-y-4 list-none pl-0">
                     {[
-                      { t: 'High Scores', d: 'Average +25 point boost.' },
-                      { t: 'Clean Label', d: 'Safe, verified additives.' },
-                      { t: 'Goal Match', d: 'Low sugar/sodium focus.' }
+                      { t: "Higher Scores", d: "Average +25 point health score boost." },
+                      { t: "Clean Label", d: "Safe, verified additives only." },
+                      { t: "Goal Match", d: "Tailored to your low-sugar or low-sodium goals." }
                     ].map((item, i) => (
-                      <li key={i} className="flex gap-3">
-                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
+                      <li key={i} className="flex gap-3 items-start">
+                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                         <div>
-                          <p className="text-xs font-bold m-0">{item.t}</p>
-                          <p className="text-[10px] text-muted-foreground m-0">{item.d}</p>
+                          <p className="text-sm font-bold text-foreground">{item.t}</p>
+                          <p className="text-sm text-muted-foreground">{item.d}</p>
                         </div>
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="bg-red-50/50 border border-red-100 rounded-[2rem] p-8 flex flex-col justify-between shadow-sm relative overflow-hidden group">
-                   <div className="absolute top-0 right-0 w-32 h-32 bg-red-100/40 rounded-full -mr-16 -mt-16 blur-3xl" />
-                   <div className="relative z-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <Badge className="bg-red-100 text-red-700 border-none text-[10px] font-bold">SMART RECO</Badge>
-                        <Star className="h-5 w-5 fill-red-500 text-red-500" />
-                      </div>
-                      <h4 className="text-2xl font-black mb-2 text-red-900">The Winner</h4>
-                      <p className="text-xs md:text-sm text-red-800/70 leading-relaxed font-medium">Tap any alternative to see why it specifically beats your original scan.</p>
-                   </div>
-                   <div className="mt-8 relative z-10">
-                      <div className="w-full h-1 bg-red-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-red-500 w-3/4 shadow-[0_0_15px_rgba(239,68,68,0.4)]" />
-                      </div>
-                      <p className="text-[10px] text-red-600/60 mt-2 uppercase font-black tracking-widest">Score Accuracy: 99%</p>
-                   </div>
+
+                <div className="bg-red-50 border border-red-100 rounded-[2rem] p-8 flex flex-col justify-between shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-red-100/50 rounded-full -mr-16 -mt-16 blur-3xl" />
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-4">
+                      <Badge className="bg-red-100 text-red-700 border-none text-xs font-bold">Smart Reco</Badge>
+                      <Star className="h-5 w-5 fill-red-400 text-red-400" />
+                    </div>
+                    <h4 className="text-2xl font-black mb-2 text-red-900">The Winner</h4>
+                    <p className="text-sm text-red-700 leading-relaxed">
+                      Tap any alternative to see exactly why it beats your original scan.
+                    </p>
+                  </div>
+                  <div className="mt-8 relative z-10">
+                    <div className="w-full h-1.5 bg-red-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-red-400 w-3/4" />
+                    </div>
+                    <p className="text-xs text-red-500 mt-2 uppercase font-bold tracking-widest">Score Accuracy: 99%</p>
+                  </div>
                 </div>
               </div>
             </section>
 
-            {/* Health Calculators Section */}
+            {/* ── 7. HEALTH TOOLS ── */}
             <section id="calculators" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-teal-50 rounded-xl md:rounded-2xl shadow-sm border border-teal-100">
-                  <Calculator className="h-5 w-5 md:h-8 md:w-8 text-teal-600" />
+                <div className="p-2.5 bg-teal-50 rounded-2xl shadow-sm border border-teal-100">
+                  <Calculator className="h-6 w-6 text-teal-600" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Health Tools</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Health Tools</h2>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-8">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                 {[
-                  { name: 'BMI Tool', desc: 'Weight check.' },
-                  { name: 'TDEE', desc: 'Energy needs.' },
-                  { name: 'Macro', desc: 'Protein tracker.' },
-                  { name: 'Water', desc: 'Hydration.' },
-                  { name: 'Goals', desc: 'Target weights.' },
-                  { name: 'Support', desc: 'Wellness tips.' }
+                  { name: "BMI Tool", desc: "Check your body mass index." },
+                  { name: "TDEE", desc: "Calculate your daily energy needs." },
+                  { name: "Macro Tracker", desc: "Balance your protein and carbs." },
+                  { name: "Water Intake", desc: "Track daily hydration goals." },
+                  { name: "Goals", desc: "Set and monitor target weights." },
+                  { name: "Wellness Tips", desc: "Personalised daily health advice." }
                 ].map((calc, i) => (
-                  <div key={i} className="group rounded-2xl border border-white/70 bg-white/95 p-4 text-center shadow-[var(--shadow-soft)] transition-all hover:border-teal-300 md:text-left">
-                    <h4 className="font-bold text-[11px] md:text-sm mb-1 group-hover:text-teal-600 m-0">{calc.name}</h4>
-                    <p className="text-[9px] md:text-xs text-muted-foreground m-0 leading-tight font-medium">{calc.desc}</p>
+                  <div key={i} className="p-5 bg-card border border-border/50 rounded-2xl hover:border-teal-300 transition-all shadow-sm group">
+                    <h4 className="font-bold text-sm mb-1.5 group-hover:text-teal-600 text-foreground">{calc.name}</h4>
+                    <p className="text-sm text-muted-foreground leading-snug">{calc.desc}</p>
                   </div>
                 ))}
               </div>
 
-              <Link href="/calculators" className="block text-center mt-6">
-                <Button variant="outline" className="w-full md:w-auto h-12 rounded-xl border-teal-200 text-teal-700 bg-teal-50/50 hover:bg-teal-50 font-bold text-sm">
+              <Link href="/calculators" className="block text-center mt-4">
+                <Button variant="outline" className="w-full md:w-auto h-12 rounded-xl border-teal-200 text-teal-700 bg-teal-50 hover:bg-teal-100 font-bold text-sm px-8">
                   Launch All Tools <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
               </Link>
             </section>
 
-            {/* Community Contributions Section */}
+            {/* ── 8. COMMUNITY ── */}
             <section id="contributions" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-indigo-50 rounded-xl md:rounded-2xl shadow-sm border border-indigo-100">
-                  <PlusCircle className="h-5 w-5 md:h-8 md:w-8 text-indigo-500" />
+                <div className="p-2.5 bg-indigo-50 rounded-2xl shadow-sm border border-indigo-100">
+                  <PlusCircle className="h-6 w-6 text-indigo-500" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Contributions</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Community</h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-stretch">
-                <div className="rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] md:p-8">
-                  <h4 className="font-bold text-sm mb-4 m-0">Submission Pipeline</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+                <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8">
+                  <h4 className="font-bold text-base mb-5 text-foreground">Submission Pipeline</h4>
                   <div className="space-y-4">
                     {[
-                      { label: 'Pending', color: 'bg-amber-100 text-amber-800', desc: 'Manual verification in progress.' },
-                      { label: 'Approved', color: 'bg-emerald-100 text-emerald-800', desc: 'Product live! Points awarded.' },
-                      { label: 'Revision', color: 'bg-blue-100 text-blue-800', desc: 'New photos needed for barcode.' }
+                      { label: "Pending", labelColor: "bg-amber-100 text-amber-800", desc: "Manual verification is in progress." },
+                      { label: "Approved", labelColor: "bg-emerald-100 text-emerald-800", desc: "Product is live! Points have been awarded." },
+                      { label: "Revision", labelColor: "bg-blue-100 text-blue-800", desc: "New photos are needed for the barcode." }
                     ].map((step, i) => (
                       <div key={i} className="flex gap-3 items-start">
-                        <Badge className={`${step.color} border-none px-2 py-0.5 text-[8px] font-black uppercase`}>{step.label}</Badge>
-                        <p className="text-[10px] md:text-xs text-muted-foreground m-0 font-medium">{step.desc}</p>
+                        <Badge className={`${step.labelColor} border-none px-2.5 py-1 text-xs font-bold uppercase shrink-0`}>{step.label}</Badge>
+                        <p className="text-sm text-muted-foreground leading-snug pt-0.5">{step.desc}</p>
                       </div>
                     ))}
                   </div>
                 </div>
-                <div className="bg-indigo-50/50 border border-indigo-100 rounded-[2rem] p-8 flex flex-col items-center text-center shadow-sm">
-                  <Trophy className="h-10 w-10 text-indigo-500/50 mb-4" />
-                  <h4 className="text-xl font-black mb-2 m-0 text-indigo-900">Join the Heroes</h4>
-                  <p className="text-xs text-indigo-800/70 mb-6 m-0 leading-relaxed font-medium">Climb the global leaderboard and unlock exclusive badges.</p>
+
+                <div className="bg-indigo-50 border border-indigo-100 rounded-[2rem] p-8 flex flex-col items-center text-center shadow-sm">
+                  <Trophy className="h-12 w-12 text-indigo-300 mb-4" />
+                  <h4 className="text-xl font-black mb-2 text-indigo-900">Join the Heroes</h4>
+                  <p className="text-sm text-indigo-700 mb-6 leading-relaxed">
+                    Climb the global leaderboard and unlock exclusive contributor badges.
+                  </p>
                   <Link href="/contributions" className="w-full">
-                    <Button className="w-full bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl font-bold">DASHBOARD</Button>
+                    <Button className="w-full bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl font-bold h-11">
+                      Dashboard
+                    </Button>
                   </Link>
                 </div>
               </div>
             </section>
-            {/* Shopping Lists Section */}
+
+            {/* ── 9. SHOPPING LISTS ── */}
             <section id="shopping-lists" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-green-50 rounded-xl md:rounded-2xl shadow-sm border border-green-100">
-                  <ListOrdered className="h-5 w-5 md:h-8 md:w-8 text-green-600" />
+                <div className="p-2.5 bg-green-50 rounded-2xl shadow-sm border border-green-100">
+                  <ListOrdered className="h-6 w-6 text-green-600" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Smart Lists</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Shopping Lists</h2>
               </div>
 
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] md:p-8">
+              <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8 shadow-sm">
                 <div className="flex flex-col lg:flex-row gap-8 items-center">
-                    <div className="flex-1 space-y-4">
-                       <h4 className="font-bold text-lg m-0">Dynamic Sync</h4>
-                       <p className="text-xs md:text-base text-muted-foreground leading-relaxed font-medium">Turn scans into action. Organize lists by store, health goal, or diet cycle.</p>
-                       <ul className="space-y-3 list-none pl-0">
-                          <li className="flex items-center gap-3">
-                             <div className="p-1.5 bg-green-50 rounded-lg"><Plus className="h-3 w-3 text-green-600" /></div>
-                             <p className="text-[11px] md:text-sm font-bold m-0">Categories: Groceries, Gym, Cheat Meals</p>
-                          </li>
-                          <li className="flex items-center gap-3">
-                             <div className="p-1.5 bg-green-50 rounded-lg"><History className="h-3 w-3 text-green-600" /></div>
-                             <p className="text-[11px] md:text-sm font-bold m-0">Real-time completion tracking.</p>
-                          </li>
-                       </ul>
-                    </div>
-                    <div className="w-full lg:w-72 bg-muted/40 p-6 rounded-[2rem] border border-border/40 relative">
-                        <div className="space-y-2">
-                           {[
-                              { n: 'Organic Peanut Butter', s: 85, c: true },
-                              { n: 'Sugar-Free Oat Milk', s: 92, c: false }
-                           ].map((item, i) => (
-                              <div key={i} className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50 shadow-sm">
-                                 <div className={`h-4 w-4 rounded-full border-2 ${item.c ? 'bg-primary border-primary' : 'border-muted-foreground/30'} flex items-center justify-center`}>
-                                    {item.c && <CheckCircle2 className="h-2 w-2 text-white" />}
-                                 </div>
-                                 <div className="flex-1">
-                                    <p className={`text-[10px] font-bold m-0 ${!item.c && 'text-muted-foreground'}`}>{item.n}</p>
-                                    <p className="text-[8px] text-muted-foreground m-0">Score: {item.s}</p>
-                                 </div>
-                              </div>
-                           ))}
+                  <div className="flex-1 space-y-5">
+                    <h4 className="font-bold text-lg text-foreground">Dynamic Sync</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Turn scans into action. Organize lists by store, health goal, or diet cycle.
+                    </p>
+                    <ul className="space-y-3 list-none pl-0">
+                      <li className="flex items-center gap-3">
+                        <div className="p-1.5 bg-green-50 rounded-lg shrink-0"><Plus className="h-4 w-4 text-green-600" /></div>
+                        <p className="text-sm font-semibold text-foreground">Categories: Groceries, Gym, Cheat Meals</p>
+                      </li>
+                      <li className="flex items-center gap-3">
+                        <div className="p-1.5 bg-green-50 rounded-lg shrink-0"><History className="h-4 w-4 text-green-600" /></div>
+                        <p className="text-sm font-semibold text-foreground">Real-time completion tracking</p>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* List mockup */}
+                  <div className="w-full lg:w-72 bg-muted/40 p-5 rounded-[2rem] border border-border/40">
+                    <div className="space-y-2">
+                      {[
+                        { n: "Organic Peanut Butter", s: 85, checked: true },
+                        { n: "Sugar-Free Oat Milk", s: 92, checked: false }
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50 shadow-sm">
+                          <div className={`h-4 w-4 rounded-full border-2 shrink-0 ${item.checked ? "bg-primary border-primary" : "border-muted-foreground/30"} flex items-center justify-center`}>
+                            {item.checked && <CheckCircle2 className="h-2.5 w-2.5 text-white" />}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-sm font-semibold truncate ${!item.checked ? "text-muted-foreground" : "text-foreground"}`}>{item.n}</p>
+                            <p className="text-xs text-muted-foreground">Score: {item.s}</p>
+                          </div>
                         </div>
-                        <div className="mt-4 pt-4 border-t border-border/40">
-                           <div className="h-1 w-full bg-border rounded-full overflow-hidden">
-                              <div className="h-full bg-green-500 w-1/2" />
-                           </div>
-                           <p className="text-[8px] text-muted-foreground mt-1.5 font-bold uppercase tracking-widest text-center">Progress: 50%</p>
-                        </div>
+                      ))}
                     </div>
+                    <div className="mt-4 pt-4 border-t border-border/40">
+                      <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
+                        <div className="h-full bg-green-500 w-1/2" />
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2 font-bold uppercase tracking-widest text-center">Progress: 50%</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
 
-            {/* Knowledge Hub Section */}
+            {/* ── 10. KNOWLEDGE HUB ── */}
             <section id="knowledge-hub" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 md:p-3 bg-pink-50 rounded-xl md:rounded-2xl shadow-sm border border-pink-100">
-                  <BookOpen className="h-5 w-5 md:h-8 md:w-8 text-pink-500" />
+                <div className="p-2.5 bg-pink-50 rounded-2xl shadow-sm border border-pink-100">
+                  <BookOpen className="h-6 w-6 text-pink-500" />
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold m-0 tracking-tight">Knowledge Hub</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Knowledge Hub</h2>
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                 <div className="group rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] transition-all hover:border-pink-200 md:p-8">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
-                      <ListOrdered className="h-5 w-5 md:h-6 md:w-6 text-pink-500" />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {[
+                  {
+                    icon: <ListOrdered className="h-6 w-6 text-pink-500" />,
+                    title: "Cheat Sheets",
+                    desc: "Downloadable guides for Vegan, Keto, and Paleo lifestyles.",
+                    href: "/dietary-guides",
+                    cta: "Launch Guides"
+                  },
+                  {
+                    icon: <TrendingUp className="h-6 w-6 text-pink-500" />,
+                    title: "Wellness Blog",
+                    desc: "Regular articles on gut health, food science, and lifestyle tips.",
+                    href: "/blog",
+                    cta: "Read Articles"
+                  }
+                ].map((card) => (
+                  <div key={card.title} className="p-6 md:p-8 rounded-[2rem] bg-card border border-border shadow-sm hover:border-pink-200 transition-all hover:shadow-md group">
+                    <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                      {card.icon}
                     </div>
-                    <h3 className="text-lg md:text-xl font-bold m-0 mb-2">Cheat Sheets</h3>
-                    <p className="text-[11px] md:text-sm text-muted-foreground m-0 mb-4 leading-relaxed font-medium">Downloadable guides for Vegan, Keto, and Paleo lifestyles.</p>
-                    <Link href="/dietary-guides">
-                       <Button variant="link" className="p-0 h-auto text-pink-500 hover:text-pink-600 font-bold text-xs">
-                          Launch Guides <ArrowRight className="h-3 w-3 ml-1" />
-                       </Button>
+                    <h3 className="text-lg font-bold mb-2 text-foreground">{card.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{card.desc}</p>
+                    <Link href={card.href}>
+                      <Button variant="link" className="p-0 h-auto text-pink-500 hover:text-pink-600 font-bold text-sm">
+                        {card.cta} <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                      </Button>
                     </Link>
-                 </div>
-                 <div className="group rounded-[2rem] border border-white/70 bg-white/95 p-6 shadow-[var(--shadow-soft)] transition-all hover:border-pink-200 md:p-8">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
-                      <TrendingUp className="h-5 w-5 md:h-6 md:w-6 text-pink-500" />
-                    </div>
-                    <h3 className="text-lg md:text-xl font-bold m-0 mb-2">Wellness Blog</h3>
-                    <p className="text-[11px] md:text-sm text-muted-foreground m-0 mb-4 leading-relaxed font-medium">Regular articles on gut health, food science, and lifestyle tips.</p>
-                    <Link href="/blog">
-                       <Button variant="link" className="p-0 h-auto text-pink-500 hover:text-pink-600 font-bold text-xs">
-                          Read Articles <ArrowRight className="h-3 w-3 ml-1" />
-                       </Button>
-                    </Link>
-                 </div>
+                  </div>
+                ))}
               </div>
             </section>
-            {/* Ending Help */}
+
+            {/* ── FOOTER CTA ── */}
             <section className="bg-primary/5 rounded-[2.5rem] p-8 md:p-12 text-center border border-primary/10 shadow-inner">
-              <h2 className="text-2xl md:text-4xl font-black mb-4 tracking-tight">Still have questions?</h2>
-              <p className="text-xs md:text-lg text-muted-foreground mb-8 max-w-xl mx-auto font-medium leading-relaxed">
-                Our support team is always ready to help you on your health journey.
-                Check our FAQ or send us a message.
+              <h2 className="text-2xl md:text-4xl font-black mb-4 tracking-tight text-foreground">Still have questions?</h2>
+              <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
+                Our support team is always ready to help you on your health journey. Check our FAQ or send us a message.
               </p>
               <div className="flex flex-col md:flex-row justify-center gap-3">
                 <Link href="/support" className="w-full md:w-auto">
-                  <Button size="lg" className="h-12 md:h-14 w-full md:w-auto rounded-xl px-10 font-bold shadow-lg shadow-primary/20">Contact Support</Button>
+                  <Button size="lg" className="h-12 md:h-14 w-full md:w-auto rounded-xl px-10 font-bold shadow-lg shadow-primary/20">
+                    Contact Support
+                  </Button>
                 </Link>
                 <Link href="/faq" className="w-full md:w-auto">
-                  <Button variant="outline" size="lg" className="h-12 md:h-14 w-full md:w-auto rounded-xl px-10 font-bold hover:bg-white">FAQ Center</Button>
+                  <Button variant="outline" size="lg" className="h-12 md:h-14 w-full md:w-auto rounded-xl px-10 font-bold hover:bg-white">
+                    FAQ Center
+                  </Button>
                 </Link>
               </div>
             </section>
 
           </div>
         </div>
-      </main>
 
-      {/* Floating Scroll to Top (Mobile only) */}
-      <button 
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="lg:hidden fixed bottom-6 right-6 p-4 bg-primary text-white rounded-2xl shadow-2xl z-50 animate-bounce transition-opacity opacity-80 hover:opacity-100"
-      >
-        <ChevronUp className="h-6 w-6" />
-      </button>
+        {/* Scroll to top (mobile) */}
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="lg:hidden fixed bottom-6 right-6 p-4 bg-primary text-white rounded-2xl shadow-2xl z-50 transition-opacity opacity-80 hover:opacity-100"
+        >
+          <ChevronUp className="h-6 w-6" />
+        </button>
+      </main>
     </div>
   );
 }

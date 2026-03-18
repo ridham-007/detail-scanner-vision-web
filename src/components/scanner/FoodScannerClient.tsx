@@ -171,14 +171,17 @@ export default function FoodScannerClient() {
       </nav>
 
       {/* Hero Section */}
-      <header className="space-y-6 rounded-[32px] border border-white/60 bg-white/80 px-6 py-10 text-center shadow-product backdrop-blur-sm md:px-10">
+      <header className="mb-12 pt-4 pb-2 text-center">
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 shadow-[var(--shadow-soft)]">
+          <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary shadow-[var(--shadow-soft)]">
             <Sparkles className="h-4 w-4" />
             Scanner built for quick, confident choices
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
-            Food Scanner
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground">
+            Food{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+              Scanner
+            </span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Decode product quality in seconds with the same bright, practical guidance you see in the app.
@@ -395,8 +398,8 @@ export default function FoodScannerClient() {
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
             </summary>
             <div className="px-4 pb-4 text-muted-foreground">
-              Simply point your camera at any food product barcode. EaterIQ analyzes the product's 
-              ingredients, nutritional information, and additives to provide you with a comprehensive 
+              Simply point your camera at any food product barcode. EaterIQ analyzes the product's
+              ingredients, nutritional information, and additives to provide you with a comprehensive
               health score and detailed breakdown.
             </div>
           </details>
@@ -406,7 +409,7 @@ export default function FoodScannerClient() {
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
             </summary>
             <div className="px-4 pb-4 text-muted-foreground">
-              Yes! EaterIQ's food scanner is free to use. You can scan products and get instant 
+              Yes! EaterIQ's food scanner is free to use. You can scan products and get instant
               nutrition insights without any cost.
             </div>
           </details>
@@ -416,8 +419,8 @@ export default function FoodScannerClient() {
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
             </summary>
             <div className="px-4 pb-4 text-muted-foreground">
-              The scanner provides health scores, ingredient analysis, nutritional breakdown, 
-              additive warnings, allergen information, and personalized recommendations based 
+              The scanner provides health scores, ingredient analysis, nutritional breakdown,
+              additive warnings, allergen information, and personalized recommendations based
               on your dietary preferences.
             </div>
           </details>

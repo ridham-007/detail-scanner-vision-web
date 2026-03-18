@@ -204,12 +204,25 @@ export default function SupportPage() {
           </nav>
 
           {/* Header */}
-          <header className="mb-10 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
-            <h1 className="mb-2 text-3xl font-black tracking-tight text-foreground sm:text-4xl">
-              Support Center
+          <header className="mb-12 pt-4 pb-2 text-center">
+            {/* Badge */}
+            <div className="flex justify-center mb-5">
+              <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5">
+                <span className="text-xs font-semibold text-primary tracking-wide">We're here to help</span>
+              </div>
+            </div>
+
+            {/* Heading */}
+            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-foreground mb-4">
+              Support{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                Center
+              </span>
             </h1>
-            <p className="text-muted-foreground">
-              Get help with EaterIQ - we're here to assist you
+
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              Get help with EaterIQ — we're here to assist you every step of the way.
             </p>
           </header>
 

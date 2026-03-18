@@ -43,7 +43,7 @@ const CategoriesPage = () => {
 
   const filteredCategories = categories?.filter(category =>
     category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    category.subcategories?.some(sub => 
+    category.subcategories?.some(sub =>
       sub.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
@@ -55,14 +55,20 @@ const CategoriesPage = () => {
         description="Browse product categories and find items organized by type, nutrition profile, and meal context."
         canonicalUrl="https://www.eateriq.com/categories/"
       />
-      
+
       <div className="min-h-screen">
         <div className="container mx-auto px-4 py-8">
-          <div className="mb-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
-            <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground">
-              Product Categories
+          <div className="mb-8 pt-4 pb-2 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary mb-5">
+              <span>Explore by Category</span>
+            </div>
+            <h1 className="mb-4 text-4xl md:text-5xl font-black tracking-tight text-foreground">
+              Product{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                Categories
+              </span>
             </h1>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+            <p className="mx-auto max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
               Discover products organized by type, nutrition profile, and meal context to make informed choices.
             </p>
           </div>
@@ -115,7 +121,7 @@ const CategoriesPage = () => {
                       {category.subcategories?.map((subcategory) => {
                         const productCount = subcategory.product_categories?.length || 0;
                         return (
-                          <div 
+                          <div
                             key={subcategory.id}
                             className="flex items-center justify-between rounded-[20px] border border-orange-100/60 bg-orange-50/40 p-3 transition-colors hover:bg-orange-50/80"
                           >

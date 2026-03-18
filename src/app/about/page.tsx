@@ -142,16 +142,19 @@ export default function AboutPage() {
           </nav>
 
           {/* Hero Section */}
-          <header className="mb-16 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-800">
-              <Sparkles className="h-4 w-4" aria-hidden="true" />
+          <header className="mb-16 pt-4 pb-2 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary mb-5">
+              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
               Empowering Healthier Choices
             </div>
-            <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
-              About <span className="text-primary">EaterIQ</span>
+            <h1 className="mb-4 text-4xl md:text-5xl font-black tracking-tight text-foreground">
+              About{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                EaterIQ
+              </span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We&apos;re on a mission to make food transparency accessible to everyone, 
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              We&apos;re on a mission to make food transparency accessible to everyone,
               empowering healthier choices one scan at a time.
             </p>
           </header>
@@ -166,18 +169,18 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground leading-relaxed">
-                EaterIQ was founded with a simple belief: everyone deserves to know 
-                what&apos;s really in their food. In a world of confusing food labels and 
+                EaterIQ was founded with a simple belief: everyone deserves to know
+                what&apos;s really in their food. In a world of confusing food labels and
                 hidden ingredients, we provide clarity.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Our platform analyzes food products using comprehensive nutritional 
-                databases and proprietary algorithms to deliver easy-to-understand 
+                Our platform analyzes food products using comprehensive nutritional
+                databases and proprietary algorithms to deliver easy-to-understand
                 health scores, ingredient breakdowns, and personalized recommendations.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Whether you&apos;re managing dietary restrictions, pursuing fitness goals, 
-                or simply want to make healthier choices for your family, EaterIQ puts 
+                Whether you&apos;re managing dietary restrictions, pursuing fitness goals,
+                or simply want to make healthier choices for your family, EaterIQ puts
                 the power of informed decision-making in your hands.
               </p>
             </CardContent>
@@ -344,18 +347,18 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground leading-relaxed">
-                EaterIQ started in 2024 when our founders, frustrated by misleading 
-                food labels and complex nutritional information, decided to create 
+                EaterIQ started in 2024 when our founders, frustrated by misleading
+                food labels and complex nutritional information, decided to create
                 a solution that would make food transparency simple and accessible.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                What began as a simple barcode scanner has evolved into a comprehensive 
-                food intelligence platform used by thousands of health-conscious 
-                consumers worldwide. We&apos;ve analyzed over 23,000 products and continue 
+                What began as a simple barcode scanner has evolved into a comprehensive
+                food intelligence platform used by thousands of health-conscious
+                consumers worldwide. We&apos;ve analyzed over 23,000 products and continue
                 to grow our database every day.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Today, EaterIQ is more than just an app—it&apos;s a community of people 
+                Today, EaterIQ is more than just an app—it&apos;s a community of people
                 committed to making healthier food choices and helping others do the same.
               </p>
             </CardContent>
@@ -371,7 +374,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                We&apos;d love to hear from you! Whether you have questions, feedback, 
+                We&apos;d love to hear from you! Whether you have questions, feedback,
                 or partnership inquiries, our team is here to help.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -400,7 +403,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                EaterIQ is available on web, iOS, and Android. Start making 
+                EaterIQ is available on web, iOS, and Android. Start making
                 healthier food choices today!
               </p>
               <div className="flex flex-wrap items-center gap-3">

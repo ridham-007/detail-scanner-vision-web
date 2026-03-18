@@ -280,13 +280,19 @@ const ProductComparisonPage = () => {
 
     return (
         <div className="container mx-auto max-w-5xl px-4 py-8">
-            <div className="mb-8 flex flex-col items-center gap-4 rounded-[32px] border border-white/60 bg-white/82 px-5 py-8 text-center shadow-product backdrop-blur-sm sm:px-6 sm:py-10">
-                <div className="text-center">
-                    <h1 className="mb-2 flex flex-col items-center justify-center gap-2 text-3xl font-black tracking-tight sm:flex-row sm:gap-3 sm:text-4xl">
-                        <ArrowRightLeft className="h-7 w-7 text-primary sm:h-8 sm:w-8" />
-                        Food Battle
+            <div className="mb-8 flex flex-col items-center gap-4 ">
+                <div className="text-center pt-4 pb-2">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary mb-5">
+                        <ArrowRightLeft className="h-3.5 w-3.5" />
+                        Head-to-head comparison
+                    </div>
+                    <h1 className="mb-4 text-4xl md:text-5xl font-black tracking-tight text-foreground">
+                        Food{" "}
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                            Battle
+                        </span>
                     </h1>
-                    <p className="text-muted-foreground">
+                    <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
                         Pit two products head‑to‑head and see which one wins for your health.
                     </p>
                 </div>

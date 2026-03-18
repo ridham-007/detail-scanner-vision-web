@@ -18,7 +18,7 @@ const Header = () => {
   const { data: isAdmin } = useIsAdmin();
 
   const navigationItems = [
-    { path: "/", label: "Scanner" },
+    { path: "/scanner", label: "Scanner" },
     { path: "/quiz", label: "Quiz" },
     { path: "/blog", label: "Blogs" },
     { path: "/pricing", label: "Pricing" },
