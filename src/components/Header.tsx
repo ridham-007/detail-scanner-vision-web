@@ -22,11 +22,10 @@ const Header = () => {
     { path: "/quiz", label: "Quiz" },
     { path: "/blog", label: "Blogs" },
     { path: "/pricing", label: "Pricing" },
-    { path: "/history", label: "History" },
   ];
 
   return (
-    <header
+    <header 
       role="banner"
       className="sticky top-0 z-50 w-full bg-transparent"
     >
@@ -61,16 +60,18 @@ const Header = () => {
                   aria-label={item.label}
                   aria-current={pathname === item.path ? "page" : undefined}
                   key={item.path}
-                  className={`font-medium transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${pathname === item.path
+                  className={`font-medium transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
+                    pathname === item.path
                       ? "text-primary font-bold"
                       : "text-muted-foreground hover:text-foreground"
-                    }`}
+                  }`}
                 >
                   {item.label}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-primary transition-all duration-300 ${pathname === item.path
-                      ? "w-full"
+                  <span className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-primary transition-all duration-300 ${
+                    pathname === item.path 
+                      ? "w-full" 
                       : "w-0 group-hover:w-full"
-                    }`}></span>
+                  }`}></span>
                 </Link>
               ))}
 

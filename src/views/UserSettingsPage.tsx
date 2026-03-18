@@ -19,7 +19,6 @@ import {
   Shield,
   CreditCard,
   AlertTriangle,
-  Settings,
 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
@@ -222,69 +221,58 @@ const UserSettingsPage = () => {
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
-            <div className="mb-8 pt-4 pb-2 text-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary mb-5">
-                <Settings className="h-3.5 w-3.5" />
-                Account Management
-              </div>
-              <h1 className="mb-4 text-4xl md:text-5xl font-black tracking-tight text-foreground">
-                Your{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
-                  Settings
-                </span>
-              </h1>
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Manage your account, subscription, notifications, and privacy in one place.
-              </p>
+            <div className="mb-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 text-center shadow-product backdrop-blur-sm">
+              <h1 className="text-3xl font-black tracking-tight text-foreground sm:text-4xl">Settings</h1>
+              <p className="mt-3 text-muted-foreground">Manage your account, subscription, notifications, and privacy in one place.</p>
             </div>
             <Tabs defaultValue="profile" className="space-y-6">
               <div className="overflow-x-auto pb-1">
-                <TabsList className="grid h-auto min-w-[640px] grid-cols-5 rounded-[24px] bg-orange-50 p-1 shadow-[var(--shadow-soft)]">
-                  <TabsTrigger
-                    value="profile"
-                    className="flex min-h-11 items-center gap-2"
-                  >
-                    <User className="h-4 w-4" aria-hidden="true" />
-                    <span className="hidden sm:inline">Profile</span>
-                    <span className="sr-only sm:hidden">Profile</span>
-                  </TabsTrigger>
+              <TabsList className="grid h-auto min-w-[640px] grid-cols-5 rounded-[24px] bg-orange-50 p-1 shadow-[var(--shadow-soft)]">
+                <TabsTrigger
+                  value="profile"
+                  className="flex min-h-11 items-center gap-2"
+                >
+                  <User className="h-4 w-4" aria-hidden="true" />
+                  <span className="hidden sm:inline">Profile</span>
+                  <span className="sr-only sm:hidden">Profile</span>
+                </TabsTrigger>
 
-                  <TabsTrigger
-                    value="subscription"
-                    className="flex min-h-11 items-center gap-2"
-                  >
-                    <CreditCard className="h-4 w-4" aria-hidden="true" />
-                    <span className="hidden sm:inline">Subscription</span>
-                    <span className="sr-only sm:hidden">Subscription</span>
-                  </TabsTrigger>
+                <TabsTrigger
+                  value="subscription"
+                  className="flex min-h-11 items-center gap-2"
+                >
+                  <CreditCard className="h-4 w-4" aria-hidden="true" />
+                  <span className="hidden sm:inline">Subscription</span>
+                  <span className="sr-only sm:hidden">Subscription</span>
+                </TabsTrigger>
 
-                  <TabsTrigger
-                    value="preferences"
-                    className="flex min-h-11 items-center gap-2"
-                  >
-                    <SettingsIcon className="h-4 w-4" aria-hidden="true" />
-                    <span className="hidden sm:inline">Preferences</span>
-                    <span className="sr-only sm:hidden">Preferences</span>
-                  </TabsTrigger>
+                <TabsTrigger
+                  value="preferences"
+                  className="flex min-h-11 items-center gap-2"
+                >
+                  <SettingsIcon className="h-4 w-4" aria-hidden="true" />
+                  <span className="hidden sm:inline">Preferences</span>
+                  <span className="sr-only sm:hidden">Preferences</span>
+                </TabsTrigger>
 
-                  <TabsTrigger
-                    value="notifications"
-                    className="flex min-h-11 items-center gap-2"
-                  >
-                    <Bell className="h-4 w-4" aria-hidden="true" />
-                    <span className="hidden sm:inline">Notifications</span>
-                    <span className="sr-only sm:hidden">Notifications</span>
-                  </TabsTrigger>
+                <TabsTrigger
+                  value="notifications"
+                  className="flex min-h-11 items-center gap-2"
+                >
+                  <Bell className="h-4 w-4" aria-hidden="true" />
+                  <span className="hidden sm:inline">Notifications</span>
+                  <span className="sr-only sm:hidden">Notifications</span>
+                </TabsTrigger>
 
-                  <TabsTrigger
-                    value="privacy"
-                    className="flex min-h-11 items-center gap-2"
-                  >
-                    <Shield className="h-4 w-4" aria-hidden="true" />
-                    <span className="hidden sm:inline">Privacy</span>
-                    <span className="sr-only sm:hidden">Privacy</span>
-                  </TabsTrigger>
-                </TabsList>
+                <TabsTrigger
+                  value="privacy"
+                  className="flex min-h-11 items-center gap-2"
+                >
+                  <Shield className="h-4 w-4" aria-hidden="true" />
+                  <span className="hidden sm:inline">Privacy</span>
+                  <span className="sr-only sm:hidden">Privacy</span>
+                </TabsTrigger>
+              </TabsList>
               </div>
 
               <TabsContent value="profile">

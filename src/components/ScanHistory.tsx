@@ -1,7 +1,4 @@
-"use client";
-
 import React from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -26,12 +23,6 @@ import {
   BarChart3,
   TrendingUp,
   Loader2,
-  Sparkles,
-  ArrowRight,
-  Crown,
-  ChevronRight,
-  ScanLine,
-  Clock,
 } from "lucide-react";
 import { useScanHistory } from "@/hooks/useScanHistory";
 import { useAuth } from "@/contexts/AuthContext";
@@ -71,248 +62,202 @@ const ScanHistory = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white">
-        <div className="container mx-auto px-4 sm:px-6 py-8">
-          <PageHeader />
-          <div className="mt-10 flex items-center justify-center py-20">
-            <Loader2 className="h-7 w-7 animate-spin text-primary mr-3" />
-            <span className="text-sm text-gray-500">Loading scan history...</span>
+      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-white/70 bg-white/85 shadow-product">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <span className="ml-2">Loading scan history...</span>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     );
   }
 
-  // ── Error ──────────────────────────────────────────────────────────────────
   if (error) {
     return (
-      <div className="min-h-screen bg-white">
-        <div className="container mx-auto px-4 sm:px-6 py-8">
-          <PageHeader />
-          <div className="mt-10 flex flex-col items-center justify-center py-20 text-center">
-            <p className="text-sm font-semibold text-red-500 mb-1">Error loading scan history</p>
-            <p className="text-xs text-gray-400">{error}</p>
+      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-white/70 bg-white/85 shadow-product">
+        <CardContent className="pt-6">
+          <div className="text-center py-8">
+            <div className="text-destructive mb-2">
+              Error loading scan history
+            </div>
+            <p className="text-sm text-muted-foreground">{error}</p>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     );
   }
 
-  const getScoreBadgeClass = (score: number | null) => {
-    if (!score) return "bg-gray-100 text-gray-500";
-    if (score >= 80) return "bg-green-100 text-green-700";
-    if (score >= 60) return "bg-amber-100 text-amber-700";
-    return "bg-red-100 text-red-600";
+  const getHealthScoreBadgeVariant = (score: number | null) => {
+    if (!score) return "secondary";
+    if (score >= 80) return "default";
+    if (score >= 60) return "secondary";
+    return "destructive";
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 sm:px-6 py-8">
-
-        {/* ── Breadcrumb ─────────────────────────────────────────────────── */}
-        <nav className="mb-8" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-gray-400">
-            <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
-            <li><ChevronRight className="w-3.5 h-3.5" /></li>
-            <li className="text-gray-700 font-medium">Scan History</li>
-          </ol>
-        </nav>
-
-        {/* ── Page Header ─────────────────────────────────────────────────── */}
-        <PageHeader />
-
-        {/* ── Stats Row ───────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-8">
-          <div className="bg-white rounded-2xl border border-orange-100 p-4 sm:p-5 text-center">
-            <div className="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-2">
-              <BarChart3 className="w-4 h-4 text-primary" />
-            </div>
-            <p className="text-2xl sm:text-3xl font-black text-gray-900">{stats.totalScans}</p>
-            <p className="text-xs text-gray-400 mt-0.5">Total Scans</p>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-orange-100 p-4 sm:p-5 text-center">
-            <div className="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-2">
-              <TrendingUp className="w-4 h-4 text-primary" />
-            </div>
-            <p className="text-2xl sm:text-3xl font-black text-gray-900">{stats.averageHealthScore}</p>
-            <p className="text-xs text-gray-400 mt-0.5">Avg Score</p>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-orange-100 p-4 sm:p-5 text-center">
-            <div className="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-2">
-              <Calendar className="w-4 h-4 text-primary" />
-            </div>
-            <p className="text-2xl sm:text-3xl font-black text-gray-900">{stats.recentScans}</p>
-            <p className="text-xs text-gray-400 mt-0.5">This Week</p>
-          </div>
-        </div>
-
-        {/* ── Scan History List ────────────────────────────────────────────── */}
-        <div className="bg-white rounded-3xl border border-orange-100 overflow-hidden shadow-sm">
-
-          {/* List header */}
-          <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-orange-100">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-orange-50 flex items-center justify-center">
-                <History className="w-4 h-4 text-primary" />
+    <div className="w-full max-w-4xl mx-auto space-y-6">
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Card className="rounded-[24px] border-white/70 bg-white/85 shadow-[var(--shadow-soft)]">
+          <CardContent className="pt-4">
+            <div className="flex items-center space-x-2">
+              <BarChart3 className="hidden h-6 w-6 shrink-0 text-primary sm:flex" />
+              <div>
+                <p className="text-sm font-medium">Total Scans</p>
+                <p className="text-2xl font-bold">{stats.totalScans}</p>
               </div>
-              <h2 className="font-bold text-gray-900 text-sm sm:text-base">Scan History</h2>
-              {scanHistory.length > 0 && (
-                <span className="text-sm *: text-black bg-gray-100 rounded-full px-2 py-0.5">
-                  <p>total show history: {scanHistory.length}</p>
-                </span>
-              )}
             </div>
-            {scanHistory.length > 0 && (
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-xs text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full px-3 h-8"
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-[24px] border-white/70 bg-white/85 shadow-[var(--shadow-soft)]">
+          <CardContent className="pt-4">
+            <div className="flex items-center space-x-2">
+              <TrendingUp className="hidden h-6 w-6 text-orange-500 sm:flex" />
+              <div>
+                <p className="text-sm font-medium">Avg Score</p>
+                <p className="text-2xl font-bold">{stats.averageHealthScore}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-[24px] border-white/70 bg-white/85 shadow-[var(--shadow-soft)]">
+          <CardContent className="pt-4">
+            <div className="flex items-center space-x-2">
+              <Calendar className="hidden h-6 w-6 text-amber-600 sm:flex" />
+              <div>
+                <p className="text-sm font-medium">This Week</p>
+                <p className="text-2xl font-bold">{stats.recentScans}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Scan History */}
+      <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
+        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <CardTitle className="flex items-center gap-2">
+            <History className="h-5 w-5" />
+            Scan History
+          </CardTitle>
+          {scanHistory.length > 0 && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="outline" size="sm" className="rounded-full border-orange-200/80 bg-white/90 shadow-[var(--shadow-soft)]">
+                  Clear All
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Clear scan history?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will permanently delete all your scan history. This
+                    action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={clearAllHistory}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                   >
-                    <Trash2 className="w-3.5 h-3.5 mr-1" />
                     Clear All
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Clear scan history?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This will permanently delete all your scan history. This action cannot be undone.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={clearAllHistory}
-                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                    >
-                      Clear All
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            )}
-          </div>
-
-          {/* Upgrade banner for free users */}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+        </CardHeader>
+        <CardContent>
           {tier === "free" && stats.totalScans >= 10 && (
-            <div className="mx-4 sm:mx-6 mt-4 flex flex-col gap-3 rounded-2xl border border-orange-200 bg-orange-50 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-start gap-3">
-                <Crown className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-semibold text-gray-900">Showing your latest scans only</p>
-                  <p className="text-xs text-gray-500 mt-0.5">Upgrade to Pro to unlock your full scan history forever.</p>
-                </div>
+            <div className="mb-4 flex flex-col gap-3 rounded-[24px] border border-dashed border-orange-200/80 bg-orange-50/80 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold">
+                  Showing your latest unique scans
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Upgrade to Pro to unlock your full scan history.
+                </p>
               </div>
-              <Button
-                size="sm"
-                onClick={() => router.push("/pricing")}
-                className="rounded-full bg-primary hover:bg-primary/90 text-white text-xs flex-shrink-0"
-              >
+              <Button size="sm" onClick={() => router.push("/pricing")} className="rounded-full shadow-[var(--shadow-soft)]">
                 Upgrade to Pro
-                <ArrowRight className="w-3 h-3 ml-1" />
               </Button>
             </div>
           )}
-
-          {/* Empty state */}
           {scanHistory.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-orange-50 flex items-center justify-center mb-4">
-                <ScanLine className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="text-base font-bold text-gray-900 mb-1">No scans yet</h3>
-              <p className="text-sm text-gray-400 max-w-xs">
-                Start scanning products to build your history and track your nutrition journey.
+            <div className="text-center py-8">
+              <History className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+              <span className="text-lg font-medium mb-2">No scans yet</span>
+              <p className="text-muted-foreground">
+                Start scanning products to build your history
               </p>
-              <Button
-                size="sm"
-                onClick={() => router.push("/scanner")}
-                className="mt-5 rounded-full bg-primary hover:bg-primary/90 text-white"
-              >
-                <ScanLine className="w-4 h-4 mr-2" />
-                Start Scanning
-              </Button>
             </div>
           ) : (
-            <ScrollArea className="h-[60vh] max-h-[500px]">
-              <div className="px-4 sm:px-6 py-4 space-y-2">
+            <ScrollArea className="h-[60vh] max-h-[460px] pr-2 sm:pr-4">
+              <div className="space-y-3">
                 {scanHistory.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="group flex items-center gap-3 sm:gap-4 rounded-2xl border border-gray-100 bg-white px-4 py-3.5 cursor-pointer hover:border-orange-200 hover:bg-orange-50/40 transition-all"
-                    onClick={() => router.push(`/product/${item.barcode}`)}
-                  >
-                    {/* Icon */}
-                    <div className="w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center flex-shrink-0">
-                      <ScanLine className="w-4 h-4 text-primary" />
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-gray-900 group-hover:text-primary transition-colors truncate">
-                        {item.product_name}
-                      </p>
-                      <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                        <span className="text-xs text-gray-400 flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {format(new Date(item.scanned_at), "MMM d, yyyy · HH:mm")}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Score badge */}
-                    <span className={`text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0 ${getScoreBadgeClass(item.health_score)}`}>
-                      {item.health_score ?? "N/A"}
-                    </span>
-
-                    {/* Delete */}
-                    <button
-                      aria-label={`Delete scan for ${item.product_name}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteScanHistoryItem(item.id);
-                      }}
-                      className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100"
+                  <div key={item.id}>
+                    <div 
+                      className="group flex cursor-pointer flex-col gap-3 rounded-[22px] border border-orange-100/70 bg-white/80 p-3 transition-colors hover:bg-orange-50/80 sm:flex-row sm:items-center sm:justify-between"
+                      onClick={() => router.push(`/product/${item.barcode}`)}
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-
-                    {/* Arrow */}
-                    <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-primary transition-colors flex-shrink-0" />
+                      <div className="flex-1 space-y-1">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                          <span className="font-medium text-sm group-hover:text-primary transition-colors">
+                            {item.product_name}
+                          </span>
+                          <Badge
+                            variant={getHealthScoreBadgeVariant(
+                              item.health_score,
+                            )}
+                            className={`
+    w-fit font-semibold
+    ${
+      item.health_score && item.health_score < 60 ? "bg-red-600 text-white" : ""
+    }
+  `}
+                          >
+                            {item.health_score || "N/A"}
+                          </Badge>
+                        </div>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-xs text-muted-foreground">
+                          <span>Barcode: {item.barcode}</span>
+                          <span>
+                            {format(
+                              new Date(item.scanned_at),
+                              "MMM d, yyyy HH:mm",
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        aria-label={`Delete scan for ${item.product_name}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteScanHistoryItem(item.id);
+                        }}
+                        className="flex justify-end p-0 text-muted-foreground hover:text-destructive sm:self-start"
+                      >
+                        <Trash2 className="h-4 w-4" aria-hidden="true" />
+                      </Button>
+                    </div>
+                    {index < scanHistory.length - 1 && (
+                      <Separator className="my-2" />
+                    )}
                   </div>
                 ))}
               </div>
             </ScrollArea>
           )}
-        </div>
-
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
-
-// ── Page Header component — matches other pages exactly ───────────────────────
-function PageHeader() {
-  return (
-    <header className="mb-8 sm:mb-10 text-center">
-      <Badge
-        className="mb-4 rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 text-orange-700 text-xs font-medium gap-1.5 inline-flex items-center"
-      >
-        <Sparkles className="w-3 h-3" aria-hidden="true" />
-        Your health journey
-      </Badge>
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900 mb-3">
-        Scan <span className="text-primary">History</span>
-      </h1>
-      <p className="mx-auto max-w-md text-sm sm:text-base text-gray-500">
-        Track every product you've scanned and monitor your nutrition journey over time.
-      </p>
-    </header>
-  );
-}
 
 export default ScanHistory;
