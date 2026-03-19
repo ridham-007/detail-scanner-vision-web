@@ -21,6 +21,7 @@ import {
   Sparkles,
   ShieldCheck,
 } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import BarcodeScanner from "@/components/BarcodeScanner";
 import ProductDetails from "@/components/ProductDetails";
 import { useProductLookup } from "@/hooks/useProductLookup";
@@ -175,21 +176,9 @@ export default function FoodScannerClient() {
   };
 
   return (
-    <div className="space-y-8 pt-4 container">
+    <div className="space-y-8 pt-4 container mx-auto px-4">
       {/* Upgrade Banner for Free Users */}
-      <nav className="mb-2" aria-label="Breadcrumb">
-        <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-          <li>
-            <Link href="/" className="hover:text-primary">
-              Home
-            </Link>
-          </li>
-          <li aria-hidden="true">/</li>
-          <li className="text-foreground font-medium" aria-current="page">
-            Food Scanner
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumbs items={[{ label: 'Food Scanner' }]} />
       {!isUnlimited && (
         <UpgradeBanner
           scansRemaining={scansRemaining as number}
@@ -207,7 +196,7 @@ export default function FoodScannerClient() {
             <Sparkles className="h-4 w-4" />
             Scanner built for quick, confident choices
           </div>
-          <h1 className="text-4xl md:text-5xl text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+          <h1 className="text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
             Food{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
               Scanner
@@ -340,7 +329,7 @@ export default function FoodScannerClient() {
       {/* SEO-friendly content section (visible) */}
       <section className="border-t border-border/70 py-12">
   <div className="max-w-4xl mx-auto">
-    <h2 className="mb-10 text-center text-3xl font-bold">
+    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-10 text-center">
       How the Food Scanner Works
     </h2>
 
@@ -392,17 +381,17 @@ export default function FoodScannerClient() {
             {/* Step badge */}
             <div className="relative mx-auto mb-5 flex h-14 w-14 items-center justify-center">
               {/* Animated ring */}
-              <span className="absolute inset-0 rounded-full bg-orange-100 animate-ping opacity-30 group-hover:opacity-60" />
+              <span className="absolute inset-0 rounded-full bg-orange-100 animate-ping opacity-30 group-hover:opacity-80" />
               <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-orange-50 border border-orange-200 shadow-sm">
                 {item.icon}
               </span>
               {/* Step number pill */}
-              <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow">
+              <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-white shadow">
                 {item.step}
               </span>
             </div>
 
-            <h3 className="font-semibold mb-2 text-base">{item.title}</h3>
+            <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">{item.title}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
 
             {/* Bottom progress bar */}
@@ -421,7 +410,7 @@ export default function FoodScannerClient() {
 
       {/* Related Links for Internal Linking */}
       <section className="border-t border-border/70 py-8">
-        <h2 className="text-xl font-bold mb-6 text-center">Explore More</h2>
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">Explore More</h2>
         <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
           <Link href="/blog/" className="group">
             <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
@@ -433,7 +422,7 @@ export default function FoodScannerClient() {
                   />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                     Nutrition Blog
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -457,7 +446,7 @@ export default function FoodScannerClient() {
                   />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                     Nutrition Quizzes
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -476,7 +465,7 @@ export default function FoodScannerClient() {
 
       {/* FAQ Section (Visible, matches schema) */}
       <section className="border-t border-border/70 py-8">
-        <h2 className="text-xl font-bold mb-6 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
           Frequently Asked Questions
         </h2>
         <div className="max-w-2xl mx-auto space-y-4">

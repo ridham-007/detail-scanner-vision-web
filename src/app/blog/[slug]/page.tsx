@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CalendarDays, Clock, ArrowRight, Scan, Brain, User, AlertTriangle } from 'lucide-react';
 import ShareButton from '@/components/ui/share-button';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -207,22 +208,12 @@ export default async function BlogPostPage({ params }: Props) {
       />
 
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb Navigation */}
-        <nav className="mb-6" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-            <li>
-              <Link href="/" className="hover:text-primary">Home</Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li>
-              <Link href="/blog/" className="hover:text-primary">Blog</Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li className="text-foreground font-medium truncate max-w-[200px]" aria-current="page">
-              {post.title}
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumbs 
+          items={[
+            { label: 'Blog', path: '/blog' },
+            { label: post.title }
+          ]} 
+        />
 
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Content */}
@@ -246,7 +237,7 @@ export default async function BlogPostPage({ params }: Props) {
                 {/* Reading Time */}
                 {post.reading_time && (
                   <>
-                    <span className="hidden sm:block text-muted-foreground/50">•</span>
+                    <span className="hidden sm:block text-muted-foreground">•</span>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4" aria-hidden="true" />
                       <span>{post.reading_time} min read</span>
@@ -302,7 +293,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-500" aria-hidden="true" />
                   <div>
-                    <h2 className="mb-2 text-sm font-semibold text-foreground">
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">
                       Medical & Nutritional Disclaimer
                     </h2>
                     <div className="space-y-2 text-xs leading-relaxed text-muted-foreground">
@@ -327,7 +318,7 @@ export default async function BlogPostPage({ params }: Props) {
 
               {/* CTA Section */}
               <div className="rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-6 shadow-product">
-                <h2 className="font-semibold text-foreground mb-3">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-3">
                   Ready to make healthier food choices?
                 </h2>
                 <p className="text-muted-foreground text-sm mb-4">
@@ -430,7 +421,7 @@ export default async function BlogPostPage({ params }: Props) {
                             </div>
                           )}
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-sm font-medium text-foreground group-hover:text-primary line-clamp-2">
+                            <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary line-clamp-2">
                               {relatedPost.title}
                             </h3>
                             {relatedPost.reading_time && (
@@ -449,7 +440,7 @@ export default async function BlogPostPage({ params }: Props) {
               {/* CTA Card */}
               <Card className="rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] shadow-product">
                 <CardContent className="pt-6">
-                  <h3 className="font-semibold text-foreground mb-2">Try EaterIQ Free</h3>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Try EaterIQ Free</h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any food product and get instant health insights.
                   </p>
@@ -469,7 +460,7 @@ export default async function BlogPostPage({ params }: Props) {
         {relatedPosts.length > 0 && (
           <section className="mt-16 pt-8 border-t" aria-labelledby="more-articles-heading">
             <div className="flex items-center justify-between mb-8">
-              <h2 id="more-articles-heading" className="text-2xl font-bold text-foreground">
+              <h2 id="more-articles-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 More Articles
               </h2>
               <Link href="/blog/">
@@ -503,7 +494,7 @@ export default async function BlogPostPage({ params }: Props) {
                         </>
                       )}
                     </div>
-                    <h3 className="font-semibold text-foreground mb-2 line-clamp-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 line-clamp-2">
                       <Link href={`/blog/${relatedPost.slug}/`} className="hover:text-primary">
                         {relatedPost.title}
                       </Link>

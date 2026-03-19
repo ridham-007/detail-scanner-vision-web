@@ -215,7 +215,7 @@ const PricingPage = () => {
 
           {/* Trust Badges */}
           <div className="text-center mb-16">
-            <h3 className="text-lg font-semibold mb-6">Trusted by health-conscious people</h3>
+            <h3 className="text-xl font-semibold tracking-tight text-foreground mb-6">Trusted by health-conscious people</h3>
             <div className="flex flex-wrap justify-center gap-8">
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Shield className="w-5 h-5" />
@@ -234,28 +234,28 @@ const PricingPage = () => {
 
           {/* FAQ Section */}
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground text-center mb-8">Frequently Asked Questions</h2>
             <div className="space-y-6">
               <div>
-                <h3 className="font-semibold mb-2">Can I cancel anytime?</h3>
+                <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Can I cancel anytime?</h3>
                 <p className="text-muted-foreground">
                   Yes! You can cancel your subscription anytime. Your access continues until the end of your billing period.
                 </p>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">What happens to my data if I downgrade?</h3>
+                <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">What happens to my data if I downgrade?</h3>
                 <p className="text-muted-foreground">
                   Your scan history is preserved, but you'll only be able to view the most recent 7 days on the free plan.
                 </p>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Do you offer refunds?</h3>
+                <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Do you offer refunds?</h3>
                 <p className="text-muted-foreground">
                   We offer a 7-day money-back guarantee for new subscribers. Contact support if you're not satisfied.
                 </p>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">How do family accounts work?</h3>
+                <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">How do family accounts work?</h3>
                 <p className="text-muted-foreground">
                   Premium subscribers can invite up to 5 family members. Each member gets their own profile with personalized insights.
                 </p>

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import QuizCard from "@/components/QuizCard";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 interface UserProfile {
   id: string;
@@ -145,6 +146,7 @@ const UserProfilePage = () => {
     return (
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Profile' }]} />
           <div className="flex justify-center py-16">
             <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-[rgb(var(--accent-foreground))]"></div>
           </div>
@@ -157,6 +159,7 @@ const UserProfilePage = () => {
     return (
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Profile' }]} />
           <div className="text-center py-16">
             <h1 className="text-2xl font-bold mb-4">User not found</h1>
             <p className="text-muted-foreground">
@@ -183,7 +186,8 @@ const UserProfilePage = () => {
       />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto space-y-8">
+          <Breadcrumbs items={[{ label: profile.username || 'Profile' }]} />
+          <div className="mx-auto space-y-8">
             {/* Profile Header */}
             <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
               <CardContent className="p-8">
@@ -290,7 +294,7 @@ const UserProfilePage = () => {
             {/* Created Quizzes */}
             <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
               <CardHeader>
-                <h2 className="!flex gap-2 items-center font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground gap-2 items-center mb-2 capitalize">
                   <Trophy className="h-5 w-5" />
                   Created Quizzes
                 </h2>
@@ -314,7 +318,7 @@ const UserProfilePage = () => {
                 ) : (
                   <div className="text-center py-8">
                     <Trophy className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                       No quizzes yet
                     </h3>
                     <p className="text-muted-foreground">

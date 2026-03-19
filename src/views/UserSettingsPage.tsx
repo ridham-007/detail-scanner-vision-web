@@ -47,6 +47,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const UserSettingsPage = () => {
   const { user, session, loading: userLoading } = useAuth();
@@ -220,7 +221,8 @@ const UserSettingsPage = () => {
       />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto">
+          <Breadcrumbs items={[{ label: 'Settings' }]} />
+          <div className="mx-auto">
             <div className="mb-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 text-center shadow-product backdrop-blur-sm">
               <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Settings</h1>
               <p className="mt-3 text-muted-foreground">Manage your account, subscription, notifications, and privacy in one place.</p>
@@ -302,7 +304,7 @@ const UserSettingsPage = () => {
                             userId={user.id}
                           />
                           <div className="text-center">
-                            <h3 className="text-lg font-semibold">
+                            <h3 className="text-xl font-semibold tracking-tight text-foreground">
                               {profile.full_name || "No name set"}
                             </h3>
                             <p className="text-muted-foreground">
@@ -432,7 +434,7 @@ const UserSettingsPage = () => {
                       <>
                         {/* Current Plan */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Current Plan
                           </h3>
 
@@ -492,7 +494,7 @@ const UserSettingsPage = () => {
 
                               {/* Cancel Subscription */}
                               <div className="space-y-4">
-                                <h3 className="text-lg font-semibold text-foreground">
+                                <h3 className="text-xl font-semibold tracking-tight text-foreground">
                                   Cancel Subscription
                                 </h3>
 
@@ -570,7 +572,7 @@ const UserSettingsPage = () => {
 
                             {/* Already Cancelled */}
                             <div className="space-y-4">
-                              <h3 className="text-lg font-semibold text-foreground">
+                              <h3 className="text-xl font-semibold tracking-tight text-foreground">
                                 Subscription Cancelled
                               </h3>
 
@@ -630,7 +632,7 @@ const UserSettingsPage = () => {
                       <>
                         {/* General Settings */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             General Settings
                           </h3>
 
@@ -693,7 +695,7 @@ const UserSettingsPage = () => {
 
                         {/* Content Preferences */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Content Preferences
                           </h3>
 
@@ -828,7 +830,7 @@ const UserSettingsPage = () => {
                       <>
                         {/* Profile Visibility */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Profile Visibility
                           </h3>
 
@@ -890,7 +892,7 @@ const UserSettingsPage = () => {
 
                         {/* Data & Privacy */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Data & Privacy
                           </h3>
 

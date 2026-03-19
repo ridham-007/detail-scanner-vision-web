@@ -152,7 +152,7 @@ const AnimatedHealthScore: React.FC<AnimatedHealthScoreProps> = ({
               fill="transparent"
               strokeDasharray={strokeDasharray}
               strokeDashoffset={strokeDashoffset}
-              className="animate-pulse opacity-50"
+              className="animate-pulse opacity-80"
               strokeLinecap="round"
             />
           )}

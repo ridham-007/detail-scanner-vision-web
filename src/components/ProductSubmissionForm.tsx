@@ -77,7 +77,7 @@ export function ProductSubmissionForm({ barcode, onSuccess, onCancel }: ProductS
             <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
               <CheckCircle2 className="w-8 h-8 text-primary" />
             </div>
-            <h3 className="text-xl font-semibold text-foreground">Thank You!</h3>
+            <h3 className="text-xl font-semibold tracking-tight text-foreground">Thank You!</h3>
             <p className="text-muted-foreground">
               Your product submission has been received and is pending review.
               {user && ' You\'ll earn points once it\'s approved!'}

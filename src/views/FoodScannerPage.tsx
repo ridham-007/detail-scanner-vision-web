@@ -137,7 +137,7 @@ const FoodScannerPage: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-8 pt-4 container">
+      <div className="space-y-8 pt-4 container mx-auto px-4">
         {/* Upgrade Banner for Free Users */}
         {!isUnlimited && (
           <UpgradeBanner
@@ -149,7 +149,7 @@ const FoodScannerPage: React.FC = () => {
         {/* Hero Section - Yuka Style */}
         <div className="text-center space-y-6 py-8">
           <div className="space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
               Food Scanner
             </h2>
             <p className="text-lg  text-muted-foreground max-w-2xl mx-auto leading-relaxed">

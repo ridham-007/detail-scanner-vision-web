@@ -71,7 +71,7 @@ const CookieConsent = () => {
           <div className="flex-1 space-y-4">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="font-semibold text-foreground">Cookie Preferences</h3>
+                <h3 className="text-xl font-semibold tracking-tight text-foreground">Cookie Preferences</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   We use cookies to enhance your experience. By continuing to visit this site, you agree to our use of cookies.{' '}
                   <Link href="/privacy" className="text-primary hover:underline">

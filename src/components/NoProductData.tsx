@@ -19,13 +19,13 @@ const NoProductData: React.FC<NoProductDataProps> = ({ barcode }) => {
           {/* Animated Icon */}
           <div className="relative">
             <div className="w-20 h-20 mx-auto bg-muted rounded-full flex items-center justify-center">
-              <Package size={40} className="text-muted-foreground/60" />
+              <Package size={40} className="text-muted-foreground/80" />
             </div>
           </div>
 
           {/* Main Message */}
           <div className="space-y-2">
-            <h3 className="text-xl font-semibold text-foreground">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground">
               Product Not Found
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed">

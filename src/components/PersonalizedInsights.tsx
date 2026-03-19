@@ -192,7 +192,7 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
       <CardContent className="p-6 space-y-4">
         <div className="flex items-center gap-2 mb-4">
           <User className="w-5 h-5 text-blue-600" />
-          <h3 className="font-semibold text-blue-800 dark:text-blue-200">Personalized Insights</h3>
+          <h3 className="text-xl font-semibold tracking-tight text-blue-800">Personalized Insights</h3>
         </div>
 
         {/* Allergen Warnings - Most Important */}

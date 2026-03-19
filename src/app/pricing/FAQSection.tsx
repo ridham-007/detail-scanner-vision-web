@@ -62,13 +62,13 @@ function FAQCard({ faq, idx, isActive, onToggle }: {
       <div className="flex items-center gap-3 p-4">
         <span
           className={`
-            w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-medium flex-shrink-0 mt-0.5 transition-colors duration-200
+            w-7 h-7 rounded-lg flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5 transition-colors duration-200
             ${isActive ? 'bg-primary text-primary-foreground' : 'bg-orange-100 text-orange-700'}
           `}
         >
           {faq.num}
         </span>
-        <span className="flex-1 text-mg font-medium text-foreground leading-snug">
+        <span className="flex-1 text-base font-medium text-foreground leading-snug">
           {faq.q}
         </span>
         <span
@@ -114,13 +114,13 @@ export default function FAQSection() {
   const rightIndices = faqs.map((_, i) => i).filter(i => i % 2 !== 0);
 
   return (
-    <section className="max-w-5xl mx-auto mb-16 px-4">
+    <section className="mb-16 px-4">
       {/* Header */}
       <div className="text-center mb-10">
         <span className="mb-3 inline-block rounded-full border border-orange-200/70 bg-orange-50 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-orange-800">
           Got questions?
         </span>
-        <h2 className="text-3xl font-black tracking-tight text-foreground md:text-4xl">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
           We&apos;ve got{' '}
           <em className="not-italic text-primary">answers</em>
         </h2>
@@ -177,7 +177,7 @@ export default function FAQSection() {
       {/* Support CTA */}
       <div className="flex flex-col items-start justify-between gap-4 rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] px-5 py-4 shadow-product sm:flex-row sm:items-center sm:px-6">
         <div>
-          <p className="text-md font-medium text-foreground">Still have questions?</p>
+          <p className="text-base font-medium text-foreground">Still have questions?</p>
           <p className="mt-0.5 text-sm text-muted-foreground">Our support team usually replies within a few hours.</p>
         </div>
         <Link

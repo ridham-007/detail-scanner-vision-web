@@ -46,7 +46,7 @@ const NotFound = () => {
           <div className="h-1 w-24 bg-primary mx-auto rounded-full" />
         </div>
         
-        <h2 className="text-2xl font-semibold text-foreground mb-4">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">
           Page Not Found
         </h2>
         

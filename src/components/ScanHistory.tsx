@@ -66,10 +66,10 @@ const TotalScansStrip = ({ totalScans }: { totalScans: number }) => {
         ))}
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-[10px] font-medium text-muted-foreground">
+        <span className="text-xs font-medium text-muted-foreground">
           {totalScans} scanned
         </span>
-        <span className="text-[10px] font-semibold text-orange-500">
+        <span className="text-xs font-semibold text-orange-500">
           Next: {nextMilestone}
         </span>
       </div>
@@ -105,7 +105,7 @@ const WeekCalendarStrip = ({ recentScans }: { recentScans: number }) => {
                 }`}
             />
             <span
-              className={`text-[9px] font-semibold leading-none ${isToday
+              className={`text-xs font-semibold leading-none ${isToday
                   ? "text-orange-500"
                   : isFuture
                     ? "text-muted-foreground/30"
@@ -139,11 +139,11 @@ const ScanHistory = () => {
 
   if (!user) {
     return (
-      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-orange-100 bg-white shadow-product">
+      <Card className="w-full rounded-[28px] border-orange-100 bg-white shadow-product">
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <History className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <span className="text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+            <span className="text-2xl font-bold leading-[1.02] tracking-tight text-foreground">
               Sign in to view your scan history
             </span>
             <p className="text-muted-foreground">
@@ -157,7 +157,7 @@ const ScanHistory = () => {
 
   if (isLoading) {
     return (
-      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-orange-100 bg-white shadow-product">
+      <Card className="w-full rounded-[28px] border-orange-100 bg-white shadow-product">
         <CardContent className="pt-6">
           <div className="flex items-center justify-center py-8">
             <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
@@ -170,7 +170,7 @@ const ScanHistory = () => {
 
   if (error) {
     return (
-      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-orange-100 bg-white shadow-product">
+      <Card className="w-full rounded-[28px] border-orange-100 bg-white shadow-product">
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <div className="text-destructive mb-2">
@@ -191,7 +191,7 @@ const ScanHistory = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6">
+    <div className="w-full  mx-auto space-y-6">
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -209,7 +209,7 @@ const ScanHistory = () => {
                   {stats.totalScans}
                 </p>
                 <div className="mt-2">
-                  <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-[11px] font-semibold text-orange-500">
+                  <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-semibold text-orange-500">
                     ↑ All time
                   </span>
                 </div>
@@ -235,7 +235,7 @@ const ScanHistory = () => {
                   {stats.averageHealthScore}
                 </p>
                 <div className="mt-2">
-                  <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-[11px] font-semibold text-orange-500">
+                  <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-semibold text-orange-500">
                     ↑ Health index
                   </span>
                 </div>
@@ -254,8 +254,8 @@ const ScanHistory = () => {
                 />
               </div>
               <div className="flex justify-between">
-                <span className="text-[10px] text-muted-foreground">0</span>
-                <span className="text-[10px] font-semibold text-orange-500">
+                <span className="text-xs text-muted-foreground">0</span>
+                <span className="text-xs font-semibold text-orange-500">
                   {stats.averageHealthScore}/100
                 </span>
               </div>
@@ -276,7 +276,7 @@ const ScanHistory = () => {
                   {stats.recentScans}
                 </p>
                 <div className="mt-2">
-                  <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-[11px] font-semibold text-orange-500">
+                  <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-semibold text-orange-500">
                     ↑ Last 7 days
                   </span>
                 </div>

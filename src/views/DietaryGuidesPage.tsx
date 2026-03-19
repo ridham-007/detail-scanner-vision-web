@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // --- Rich Content Data ---
 const cheatSheetData = {
@@ -18,7 +19,7 @@ const cheatSheetData = {
         content: (
             <div className="space-y-6 text-left font-sans">
                 <div className="p-4 bg-red-50 border border-red-100 rounded-xl">
-                    <h3 className="font-bold text-red-800 text-lg flex items-center gap-2 mb-3">
+                    <h3 className="text-xl font-semibold tracking-tight text-red-800 flex items-center gap-2 mb-3">
                         <AlertTriangle className="w-5 h-5" /> Sneaky Non-Vegan Ingredients
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-sm text-red-700">
@@ -34,7 +35,7 @@ const cheatSheetData = {
                 </div>
 
                 <div className="p-4 bg-green-50 border border-green-100 rounded-xl">
-                    <h3 className="font-bold text-green-800 text-lg flex items-center gap-2 mb-3">
+                    <h3 className="text-xl font-semibold tracking-tight text-green-800 flex items-center gap-2 mb-3">
                         <Check className="w-5 h-5" /> Easy Plant-Based Swaps
                     </h3>
                     <div className="space-y-3">
@@ -101,7 +102,7 @@ const cheatSheetData = {
                 </div>
 
                 <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl">
-                    <h3 className="font-bold text-blue-800 text-lg mb-2">Hidden Carbs Watchlist</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-blue-800 mb-2">Hidden Carbs Watchlist</h3>
                     <p className="text-sm text-blue-700 mb-2">Even "savory" foods can knock you out of ketosis.</p>
                     <div className="flex flex-wrap gap-2 text-xs font-bold text-blue-800">
                         <Badge variant="outline" className="border-blue-200 bg-white">Ketchup (5g/tbsp)</Badge>
@@ -123,7 +124,7 @@ const cheatSheetData = {
         content: (
             <div className="space-y-6 text-left font-sans">
                 <div className="p-4 bg-red-50 border border-red-100 rounded-xl">
-                    <h3 className="font-bold text-red-800 text-lg flex items-center gap-2 mb-3">
+                    <h3 className="text-xl font-semibold tracking-tight text-red-800 flex items-center gap-2 mb-3">
                         <X className="w-5 h-5" /> The "BROW" Rule (Strictly Avoid)
                     </h3>
                     <div className="grid grid-cols-2 gap-4 text-center">
@@ -136,7 +137,7 @@ const cheatSheetData = {
                 </div>
 
                 <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl">
-                    <h3 className="font-bold text-amber-800 text-lg mb-2">Surprising Sources of Gluten</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-amber-800 mb-2">Surprising Sources of Gluten</h3>
                     <ul className="space-y-2 text-sm text-amber-900">
                         <li className="flex items-start gap-2">⚠️ <strong>Soy Sauce:</strong> Usually contains wheat. Use Tamari instead.</li>
                         <li className="flex items-start gap-2">⚠️ <strong>Soups/Gravies:</strong> Often thickened with flour roux.</li>
@@ -213,7 +214,10 @@ export default function DietaryGuidesView() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-16 max-w-7xl min-h-screen">
+        <div className="container mx-auto px-4 py-8 min-h-screen">
+            <div className="no-print">
+                <Breadcrumbs items={[{ label: 'Dietary Guides' }]} />
+            </div>
             <div className="text-center mb-16 space-y-6 no-print">
                 {/* Badge - matches Quiz Hub / User Guide style */}
                 <div className="flex justify-center mb-5">
@@ -224,7 +228,7 @@ export default function DietaryGuidesView() {
                 </div>
 
                 {/* Heading - consistent with User Guide & Quiz Hub */}
-                <h1 className="text-4xl md:text-5xl  text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+                <h1 className="text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
                     Dietary{" "}
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                         Cheat Sheets
@@ -257,7 +261,7 @@ export default function DietaryGuidesView() {
                             <div className="mt-8 p-6 bg-muted/20 rounded-xl border border-dashed border-muted-foreground/20 group-hover:border-primary/30 transition-colors">
                                 <div className="flex flex-col items-center gap-2">
                                     <FileText className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">Click to Preview</span>
+                                    <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">Click to Preview</span>
                                 </div>
                             </div>
                         </CardContent>

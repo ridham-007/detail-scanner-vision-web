@@ -157,7 +157,7 @@ export default function SubscribeButton() {
               Most Popular
             </Badge>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-1">EaterIQ Pro</h2>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-1">EaterIQ Pro</h2>
           <p className="text-sm text-gray-500 max-w-xs mx-auto">
             Make smarter food choices with advanced nutrition insights
           </p>

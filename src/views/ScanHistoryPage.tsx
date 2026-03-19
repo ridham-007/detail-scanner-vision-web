@@ -3,6 +3,7 @@
 import React from 'react';
 import ScanHistory from '@/components/ScanHistory';
 import SEOHead from '@/components/SEOHead';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const ScanHistoryPage = () => {
   return (
@@ -15,8 +16,9 @@ const ScanHistoryPage = () => {
 
       <div className="min-h-screen">
         <div className="container mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Scan History' }]} />
           <div className="text-center mb-10">
-            <h1 className="text-4xl sm:text-5xl  mb-4 text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+            <h1 className="text-4xl sm:text-5xl  mb-4 font-bold leading-[1.02] tracking-tight text-foreground">
               Your Scan{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                 History

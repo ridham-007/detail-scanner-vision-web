@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useRouter } from 'next/navigation';
 import { useSubscription } from '@/hooks/useSubscription';
 import SEOHead from '@/components/SEOHead';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const SubscriptionSuccessPage = () => {
   const router = useRouter();
@@ -25,8 +26,9 @@ const SubscriptionSuccessPage = () => {
         canonicalUrl="https://www.eateriq.com/subscription-success/"
       />
       <div className="bg-[radial-gradient(circle_at_top,rgba(var(--accent),0.14),transparent_28%),linear-gradient(180deg,rgb(var(--background)),rgba(var(--accent-soft),0.2))]">
-        <div className="container mx-auto px-4 py-16">
-          <div className="max-w-lg mx-auto text-center">
+        <div className="container mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Success' }]} />
+          <div className="max-w-lg mx-auto text-center py-8">
             <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
               <CardHeader>
                 <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-[28px] bg-[rgb(var(--accent-soft))]/60 text-[rgb(var(--accent-foreground))]">

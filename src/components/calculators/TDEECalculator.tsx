@@ -340,7 +340,7 @@ const TDEECalculator = () => {
                 {/* Detailed breakdown, goals and charts – Pro feature */}
                 <SubscriptionGate feature="calculator_detailed" mode="block">
                   <div className="bg-secondary/20 p-6 rounded-2xl">
-                    <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 flex items-center gap-2">
                       <AlertCircle className="h-5 w-5 text-primary" />
                       Energy Expenditure Breakdown
                     </h3>
@@ -383,7 +383,7 @@ const TDEECalculator = () => {
                   </div>
 
                   <div className="bg-secondary/20 p-6 rounded-2xl">
-                    <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 flex items-center gap-2">
                       <Target className="h-5 w-5 text-primary" />
                       Calorie Goals by Objective
                     </h3>
@@ -434,7 +434,7 @@ const TDEECalculator = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {dataPoints.length > 0 && (
                       <div className="bg-card border border-border/50 p-4 sm:p-6 rounded-2xl overflow-hidden w-full">
-                        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 flex items-center gap-2">
                           <Activity className="h-5 w-5 text-primary" />
                           TDEE by Activity Level
                         </h3>
@@ -446,7 +446,7 @@ const TDEECalculator = () => {
 
                     {tdeeData.length > 0 && (
                       <div className="bg-card border border-border/50 p-6 rounded-2xl">
-                        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 flex items-center gap-2">
                           <Zap className="h-5 w-5 text-primary" />
                           TDEE Calculation History
                         </h3>

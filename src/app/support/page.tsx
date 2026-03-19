@@ -25,6 +25,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import ContactForm from "@/components/support/ContactForm";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -187,21 +188,8 @@ export default function SupportPage() {
       />
 
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8 relative z-10 max-w-6xl">
-          {/* Breadcrumb */}
-          <nav className="mb-6" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/" className="hover:text-primary">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium" aria-current="page">
-                Support
-              </li>
-            </ol>
-          </nav>
+        <main className="container mx-auto px-4 py-8 relative z-10">
+          <Breadcrumbs items={[{ label: "Support" }]} />
 
           {/* Header */}
           <header className="mb-12 pt-4 pb-2 text-center">
@@ -213,7 +201,7 @@ export default function SupportPage() {
             </div>
 
             {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl  mb-4 text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+            <h1 className="text-4xl sm:text-5xl  mb-4 font-bold leading-[1.02] tracking-tight text-foreground">
               Support{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                 Center
@@ -330,7 +318,7 @@ export default function SupportPage() {
             <div className="space-y-6">
               <Card>
                 <CardHeader>
-                  <h2 className="text-xl font-semibold flex items-center gap-2">
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground flex items-center gap-2">
                     <HelpCircle
                       className="h-5 w-5 text-purple-600"
                       aria-hidden="true"
@@ -397,7 +385,7 @@ export default function SupportPage() {
 
           {/* Explore More */}
           <section className="mt-12 pt-8 border-t">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Explore EaterIQ
             </h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
@@ -411,7 +399,7 @@ export default function SupportPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Food Scanner
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -436,7 +424,7 @@ export default function SupportPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Nutrition Blog
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -461,7 +449,7 @@ export default function SupportPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Quiz Hub
                       </h3>
                       <p className="text-sm text-muted-foreground">

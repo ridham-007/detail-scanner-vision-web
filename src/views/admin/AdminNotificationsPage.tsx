@@ -447,7 +447,7 @@ const AdminNotificationsPage = () => {
               </div>
             ) : (
               <div className="text-center py-8 text-muted-foreground">
-                <Bell className="h-12 w-12 mx-auto mb-3 opacity-50" />
+                <Bell className="h-12 w-12 mx-auto mb-3 opacity-80" />
                 <p>No notifications sent yet</p>
               </div>
             )}

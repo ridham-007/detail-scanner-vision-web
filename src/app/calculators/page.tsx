@@ -10,16 +10,13 @@ export default function AllCalculatorsPage() {
   const calculators = Object.values(calculatorConfig);
 
   return (
-    <section className="min-h-screen py-20">
+    <section className="min-h-screen py-8">
       <div className="container mx-auto px-4">
-
-        <div className="mb-6">
-          <Breadcrumbs
-            items={[
-              { label: "All Calculators" },
-            ]}
-          />
-        </div>
+        <Breadcrumbs
+          items={[
+            { label: "All Calculators" },
+          ]}
+        />
 
         {/* HEADER */}
         <header className="mb-16 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center backdrop-blur-sm">
@@ -41,7 +38,7 @@ export default function AllCalculatorsPage() {
         </header>
 
         {/* CALCULATOR GRID */}
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+        <div className="mx-auto grid md:grid-cols-3 gap-8">
           {calculators.map((calc, index) => {
             const Icon = calc.icon;
 

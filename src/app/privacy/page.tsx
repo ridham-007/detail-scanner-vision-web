@@ -19,6 +19,7 @@ import {
   Brain,
   ArrowRight,
 } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -115,21 +116,9 @@ export default function PrivacyPage() {
       />
 
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8 relative z-10 max-w-4xl">
+        <main className="container mx-auto px-4 py-8 relative z-10">
           {/* Breadcrumb */}
-          <nav className="mb-6" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/" className="hover:text-primary">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium" aria-current="page">
-                Privacy Policy
-              </li>
-            </ol>
-          </nav>
+          <Breadcrumbs items={[{ label: 'Privacy Policy' }]} />
 
           {/* Header */}
           <header className="mb-10 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center backdrop-blur-sm">
@@ -484,7 +473,7 @@ export default function PrivacyPage() {
 
           {/* Related Links */}
           <section className="mt-12 pt-8 border-t">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Related Pages
             </h2>
             <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
@@ -542,7 +531,7 @@ export default function PrivacyPage() {
 
           {/* Explore More */}
           <section className="mt-8">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Explore EaterIQ
             </h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">

@@ -48,7 +48,7 @@ export default function Footer() {
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-orange-200/70 bg-gradient-to-br from-orange-200 via-orange-300 to-orange-500 text-orange-950 shadow-[var(--shadow-warm)] transition-transform group-hover:scale-105">
                 <Smartphone className="h-5 w-5 text-white" />
               </div>
-              <h2 className=" text-3xl font-bold tracking-tight text-foreground">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 Eater
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                   IQ
@@ -94,7 +94,7 @@ export default function Footer() {
 
           {/* Product Links */}
           <nav aria-label="Product navigation">
-            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide block">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
               Product
             </h3>
             <ul className="space-y-3">
@@ -139,7 +139,7 @@ export default function Footer() {
 
           {/* Support Links */}
           <nav aria-label="Support navigation">
-            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide block">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
               Resources
             </h3>
             <ul className="space-y-3">
@@ -195,7 +195,7 @@ export default function Footer() {
           <address className="not-italic">
 
 
-            <h3 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wide block">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
               Contact
             </h3>
             <ul className="space-y-3">
@@ -221,7 +221,7 @@ export default function Footer() {
             </ul>
 
             <div className="mt-3  ">
-              <h3 className="font-semibold text-foreground mb-3 text-sm uppercase tracking-wide block">
+              <h3 className="text-xl font-semibold tracking-tight text-foreground mb-3 uppercase">
                 Social
               </h3>
               <div className="flex items-center gap-3">

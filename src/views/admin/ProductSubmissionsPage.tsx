@@ -160,7 +160,7 @@ export default function ProductSubmissionsPage() {
         <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
           <CardContent className="py-12 text-center">
             <AlertCircle className="w-12 h-12 mx-auto mb-4 text-destructive" />
-            <h2 className="text-xl font-semibold mb-2">Access Denied</h2>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">Access Denied</h2>
             <p className="text-muted-foreground">You don't have permission to view this page.</p>
           </CardContent>
         </Card>
@@ -206,7 +206,7 @@ export default function ProductSubmissionsPage() {
       ) : submissions.length === 0 ? (
         <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
           <CardContent className="py-12 text-center">
-            <Package className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" />
+            <Package className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <p className="text-muted-foreground">No submissions found</p>
           </CardContent>
         </Card>
@@ -220,7 +220,7 @@ export default function ProductSubmissionsPage() {
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold text-foreground">{submission.product_name}</h3>
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground">{submission.product_name}</h3>
                         <Badge className={`rounded-full border px-3 py-1 ${statusConfig[submission.status].color}`}>
                           <StatusIcon className="w-3 h-3 mr-1" />
                           {statusConfig[submission.status].label}

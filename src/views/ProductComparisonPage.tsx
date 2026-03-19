@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import ProductSelectionModal from '@/components/ProductSelectionModal';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useFoodBattleLimit } from '@/hooks/useFoodBattleLimit';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const ProductComparisonPage = () => {
     const [productA, setProductA] = useState<ProductData | null>(null);
@@ -279,14 +280,15 @@ const ProductComparisonPage = () => {
     }
 
     return (
-        <div className="container mx-auto max-w-5xl px-4 py-8">
+        <div className="container mx-auto px-4 py-8">
+            <Breadcrumbs items={[{ label: 'Food Battle' }]} />
             <div className="mb-8 flex flex-col items-center gap-4 ">
                 <div className="text-center pt-4 pb-2">
                     <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary mb-5">
                         <ArrowRightLeft className="h-3.5 w-3.5" />
                         Head-to-head comparison
                     </div>
-                    <h1 className="mb-4 text-4xl md:text-5xl text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+                    <h1 className="mb-4 text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
                         Food{" "}
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                             Battle
@@ -322,13 +324,13 @@ const ProductComparisonPage = () => {
                     <Card className="w-full max-w-xl rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.8),rgba(255,250,244,0.98))] shadow-product">
                         <CardHeader className="pb-3">
                             <div className="flex justify-center">
-                                <Badge className="rounded-full bg-primary px-3 py-1 text-[11px] uppercase tracking-wide text-primary-foreground">
+                                <Badge className="rounded-full bg-primary px-3 py-1 text-xs uppercase tracking-wide text-primary-foreground">
                                     Battles exhausted
                                 </Badge>
                             </div>
                         </CardHeader>
                         <CardContent className="space-y-4 text-center pb-6">
-                            <h2 className="text-lg font-semibold">
+                            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                                 Unlock Unlimited Battles
                             </h2>
                             <p className="text-sm text-muted-foreground max-w-md mx-auto">

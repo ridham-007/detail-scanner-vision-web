@@ -83,7 +83,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       <Card className="w-full overflow-hidden rounded-[32px] border-white/70 bg-white/88 shadow-product">
         <CardContent className="p-0">
           <div className="relative bg-[linear-gradient(180deg,rgba(255,237,213,0.62),rgba(255,250,244,0.98))]">
-            <div className="max-w-7xl mx-auto px-8 py-16">
+            <div className="mx-auto px-8 py-16">
               {/* Animated background elements */}
               <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute -top-10 -left-10 w-20 h-20 bg-blue-200 dark:bg-blue-800 rounded-full animate-pulse opacity-30"></div>
@@ -109,7 +109,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       <div className="w-full h-full bg-muted animate-pulse relative">
                         {/* Scanning line effect */}
                         <div
-                          className="absolute inset-0 bg-primary/20 opacity-50 animate-pulse"
+                          className="absolute inset-0 bg-primary/20 opacity-80 animate-pulse"
                           style={{
                             animation: "slide-scan 2s ease-in-out infinite",
                           }}
@@ -214,7 +214,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       <Card className="w-full rounded-[28px] border-white/70 bg-white/88 shadow-product">
         <CardContent className="flex items-center justify-center h-48">
           <div className="text-center space-y-2">
-            <ImageIcon size={48} className="mx-auto text-muted-foreground/50" />
+            <ImageIcon size={48} className="mx-auto text-muted-foreground" />
             <p className="text-muted-foreground">
               Scan a barcode to view product details
             </p>
@@ -248,7 +248,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
             </div>
 
-            <div className="relative max-w-7xl mx-auto px-6 py-12">
+            <div className="relative mx-auto px-6 py-12">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
                 {/* Product Image - Enhanced with Better Styling */}
                 <div className="flex justify-center">

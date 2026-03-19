@@ -294,7 +294,7 @@ export default async function HomePage() {
                   </div>
                   <h1
                     id="hero-heading"
-                    className="mb-4 text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl"
+                    className="mb-4 text-2xl font-bold leading-[1.02] tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl"
                   >
                     Bright health guidance for every barcode in your kitchen.
                   </h1>
@@ -400,7 +400,7 @@ export default async function HomePage() {
                         <div className="overflow-hidden rounded-[2.45rem] border border-white/70 bg-card shadow-inner">
                           {/* Status Bar */}
                           <div className="bg-background px-4 pt-2 pb-1 relative flex items-center justify-between">
-                            <span className="text-[10px] font-semibold text-foreground">
+                            <span className="text-xs font-semibold text-foreground">
                               9:41
                             </span>
                             <div className="w-20 h-6 bg-foreground rounded-full" />
@@ -458,7 +458,7 @@ export default async function HomePage() {
                                       className="w-3 h-3 text-primary"
                                       aria-hidden="true"
                                     />
-                                    <span className="text-[10px] text-primary font-medium">
+                                    <span className="text-xs text-primary font-medium">
                                       Organic
                                     </span>
                                   </div>
@@ -480,7 +480,7 @@ export default async function HomePage() {
                                         /100
                                       </span>
                                     </div>
-                                    <div className="text-[10px] text-primary font-medium">
+                                    <div className="text-xs text-primary font-medium">
                                       Good Choice ✓
                                     </div>
                                   </div>
@@ -495,13 +495,13 @@ export default async function HomePage() {
 
                               {/* Nutrition Tags */}
                               <div className="flex flex-wrap gap-1.5">
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
                                   Low Sugar
                                 </span>
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
                                   High Fiber
                                 </span>
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
                                   No Additives
                                 </span>
                               </div>
@@ -578,7 +578,7 @@ export default async function HomePage() {
             className="container mx-auto scroll-mt-20 px-4 py-12 sm:py-16"
             aria-labelledby="scanner-heading"
           >
-            <h2 id="scanner-heading" className="sr-only">
+            <h2 id="scanner-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
               Food Product Scanner
             </h2>
             <div className="mx-auto rounded-[32px] border border-white/60 bg-white/78 p-2 sm:p-3 md:p-5">
@@ -600,7 +600,7 @@ export default async function HomePage() {
                 </div>
                 <h2
                   id="how-it-works-heading"
-                  className="mb-4 text-3xl font-extrabold text-foreground md:text-4xl"
+                  className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                 >
                   How EaterIQ Works
                 </h2>
@@ -621,7 +621,7 @@ export default async function HomePage() {
                   <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-200/70 bg-white px-3 py-1 text-xs font-bold text-primary shadow-[var(--shadow-soft)]">
                     Step 1
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Scan Barcode
                   </h3>
                   <p className="text-muted-foreground">
@@ -641,7 +641,7 @@ export default async function HomePage() {
                   <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-200/70 bg-white px-3 py-1 text-xs font-bold text-primary shadow-[var(--shadow-soft)]">
                     Step 2
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Detailed Analysis
                   </h3>
                   <p className="text-muted-foreground">
@@ -661,7 +661,7 @@ export default async function HomePage() {
                   <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-200/70 bg-white px-3 py-1 text-xs font-bold text-primary shadow-[var(--shadow-soft)]">
                     Step 3
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Get Insights
                   </h3>
                   <p className="text-muted-foreground">
@@ -689,7 +689,7 @@ export default async function HomePage() {
                 </div>
                 <h2
                   id="features-heading"
-                  className="mb-4 text-3xl font-extrabold text-foreground md:text-4xl"
+                  className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                 >
                   Powerful Features
                 </h2>
@@ -707,7 +707,7 @@ export default async function HomePage() {
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Health Score Analysis
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -724,7 +724,7 @@ export default async function HomePage() {
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Additive Detection
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -741,7 +741,7 @@ export default async function HomePage() {
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Allergen Alerts
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -758,7 +758,7 @@ export default async function HomePage() {
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Better Alternatives
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -780,7 +780,7 @@ export default async function HomePage() {
               <header className="mb-12 text-center sm:mb-16">
                 <h2
                   id="why-heading"
-                  className="mb-4 text-3xl font-extrabold text-foreground md:text-4xl"
+                  className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                 >
                   Why Choose EaterIQ?
                 </h2>
@@ -801,7 +801,7 @@ export default async function HomePage() {
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Science-Based Analysis
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -822,7 +822,7 @@ export default async function HomePage() {
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Instant Results
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -843,7 +843,7 @@ export default async function HomePage() {
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Personalized Insights
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -864,7 +864,7 @@ export default async function HomePage() {
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Transparency First
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -885,7 +885,7 @@ export default async function HomePage() {
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Trusted by Thousands
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -906,7 +906,7 @@ export default async function HomePage() {
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Free to Start
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -932,7 +932,7 @@ export default async function HomePage() {
                 <header className="mb-12 text-center">
                   <h2
                     id="quizzes-heading"
-                    className="mb-4 text-3xl font-bold text-foreground md:text-4xl"
+                    className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                   >
                     Test Your Food Knowledge
                   </h2>
@@ -1020,7 +1020,7 @@ export default async function HomePage() {
                 <header className="mb-12 text-center">
                   <h2
                     id="blog-heading"
-                    className="mb-4 text-3xl font-bold text-foreground md:text-4xl"
+                    className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                   >
                     Nutrition Insights &amp; Tips
                   </h2>
@@ -1066,7 +1066,7 @@ export default async function HomePage() {
                           )}
                         </div>
 
-                        <h3 className="font-semibold text-foreground mb-2 line-clamp-2">
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 line-clamp-2">
                           <Link
                             href={`/blog/${blog.slug}/`}
                             className="hover:text-primary"
@@ -1118,7 +1118,7 @@ export default async function HomePage() {
               <div className="mx-auto max-w-4xl rounded-[34px] border border-white/65 p-6 text-center shadow-[var(--shadow-warm)] sm:p-8 lg:p-12">
                 <h2
                   id="cta-heading"
-                  className="mb-4 text-3xl font-extrabold text-foreground md:text-4xl"
+                  className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                 >
                   Start Making Healthier Choices Today
                 </h2>
@@ -1149,7 +1149,7 @@ export default async function HomePage() {
             <div className="container mx-auto px-4">
               <h2
                 id="explore-heading"
-                className="text-xl font-bold mb-8 text-center"
+                className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-8 text-center"
               >
                 Explore EaterIQ
               </h2>
@@ -1161,7 +1161,7 @@ export default async function HomePage() {
                         className="h-8 w-8 text-primary mx-auto mb-2"
                         aria-hidden="true"
                       />
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Quiz Hub
                       </h3>
                       <p className="text-xs text-muted-foreground">
@@ -1177,7 +1177,7 @@ export default async function HomePage() {
                         className="h-8 w-8 text-primary mx-auto mb-2"
                         aria-hidden="true"
                       />
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Blog
                       </h3>
                       <p className="text-xs text-muted-foreground">
@@ -1193,7 +1193,7 @@ export default async function HomePage() {
                         className="h-8 w-8 text-primary mx-auto mb-2"
                         aria-hidden="true"
                       />
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Pricing
                       </h3>
                       <p className="text-xs text-muted-foreground">
@@ -1209,7 +1209,7 @@ export default async function HomePage() {
                         className="h-8 w-8 text-primary mx-auto mb-2"
                         aria-hidden="true"
                       />
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Support
                       </h3>
                       <p className="text-xs text-muted-foreground">Get help</p>
