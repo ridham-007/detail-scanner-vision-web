@@ -286,7 +286,7 @@ const ProductComparisonPage = () => {
                         <ArrowRightLeft className="h-3.5 w-3.5" />
                         Head-to-head comparison
                     </div>
-                    <h1 className="mb-4 text-4xl md:text-5xl font-black tracking-tight text-foreground">
+                    <h1 className="mb-4 text-4xl md:text-5xl text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
                         Food{" "}
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                             Battle

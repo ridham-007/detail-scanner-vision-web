@@ -3,12 +3,12 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { supabase } from '@/integrations/supabase/client';
-import { 
-  Brain, 
-  Trophy, 
-  Target, 
-  Scan, 
-  BookOpen, 
+import {
+  Brain,
+  Trophy,
+  Target,
+  Scan,
+  BookOpen,
   ArrowRight,
   Play,
   Calendar,
@@ -262,14 +262,17 @@ export default async function QuizPage() {
               <Brain className="w-3 h-3 mr-1" aria-hidden="true" />
               {quizzes.length}+ Quizzes Available
             </Badge>
-            <h1 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl">
-              Quiz Hub
+            <h1 className="mb-4 text-3xl sm:text-4xl md:text-5xl text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+              Quiz{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                Hub
+              </span>
             </h1>
             <p className="mx-auto mb-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Challenge yourself with fun and educational nutrition quizzes. 
+              Challenge yourself with fun and educational nutrition quizzes.
               Test your food knowledge, learn new facts, and compete with others!
             </p>
-            
+
             {/* Quick Stats */}
             <div className="flex flex-wrap justify-center gap-6 mb-8">
               <div className="flex items-center gap-2 text-muted-foreground">
@@ -304,7 +307,7 @@ export default async function QuizPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {quizzes.map((quiz) => (
                   <article key={quiz.id}>
-                      <Card className="flex h-full flex-col transition-shadow hover:shadow-md">
+                    <Card className="flex h-full flex-col transition-shadow hover:shadow-md">
                       <CardHeader className="min-h-[120px] pb-3 sm:min-h-[140px]">
                         <div className="flex items-start justify-between mb-2">
                           <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
@@ -312,7 +315,7 @@ export default async function QuizPage() {
                           </Badge>
                         </div>
                         <CardTitle className="min-h-[48px] text-lg font-semibold capitalize leading-relaxed line-clamp-2 sm:min-h-[52px]">
-                          <Link 
+                          <Link
                             href={`/quiz/${quiz.slug}/`}
                             className="hover:text-primary transition-colors"
                           >
@@ -326,7 +329,7 @@ export default async function QuizPage() {
                             {quiz.description}
                           </p>
                         )}
-                        
+
                         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
                           <Calendar className="h-3 w-3" aria-hidden="true" />
                           <time dateTime={quiz.created_at || ''}>
@@ -505,8 +508,8 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  Our quizzes cover a wide range of topics including nutrition basics, food safety, 
-                  healthy eating habits, dietary guidelines, food labels, vitamins and minerals, 
+                  Our quizzes cover a wide range of topics including nutrition basics, food safety,
+                  healthy eating habits, dietary guidelines, food labels, vitamins and minerals,
                   superfoods, diet myths, and much more. We regularly add new quizzes to keep the content fresh and educational.
                 </div>
               </details>
@@ -517,7 +520,7 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  Yes! Registered users can create up to 2 custom quizzes per month. Simply sign in 
+                  Yes! Registered users can create up to 2 custom quizzes per month. Simply sign in
                   and click the &quot;Create Quiz&quot; button to get started.
                 </div>
               </details>
@@ -528,8 +531,8 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  Yes, all quizzes on EaterIQ are completely free to play. You can test your nutrition 
-                  knowledge without any cost. Create a free account to track your progress and appear 
+                  Yes, all quizzes on EaterIQ are completely free to play. You can test your nutrition
+                  knowledge without any cost. Create a free account to track your progress and appear
                   on the leaderboard.
                 </div>
               </details>
@@ -540,8 +543,8 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  After completing each quiz, you&apos;ll see your score and detailed explanations for 
-                  each answer. Create a free account to save your scores, track your progress over time, 
+                  After completing each quiz, you&apos;ll see your score and detailed explanations for
+                  each answer. Create a free account to save your scores, track your progress over time,
                   and compete on the global leaderboard.
                 </div>
               </details>
@@ -552,8 +555,8 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  We offer three difficulty levels: Easy (great for beginners), Medium (for those with 
-                  some nutrition knowledge), and Hard (for nutrition experts). Choose the level that 
+                  We offer three difficulty levels: Easy (great for beginners), Medium (for those with
+                  some nutrition knowledge), and Hard (for nutrition experts). Choose the level that
                   matches your expertise or challenge yourself with harder quizzes!
                 </div>
               </details>
@@ -564,7 +567,7 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  Each quiz contains 10 multiple-choice questions. You&apos;ll receive immediate feedback 
+                  Each quiz contains 10 multiple-choice questions. You&apos;ll receive immediate feedback
                   after each question, and a comprehensive summary with explanations at the end.
                 </div>
               </details>

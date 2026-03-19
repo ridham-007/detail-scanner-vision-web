@@ -48,7 +48,12 @@ export default function Footer() {
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-orange-200/70 bg-gradient-to-br from-orange-200 via-orange-300 to-orange-500 text-orange-950 shadow-[var(--shadow-warm)] transition-transform group-hover:scale-105">
                 <Smartphone className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-extrabold tracking-tight text-foreground">EaterIQ</span>
+              <h2 className=" text-3xl font-bold tracking-tight text-foreground">
+                Eater
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                  IQ
+                </span>
+              </h2>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
               Scan, understand, and choose better food with the same warm, helpful experience as the app.

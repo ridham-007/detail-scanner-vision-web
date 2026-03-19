@@ -159,7 +159,7 @@ export default async function BlogListPage() {
           </div>
 
           {/* Heading */}
-          <h1 className="mb-4 text-4xl sm:text-5xl font-black tracking-tight text-foreground">
+          <h1 className="mb-4 text-4xl sm:text-5xl text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
             Nutrition{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
               Insights & Tips

@@ -21,7 +21,6 @@ const Header = () => {
     { path: "/scanner", label: "Scanner" },
     { path: "/quiz", label: "Quiz" },
     { path: "/blog", label: "Blogs" },
-    { path: "/history", label: "History" },
     { path: "/pricing", label: "Pricing" },
   ];
 
@@ -39,16 +38,19 @@ const Header = () => {
               </div>
             </Link>
             <Link href={'/'} className="cursor-pointer group" aria-label="EaterIQ - Smart Food Intelligence">
-              <h2
-                className="text-2xl font-extrabold tracking-tight text-foreground transition-all duration-300 group-hover:text-primary md:text-3xl"
-              >
-                EaterIQ
+              <h2 className=" text-2xl transition-all duration-300 group-hover:text-primary sm:text-4xl md:text-5xl  font-bold leading-[1.02] tracking-tight text-foreground">
+                Eater
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                  IQ
+                </span>
               </h2>
               <p
                 className="text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/70 md:text-sm"
               >
                 Bright scans, smarter food choices
               </p>
+
+
             </Link>
           </div>
 
@@ -62,14 +64,14 @@ const Header = () => {
                   aria-current={pathname === item.path ? "page" : undefined}
                   key={item.path}
                   className={`font-medium transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${pathname === item.path
-                      ? "text-primary font-bold"
-                      : "text-muted-foreground hover:text-foreground"
+                    ? "text-primary font-bold"
+                    : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
                   {item.label}
                   <span className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-primary transition-all duration-300 ${pathname === item.path
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
+                    ? "w-full"
+                    : "w-0 group-hover:w-full"
                     }`}></span>
                 </Link>
               ))}
@@ -97,12 +99,6 @@ const Header = () => {
                     <Link href="/support" className="flex items-center gap-2 cursor-pointer">
                       <Shield className="h-4 w-4" />
                       Support Center
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/favorites" className="flex items-center gap-2 cursor-pointer">
-                      <Heart className="h-4 w-4" />
-                      Favorites
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>

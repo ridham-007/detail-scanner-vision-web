@@ -149,10 +149,10 @@ const FoodScannerPage: React.FC = () => {
         {/* Hero Section - Yuka Style */}
         <div className="text-center space-y-6 py-8">
           <div className="space-y-4">
-            <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
               Food Scanner
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg  text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Decode product quality in seconds. Get instant nutrition insights
               and make informed food choices.
             </p>

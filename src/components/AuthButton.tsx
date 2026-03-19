@@ -1,11 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu, BookOpen, Shield, ShoppingCart, History, CreditCard } from 'lucide-react';
+import { LogIn, LogOut, User, Settings, Scan, Trophy, Menu, BookOpen, Shield, ShoppingCart, History, CreditCard, Heart } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { supabase } from '@/integrations/supabase/client';
 import { useRouter, usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -32,11 +32,9 @@ const AuthButton = () => {
 
   const fetchUserProfile = async () => {
     if (!user) return;
-
     try {
       const { data } = await supabase
         .from('profiles').select('username, avatar_url, full_name').eq('id', user.id).single();
-
       if (data) {
         setUsername(data.username);
         setFullName(data.full_name);
@@ -53,22 +51,22 @@ const AuthButton = () => {
     { path: '/blog', label: 'Blog', icon: BookOpen },
     { path: '/pricing', label: 'Pricing', icon: CreditCard },
     { path: '/history', label: 'History', icon: History },
+    { path: '/favorites', label: 'Favourites', icon: Heart },
     { path: '/shopping-lists', label: 'Lists', icon: ShoppingCart },
   ];
 
-
   const getUserInitials = () => {
-    if (username) {
-      return username.substring(0, 2).toUpperCase();
-    }
-    if (user?.email) {
-      return user.email.substring(0, 2).toUpperCase();
-    }
+    if (username) return username.substring(0, 2).toUpperCase();
+    if (user?.email) return user.email.substring(0, 2).toUpperCase();
     return 'US';
   };
 
   if (loading) {
-    return <Button aria-label="Loading..." variant="outline" disabled className="rounded-full border-white/70 bg-white/80">Loading...</Button>;
+    return (
+      <Button aria-label="Loading..." variant="outline" disabled className="rounded-full border-white/70 bg-white/80">
+        Loading...
+      </Button>
+    );
   }
 
   if (user) {
@@ -77,23 +75,22 @@ const AuthButton = () => {
         <DropdownMenuTrigger asChild>
           <Button aria-label="User Menu" variant="outline" size="sm" className="gap-2 rounded-full border-white/70 bg-white/85 shadow-[var(--shadow-soft)] hover:bg-orange-50 hover:text-foreground">
             <Avatar className="h-6 w-6">
-              <AvatarImage alt="user avatar" src={avatarUrl || undefined}/>
-              <AvatarFallback className="text-xs">
-                {getUserInitials()}
-              </AvatarFallback>
+              <AvatarImage alt="user avatar" src={avatarUrl || undefined} />
+              <AvatarFallback className="text-xs">{getUserInitials()}</AvatarFallback>
             </Avatar>
             <span className="hidden md:inline">{fullName || username || user.email}</span>
             <Menu className="h-4 w-4 md:hidden" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56 rounded-3xl border-white/70 bg-white/95 p-2 shadow-product backdrop-blur-sm">
+
           {/* Mobile Navigation Items */}
           <div className="md:hidden">
             {navigationItems.map((item) => (
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 key={item.path}
                 onClick={() => router.push(item.path)}
-                className={pathname === item.path ? 'bg-orange-50 text-foreground' : 'rounded-2xl'}
+                className={`rounded-2xl hover:!bg-orange-50 hover:!text-foreground ${pathname === item.path ? 'bg-orange-50 text-foreground' : ''}`}
               >
                 <item.icon className="h-4 w-4 mr-2" />
                 {item.label}
@@ -101,34 +98,52 @@ const AuthButton = () => {
             ))}
             <DropdownMenuSeparator />
           </div>
-          
+
           {/* User Menu Items */}
           {username && (
-            <DropdownMenuItem onClick={() => router.push(`/profile/${username}`)} className='rounded-2xl hover:!bg-orange-50 hover:!text-foreground'>
+            <DropdownMenuItem onClick={() => router.push(`/profile/${username}`)} className="rounded-2xl hover:!bg-orange-50 hover:!text-foreground">
               <User className="h-4 w-4 mr-2" />
               View Profile
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem onClick={() => router.push('/settings')} className='rounded-2xl hover:!bg-orange-50 hover:!text-foreground'>
+
+          <DropdownMenuItem onClick={() => router.push('/history')} className={`rounded-2xl hover:!bg-orange-50 hover:!text-foreground ${pathname === '/history' ? 'bg-orange-50 text-foreground' : ''}`}>
+            <History className="h-4 w-4 mr-2" />
+            History
+          </DropdownMenuItem>
+
+          <DropdownMenuItem asChild>
+            <Link
+              href="/favorites"
+              className={`flex items-center gap-2 cursor-pointer rounded-2xl px-2 py-1.5 text-sm hover:bg-orange-50 hover:text-foreground ${pathname === '/favorites' ? 'bg-orange-50 text-foreground' : ''}`}
+            >
+              <Heart className="h-4 w-4" />
+              Favourites
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => router.push('/settings')} className="rounded-2xl hover:!bg-orange-50 hover:!text-foreground">
             <Settings className="h-4 w-4 mr-2" />
             Settings
           </DropdownMenuItem>
-          
+
           {/* Admin Menu Items */}
           {isAdmin && (
             <>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => router.push('/admin/blogs')} className='rounded-2xl hover:!bg-orange-50 hover:!text-foreground'>
+              <DropdownMenuItem onClick={() => router.push('/admin/blogs')} className="rounded-2xl hover:!bg-orange-50 hover:!text-foreground">
                 <Shield className="h-4 w-4 mr-2" />
                 Manage Blogs
               </DropdownMenuItem>
             </>
           )}
-          
-          <DropdownMenuItem onClick={signOut} className='rounded-2xl hover:!bg-orange-50 hover:!text-foreground'>
+
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={signOut} className="rounded-2xl hover:!bg-orange-50 hover:!text-foreground">
             <LogOut className="h-4 w-4 mr-2" />
             Sign Out
           </DropdownMenuItem>
+
         </DropdownMenuContent>
       </DropdownMenu>
     );
@@ -146,10 +161,10 @@ const AuthButton = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56 rounded-3xl border-white/70 bg-white/95 p-2 shadow-product backdrop-blur-sm">
             {navigationItems.map((item) => (
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 key={item.path}
                 onClick={() => router.push(item.path)}
-                className={pathname === item.path ? 'bg-orange-50 text-foreground' : 'rounded-2xl'}
+                className={`rounded-2xl hover:!bg-orange-50 hover:!text-foreground ${pathname === item.path ? 'bg-orange-50 text-foreground' : ''}`}
               >
                 <item.icon className="h-4 w-4 mr-2" />
                 {item.label}
@@ -163,11 +178,11 @@ const AuthButton = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      
+
       {/* Desktop Sign In Button */}
-      <Button 
+      <Button
         aria-label="Sign In"
-        onClick={() => router.push('/auth')} 
+        onClick={() => router.push('/auth')}
         className="hidden rounded-full shadow-[var(--shadow-warm)] md:flex"
       >
         <LogIn className="h-4 w-4 mr-2" />

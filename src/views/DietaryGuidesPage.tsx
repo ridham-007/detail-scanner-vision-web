@@ -224,7 +224,7 @@ export default function DietaryGuidesView() {
                 </div>
 
                 {/* Heading - consistent with User Guide & Quiz Hub */}
-                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground">
+                <h1 className="text-4xl md:text-5xl  text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
                     Dietary{" "}
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                         Cheat Sheets

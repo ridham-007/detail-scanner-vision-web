@@ -12,18 +12,22 @@ const ScanHistoryPage = () => {
         description="View your product scan history and track your nutrition journey with EaterIQ."
         canonicalUrl="https://www.eateriq.com/history/"
       />
-      
+
       <div className="min-h-screen">
         <div className="container mx-auto px-4 py-8">
-          <div className="mb-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center shadow-product backdrop-blur-sm">
-            <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground">
-              Your Scan History
+          <div className="text-center mb-10">
+            <h1 className="text-4xl sm:text-5xl  mb-4 text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+              Your Scan{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                History
+              </span> 
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               Track your scanned products and monitor your nutrition journey over time.
             </p>
+
           </div>
-          
+
           <ScanHistory />
         </div>
       </div>

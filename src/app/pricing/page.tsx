@@ -156,7 +156,7 @@ export default function PricingPage() {
               Simple, transparent pricing
             </Badge>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900 mb-3">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl  text-gray-900 mb-3 text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground ">
               Choose Your{' '}
               <span className="text-primary">Health Journey</span>
             </h1>

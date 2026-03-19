@@ -213,7 +213,7 @@ export default function SupportPage() {
             </div>
 
             {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-foreground mb-4">
+            <h1 className="text-4xl sm:text-5xl  mb-4 text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
               Support{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                 Center
