@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import SubscribeButton from '@/components/pricing/SubscribeButton';
 import FAQSection from '@/app/pricing/FAQSection';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const SUBSCRIPTION_PLANS = {
   pro_monthly: {
@@ -135,16 +136,8 @@ export default function PricingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <div className="min-h-screen bg-white">
-        <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
-
-          {/* Breadcrumb */}
-          <nav className="mb-8" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-gray-400">
-              <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
-              <li aria-hidden="true">/</li>
-              <li className="text-gray-700 font-medium" aria-current="page">Pricing</li>
-            </ol>
-          </nav>
+        <div className="container mx-auto px-4 py-8 sm:py-12">
+          <Breadcrumbs items={[{ label: 'Pricing' }]} />
 
           {/* ── Hero ─────────────────────────────────────────────────────────── */}
           <header className="mb-10 sm:mb-14 text-center">

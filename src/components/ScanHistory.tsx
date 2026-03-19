@@ -139,7 +139,7 @@ const ScanHistory = () => {
 
   if (!user) {
     return (
-      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-orange-100 bg-white shadow-product">
+      <Card className="w-full rounded-[28px] border-orange-100 bg-white shadow-product">
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <History className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
@@ -157,7 +157,7 @@ const ScanHistory = () => {
 
   if (isLoading) {
     return (
-      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-orange-100 bg-white shadow-product">
+      <Card className="w-full rounded-[28px] border-orange-100 bg-white shadow-product">
         <CardContent className="pt-6">
           <div className="flex items-center justify-center py-8">
             <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
@@ -170,7 +170,7 @@ const ScanHistory = () => {
 
   if (error) {
     return (
-      <Card className="mx-auto w-full max-w-4xl rounded-[28px] border-orange-100 bg-white shadow-product">
+      <Card className="w-full rounded-[28px] border-orange-100 bg-white shadow-product">
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <div className="text-destructive mb-2">
@@ -191,7 +191,7 @@ const ScanHistory = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6">
+    <div className="w-full  mx-auto space-y-6">
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

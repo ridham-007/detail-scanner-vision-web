@@ -114,7 +114,7 @@ export default function FAQSection() {
   const rightIndices = faqs.map((_, i) => i).filter(i => i % 2 !== 0);
 
   return (
-    <section className="max-w-5xl mx-auto mb-16 px-4">
+    <section className="mb-16 px-4">
       {/* Header */}
       <div className="text-center mb-10">
         <span className="mb-3 inline-block rounded-full border border-orange-200/70 bg-orange-50 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-orange-800">

@@ -47,6 +47,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const UserSettingsPage = () => {
   const { user, session, loading: userLoading } = useAuth();
@@ -220,7 +221,8 @@ const UserSettingsPage = () => {
       />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto">
+          <Breadcrumbs items={[{ label: 'Settings' }]} />
+          <div className="mx-auto">
             <div className="mb-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 text-center shadow-product backdrop-blur-sm">
               <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Settings</h1>
               <p className="mt-3 text-muted-foreground">Manage your account, subscription, notifications, and privacy in one place.</p>

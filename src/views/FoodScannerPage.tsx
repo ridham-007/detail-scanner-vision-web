@@ -137,7 +137,7 @@ const FoodScannerPage: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-8 pt-4 container">
+      <div className="space-y-8 pt-4 container mx-auto px-4">
         {/* Upgrade Banner for Free Users */}
         {!isUnlimited && (
           <UpgradeBanner

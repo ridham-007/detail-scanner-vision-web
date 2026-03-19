@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import SEOHead from '@/components/SEOHead';
 import { Search, Package } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const CategoriesPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -58,6 +59,7 @@ const CategoriesPage = () => {
 
       <div className="min-h-screen">
         <div className="container mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Categories' }]} />
           <div className="mb-8 pt-4 pb-2 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary mb-5">
               <span>Explore by Category</span>

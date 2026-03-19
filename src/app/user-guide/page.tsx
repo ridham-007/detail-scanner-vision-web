@@ -22,6 +22,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useSubscription } from "@/hooks/useSubscription";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const MAX_FREE_FAVORITES = 10;
 type SortOption = "recent" | "score-high" | "score-low" | "name";
@@ -419,7 +420,8 @@ const Favorites = () => {
   ];
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-8 py-8">
+    <div className="container mx-auto px-4 py-8">
+      <Breadcrumbs items={[{ label: 'Favourites' }]} />
 
       {/* ── Page Header ── */}
       <div className="text-center mb-8">

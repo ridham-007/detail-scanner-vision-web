@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BookOpen, Scan, Brain, ArrowRight } from 'lucide-react';
 import { BlogPost } from '@/types/Blog';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // Static metadata for blog listing page
 export const metadata: Metadata = {
@@ -135,18 +136,8 @@ export default async function BlogListPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
-        <nav className="mb-6" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-            <li>
-              <Link href="/" className="hover:text-primary">Home</Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li className="text-foreground font-medium" aria-current="page">Blog</li>
-          </ol>
-        </nav>
+        <Breadcrumbs items={[{ label: 'Blog' }]} />
 
         {/* Header */}
         <header className="mb-12 pt-4 pb-2 text-center">

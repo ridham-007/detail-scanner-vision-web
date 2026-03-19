@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import ProductSelectionModal from '@/components/ProductSelectionModal';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useFoodBattleLimit } from '@/hooks/useFoodBattleLimit';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const ProductComparisonPage = () => {
     const [productA, setProductA] = useState<ProductData | null>(null);
@@ -279,7 +280,8 @@ const ProductComparisonPage = () => {
     }
 
     return (
-        <div className="container mx-auto max-w-5xl px-4 py-8">
+        <div className="container mx-auto px-4 py-8">
+            <Breadcrumbs items={[{ label: 'Food Battle' }]} />
             <div className="mb-8 flex flex-col items-center gap-4 ">
                 <div className="text-center pt-4 pb-2">
                     <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary mb-5">

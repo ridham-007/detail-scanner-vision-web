@@ -21,6 +21,7 @@ import {
   Sparkles,
   ShieldCheck,
 } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import BarcodeScanner from "@/components/BarcodeScanner";
 import ProductDetails from "@/components/ProductDetails";
 import { useProductLookup } from "@/hooks/useProductLookup";
@@ -175,21 +176,9 @@ export default function FoodScannerClient() {
   };
 
   return (
-    <div className="space-y-8 pt-4 container">
+    <div className="space-y-8 pt-4 container mx-auto px-4">
       {/* Upgrade Banner for Free Users */}
-      <nav className="mb-2" aria-label="Breadcrumb">
-        <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-          <li>
-            <Link href="/" className="hover:text-primary">
-              Home
-            </Link>
-          </li>
-          <li aria-hidden="true">/</li>
-          <li className="text-foreground font-medium" aria-current="page">
-            Food Scanner
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumbs items={[{ label: 'Food Scanner' }]} />
       {!isUnlimited && (
         <UpgradeBanner
           scansRemaining={scansRemaining as number}

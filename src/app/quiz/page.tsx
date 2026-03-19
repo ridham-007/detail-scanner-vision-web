@@ -20,6 +20,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import QuizHubClient from '@/components/quiz/QuizzesClient';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -244,17 +245,8 @@ export default async function QuizPage() {
       />
 
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8 max-w-6xl">
-          {/* Breadcrumb */}
-          <nav className="mb-6" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/" className="hover:text-primary">Home</Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium" aria-current="page">Quiz Hub</li>
-            </ol>
-          </nav>
+        <main className="container mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Quiz Hub' }]} />
 
           {/* Hero Section */}
           <header className="mb-12 text-center">

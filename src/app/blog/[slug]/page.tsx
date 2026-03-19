@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CalendarDays, Clock, ArrowRight, Scan, Brain, User, AlertTriangle } from 'lucide-react';
 import ShareButton from '@/components/ui/share-button';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -207,22 +208,12 @@ export default async function BlogPostPage({ params }: Props) {
       />
 
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb Navigation */}
-        <nav className="mb-6" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-            <li>
-              <Link href="/" className="hover:text-primary">Home</Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li>
-              <Link href="/blog/" className="hover:text-primary">Blog</Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li className="text-foreground font-medium truncate max-w-[200px]" aria-current="page">
-              {post.title}
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumbs 
+          items={[
+            { label: 'Blog', path: '/blog' },
+            { label: post.title }
+          ]} 
+        />
 
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Content */}

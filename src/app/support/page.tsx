@@ -25,6 +25,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import ContactForm from "@/components/support/ContactForm";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -187,21 +188,8 @@ export default function SupportPage() {
       />
 
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8 relative z-10 max-w-6xl">
-          {/* Breadcrumb */}
-          <nav className="mb-6" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/" className="hover:text-primary">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium" aria-current="page">
-                Support
-              </li>
-            </ol>
-          </nav>
+        <main className="container mx-auto px-4 py-8 relative z-10">
+          <Breadcrumbs items={[{ label: "Support" }]} />
 
           {/* Header */}
           <header className="mb-12 pt-4 pb-2 text-center">

@@ -346,7 +346,7 @@ useEffect(() => {
       <Suspense fallback={null}>
         <AnimatedBackground />
       </Suspense>
-      <main className="relative z-10 h-full container mx-auto max-w-6xl px-3 py-4 sm:px-4 sm:py-8">
+      <main className="relative z-10 h-full container mx-auto px-3 py-4 sm:px-4 sm:py-8">
         <div className="mb-6 flex h-full w-full flex-col items-start justify-between gap-4 rounded-[32px] border border-white/60 bg-white/82 px-5 py-6 shadow-product backdrop-blur-sm sm:mb-8 sm:flex-row sm:items-center">
           <Link href={"/quiz"}>
             <Button

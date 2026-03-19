@@ -13,6 +13,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { toast } from 'sonner';
 import { Trash2, AlertTriangle, CheckCircle } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const DeleteAccountPage = () => {
   const { user } = useAuth();
@@ -106,8 +107,10 @@ const DeleteAccountPage = () => {
         description="Request deletion of your EaterIQ account and all associated data."
         canonicalUrl="https://www.eateriq.com/delete-account/"
       />
-      <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(var(--accent),0.14),transparent_30%),linear-gradient(180deg,rgb(var(--background)),rgba(var(--accent-soft),0.22))] flex items-center justify-center">
-        <div className="container max-w-2xl mx-auto px-4 py-12">
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(var(--accent),0.14),transparent_30%),linear-gradient(180deg,rgb(var(--background)),rgba(var(--accent-soft),0.22))]">
+        <div className="container max-w-2xl mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Delete Account' }]} />
+          <div className="py-4">
           <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
             <CardHeader className="text-center">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-rose-50 text-rose-700">
@@ -190,6 +193,7 @@ const DeleteAccountPage = () => {
               </form>
             </CardContent>
           </Card>
+          </div>
         </div>
       </div>
     </>

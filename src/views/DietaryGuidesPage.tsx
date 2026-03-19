@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // --- Rich Content Data ---
 const cheatSheetData = {
@@ -213,7 +214,10 @@ export default function DietaryGuidesView() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-16 max-w-7xl min-h-screen">
+        <div className="container mx-auto px-4 py-8 min-h-screen">
+            <div className="no-print">
+                <Breadcrumbs items={[{ label: 'Dietary Guides' }]} />
+            </div>
             <div className="text-center mb-16 space-y-6 no-print">
                 {/* Badge - matches Quiz Hub / User Guide style */}
                 <div className="flex justify-center mb-5">

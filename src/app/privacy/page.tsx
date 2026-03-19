@@ -19,6 +19,7 @@ import {
   Brain,
   ArrowRight,
 } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -115,21 +116,9 @@ export default function PrivacyPage() {
       />
 
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8 relative z-10 max-w-4xl">
+        <main className="container mx-auto px-4 py-8 relative z-10">
           {/* Breadcrumb */}
-          <nav className="mb-6" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/" className="hover:text-primary">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium" aria-current="page">
-                Privacy Policy
-              </li>
-            </ol>
-          </nav>
+          <Breadcrumbs items={[{ label: 'Privacy Policy' }]} />
 
           {/* Header */}
           <header className="mb-10 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center backdrop-blur-sm">

@@ -747,7 +747,7 @@ const QuizPage: React.FC = () => {
       />
       <AnimatedBackground />
 
-      <main className="container mx-auto px-3 sm:px-4 py-4 relative z-10 max-w-4xl">
+      <main className="container mx-auto px-3 sm:px-4 py-4 relative z-10">
         {/* Quiz Header - Compact and Mobile Optimized */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
