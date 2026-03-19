@@ -178,7 +178,7 @@ export default function AlternativesModal({
                     />
                   ) : (
                     <div className="flex flex-col items-center text-muted-foreground gap-1">
-                      <ImageIcon className="w-6 h-6 opacity-60" />
+                      <ImageIcon className="w-6 h-6 opacity-80" />
                       <span className="text-xs">No image</span>
                     </div>
                   )}
@@ -187,7 +187,7 @@ export default function AlternativesModal({
                 {/* CONTENT */}
                 <div className="flex-1 space-y-3">
                   <div className="flex justify-between items-start">
-                    <h3 className="text-lg font-medium leading-tight">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">
                       {item.name}
                     </h3>
                     <span className="text-xs text-muted-foreground">

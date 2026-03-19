@@ -288,7 +288,7 @@ const ProductComparisonPage = () => {
                         <ArrowRightLeft className="h-3.5 w-3.5" />
                         Head-to-head comparison
                     </div>
-                    <h1 className="mb-4 text-4xl md:text-5xl text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+                    <h1 className="mb-4 text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
                         Food{" "}
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                             Battle
@@ -324,13 +324,13 @@ const ProductComparisonPage = () => {
                     <Card className="w-full max-w-xl rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.8),rgba(255,250,244,0.98))] shadow-product">
                         <CardHeader className="pb-3">
                             <div className="flex justify-center">
-                                <Badge className="rounded-full bg-primary px-3 py-1 text-[11px] uppercase tracking-wide text-primary-foreground">
+                                <Badge className="rounded-full bg-primary px-3 py-1 text-xs uppercase tracking-wide text-primary-foreground">
                                     Battles exhausted
                                 </Badge>
                             </div>
                         </CardHeader>
                         <CardContent className="space-y-4 text-center pb-6">
-                            <h2 className="text-lg font-semibold">
+                            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                                 Unlock Unlimited Battles
                             </h2>
                             <p className="text-sm text-muted-foreground max-w-md mx-auto">

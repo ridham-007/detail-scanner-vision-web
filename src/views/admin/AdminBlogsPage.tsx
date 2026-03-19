@@ -95,7 +95,7 @@ const AdminBlogsPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Published Posts */}
         <div>
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4 flex items-center gap-2">
             <Eye className="h-5 w-5" />
             Published Posts ({publishedPosts.length})
           </h2>
@@ -122,7 +122,7 @@ const AdminBlogsPage = () => {
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-lg mb-1 line-clamp-2">
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground mb-1 line-clamp-2">
                           {post.title}
                         </h3>
                         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
@@ -196,7 +196,7 @@ const AdminBlogsPage = () => {
 
         {/* Draft Posts */}
         <div>
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4 flex items-center gap-2">
             <Edit className="h-5 w-5" />
             Draft Posts ({draftPosts.length})
           </h2>
@@ -223,7 +223,7 @@ const AdminBlogsPage = () => {
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-lg mb-1 line-clamp-2">
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground mb-1 line-clamp-2">
                           {post.title}
                         </h3>
                         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">

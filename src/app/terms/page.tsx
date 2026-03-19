@@ -544,7 +544,7 @@ export default function TermsPage() {
 
           {/* Related Links */}
           <section className="mt-12 pt-8 border-t">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Related Pages
             </h2>
             <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
@@ -558,7 +558,7 @@ export default function TermsPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Privacy Policy
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -583,7 +583,7 @@ export default function TermsPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Contact Support
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -602,7 +602,7 @@ export default function TermsPage() {
 
           {/* Explore More */}
           <section className="mt-8">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Explore EaterIQ
             </h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
@@ -616,7 +616,7 @@ export default function TermsPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Food Scanner
                       </h3>
                     </div>
@@ -634,7 +634,7 @@ export default function TermsPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Nutrition Blog
                       </h3>
                     </div>
@@ -652,7 +652,7 @@ export default function TermsPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Quiz Hub
                       </h3>
                     </div>

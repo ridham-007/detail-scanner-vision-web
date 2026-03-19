@@ -130,7 +130,7 @@ const ItemCard = ({
         <div className="flex gap-3">
           <span className="text-2xl">{getNutrientIcon(item.nutrient)}</span>
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-300">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground">
               {item.nutrient}
             </h3>
             <p className="text-sm text-gray-400 capitalize">

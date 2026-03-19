@@ -78,7 +78,7 @@ const NotificationBell: React.FC = () => {
         sideOffset={8}
       >
         <div className="flex items-center justify-between p-4 border-b">
-          <h3 className="font-semibold">Notifications</h3>
+          <h3 className="text-xl font-semibold tracking-tight text-foreground">Notifications</h3>
           <div className="flex items-center gap-1">
             {unreadCount > 0 && (
               <Button
@@ -135,7 +135,7 @@ const NotificationBell: React.FC = () => {
                       <p className="text-xs text-muted-foreground line-clamp-2 mt-1">
                         {notification.body}
                       </p>
-                      <p className="text-xs text-muted-foreground/60 mt-2">
+                      <p className="text-xs text-muted-foreground/80 mt-2">
                         {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
                       </p>
                     </div>

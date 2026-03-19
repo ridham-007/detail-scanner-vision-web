@@ -70,7 +70,7 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
             <div className={`rounded-2xl p-3 shadow-[var(--shadow-soft)] ${isEmpty ? 'bg-red-100 text-red-600' : 'bg-white/90 text-primary'}`}>
               <Zap className="w-5 h-5" />
             </div>
-            <h3 className="font-semibold text-lg">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground">
               {isEmpty 
                 ? "You've reached your daily limit" 
                 : `${scansRemaining} free scan${scansRemaining !== 1 ? 's' : ''} remaining`

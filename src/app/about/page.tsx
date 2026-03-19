@@ -139,7 +139,7 @@ export default function AboutPage() {
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
               Empowering Healthier Choices
             </div>
-            <h1 className="mb-4 text-4xl md:text-5xl text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+            <h1 className="mb-4 text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
               About{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                 EaterIQ
@@ -180,7 +180,7 @@ export default function AboutPage() {
 
           {/* Stats Section */}
           <section className="mb-12" aria-labelledby="stats-heading">
-            <h2 id="stats-heading" className="sr-only">EaterIQ Statistics</h2>
+            <h2 id="stats-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">EaterIQ Statistics</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {stats.map((stat, index) => (
                 <Card key={index} className="rounded-[28px] border-white/70 bg-white/88 text-center shadow-product">
@@ -199,7 +199,7 @@ export default function AboutPage() {
 
           {/* Values Section */}
           <section className="mb-12" aria-labelledby="values-heading">
-            <h2 id="values-heading" className="text-2xl font-bold text-foreground text-center mb-8">
+            <h2 id="values-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground text-center mb-8">
               Our Core Values
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -211,7 +211,7 @@ export default function AboutPage() {
                       <Shield className="h-6 w-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">Transparency</h3>
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Transparency</h3>
                       <p className="text-sm text-muted-foreground">
                         We believe everyone deserves to know exactly what&apos;s in their food. No hidden ingredients, no confusing labels.
                       </p>
@@ -228,7 +228,7 @@ export default function AboutPage() {
                       <Heart className="h-6 w-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">Health First</h3>
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Health First</h3>
                       <p className="text-sm text-muted-foreground">
                         Our mission is to empower healthier choices by providing clear, actionable nutritional insights.
                       </p>
@@ -245,7 +245,7 @@ export default function AboutPage() {
                       <Users className="h-6 w-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">Community Driven</h3>
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Community Driven</h3>
                       <p className="text-sm text-muted-foreground">
                         Built by health enthusiasts, for health enthusiasts. Our community helps improve our database every day.
                       </p>
@@ -262,7 +262,7 @@ export default function AboutPage() {
                       <Leaf className="h-6 w-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">Sustainability</h3>
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Sustainability</h3>
                       <p className="text-sm text-muted-foreground">
                         We promote awareness of sustainable food choices and their impact on personal and environmental health.
                       </p>
@@ -286,42 +286,42 @@ export default function AboutPage() {
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Barcode Scanning</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">Barcode Scanning</h3>
                     <p className="text-sm text-muted-foreground">Instantly analyze any food product by scanning its barcode</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Health Scores</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">Health Scores</h3>
                     <p className="text-sm text-muted-foreground">Clear 0-100 ratings based on nutritional content, additives, and processing</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Ingredient Analysis</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">Ingredient Analysis</h3>
                     <p className="text-sm text-muted-foreground">Detailed breakdown of every ingredient and its health implications</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Allergen Detection</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">Allergen Detection</h3>
                     <p className="text-sm text-muted-foreground">Automatic alerts for common allergens like gluten, dairy, and nuts</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Healthier Alternatives</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">Healthier Alternatives</h3>
                     <p className="text-sm text-muted-foreground">Discover better options in the same product category</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                   <div>
-                    <h3 className="font-semibold text-foreground">Educational Quizzes</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">Educational Quizzes</h3>
                     <p className="text-sm text-muted-foreground">Test and expand your nutrition knowledge with interactive quizzes</p>
                   </div>
                 </div>
@@ -433,7 +433,7 @@ export default function AboutPage() {
 
           {/* Related Links */}
           <section className="mb-12 pt-8 border-t">
-            <h2 className="text-xl font-bold mb-6 text-center">Learn More</h2>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">Learn More</h2>
             <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
               <Link href="/privacy/" className="group">
                 <Card className="h-full hover:shadow-md transition-shadow">
@@ -442,7 +442,7 @@ export default function AboutPage() {
                       <Shield className="h-5 w-5 text-primary" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Privacy Policy
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -461,7 +461,7 @@ export default function AboutPage() {
                       <Award className="h-5 w-5 text-accent-foreground" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Terms of Service
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -477,7 +477,7 @@ export default function AboutPage() {
 
           {/* Explore EaterIQ */}
           <section>
-            <h2 className="text-xl font-bold mb-6 text-center">Explore EaterIQ</h2>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">Explore EaterIQ</h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
               <Link href="/scanner/" className="group">
                 <Card className="h-full hover:shadow-md transition-shadow">
@@ -486,7 +486,7 @@ export default function AboutPage() {
                       <Scan className="h-5 w-5 text-primary" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Food Scanner
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -505,7 +505,7 @@ export default function AboutPage() {
                       <BookOpen className="h-5 w-5 text-accent-foreground" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Nutrition Blog
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -524,7 +524,7 @@ export default function AboutPage() {
                       <Brain className="h-5 w-5 text-secondary-foreground" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Quiz Hub
                       </h3>
                       <p className="text-sm text-muted-foreground">

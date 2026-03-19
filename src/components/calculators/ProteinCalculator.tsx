@@ -476,7 +476,7 @@ const ProteinCalculator: React.FC = () => {
 
             {guideline && (
               <div className="bg-card border border-border/50 p-6 rounded-2xl">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 flex items-center gap-2">
                   <TrendingUp className="h-5 w-5 text-primary" />
                   Protein Intake Comparison (Guidelines)
                 </h3>

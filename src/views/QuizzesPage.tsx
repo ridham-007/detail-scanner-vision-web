@@ -392,7 +392,7 @@ useEffect(() => {
                     <Button
                       aria-label="Create Quiz"
                       onClick={handleCreateQuizClick}
-                      className="bg-primary hover:bg-primary/90 sm:w-auto rounded-full shadow-[var(--shadow-warm)] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="bg-primary hover:bg-primary/90 sm:w-auto rounded-full shadow-[var(--shadow-warm)] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-80"
                       size="sm"
                       disabled={isLimitActive && !isMobile} // Disable when limit reached
                     >
@@ -504,7 +504,7 @@ useEffect(() => {
                 {quizzes?.length === 0 && (
                   <div className="text-center py-8 sm:py-12">
                     <Brain className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-base sm:text-lg font-semibold mb-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                       No quizzes yet
                     </h3>
                     <p className="text-sm sm:text-base text-muted-foreground">
@@ -532,7 +532,7 @@ useEffect(() => {
                 {myQuizzes.length === 0 && (
                   <div className="text-center py-8 sm:py-12">
                     <Target className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-base sm:text-lg font-semibold mb-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                       No quizzes created yet
                     </h3>
                     <p className="text-sm sm:text-base text-muted-foreground mb-4">

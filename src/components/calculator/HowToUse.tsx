@@ -54,7 +54,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
     <div className="space-y-10 text-foreground">
       {/* Intro Section */}
       <div className="space-y-4">
-        <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground flex items-center gap-2">
           <BookOpen className="w-6 h-6 text-primary" />
           {title}
         </h2>
@@ -67,7 +67,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       {/* Steps Section */}
       {steps && steps.length > 0 && (
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold text-foreground">
+          <h3 className="text-xl font-semibold tracking-tight text-foreground">
             Step-by-Step Guide
           </h3>
 
@@ -100,7 +100,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       <div className="grid md:grid-cols-2 gap-8">
         {benefits && benefits.length > 0 && (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-foreground">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground">
               Benefits
             </h3>
 
@@ -120,7 +120,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
 
         {useCases && useCases.length > 0 && (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-foreground">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground">
               Common Use Cases
             </h3>
 
@@ -142,7 +142,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       {/* Who Should Use */}
       {whoShouldUse && (
         <div className="rounded-[24px] border border-orange-100/80 bg-orange-50/60 p-6">
-          <h3 className="mb-2 text-lg font-semibold text-foreground">
+          <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
             Who is this for?
           </h3>
 
@@ -155,7 +155,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       {/* Formulas Section */}
       {formulas && formulas.length > 0 && (
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold text-foreground">
+          <h3 className="text-xl font-semibold tracking-tight text-foreground">
             Formulas Used
           </h3>
 
@@ -186,7 +186,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       <div className="grid md:grid-cols-2 gap-8">
         {tips && tips.length > 0 && (
           <div className="space-y-4">
-            <h3 className="flex items-center gap-2 text-xl font-semibold text-foreground">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground flex items-center gap-2">
               <Lightbulb className="w-5 h-5 text-yellow-500" />
               Pro Tips
             </h3>
@@ -207,7 +207,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
 
         {limitations && limitations.length > 0 && (
           <div className="space-y-4">
-            <h3 className="flex items-center gap-2 text-xl font-semibold text-foreground">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-orange-500" />
               Limitations
             </h3>
@@ -230,7 +230,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       {/* Unique Insights */}
       {uniqueInsights && (
         <div className="border-l-4 border-primary py-2 pl-6">
-          <h3 className="mb-2 text-lg font-semibold text-foreground">
+          <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
             Unique Insight
           </h3>
 
@@ -243,7 +243,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
       {/* Resources */}
       {resources && resources.length > 0 && (
         <div className="border-t border-orange-100/80 pt-6">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+          <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
             Helpful Resources
           </h3>
 

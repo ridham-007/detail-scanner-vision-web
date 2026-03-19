@@ -38,7 +38,7 @@ const Header = () => {
               </div>
             </Link>
             <Link href={'/'} className="cursor-pointer group" aria-label="EaterIQ - Smart Food Intelligence">
-              <h2 className=" text-2xl transition-all duration-300 group-hover:text-primary sm:text-4xl md:text-5xl  font-bold leading-[1.02] tracking-tight text-foreground">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 Eater
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                   IQ

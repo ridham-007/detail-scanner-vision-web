@@ -304,7 +304,7 @@ const UserSettingsPage = () => {
                             userId={user.id}
                           />
                           <div className="text-center">
-                            <h3 className="text-lg font-semibold">
+                            <h3 className="text-xl font-semibold tracking-tight text-foreground">
                               {profile.full_name || "No name set"}
                             </h3>
                             <p className="text-muted-foreground">
@@ -434,7 +434,7 @@ const UserSettingsPage = () => {
                       <>
                         {/* Current Plan */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Current Plan
                           </h3>
 
@@ -494,7 +494,7 @@ const UserSettingsPage = () => {
 
                               {/* Cancel Subscription */}
                               <div className="space-y-4">
-                                <h3 className="text-lg font-semibold text-foreground">
+                                <h3 className="text-xl font-semibold tracking-tight text-foreground">
                                   Cancel Subscription
                                 </h3>
 
@@ -572,7 +572,7 @@ const UserSettingsPage = () => {
 
                             {/* Already Cancelled */}
                             <div className="space-y-4">
-                              <h3 className="text-lg font-semibold text-foreground">
+                              <h3 className="text-xl font-semibold tracking-tight text-foreground">
                                 Subscription Cancelled
                               </h3>
 
@@ -632,7 +632,7 @@ const UserSettingsPage = () => {
                       <>
                         {/* General Settings */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             General Settings
                           </h3>
 
@@ -695,7 +695,7 @@ const UserSettingsPage = () => {
 
                         {/* Content Preferences */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Content Preferences
                           </h3>
 
@@ -830,7 +830,7 @@ const UserSettingsPage = () => {
                       <>
                         {/* Profile Visibility */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Profile Visibility
                           </h3>
 
@@ -892,7 +892,7 @@ const UserSettingsPage = () => {
 
                         {/* Data & Privacy */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Data & Privacy
                           </h3>
 

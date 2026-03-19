@@ -291,7 +291,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
                 <div className="border-b border-orange-100/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-6">
                   <div className="flex items-center gap-3">
                     <Calculator className="h-6 w-6 text-primary" />
-                    <h2 className="text-xl font-semibold text-foreground">
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                       Calculate Now
                     </h2>
                   </div>
@@ -312,7 +312,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
               {details && (
                 <div className="space-y-4">
                   <div className="rounded-[28px] border border-white/70 bg-white/88 p-5 shadow-product">
-                    <h3 className="mb-2 flex gap-2 font-semibold text-foreground">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 flex gap-2">
                       <Info className="text-primary" />
                       What is this?
                     </h3>
@@ -326,7 +326,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
                     <div className="p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <Calculator className="h-5 w-5 text-primary" />
-                        <h3 className="font-bold text-foreground">
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground">
                           How it works
                         </h3>
                       </div>
@@ -339,7 +339,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
 
                   {details.tips && (
                     <div className="rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-5 shadow-product">
-                      <h3 className="mb-3 flex gap-2 font-semibold text-foreground">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-3 flex gap-2">
                         <Sparkles className="text-primary" />
                         Tips
                       </h3>
@@ -370,7 +370,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
       {faq && faq.length > 0 && (
         <section className="py-16 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] dark:bg-gray-900">
           <div className="mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-8 dark:text-white">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground text-center mb-8">
               Frequently Asked Questions
             </h2>
 

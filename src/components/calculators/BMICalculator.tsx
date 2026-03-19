@@ -263,7 +263,7 @@ const BMICalculator = () => {
                 {/* Detailed analysis – Pro (calculator_detailed) */}
                 <SubscriptionGate feature="calculator_detailed" mode="block">
                   <div className="bg-secondary/20 p-6 rounded-2xl">
-                    <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 flex items-center gap-2">
                       <AlertCircle className="h-5 w-5 text-primary" />
                       BMI Categories
                     </h3>
@@ -296,7 +296,7 @@ const BMICalculator = () => {
 
                   {bmiData.length > 0 && (
                     <div className="bg-card border border-border/50 p-6 rounded-2xl">
-                      <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 flex items-center gap-2">
                         <TrendingUp className="h-5 w-5 text-primary" />
                         BMI Progress Tracking
                       </h3>

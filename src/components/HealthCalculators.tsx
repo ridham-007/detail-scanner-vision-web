@@ -30,7 +30,7 @@ export default function HealthCalculators() {
 
           <h2
             id="calculators-heading"
-            className="mb-4 text-3xl font-bold text-foreground md:text-4xl"
+            className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
           >
             Free Health Calculators
           </h2>
@@ -52,7 +52,7 @@ export default function HealthCalculators() {
                 >
                   <div
                     className="absolute inset-0 bg-gradient-to-br from-orange-100/60 via-transparent 
-                    to-orange-50 opacity-0 transition-opacity duration-300 group-hover:opacity-50"
+                    to-orange-50 opacity-0 transition-opacity duration-300 group-hover:opacity-80"
                   />
 
                   <div className="relative z-10 flex flex-col flex-grow">
@@ -66,8 +66,7 @@ export default function HealthCalculators() {
 
                     {/* TITLE */}
                     <h3
-                      className="mb-3 text-xl font-bold text-foreground sm:text-2xl 
-                      group-hover:text-primary transition-colors"
+                      className="text-xl font-semibold tracking-tight mb-3 group-hover:text-primary transition-colors"
                     >
                       {calc.title}
                     </h3>
@@ -115,7 +114,7 @@ export default function HealthCalculators() {
         {/* FOOTER BUTTON */}
         <div className="text-center pt-8">
           <Link href="/calculators">
-            <button className="group relative inline-flex items-center gap-3 rounded-2xl bg-foreground px-8 py-3 text-md font-semibold text-white shadow-[var(--shadow-warm)] transition-transform hover:-translate-y-0.5">
+            <button className="group relative inline-flex items-center gap-3 rounded-2xl bg-foreground px-8 py-3 text-base font-semibold text-white shadow-[var(--shadow-warm)] transition-transform hover:-translate-y-0.5">
               <Calculator className="h-5 w-5" />
               <span>Show All Health Calculators</span>
               <ArrowRight className="h-5 w-5" />

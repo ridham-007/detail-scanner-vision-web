@@ -149,7 +149,7 @@ export default function PricingPage() {
               Simple, transparent pricing
             </Badge>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl  text-gray-900 mb-3 text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground ">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl  text-gray-900 mb-3 font-bold leading-[1.02] tracking-tight text-foreground ">
               Choose Your{' '}
               <span className="text-primary">Health Journey</span>
             </h1>
@@ -188,7 +188,7 @@ export default function PricingPage() {
 
           {/* ── CTA banner ────────────────────────────────────────────────────── */}
           <section className="mx-auto mb-14 sm:mb-16 max-w-3xl rounded-3xl border border-orange-100 bg-orange-50 p-6 sm:p-10 text-center">
-            <h2 className="mb-3 text-xl sm:text-2xl font-black text-gray-900">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-3">
               Ready to Start Your Health Journey?
             </h2>
             <p className="mx-auto mb-6 max-w-md text-sm sm:text-base text-gray-500">
@@ -220,7 +220,7 @@ export default function PricingPage() {
 
           {/* ── Explore links ─────────────────────────────────────────────────── */}
           <section className="max-w-3xl mx-auto">
-            <h2 className="text-lg sm:text-xl font-black text-gray-900 mb-5 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-5 text-center">
               Explore EaterIQ
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

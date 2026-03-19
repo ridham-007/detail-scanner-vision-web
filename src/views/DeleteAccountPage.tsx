@@ -130,7 +130,7 @@ const DeleteAccountPage = () => {
               </Alert>
 
               <div className="mb-6 rounded-[28px] border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/35 p-5">
-                <h3 className="font-semibold mb-3">The following data will be deleted:</h3>
+                <h3 className="text-xl font-semibold tracking-tight text-foreground mb-3">The following data will be deleted:</h3>
                 <ul className="space-y-2">
                   {dataToBeDeleted.map((item, index) => (
                     <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">

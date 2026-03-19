@@ -294,7 +294,7 @@ const UserProfilePage = () => {
             {/* Created Quizzes */}
             <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
               <CardHeader>
-                <h2 className="!flex gap-2 items-center font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground gap-2 items-center mb-2 capitalize">
                   <Trophy className="h-5 w-5" />
                   Created Quizzes
                 </h2>
@@ -318,7 +318,7 @@ const UserProfilePage = () => {
                 ) : (
                   <div className="text-center py-8">
                     <Trophy className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                       No quizzes yet
                     </h3>
                     <p className="text-muted-foreground">

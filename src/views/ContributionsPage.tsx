@@ -82,7 +82,7 @@ export default function ContributionsPage() {
             <Package className="h-3.5 w-3.5" />
             Community rewards
           </div>
-          <h1 className="mb-4 text-4xl md:text-5xl text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+          <h1 className="mb-4 text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
             My{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
               Contributions
@@ -95,8 +95,8 @@ export default function ContributionsPage() {
 
         <Tabs defaultValue="stats" className="space-y-6">
           <TabsList className="h-auto rounded-full border border-white/70 bg-white/90 p-1 shadow-[var(--shadow-soft)] items-center justify-center gap-1 w-full ">
-            <TabsTrigger className='text-md' value="stats">Stats & Badges</TabsTrigger>
-            <TabsTrigger className='text-md' value="submissions">My Submissions</TabsTrigger>
+            <TabsTrigger className='text-base' value="stats">Stats & Badges</TabsTrigger>
+            <TabsTrigger className='text-base' value="submissions">My Submissions</TabsTrigger>
           </TabsList>
 
           <TabsContent value="stats">
@@ -114,7 +114,7 @@ export default function ContributionsPage() {
                   <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-3xl bg-[rgb(var(--accent-soft))]/60 text-[rgb(var(--accent-foreground))]">
                     <Package className="h-8 w-8" />
                   </div>
-                  <h3 className="mb-2 text-lg font-semibold text-foreground">No Submissions Yet</h3>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">No Submissions Yet</h3>
                   <p className="text-muted-foreground">
                     When you submit products that aren't in our database, they'll appear here.
                   </p>
@@ -130,7 +130,7 @@ export default function ContributionsPage() {
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
                           <div className="flex-1">
                             <div className="flex items-center gap-3 mb-1">
-                              <h3 className="font-semibold text-foreground">{submission.product_name}</h3>
+                              <h3 className="text-xl font-semibold tracking-tight text-foreground">{submission.product_name}</h3>
                               <Badge className={`rounded-full border px-3 py-1 ${statusConfig[submission.status].color}`}>
                                 <StatusIcon className="w-3 h-3 mr-1" />
                                 {statusConfig[submission.status].label}

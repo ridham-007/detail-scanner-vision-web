@@ -473,7 +473,7 @@ export default function PrivacyPage() {
 
           {/* Related Links */}
           <section className="mt-12 pt-8 border-t">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Related Pages
             </h2>
             <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
@@ -531,7 +531,7 @@ export default function PrivacyPage() {
 
           {/* Explore More */}
           <section className="mt-8">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Explore EaterIQ
             </h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">

@@ -306,7 +306,7 @@ export default function QuizHubClient() {
             </span>
 
             {/* Title */}
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
               Create Your Own Quiz
             </h2>
 

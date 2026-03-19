@@ -64,7 +64,7 @@ const CategoriesPage = () => {
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary mb-5">
               <span>Explore by Category</span>
             </div>
-            <h1 className="mb-4 text-4xl md:text-5xl text-[1.5rem] font-bold leading-[1.02] tracking-tight text-foreground">
+            <h1 className="mb-4 text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
               Product{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                 Categories
@@ -154,7 +154,7 @@ const CategoriesPage = () => {
           {filteredCategories && filteredCategories.length === 0 && (
             <div className="text-center py-12">
               <Package className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-muted-foreground mb-2">
+              <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                 No categories found
               </h3>
               <p className="text-sm text-muted-foreground">

@@ -108,7 +108,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       <div className="w-full h-full bg-muted animate-pulse relative">
                         {/* Scanning line effect */}
                         <div
-                          className="absolute inset-0 bg-primary/20 opacity-50 animate-pulse"
+                          className="absolute inset-0 bg-primary/20 opacity-80 animate-pulse"
                           style={{
                             animation: "slide-scan 2s ease-in-out infinite",
                           }}
@@ -213,7 +213,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       <Card className="w-full rounded-[28px] border-white/70 bg-white/88 shadow-product">
         <CardContent className="flex items-center justify-center h-48">
           <div className="text-center space-y-2">
-            <ImageIcon size={48} className="mx-auto text-muted-foreground/50" />
+            <ImageIcon size={48} className="mx-auto text-muted-foreground" />
             <p className="text-muted-foreground">
               Scan a barcode to view product details
             </p>
