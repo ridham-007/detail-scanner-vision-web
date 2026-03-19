@@ -578,9 +578,6 @@ export default async function HomePage() {
             className="container mx-auto scroll-mt-20 px-4 py-12 sm:py-16"
             aria-labelledby="scanner-heading"
           >
-            <h2 id="scanner-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
-              Food Product Scanner
-            </h2>
             <div className="mx-auto rounded-[32px] border border-white/60 bg-white/78 p-2 sm:p-3 md:p-5">
               <FoodScannerPage />
             </div>
@@ -589,7 +586,7 @@ export default async function HomePage() {
           {/* How It Works Section */}
           <section
             id="how-it-works"
-            className="py-14 sm:py-20"
+            className="py-14"
             aria-labelledby="how-it-works-heading"
           >
             <div className="container mx-auto px-4">
