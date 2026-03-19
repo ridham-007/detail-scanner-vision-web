@@ -18,17 +18,17 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (savedTheme) {
       setTheme(savedTheme);
     } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
+      setTheme('light');
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.add('light');
+    // if (theme === 'light') {
+    // } else {
+    //   document.documentElement.classList.remove('dark');
+    // }
   }, [theme]);
 
   const toggleTheme = () => {
