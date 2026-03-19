@@ -63,7 +63,7 @@ const Header = () => {
                   aria-label={item.label}
                   aria-current={pathname === item.path ? "page" : undefined}
                   key={item.path}
-                  className={`font-medium transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${pathname === item.path
+                  className={`font-medium transition-all duration-300 relative group outline-none focus:outline-none focus-visible:outline-none rounded-none ${pathname === item.path
                     ? "text-primary font-bold"
                     : "text-muted-foreground hover:text-foreground"
                     }`}
@@ -78,7 +78,7 @@ const Header = () => {
 
               {/* Resources Dropdown */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 rounded-sm font-medium text-muted-foreground transition-all duration-300 hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground transition-all duration-300 hover:text-foreground outline-none focus:outline-none focus-visible:outline-none">
                   Resources
                   <Sparkles className="h-3.5 w-3.5 text-primary/70" />
                 </DropdownMenuTrigger>
@@ -107,7 +107,7 @@ const Header = () => {
               {/* Admin Dropdown */}
               {isAdmin && (
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-1 rounded-sm font-medium text-muted-foreground transition-all duration-300 hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                  <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground transition-all duration-300 hover:text-foreground outline-none focus:outline-none focus-visible:outline-none">
                     <Shield className="h-4 w-4" />
                     Admin
                   </DropdownMenuTrigger>

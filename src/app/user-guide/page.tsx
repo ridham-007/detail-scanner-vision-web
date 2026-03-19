@@ -1,539 +1,760 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
+import Link from "next/link";
 import {
-  Heart,
-  Trash2,
-  Calendar,
-  Loader2,
-  Sparkles,
+  BookOpen,
+  Scan,
   TrendingUp,
-  ListChecks,
-  ChevronDown,
-  Star,
-  Package,
-  BarChart3,
-  Clock,
+  Brain,
+  History,
+  User,
+  Settings,
+  CheckCircle2,
   AlertCircle,
+  Info,
+  ArrowRight,
+  ChevronRight,
+  Search,
+  Heart,
+  Calculator,
+  PlusCircle,
+  ListOrdered,
+  Zap,
+  ShieldCheck,
+  Trophy,
+  Bolt,
+  Clock,
+  Star,
+  ChevronUp,
+  Plus
 } from "lucide-react";
-import { useFavorites } from "@/hooks/useFavorites";
-import { useAuth } from "@/contexts/AuthContext";
-import { useSubscription } from "@/hooks/useSubscription";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
-const MAX_FREE_FAVORITES = 10;
-type SortOption = "recent" | "score-high" | "score-low" | "name";
-
-const getScoreTier = (score: number | null): "high" | "med" | "low" | "na" => {
-  if (!score) return "na";
-  if (score >= 80) return "high";
-  if (score >= 60) return "med";
-  return "low";
-};
-
-const scoreTierConfig = {
-  high: {
-    accentBar: "bg-gradient-to-b from-emerald-400 to-teal-500",
-    badge: "bg-emerald-50 text-emerald-700 border border-emerald-200",
-    dot: "bg-emerald-400",
-    label: "Great",
-    distBar: "bg-gradient-to-r from-emerald-400 to-teal-500",
-    countColor: "text-emerald-600",
-    miniScore: "bg-emerald-50 text-emerald-700 border border-emerald-100",
-    ring: "ring-emerald-100",
+const sections = [
+  {
+    id: "getting-started",
+    title: "Getting Started",
+    icon: <Zap className="h-6 w-6 text-yellow-500" />,
+    description: "Learn the basics of EaterIQ and how to make the most of your nutrition companion."
   },
-  med: {
-    accentBar: "bg-gradient-to-b from-orange-300 to-orange-500",
-    badge: "bg-orange-50 text-orange-600 border border-orange-200",
-    dot: "bg-orange-400",
-    label: "Okay",
-    distBar: "bg-gradient-to-r from-orange-300 to-orange-500",
-    countColor: "text-orange-500",
-    miniScore: "bg-orange-50 text-orange-600 border border-orange-100",
-    ring: "ring-orange-100",
+  {
+    id: "food-scanner",
+    title: "Food Scanner",
+    icon: <Scan className="h-6 w-6 text-primary" />,
+    description: "How to scan products and understand the health scores and analysis."
   },
-  low: {
-    accentBar: "bg-gradient-to-b from-rose-400 to-pink-500",
-    badge: "bg-rose-50 text-rose-700 border border-rose-200",
-    dot: "bg-rose-400",
-    label: "Poor",
-    distBar: "bg-gradient-to-r from-rose-400 to-pink-500",
-    countColor: "text-rose-600",
-    miniScore: "bg-rose-50 text-rose-700 border border-rose-100",
-    ring: "ring-rose-100",
+  {
+    id: "food-battle",
+    title: "Food Battle",
+    icon: <TrendingUp className="h-6 w-6 text-blue-500" />,
+    description: "Compare products side-by-side to find the healthiest options for your diet."
   },
-  na: {
-    accentBar: "bg-zinc-200",
-    badge: "bg-zinc-100 text-zinc-400 border border-zinc-200",
-    dot: "bg-zinc-300",
-    label: "N/A",
-    distBar: "bg-zinc-200",
-    countColor: "text-zinc-400",
-    miniScore: "bg-zinc-100 text-zinc-400 border border-zinc-200",
-    ring: "ring-zinc-100",
+  {
+    id: "health-quizzes",
+    title: "Health Quizzes",
+    icon: <Brain className="h-6 w-6 text-purple-500" />,
+    description: "Test your knowledge and learn about nutrition through interactive quizzes."
   },
-};
+  {
+    id: "history-profile",
+    title: "History & Profile",
+    icon: <User className="h-6 w-6 text-orange-500" />,
+    description: "Manage your scan history, favorite products, and account settings."
+  },
+  {
+    id: "alternatives",
+    title: "Healthier Alternatives",
+    icon: <Heart className="h-6 w-6 text-red-500" />,
+    description: "Discover better options for your favorite products automatically."
+  },
+  {
+    id: "calculators",
+    title: "Health Tools",
+    icon: <Calculator className="h-6 w-6 text-teal-500" />,
+    description: "Use our nutrition calculators to track BMI, calories, and more."
+  },
+  {
+    id: "contributions",
+    title: "Community",
+    icon: <PlusCircle className="h-6 w-6 text-indigo-500" />,
+    description: "Help grow the database by contributing new product data."
+  },
+  {
+    id: "shopping-lists",
+    title: "Shopping Lists",
+    icon: <ListOrdered className="h-6 w-6 text-green-500" />,
+    description: "Organize your healthy groceries and plan your next store visit."
+  },
+  {
+    id: "knowledge-hub",
+    title: "Knowledge Hub",
+    icon: <BookOpen className="h-6 w-6 text-pink-500" />,
+    description: "Dive deep into nutrition science through our blog and cheat sheets."
+  }
+];
 
-// ─── Loading / Auth States ─────────────────────────────────────────────────
+const scoreLevels = [
+  { label: "Excellent", range: "80–100", score: "100", color: "bg-green-500", textColor: "text-green-700", bgColor: "bg-green-50", borderColor: "border-green-100", description: "Minimal additives, high nutritional value, and clean ingredients." },
+  { label: "Good", range: "60–79", score: "79", color: "bg-yellow-400", textColor: "text-yellow-700", bgColor: "bg-yellow-50", borderColor: "border-yellow-100", description: "Generally healthy with some minor nutritional concerns." },
+  { label: "Fair", range: "40–59", score: "59", color: "bg-orange-400", textColor: "text-orange-700", bgColor: "bg-orange-50", borderColor: "border-orange-100", description: "Contains several concerning ingredients or low nutritional density." },
+  { label: "Poor", range: "0–39", score: "39", color: "bg-red-500", textColor: "text-red-700", bgColor: "bg-red-50", borderColor: "border-red-100", description: "High in harmful additives, sugar, or ultra-processed ingredients." }
+];
 
-const SignInPrompt = () => (
-  <div className="w-full flex flex-col items-center justify-center py-28 px-6 text-center">
-    <div className="w-16 h-16 rounded-2xl bg-orange-50 flex items-center justify-center mb-5 border border-orange-100">
-      <Heart className="w-7 h-7 text-orange-400" />
-    </div>
-    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-1">
-      Sign in to view favorites
-    </h3>
-    <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-      Save your favorite products and access them instantly.
-    </p>
-  </div>
-);
-
-const LoadingState = () => (
-  <div className="w-full flex items-center justify-center py-28 gap-3">
-    <Loader2 className="w-5 h-5 animate-spin text-orange-500" />
-    <span className="text-sm text-muted-foreground font-medium">Loading favorites…</span>
-  </div>
-);
-
-const EmptyState = () => (
-  <div className="flex flex-col items-center justify-center py-24 text-center bg-white rounded-[28px] border border-orange-100">
-    <div className="w-20 h-20 rounded-3xl bg-orange-50 flex items-center justify-center mb-5 border border-orange-100">
-      <Heart className="w-9 h-9 text-orange-200" />
-    </div>
-    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-      No favorites yet
-    </h3>
-    <p className="text-sm text-muted-foreground max-w-[220px] leading-relaxed">
-      Scan a product and tap the heart icon to save it here.
-    </p>
-  </div>
-);
-
-// ─── Favorite Row ──────────────────────────────────────────────────────────
-
-const FavoriteRow = ({
-  favorite,
-  onRemove,
-}: {
-  favorite: {
-    id: string;
-    barcode: string;
-    product_name: string;
-    health_score: number | null;
-    created_at: string;
+export default function UserGuidePage() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
-  onRemove: (barcode: string) => void;
-}) => {
-  const tier = getScoreTier(favorite.health_score);
-  const cfg = scoreTierConfig[tier];
 
   return (
-    <div className="group relative flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 bg-white rounded-[22px] border border-orange-100 px-4 sm:px-5 py-4 hover:border-orange-200 hover:shadow-[0_4px_20px_rgba(249,115,22,0.08)] transition-all duration-200">
-      {/* Left accent bar */}
-      <div className={cn("absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full", cfg.accentBar)} />
+    <div className="min-h-screen bg-background container">
+      <main className="container mx-auto px-4 py-8 relative z-10 ">
 
-      {/* Top row (mobile) */}
-      <div className="flex items-center justify-between w-full sm:w-auto">
-        {/* Score block */}
-        <div className="flex items-center sm:flex-col sm:items-center gap-2 sm:gap-0 shrink-0 w-auto sm:w-11 pl-1">
-          <span className={cn("text-sm font-bold rounded-lg px-2 py-1 min-w-[36px] text-center tabular-nums", cfg.badge)}>
-            {favorite.health_score ?? "–"}
-          </span>
-          <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground sm:mt-1">
-            {cfg.label}
-          </span>
-        </div>
-        {/* Delete — mobile */}
-        <div className="flex sm:hidden">
-          <button
-            onClick={() => onRemove(favorite.barcode)}
-            className="w-8 h-8 flex items-center justify-center rounded-xl text-muted-foreground border border-orange-100 hover:text-rose-500 hover:border-rose-100 hover:bg-rose-50 transition-colors"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
+        {/* Breadcrumb */}
+        <nav className="mb-6" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+            <li>
+              <Link href="/" className="hover:text-primary">Home</Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li className="text-foreground font-medium" aria-current="page">User Guide</li>
+          </ol>
+        </nav>
 
-      {/* Divider (hide on mobile) */}
-      <div className="hidden sm:block w-px h-8 bg-orange-100 shrink-0" />
-
-      {/* Product info */}
-      <div className="flex-1 min-w-0 w-full">
-        <p className="text-sm font-semibold text-foreground truncate group-hover:text-orange-500 transition-colors">
-          {favorite.product_name}
-        </p>
-        <div className="flex flex-wrap items-center gap-2 mt-1.5">
-          <span className="font-mono text-xs bg-orange-50 text-orange-600 border border-orange-100 px-1.5 py-0.5 rounded-md">
-            {favorite.barcode}
-          </span>
-          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Calendar className="w-3 h-3" />
-            {format(new Date(favorite.created_at), "MMM d, yyyy")}
-          </span>
-        </div>
-      </div>
-
-      {/* Delete — desktop hover */}
-      <div className="hidden sm:flex shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-        <button
-          onClick={() => onRemove(favorite.barcode)}
-          className="w-8 h-8 flex items-center justify-center rounded-xl text-muted-foreground hover:text-rose-500 hover:bg-rose-50 border border-orange-100 hover:border-rose-100 transition-colors"
-        >
-          <Trash2 className="w-4 h-4" />
-        </button>
-      </div>
-    </div>
-  );
-};
-
-// ─── Sidebar Panels ────────────────────────────────────────────────────────
-
-const ScoreDistributionPanel = ({
-  favorites,
-}: {
-  favorites: Array<{ health_score: number | null }>;
-}) => {
-  const counts = {
-    high: favorites.filter((f) => getScoreTier(f.health_score) === "high").length,
-    med: favorites.filter((f) => getScoreTier(f.health_score) === "med").length,
-    low: favorites.filter((f) => getScoreTier(f.health_score) === "low").length,
-    na: favorites.filter((f) => getScoreTier(f.health_score) === "na").length,
-  };
-  const total = favorites.length || 1;
-
-  const rows: { label: string; tier: keyof typeof scoreTierConfig; count: number }[] = [
-    { label: "Great (80+)", tier: "high", count: counts.high },
-    { label: "Okay (60–79)", tier: "med", count: counts.med },
-    { label: "Poor (<60)", tier: "low", count: counts.low },
-    { label: "No score", tier: "na", count: counts.na },
-  ];
-
-  return (
-    <div className="bg-white rounded-[24px] border border-orange-100 p-5">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center">
-          <BarChart3 className="w-4 h-4 text-orange-500" />
-        </div>
-        <h3 className="text-xl font-semibold tracking-tight text-foreground">Score breakdown</h3>
-      </div>
-      <div className="space-y-4">
-        {rows.map((r) => {
-          const cfg = scoreTierConfig[r.tier];
-          return (
-            <div key={r.label}>
-              <div className="flex justify-between mb-1.5">
-                <span className="text-xs text-muted-foreground">{r.label}</span>
-                <span className={cn("text-xs font-bold", cfg.countColor)}>{r.count}</span>
-              </div>
-              <div className="h-1.5 bg-orange-50 rounded-full overflow-hidden">
-                <div
-                  className={cn("h-full rounded-full transition-all duration-500", cfg.distBar)}
-                  style={{ width: `${(r.count / total) * 100}%` }}
-                />
-              </div>
+        {/* ── HERO HEADER ── */}
+        {/* ── HERO HEADER ── */}
+        <header className="mb-12 pt-4 pb-2 text-center">
+          {/* Badge */}
+          <div className="flex justify-center mb-5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5">
+              <BookOpen className="h-3.5 w-3.5 text-primary" />
+              <span className="text-xs font-semibold text-primary tracking-wide">Live Product Guide</span>
             </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+          </div>
 
-const RecentActivityPanel = ({
-  favorites,
-}: {
-  favorites: Array<{ product_name: string; created_at: string; health_score: number | null }>;
-}) => {
-  const recent = [...favorites]
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-    .slice(0, 3);
+          {/* Heading */}
+          <h1 className="mb-4 text-4xl sm:text-5xl font-black tracking-tight text-foreground">
+            Your Complete{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+              User Guide
+            </span>
+          </h1>
 
-  return (
-    <div className="bg-white rounded-[24px] border border-orange-100 p-5">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center">
-          <Clock className="w-4 h-4 text-orange-500" />
-        </div>
-        <h3 className="text-xl font-semibold tracking-tight text-foreground">Recently added</h3>
-      </div>
-      <div className="divide-y divide-orange-50">
-        {recent.map((f, i) => {
-          const tier = getScoreTier(f.health_score);
-          const cfg = scoreTierConfig[tier];
-          return (
-            <div key={i} className="flex items-center gap-3 py-2.5">
-              <div className={cn("w-2 h-2 rounded-full shrink-0", cfg.dot)} />
-              <div className="flex-1 min-w-0 w-full">
-                <p className="text-xs font-semibold text-foreground truncate">{f.product_name}</p>
-                <p className="text-xs text-muted-foreground">{format(new Date(f.created_at), "MMM d")}</p>
-              </div>
-              <span className={cn("text-xs font-bold px-2 py-0.5 rounded-lg shrink-0", cfg.miniScore)}>
-                {f.health_score ?? "–"}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed mb-8">
+            Step-by-step playbooks to scan smarter, compare foods, and turn every grocery trip into healthier choices.
+          </p>
 
-const TopScorePanel = ({
-  favorites,
-}: {
-  favorites: Array<{ product_name: string; health_score: number | null }>;
-}) => {
-  const top = [...favorites]
-    .filter((f) => f.health_score)
-    .sort((a, b) => (b.health_score ?? 0) - (a.health_score ?? 0))
-    .slice(0, 3);
-
-  return (
-    <div className="bg-white rounded-[24px] border border-orange-100 p-5">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center">
-          <Star className="w-4 h-4 text-orange-500" />
-        </div>
-        <h3 className="text-xl font-semibold tracking-tight text-foreground">Top picks</h3>
-      </div>
-      {top.length === 0 ? (
-        <p className="text-xs text-muted-foreground">No scored products yet.</p>
-      ) : (
-        <div className="divide-y divide-orange-50">
-          {top.map((f, i) => (
-            <div key={i} className="flex items-center gap-3 py-2.5">
-              <span className="text-xs font-bold text-orange-200 w-5 shrink-0">#{i + 1}</span>
-              <p className="flex-1 text-xs font-semibold text-foreground truncate">{f.product_name}</p>
-              <span className="text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 px-2 py-0.5 rounded-lg shrink-0">
-                {f.health_score}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-const QuickTipsPanel = () => (
-  <div className="bg-orange-50 rounded-[24px] border border-orange-100 p-5">
-    <div className="flex items-center gap-2 mb-3">
-      <div className="w-8 h-8 rounded-xl bg-white border border-orange-200 flex items-center justify-center">
-        <AlertCircle className="w-4 h-4 text-orange-500" />
-      </div>
-      <h3 className="text-xl font-semibold tracking-tight text-foreground">Quick tips</h3>
-    </div>
-    <ul className="space-y-2.5">
-      {[
-        "Aim for products scoring 80 or above",
-        "Check ingredients on low-score items",
-        "Use shopping lists to plan healthy meals",
-      ].map((tip, i) => (
-        <li key={i} className="flex items-start gap-2 text-xs text-orange-800 leading-snug">
-          <span className="mt-0.5 w-[18px] h-[18px] rounded-full bg-orange-200 text-orange-700 flex items-center justify-center text-xs font-bold shrink-0">
-            {i + 1}
-          </span>
-          {tip}
-        </li>
-      ))}
-    </ul>
-  </div>
-);
-
-// ─── Main Component ─────────────────────────────────────────────────────────
-
-const Favorites = () => {
-  const { user } = useAuth();
-  const { tier } = useSubscription();
-  const router = useRouter();
-  const { favorites, isLoading, removeFromFavorites } = useFavorites();
-  const [sort, setSort] = useState<SortOption>("recent");
-
-  if (!user) return <SignInPrompt />;
-  if (isLoading) return <LoadingState />;
-
-  const isFreeTier = tier === "free";
-  const limitReached = isFreeTier && favorites.length >= MAX_FREE_FAVORITES;
-  const usagePercent = Math.min((favorites.length / MAX_FREE_FAVORITES) * 100, 100);
-
-  const avgScore =
-    favorites.filter((f) => f.health_score).length > 0
-      ? Math.round(
-          favorites.filter((f) => f.health_score).reduce((a, f) => a + (f.health_score ?? 0), 0) /
-            favorites.filter((f) => f.health_score).length,
-        )
-      : null;
-
-  const sorted = [...favorites].sort((a, b) => {
-    if (sort === "score-high") return (b.health_score ?? 0) - (a.health_score ?? 0);
-    if (sort === "score-low") return (a.health_score ?? 0) - (b.health_score ?? 0);
-    if (sort === "name") return a.product_name.localeCompare(b.product_name);
-    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-  });
-
-  const stats = [
-    {
-      icon: Heart,
-      label: "Total saved",
-      value: favorites.length,
-      sub: isFreeTier ? `of ${MAX_FREE_FAVORITES} free slots` : "unlimited plan",
-      iconBg: "bg-orange-50",
-      iconColor: "text-orange-500",
-      iconBorder: "border-orange-200",
-      accentColor: "text-orange-500",
-    },
-    {
-      icon: TrendingUp,
-      label: "Average score",
-      value: avgScore ?? "–",
-      sub: avgScore ? (avgScore >= 70 ? "Looking healthy!" : "Room to improve") : "No scores yet",
-      iconBg: "bg-emerald-50",
-      iconColor: "text-emerald-500",
-      iconBorder: "border-emerald-200",
-      accentColor: "text-emerald-500",
-    },
-    {
-      icon: ListChecks,
-      label: "High-score items",
-      value: favorites.filter((f) => getScoreTier(f.health_score) === "high").length,
-      sub: "scored 80 or above",
-      iconBg: "bg-orange-50",
-      iconColor: "text-orange-400",
-      iconBorder: "border-orange-200",
-      accentColor: "text-orange-400",
-    },
-    {
-      icon: Package,
-      label: "Needs attention",
-      value: favorites.filter((f) => getScoreTier(f.health_score) === "low").length,
-      sub: "scored below 60",
-      iconBg: "bg-rose-50",
-      iconColor: "text-rose-500",
-      iconBorder: "border-rose-200",
-      accentColor: "text-rose-500",
-    },
-  ];
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <Breadcrumbs items={[{ label: 'Favourites' }]} />
-
-      {/* ── Page Header ── */}
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5 mb-4">
-          <Heart className="h-3.5 w-3.5 text-orange-500 fill-orange-400" />
-          <span className="text-xs font-semibold text-orange-500 tracking-wide">Your Saved Products</span>
-        </div>
-        <h1 className="text-[2rem] font-bold leading-[1.02] tracking-tight text-foreground mb-1">
-          Your Favourites
-        </h1>
-        <p className="text-sm text-muted-foreground">
-          {favorites.length} {favorites.length === 1 ? "product" : "products"} saved
-        </p>
-
-        {/* Free tier usage bar */}
-        {isFreeTier && (
-          <div className="inline-flex items-center gap-4 bg-white border border-orange-100 rounded-2xl px-5 py-3 mt-4">
-            <div>
-              <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
-                {favorites.length} / {MAX_FREE_FAVORITES} free slots
-              </p>
-              <div className="w-32 h-1.5 bg-orange-50 rounded-full mt-1.5 overflow-hidden">
-                <div
-                  className={cn(
-                    "h-full rounded-full transition-all",
-                    usagePercent >= 100 ? "bg-rose-400" : usagePercent >= 70 ? "bg-orange-400" : "bg-emerald-400",
-                  )}
-                  style={{ width: `${usagePercent}%` }}
-                />
-              </div>
-            </div>
-            {limitReached && (
-              <button
-                onClick={() => router.push("/pricing")}
-                className="flex items-center gap-1.5 text-xs font-semibold text-white bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-xl transition-colors whitespace-nowrap"
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
+            <Button
+              onClick={() => scrollToSection("getting-started")}
+              size="lg"
+              className="w-full sm:w-auto rounded-full px-10 h-12 text-base font-bold shadow-lg shadow-primary/20"
+            >
+              Start in 3 Steps <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+            <Link href="/support" className="w-full sm:w-auto">
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto rounded-full px-10 h-12 text-base font-bold"
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                Upgrade
-              </button>
-            )}
+                Talk to Support
+              </Button>
+            </Link>
           </div>
-        )}
-      </div>
 
-      {/* ── Stats Strip ── */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {stats.map((s) => (
-          <div
-            key={s.label}
-            className="group bg-white rounded-[24px] border border-orange-100 px-5 py-5 hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(249,115,22,0.1)] transition-all duration-300 flex items-start gap-3.5"
-          >
-            <div className={cn("w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-6", s.iconBg, s.iconBorder)}>
-              <s.icon className={cn("w-5 h-5", s.iconColor)} />
+          {/* Trust row */}
+          <div className="flex flex-wrap items-center justify-center gap-5 text-sm text-muted-foreground">
+            <div className="inline-flex items-center gap-1.5 text-emerald-600 font-semibold">
+              <CheckCircle2 className="h-4 w-4" />
+              10,000+ scans guided
             </div>
-            <div>
-              <p className="text-[26px] font-bold leading-[1.02] tracking-tight text-foreground">{s.value}</p>
-              <p className={cn("text-xs font-bold uppercase tracking-wider mt-0.5", s.accentColor)}>{s.label}</p>
-              <p className="text-xs text-muted-foreground mt-0.5">{s.sub}</p>
+            <span className="text-border hidden sm:inline">•</span>
+            <span>Updated for the latest E-numbers and nutrition science.</span>
+          </div>
+        </header>
+
+        {/* ── MAIN LAYOUT ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+
+          {/* Mobile sticky tab-bar */}
+          <div className="lg:hidden sticky top-[56px] z-30 -mx-4 px-4 py-3 bg-background/80 backdrop-blur-xl border-b border-border/50 mb-8">
+            <div className="flex overflow-x-auto pb-1 gap-2 no-scrollbar snap-x scroll-smooth">
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-xs font-bold whitespace-nowrap snap-start hover:bg-primary/10 shadow-sm"
+                >
+                  <div className="text-primary">
+                    {React.cloneElement(section.icon as React.ReactElement, { className: "h-3.5 w-3.5" })}
+                  </div>
+                  {section.title}
+                </button>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* ── Body: List + Sidebar ── */}
-      <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+          {/* Desktop sticky sidebar */}
+          <aside className="lg:col-span-1 hidden lg:block animate-fade-in">
+            <div className="sticky top-24 space-y-1 p-2 rounded-2xl bg-muted/30 border border-border shadow-sm">
+              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60 mb-3 mt-2 ml-4">
+                Table of Contents
+              </p>
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all hover:bg-white dark:hover:bg-background hover:shadow-sm text-muted-foreground hover:text-primary group text-left"
+                >
+                  <div className="transition-transform group-hover:scale-110 shrink-0">
+                    {React.cloneElement(section.icon as React.ReactElement, { className: "h-4 w-4" })}
+                  </div>
+                  <span className="truncate">{section.title}</span>
+                </button>
+              ))}
+            </div>
+          </aside>
 
-        {/* Main list */}
-        <div className="flex-1 min-w-0">
-          {favorites.length === 0 ? (
-            <EmptyState />
-          ) : (
-            <>
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
-                  {sorted.length} items
+          {/* ── GUIDE CONTENT ── */}
+          <div className="lg:col-span-3 space-y-24 max-w-4xl animate-fade-in">
+
+            {/* ── 1. GETTING STARTED ── */}
+            <section id="getting-started" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-yellow-50 rounded-2xl shadow-sm border border-yellow-100">
+                  <Zap className="h-6 w-6 text-yellow-500" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Getting Started</h2>
+              </div>
+
+              <div className="bg-card border border-border/50 rounded-3xl p-6 md:p-8 mb-8 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl" />
+                <p className="text-base leading-relaxed mb-8 font-medium text-foreground/80">
+                  Welcome back! Maximize your <span className="text-primary font-bold">EaterIQ</span> experience with these three essential steps:
                 </p>
-                <div className="relative">
-                  <select
-                    value={sort}
-                    onChange={(e) => setSort(e.target.value as SortOption)}
-                    className="appearance-none text-xs font-medium text-foreground bg-white border border-orange-200 rounded-xl pl-3 pr-8 py-1.5 cursor-pointer focus:outline-none focus:border-orange-400"
-                  >
-                    <option value="recent">Most recent</option>
-                    <option value="score-high">Highest score</option>
-                    <option value="score-low">Lowest score</option>
-                    <option value="name">Name A–Z</option>
-                  </select>
-                  <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-orange-400 pointer-events-none" />
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                  {[
+                    { step: 1, title: "Dietary Profile", desc: "Configure your needs in Settings for smart alerts.", icon: <User className="h-4 w-4" /> },
+                    { step: 2, title: "Instant Scan", desc: "Point at any barcode for deep nutrition analysis.", icon: <Scan className="h-4 w-4" /> },
+                    { step: 3, title: "Smart Swap", desc: "Identify better choices with our AI alternative engine.", icon: <TrendingUp className="h-4 w-4" /> }
+                  ].map((item) => (
+                    <div key={item.step} className="p-5 bg-yellow-50 rounded-2xl border border-yellow-100 hover:border-yellow-200 transition-all hover:bg-yellow-50/80 relative">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="h-8 w-8 bg-yellow-200 text-yellow-700 rounded-xl flex items-center justify-center shadow-sm">
+                          {item.icon}
+                        </div>
+                        <h4 className="font-bold text-sm text-yellow-900">{item.title}</h4>
+                      </div>
+                      <p className="text-sm text-yellow-800/80 leading-relaxed font-medium">{item.desc}</p>
+                      <div className="absolute top-3 right-4 text-lg font-black text-yellow-200">{item.step}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 flex items-center gap-3 p-4 bg-primary/5 rounded-2xl border border-primary/10">
+                  <ShieldCheck className="h-5 w-5 text-primary shrink-0" />
+                  <p className="text-sm text-primary/80 font-semibold">Privacy First: Your data stays locally on your device.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* ── 2. FOOD SCANNER ── */}
+            <section id="food-scanner" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-primary/5 rounded-2xl shadow-sm border border-primary/10">
+                  <Scan className="h-6 w-6 text-primary" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Food Scanner</h2>
+              </div>
+
+              <div className="space-y-10">
+                {/* How to Analyze */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                  <div className="order-2 md:order-1">
+                    <h3 className="text-xl font-bold mb-5">How to Analyze</h3>
+                    <div className="space-y-4">
+                      {[
+                        { s: 1, t: "Grant Permissions", d: "Enable camera access for instant scanning." },
+                        { s: 2, t: "Point & Scan", d: "Hover over barcodes or ingredients labels." },
+                        { s: 3, t: "Get Insights", d: "View scores, warnings, and alternatives." }
+                      ].map((step) => (
+                        <div key={step.s} className="flex gap-4 items-start p-4 bg-primary/5 rounded-2xl border border-primary/10">
+                          <div className="shrink-0 w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-black text-sm shadow-sm shadow-primary/20">
+                            {step.s}
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-foreground">{step.t}</p>
+                            <p className="text-sm text-muted-foreground mt-0.5 leading-snug">{step.d}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Scanner mockup */}
+                  <div className="order-1 md:order-2 bg-gradient-to-br from-muted/50 to-muted p-8 rounded-[2rem] border border-border/50 flex items-center justify-center">
+                    <div className="relative w-full max-w-[200px] aspect-[9/16] bg-card rounded-[2rem] border-[4px] border-foreground/10 overflow-hidden shadow-xl">
+                      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                        <div className="relative mb-4">
+                          <Scan className="h-12 w-12 text-primary animate-pulse" />
+                          <div className="absolute -inset-3 bg-primary/15 blur-xl -z-10 rounded-full" />
+                        </div>
+                        <p className="text-xs font-black uppercase text-foreground tracking-wider">Scanner Active</p>
+                        <div className="w-4/5 h-0.5 bg-primary/30 rounded-full mt-2" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Health Score Key */}
+                <div>
+                  <h3 className="text-xl font-bold mb-5">Global Health Scores</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {scoreLevels.map((level) => (
+                      <div key={level.label} className={`p-5 rounded-2xl border ${level.bgColor} ${level.borderColor} flex items-start gap-4`}>
+                        <div className={`w-12 h-12 rounded-xl ${level.color} flex items-center justify-center text-white font-black text-base shrink-0`}>
+                          {level.score}
+                        </div>
+                        <div>
+                          <h4 className={`font-bold text-base mb-1 ${level.textColor}`}>{level.label}</h4>
+                          <p className="text-sm text-foreground/70 leading-relaxed">{level.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ── 3. FOOD BATTLE ── */}
+            <section id="food-battle" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-blue-50 rounded-2xl shadow-sm border border-blue-100">
+                  <TrendingUp className="h-6 w-6 text-blue-500" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Food Battle</h2>
+              </div>
+
+              <div className="bg-blue-50 rounded-3xl p-6 md:p-10 relative overflow-hidden border border-blue-100 mb-6 shadow-sm">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/40 rounded-full -mr-32 -mt-32 blur-3xl" />
+                <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                  <div className="space-y-4">
+                    <Badge className="bg-blue-100 text-blue-700 border-none py-1 px-3 text-xs font-bold uppercase tracking-widest">
+                      VS Mode Engaged
+                    </Badge>
+                    <h4 className="font-black text-2xl md:text-3xl text-blue-900 leading-tight">Nutrient Duel</h4>
+                    <p className="text-sm md:text-base text-blue-700 leading-relaxed font-medium">
+                      Compare macros and additives head-to-head. Our AI selects the definitive winner.
+                    </p>
+
+                    <div className="flex items-center gap-6 bg-white/70 backdrop-blur-lg rounded-2xl p-5 border border-blue-200 shadow-inner">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center font-black text-blue-700 text-lg border border-blue-200 shadow-sm">A</div>
+                        <span className="text-2xl font-black text-blue-300 italic uppercase tracking-tight">vs</span>
+                        <div className="relative">
+                          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center font-black text-blue-600 text-lg shadow-md">B</div>
+                          <div className="absolute -top-3 -right-3 h-5 px-2 bg-yellow-400 text-black text-xs font-black rounded-full flex items-center shadow border-2 border-white">WIN</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="hidden md:block space-y-4">
+                    <p className="text-xs font-bold text-blue-400 uppercase tracking-widest">Pro Features</p>
+                    <ul className="space-y-4 list-none pl-0">
+                      {["Direct Nutrient Comparison", "15+ Health Parameters", "Smart Highlight Engine"].map((f, i) => (
+                        <li key={i} className="flex items-center gap-3 text-sm font-bold text-blue-800">
+                          <div className="h-2 w-2 rounded-full bg-blue-400 shrink-0" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2.5">
-                {sorted.map((favorite) => (
-                  <FavoriteRow key={favorite.id} favorite={favorite} onRemove={removeFromFavorites} />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 shadow-sm">
+                  <h4 className="font-bold flex items-center gap-2 text-sm mb-2 text-blue-900">
+                    <Zap className="h-4 w-4 text-blue-600" />
+                    Daily Limits
+                  </h4>
+                  <p className="text-sm text-blue-700 leading-relaxed">
+                    Free users get <strong>3 battles per day</strong>. Upgrade to <strong>Pro</strong> for unlimited comparisons.
+                  </p>
+                </div>
+                <div className="p-5 rounded-2xl bg-muted/50 border border-border shadow-sm">
+                  <h4 className="font-bold flex items-center gap-2 text-sm mb-2 text-foreground">
+                    <Info className="h-4 w-4 text-primary" />
+                    Green Highlights
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    We highlight the winning nutrient in <strong className="text-foreground">green</strong> — lower for sugars, higher for protein.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* ── 4. HEALTH QUIZZES ── */}
+            <section id="health-quizzes" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-purple-50 rounded-2xl shadow-sm border border-purple-100">
+                  <Brain className="h-6 w-6 text-purple-500" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Health Quizzes</h2>
+              </div>
+
+              {/* Lifelines */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {[
+                  { icon: <Zap className="h-5 w-5" />, title: "50:50", desc: "Removes 2 wrong answers to simplify your choice.", iconBg: "bg-purple-100", iconColor: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100" },
+                  { icon: <Bolt className="h-5 w-5" />, title: "Skip", desc: "Jump to the next question without a penalty.", iconBg: "bg-blue-100", iconColor: "text-blue-600", bg: "bg-blue-50", border: "border-blue-100" },
+                  { icon: <Clock className="h-5 w-5" />, title: "Time+", desc: "Add 15 seconds back to the countdown timer.", iconBg: "bg-amber-100", iconColor: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100" }
+                ].map((lifeline) => (
+                  <div key={lifeline.title} className={`p-5 rounded-2xl border ${lifeline.bg} ${lifeline.border} flex items-start gap-4 hover:shadow-sm transition-shadow`}>
+                    <div className={`p-2.5 ${lifeline.iconBg} rounded-xl ${lifeline.iconColor} shrink-0 shadow-sm`}>
+                      {lifeline.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm mb-1 text-foreground">{lifeline.title}</h4>
+                      <p className="text-sm text-muted-foreground leading-snug">{lifeline.desc}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
-            </>
-          )}
+
+              {/* Categories */}
+              <div className="bg-muted/30 border border-border/50 rounded-3xl p-6 md:p-8">
+                <h4 className="font-bold mb-4 text-base text-foreground tracking-tight">Quiz Categories</h4>
+                <div className="flex flex-wrap gap-2.5">
+                  {["Nutrition Basics", "Food Safety", "Vitamins & Minerals", "Food Labels", "Superfoods", "Diet Myths"].map((cat) => (
+                    <Badge key={cat} variant="outline" className="border-purple-200 text-purple-700 bg-white text-sm py-1.5 px-4 rounded-lg shadow-sm font-medium">
+                      {cat}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* ── 5. HISTORY & PROFILE ── */}
+            <section id="history-profile" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-orange-50 rounded-2xl shadow-sm border border-orange-100">
+                  <User className="h-6 w-6 text-orange-500" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">History & Profile</h2>
+              </div>
+
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="p-6 bg-card border border-orange-100 rounded-[2rem] shadow-sm">
+                    <h3 className="text-lg font-bold mb-2 text-foreground">Preferences</h3>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                      Set your diet in Settings for targeted scanning alerts.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Vegan", "Halal", "Keto"].map((opt) => (
+                        <Badge key={opt} className="bg-orange-100 text-orange-700 hover:bg-orange-200 border-none px-3 py-1 text-sm rounded-full font-medium">
+                          {opt}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="p-6 bg-card border border-red-100 rounded-[2rem] shadow-sm">
+                    <h3 className="text-lg font-bold mb-2 text-foreground">Allergies</h3>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                      Identify critical triggers before you buy. Warnings appear instantly on scan.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Nuts", "Dairy", "Soy"].map((opt) => (
+                        <Badge key={opt} className="bg-red-100 text-red-700 hover:bg-red-200 border-none px-3 py-1 text-sm rounded-full font-medium">
+                          {opt}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-orange-50 border border-orange-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center shadow-sm">
+                  <div className="flex-1 text-center md:text-left">
+                    <h4 className="text-orange-900 font-bold text-base mb-1">Exclusive Pro Tools</h4>
+                    <p className="text-sm text-orange-700 leading-relaxed">Unlimited history, deep reports, and ad-free labeling.</p>
+                  </div>
+                  <Link href="/pricing" className="w-full md:w-auto">
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold px-8 h-11">
+                      Upgrade Now
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </section>
+
+            {/* ── 6. HEALTHIER ALTERNATIVES ── */}
+            <section id="alternatives" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-red-50 rounded-2xl shadow-sm border border-red-100">
+                  <Heart className="h-6 w-6 text-red-500" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Healthier Alternatives</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+                <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8 shadow-sm">
+                  <h4 className="font-black text-sm uppercase tracking-widest text-red-600 mb-4">AI Smart Swaps</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                    Instantly find products in the same category with cleaner labels and better nutritional metrics.
+                  </p>
+                  <ul className="space-y-4 list-none pl-0">
+                    {[
+                      { t: "Higher Scores", d: "Average +25 point health score boost." },
+                      { t: "Clean Label", d: "Safe, verified additives only." },
+                      { t: "Goal Match", d: "Tailored to your low-sugar or low-sodium goals." }
+                    ].map((item, i) => (
+                      <li key={i} className="flex gap-3 items-start">
+                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-bold text-foreground">{item.t}</p>
+                          <p className="text-sm text-muted-foreground">{item.d}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="bg-red-50 border border-red-100 rounded-[2rem] p-8 flex flex-col justify-between shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-red-100/50 rounded-full -mr-16 -mt-16 blur-3xl" />
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-4">
+                      <Badge className="bg-red-100 text-red-700 border-none text-xs font-bold">Smart Reco</Badge>
+                      <Star className="h-5 w-5 fill-red-400 text-red-400" />
+                    </div>
+                    <h4 className="text-2xl font-black mb-2 text-red-900">The Winner</h4>
+                    <p className="text-sm text-red-700 leading-relaxed">
+                      Tap any alternative to see exactly why it beats your original scan.
+                    </p>
+                  </div>
+                  <div className="mt-8 relative z-10">
+                    <div className="w-full h-1.5 bg-red-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-red-400 w-3/4" />
+                    </div>
+                    <p className="text-xs text-red-500 mt-2 uppercase font-bold tracking-widest">Score Accuracy: 99%</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ── 7. HEALTH TOOLS ── */}
+            <section id="calculators" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-teal-50 rounded-2xl shadow-sm border border-teal-100">
+                  <Calculator className="h-6 w-6 text-teal-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Health Tools</h2>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                {[
+                  { name: "BMI Tool", desc: "Check your body mass index." },
+                  { name: "TDEE", desc: "Calculate your daily energy needs." },
+                  { name: "Macro Tracker", desc: "Balance your protein and carbs." },
+                  { name: "Water Intake", desc: "Track daily hydration goals." },
+                  { name: "Goals", desc: "Set and monitor target weights." },
+                  { name: "Wellness Tips", desc: "Personalised daily health advice." }
+                ].map((calc, i) => (
+                  <div key={i} className="p-5 bg-card border border-border/50 rounded-2xl hover:border-teal-300 transition-all shadow-sm group">
+                    <h4 className="font-bold text-sm mb-1.5 group-hover:text-teal-600 text-foreground">{calc.name}</h4>
+                    <p className="text-sm text-muted-foreground leading-snug">{calc.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              <Link href="/calculators" className="block text-center mt-4">
+                <Button variant="outline" className="w-full md:w-auto h-12 rounded-xl border-teal-200 text-teal-700 bg-teal-50 hover:bg-teal-100 font-bold text-sm px-8">
+                  Launch All Tools <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </Link>
+            </section>
+
+            {/* ── 8. COMMUNITY ── */}
+            <section id="contributions" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-indigo-50 rounded-2xl shadow-sm border border-indigo-100">
+                  <PlusCircle className="h-6 w-6 text-indigo-500" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Community</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+                <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8">
+                  <h4 className="font-bold text-base mb-5 text-foreground">Submission Pipeline</h4>
+                  <div className="space-y-4">
+                    {[
+                      { label: "Pending", labelColor: "bg-amber-100 text-amber-800", desc: "Manual verification is in progress." },
+                      { label: "Approved", labelColor: "bg-emerald-100 text-emerald-800", desc: "Product is live! Points have been awarded." },
+                      { label: "Revision", labelColor: "bg-blue-100 text-blue-800", desc: "New photos are needed for the barcode." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-3 items-start">
+                        <Badge className={`${step.labelColor} border-none px-2.5 py-1 text-xs font-bold uppercase shrink-0`}>{step.label}</Badge>
+                        <p className="text-sm text-muted-foreground leading-snug pt-0.5">{step.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-indigo-50 border border-indigo-100 rounded-[2rem] p-8 flex flex-col items-center text-center shadow-sm">
+                  <Trophy className="h-12 w-12 text-indigo-300 mb-4" />
+                  <h4 className="text-xl font-black mb-2 text-indigo-900">Join the Heroes</h4>
+                  <p className="text-sm text-indigo-700 mb-6 leading-relaxed">
+                    Climb the global leaderboard and unlock exclusive contributor badges.
+                  </p>
+                  <Link href="/contributions" className="w-full">
+                    <Button className="w-full bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl font-bold h-11">
+                      Dashboard
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </section>
+
+            {/* ── 9. SHOPPING LISTS ── */}
+            <section id="shopping-lists" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-green-50 rounded-2xl shadow-sm border border-green-100">
+                  <ListOrdered className="h-6 w-6 text-green-600" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Shopping Lists</h2>
+              </div>
+
+              <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8 shadow-sm">
+                <div className="flex flex-col lg:flex-row gap-8 items-center">
+                  <div className="flex-1 space-y-5">
+                    <h4 className="font-bold text-lg text-foreground">Dynamic Sync</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Turn scans into action. Organize lists by store, health goal, or diet cycle.
+                    </p>
+                    <ul className="space-y-3 list-none pl-0">
+                      <li className="flex items-center gap-3">
+                        <div className="p-1.5 bg-green-50 rounded-lg shrink-0"><Plus className="h-4 w-4 text-green-600" /></div>
+                        <p className="text-sm font-semibold text-foreground">Categories: Groceries, Gym, Cheat Meals</p>
+                      </li>
+                      <li className="flex items-center gap-3">
+                        <div className="p-1.5 bg-green-50 rounded-lg shrink-0"><History className="h-4 w-4 text-green-600" /></div>
+                        <p className="text-sm font-semibold text-foreground">Real-time completion tracking</p>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* List mockup */}
+                  <div className="w-full lg:w-72 bg-muted/40 p-5 rounded-[2rem] border border-border/40">
+                    <div className="space-y-2">
+                      {[
+                        { n: "Organic Peanut Butter", s: 85, checked: true },
+                        { n: "Sugar-Free Oat Milk", s: 92, checked: false }
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-3 p-3 bg-background rounded-xl border border-border/50 shadow-sm">
+                          <div className={`h-4 w-4 rounded-full border-2 shrink-0 ${item.checked ? "bg-primary border-primary" : "border-muted-foreground/30"} flex items-center justify-center`}>
+                            {item.checked && <CheckCircle2 className="h-2.5 w-2.5 text-white" />}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-sm font-semibold truncate ${!item.checked ? "text-muted-foreground" : "text-foreground"}`}>{item.n}</p>
+                            <p className="text-xs text-muted-foreground">Score: {item.s}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-border/40">
+                      <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
+                        <div className="h-full bg-green-500 w-1/2" />
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2 font-bold uppercase tracking-widest text-center">Progress: 50%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ── 10. KNOWLEDGE HUB ── */}
+            <section id="knowledge-hub" className="scroll-mt-24">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2.5 bg-pink-50 rounded-2xl shadow-sm border border-pink-100">
+                  <BookOpen className="h-6 w-6 text-pink-500" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Knowledge Hub</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {[
+                  {
+                    icon: <ListOrdered className="h-6 w-6 text-pink-500" />,
+                    title: "Cheat Sheets",
+                    desc: "Downloadable guides for Vegan, Keto, and Paleo lifestyles.",
+                    href: "/dietary-guides",
+                    cta: "Launch Guides"
+                  },
+                  {
+                    icon: <TrendingUp className="h-6 w-6 text-pink-500" />,
+                    title: "Wellness Blog",
+                    desc: "Regular articles on gut health, food science, and lifestyle tips.",
+                    href: "/blog",
+                    cta: "Read Articles"
+                  }
+                ].map((card) => (
+                  <div key={card.title} className="p-6 md:p-8 rounded-[2rem] bg-card border border-border shadow-sm hover:border-pink-200 transition-all hover:shadow-md group">
+                    <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                      {card.icon}
+                    </div>
+                    <h3 className="text-lg font-bold mb-2 text-foreground">{card.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{card.desc}</p>
+                    <Link href={card.href}>
+                      <Button variant="link" className="p-0 h-auto text-pink-500 hover:text-pink-600 font-bold text-sm">
+                        {card.cta} <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                      </Button>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* ── FOOTER CTA ── */}
+            <section className="bg-primary/5 rounded-[2.5rem] p-8 md:p-12 text-center border border-primary/10 shadow-inner">
+              <h2 className="text-2xl md:text-4xl font-black mb-4 tracking-tight text-foreground">Still have questions?</h2>
+              <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
+                Our support team is always ready to help you on your health journey. Check our FAQ or send us a message.
+              </p>
+              <div className="flex flex-col md:flex-row justify-center gap-3">
+                <Link href="/support" className="w-full md:w-auto">
+                  <Button size="lg" className="h-12 md:h-14 w-full md:w-auto rounded-xl px-10 font-bold shadow-lg shadow-primary/20">
+                    Contact Support
+                  </Button>
+                </Link>
+                <Link href="/faq" className="w-full md:w-auto">
+                  <Button variant="outline" size="lg" className="h-12 md:h-14 w-full md:w-auto rounded-xl px-10 font-bold hover:bg-white">
+                    FAQ Center
+                  </Button>
+                </Link>
+              </div>
+            </section>
+
+          </div>
         </div>
 
-        {/* Sidebar */}
-        {favorites.length > 0 && (
-          <div className="w-full lg:w-[272px] xl:w-[296px] shrink-0 flex flex-col gap-4">
-            <ScoreDistributionPanel favorites={favorites} />
-            <RecentActivityPanel favorites={favorites} />
-            <TopScorePanel favorites={favorites} />
-            <QuickTipsPanel />
-          </div>
-        )}
-      </div>
+        {/* Scroll to top (mobile) */}
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="lg:hidden fixed bottom-6 right-6 p-4 bg-primary text-white rounded-2xl shadow-2xl z-50 transition-opacity opacity-80 hover:opacity-100"
+        >
+          <ChevronUp className="h-6 w-6" />
+        </button>
+      </main>
     </div>
   );
-};
-
-export default Favorites;
+}

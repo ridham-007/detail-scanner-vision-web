@@ -177,8 +177,8 @@ export default function FoodScannerClient() {
 
   return (
     <div className="space-y-8 pt-4 container mx-auto px-4">
-      {/* Upgrade Banner for Free Users */}
-      <Breadcrumbs items={[{ label: 'Food Scanner' }]} />
+        <Breadcrumbs items={[{ label: 'Food Scanner' }]} />
+
       {!isUnlimited && (
         <UpgradeBanner
           scansRemaining={scansRemaining as number}
@@ -328,85 +328,85 @@ export default function FoodScannerClient() {
 
       {/* SEO-friendly content section (visible) */}
       <section className="border-t border-border/70 py-12">
-  <div className="max-w-4xl mx-auto">
-    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-10 text-center">
-      How the Food Scanner Works
-    </h2>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-10 text-center">
+            How the Food Scanner Works
+          </h2>
 
-    <div className="relative flex flex-col md:flex-row items-stretch gap-0">
-      {/* Connector line (desktop) */}
-      <div className="hidden md:block absolute top-10 left-[calc(16.66%+24px)] right-[calc(16.66%+24px)] h-px bg-gradient-to-r from-orange-200 via-orange-400 to-orange-200 z-0" />
+          <div className="relative flex flex-col md:flex-row items-stretch gap-0">
+            {/* Connector line (desktop) */}
+            <div className="hidden md:block absolute top-10 left-[calc(16.66%+24px)] right-[calc(16.66%+24px)] h-px bg-gradient-to-r from-orange-200 via-orange-400 to-orange-200 z-0" />
 
-      {[
-        {
-          step: "1",
-          title: "Scan the Barcode",
-          desc: "Point your camera at any food product barcode or enter it manually.",
-          icon: (
-            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2v18H3V3zm4 0h1v18H7V3zm3 0h2v18h-2V3zm4 0h1v18h-1V3zm3 0h2v18h-2V3z" />
-              <rect x="2" y="2" width="20" height="20" rx="3" strokeWidth={1.5} fill="none" />
-            </svg>
-          ),
-        },
-        {
-          step: "2",
-          title: "Instant Analysis",
-          desc: "EaterIQ analyzes ingredients, nutrition facts, and additives in seconds.",
-          icon: (
-            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="9" />
-              <path strokeLinecap="round" d="M12 7v5l3 3" />
-            </svg>
-          ),
-        },
-        {
-          step: "3",
-          title: "Get Insights",
-          desc: "Receive health scores, warnings, and personalized recommendations.",
-          icon: (
-            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M12 3a9 9 0 100 18A9 9 0 0012 3z" />
-            </svg>
-          ),
-        },
-      ].map((item, i) => (
-        <div key={i} className="relative z-10 flex-1 flex flex-col items-center group">
-          {/* Mobile connector */}
-          {i < 2 && (
-            <div className="md:hidden w-px h-8 bg-gradient-to-b from-orange-300 to-orange-100 my-1" />
-          )}
+            {[
+              {
+                step: "1",
+                title: "Scan the Barcode",
+                desc: "Point your camera at any food product barcode or enter it manually.",
+                icon: (
+                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2v18H3V3zm4 0h1v18H7V3zm3 0h2v18h-2V3zm4 0h1v18h-1V3zm3 0h2v18h-2V3z" />
+                    <rect x="2" y="2" width="20" height="20" rx="3" strokeWidth={1.5} fill="none" />
+                  </svg>
+                ),
+              },
+              {
+                step: "2",
+                title: "Instant Analysis",
+                desc: "EaterIQ analyzes ingredients, nutrition facts, and additives in seconds.",
+                icon: (
+                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9" />
+                    <path strokeLinecap="round" d="M12 7v5l3 3" />
+                  </svg>
+                ),
+              },
+              {
+                step: "3",
+                title: "Get Insights",
+                desc: "Receive health scores, warnings, and personalized recommendations.",
+                icon: (
+                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M12 3a9 9 0 100 18A9 9 0 0012 3z" />
+                  </svg>
+                ),
+              },
+            ].map((item, i) => (
+              <div key={i} className="relative z-10 flex-1 flex flex-col items-center group">
+                {/* Mobile connector */}
+                {i < 2 && (
+                  <div className="md:hidden w-px h-8 bg-gradient-to-b from-orange-300 to-orange-100 my-1" />
+                )}
 
-          <div className="w-full rounded-[26px] border border-white/65 bg-white/82 p-6 text-center shadow-product transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
-            {/* Step badge */}
-            <div className="relative mx-auto mb-5 flex h-14 w-14 items-center justify-center">
-              {/* Animated ring */}
-              <span className="absolute inset-0 rounded-full bg-orange-100 animate-ping opacity-30 group-hover:opacity-80" />
-              <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-orange-50 border border-orange-200 shadow-sm">
-                {item.icon}
-              </span>
-              {/* Step number pill */}
-              <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-white shadow">
-                {item.step}
-              </span>
-            </div>
+                <div className="w-full rounded-[26px] border border-white/65 bg-white/82 p-6 text-center shadow-product transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
+                  {/* Step badge */}
+                  <div className="relative mx-auto mb-5 flex h-14 w-14 items-center justify-center">
+                    {/* Animated ring */}
+                    <span className="absolute inset-0 rounded-full bg-orange-100 animate-ping opacity-30 group-hover:opacity-80" />
+                    <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-orange-50 border border-orange-200 shadow-sm">
+                      {item.icon}
+                    </span>
+                    {/* Step number pill */}
+                    <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-white shadow">
+                      {item.step}
+                    </span>
+                  </div>
 
-            <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">{item.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
 
-            {/* Bottom progress bar */}
-            <div className="mt-5 h-1 w-full rounded-full bg-orange-50 overflow-hidden">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-orange-300 to-primary transition-all duration-700 group-hover:w-full"
-                style={{ width: `${33.3 * (i + 1)}%` }}
-              />
-            </div>
+                  {/* Bottom progress bar */}
+                  <div className="mt-5 h-1 w-full rounded-full bg-orange-50 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-orange-300 to-primary transition-all duration-700 group-hover:w-full"
+                      style={{ width: `${33.3 * (i + 1)}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Related Links for Internal Linking */}
       <section className="border-t border-border/70 py-8">

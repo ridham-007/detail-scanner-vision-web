@@ -214,11 +214,11 @@ export default function DietaryGuidesView() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8 min-h-screen">
+        <div className="container mx-auto px-4 py-6 md:py-8 min-h-screen">
             <div className="no-print">
                 <Breadcrumbs items={[{ label: 'Dietary Guides' }]} />
             </div>
-            <div className="text-center mb-16 space-y-6 no-print">
+            <div className="text-center mb-12 md:mb-16 space-y-6 no-print">
                 {/* Badge - matches Quiz Hub / User Guide style */}
                 <div className="flex justify-center mb-5">
                     <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5">
@@ -228,7 +228,7 @@ export default function DietaryGuidesView() {
                 </div>
 
                 {/* Heading - consistent with User Guide & Quiz Hub */}
-                <h1 className="text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.05] tracking-tight text-foreground">
                     Dietary{" "}
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                         Cheat Sheets
@@ -236,7 +236,7 @@ export default function DietaryGuidesView() {
                 </h1>
 
                 {/* Subtitle */}
-                <p className="text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
+                <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
                     Expert-curated guides for every lifestyle. Click any card to view the full cheat sheet and print it for your fridge.
                 </p>
             </div>
