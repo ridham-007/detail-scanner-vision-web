@@ -420,7 +420,7 @@ const Favorites = () => {
   ];
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-8 py-8">
+    <div className="container mx-auto px-5 sm:px-6 lg:px-8 py-8">
       <Breadcrumbs items={[{ label: 'Favourites' }]} />
 
       {/* ── Page Header ── */}
