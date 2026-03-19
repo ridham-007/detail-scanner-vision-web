@@ -9,10 +9,11 @@ type LookupMode = "scan" | "view";
 export const useProductLookup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { user } = useAuth();
+  const { user, session, deviceId } = useAuth();
+  const token = session?.access_token;
 
   const fetchFromSupabase = async (
-    barcode: string
+    barcode: string,
   ): Promise<ProductData | null> => {
     try {
       const { data, error } = await supabase
@@ -23,6 +24,7 @@ export const useProductLookup = () => {
         .maybeSingle();
 
       if (error || !data) return null;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const nutritionData = data.nutrition_per_100g as any;
 
       const defaultNutrition = {
@@ -52,6 +54,7 @@ export const useProductLookup = () => {
         additives: [],
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const rawData = data as any;
 
       return {
@@ -72,8 +75,7 @@ export const useProductLookup = () => {
         other_good_product_suggestions:
           rawData.other_good_product_suggestions || [],
         retailers: rawData.retailers || [],
-        is_health_related_product:
-          rawData.is_health_related_product !== false,
+        is_health_related_product: rawData.is_health_related_product !== false,
         nutrition_score_grade: rawData.nutrition_score_grade || undefined,
         allergens_analysis: rawData.allergens_analysis || [],
         additive_analysis: rawData.additive_analysis || [],
@@ -85,13 +87,17 @@ export const useProductLookup = () => {
     }
   };
 
-  const fetchFromAPI = async (
-    barcode: string
-  ): Promise<ProductData | null> => {
+  const fetchFromAPI = async (barcode: string): Promise<ProductData | null> => {
     try {
       const response = await fetch(
         `https://api.eateriq.com/api/product/${barcode}`,
-        { headers: { Accept: "application/json" } }
+        {
+          headers: {
+            Accept: "application/json",
+            ...(token && { Authorization: `Bearer ${token}` }),
+            "x-device-id": deviceId
+          },
+        },
       );
 
       if (!response.ok) return null;
@@ -113,8 +119,7 @@ export const useProductLookup = () => {
         recommendations: p.recommendations || [],
         images: p.images || [],
         ingredients: p.ingredients || "",
-        other_good_product_suggestions:
-          p.other_good_product_suggestions || [],
+        other_good_product_suggestions: p.other_good_product_suggestions || [],
         retailers: p.retailers || [],
         is_health_related_product: p.is_health_related_product !== false,
         nutrition_score_grade: p.nutrition_score_grade,
@@ -187,7 +192,7 @@ export const useProductLookup = () => {
   --------------------------------------------- */
   const lookupProduct = async (
     barcode: string,
-    options: { mode?: LookupMode } = {}
+    options: { mode?: LookupMode } = {},
   ): Promise<ProductData | null> => {
     const mode = options.mode ?? "scan";
     setIsLoading(true);
@@ -251,7 +256,9 @@ export const useProductLookup = () => {
   /* ---------------------------------------------
      SEARCH BY NAME
   --------------------------------------------- */
-  const searchProductsByName = async (query: string): Promise<ProductData[]> => {
+  const searchProductsByName = async (
+    query: string,
+  ): Promise<ProductData[]> => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase
@@ -263,7 +270,8 @@ export const useProductLookup = () => {
 
       if (error || !data) return [];
 
-      return data.map(item => {
+      return data.map((item) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const nutritionData = item.nutrition_per_100g as any;
         const defaultNutrition = {
           calories_kcal: null,
@@ -291,6 +299,7 @@ export const useProductLookup = () => {
           allergens: [],
           additives: [],
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const rawData = item as any;
 
         return {
@@ -308,9 +317,11 @@ export const useProductLookup = () => {
           recommendations: item.recommendations || [],
           images: item.images || [],
           ingredients: item.ingredients || "",
-          other_good_product_suggestions: rawData.other_good_product_suggestions || [],
+          other_good_product_suggestions:
+            rawData.other_good_product_suggestions || [],
           retailers: rawData.retailers || [],
-          is_health_related_product: rawData.is_health_related_product !== false,
+          is_health_related_product:
+            rawData.is_health_related_product !== false,
           nutrition_score_grade: rawData.nutrition_score_grade || undefined,
           allergens_analysis: rawData.allergens_analysis || [],
           additive_analysis: rawData.additive_analysis || [],
@@ -318,7 +329,6 @@ export const useProductLookup = () => {
           nutrition_data: rawData.nutrition_data || [],
         } as ProductData;
       });
-
     } catch (err) {
       console.error("Search error:", err);
       return [];

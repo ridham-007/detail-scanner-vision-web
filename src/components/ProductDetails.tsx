@@ -31,6 +31,7 @@ import { HealthierAlternatives } from "./HealthierAlternatives";
 import { useProductImage } from "@/hooks/useProductImage";
 import { SubscriptionGate } from "@/subscription/SubscriptionGate";
 import { useFeatureAccess } from "@/subscription/useFeatureAccess";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface ProductDetailsProps {
   product: ProductData | null;
@@ -46,7 +47,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   scannedBarcode,
 }) => {
   const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
-
+  const {session, deviceId} = useAuth()
   /* -------------------- Alternatives State -------------------- */
   const [showAlternatives, setShowAlternatives] = useState(false);
   const [loadingAlternatives, setLoadingAlternatives] = useState(false);
@@ -68,7 +69,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     setLoadingAlternatives(true);
 
     try {
-      const data = await fetchAlternatives(product.barcode);
+      const data = await fetchAlternatives(product.barcode, deviceId, session?.access_token);
       setAlternatives(data.alternatives || []);
     } catch {
       setAlternatives([]);
