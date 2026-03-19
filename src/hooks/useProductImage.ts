@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchProductImage } from "@/lib/api/productImage";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const useProductImage = (
   barcode?: string,
@@ -7,6 +8,7 @@ export const useProductImage = (
 ) => {
   const [apiImage, setApiImage] = useState<string | null>(null);
   const [imageLoading, setImageLoading] = useState(false);
+  const {session, deviceId} = useAuth();
 
   useEffect(() => {
     const load = async () => {
@@ -19,7 +21,7 @@ export const useProductImage = (
 
       setImageLoading(true);
 
-      const image = await fetchProductImage(barcode);
+      const image = await fetchProductImage(barcode, deviceId, session?.access_token);
 
       setApiImage(image);
       setImageLoading(false);

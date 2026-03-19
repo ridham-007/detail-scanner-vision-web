@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { fetchProductImage } from "../lib/api/productImage";
 import { Button } from "@/components/ui/button";
 import { useSubscription } from "@/hooks/useSubscription";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Alternative {
   name: string;
@@ -54,6 +55,7 @@ export default function AlternativesModal({
 }: Props) {
   const router = useRouter();
   const { tier } = useSubscription();
+  const { session, deviceId } = useAuth();
   const isPro = tier !== "free";
 
   const [resolvedImages, setResolvedImages] = useState<
@@ -82,7 +84,7 @@ export default function AlternativesModal({
 
       console.log("🔁 Calling API only for:", item.barcode);
 
-      const img = await fetchProductImage(item.barcode);
+      const img = await fetchProductImage(item.barcode, deviceId, session?.access_token);
 
       setResolvedImages((prev) => ({
         ...prev,
