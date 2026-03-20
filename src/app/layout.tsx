@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "../index.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "EaterIQ - Food Scanner",
@@ -27,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="font-sans antialiased">
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
+      <body className="font-inter antialiased">
         <Providers>
           <AnalyticsProvider>
             <div className="min-h-screen bg-background flex flex-col w-full">

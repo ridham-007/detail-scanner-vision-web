@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { CalendarDays, Clock, ArrowRight, Scan, Brain, User, AlertTriangle } from 'lucide-react';
 import ShareButton from '@/components/ui/share-button';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Image from 'next/image';
+import '@/prose.css';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -250,14 +252,14 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
 
               {post.featured_image_url && (
-                <figure className="mb-2 aspect-[16/9] overflow-hidden rounded-[24px] border border-white/70 shadow-product">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <figure className="mb-2 aspect-[16/9] relative overflow-hidden rounded-[24px] border border-white/70 shadow-product">
+                  <Image
                     src={post.featured_image_url}
                     alt={post.title}
-                    className="w-full h-full object-cover"
-                    loading="eager"
-                    fetchPriority="high"
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 768px) 100vw, 800px"
                   />
                 </figure>
               )}
@@ -410,13 +412,13 @@ export default async function BlogPostPage({ params }: Props) {
                       >
                         <div className="flex gap-3">
                           {relatedPost.featured_image_url && (
-                            <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-[16px] border border-white/70">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
+                            <div className="h-16 w-16 relative flex-shrink-0 overflow-hidden rounded-[16px] border border-white/70">
+                              <Image
                                 src={relatedPost.featured_image_url}
                                 alt={relatedPost.title}
-                                className="w-full h-full object-cover"
-                                loading="lazy"
+                                fill
+                                className="object-cover"
+                                sizes="64px"
                               />
                             </div>
                           )}
@@ -475,13 +477,13 @@ export default async function BlogPostPage({ params }: Props) {
               {relatedPosts.map((relatedPost) => (
                 <article key={relatedPost.id} className="overflow-hidden rounded-[28px] border border-white/70 bg-white/88 shadow-product">
                   {relatedPost.featured_image_url && (
-                    <div className="aspect-video overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                    <div className="aspect-video relative overflow-hidden">
+                      <Image
                         src={relatedPost.featured_image_url}
                         alt={relatedPost.title}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 33vw"
                       />
                     </div>
                   )}

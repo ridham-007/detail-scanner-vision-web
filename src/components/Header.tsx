@@ -31,27 +31,20 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between rounded-[28px] border border-white/60 px-4 py-3 shadow-product bg-white">
-          <div className="flex items-center space-x-3">
-            <Link href="/" aria-label="EaterIQ Home" className="transition-transform duration-300 hover:scale-105">
-              <LogoIcon className="h-12 w-12" />
-            </Link>
-
-            <Link href={'/'} className="cursor-pointer group" aria-label="EaterIQ - Smart Food Intelligence">
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+          <Link href="/" aria-label="EaterIQ Home" className="flex items-center space-x-3 transition-transform duration-300 hover:scale-105 group">
+            <LogoIcon className="h-12 w-12" />
+            <div className="flex flex-col">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground leading-none">
                 Eater
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                   IQ
                 </span>
               </h2>
-              <p
-                className="text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/70 md:text-sm"
-              >
+              <span className="text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/70 md:text-sm">
                 Bright scans, smarter food choices
-              </p>
-
-
-            </Link>
-          </div>
+              </span>
+            </div>
+          </Link>
 
           <div className="flex items-center gap-4">
             {/* Desktop Navigation */}
@@ -79,7 +72,6 @@ const Header = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground transition-all duration-300 hover:text-foreground outline-none focus:outline-none focus-visible:outline-none">
                   Resources
-                  <Sparkles className="h-3.5 w-3.5 text-primary/70" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-52 rounded-2xl border-border/80 bg-white/95 shadow-product">
                   <DropdownMenuItem asChild>

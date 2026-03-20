@@ -6,6 +6,7 @@ import {
   Lightbulb,
   AlertTriangle,
 } from "lucide-react";
+import "@/prose.css";
 
 interface Step {
   title: string;

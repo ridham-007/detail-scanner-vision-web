@@ -72,7 +72,9 @@ export default function Footer() {
                 <img
                   src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
                   alt="Download on the App Store"
-                  className="h-[42px]"
+                  width={126}
+                  height={42}
+                  className="h-[42px] w-auto"
                   loading="lazy"
                 />
               </a>
@@ -86,7 +88,9 @@ export default function Footer() {
                 <img
                   src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                   alt="Get it on Google Play"
-                  className="h-[60px] -my-[10px]"
+                  width={155}
+                  height={60}
+                  className="h-[60px] w-auto -my-[10px]"
                   loading="lazy"
                 />
               </a>

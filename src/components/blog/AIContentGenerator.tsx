@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Wand2, Loader2, Copy, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import '@/prose.css';
 
 interface AIContentGeneratorProps {
   onContentGenerated: (content: string) => void;

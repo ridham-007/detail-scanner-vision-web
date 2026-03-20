@@ -49,7 +49,7 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
           size="sm" 
           variant={isEmpty ? "default" : "outline"}
           onClick={() => router.push('/pricing')}
-          className="gap-1 rounded-full border-orange-200/80 bg-primary/60 shadow-[var(--shadow-soft)]"
+          className="gap-1 rounded-full border-orange-200/80 bg-primary text-white shadow-[var(--shadow-soft)]"
         >
           <Crown className="w-3 h-3" />
           Upgrade

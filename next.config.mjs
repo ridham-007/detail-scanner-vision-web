@@ -1,9 +1,9 @@
 const nextConfig = {
-  trailingSlash: true,
+    trailingSlash: true,
 
-  images: {
-    domains: [],
-  },
+    images: {
+        domains: ["tzxvlfemmamhrxtcqfhz.supabase.co"],
+    },
 };
 
 export default nextConfig;
