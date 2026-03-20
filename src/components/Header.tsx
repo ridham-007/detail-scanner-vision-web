@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Shield, FileText, Package, Bell, BookOpen, ScanLine, Sparkles, Heart, Calculator } from "lucide-react";
-
+import LogoIcon from "./LogoIcon";
 const Header = () => {
   const pathname = usePathname();
   const { data: isAdmin } = useIsAdmin();
@@ -32,11 +32,10 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between rounded-[28px] border border-white/60 px-4 py-3 shadow-product bg-white">
           <div className="flex items-center space-x-3">
-            <Link href="/" aria-label="EaterIQ Home">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/50 bg-gradient-to-br from-orange-300 via-orange-400 to-orange-600 text-white shadow-[var(--shadow-warm)] transition-transform duration-300 hover:scale-105">
-                <ScanLine className="h-5 w-5" />
-              </div>
+            <Link href="/" aria-label="EaterIQ Home" className="transition-transform duration-300 hover:scale-105">
+              <LogoIcon className="h-12 w-12" />
             </Link>
+
             <Link href={'/'} className="cursor-pointer group" aria-label="EaterIQ - Smart Food Intelligence">
               <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 Eater

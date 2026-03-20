@@ -2,10 +2,12 @@
 
 // components/Footer.tsx
 import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText, Facebook, Twitter, TrendingUp } from "lucide-react";
+import LogoIcon from "./LogoIcon";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Footer() {
+
   const currentYear = new Date().getFullYear();
   const { toast } = useToast();
 
@@ -42,14 +44,13 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <Link
               href="/"
-              className="inline-flex items-center gap-2.5 mb-4 group"
+              className="inline-flex items-center gap-2.5 mb-4 group transition-transform hover:scale-105"
               aria-label="EaterIQ - Go to homepage"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-orange-200/70 bg-gradient-to-br from-orange-200 via-orange-300 to-orange-500 text-orange-950 shadow-[var(--shadow-warm)] transition-transform group-hover:scale-105">
-                <Smartphone className="h-5 w-5 text-white" />
-              </div>
+              <LogoIcon className="h-11 w-11" />
               <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 Eater
+
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                   IQ
                 </span>
