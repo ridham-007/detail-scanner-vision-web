@@ -616,7 +616,7 @@ export default function QuizPlayClient({
 
                 {!user && (
                   <div className="bg-accent/10 p-4 rounded-xl border-2 border-accent/20">
-                    <h3 className="font-semibold text-accent mb-2 flex items-center gap-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 flex items-center gap-2">
                       <Trophy className="h-5 w-5" aria-hidden="true" />
                       Save Your Achievement!
                     </h3>
@@ -885,7 +885,7 @@ export default function QuizPlayClient({
 
         {/* Guest Notice */}
         {!user && (
-          <Card className="bg-accent text-accent-foreground mb-4">
+          <Card className="bg-accent/30 text-accent-foreground mb-4">
             <CardContent className="p-3">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2 min-w-0">
@@ -918,7 +918,7 @@ export default function QuizPlayClient({
         {/* Lifelines / Power-Ups */}
         <div className="mb-4">
           <div className="text-center mb-2">
-            <h2 className="text-sm font-semibold text-muted-foreground flex items-center justify-center gap-2">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground flex items-center gap-2">
               <Zap className="h-4 w-4" aria-hidden="true" />
               Power-Ups
             </h2>
@@ -932,14 +932,14 @@ export default function QuizPlayClient({
               disabled={!lifelines.fiftyFifty || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.fiftyFifty
-                  ? "opacity-50 bg-muted"
+                  ? "opacity-80 bg-muted"
                   : "bg-primary hover:bg-primary/90 text-primary-foreground"
               }`}
             >
               <Users className="h-4 w-4" aria-hidden="true" />
               <span className="text-xs">50:50</span>
               {!lifelines.fiftyFifty && (
-                <span className="text-[10px] opacity-75">Used</span>
+                <span className="text-xs opacity-75">Used</span>
               )}
             </Button>
             <Button
@@ -950,14 +950,14 @@ export default function QuizPlayClient({
               disabled={!lifelines.skipQuestion || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.skipQuestion
-                  ? "opacity-50 bg-muted"
-                  : "bg-accent hover:bg-accent/90 text-accent-foreground"
+                  ? "opacity-80 bg-muted"
+                  : "bg-accent/60 hover:bg-accent/50 text-accent-foreground"
               }`}
             >
               <Lightbulb className="h-4 w-4" aria-hidden="true" />
               <span className="text-xs">Skip</span>
               {!lifelines.skipQuestion && (
-                <span className="text-[10px] opacity-75">Used</span>
+                <span className="text-xs opacity-75">Used</span>
               )}
             </Button>
             <Button
@@ -968,14 +968,14 @@ export default function QuizPlayClient({
               disabled={!lifelines.extraTime || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.extraTime
-                  ? "opacity-50 bg-muted"
-                  : "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                  ? "opacity-80 bg-muted"
+                  : "bg-secondary/60 hover:bg-secondary/50 text-secondary-foreground"
               }`}
             >
               <Clock className="h-4 w-4" aria-hidden="true" />
               <span className="text-xs">+15s</span>
               {!lifelines.extraTime && (
-                <span className="text-[10px] opacity-75">Used</span>
+                <span className="text-xs opacity-75">Used</span>
               )}
             </Button>
           </div>
@@ -1014,7 +1014,7 @@ export default function QuizPlayClient({
                 return (
                   <div
                     key={index}
-                    className="h-12 sm:h-14 bg-muted rounded-lg flex items-center justify-center opacity-50 border-2 border-dashed border-border"
+                    className="h-12 sm:h-14 bg-muted rounded-lg flex items-center justify-center opacity-80 border-2 border-dashed border-border"
                   >
                     <span className="text-muted-foreground text-sm flex items-center gap-2">
                       <XCircle className="h-4 w-4" aria-hidden="true" />
@@ -1112,7 +1112,7 @@ export default function QuizPlayClient({
                     />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-primary mb-2">
+                <h3 className="text-xl font-semibold tracking-tight text-primary mb-2">
                   🎉 Correct!
                 </h3>
                 <div className="space-y-2">
@@ -1168,7 +1168,7 @@ export default function QuizPlayClient({
                   className="h-20 w-20 mx-auto mb-4 animate-pulse"
                   aria-hidden="true"
                 />
-                <h3 className="text-2xl font-bold text-destructive mb-3">
+                <h3 className="text-xl font-semibold tracking-tight text-destructive mb-3">
                   ❌ Incorrect!
                 </h3>
                 <div className="bg-destructive/10 rounded-lg p-3 mb-2">

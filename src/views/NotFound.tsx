@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Home, ArrowLeft, Search } from "lucide-react";
+import { Home, Search } from "lucide-react";
 import { updatePageSEO } from "@/utils/seo";
 
 const NotFound = () => {
@@ -39,14 +39,14 @@ const NotFound = () => {
   }, [pathname]);
 
   return (
-    <div className="flex-1 flex items-center justify-center px-4 py-16">
-      <div className="text-center max-w-md">
+    <div className="flex flex-1 items-center justify-center bg-[radial-gradient(circle_at_top,rgba(var(--accent),0.14),transparent_28%),linear-gradient(180deg,rgb(var(--background)),rgba(var(--accent-soft),0.18))] px-4 py-16">
+      <div className="max-w-md rounded-[32px] border border-white/70 bg-white/95 p-8 text-center shadow-[var(--shadow-soft)]">
         <div className="mb-8">
           <h1 className="text-8xl font-bold text-primary mb-2">404</h1>
           <div className="h-1 w-24 bg-primary mx-auto rounded-full" />
         </div>
         
-        <h2 className="text-2xl font-semibold text-foreground mb-4">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">
           Page Not Found
         </h2>
         
@@ -55,14 +55,14 @@ const NotFound = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="rounded-full">
             <Link href="/">
               <Home className="h-4 w-4 mr-2" />
               Go Home
             </Link>
           </Button>
           
-          <Button asChild variant="outline" size="lg">
+          <Button asChild variant="outline" size="lg" className="rounded-full border-[rgb(var(--accent))]/20 bg-white/80">
             <Link href="/scanner">
               <Search className="h-4 w-4 mr-2" />
               Scan a Product

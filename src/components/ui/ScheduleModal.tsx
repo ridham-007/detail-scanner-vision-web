@@ -31,8 +31,8 @@ export default function ScheduleModal({
         </button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden rounded-2xl p-0">
-        <DialogHeader className="px-6 pt-4 pb-3">
+      <DialogContent className="max-h-[85vh] max-w-[calc(100vw-1rem)] overflow-hidden rounded-2xl p-0 sm:max-w-4xl">
+        <DialogHeader className="px-4 pb-3 pt-4 sm:px-6">
           <DialogTitle className="flex items-center gap-2 text-lg font-semibold">
             {Icon && <Icon className="h-5 w-5 text-primary" />}
             {title}
@@ -40,10 +40,10 @@ export default function ScheduleModal({
         </DialogHeader>
 
         <div
-          className="overflow-y-auto px-6 pb-6"
+          className="overflow-auto px-4 pb-4 sm:px-6 sm:pb-6"
           style={{ maxHeight: "calc(80vh - 100px)" }}
         >
-          <table className="w-full text-sm">
+          <table className="min-w-[640px] w-full text-sm">
             <thead className="sticky top-0 bg-card z-10">
               <tr className="border-b border-border bg-muted/50">
                 {headers.map((h, i) => (

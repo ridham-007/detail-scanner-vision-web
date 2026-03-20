@@ -22,6 +22,7 @@ import {
   AlertTriangle,
   ListChecks,
   Search,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -267,13 +268,14 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
-      <div className="min-h-screen bg-background">
-        <main className="relative z-10">
+      {/* <div className="min-h-screen bg-background"> */}
+
           {/* Hero Section */}
           <section
-            className="relative py-12 md:py-16 lg:py-20 overflow-hidden"
+            className="relative overflow-hidden py-10 sm:py-12 md:py-16 lg:py-20"
             aria-labelledby="hero-heading"
           >
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-[32rem]" />
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div
                 className="
@@ -285,18 +287,20 @@ export default async function HomePage() {
 "
               >
                 {/* Left Column - Content */}
-                <div className="text-center lg:text-left order-1 flex flex-col justify-center py-6 md:py-8">
+                <div className="order-1 flex flex-col justify-center rounded-[32px] border border-white/60 bg-white/78 px-5 py-7 text-center sm:px-6 md:px-8 md:py-10 lg:text-left">
+                  <div className="mb-5 inline-flex items-center gap-2 self-center rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 lg:self-start">
+                    <Sparkles className="h-4 w-4" />
+                    Fresh scans, smarter food choices
+                  </div>
                   <h1
                     id="hero-heading"
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] tracking-tight mb-4"
+                    className="mb-4 text-2xl font-bold leading-[1.02] tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl"
                   >
-                    Know What&apos;s in{" "}
-                    <span className="text-primary">Your Food</span>
+                    Bright health guidance for every barcode in your kitchen.
                   </h1>
 
-                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6 max-w-lg mx-auto lg:mx-0">
-                    Scan any product barcode to get instant health scores,
-                    ingredient analysis, and healthier alternatives.
+                  <p className="mx-auto mb-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg lg:mx-0">
+                    EaterIQ turns food labels into warm, practical guidance with health scores, ingredient analysis, and healthier alternatives in seconds.
                   </p>
 
                   {/* CTA - Client Component for scroll */}
@@ -305,15 +309,15 @@ export default async function HomePage() {
                   </div>
 
                   {/* Trust Badges */}
-                  <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-6">
-                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full border border-border">
+                  <div className="mb-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                    <div className="flex items-center gap-1.5 rounded-full border border-orange-200/70 bg-orange-50 px-3 py-1.5 text-sm text-orange-900">
                       <CheckCircle
                         className="h-3.5 w-3.5 text-primary"
                         aria-hidden="true"
                       />
                       <span>Free to Start</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full border border-border">
+                    <div className="flex items-center gap-1.5 rounded-full border border-orange-200/70 bg-orange-50 px-3 py-1.5 text-sm text-orange-900">
                       <Shield
                         className="h-3.5 w-3.5 text-primary"
                         aria-hidden="true"
@@ -323,7 +327,7 @@ export default async function HomePage() {
                   </div>
 
                   {/* App Store Badges */}
-                  <div className="flex items-center gap-4 justify-center lg:justify-start">
+                  <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4 sm:justify-center lg:justify-start">
                     <a
                       href="https://apps.apple.com/sg/app/eateriq/id6757137222"
                       target="_blank"
@@ -335,7 +339,7 @@ export default async function HomePage() {
                         alt="Download on the App Store"
                         width={160}
                         height={50}
-                        className="w-[160px] h-auto"
+                        className="h-auto w-[150px] sm:w-[160px]"
                       />
                     </a>
 
@@ -350,14 +354,14 @@ export default async function HomePage() {
                         alt="Get it on Google Play"
                         width={160}
                         height={50}
-                        className="w-[160px] h-auto"
+                        className="h-auto w-[150px] sm:w-[160px]"
                       />
                     </a>
                   </div>
                 </div>
 
                 {/* Right Column - Phone Mockup */}
-                <div className="order-2 flex justify-center lg:justify-end items-center relative py-8 md:py-10 px-4">
+                <div className="relative order-2 flex items-center justify-center px-2 py-4 sm:px-4 sm:py-8 md:py-10 lg:justify-end">
                   {/* Food Background Elements */}
                   <div className="absolute inset-0 pointer-events-none overflow-hidden">
                     <div className="absolute top-6 left-6 text-4xl opacity-[0.08]">
@@ -380,23 +384,23 @@ export default async function HomePage() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 p-6">
+                  <div className="relative z-10 rounded-[32px] border border-white/60 bg-white/45 p-3 shadow-product backdrop-blur-sm sm:rounded-[36px] sm:p-6">
                     {/* Phone Mockup */}
                     <div
                       className="
   relative 
-  w-[220px] 
+  w-[210px] 
   xs:w-[240px]
   sm:w-[260px] 
   md:w-[290px]
   max-w-full
 "
                     >
-                      <div className="bg-foreground/10 rounded-[2.5rem] p-1 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
-                        <div className="bg-card rounded-[2.3rem] overflow-hidden shadow-inner">
+                      <div className="rounded-[2.75rem] border border-orange-100/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,247,237,0.88))] p-1.5 shadow-[var(--shadow-warm)]">
+                        <div className="overflow-hidden rounded-[2.45rem] border border-white/70 bg-card shadow-inner">
                           {/* Status Bar */}
                           <div className="bg-background px-4 pt-2 pb-1 relative flex items-center justify-between">
-                            <span className="text-[10px] font-semibold text-foreground">
+                            <span className="text-xs font-semibold text-foreground">
                               9:41
                             </span>
                             <div className="w-20 h-6 bg-foreground rounded-full" />
@@ -414,11 +418,11 @@ export default async function HomePage() {
                           </div>
 
                           {/* App Content */}
-                          <div className="px-4 pt-2 pb-3 bg-background min-h-[360px]">
+                          <div className="min-h-[340px] bg-background px-4 pt-2 pb-3 sm:min-h-[360px]">
                             {/* App Header */}
-                            <div className="flex items-center justify-between mb-3">
+                            <div className="mb-3 flex items-center justify-between">
                               <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-orange-300 via-orange-400 to-orange-600 shadow-[var(--shadow-warm)]">
                                   <Scan
                                     className="w-4 h-4 text-primary-foreground"
                                     aria-hidden="true"
@@ -437,7 +441,7 @@ export default async function HomePage() {
                             </div>
 
                             {/* Product Result Card */}
-                            <div className="bg-muted/30 border border-border rounded-xl p-3 mb-3">
+                            <div className="mb-3 rounded-[20px] border border-orange-100/80 bg-[rgba(255,250,244,0.92)] p-3 shadow-[var(--shadow-soft)]">
                               <div className="flex items-start gap-3 mb-3">
                                 <div className="w-14 h-14 bg-card border border-border rounded-xl flex items-center justify-center">
                                   <span className="text-2xl">🥣</span>
@@ -454,7 +458,7 @@ export default async function HomePage() {
                                       className="w-3 h-3 text-primary"
                                       aria-hidden="true"
                                     />
-                                    <span className="text-[10px] text-primary font-medium">
+                                    <span className="text-xs text-primary font-medium">
                                       Organic
                                     </span>
                                   </div>
@@ -462,7 +466,7 @@ export default async function HomePage() {
                               </div>
 
                               {/* Health Score */}
-                              <div className="bg-card border border-border rounded-lg p-3 mb-3">
+                              <div className="mb-3 rounded-2xl border border-orange-100/80 bg-card p-3">
                                 <div className="flex items-center justify-between">
                                   <div>
                                     <div className="text-xs text-muted-foreground mb-0.5">
@@ -476,7 +480,7 @@ export default async function HomePage() {
                                         /100
                                       </span>
                                     </div>
-                                    <div className="text-[10px] text-primary font-medium">
+                                    <div className="text-xs text-primary font-medium">
                                       Good Choice ✓
                                     </div>
                                   </div>
@@ -491,20 +495,20 @@ export default async function HomePage() {
 
                               {/* Nutrition Tags */}
                               <div className="flex flex-wrap gap-1.5">
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
                                   Low Sugar
                                 </span>
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
                                   High Fiber
                                 </span>
-                                <span className="text-[10px] font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
                                   No Additives
                                 </span>
                               </div>
                             </div>
 
                             {/* Action Button */}
-                            <div className="bg-primary rounded-xl py-2.5 text-center">
+                            <div className="rounded-2xl bg-foreground py-2.5 text-center shadow-[var(--shadow-soft)]">
                               <span className="text-xs font-semibold text-primary-foreground">
                                 View Full Analysis
                               </span>
@@ -523,9 +527,9 @@ export default async function HomePage() {
                     <div
                       className="
   absolute 
-  bottom-2 sm:bottom-4 
-  left-1 sm:-left-2
-  scale-[0.9] sm:scale-100 bg-card rounded-2xl px-4 py-3 shadow-xl border border-border/50"
+  -bottom-2 left-0 
+  scale-[0.78] rounded-2xl border border-border/50 bg-card px-4 py-3 shadow-xl
+  sm:bottom-4 sm:-left-2 sm:scale-100"
                     >
                       <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -544,7 +548,7 @@ export default async function HomePage() {
                         </div>
                       </div>
                     </div>
-                    <div className="absolute top-2 -right-2 bg-card rounded-2xl px-4 py-3 shadow-xl border border-border/50">
+                    <div className="absolute -right-1 top-0 scale-[0.82] rounded-2xl border border-border/50 bg-card px-4 py-3 shadow-xl sm:top-2 sm:-right-2 sm:scale-100">
                       <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
                           <Award
@@ -571,13 +575,10 @@ export default async function HomePage() {
           {/* Scanner Section - Client Component */}
           <section
             id="scanner"
-            className="container mx-auto px-4 py-16 scroll-mt-20"
+            className="container mx-auto scroll-mt-20 px-4 py-12 sm:py-16"
             aria-labelledby="scanner-heading"
           >
-            <h2 id="scanner-heading" className="sr-only">
-              Food Product Scanner
-            </h2>
-            <div className="mx-auto">
+            <div className="mx-auto rounded-[32px] border border-white/60 bg-white/78 p-2 sm:p-3 md:p-5">
               <FoodScannerPage />
             </div>
           </section>
@@ -585,35 +586,39 @@ export default async function HomePage() {
           {/* How It Works Section */}
           <section
             id="how-it-works"
-            className="bg-muted/30 py-20"
+            className="py-14"
             aria-labelledby="how-it-works-heading"
           >
             <div className="container mx-auto px-4">
-              <header className="text-center mb-16">
+              <header className="mb-12 text-center sm:mb-16">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold text-orange-800 shadow-[var(--shadow-soft)]">
+                  <QrCode className="h-4 w-4" />
+                  Simple from first scan to insight
+                </div>
                 <h2
                   id="how-it-works-heading"
-                  className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                  className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                 >
                   How EaterIQ Works
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
                   Three simple steps to make informed food choices
                 </p>
               </header>
 
-              <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+              <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
                 {/* Step 1 */}
-                <article className="relative text-center pt-6">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
+                <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center">
+                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-orange-50">
                     <QrCode
                       className="h-8 w-8 text-primary"
                       aria-hidden="true"
                     />
                   </div>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">
+                  <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-200/70 bg-white px-3 py-1 text-xs font-bold text-primary shadow-[var(--shadow-soft)]">
                     Step 1
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Scan Barcode
                   </h3>
                   <p className="text-muted-foreground">
@@ -623,17 +628,17 @@ export default async function HomePage() {
                 </article>
 
                 {/* Step 2 */}
-                <article className="relative text-center pt-6">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
+                <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center">
+                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-orange-50">
                     <Search
                       className="h-8 w-8 text-primary"
                       aria-hidden="true"
                     />
                   </div>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">
+                  <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-200/70 bg-white px-3 py-1 text-xs font-bold text-primary shadow-[var(--shadow-soft)]">
                     Step 2
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Detailed Analysis
                   </h3>
                   <p className="text-muted-foreground">
@@ -643,17 +648,17 @@ export default async function HomePage() {
                 </article>
 
                 {/* Step 3 */}
-                <article className="relative text-center pt-6">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
+                <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center">
+                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-orange-50">
                     <TrendingUp
                       className="h-8 w-8 text-primary"
                       aria-hidden="true"
                     />
                   </div>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">
+                  <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-200/70 bg-white px-3 py-1 text-xs font-bold text-primary shadow-[var(--shadow-soft)]">
                     Step 3
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Get Insights
                   </h3>
                   <p className="text-muted-foreground">
@@ -672,30 +677,34 @@ export default async function HomePage() {
           <HealthCalculators />
 
           {/* Key Features Section */}
-          <section className="py-20" aria-labelledby="features-heading">
+          <section className="py-14 sm:py-20" aria-labelledby="features-heading">
             <div className="container mx-auto px-4">
-              <header className="text-center mb-16">
+              <header className="mb-12 text-center sm:mb-16">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 shadow-[var(--shadow-soft)]">
+                  <Sparkles className="h-4 w-4" />
+                  Designed to feel clear, bright, and practical
+                </div>
                 <h2
                   id="features-heading"
-                  className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                  className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                 >
                   Powerful Features
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
                   Everything you need to understand your food
                 </p>
               </header>
 
               <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Health Score Analysis */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 text-center shadow-product">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50">
                     <BarChart3
                       className="h-6 w-6 text-primary"
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Health Score Analysis
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -705,14 +714,14 @@ export default async function HomePage() {
                 </article>
 
                 {/* Additive Detection */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 text-center shadow-product">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50">
                     <AlertTriangle
                       className="h-6 w-6 text-primary"
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Additive Detection
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -722,14 +731,14 @@ export default async function HomePage() {
                 </article>
 
                 {/* Allergen Alerts */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 text-center shadow-product">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50">
                     <ListChecks
                       className="h-6 w-6 text-primary"
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Allergen Alerts
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -739,14 +748,14 @@ export default async function HomePage() {
                 </article>
 
                 {/* Better Alternatives */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 text-center shadow-product">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50">
                     <TrendingUp
                       className="h-6 w-6 text-primary"
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                     Better Alternatives
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -761,35 +770,35 @@ export default async function HomePage() {
           {/* Why Choose EaterIQ Section */}
           <section
             id="why-eateriq"
-            className="bg-muted/20 py-20"
+            className="py-14 sm:py-20"
             aria-labelledby="why-heading"
           >
             <div className="container mx-auto px-4">
-              <header className="text-center mb-16">
+              <header className="mb-12 text-center sm:mb-16">
                 <h2
                   id="why-heading"
-                  className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                  className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                 >
                   Why Choose EaterIQ?
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
                   We&apos;re on a mission to make food transparency accessible
                   to everyone
                 </p>
               </header>
 
-              <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {/* Science-Based */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
                       <Shield
                         className="h-6 w-6 text-primary"
                         aria-hidden="true"
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Science-Based Analysis
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -801,16 +810,16 @@ export default async function HomePage() {
                 </article>
 
                 {/* Instant Results */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
                       <Zap
                         className="h-6 w-6 text-primary"
                         aria-hidden="true"
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Instant Results
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -822,16 +831,16 @@ export default async function HomePage() {
                 </article>
 
                 {/* Personalized */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
                       <Heart
                         className="h-6 w-6 text-primary"
                         aria-hidden="true"
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Personalized Insights
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -843,16 +852,16 @@ export default async function HomePage() {
                 </article>
 
                 {/* Transparency */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
                       <Leaf
                         className="h-6 w-6 text-primary"
                         aria-hidden="true"
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Transparency First
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -864,16 +873,16 @@ export default async function HomePage() {
                 </article>
 
                 {/* Trusted */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
                       <Award
                         className="h-6 w-6 text-primary"
                         aria-hidden="true"
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Trusted by Thousands
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -885,16 +894,16 @@ export default async function HomePage() {
                 </article>
 
                 {/* Free */}
-                <article className="bg-card rounded-xl p-6 border border-border shadow-sm">
+                <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
                       <CheckCircle
                         className="h-6 w-6 text-primary"
                         aria-hidden="true"
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                         Free to Start
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -917,22 +926,22 @@ export default async function HomePage() {
               aria-labelledby="quizzes-heading"
             >
               <div className="container mx-auto px-4">
-                <header className="text-center mb-12">
+                <header className="mb-12 text-center">
                   <h2
                     id="quizzes-heading"
-                    className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                    className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                   >
                     Test Your Food Knowledge
                   </h2>
-                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
                     Challenge yourself with our nutrition quizzes and learn
                     while having fun
                   </p>
                 </header>
 
-                <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div className="mx-auto mb-8 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                   {recentQuizzes.map((quiz) => (
-                    <Card key={quiz.id} className="bg-card border-2 shadow-md flex flex-col h-full">
+                    <Card key={quiz.id} className="flex h-full flex-col rounded-[26px] border-white/65 bg-white/82 shadow-product">
                       <CardHeader className="pb-3">
                         <div className="flex items-start justify-between mb-2">
                           <Badge
@@ -986,7 +995,7 @@ export default async function HomePage() {
                     <Button
                       variant="outline"
                       size="lg"
-                      className="px-8 border-2"
+                      className="rounded-2xl border-2 border-orange-200/70 bg-white/82 px-8"
                     >
                       View All Quizzes
                       <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -1001,28 +1010,28 @@ export default async function HomePage() {
           {recentBlogs && recentBlogs.length > 0 && (
             <section
               id="blog"
-              className="bg-muted/30 py-20"
+              className="py-14 sm:py-20"
               aria-labelledby="blog-heading"
             >
               <div className="container mx-auto px-4">
-                <header className="text-center mb-12">
+                <header className="mb-12 text-center">
                   <h2
                     id="blog-heading"
-                    className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                    className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                   >
                     Nutrition Insights &amp; Tips
                   </h2>
-                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
                     Expert articles to help you understand nutrition and make
                     healthier choices
                   </p>
                 </header>
 
-                <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8">
+                <div className="mx-auto mb-8 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-8">
                   {recentBlogs.map((blog) => (
                     <article
                       key={blog.id}
-                      className="bg-card rounded-xl overflow-hidden border border-border shadow-md"
+                      className="overflow-hidden rounded-[28px] border border-white/65 bg-white/84 shadow-product"
                     >
                       {blog.featured_image_url && (
                         <div className="aspect-[16/9] w-full overflow-hidden">
@@ -1054,7 +1063,7 @@ export default async function HomePage() {
                           )}
                         </div>
 
-                        <h3 className="font-semibold text-foreground mb-2 line-clamp-2">
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 line-clamp-2">
                           <Link
                             href={`/blog/${blog.slug}/`}
                             className="hover:text-primary"
@@ -1089,7 +1098,7 @@ export default async function HomePage() {
                     <Button
                       variant="outline"
                       size="lg"
-                      className="px-8 border-2"
+                      className="rounded-2xl border-2 border-orange-200/70 bg-white/82 px-8"
                     >
                       View All Articles
                       <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -1101,27 +1110,27 @@ export default async function HomePage() {
           )}
 
           {/* Final CTA Section */}
-          <section className="py-20" aria-labelledby="cta-heading">
+          <section className="py-14 sm:py-20" aria-labelledby="cta-heading">
             <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto text-center bg-primary/5 rounded-2xl p-12 border border-primary/20">
+              <div className="mx-auto max-w-4xl rounded-[34px] border border-white/65 p-6 text-center shadow-[var(--shadow-warm)] sm:p-8 lg:p-12">
                 <h2
                   id="cta-heading"
-                  className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+                  className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
                 >
                   Start Making Healthier Choices Today
                 </h2>
-                <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                <p className="mx-auto mb-8 max-w-2xl text-base text-muted-foreground sm:text-lg">
                   Join thousands of health-conscious consumers who use EaterIQ
                   to understand what&apos;s really in their food. It&apos;s
                   free, fast, and incredibly insightful.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col justify-center gap-4 sm:flex-row">
                   <ScrollToScannerButton variant="large" />
-                  <Link href="/quiz/">
+                  <Link href="/quiz/" className="w-full sm:w-auto">
                     <Button
                       variant="outline"
                       size="lg"
-                      className="px-8 py-6 text-lg rounded-xl border-2"
+                      className="w-full rounded-2xl border-2 border-orange-200/70 bg-white/82 px-8 py-5 text-base sm:w-auto sm:py-6 sm:text-lg"
                     >
                       <Brain className="mr-2 h-5 w-5" aria-hidden="true" />
                       Take a Quiz
@@ -1133,23 +1142,23 @@ export default async function HomePage() {
           </section>
 
           {/* Internal Navigation Links */}
-          <section className="py-12 border-t" aria-labelledby="explore-heading">
+          <section className="border-t border-border/70 py-12" aria-labelledby="explore-heading">
             <div className="container mx-auto px-4">
               <h2
                 id="explore-heading"
-                className="text-xl font-bold mb-8 text-center"
+                className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-8 text-center"
               >
                 Explore EaterIQ
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+              <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
                 <Link href="/quiz/" className="group">
-                  <Card className="h-full hover:shadow-md transition-shadow">
+                  <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
                     <CardContent className="p-4 text-center">
                       <Brain
                         className="h-8 w-8 text-primary mx-auto mb-2"
                         aria-hidden="true"
                       />
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Quiz Hub
                       </h3>
                       <p className="text-xs text-muted-foreground">
@@ -1159,13 +1168,13 @@ export default async function HomePage() {
                   </Card>
                 </Link>
                 <Link href="/blog/" className="group">
-                  <Card className="h-full hover:shadow-md transition-shadow">
+                  <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
                     <CardContent className="p-4 text-center">
                       <ArrowRight
                         className="h-8 w-8 text-primary mx-auto mb-2"
                         aria-hidden="true"
                       />
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Blog
                       </h3>
                       <p className="text-xs text-muted-foreground">
@@ -1175,13 +1184,13 @@ export default async function HomePage() {
                   </Card>
                 </Link>
                 <Link href="/pricing/" className="group">
-                  <Card className="h-full hover:shadow-md transition-shadow">
+                  <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
                     <CardContent className="p-4 text-center">
                       <Award
                         className="h-8 w-8 text-primary mx-auto mb-2"
                         aria-hidden="true"
                       />
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Pricing
                       </h3>
                       <p className="text-xs text-muted-foreground">
@@ -1191,13 +1200,13 @@ export default async function HomePage() {
                   </Card>
                 </Link>
                 <Link href="/support/" className="group">
-                  <Card className="h-full hover:shadow-md transition-shadow">
+                  <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
                     <CardContent className="p-4 text-center">
                       <Shield
                         className="h-8 w-8 text-primary mx-auto mb-2"
                         aria-hidden="true"
                       />
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Support
                       </h3>
                       <p className="text-xs text-muted-foreground">Get help</p>
@@ -1207,8 +1216,7 @@ export default async function HomePage() {
               </div>
             </div>
           </section>
-        </main>
-      </div>
+      {/* </div> */}
     </>
   );
 }

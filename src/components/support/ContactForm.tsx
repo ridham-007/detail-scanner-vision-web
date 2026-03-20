@@ -115,7 +115,7 @@ export default function ContactForm() {
   return (
     <>
       {isLimited && (
-        <Alert variant="destructive">
+        <Alert variant="destructive" className="rounded-[24px] border-red-200/80 bg-red-50/90">
           <AlertCircle className="h-4 w-4" aria-hidden="true" />
           <AlertDescription>
             Too many submissions. Please wait {cooldownSeconds} seconds before trying again.
@@ -123,7 +123,7 @@ export default function ContactForm() {
         </Alert>
       )}
 
-      <Card>
+      <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <MessageCircle className="h-5 w-5 text-primary" aria-hidden="true" />
@@ -142,7 +142,7 @@ export default function ContactForm() {
                   placeholder="Your full name"
                   required
                   disabled={isSubmitting || isLimited}
-                  className="border border-gray-200 dark:border-gray-700 focus:border-primary transition-all duration-300"
+                  className="rounded-2xl border-orange-100/80 bg-white/90 transition-all duration-300 focus:border-primary"
                 />
               </div>
               <div className="space-y-1">
@@ -155,7 +155,7 @@ export default function ContactForm() {
                   placeholder="your@email.com"
                   required
                   disabled={isSubmitting || isLimited}
-                  className="border border-gray-200 dark:border-gray-700 focus:border-primary transition-all duration-300"
+                  className="rounded-2xl border-orange-100/80 bg-white/90 transition-all duration-300 focus:border-primary"
                 />
               </div>
             </div>
@@ -169,11 +169,11 @@ export default function ContactForm() {
               >
                 <SelectTrigger 
                   id="category"
-                  className="border border-gray-200 dark:border-gray-700 focus:border-primary transition-all duration-300"
+                  className="rounded-2xl border-orange-100/80 bg-white/90 transition-all duration-300 focus:border-primary"
                 >
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="rounded-[24px] border-white/70 bg-white/95 shadow-product">
                   <SelectItem value="general">General Question</SelectItem>
                   <SelectItem value="technical">Technical Issue</SelectItem>
                   <SelectItem value="bug">Bug Report</SelectItem>
@@ -194,7 +194,7 @@ export default function ContactForm() {
                 placeholder="Brief description of your issue"
                 required
                 disabled={isSubmitting || isLimited}
-                className="border border-gray-200 dark:border-gray-700 focus:border-primary transition-all duration-300"
+                className="rounded-2xl border-orange-100/80 bg-white/90 transition-all duration-300 focus:border-primary"
               />
             </div>
 
@@ -208,13 +208,13 @@ export default function ContactForm() {
                 rows={5}
                 required
                 disabled={isSubmitting || isLimited}
-                className="border border-gray-200 dark:border-gray-700 focus:border-primary transition-all duration-300"
+                className="rounded-2xl border-orange-100/80 bg-white/90 transition-all duration-300 focus:border-primary"
               />
             </div>
 
             <Button
               type="submit"
-              className="w-full bg-primary hover:bg-primary/90"
+              className="w-full rounded-full bg-primary shadow-[var(--shadow-warm)] hover:bg-primary/90"
               disabled={isSubmitting || isLimited}
             >
               <Send className="h-4 w-4 mr-2" aria-hidden="true" />

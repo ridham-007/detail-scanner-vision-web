@@ -38,7 +38,7 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
             placeholder="Search articles..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+            className="rounded-full border-white/70 bg-white/90 pl-10 shadow-[var(--shadow-soft)]"
             aria-label="Search blog articles"
           />
         </div>
@@ -59,7 +59,7 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
       ) : (
         <div className="text-center py-12">
           <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" aria-hidden="true" />
-          <h2 className="text-lg font-medium mb-2">No articles found</h2>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">No articles found</h2>
           <p className="text-muted-foreground">
             {searchTerm ? 'Try adjusting your search terms' : 'Check back later for new content!'}
           </p>

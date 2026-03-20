@@ -103,7 +103,7 @@ export const AdditiveAnalysisCard = ({
                       <span className="truncate text-sm sm:text-base font-semibold text-foreground">
                         {additive.name}
                       </span>
-                      <code className="rounded-md border border-border bg-muted px-2 py-1 text-[10px] sm:text-xs font-mono text-muted-foreground">
+                      <code className="rounded-md border border-border bg-muted px-2 py-1 text-xs sm:text-xs font-mono text-muted-foreground">
                         {additive.code}
                       </code>
                     </div>

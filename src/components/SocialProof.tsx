@@ -113,7 +113,7 @@ const SocialProof: React.FC<SocialProofProps> = ({ barcode, productName }) => {
       <CardContent className="p-4">
         <div className="flex items-center gap-2 mb-3">
           <Users className="w-5 h-5 text-purple-600" />
-          <h3 className="font-semibold text-purple-800 dark:text-purple-200">Community Insights</h3>
+          <h3 className="text-xl font-semibold tracking-tight text-foreground">Community Insights</h3>
         </div>
 
         <div className="space-y-3">

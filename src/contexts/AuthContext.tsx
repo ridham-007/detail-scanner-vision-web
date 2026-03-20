@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { identifyUser, trackEvent } from '@/utils/analytics';
+import { v4 as uuidv4 } from 'uuid';
 
 interface AuthContextType {
   user: User | null;
@@ -11,6 +12,7 @@ interface AuthContextType {
   signInWithApple: () => Promise<void>;
   signOut: () => Promise<void>;
   loading: boolean;
+  deviceId: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,7 +29,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [deviceId, setDeviceId] = useState(typeof localStorage !== "undefined" ? localStorage.getItem("device_id") || "" : "");
 
+  useEffect(() => {
+    if(!deviceId){
+      const id = uuidv4();
+      setDeviceId(id)
+      if(typeof localStorage !== "undefined"){
+      localStorage.setItem("device_id", id)
+      }
+    }
+  }, [deviceId])
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -107,7 +119,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     signInWithGoogle,
     signInWithApple,
     signOut,
-    loading
+    loading,
+    deviceId
   };
 
   return (

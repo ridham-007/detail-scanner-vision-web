@@ -22,6 +22,7 @@ import {
   Globe,
   CreditCard
 } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -106,25 +107,13 @@ export default function TermsPage() {
       />
 
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8 relative z-10 max-w-4xl">
+        <main className="container mx-auto px-4 py-8 relative z-10">
           {/* Breadcrumb */}
-          <nav className="mb-6" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/" className="hover:text-primary">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium" aria-current="page">
-                Terms of Service
-              </li>
-            </ol>
-          </nav>
+          <Breadcrumbs items={[{ label: 'Terms of Service' }]} />
 
           {/* Header */}
-          <header className="text-center mb-10">
-            <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">
+          <header className="mb-10 rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center backdrop-blur-sm">
+            <h1 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Terms of Service
             </h1>
             <p className="text-muted-foreground">Your agreement with EaterIQ</p>
@@ -133,11 +122,11 @@ export default function TermsPage() {
           {/* Content */}
           <div className="space-y-6">
             {/* Agreement Overview */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <FileText
-                    className="h-5 w-5 text-emerald-600"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Agreement Overview
@@ -167,10 +156,10 @@ export default function TermsPage() {
             </Card>
 
             {/* User Accounts */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-blue-600" aria-hidden="true" />
+                  <Users className="h-5 w-5 text-primary" aria-hidden="true" />
                   User Accounts & Responsibilities
                 </CardTitle>
               </CardHeader>
@@ -207,11 +196,11 @@ export default function TermsPage() {
             </Card>
 
             {/* Service Description */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield
-                    className="h-5 w-5 text-purple-600"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Service Description
@@ -242,11 +231,11 @@ export default function TermsPage() {
             </Card>
 
             {/* Subscription & Payments */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <CreditCard
-                    className="h-5 w-5 text-green-600"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Subscription & Payments
@@ -299,11 +288,11 @@ export default function TermsPage() {
             </Card>
 
             {/* Content & Intellectual Property */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertTriangle
-                    className="h-5 w-5 text-yellow-600"
+                    className="h-5 w-5 text-orange-500"
                     aria-hidden="true"
                   />
                   Content & Intellectual Property
@@ -348,10 +337,10 @@ export default function TermsPage() {
             </Card>
 
             {/* Disclaimers & Limitations */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Scale className="h-5 w-5 text-red-600" aria-hidden="true" />
+                  <Scale className="h-5 w-5 text-primary" aria-hidden="true" />
                   Disclaimers & Limitations
                 </CardTitle>
               </CardHeader>
@@ -399,11 +388,11 @@ export default function TermsPage() {
             </Card>
 
             {/* Privacy & Data Protection */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Lock
-                    className="h-5 w-5 text-indigo-600"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Privacy & Data Protection
@@ -425,11 +414,11 @@ export default function TermsPage() {
             </Card>
 
             {/* Prohibited Activities */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Gavel
-                    className="h-5 w-5 text-orange-600"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Prohibited Activities
@@ -458,11 +447,11 @@ export default function TermsPage() {
             </Card>
 
             {/* Termination */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <RefreshCw
-                    className="h-5 w-5 text-gray-600"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Termination
@@ -496,10 +485,10 @@ export default function TermsPage() {
             </Card>
 
             {/* Governing Law */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Globe className="h-5 w-5 text-teal-600" aria-hidden="true" />
+                  <Globe className="h-5 w-5 text-primary" aria-hidden="true" />
                   Governing Law
                 </CardTitle>
               </CardHeader>
@@ -515,7 +504,7 @@ export default function TermsPage() {
             </Card>
 
             {/* Changes to Terms */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle>Changes to Terms</CardTitle>
               </CardHeader>
@@ -531,10 +520,10 @@ export default function TermsPage() {
             </Card>
 
             {/* Contact Information */}
-            <Card>
+            <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Mail className="h-5 w-5 text-blue-600" aria-hidden="true" />
+                  <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
                   Contact Information
                 </CardTitle>
               </CardHeader>
@@ -555,21 +544,21 @@ export default function TermsPage() {
 
           {/* Related Links */}
           <section className="mt-12 pt-8 border-t">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Related Pages
             </h2>
             <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
               <Link href="/privacy/" className="group">
-                <Card className="h-full hover:shadow-md transition-shadow">
+                <Card className="h-full rounded-[28px] border-white/70 bg-white/88 transition-shadow hover:shadow-[var(--shadow-soft)]">
                   <CardContent className="p-4 flex items-center gap-4">
-                    <div className="p-3 rounded-full bg-primary/10">
+                    <div className="rounded-2xl bg-orange-50 p-3 shadow-[var(--shadow-soft)]">
                       <Lock
                         className="h-5 w-5 text-primary"
                         aria-hidden="true"
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Privacy Policy
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -594,7 +583,7 @@ export default function TermsPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Contact Support
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -613,7 +602,7 @@ export default function TermsPage() {
 
           {/* Explore More */}
           <section className="mt-8">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Explore EaterIQ
             </h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
@@ -627,7 +616,7 @@ export default function TermsPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Food Scanner
                       </h3>
                     </div>
@@ -645,7 +634,7 @@ export default function TermsPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Nutrition Blog
                       </h3>
                     </div>
@@ -663,7 +652,7 @@ export default function TermsPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Quiz Hub
                       </h3>
                     </div>

@@ -4,23 +4,18 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
-  User,
   Globe,
-  MapPin,
   Calendar,
   Trophy,
-  Play,
   ExternalLink,
 } from "lucide-react";
-import Header from "@/components/Header";
 import QuizCard from "@/components/QuizCard";
 import SEOHead from "@/components/SEOHead";
-import Image from "next/image";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 interface UserProfile {
   id: string;
@@ -151,8 +146,9 @@ const UserProfilePage = () => {
     return (
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Profile' }]} />
           <div className="flex justify-center py-16">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+            <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-[rgb(var(--accent-foreground))]"></div>
           </div>
         </div>
       </div>
@@ -163,6 +159,7 @@ const UserProfilePage = () => {
     return (
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Profile' }]} />
           <div className="text-center py-16">
             <h1 className="text-2xl font-bold mb-4">User not found</h1>
             <p className="text-muted-foreground">
@@ -189,12 +186,13 @@ const UserProfilePage = () => {
       />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto space-y-8">
+          <Breadcrumbs items={[{ label: profile.username || 'Profile' }]} />
+          <div className="mx-auto space-y-8">
             {/* Profile Header */}
-            <Card>
+            <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
               <CardContent className="p-8">
                 <div className="flex flex-col md:flex-row gap-6">
-                  <Avatar className="h-24 w-24 overflow-hidden">
+                  <Avatar className="h-24 w-24 overflow-hidden ring-4 ring-[rgb(var(--accent-soft))]/55">
                     <AvatarImage
                       alt={`${profile.username}'s profile picture`}
                       src={
@@ -204,7 +202,7 @@ const UserProfilePage = () => {
                       }
                       className="object-cover"
                     />
-                    <AvatarFallback className="text-2xl">
+                    <AvatarFallback className="bg-[rgb(var(--accent-soft))]/60 text-2xl text-[rgb(var(--accent-foreground))]">
                       {profile.username?.charAt(0)?.toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
@@ -212,7 +210,7 @@ const UserProfilePage = () => {
                   <div className="flex-1">
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                       <div>
-                        <h1 className="text-3xl font-bold">
+                        <h1 className="text-3xl font-semibold tracking-tight">
                           {profile.full_name || profile.username}
                         </h1>
                         <p className="text-muted-foreground">
@@ -229,6 +227,7 @@ const UserProfilePage = () => {
                         aria-label="Share Profile"
                         onClick={handleShareProfile}
                         variant="outline"
+                        className="rounded-full border-[rgb(var(--accent))]/20 bg-white/80"
                       >
                         <ExternalLink className="h-4 w-4 mr-2" />
                         Share Profile
@@ -263,25 +262,25 @@ const UserProfilePage = () => {
                 </div>
 
                 {/* Stats */}
-                <div className="mt-6 flex gap-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-emerald-600">
+                <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                  <div className="rounded-[24px] border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/40 p-4 text-center">
+                    <div className="text-2xl font-bold text-[rgb(var(--accent-foreground))]">
                       {profile.total_score}
                     </div>
                     <div className="text-sm text-muted-foreground">
                       Total Score
                     </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">
+                  <div className="rounded-[24px] border border-[rgb(var(--accent))]/12 bg-white p-4 text-center">
+                    <div className="text-2xl font-bold text-foreground">
                       {profile.quizzes_completed}
                     </div>
                     <div className="text-sm text-muted-foreground">
                       Quizzes Completed
                     </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">
+                  <div className="rounded-[24px] border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/25 p-4 text-center">
+                    <div className="text-2xl font-bold text-foreground">
                       {quizzes.length}
                     </div>
                     <div className="text-sm text-muted-foreground">
@@ -293,17 +292,17 @@ const UserProfilePage = () => {
             </Card>
 
             {/* Created Quizzes */}
-            <Card>
+            <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
               <CardHeader>
-                <h2 className="!flex gap-2 items-center font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">
-                  <Trophy className="h-5 w-5" />
+                <h2 className="flex text-2xl md:text-3xl font-bold tracking-tight text-foreground gap-3 items-center mb-2 capitalize">
+                  <Trophy className="h-6 w-6" />
                   Created Quizzes
                 </h2>
               </CardHeader>
               <CardContent>
                 {quizzesLoading ? (
                   <div className="flex justify-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+                    <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-[rgb(var(--accent-foreground))]"></div>
                   </div>
                 ) : quizzes.length > 0 ? (
                   <div className="grid gap-4 md:grid-cols-2">
@@ -319,7 +318,7 @@ const UserProfilePage = () => {
                 ) : (
                   <div className="text-center py-8">
                     <Trophy className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                       No quizzes yet
                     </h3>
                     <p className="text-muted-foreground">

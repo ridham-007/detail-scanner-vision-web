@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CalendarDays, Clock, ArrowRight, Scan, Brain, User, AlertTriangle } from 'lucide-react';
 import ShareButton from '@/components/ui/share-button';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -207,33 +208,23 @@ export default async function BlogPostPage({ params }: Props) {
       />
 
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb Navigation */}
-        <nav className="mb-6" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-            <li>
-              <Link href="/" className="hover:text-primary">Home</Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li>
-              <Link href="/blog/" className="hover:text-primary">Blog</Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li className="text-foreground font-medium truncate max-w-[200px]" aria-current="page">
-              {post.title}
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumbs 
+          items={[
+            { label: 'Blog', path: '/blog' },
+            { label: post.title }
+          ]} 
+        />
 
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Content */}
           <article className="lg:col-span-3">
-            <header className="mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+            <header className="mb-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 shadow-product backdrop-blur-sm">
+              <h1 className="mb-4 text-3xl font-black leading-tight tracking-tight md:text-4xl">
                 {post.title}
               </h1>
 
               {/* Author and Meta Info */}
-              <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-6">
+              <div className="mb-6 flex flex-wrap items-center gap-4 text-muted-foreground">
 
                 {/* Date */}
                 <div className="flex items-center gap-2">
@@ -246,7 +237,7 @@ export default async function BlogPostPage({ params }: Props) {
                 {/* Reading Time */}
                 {post.reading_time && (
                   <>
-                    <span className="hidden sm:block text-muted-foreground/50">•</span>
+                    <span className="hidden sm:block text-muted-foreground">•</span>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4" aria-hidden="true" />
                       <span>{post.reading_time} min read</span>
@@ -259,7 +250,7 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
 
               {post.featured_image_url && (
-                <figure className="aspect-[16/9] overflow-hidden rounded-lg mb-8">
+                <figure className="mb-2 aspect-[16/9] overflow-hidden rounded-[24px] border border-white/70 shadow-product">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={post.featured_image_url}
@@ -273,13 +264,15 @@ export default async function BlogPostPage({ params }: Props) {
             </header>
 
             {/* Blog Content */}
-            <div
-              className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-blockquote:text-foreground prose-li:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <div className="rounded-[30px] border border-white/70 bg-white/88 p-6 shadow-product md:p-8">
+              <div
+                className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-blockquote:text-foreground prose-li:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+            </div>
 
             {/* Article Footer */}
-            <footer className="mt-12 pt-8 border-t">
+            <footer className="mt-12 border-t pt-8">
               {/* Author Box */}
                             {/* Published Info & Share */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
@@ -296,14 +289,14 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
 
               {/* Medical Disclaimer - After Content (Detailed) */}
-              <div className="mb-8 p-5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl">
+              <div className="mb-8 rounded-[24px] border border-orange-100/80 bg-orange-50/60 p-5">
                 <div className="flex items-start gap-3">
-                  <AlertTriangle className="h-5 w-5 text-slate-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-500" aria-hidden="true" />
                   <div>
-                    <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">
                       Medical & Nutritional Disclaimer
                     </h2>
-                    <div className="text-xs text-slate-600 dark:text-slate-400 space-y-2 leading-relaxed">
+                    <div className="space-y-2 text-xs leading-relaxed text-muted-foreground">
                       <p>
                         The information provided in this article is for general informational and educational purposes only. 
                         It is not intended as a substitute for professional medical advice, diagnosis, or treatment.
@@ -324,8 +317,8 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
 
               {/* CTA Section */}
-              <div className="p-6 bg-primary/5 rounded-xl border border-primary/20">
-                <h2 className="font-semibold text-foreground mb-3">
+              <div className="rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-6 shadow-product">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-3">
                   Ready to make healthier food choices?
                 </h2>
                 <p className="text-muted-foreground text-sm mb-4">
@@ -333,13 +326,13 @@ export default async function BlogPostPage({ params }: Props) {
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link href="/#scanner">
-                    <Button size="sm" className="bg-primary hover:bg-primary/90">
+                    <Button size="sm" className="rounded-full bg-primary shadow-[var(--shadow-warm)] hover:bg-primary/90">
                       <Scan className="h-4 w-4 mr-2" aria-hidden="true" />
                       Try Food Scanner
                     </Button>
                   </Link>
                   <Link href="/quiz/">
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" className="rounded-full border-orange-200/80 bg-white/90">
                       <Brain className="h-4 w-4 mr-2" aria-hidden="true" />
                       Take a Quiz
                     </Button>
@@ -382,7 +375,7 @@ export default async function BlogPostPage({ params }: Props) {
               </Card> */}
 
               {/* Quick Links */}
-              <Card>
+              <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg">Quick Links</CardTitle>
                 </CardHeader>
@@ -404,7 +397,7 @@ export default async function BlogPostPage({ params }: Props) {
 
               {/* Related Articles */}
               {relatedPosts.length > 0 && (
-                <Card>
+                <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                   <CardHeader className="pb-3">
                     <CardTitle className="text-lg">Related Articles</CardTitle>
                   </CardHeader>
@@ -417,7 +410,7 @@ export default async function BlogPostPage({ params }: Props) {
                       >
                         <div className="flex gap-3">
                           {relatedPost.featured_image_url && (
-                            <div className="w-16 h-16 rounded overflow-hidden flex-shrink-0">
+                            <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-[16px] border border-white/70">
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 src={relatedPost.featured_image_url}
@@ -428,7 +421,7 @@ export default async function BlogPostPage({ params }: Props) {
                             </div>
                           )}
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-sm font-medium text-foreground group-hover:text-primary line-clamp-2">
+                            <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary line-clamp-2">
                               {relatedPost.title}
                             </h3>
                             {relatedPost.reading_time && (
@@ -445,14 +438,14 @@ export default async function BlogPostPage({ params }: Props) {
               )}
 
               {/* CTA Card */}
-              <Card className="bg-primary/5 border-primary/20">
+              <Card className="rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] shadow-product">
                 <CardContent className="pt-6">
-                  <h3 className="font-semibold text-foreground mb-2">Try EaterIQ Free</h3>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Try EaterIQ Free</h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any food product and get instant health insights.
                   </p>
                   <Link href="/#scanner">
-                    <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
+                    <Button size="sm" className="w-full rounded-full bg-primary shadow-[var(--shadow-warm)] hover:bg-primary/90">
                       <Scan className="h-4 w-4 mr-2" aria-hidden="true" />
                       Start Scanning
                     </Button>
@@ -467,11 +460,11 @@ export default async function BlogPostPage({ params }: Props) {
         {relatedPosts.length > 0 && (
           <section className="mt-16 pt-8 border-t" aria-labelledby="more-articles-heading">
             <div className="flex items-center justify-between mb-8">
-              <h2 id="more-articles-heading" className="text-2xl font-bold text-foreground">
+              <h2 id="more-articles-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 More Articles
               </h2>
               <Link href="/blog/">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="rounded-full border-orange-200/80 bg-white/90">
                   View All
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                 </Button>
@@ -480,7 +473,7 @@ export default async function BlogPostPage({ params }: Props) {
 
             <div className="grid md:grid-cols-3 gap-6">
               {relatedPosts.map((relatedPost) => (
-                <article key={relatedPost.id} className="bg-card rounded-xl overflow-hidden border shadow-sm">
+                <article key={relatedPost.id} className="overflow-hidden rounded-[28px] border border-white/70 bg-white/88 shadow-product">
                   {relatedPost.featured_image_url && (
                     <div className="aspect-video overflow-hidden">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -501,7 +494,7 @@ export default async function BlogPostPage({ params }: Props) {
                         </>
                       )}
                     </div>
-                    <h3 className="font-semibold text-foreground mb-2 line-clamp-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 line-clamp-2">
                       <Link href={`/blog/${relatedPost.slug}/`} className="hover:text-primary">
                         {relatedPost.title}
                       </Link>

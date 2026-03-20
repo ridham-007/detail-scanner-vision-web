@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
@@ -34,10 +34,10 @@ interface Submission {
 }
 
 const statusConfig = {
-  pending: { label: 'Pending', icon: Clock, color: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400' },
-  approved: { label: 'Approved', icon: CheckCircle2, color: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400' },
-  rejected: { label: 'Rejected', icon: XCircle, color: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400' },
-  needs_revision: { label: 'Needs Revision', icon: AlertCircle, color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' },
+  pending: { label: 'Pending', icon: Clock, color: 'border-amber-200 bg-amber-50 text-amber-800' },
+  approved: { label: 'Approved', icon: CheckCircle2, color: 'border-emerald-200 bg-emerald-50 text-emerald-800' },
+  rejected: { label: 'Rejected', icon: XCircle, color: 'border-rose-200 bg-rose-50 text-rose-800' },
+  needs_revision: { label: 'Needs Revision', icon: AlertCircle, color: 'border-sky-200 bg-sky-50 text-sky-800' },
 };
 
 export default function ProductSubmissionsPage() {
@@ -146,7 +146,7 @@ export default function ProductSubmissionsPage() {
 
   if (adminLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-10">
         <div className="flex items-center justify-center py-20">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
@@ -156,11 +156,11 @@ export default function ProductSubmissionsPage() {
 
   if (!isAdmin) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <Card>
+      <div className="container mx-auto px-4 py-10">
+        <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
           <CardContent className="py-12 text-center">
             <AlertCircle className="w-12 h-12 mx-auto mb-4 text-destructive" />
-            <h2 className="text-xl font-semibold mb-2">Access Denied</h2>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">Access Denied</h2>
             <p className="text-muted-foreground">You don't have permission to view this page.</p>
           </CardContent>
         </Card>
@@ -169,10 +169,11 @@ export default function ProductSubmissionsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+    <div className="container mx-auto px-4 py-10">
+      <div className="mb-6 flex flex-col gap-4 rounded-[32px] border border-white/70 bg-gradient-to-br from-white via-[rgb(var(--accent-soft))]/28 to-[rgb(var(--accent))]/10 px-6 py-7 shadow-[var(--shadow-soft)] md:flex-row md:items-center md:justify-between sm:px-8">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Product Submissions</h1>
+          <p className="inline-flex rounded-full border border-[rgb(var(--accent))]/20 bg-white/80 px-3 py-1 text-sm font-medium text-[rgb(var(--accent-foreground))]">Admin review</p>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">Product Submissions</h1>
           <p className="text-muted-foreground">Review and approve user-submitted products</p>
         </div>
         
@@ -183,6 +184,7 @@ export default function ProductSubmissionsPage() {
               variant={filter === f ? 'default' : 'outline'}
               size="sm"
               onClick={() => setFilter(f)}
+              className="rounded-full"
             >
               {f.charAt(0).toUpperCase() + f.slice(1)}
             </Button>
@@ -193,7 +195,7 @@ export default function ProductSubmissionsPage() {
       {loading ? (
         <div className="grid gap-4">
           {[1, 2, 3].map((i) => (
-            <Card key={i} className="animate-pulse">
+            <Card key={i} className="animate-pulse rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
               <CardContent className="py-6">
                 <div className="h-6 bg-muted rounded w-1/3 mb-4"></div>
                 <div className="h-4 bg-muted rounded w-2/3"></div>
@@ -202,9 +204,9 @@ export default function ProductSubmissionsPage() {
           ))}
         </div>
       ) : submissions.length === 0 ? (
-        <Card>
+        <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
           <CardContent className="py-12 text-center">
-            <Package className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" />
+            <Package className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <p className="text-muted-foreground">No submissions found</p>
           </CardContent>
         </Card>
@@ -213,13 +215,13 @@ export default function ProductSubmissionsPage() {
           {submissions.map((submission) => {
             const StatusIcon = statusConfig[submission.status].icon;
             return (
-              <Card key={submission.id} className="hover:shadow-md transition-shadow">
+              <Card key={submission.id} className="rounded-[28px] border-white/70 bg-white/95 transition-shadow hover:shadow-[var(--shadow-soft)]">
                 <CardContent className="py-4">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold text-foreground">{submission.product_name}</h3>
-                        <Badge className={statusConfig[submission.status].color}>
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground">{submission.product_name}</h3>
+                        <Badge className={`rounded-full border px-3 py-1 ${statusConfig[submission.status].color}`}>
                           <StatusIcon className="w-3 h-3 mr-1" />
                           {statusConfig[submission.status].label}
                         </Badge>
@@ -244,6 +246,7 @@ export default function ProductSubmissionsPage() {
                     <Button 
                       variant="outline" 
                       size="sm"
+                      className="rounded-full border-[rgb(var(--accent))]/20 bg-white/80"
                       onClick={() => {
                         setSelectedSubmission(submission);
                         setReviewNotes(submission.review_notes || '');
@@ -261,7 +264,7 @@ export default function ProductSubmissionsPage() {
       )}
 
       <Dialog open={!!selectedSubmission} onOpenChange={() => setSelectedSubmission(null)}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto rounded-[32px] border-white/70 bg-white/95">
           <DialogHeader>
             <DialogTitle>Review Submission</DialogTitle>
             <DialogDescription>
@@ -316,7 +319,7 @@ export default function ProductSubmissionsPage() {
                     value={reviewNotes}
                     onChange={(e) => setReviewNotes(e.target.value)}
                     placeholder="Add notes for the contributor..."
-                    className="mt-1"
+                    className="mt-1 rounded-2xl border-[rgb(var(--accent))]/15 bg-white"
                   />
                 </div>
 
@@ -330,7 +333,7 @@ export default function ProductSubmissionsPage() {
                       max="100"
                       value={pointsAwarded}
                       onChange={(e) => setPointsAwarded(Number(e.target.value))}
-                      className="mt-1 w-32"
+                      className="mt-1 w-32 rounded-2xl border-[rgb(var(--accent))]/15 bg-white"
                     />
                   </div>
                 )}

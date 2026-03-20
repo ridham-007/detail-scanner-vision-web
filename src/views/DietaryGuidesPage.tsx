@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
-import Link from "next/link";
 import { FileText, Printer, Check, AlertTriangle, X, ChevronRight, Leaf, Database, Wheat, Droplet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // --- Rich Content Data ---
 const cheatSheetData = {
@@ -19,7 +19,7 @@ const cheatSheetData = {
         content: (
             <div className="space-y-6 text-left font-sans">
                 <div className="p-4 bg-red-50 border border-red-100 rounded-xl">
-                    <h3 className="font-bold text-red-800 text-lg flex items-center gap-2 mb-3">
+                    <h3 className="text-xl font-semibold tracking-tight text-red-800 flex items-center gap-2 mb-3">
                         <AlertTriangle className="w-5 h-5" /> Sneaky Non-Vegan Ingredients
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-sm text-red-700">
@@ -35,7 +35,7 @@ const cheatSheetData = {
                 </div>
 
                 <div className="p-4 bg-green-50 border border-green-100 rounded-xl">
-                    <h3 className="font-bold text-green-800 text-lg flex items-center gap-2 mb-3">
+                    <h3 className="text-xl font-semibold tracking-tight text-green-800 flex items-center gap-2 mb-3">
                         <Check className="w-5 h-5" /> Easy Plant-Based Swaps
                     </h3>
                     <div className="space-y-3">
@@ -102,7 +102,7 @@ const cheatSheetData = {
                 </div>
 
                 <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl">
-                    <h3 className="font-bold text-blue-800 text-lg mb-2">Hidden Carbs Watchlist</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-blue-800 mb-2">Hidden Carbs Watchlist</h3>
                     <p className="text-sm text-blue-700 mb-2">Even "savory" foods can knock you out of ketosis.</p>
                     <div className="flex flex-wrap gap-2 text-xs font-bold text-blue-800">
                         <Badge variant="outline" className="border-blue-200 bg-white">Ketchup (5g/tbsp)</Badge>
@@ -124,7 +124,7 @@ const cheatSheetData = {
         content: (
             <div className="space-y-6 text-left font-sans">
                 <div className="p-4 bg-red-50 border border-red-100 rounded-xl">
-                    <h3 className="font-bold text-red-800 text-lg flex items-center gap-2 mb-3">
+                    <h3 className="text-xl font-semibold tracking-tight text-red-800 flex items-center gap-2 mb-3">
                         <X className="w-5 h-5" /> The "BROW" Rule (Strictly Avoid)
                     </h3>
                     <div className="grid grid-cols-2 gap-4 text-center">
@@ -137,7 +137,7 @@ const cheatSheetData = {
                 </div>
 
                 <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl">
-                    <h3 className="font-bold text-amber-800 text-lg mb-2">Surprising Sources of Gluten</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-amber-800 mb-2">Surprising Sources of Gluten</h3>
                     <ul className="space-y-2 text-sm text-amber-900">
                         <li className="flex items-start gap-2">⚠️ <strong>Soy Sauce:</strong> Usually contains wheat. Use Tamari instead.</li>
                         <li className="flex items-start gap-2">⚠️ <strong>Soups/Gravies:</strong> Often thickened with flour roux.</li>
@@ -213,93 +213,66 @@ export default function DietaryGuidesView() {
         window.print();
     };
 
-    const breadcrumbSchema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-            {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: "https://www.eateriq.com/",
-            },
-            {
-                "@type": "ListItem",
-                position: 2,
-                name: "Dietary Cheat Sheets",
-                item: "https://www.eateriq.com/dietary-guides/",
-            },
-        ],
-    };
-
     return (
-        <div className="min-h-screen bg-background">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-            />
-
-            <main className="container mx-auto px-4 py-8 max-w-7xl">
-                {/* Breadcrumb */}
-                <nav className="mb-6 no-print" aria-label="Breadcrumb">
-                    <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <li>
-                            <Link href="/" className="hover:text-primary">
-                                Home
-                            </Link>
-                        </li>
-                        <li aria-hidden="true">/</li>
-                        <li className="text-foreground font-medium" aria-current="page">
-                            Dietary Cheat Sheets
-                        </li>
-                    </ol>
-                </nav>
-
-                {/* Header (match Support/Blog styling) */}
-                <header className="text-center mb-12 space-y-3 no-print">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-2">
-                        <FileText className="w-8 h-8 text-primary" aria-hidden="true" />
+        <div className="container mx-auto px-4 py-6 md:py-8 min-h-screen">
+            <div className="no-print">
+                <Breadcrumbs items={[{ label: 'Dietary Guides' }]} />
+            </div>
+            <div className="text-center mb-12 md:mb-16 space-y-6 no-print">
+                {/* Badge - matches Quiz Hub / User Guide style */}
+                <div className="flex justify-center mb-5">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5">
+                        <FileText className="h-3.5 w-3.5 text-primary" />
+                        <span className="text-xs font-semibold text-primary tracking-wide">Expert-Curated Guides</span>
                     </div>
-                    <h1 className="text-3xl sm:text-4xl font-bold text-primary">
-                        Dietary Cheat Sheets
-                    </h1>
-                    <p className="text-muted-foreground max-w-2xl mx-auto">
-                        Expert-curated, reliable guides for every lifestyle. Click any card to view the full cheat sheet and print it for your fridge.
-                    </p>
-                </header>
-
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 no-print">
-                    {(Object.entries(cheatSheetData) as [keyof typeof cheatSheetData, any][]).map(([key, data]) => (
-                        <Card
-                            key={key}
-                            className="group relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-2 hover:border-transparent cursor-pointer flex flex-col h-full ring-offset-2 hover:ring-2 ring-primary/20"
-                            onClick={() => setSelectedSheet(key)}
-                        >
-                            <div className={`absolute top-0 left-0 w-full h-2 ${data.btnColor}`} />
-                            <CardHeader className="text-center pb-4 pt-8">
-                                <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl mb-4 ${data.color} shadow-inner group-hover:scale-110 transition-transform duration-500`}>
-                                    {data.icon}
-                                </div>
-                                <CardTitle className="text-xl font-bold">{data.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent className="flex-1 text-center">
-                                <p className="text-muted-foreground text-sm leading-relaxed">{data.description}</p>
-
-                                <div className="mt-8 p-6 bg-muted/20 rounded-xl border border-dashed border-muted-foreground/20 group-hover:border-primary/30 transition-colors">
-                                    <div className="flex flex-col items-center gap-2">
-                                        <FileText className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                                        <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">Click to Preview</span>
-                                    </div>
-                                </div>
-                            </CardContent>
-                            <CardFooter className="pt-0 pb-6">
-                                <Button className={`w-full gap-2 shadow-md transition-all ${data.btnColor} text-white border-none`} size="lg">
-                                    <Printer className="w-4 h-4" /> View & Print
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    ))}
                 </div>
+
+                {/* Heading - consistent with User Guide & Quiz Hub */}
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.05] tracking-tight text-foreground">
+                    Dietary{" "}
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                        Cheat Sheets
+                    </span>
+                </h1>
+
+                {/* Subtitle */}
+                <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
+                    Expert-curated guides for every lifestyle. Click any card to view the full cheat sheet and print it for your fridge.
+                </p>
+            </div>
+
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 no-print">
+                {(Object.entries(cheatSheetData) as [keyof typeof cheatSheetData, any][]).map(([key, data]) => (
+                    <Card
+                        key={key}
+                        className="group relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-2 hover:border-transparent cursor-pointer flex flex-col h-full ring-offset-2 hover:ring-2 ring-primary/20"
+                        onClick={() => setSelectedSheet(key)}
+                    >
+                        <div className={`absolute top-0 left-0 w-full h-2 ${data.btnColor}`} />
+                        <CardHeader className="text-center pb-4 pt-8">
+                            <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl mb-4 ${data.color} shadow-inner group-hover:scale-110 transition-transform duration-500`}>
+                                {data.icon}
+                            </div>
+                            <CardTitle className="text-xl font-bold">{data.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="flex-1 text-center">
+                            <p className="text-muted-foreground text-sm leading-relaxed">{data.description}</p>
+
+                            <div className="mt-8 p-6 bg-muted/20 rounded-xl border border-dashed border-muted-foreground/20 group-hover:border-primary/30 transition-colors">
+                                <div className="flex flex-col items-center gap-2">
+                                    <FileText className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                                    <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">Click to Preview</span>
+                                </div>
+                            </div>
+                        </CardContent>
+                        <CardFooter className="pt-0 pb-6">
+                            <Button className={`w-full gap-2 shadow-md transition-all ${data.btnColor} text-white border-none`} size="lg">
+                                <Printer className="w-4 h-4" /> View & Print
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
 
             {/* Print Layout (Hidden on screen) */}
             <div className={`hidden print:block print-only-section ${!selectedSheet ? 'print:hidden' : ''}`}>
@@ -452,7 +425,6 @@ export default function DietaryGuidesView() {
                     }
                 }
             `}</style>
-            </main>
         </div>
     );
 }

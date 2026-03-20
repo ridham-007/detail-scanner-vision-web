@@ -210,13 +210,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
   const relatedCalculators = getRelatedCalculators(path);
 
   return (
-    <div
-      className="
-      min-h-screen
-      bg-gradient-to-br
-      dark:from-gray-900 dark:via-gray-950 dark:to-gray-900
-    "
-    >
+    <div className="min-h-screen">
       <CalculatorJsonLd
         title={title}
         description={seoDescription}
@@ -225,7 +219,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
       {faq && faq.length > 0 && <FAQJsonLd faq={faq} />}
 
       {/* HERO */}
-      <section className="pt-12 pb-12 relative overflow-hidden">
+      <section className="relative overflow-hidden pb-12 pt-12">
         <div className="container mx-auto px-4">
           <Breadcrumbs
             items={[
@@ -234,34 +228,34 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
             ]}
           />
 
-          <div className="max-w-5xl mx-auto text-center">
+          <div className="mx-auto rounded-[32px] border border-white/60 bg-white/82 px-6 py-10 text-center backdrop-blur-sm">
             <div className="inline-flex items-center gap-3 mb-6">
-              <div className="p-4 bg-[#84B44C] rounded-2xl">
+              <div className="rounded-[24px] bg-primary p-4 shadow-[var(--shadow-warm)]">
                 <Icon className="h-10 w-10 text-white" />
               </div>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 dark:text-white">
+            <h1 className="mb-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
               {title}
             </h1>
 
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+            <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
               {description}
             </p>
 
             <div className="flex justify-center gap-4 flex-wrap">
-              <span className="px-4 py-2 border dark:border-gray-700 rounded-full flex items-center gap-2 dark:text-gray-200">
-                <Shield className="h-4 w-4 text-[#84B44C]" />
+              <span className="flex items-center gap-2 rounded-full border border-orange-200/80 bg-orange-50 px-4 py-2 text-orange-800">
+                <Shield className="h-4 w-4 text-primary" />
                 100% Free
               </span>
 
-              <span className="px-4 py-2 border dark:border-gray-700 rounded-full flex items-center gap-2 dark:text-gray-200">
-                <Zap className="h-4 w-4 text-[#84B44C]" />
+              <span className="flex items-center gap-2 rounded-full border border-orange-200/80 bg-orange-50 px-4 py-2 text-orange-800">
+                <Zap className="h-4 w-4 text-primary" />
                 Instant Results
               </span>
 
-              <span className="px-4 py-2 border dark:border-gray-700 rounded-full flex items-center gap-2 dark:text-gray-200">
-                <TrendingUp className="h-4 w-4 text-[#84B44C]" />
+              <span className="flex items-center gap-2 rounded-full border border-orange-200/80 bg-orange-50 px-4 py-2 text-orange-800">
+                <TrendingUp className="h-4 w-4 text-primary" />
                 Accurate
               </span>
             </div>
@@ -293,21 +287,21 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
 
             {/* CENTER */}
             <div className="order-1 lg:order-2 lg:col-span-6">
-              <div className="bg-white dark:bg-gray-900 rounded-3xl border dark:border-gray-700 overflow-hidden shadow-sm">
-                <div className="p-6 border-b dark:border-gray-700 bg-[#84B44C]/20 dark:bg-gray-800">
+              <div className="overflow-hidden rounded-[30px] border border-white/70 bg-white/90 shadow-product">
+                <div className="border-b border-orange-100/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-6">
                   <div className="flex items-center gap-3">
-                    <Calculator className="h-6 w-6 text-[#84B44C]" />
-                    <h2 className="text-xl font-semibold dark:text-white">
+                    <Calculator className="h-6 w-6 text-primary" />
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                       Calculate Now
                     </h2>
                   </div>
                 </div>
 
-                <div className="p-6 dark:text-gray-200">{children}</div>
+                <div className="p-6">{children}</div>
               </div>
 
               {howToUse && (
-                <div className="mt-6 bg-white dark:bg-gray-900 p-6 rounded-2xl border dark:border-gray-700 dark:text-gray-200">
+                <div className="mt-6 rounded-[28px] border border-white/70 bg-white/88 p-6 shadow-product">
                   {howToUse}
                 </div>
               )}
@@ -317,36 +311,36 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
             <div className="order-3 lg:order-3 lg:col-span-3">
               {details && (
                 <div className="space-y-4">
-                  <div className="bg-white dark:bg-gray-900 rounded-2xl border dark:border-gray-700 p-5">
-                    <h3 className="font-semibold mb-2 flex gap-2 dark:text-white">
-                      <Info className="text-[#84B44C]" />
+                  <div className="rounded-[28px] border border-white/70 bg-white/88 p-5 shadow-product">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 flex gap-2">
+                      <Info className="text-primary" />
                       What is this?
                     </h3>
 
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       {details.whatIs}
                     </p>
                   </div>
 
-                  <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border dark:border-gray-700 overflow-hidden">
+                  <div className="overflow-hidden rounded-[28px] border border-white/70 bg-white/88 shadow-product">
                     <div className="p-5">
                       <div className="flex items-center gap-2 mb-3">
-                        <Calculator className="h-5 w-5 text-[#84B44C]" />
-                        <h3 className="font-bold dark:text-white">
+                        <Calculator className="h-5 w-5 text-primary" />
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground">
                           How it works
                         </h3>
                       </div>
 
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                      <p className="text-sm text-muted-foreground">
                         {details.howItWorks}
                       </p>
                     </div>
                   </div>
 
                   {details.tips && (
-                    <div className="bg-[#84B44C]/20 dark:bg-gray-800 rounded-2xl p-5 border dark:border-gray-700">
-                      <h3 className="font-semibold mb-3 flex gap-2 dark:text-white">
-                        <Sparkles className="text-[#84B44C]" />
+                    <div className="rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-5 shadow-product">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground mb-3 flex gap-2">
+                        <Sparkles className="text-primary" />
                         Tips
                       </h3>
 
@@ -354,9 +348,9 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
                         {details.tips.map((tip, i) => (
                           <li
                             key={i}
-                            className="flex gap-2 text-sm dark:text-gray-200"
+                            className="flex gap-2 text-sm text-foreground"
                           >
-                            <span className="w-6 h-6 min-w-[24px] min-h-[24px] flex-shrink-0 bg-[#84B44C] text-white rounded-full flex items-center justify-center text-xs font-medium">
+                            <span className="flex h-6 min-h-[24px] w-6 min-w-[24px] flex-shrink-0 items-center justify-center rounded-full bg-primary text-xs font-medium text-white">
                               {i + 1}
                             </span>
                             {tip}
@@ -374,9 +368,9 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
 
       {/* FAQ */}
       {faq && faq.length > 0 && (
-        <section className="py-16 bg-[#84B44C]/40 dark:bg-gray-900">
-          <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-8 dark:text-white">
+        <section className="py-16 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] dark:bg-gray-900">
+          <div className="mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground text-center mb-8">
               Frequently Asked Questions
             </h2>
 
@@ -393,7 +387,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
                     className="w-full p-6 text-left flex justify-between dark:text-white"
                   >
                     <span>{item.question}</span>
-                    <span className="text-[#84B44C]">↓</span>
+                    <span className="text-primary">↓</span>
                   </button>
 
                   {expandedFaq === index && (

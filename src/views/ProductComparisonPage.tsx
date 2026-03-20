@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import ProductSelectionModal from '@/components/ProductSelectionModal';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useFoodBattleLimit } from '@/hooks/useFoodBattleLimit';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const ProductComparisonPage = () => {
     const [productA, setProductA] = useState<ProductData | null>(null);
@@ -197,10 +198,10 @@ const ProductComparisonPage = () => {
 
     const EmptySlot = ({ slot }: { slot: 'A' | 'B' }) => (
         <Card
-            className="h-full border-dashed border-2 flex flex-col items-center justify-center p-8 text-center bg-muted/20 hover:bg-muted/40 transition-colors cursor-pointer"
+            className="flex h-full cursor-pointer flex-col items-center justify-center rounded-[30px] border-2 border-dashed border-orange-200/80 bg-white/78 p-8 text-center shadow-[var(--shadow-soft)] transition-colors hover:bg-orange-50/80"
             onClick={() => handleOpenSlot(slot)}
         >
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-[22px] bg-orange-50 shadow-[var(--shadow-soft)]">
                 <Plus className="w-8 h-8 text-primary" />
             </div>
             <span className="text-xl font-semibold mb-2">Add Product {slot}</span>
@@ -211,8 +212,8 @@ const ProductComparisonPage = () => {
     const SelectionModal = () => {
         if (!activeSlot) return null;
         return (
-            <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <Card className="w-full max-w-md">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm">
+                <Card className="w-full max-w-md rounded-[30px] border-white/70 bg-white/95 shadow-product">
                     <CardHeader className="flex flex-row items-center justify-between">
                         <CardTitle>Select Product {activeSlot}</CardTitle>
                         <Button variant="ghost" size="icon" onClick={() => setActiveSlot(null)}>
@@ -234,12 +235,13 @@ const ProductComparisonPage = () => {
                                     placeholder="Enter barcode..."
                                     value={manualBarcode}
                                     onChange={(e) => setManualBarcode(e.target.value)}
+                                    className="rounded-2xl border-orange-100/80 bg-white/90"
                                 />
-                                <Button onClick={() => handleLookup(manualBarcode)} disabled={isLoading}>
+                                <Button onClick={() => handleLookup(manualBarcode)} disabled={isLoading} className="rounded-full shadow-[var(--shadow-warm)]">
                                     {isLoading ? '...' : 'Search'}
                                 </Button>
                             </div>
-                            <div className="mt-4 text-xs text-muted-foreground bg-muted p-2 rounded">
+                            <div className="mt-4 rounded-[18px] border border-orange-100/80 bg-orange-50/80 p-3 text-xs text-muted-foreground">
                                 Samples: 8906000610077 (Chips), 8906019779840 (Nuts)
                             </div>
                         </div>
@@ -263,14 +265,14 @@ const ProductComparisonPage = () => {
         const displayB = valB !== null ? valB : '-';
 
         return (
-            <div className="grid grid-cols-3 py-3 border-b last:border-0 pl-1">
-                <div className={`text-center font-medium ${isAWinner ? 'text-green-600 bg-green-50 rounded' : ''}`}>
+            <div className="grid grid-cols-3 border-b py-3 pl-1 last:border-0">
+                <div className={`text-center font-medium ${isAWinner ? 'rounded-full bg-emerald-50 text-emerald-700' : ''}`}>
                     {displayA} <span className="text-xs text-muted-foreground">{valA !== null ? field.unit : ''}</span>
                 </div>
                 <div className="text-center text-sm font-semibold text-muted-foreground flex items-center justify-center gap-1">
                     {field.label}
                 </div>
-                <div className={`text-center font-medium ${isBWinner ? 'text-green-600 bg-green-50 rounded' : ''}`}>
+                <div className={`text-center font-medium ${isBWinner ? 'rounded-full bg-emerald-50 text-emerald-700' : ''}`}>
                     {displayB} <span className="text-xs text-muted-foreground">{valB !== null ? field.unit : ''}</span>
                 </div>
             </div>
@@ -278,26 +280,33 @@ const ProductComparisonPage = () => {
     }
 
     return (
-        <div className="container mx-auto px-4 py-8 max-w-5xl">
-            <div className="mb-8 flex flex-col items-center gap-4">
-                <div className="text-center">
-                    <h1 className="text-4xl font-bold flex items-center justify-center gap-3 mb-2">
-                        <ArrowRightLeft className="w-8 h-8 text-primary" />
-                        Food Battle
+        <div className="container mx-auto px-4 py-8">
+            <Breadcrumbs items={[{ label: 'Food Battle' }]} />
+            <div className="mb-8 flex flex-col items-center gap-4 ">
+                <div className="text-center pt-4 pb-2">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-primary mb-5">
+                        <ArrowRightLeft className="h-3.5 w-3.5" />
+                        Head-to-head comparison
+                    </div>
+                    <h1 className="mb-4 text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
+                        Food{" "}
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                            Battle
+                        </span>
                     </h1>
-                    <p className="text-muted-foreground">
+                    <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
                         Pit two products head‑to‑head and see which one wins for your health.
                     </p>
                 </div>
 
-                <div className="flex items-center justify-center gap-3">
+                <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                     {isPro ? (
-                        <Badge className="bg-primary text-primary-foreground px-3 py-1 text-xs font-semibold">
+                        <Badge className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-[var(--shadow-warm)]">
                             PRO • Unlimited battles & ad‑free
                         </Badge>
                     ) : (
                         <>
-                            <Badge variant="outline" className="flex items-center gap-1 text-xs">
+                            <Badge variant="outline" className="flex items-center gap-1 rounded-full border-orange-200/80 bg-orange-50 text-xs text-orange-800">
                                 <Zap className="w-3 h-3 text-primary" />
                                 {typeof battlesLeft === 'number' && Number.isFinite(battlesLeft)
                                     ? `${battlesLeft} battle${battlesLeft === 1 ? '' : 's'} left today`
@@ -312,16 +321,16 @@ const ProductComparisonPage = () => {
 
                 {/* Battles exhausted card for free users when limit is reached */}
                 {!isPro && battlesLeft === 0 && (
-                    <Card className="w-full max-w-xl border-primary/40 bg-primary/5">
+                    <Card className="w-full max-w-xl rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,237,213,0.8),rgba(255,250,244,0.98))] shadow-product">
                         <CardHeader className="pb-3">
                             <div className="flex justify-center">
-                                <Badge className="bg-primary text-primary-foreground text-[11px] tracking-wide uppercase">
+                                <Badge className="rounded-full bg-primary px-3 py-1 text-xs uppercase tracking-wide text-primary-foreground">
                                     Battles exhausted
                                 </Badge>
                             </div>
                         </CardHeader>
                         <CardContent className="space-y-4 text-center pb-6">
-                            <h2 className="text-lg font-semibold">
+                            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                                 Unlock Unlimited Battles
                             </h2>
                             <p className="text-sm text-muted-foreground max-w-md mx-auto">
@@ -329,17 +338,17 @@ const ProductComparisonPage = () => {
                                 Go Pro to compare products head‑to‑head without limits.
                             </p>
                             <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
-                                <Badge variant="outline" className="px-3 py-1 flex items-center gap-1">
+                                <Badge variant="outline" className="flex items-center gap-1 rounded-full px-3 py-1">
                                     <Zap className="w-3 h-3 text-primary" />
                                     Unlimited battles
                                 </Badge>
-                                <Badge variant="outline" className="px-3 py-1 flex items-center gap-1">
+                                <Badge variant="outline" className="flex items-center gap-1 rounded-full px-3 py-1">
                                     <ArrowRightLeft className="w-3 h-3 text-primary" />
                                     Full nutrition comparison
                                 </Badge>
                             </div>
                             <Button
-                                className="mt-2 w-full sm:w-auto"
+                                className="mt-2 w-full rounded-full shadow-[var(--shadow-warm)] sm:w-auto"
                                 onClick={() => router.push('/pricing')}
                             >
                                 Upgrade to Pro
@@ -349,18 +358,18 @@ const ProductComparisonPage = () => {
                 )}
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 mb-8">
+            <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
                 {/* Product A Slot */}
                 <div className="relative">
                     {productA ? (
-                        <Card className={`h-full border-2 ${winner === 'A' ? 'border-primary shadow-lg bg-primary/5' : ''}`}>
+                        <Card className={`h-full rounded-[30px] border-2 border-white/70 bg-white/88 shadow-product ${winner === 'A' ? 'border-orange-300 bg-orange-50/70 shadow-[var(--shadow-warm)]' : ''}`}>
                             <div className="absolute top-2 right-2 z-10">
-                                <Button variant="ghost" size="icon" onClick={() => clearSlot('A')} className="h-6 w-6 rounded-full bg-background/50">
+                                <Button variant="ghost" size="icon" onClick={() => clearSlot('A')} className="h-6 w-6 rounded-full bg-white/90">
                                     <X className="w-3 h-3" />
                                 </Button>
                             </div>
                             {winner === 'A' && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full flex items-center gap-2 shadow-lg animate-bounce">
+                                <div className="absolute -top-4 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-xs text-primary-foreground shadow-[var(--shadow-warm)] animate-bounce sm:px-4 sm:text-sm">
                                     <Trophy className="w-4 h-4" /> Winner
                                 </div>
                             )}
@@ -380,14 +389,14 @@ const ProductComparisonPage = () => {
                 {/* Product B Slot */}
                 <div className="relative">
                     {productB ? (
-                        <Card className={`h-full border-2 ${winner === 'B' ? 'border-primary shadow-lg bg-primary/5' : ''}`}>
+                        <Card className={`h-full rounded-[30px] border-2 border-white/70 bg-white/88 shadow-product ${winner === 'B' ? 'border-orange-300 bg-orange-50/70 shadow-[var(--shadow-warm)]' : ''}`}>
                             <div className="absolute top-2 right-2 z-10">
-                                <Button variant="ghost" size="icon" onClick={() => clearSlot('B')} className="h-6 w-6 rounded-full bg-background/50">
+                                <Button variant="ghost" size="icon" onClick={() => clearSlot('B')} className="h-6 w-6 rounded-full bg-white/90">
                                     <X className="w-3 h-3" />
                                 </Button>
                             </div>
                             {winner === 'B' && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full flex items-center gap-2 shadow-lg animate-bounce">
+                                <div className="absolute -top-4 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-xs text-primary-foreground shadow-[var(--shadow-warm)] animate-bounce sm:px-4 sm:text-sm">
                                     <Trophy className="w-4 h-4" /> Winner
                                 </div>
                             )}
@@ -407,13 +416,13 @@ const ProductComparisonPage = () => {
 
             {/* Comparison Table */}
             {productA && productB && (
-                <Card className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <CardContent className="p-6">
+                <Card className="animate-in fade-in slide-in-from-bottom-4 rounded-[30px] border-white/70 bg-white/90 shadow-product duration-500">
+                    <CardContent className="overflow-x-auto p-4 sm:p-6">
                         {comparisonFields.map(field => (
                             <ComparisonRow key={field.key} field={field} />
                         ))}
 
-                        <div className="grid grid-cols-3 py-3 border-t mt-2 pt-4 bg-muted/10 rounded-b-lg">
+                        <div className="mt-2 grid grid-cols-3 rounded-[22px] border border-orange-100/80 bg-orange-50/60 py-3 pt-4">
                             <div className="text-center font-bold text-lg">
                                 {productA.nutrition_per_100g?.additives?.length || 0}
                             </div>

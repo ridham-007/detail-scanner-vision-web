@@ -5,9 +5,15 @@ export interface AlternativeProduct {
   health_score: number;
 }
 
-export async function fetchAlternatives(barcode: string) {
+export async function fetchAlternatives(barcode: string,  deviceId: string, token?: string,) {
   const res = await fetch(
-    `https://barcode-scanner-webn.onrender.com/alternatives/product/${barcode}/full`
+    `https://api.eateriq.com/alternatives/product/${barcode}/full`,
+    {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+        'x-device-id': deviceId
+      },
+    }
   );
 
   if (!res.ok) {

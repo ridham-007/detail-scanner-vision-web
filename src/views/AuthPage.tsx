@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { Eye, EyeOff, Mail, Lock, User, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Loader2, Sparkles, ShieldCheck } from 'lucide-react';
 import { z } from 'zod';
 import SEOHead from '@/components/SEOHead';
 
@@ -159,7 +159,7 @@ const AuthPage = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-background">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -173,8 +173,39 @@ const AuthPage = () => {
         keywords="sign in, login, register, create account, EaterIQ"
         canonicalUrl="https://www.eateriq.com/auth/"
       />
-      <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <Card className="w-full max-w-md">
+      <div className="flex flex-1 items-center justify-center px-4 py-12">
+        <div className="grid w-full max-w-5xl gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <section className="hidden rounded-[32px] border border-white/60 bg-white/82 p-8 shadow-product backdrop-blur-sm lg:flex lg:flex-col lg:justify-between">
+          <div className="space-y-6">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 shadow-[var(--shadow-soft)]">
+              <Sparkles className="h-4 w-4" />
+              One account across scanner, history, and lists
+            </div>
+            <div className="space-y-4">
+              <h1 className="text-4xl font-black tracking-tight text-foreground">
+                Keep your EaterIQ journey synced everywhere.
+              </h1>
+              <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
+                Sign in to save scans, compare foods, manage shopping lists, and carry the same warm, practical experience from web to app.
+              </p>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[24px] border border-orange-100/80 bg-orange-50/80 p-5">
+              <p className="text-2xl font-bold text-primary">Unlimited</p>
+              <p className="mt-1 text-sm text-muted-foreground">History, battles, and insights with Pro</p>
+            </div>
+            <div className="rounded-[24px] border border-white/70 bg-white/88 p-5 shadow-[var(--shadow-soft)]">
+              <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                <ShieldCheck className="h-4 w-4 text-primary" />
+                Private by default
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">Your saved activity and preferences stay tied to your account.</p>
+            </div>
+          </div>
+        </section>
+
+        <Card className="w-full max-w-md justify-self-center rounded-[32px] border-white/70 bg-white/90 shadow-product">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold">Welcome to EaterIQ</CardTitle>
             <CardDescription>
@@ -184,7 +215,7 @@ const AuthPage = () => {
           
           <CardContent>
             <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'signin' | 'signup')}>
-              <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsList className="mb-6 grid w-full grid-cols-2 rounded-full bg-orange-50 p-1">
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
@@ -201,7 +232,7 @@ const AuthPage = () => {
                         placeholder="you@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="pl-10"
+                        className="rounded-2xl border-orange-100/80 bg-white/90 pl-10"
                         disabled={isLoading}
                       />
                     </div>
@@ -220,7 +251,7 @@ const AuthPage = () => {
                         placeholder="••••••••"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="pl-10 pr-10"
+                        className="rounded-2xl border-orange-100/80 bg-white/90 pl-10 pr-10"
                         disabled={isLoading}
                       />
                       <button
@@ -236,7 +267,7 @@ const AuthPage = () => {
                     )}
                   </div>
                   
-                  <Button type="submit" className="w-full" disabled={isLoading}>
+                  <Button type="submit" className="w-full rounded-full shadow-[var(--shadow-warm)]" disabled={isLoading}>
                     {isLoading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -261,7 +292,7 @@ const AuthPage = () => {
                         placeholder="John Doe"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        className="pl-10"
+                        className="rounded-2xl border-orange-100/80 bg-white/90 pl-10"
                         disabled={isLoading}
                       />
                     </div>
@@ -280,7 +311,7 @@ const AuthPage = () => {
                         placeholder="you@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="pl-10"
+                        className="rounded-2xl border-orange-100/80 bg-white/90 pl-10"
                         disabled={isLoading}
                       />
                     </div>
@@ -299,7 +330,7 @@ const AuthPage = () => {
                         placeholder="••••••••"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="pl-10 pr-10"
+                        className="rounded-2xl border-orange-100/80 bg-white/90 pl-10 pr-10"
                         disabled={isLoading}
                       />
                       <button
@@ -318,7 +349,7 @@ const AuthPage = () => {
                     </p>
                   </div>
                   
-                  <Button type="submit" className="w-full" disabled={isLoading}>
+                  <Button type="submit" className="w-full rounded-full shadow-[var(--shadow-warm)]" disabled={isLoading}>
                     {isLoading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -337,14 +368,14 @@ const AuthPage = () => {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
               </div>
             </div>
             
             <div className="flex flex-col gap-3">
               <Button
                 variant="outline"
-                className="w-full"
+                className="w-full rounded-full border-orange-200/80 bg-white/90 shadow-[var(--shadow-soft)]"
                 onClick={handleGoogleSignIn}
                 disabled={isLoading}
               >
@@ -371,7 +402,7 @@ const AuthPage = () => {
               
               <Button
                 variant="outline"
-                className="w-full"
+                className="w-full rounded-full border-orange-200/80 bg-white/90 shadow-[var(--shadow-soft)]"
                 onClick={handleAppleSignIn}
                 disabled={isLoading}
               >
@@ -383,6 +414,7 @@ const AuthPage = () => {
             </div>
           </CardContent>
         </Card>
+        </div>
     </div>
     </>
   );

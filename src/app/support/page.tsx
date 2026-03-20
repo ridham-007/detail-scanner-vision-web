@@ -25,6 +25,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import ContactForm from "@/components/support/ContactForm";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -187,29 +188,29 @@ export default function SupportPage() {
       />
 
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8 relative z-10 max-w-6xl">
-          {/* Breadcrumb */}
-          <nav className="mb-6" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/" className="hover:text-primary">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium" aria-current="page">
-                Support
-              </li>
-            </ol>
-          </nav>
+        <main className="container mx-auto px-4 py-8 relative z-10">
+          <Breadcrumbs items={[{ label: "Support" }]} />
 
           {/* Header */}
-          <header className="text-center mb-10">
-            <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">
-              Support Center
+          <header className="mb-12 pt-4 pb-2 text-center">
+            {/* Badge */}
+            <div className="flex justify-center mb-5">
+              <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5">
+                <span className="text-xs font-semibold text-primary tracking-wide">We're here to help</span>
+              </div>
+            </div>
+
+            {/* Heading */}
+            <h1 className="text-4xl sm:text-5xl  mb-4 font-bold leading-[1.02] tracking-tight text-foreground">
+              Support{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                Center
+              </span>
             </h1>
-            <p className="text-muted-foreground">
-              Get help with EaterIQ - we're here to assist you
+
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              Get help with EaterIQ — we're here to assist you every step of the way.
             </p>
           </header>
 
@@ -220,11 +221,11 @@ export default function SupportPage() {
               <ContactForm />
 
               {/* Other Ways to Reach Us - Server Rendered */}
-              <Card>
+              <Card className="rounded-[30px] border-white/70 bg-white/88 shadow-product">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Mail
-                      className="h-5 w-5 text-blue-600"
+                      className="h-5 w-5 text-primary"
                       aria-hidden="true"
                     />
                     Other Ways to Reach Us
@@ -233,7 +234,7 @@ export default function SupportPage() {
                 <CardContent className="space-y-4">
                   <div className="flex items-start gap-3">
                     <Bug
-                      className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-500"
                       aria-hidden="true"
                     />
                     <div>
@@ -247,7 +248,7 @@ export default function SupportPage() {
 
                   <div className="flex items-start gap-3">
                     <Lightbulb
-                      className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-500"
                       aria-hidden="true"
                     />
                     <div>
@@ -317,7 +318,7 @@ export default function SupportPage() {
             <div className="space-y-6">
               <Card>
                 <CardHeader>
-                  <h2 className="text-xl font-semibold flex items-center gap-2">
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground flex items-center gap-2">
                     <HelpCircle
                       className="h-5 w-5 text-purple-600"
                       aria-hidden="true"
@@ -384,7 +385,7 @@ export default function SupportPage() {
 
           {/* Explore More */}
           <section className="mt-12 pt-8 border-t">
-            <h2 className="text-xl font-bold mb-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Explore EaterIQ
             </h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
@@ -398,7 +399,7 @@ export default function SupportPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Food Scanner
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -423,7 +424,7 @@ export default function SupportPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Nutrition Blog
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -448,7 +449,7 @@ export default function SupportPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Quiz Hub
                       </h3>
                       <p className="text-sm text-muted-foreground">

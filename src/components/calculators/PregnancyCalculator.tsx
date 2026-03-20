@@ -696,7 +696,7 @@ const PregnancyCalculator: React.FC = () => {
           {/* ============== NEXT MILESTONE ============== */}
           {results.nextMilestone && (
             <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl">
-              <h3 className="text-lg font-semibold mb-4 text-primary flex items-center gap-2">
+              <h3 className="text-xl font-semibold tracking-tight mb-4 text-primary flex items-center gap-2">
                 <Clock className="h-5 w-5" />
                 Next Milestone
               </h3>
@@ -709,7 +709,7 @@ const PregnancyCalculator: React.FC = () => {
 
           {/* ============== TRIMESTER INFO ============== */}
           <div className="bg-secondary/20 p-6 rounded-2xl">
-            <h3 className="text-lg font-semibold text-primary mb-4 flex items-center gap-2">
+            <h3 className="text-xl font-semibold tracking-tight text-primary mb-4 flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-primary" />
               Trimester Information
             </h3>
@@ -774,7 +774,7 @@ const PregnancyCalculator: React.FC = () => {
           {results.table && (
             <div>
               <div className="p-4">
-                <h3 className="text-lg font-semibold text-primary">
+                <h3 className="text-xl font-semibold tracking-tight text-primary">
                   Week-by-Week Schedule
                 </h3>
                 <p className="text-sm text-muted-foreground">

@@ -12,6 +12,7 @@ export interface SubscriptionState {
   cancelAtPeriodEnd: boolean;
   loading: boolean;
   error: string | null;
+  platform?: 'web' | 'mobile' | 'ios' | 'android';
 }
 
 // Razorpay Plan IDs - USD pricing (Yearly only)
@@ -113,7 +114,6 @@ export const useSubscription = () => {
       });
 
       if (error) throw error;
-
       setState({
         subscribed: data.subscribed,
         tier: data.tier as SubscriptionTier,
@@ -122,6 +122,7 @@ export const useSubscription = () => {
         cancelAtPeriodEnd: data.cancel_at_period_end || false,
         loading: false,
         error: null,
+        platform: data.platform,
       });
     } catch (err) {
       console.error('Error checking subscription:', err);

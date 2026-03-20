@@ -6,44 +6,43 @@
 
 @layer base {
      :root {
-        --background: 0 0% 100%;
-        --foreground: 222.2 84% 4.9%;
+        --background: 0 0% 100%; ;
+        --foreground: 22 31% 14%;
         --card: 0 0% 100%;
-        --card-foreground: 222.2 84% 4.9%;
+        --card-foreground: 22 31% 14%;
         --popover: 0 0% 100%;
-        --popover-foreground: 222.2 84% 4.9%;
-        --primary: 88 55% 28%;
-        --primary-dark: 88 55% 30%;
-        --primary-foreground: 0 0% 100%;
-        --secondary: 88 20% 82%;
-        --secondary-foreground: 88 55% 20%;
-        --muted: 88 10% 94%;
-        --muted-foreground: 88 10% 28%;
-        --accent: 88 75% 55%;
-        --accent-foreground: 88 55% 20%;
+        --popover-foreground: 22 31% 14%;
+        --primary: 24 88% 52%;
+        --primary-dark: 22 74% 30%;
+        --primary-foreground: 30 100% 98%;
+        --secondary: 30 86% 92%;
+        --secondary-foreground: 22 58% 22%;
+        --muted: 30 60% 96%;
+        --muted-foreground: 25 21% 43%;
+        --accent: 27 94% 92%;
+        --accent-foreground: 22 58% 22%;
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 210 40% 98%;
-        --border: 88 25% 85%;
-        --input: 88 25% 85%;
-        --ring: 88 45% 45%;
-        --radius: 0.75rem;
-        /* Yuka-inspired health score colors */
+        --border: 24 43% 88%;
+        --input: 24 43% 88%;
+        --ring: 24 88% 52%;
+        --radius: 1.25rem;
         --health-excellent: 120 60% 45%;
         --health-good: 55 95% 55%;
         --health-fair: 35 95% 60%;
         --health-poor: 0 85% 60%;
-        /* Product analysis colors */
         --benefit: 142 76% 36%;
         --benefit-bg: 142 76% 97%;
         --concern: 25 95% 53%;
         --concern-bg: 25 95% 97%;
         --neutral: 210 20% 50%;
         --neutral-bg: 210 20% 97%;
-        /* Enhanced gradients */
-        --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.8));
+        --gradient-hero: linear-gradient(135deg, hsl(27 100% 86%), hsl(32 100% 95%));
         --gradient-health: linear-gradient(135deg, hsl(var(--health-excellent)), hsl(var(--health-good)));
-        --shadow-product: 0 20px 40px -12px hsl(var(--foreground) / 0.08);
-        --shadow-health-score: 0 10px 30px -10px hsl(var(--health-excellent) / 0.3);
+        --shadow-product: 0 18px 40px -18px hsl(12 15% 7% / 0.06);
+        --shadow-health-score: 0 14px 30px -14px hsl(var(--primary) / 0.28);
+        --shadow-soft: 0 10px 24px -14px hsl(22 31% 14% / 0.12);
+        --shadow-warm: 0 16px 36px -18px hsl(var(--primary) / 0.24);
         --sidebar-background: 0 0% 98%;
         --sidebar-foreground: 240 5.3% 26.1%;
         --sidebar-primary: 240 5.9% 10%;
@@ -105,6 +104,10 @@
     }
     body {
         @apply bg-background text-foreground;
+        background-image:
+            radial-gradient(circle at top right, hsl(24 100% 88% / 0.55), transparent 28%),
+            radial-gradient(circle at bottom left, hsl(40 100% 85% / 0.35), transparent 24%);
+        min-height: 100vh;
     }
 }
 

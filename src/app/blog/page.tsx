@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BookOpen, Scan, Brain, ArrowRight } from 'lucide-react';
 import { BlogPost } from '@/types/Blog';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // Static metadata for blog listing page
 export const metadata: Metadata = {
@@ -135,28 +136,29 @@ export default async function BlogListPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
-        <nav className="mb-6" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-            <li>
-              <Link href="/" className="hover:text-primary">Home</Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li className="text-foreground font-medium" aria-current="page">Blog</li>
-          </ol>
-        </nav>
+        <Breadcrumbs items={[{ label: 'Blog' }]} />
 
         {/* Header */}
-        <header className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
-            <BookOpen className="h-8 w-8 text-primary" aria-hidden="true" />
+        <header className="mb-12 pt-4 pb-2 text-center">
+          {/* Badge */}
+          <div className="flex justify-center mb-5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5">
+              <BookOpen className="h-3.5 w-3.5 text-primary" />
+              <span className="text-xs font-semibold text-primary tracking-wide">Nutrition Insights & Tips</span>
+            </div>
           </div>
-          <h1 className="text-4xl font-bold mb-4">
-            Nutrition Insights & Tips
+
+          {/* Heading */}
+          <h1 className="mb-4 text-4xl sm:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
+            Nutrition{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+              Insights & Tips
+            </span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+
+          {/* Subtitle */}
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Expert articles to help you understand food labels, nutrition facts, and make healthier choices for you and your family.
           </p>
         </header>
@@ -172,7 +174,7 @@ export default async function BlogListPage() {
           <aside className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
               {/* Quick Links */}
-              <Card>
+              <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg">Explore EaterIQ</CardTitle>
                 </CardHeader>
@@ -192,17 +194,17 @@ export default async function BlogListPage() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-primary/5 border-primary/20">
+              <Card className="rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] shadow-product">
                 <CardContent className="pt-6">
-                  <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-xl mb-4">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/90 shadow-[var(--shadow-soft)]">
                     <Scan className="h-6 w-6 text-primary" aria-hidden="true" />
                   </div>
-                  <h2 className="font-semibold text-foreground mb-2">Try Our Food Scanner</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">Try Our Food Scanner</h2>
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any product barcode and get instant health analysis.
                   </p>
                   <Link href="/#scanner">
-                    <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
+                    <Button size="sm" className="w-full rounded-full bg-primary shadow-[var(--shadow-warm)] hover:bg-primary/90">
                       Start Scanning Free
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                     </Button>
@@ -210,17 +212,17 @@ export default async function BlogListPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                 <CardContent className="pt-6">
-                  <div className="flex items-center justify-center w-12 h-12 bg-accent/20 rounded-xl mb-4">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 shadow-[var(--shadow-soft)]">
                     <Brain className="h-6 w-6 text-accent-foreground" aria-hidden="true" />
                   </div>
-                  <h2 className="font-semibold text-foreground mb-2">Test Your Knowledge</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">Test Your Knowledge</h2>
                   <p className="text-sm text-muted-foreground mb-4">
                     Challenge yourself with our nutrition quizzes.
                   </p>
                   <Link href="/quiz/">
-                    <Button size="sm" variant="outline" className="w-full">
+                    <Button size="sm" variant="outline" className="w-full rounded-full border-orange-200/80 bg-white/90">
                       Take a Quiz
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                     </Button>
@@ -228,7 +230,7 @@ export default async function BlogListPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg">About EaterIQ</CardTitle>
                 </CardHeader>

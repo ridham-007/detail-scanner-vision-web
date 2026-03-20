@@ -41,7 +41,7 @@ export const HealthierAlternatives = ({ barcode, currentHealthScore }: Healthier
         <div className="text-center space-y-4">
           <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-4 py-2 rounded-full">
             <Star size={18} className="text-green-600 dark:text-green-400" />
-            <h3 className="text-lg font-semibold text-green-700 dark:text-green-300">
+            <h3 className="text-xl font-semibold tracking-tight text-green-700">
               Healthier Alternatives
             </h3>
           </div>

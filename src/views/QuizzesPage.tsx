@@ -346,14 +346,14 @@ useEffect(() => {
       <Suspense fallback={null}>
         <AnimatedBackground />
       </Suspense>
-      <main className="h-full container mx-auto px-3 sm:px-4 py-4 sm:py-8 relative z-10 max-w-6xl">
-        <div className="h-full w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
+      <main className="relative z-10 h-full container mx-auto px-3 py-4 sm:px-4 sm:py-8">
+        <div className="mb-6 flex h-full w-full flex-col items-start justify-between gap-4 rounded-[32px] border border-white/60 bg-white/82 px-5 py-6 shadow-product backdrop-blur-sm sm:mb-8 sm:flex-row sm:items-center">
           <Link href={"/quiz"}>
             <Button
               aria-label="Back to Home"
               variant="outline"
               size="sm"
-              className="shrink-0 flex md:hidden"
+                className="flex shrink-0 rounded-full border-orange-200/80 bg-white/90 md:hidden"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Back to Home</span>
@@ -367,7 +367,7 @@ useEffect(() => {
                 aria-label="Back to Home"
                 variant="outline"
                 size="sm"
-                className="shrink-0 hidden md:flex"
+                className="hidden shrink-0 rounded-full border-orange-200/80 bg-white/90 md:flex"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 <span className="hidden sm:inline">Back to Home</span>
@@ -377,7 +377,7 @@ useEffect(() => {
 
             {/* Center Heading */}
             <div className="flex flex-col flex-1 items-center text-center">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
+              <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
                 Quiz Hub
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground">
@@ -392,7 +392,7 @@ useEffect(() => {
                     <Button
                       aria-label="Create Quiz"
                       onClick={handleCreateQuizClick}
-                      className="bg-primary hover:bg-primary/90  sm:w-auto shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="bg-primary hover:bg-primary/90 sm:w-auto rounded-full shadow-[var(--shadow-warm)] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-80"
                       size="sm"
                       disabled={isLimitActive && !isMobile} // Disable when limit reached
                     >
@@ -408,7 +408,7 @@ useEffect(() => {
                   <TooltipContent
                     side="bottom"       // ⬅️ This shows tooltip below the button
                     sideOffset={8}      // ⬅️ Optional: spacing between button & tooltip
-                    className="bg-white shadow-lg border rounded-md p-3"
+                    className="rounded-2xl border-white/70 bg-white/95 p-3 shadow-product"
                   >
                     <div className="max-w-xs">
                       <p className="font-semibold">Monthly Limit Reached</p>
@@ -452,13 +452,13 @@ useEffect(() => {
 
           </div>
         </div>
-        <p className="text-sm text-muted-foreground mt-2">
+        <p className="mt-2 text-sm text-muted-foreground">
           You’ve created <strong>{userQuizCount}</strong> quiz{userQuizCount !== 1 && "zes"} this month.
         </p>
 
 
         <Tabs defaultValue="all-quizzes" className="space-y-4 sm:space-y-8">
-          <TabsList className="grid w-full grid-cols-2 h-auto">
+          <TabsList className="grid h-auto w-full grid-cols-2 rounded-[24px] bg-orange-50 p-1 shadow-[var(--shadow-soft)]">
             <TabsTrigger
               value="all-quizzes"
               className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm"
@@ -484,7 +484,7 @@ useEffect(() => {
                 {[...Array(6)].map((_, i) => (
                   <div
                     key={i}
-                    className="h-[220px] rounded-xl bg-muted animate-pulse"
+                    className="h-[220px] animate-pulse rounded-[28px] bg-white/70 shadow-[var(--shadow-soft)]"
                   />
                 ))}
               </div>
@@ -504,7 +504,7 @@ useEffect(() => {
                 {quizzes?.length === 0 && (
                   <div className="text-center py-8 sm:py-12">
                     <Brain className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-base sm:text-lg font-semibold mb-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                       No quizzes yet
                     </h3>
                     <p className="text-sm sm:text-base text-muted-foreground">
@@ -532,7 +532,7 @@ useEffect(() => {
                 {myQuizzes.length === 0 && (
                   <div className="text-center py-8 sm:py-12">
                     <Target className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-base sm:text-lg font-semibold mb-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
                       No quizzes created yet
                     </h3>
                     <p className="text-sm sm:text-base text-muted-foreground mb-4">
@@ -542,7 +542,7 @@ useEffect(() => {
                     <Button
                       aria-label="Create Quiz"
                       onClick={handleCreateQuizClick}
-                      className="bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-300"
+                      className="rounded-full bg-primary shadow-[var(--shadow-warm)] transition-all duration-300 hover:bg-primary/90"
                       size="sm"
                     >
                       <Plus className="h-4 w-4 mr-2" />
@@ -558,7 +558,7 @@ useEffect(() => {
                   Please sign in to view your quizzes.
                 </p>
                 <Link href={"/quiz"}>
-                  <Button className="bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-300">
+                  <Button className="rounded-full bg-primary shadow-[var(--shadow-warm)] transition-all duration-300 hover:bg-primary/90">
                     Sign In
                   </Button>
                 </Link>
@@ -567,7 +567,7 @@ useEffect(() => {
           </TabsContent>
 
           <TabsContent value="leaderboard" className="space-y-4 sm:space-y-6">
-            <Card>
+            <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
               <CardHeader className="pb-3 sm:pb-4">
                 <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                   <Trophy className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
@@ -579,7 +579,7 @@ useEffect(() => {
                   {leaderboard.map((player, index) => (
                     <div
                       key={player.id}
-                      className="flex items-center justify-between p-2 sm:p-3 rounded-lg bg-muted/50"
+                      className="flex items-center justify-between rounded-[22px] border border-orange-100/70 bg-orange-50/60 p-2 sm:p-3"
                     >
                       <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
                         <div
@@ -645,7 +645,7 @@ useEffect(() => {
         />
 
         <Dialog open={showLimitDialog} onOpenChange={setShowLimitDialog}>
-          <DialogContent>
+            <DialogContent className="rounded-[28px] border-white/70 bg-white/95 shadow-product">
             <DialogHeader>
               <DialogTitle>Monthly Limit Reached</DialogTitle>
               <p className="text-sm text-muted-foreground mt-2">
@@ -655,7 +655,7 @@ useEffect(() => {
                 )}
               </p>
             </DialogHeader>
-            <Button onClick={() => setShowLimitDialog(false)} className="mt-4 w-full">
+            <Button onClick={() => setShowLimitDialog(false)} className="mt-4 w-full rounded-full shadow-[var(--shadow-warm)]">
               Got it
             </Button>
           </DialogContent>

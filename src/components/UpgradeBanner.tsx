@@ -27,15 +27,17 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
 
   if (variant === 'compact') {
     return (
-      <div className={`flex items-center justify-between p-3 rounded-lg border ${
+      <div className={`flex items-center justify-between gap-3 rounded-[24px] border px-4 py-3 shadow-[var(--shadow-soft)] ${
         isEmpty 
-          ? 'bg-destructive/10 border-destructive/30' 
+          ? 'border-red-200/80 bg-red-50/90' 
           : isLow 
-          ? 'bg-warning/10 border-warning/30' 
-          : 'bg-muted/50 border-border'
+          ? 'border-amber-200/80 bg-amber-50/90' 
+          : 'border-white/70 bg-white/80'
       }`}>
         <div className="flex items-center gap-2">
-          <Zap className={`w-4 h-4 ${isEmpty ? 'text-destructive' : isLow ? 'text-warning' : 'text-muted-foreground'}`} />
+          <div className={`rounded-full p-2 ${isEmpty ? 'bg-red-100 text-red-600' : isLow ? 'bg-amber-100 text-amber-700' : 'bg-orange-100 text-primary'}`}>
+            <Zap className="h-4 w-4" />
+          </div>
           <span className="text-sm font-medium">
             {isEmpty 
               ? "No scans left today" 
@@ -47,7 +49,7 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
           size="sm" 
           variant={isEmpty ? "default" : "outline"}
           onClick={() => router.push('/pricing')}
-          className="gap-1"
+          className="gap-1 rounded-full border-orange-200/80 bg-primary/60 shadow-[var(--shadow-soft)]"
         >
           <Crown className="w-3 h-3" />
           Upgrade
@@ -57,18 +59,18 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
   }
 
   return (
-    <div className={`relative overflow-hidden rounded-xl border p-6 ${
+    <div className={`relative overflow-hidden rounded-[28px] border p-6 shadow-product ${
       isEmpty 
-        ? 'bg-destructive/5 border-destructive/20' 
-        : 'bg-primary/5 border-primary/20'
+        ? 'border-red-200/70 bg-[linear-gradient(180deg,rgba(254,242,242,0.98),rgba(255,255,255,0.96))]' 
+        : 'border-white/70 bg-[linear-gradient(180deg,rgba(255,237,213,0.8),rgba(255,250,244,0.98))]'
     }`}>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <div className={`p-2 rounded-full ${isEmpty ? 'bg-destructive/10' : 'bg-primary/10'}`}>
-              <Zap className={`w-5 h-5 ${isEmpty ? 'text-destructive' : 'text-primary'}`} />
+            <div className={`rounded-2xl p-3 shadow-[var(--shadow-soft)] ${isEmpty ? 'bg-red-100 text-red-600' : 'bg-white/90 text-primary'}`}>
+              <Zap className="w-5 h-5" />
             </div>
-            <h3 className="font-semibold text-lg">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground">
               {isEmpty 
                 ? "You've reached your daily limit" 
                 : `${scansRemaining} free scan${scansRemaining !== 1 ? 's' : ''} remaining`
@@ -83,10 +85,10 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
           </p>
           
           {/* Progress bar */}
-          <div className="w-full max-w-xs h-2 bg-muted rounded-full overflow-hidden">
+          <div className="h-2 w-full max-w-xs overflow-hidden rounded-full bg-orange-100/80">
             <div 
               className={`h-full rounded-full transition-all duration-300 ${
-                isEmpty ? 'bg-destructive' : isLow ? 'bg-warning' : 'bg-primary'
+                isEmpty ? 'bg-red-500' : isLow ? 'bg-amber-500' : 'bg-primary'
               }`}
               style={{ width: `${percentage}%` }}
             />
@@ -95,7 +97,7 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
 
         <Button 
           onClick={() => router.push('/pricing')}
-          className="gap-2 whitespace-nowrap"
+          className="gap-2 whitespace-nowrap rounded-full shadow-[var(--shadow-warm)]"
           size="lg"
         >
           <Crown className="w-4 h-4" />

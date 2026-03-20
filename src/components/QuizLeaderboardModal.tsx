@@ -258,7 +258,7 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
           ) : (
             <div className="text-center py-8">
               <Trophy className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No attempts yet</h3>
+              <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">No attempts yet</h3>
               <p className="text-muted-foreground">
                 Be the first to complete this quiz and claim the top spot!
               </p>

@@ -9,44 +9,37 @@ export default function FoodBattleBanner() {
     <Link href="/compare">
       <div
         className="
-        group cursor-pointer
-        rounded-2xl border
-        bg-gradient-to-br
-        from-[#84B44C]/20 via-white to-[#84B44C]/20
-        dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
-        hover:shadow-xl transition-all duration-300
-        p-5
-        flex flex-col
-        gap-4
-        max-w-full
+        group flex max-w-full cursor-pointer flex-col gap-4 rounded-[28px] border border-orange-200/80
+        bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))]
+        p-5 shadow-product transition-all duration-300 hover:shadow-[var(--shadow-warm)]
       "
       >
         {/* HEADER */}
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-[#84B44C] rounded-xl">
+          <div className="rounded-2xl bg-primary p-3 shadow-[var(--shadow-warm)]">
             <Swords className="h-6 w-6 text-white" />
           </div>
 
-          <span className="text-lg font-bold dark:text-white">
+          <span className="text-lg font-bold text-foreground">
             Food Battle
           </span>
         </div>
 
         {/* DESCRIPTION */}
-        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           Compare any two foods side-by-side and instantly discover which
           one wins in calories, protein, carbs and fat.
         </p>
 
         {/* FOOTER */}
         <div className="flex items-center justify-between">
-          <span className="text-[#84B44C] font-medium text-sm">
+          <span className="text-sm font-medium text-primary">
             Start Battle
           </span>
 
           <ArrowRight
             className="
-            text-[#84B44C]
+            text-primary
             group-hover:translate-x-1
             transition-transform
           "

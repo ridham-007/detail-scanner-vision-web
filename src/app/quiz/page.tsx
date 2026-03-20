@@ -3,12 +3,12 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { supabase } from '@/integrations/supabase/client';
-import { 
-  Brain, 
-  Trophy, 
-  Target, 
-  Scan, 
-  BookOpen, 
+import {
+  Brain,
+  Trophy,
+  Target,
+  Scan,
+  BookOpen,
   ArrowRight,
   Play,
   Calendar,
@@ -20,6 +20,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import QuizHubClient from '@/components/quiz/QuizzesClient';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // Static metadata for SEO
 export const metadata: Metadata = {
@@ -244,32 +245,26 @@ export default async function QuizPage() {
       />
 
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8 max-w-6xl">
-          {/* Breadcrumb */}
-          <nav className="mb-6" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/" className="hover:text-primary">Home</Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-foreground font-medium" aria-current="page">Quiz Hub</li>
-            </ol>
-          </nav>
+        <main className="container mx-auto px-4 py-8">
+          <Breadcrumbs items={[{ label: 'Quiz Hub' }]} />
 
           {/* Hero Section */}
-          <header className="text-center mb-12">
+          <header className="mb-12 text-center">
             <Badge className="mb-4" variant="secondary">
               <Brain className="w-3 h-3 mr-1" aria-hidden="true" />
               {quizzes.length}+ Quizzes Available
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Quiz Hub
+            <h1 className="mb-4 text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
+              Quiz{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                Hub
+              </span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
-              Challenge yourself with fun and educational nutrition quizzes. 
+            <p className="mx-auto mb-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
+              Challenge yourself with fun and educational nutrition quizzes.
               Test your food knowledge, learn new facts, and compete with others!
             </p>
-            
+
             {/* Quick Stats */}
             <div className="flex flex-wrap justify-center gap-6 mb-8">
               <div className="flex items-center gap-2 text-muted-foreground">
@@ -292,8 +287,8 @@ export default async function QuizPage() {
 
           {/* All Quizzes Section */}
           <section className="mb-16" aria-labelledby="all-quizzes-heading">
-            <div className="flex items-center justify-between mb-8">
-              <h2 id="all-quizzes-heading" className="text-2xl font-bold flex items-center gap-2">
+            <div className="mb-8 flex gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h2 id="all-quizzes-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground flex items-center gap-2">
                 <Brain className="w-6 h-6 text-primary" aria-hidden="true" />
                 All Quizzes
               </h2>
@@ -304,15 +299,15 @@ export default async function QuizPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {quizzes.map((quiz) => (
                   <article key={quiz.id}>
-                    <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
-                      <CardHeader className="pb-3 min-h-[140px]">
+                    <Card className="flex h-full flex-col transition-shadow hover:shadow-md">
+                      <CardHeader className="min-h-[120px] pb-3 sm:min-h-[140px]">
                         <div className="flex items-start justify-between mb-2">
                           <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
                             {quiz.difficulty.toUpperCase()}
                           </Badge>
                         </div>
-                        <CardTitle className="text-lg font-semibold capitalize line-clamp-2 min-h-[52px] leading-relaxed">
-                          <Link 
+                        <CardTitle className="min-h-[48px] text-lg font-semibold capitalize leading-relaxed line-clamp-2 sm:min-h-[52px]">
+                          <Link
                             href={`/quiz/${quiz.slug}/`}
                             className="hover:text-primary transition-colors"
                           >
@@ -322,11 +317,11 @@ export default async function QuizPage() {
                       </CardHeader>
                       <CardContent className="flex-1 flex flex-col pt-0">
                         {quiz.description && (
-                          <p className="text-sm text-muted-foreground mb-4 h-[44px] overflow-hidden">
+                          <p className="mb-4 min-h-[40px] text-sm text-muted-foreground sm:min-h-[44px]">
                             {quiz.description}
                           </p>
                         )}
-                        
+
                         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
                           <Calendar className="h-3 w-3" aria-hidden="true" />
                           <time dateTime={quiz.created_at || ''}>
@@ -348,7 +343,7 @@ export default async function QuizPage() {
             ) : (
               <div className="text-center py-12 bg-muted/30 rounded-xl">
                 <Brain className="h-16 w-16 mx-auto text-muted-foreground mb-4" aria-hidden="true" />
-                <h3 className="text-lg font-semibold mb-2">No quizzes available yet</h3>
+                <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">No quizzes available yet</h3>
                 <p className="text-muted-foreground mb-4">
                   Be the first to create a nutrition quiz!
                 </p>
@@ -360,7 +355,7 @@ export default async function QuizPage() {
           {/* {leaderboard.length > 0 && (
             <section className="mb-16" aria-labelledby="leaderboard-heading">
               <div className="flex items-center justify-between mb-8">
-                <h2 id="leaderboard-heading" className="text-2xl font-bold flex items-center gap-2">
+                <h2 id="leaderboard-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground flex items-center gap-2">
                   <Trophy className="w-6 h-6 text-yellow-500" aria-hidden="true" />
                   Top Players
                 </h2>
@@ -415,17 +410,17 @@ export default async function QuizPage() {
           )} */}
 
           {/* How It Works Section */}
-          <section className="mb-16 py-12 bg-muted/30 rounded-2xl" aria-labelledby="how-it-works-heading">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 id="how-it-works-heading" className="text-2xl font-bold mb-8 text-center">
+          <section className="mb-16 rounded-2xl bg-muted/30 py-10 sm:py-12" aria-labelledby="how-it-works-heading">
+            <div className="mx-auto max-w-4xl px-4 sm:px-6">
+              <h2 id="how-it-works-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-8 text-center">
                 How Quiz Hub Works
               </h2>
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid gap-8 md:grid-cols-3">
                 <div className="text-center">
                   <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl font-bold text-primary">1</span>
                   </div>
-                  <h3 className="font-semibold mb-2">Choose a Quiz</h3>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Choose a Quiz</h3>
                   <p className="text-sm text-muted-foreground">
                     Browse through our collection of nutrition quizzes. Filter by difficulty level to find the perfect challenge.
                   </p>
@@ -434,7 +429,7 @@ export default async function QuizPage() {
                   <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl font-bold text-primary">2</span>
                   </div>
-                  <h3 className="font-semibold mb-2">Answer Questions</h3>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Answer Questions</h3>
                   <p className="text-sm text-muted-foreground">
                     Test your knowledge with multiple-choice questions. Each quiz has 10 questions covering various nutrition topics.
                   </p>
@@ -443,7 +438,7 @@ export default async function QuizPage() {
                   <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl font-bold text-primary">3</span>
                   </div>
-                  <h3 className="font-semibold mb-2">Learn &amp; Compete</h3>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Learn &amp; Compete</h3>
                   <p className="text-sm text-muted-foreground">
                     See detailed explanations for each answer, track your progress, and climb the global leaderboard.
                   </p>
@@ -454,10 +449,10 @@ export default async function QuizPage() {
 
           {/* Quiz Categories/Topics */}
           <section className="mb-16" aria-labelledby="topics-heading">
-            <h2 id="topics-heading" className="text-2xl font-bold mb-8 text-center">
+            <h2 id="topics-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-8 text-center">
               Quiz Topics We Cover
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
                 <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
                 <span className="text-sm font-medium">Nutrition Basics</span>
@@ -495,7 +490,7 @@ export default async function QuizPage() {
 
           {/* FAQ Section */}
           <section className="mb-16" aria-labelledby="faq-heading">
-            <h2 id="faq-heading" className="text-2xl font-bold mb-8 text-center">
+            <h2 id="faq-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-8 text-center">
               Frequently Asked Questions
             </h2>
             <div className="max-w-3xl mx-auto space-y-4">
@@ -505,8 +500,8 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  Our quizzes cover a wide range of topics including nutrition basics, food safety, 
-                  healthy eating habits, dietary guidelines, food labels, vitamins and minerals, 
+                  Our quizzes cover a wide range of topics including nutrition basics, food safety,
+                  healthy eating habits, dietary guidelines, food labels, vitamins and minerals,
                   superfoods, diet myths, and much more. We regularly add new quizzes to keep the content fresh and educational.
                 </div>
               </details>
@@ -517,7 +512,7 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  Yes! Registered users can create up to 2 custom quizzes per month. Simply sign in 
+                  Yes! Registered users can create up to 2 custom quizzes per month. Simply sign in
                   and click the &quot;Create Quiz&quot; button to get started.
                 </div>
               </details>
@@ -528,8 +523,8 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  Yes, all quizzes on EaterIQ are completely free to play. You can test your nutrition 
-                  knowledge without any cost. Create a free account to track your progress and appear 
+                  Yes, all quizzes on EaterIQ are completely free to play. You can test your nutrition
+                  knowledge without any cost. Create a free account to track your progress and appear
                   on the leaderboard.
                 </div>
               </details>
@@ -540,8 +535,8 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  After completing each quiz, you&apos;ll see your score and detailed explanations for 
-                  each answer. Create a free account to save your scores, track your progress over time, 
+                  After completing each quiz, you&apos;ll see your score and detailed explanations for
+                  each answer. Create a free account to save your scores, track your progress over time,
                   and compete on the global leaderboard.
                 </div>
               </details>
@@ -552,8 +547,8 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  We offer three difficulty levels: Easy (great for beginners), Medium (for those with 
-                  some nutrition knowledge), and Hard (for nutrition experts). Choose the level that 
+                  We offer three difficulty levels: Easy (great for beginners), Medium (for those with
+                  some nutrition knowledge), and Hard (for nutrition experts). Choose the level that
                   matches your expertise or challenge yourself with harder quizzes!
                 </div>
               </details>
@@ -564,7 +559,7 @@ export default async function QuizPage() {
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
-                  Each quiz contains 10 multiple-choice questions. You&apos;ll receive immediate feedback 
+                  Each quiz contains 10 multiple-choice questions. You&apos;ll receive immediate feedback
                   after each question, and a comprehensive summary with explanations at the end.
                 </div>
               </details>
@@ -572,9 +567,9 @@ export default async function QuizPage() {
           </section>
 
           {/* CTA Section */}
-          <section className="mb-16 text-center bg-primary/5 rounded-2xl p-8">
+          <section className="mb-16 text-center bg-muted/30 rounded-2xl p-8">
             <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" aria-hidden="true" />
-            <h2 className="text-2xl font-bold mb-4">Ready to Test Your Knowledge?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">Ready to Test Your Knowledge?</h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
               Start with any quiz above or try our food scanner to learn more about the products you eat every day.
             </p>
@@ -596,7 +591,7 @@ export default async function QuizPage() {
 
           {/* Related Links */}
           <section aria-labelledby="explore-heading">
-            <h2 id="explore-heading" className="text-xl font-bold mb-6 text-center">
+            <h2 id="explore-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
               Explore More
             </h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
@@ -607,7 +602,7 @@ export default async function QuizPage() {
                       <Scan className="h-5 w-5 text-primary" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Food Scanner
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -626,7 +621,7 @@ export default async function QuizPage() {
                       <BookOpen className="h-5 w-5 text-accent-foreground" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Nutrition Blog
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -645,7 +640,7 @@ export default async function QuizPage() {
                       <Target className="h-5 w-5 text-secondary-foreground" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                         Pricing Plans
                       </h3>
                       <p className="text-sm text-muted-foreground">

@@ -481,7 +481,7 @@ export default function CalorieCalculator() {
                     {/* Main Wrapper */}
                     <div className="p-6 border rounded-xl bg-white shadow-sm">
                         <div className="space-y-6">
-                            <h3 className="text-lg font-semibold">
+                            <h3 className="text-xl font-semibold tracking-tight text-foreground">
                                 Your Daily Calorie Needs
                             </h3>
 

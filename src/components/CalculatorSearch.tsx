@@ -40,10 +40,10 @@ const CalculatorSearch = () => {
   }, [searchTerm, currentPath]);
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl border dark:border-gray-700 p-4">
+    <div className="rounded-[28px] border border-white/70 bg-white/88 p-4 shadow-product">
       <div className="flex items-center gap-2 mb-3">
-        <Search className="h-5 w-5 text-[#84B44C]" />
-        <span className="font-semibold dark:text-white">Search</span>
+        <Search className="h-5 w-5 text-primary" />
+        <span className="font-semibold text-foreground">Search</span>
       </div>
 
       <input
@@ -51,13 +51,13 @@ const CalculatorSearch = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="
           w-full 
-          border dark:border-gray-700
-          rounded-xl 
+          border border-orange-100/80
+          rounded-2xl
           p-3 mb-3
-          bg-white dark:bg-gray-800
-          text-gray-900 dark:text-gray-100
-          placeholder:text-gray-400 dark:placeholder:text-gray-500
-          focus:outline-none focus:ring-2 focus:ring-[#84B44C]
+          bg-white
+          text-foreground
+          placeholder:text-muted-foreground
+          focus:outline-none focus:ring-2 focus:ring-primary/30
         "
         placeholder="Search calculators..."
       />
@@ -70,15 +70,15 @@ const CalculatorSearch = () => {
               to={calc.path}
               className="
                 block p-2 
-                hover:bg-gray-50 dark:hover:bg-gray-800
-                rounded-lg transition-colors
+                hover:bg-orange-50/70
+                rounded-[18px] transition-colors
               "
             >
-              <div className="font-medium text-sm text-[#84B44C]">
+              <div className="font-medium text-sm text-primary">
                 {calc.title}
               </div>
 
-              <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+              <div className="text-xs text-muted-foreground truncate">
                 {calc.description}
               </div>
             </Link>

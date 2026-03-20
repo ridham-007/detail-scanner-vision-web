@@ -10,7 +10,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import {
   Select,
   SelectContent,
@@ -18,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Bell, Send, Users, User, Trash2 } from 'lucide-react';
+import { Bell, Send, Users, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Database } from '@/integrations/supabase/types';
@@ -170,7 +169,7 @@ const AdminNotificationsPage = () => {
 
   if (isCheckingAdmin) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-10">
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
@@ -202,18 +201,21 @@ const AdminNotificationsPage = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex items-center gap-3 mb-8">
+    <div className="container mx-auto px-4 py-10">
+      <div className="mb-8 rounded-[32px] border border-white/70 bg-gradient-to-br from-white via-[rgb(var(--accent-soft))]/28 to-[rgb(var(--accent))]/10 px-6 py-7 shadow-[var(--shadow-soft)] sm:px-8">
+        <div className="flex items-center gap-3">
         <Bell className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold">Notification Management</h1>
+          <p className="inline-flex rounded-full border border-[rgb(var(--accent))]/20 bg-white/80 px-3 py-1 text-sm font-medium text-[rgb(var(--accent-foreground))]">Admin messaging</p>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight">Notification Management</h1>
           <p className="text-muted-foreground">Send notifications to users</p>
+        </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Send Notification Form */}
-        <Card>
+        <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Send className="h-5 w-5" />
@@ -227,25 +229,27 @@ const AdminNotificationsPage = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="title">Title</Label>
-                <Input
-                  id="title"
+                  <Input
+                    id="title"
                   value={form.title}
                   onChange={(e) => setForm({ ...form, title: e.target.value })}
                   placeholder="Notification title"
-                  required
-                />
+                    required
+                    className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white"
+                  />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="body">Message</Label>
-                <Textarea
-                  id="body"
+                  <Textarea
+                    id="body"
                   value={form.body}
                   onChange={(e) => setForm({ ...form, body: e.target.value })}
                   placeholder="Notification message"
                   rows={3}
-                  required
-                />
+                    required
+                    className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white"
+                  />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -255,7 +259,7 @@ const AdminNotificationsPage = () => {
                     value={form.type}
                     onValueChange={(value: NotificationType) => setForm({ ...form, type: value })}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -274,7 +278,7 @@ const AdminNotificationsPage = () => {
                     value={form.priority}
                     onValueChange={(value: NotificationPriority) => setForm({ ...form, priority: value })}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -295,6 +299,7 @@ const AdminNotificationsPage = () => {
                   value={form.action_url}
                   onChange={(e) => setForm({ ...form, action_url: e.target.value })}
                   placeholder="/scanner or https://example.com"
+                  className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white"
                 />
               </div>
 
@@ -304,7 +309,7 @@ const AdminNotificationsPage = () => {
                   value={form.target}
                   onValueChange={(value: 'all' | 'single') => setForm({ ...form, target: value, user_id: '' })}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -331,7 +336,7 @@ const AdminNotificationsPage = () => {
                     value={form.user_id}
                     onValueChange={(value) => setForm({ ...form, user_id: value })}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white">
                       <SelectValue placeholder="Choose a user..." />
                     </SelectTrigger>
                     <SelectContent>
@@ -353,7 +358,7 @@ const AdminNotificationsPage = () => {
 
               <Button 
                 type="submit" 
-                className="w-full" 
+                className="w-full rounded-full" 
                 disabled={sendNotification.isPending}
               >
                 {sendNotification.isPending ? (
@@ -373,7 +378,7 @@ const AdminNotificationsPage = () => {
         </Card>
 
         {/* Recent Notifications */}
-        <Card>
+        <Card className="rounded-[32px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Bell className="h-5 w-5" />
@@ -387,7 +392,7 @@ const AdminNotificationsPage = () => {
             {isLoadingNotifications ? (
               <div className="space-y-3">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="p-3 border rounded-lg">
+                  <div key={i} className="rounded-2xl border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/18 p-3">
                     <Skeleton className="h-4 w-3/4 mb-2" />
                     <Skeleton className="h-3 w-full mb-2" />
                     <Skeleton className="h-3 w-1/2" />
@@ -399,7 +404,7 @@ const AdminNotificationsPage = () => {
                 {recentNotifications.map((notification) => (
                   <div 
                     key={notification.id} 
-                    className="p-3 border rounded-lg hover:bg-muted/50 transition-colors"
+                    className="rounded-2xl border border-[rgb(var(--accent))]/12 bg-[rgb(var(--accent-soft))]/18 p-3 transition-colors hover:bg-[rgb(var(--accent-soft))]/30"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
@@ -442,7 +447,7 @@ const AdminNotificationsPage = () => {
               </div>
             ) : (
               <div className="text-center py-8 text-muted-foreground">
-                <Bell className="h-12 w-12 mx-auto mb-3 opacity-50" />
+                <Bell className="h-12 w-12 mx-auto mb-3 opacity-80" />
                 <p>No notifications sent yet</p>
               </div>
             )}

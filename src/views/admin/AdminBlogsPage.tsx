@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useBlogPosts, useDeleteBlogPost } from '@/hooks/useBlogPosts';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -42,7 +42,7 @@ const AdminBlogsPage = () => {
 
   if (isCheckingAdmin) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-10">
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
@@ -69,14 +69,15 @@ const AdminBlogsPage = () => {
   const draftPosts = posts?.filter(post => !post.is_published) || [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className="container mx-auto px-4 py-10">
+      <div className="mb-8 flex flex-col gap-4 rounded-[32px] border border-white/70 bg-gradient-to-br from-white via-[rgb(var(--accent-soft))]/28 to-[rgb(var(--accent))]/10 px-6 py-7 shadow-[var(--shadow-soft)] md:flex-row md:items-center md:justify-between sm:px-8">
         <div>
-          <h1 className="text-3xl font-bold">Blog Management</h1>
+          <p className="inline-flex rounded-full border border-[rgb(var(--accent))]/20 bg-white/80 px-3 py-1 text-sm font-medium text-[rgb(var(--accent-foreground))]">Admin workspace</p>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight">Blog Management</h1>
           <p className="text-muted-foreground">Manage your blog posts and content</p>
         </div>
         <Link href="/admin/blogs/new">
-          <Button>
+          <Button className="rounded-full">
             <Plus className="h-4 w-4 mr-2" />
             New Blog Post
           </Button>
@@ -84,7 +85,7 @@ const AdminBlogsPage = () => {
       </div>
 
       {error && (
-        <Alert variant="destructive" className="mb-6">
+        <Alert variant="destructive" className="mb-6 rounded-2xl border-rose-200 bg-rose-50 text-rose-900">
           <AlertDescription>
             Failed to load blog posts. Please try again later.
           </AlertDescription>
@@ -94,7 +95,7 @@ const AdminBlogsPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Published Posts */}
         <div>
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4 flex items-center gap-2">
             <Eye className="h-5 w-5" />
             Published Posts ({publishedPosts.length})
           </h2>
@@ -102,7 +103,7 @@ const AdminBlogsPage = () => {
           {isLoading ? (
             <div className="space-y-4">
               {Array.from({ length: 3 }).map((_, i) => (
-                <Card key={i}>
+                <Card key={i} className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
                   <CardContent className="p-4">
                     <Skeleton className="h-6 w-3/4 mb-2" />
                     <Skeleton className="h-4 w-1/2 mb-4" />
@@ -117,11 +118,11 @@ const AdminBlogsPage = () => {
           ) : publishedPosts.length > 0 ? (
             <div className="space-y-4">
               {publishedPosts.map((post) => (
-                <Card key={post.id}>
+                <Card key={post.id} className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-lg mb-1 line-clamp-2">
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground mb-1 line-clamp-2">
                           {post.title}
                         </h3>
                         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
@@ -136,26 +137,26 @@ const AdminBlogsPage = () => {
                             </span>
                           )}
                         </div>
-                        <Badge variant="default">Published</Badge>
+                        <Badge className="rounded-full border border-emerald-200 bg-emerald-50 text-emerald-800">Published</Badge>
                       </div>
                     </div>
                     
                     <div className="flex gap-2">
                       <Link href={`/blog/${post.slug}`}>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="rounded-full border-[rgb(var(--accent))]/20 bg-white/80">
                           <Eye className="h-3 w-3 mr-1" />
                           View
                         </Button>
                       </Link>
                       <Link href={`/admin/blogs/edit/${post.id}`}>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="rounded-full border-[rgb(var(--accent))]/20 bg-white/80">
                           <Edit className="h-3 w-3 mr-1" />
                           Edit
                         </Button>
                       </Link>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant="outline" size="sm" className="text-destructive hover:text-destructive">
+                          <Button variant="outline" size="sm" className="rounded-full border-rose-200 bg-white text-destructive hover:text-destructive">
                             <Trash2 className="h-3 w-3 mr-1" />
                             Delete
                           </Button>
@@ -184,7 +185,7 @@ const AdminBlogsPage = () => {
               ))}
             </div>
           ) : (
-            <Card>
+            <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
               <CardContent className="p-8 text-center">
                 <Eye className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground">No published posts yet</p>
@@ -195,7 +196,7 @@ const AdminBlogsPage = () => {
 
         {/* Draft Posts */}
         <div>
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4 flex items-center gap-2">
             <Edit className="h-5 w-5" />
             Draft Posts ({draftPosts.length})
           </h2>
@@ -203,7 +204,7 @@ const AdminBlogsPage = () => {
           {isLoading ? (
             <div className="space-y-4">
               {Array.from({ length: 3 }).map((_, i) => (
-                <Card key={i}>
+                <Card key={i} className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
                   <CardContent className="p-4">
                     <Skeleton className="h-6 w-3/4 mb-2" />
                     <Skeleton className="h-4 w-1/2 mb-4" />
@@ -218,11 +219,11 @@ const AdminBlogsPage = () => {
           ) : draftPosts.length > 0 ? (
             <div className="space-y-4">
               {draftPosts.map((post) => (
-                <Card key={post.id}>
+                <Card key={post.id} className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-lg mb-1 line-clamp-2">
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground mb-1 line-clamp-2">
                           {post.title}
                         </h3>
                         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
@@ -237,20 +238,20 @@ const AdminBlogsPage = () => {
                             </span>
                           )}
                         </div>
-                        <Badge variant="secondary">Draft</Badge>
+                        <Badge className="rounded-full border border-[rgb(var(--accent))]/15 bg-[rgb(var(--accent-soft))]/45 text-[rgb(var(--accent-foreground))]">Draft</Badge>
                       </div>
                     </div>
                     
                     <div className="flex gap-2">
                       <Link href={`/admin/blogs/edit/${post.id}`}>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="rounded-full border-[rgb(var(--accent))]/20 bg-white/80">
                           <Edit className="h-3 w-3 mr-1" />
                           Edit
                         </Button>
                       </Link>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant="outline" size="sm" className="text-destructive hover:text-destructive">
+                          <Button variant="outline" size="sm" className="rounded-full border-rose-200 bg-white text-destructive hover:text-destructive">
                             <Trash2 className="h-3 w-3 mr-1" />
                             Delete
                           </Button>
@@ -279,7 +280,7 @@ const AdminBlogsPage = () => {
               ))}
             </div>
           ) : (
-            <Card>
+            <Card className="rounded-[28px] border-white/70 bg-white/95 shadow-[var(--shadow-soft)]">
               <CardContent className="p-8 text-center">
                 <Edit className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground">No draft posts</p>

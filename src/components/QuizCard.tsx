@@ -169,22 +169,22 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
 
   return (
     <>
-      <Card className="h-full flex flex-col hover:shadow-xl transition-all duration-300 border-primary/10 hover:border-primary/20 bg-card">
+      <Card className="flex h-full flex-col rounded-[28px] border-white/70 bg-white/88 shadow-product transition-all duration-300 hover:-translate-y-1 hover:border-orange-200/80 hover:shadow-[var(--shadow-warm)]">
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
-              <h2 className="font-semibold leading-none tracking-tight text-base sm:text-lg mb-2 line-clamp-2 capitalize">{quiz.title}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2 capitalize">{quiz.title}</h2>
               <div className="flex gap-2 mb-3">
-                <Badge className={`${getDifficultyColor(quiz.difficulty)} text-xs`}>
+                  <Badge className={`${getDifficultyColor(quiz.difficulty)} rounded-full text-xs`}>
                   {quiz.difficulty.toUpperCase()}
                 </Badge>
                 {(isMyQuiz || isAdmin) && (
-                  <Badge variant={isPublished ? "default" : "secondary"} className="text-xs">
+                  <Badge variant={isPublished ? "default" : "secondary"} className="rounded-full text-xs">
                     {isPublished ? "Published" : "Draft"}
                   </Badge>
                 )}
                 {isAdmin && !isMyQuiz && (
-                  <Badge variant="outline" className="text-xs text-orange-600 border-orange-600">
+                  <Badge variant="outline" className="rounded-full border-orange-300 bg-orange-50 text-xs text-orange-700">
                     <Shield className="h-3 w-3 mr-1" />
                     Admin
                   </Badge>
@@ -198,7 +198,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               >
                 <Avatar className="h-6 w-6">
                   <AvatarImage src={creator?.avatar_url || ''} alt={getCreatorDisplayName()} />
-                  <AvatarFallback className="text-xs bg-primary text-primary-foreground">
+                  <AvatarFallback className="bg-orange-100 text-xs text-primary">
                     {getCreatorInitials()}
                   </AvatarFallback>
                 </Avatar>
@@ -222,7 +222,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
               <Button
                 aria-label="Play Quiz"
                 onClick={() => onPlay(quiz.slug!)}
-                className="flex-1 text-sm h-9"
+                className="h-9 flex-1 rounded-full shadow-[var(--shadow-soft)] text-sm"
               >
                 <Play className="h-4 w-4 mr-2" />
                 Play Quiz
@@ -233,7 +233,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                   onClick={() => setShowLeaderboard(true)}
                   variant="outline"
                   size="sm"
-                  className="sm:w-auto w-full h-9"
+                  className="h-9 w-full rounded-full border-orange-200/80 bg-white/90 sm:w-auto"
                 >
                   <Trophy className="h-4 w-4 sm:mr-2" />
                   <span className="sm:inline hidden">Leaderboard</span>
@@ -247,7 +247,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onPlay, onQuizUpdated }) => {
                   onClick={() => setShowEditModal(true)}
                   variant="outline"
                   size="sm"
-                  className="flex-1 h-9 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                  className="h-9 flex-1 rounded-full border-orange-200/80 bg-white/90 text-primary hover:bg-orange-50 hover:text-primary"
                 >
                   <Edit className="h-4 w-4 mr-2" />
                   Edit

@@ -242,7 +242,7 @@ const AchievementSystem: React.FC<{ productData?: unknown }> = ({ productData })
                       className={`p-3 rounded-lg border-2 cursor-pointer transition-all duration-300 hover:scale-105 ${
                         isUnlocked 
                           ? getRarityColor(achievement.rarity) 
-                          : 'border-gray-200 bg-gray-100 opacity-50'
+                          : 'border-gray-200 bg-gray-100 opacity-80'
                       }`}
                     >
                       <div className={`${isUnlocked ? 'text-gray-700' : 'text-gray-400'} flex justify-center mb-1`}>
@@ -261,7 +261,7 @@ const AchievementSystem: React.FC<{ productData?: unknown }> = ({ productData })
                         {achievement.icon}
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold mb-2">{achievement.title}</h3>
+                        <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">{achievement.title}</h3>
                         <p className="text-muted-foreground mb-3">{achievement.description}</p>
                         <div className="flex items-center justify-center gap-2">
                           <Badge variant={getRarityBadgeColor(achievement.rarity)}>
@@ -292,10 +292,10 @@ const AchievementSystem: React.FC<{ productData?: unknown }> = ({ productData })
               <div className="animate-bounce mb-4">
                 <Trophy className="w-12 h-12 text-yellow-600 mx-auto" />
               </div>
-              <h2 className="text-2xl font-bold text-yellow-600 mb-2">Achievement Unlocked!</h2>
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">Achievement Unlocked!</h2>
               {newAchievements.map((achievement, index) => (
                 <div key={index} className="mb-2">
-                  <h3 className="font-semibold">{achievement.title}</h3>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground">{achievement.title}</h3>
                   <p className="text-sm text-muted-foreground">{achievement.description}</p>
                   <Badge className="mt-1">+{achievement.points} points</Badge>
                 </div>

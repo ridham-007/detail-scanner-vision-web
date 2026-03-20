@@ -45,7 +45,7 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
                     <AlertTriangle className="h-5 w-5 text-amber-600" />
                   </div>
                   <div className="flex-1 space-y-2">
-                    <h3 className="font-semibold text-amber-900 text-sm">
+                    <h3 className="text-xl font-semibold tracking-tight text-amber-900">
                       Allergen Warning
                     </h3>
                     <div className="flex flex-wrap gap-1.5">
@@ -72,7 +72,7 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
                     <Shield className="h-5 w-5 text-rose-600" />
                   </div>
                   <div className="flex-1 space-y-2">
-                    <h3 className="font-semibold text-rose-900 text-sm">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">
                       Additives Detected
                     </h3>
                     <div className="flex flex-wrap gap-1.5">
@@ -102,7 +102,7 @@ const EnhancedIngredientsDisplay: React.FC<EnhancedIngredientsDisplayProps> = ({
                 <span className="text-2xl" role="img" aria-label="ingredients">🧪</span>
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-slate-900">Ingredients</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Ingredients</h2>
                 <p className="text-xs text-slate-500 font-normal mt-0.5">
                   {ingredientsList.length} ingredient{ingredientsList.length !== 1 ? 's' : ''} listed
                 </p>

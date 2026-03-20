@@ -41,7 +41,7 @@ export const useScanHistory = () => {
         .select('*', { count: 'exact' })
         .eq('user_id', user.id)
         .order('scanned_at', { ascending: false })
-        .limit(effectiveLimit);
+        .limit(effectiveLimit * 5);
 
       if (error) {
         throw error;
@@ -56,7 +56,7 @@ export const useScanHistory = () => {
           }
           return acc;
         }, []);
-        setScanHistory(uniqueHistory);
+        setScanHistory(uniqueHistory.slice(0, effectiveLimit));
       } else {
         setScanHistory([]);
       }

@@ -3,10 +3,6 @@
 import React from "react";
 import {
   Calculator,
-  Activity,
-  Zap,
-  Droplet,
-  CheckCircle,
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
@@ -20,12 +16,12 @@ export default function HealthCalculators() {
   return (
     <section
       id="health-calculators"
-      className="bg-gradient-to-br from-primary/5 via-background to-primary/5 py-20"
+      className="py-14 sm:py-20"
       aria-labelledby="calculators-heading"
     >
       <div className="container mx-auto px-4">
-        <header className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
+        <header className="mb-12 text-center sm:mb-16">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-white/82 px-4 py-2 shadow-[var(--shadow-soft)]">
             <Calculator className="h-5 w-5 text-primary" aria-hidden="true" />
             <span className="text-sm font-semibold text-primary">
               Health Tools
@@ -34,61 +30,56 @@ export default function HealthCalculators() {
 
           <h2
             id="calculators-heading"
-            className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+            className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
           >
             Free Health Calculators
           </h2>
 
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Track your health metrics with our science-based calculators and get
             personalized insights
           </p>
         </header>
 
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
           {calculators.map((calc, index) => {
             const Icon = calc.icon;
 
             return (
               <Link key={index} href={calc.path}>
                 <article
-                  className="group relative bg-card rounded-2xl p-8 border-2 border-border 
-                  hover:border-primary/50 shadow-lg hover:shadow-2xl transition-all duration-300 
-                  cursor-pointer overflow-hidden h-full flex flex-col"
+                  className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[30px] border border-white/65 bg-white/84 p-6  transition-all duration-300 hover:-translate-y-1 hover:border-orange-200/80 hover:shadow-[var(--shadow-warm)] sm:p-8"
                 >
                   <div
-                    className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent 
-                    to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 bg-gradient-to-br from-orange-100/60 via-transparent 
+                    to-orange-50 opacity-0 transition-opacity duration-300 group-hover:opacity-80"
                   />
 
                   <div className="relative z-10 flex flex-col flex-grow">
                     {/* ICON */}
                     <div
-                      className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 
-                      rounded-2xl flex items-center justify-center mb-6 
-                      group-hover:scale-110 transition-transform duration-300 shadow-lg"
+                      className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-orange-300 via-orange-400 to-orange-600 
+                      shadow-[var(--shadow-warm)] transition-transform duration-300 group-hover:scale-110"
                     >
                       <Icon className="h-8 w-8 text-white" />
                     </div>
 
                     {/* TITLE */}
                     <h3
-                      className="text-2xl font-bold text-foreground mb-3 
-                      group-hover:text-primary transition-colors"
+                      className="text-xl font-semibold tracking-tight mb-3 group-hover:text-primary transition-colors"
                     >
                       {calc.title}
                     </h3>
 
                     {/* DESCRIPTION - FIXED HEIGHT */}
                     <p
-                      className="text-muted-foreground mb-6 leading-relaxed 
-                      line-clamp-3 min-h-[72px]"
+                      className="mb-6 text-muted-foreground leading-relaxed line-clamp-3 sm:min-h-[72px]"
                     >
                       {calc.description}
                     </p>
 
                     {/* BENEFITS */}
-                    <ul className="space-y-2 mb-6 min-h-[100px]">
+                    <ul className="mb-6 min-h-[unset] space-y-2 sm:min-h-[100px]">
                       {calc.howToUse?.benefits?.slice(0, 3).map((b, i) => (
                         <li
                           key={i}
@@ -111,7 +102,7 @@ export default function HealthCalculators() {
 
                   <div
                     className="absolute -bottom-10 -right-10 w-32 h-32 
-                    bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 
+                    bg-primary/10 rounded-full blur-xl group-hover:bg-primary/10 
                     transition-colors"
                   />
                 </article>
@@ -123,7 +114,7 @@ export default function HealthCalculators() {
         {/* FOOTER BUTTON */}
         <div className="text-center pt-8">
           <Link href="/calculators">
-            <button className="group relative text-white inline-flex items-center gap-3 bg-gradient-to-r from-primary to-primary/80 px-8 py-3 rounded-xl font-semibold text-md">
+            <button className="group relative inline-flex items-center gap-3 rounded-2xl bg-foreground px-8 py-3 text-base font-semibold text-white shadow-[var(--shadow-warm)] transition-transform hover:-translate-y-0.5">
               <Calculator className="h-5 w-5" />
               <span>Show All Health Calculators</span>
               <ArrowRight className="h-5 w-5" />

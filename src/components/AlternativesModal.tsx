@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { fetchProductImage } from "../lib/api/productImage";
 import { Button } from "@/components/ui/button";
 import { useSubscription } from "@/hooks/useSubscription";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Alternative {
   name: string;
@@ -54,6 +55,7 @@ export default function AlternativesModal({
 }: Props) {
   const router = useRouter();
   const { tier } = useSubscription();
+  const { session, deviceId } = useAuth();
   const isPro = tier !== "free";
 
   const [resolvedImages, setResolvedImages] = useState<
@@ -82,7 +84,7 @@ export default function AlternativesModal({
 
       console.log("🔁 Calling API only for:", item.barcode);
 
-      const img = await fetchProductImage(item.barcode);
+      const img = await fetchProductImage(item.barcode, deviceId, session?.access_token);
 
       setResolvedImages((prev) => ({
         ...prev,
@@ -98,10 +100,10 @@ export default function AlternativesModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl p-10">
+      <DialogContent className="max-h-[90vh] max-w-[calc(100vw-1.5rem)] overflow-y-auto rounded-[28px] p-4 sm:max-w-4xl sm:p-6 lg:max-w-7xl lg:p-10">
 
-        <div className="mb-10">
-          <h1 className="text-4xl font-semibold tracking-tight">
+        <div className="mb-6 sm:mb-8 lg:mb-10">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
             Healthier Alternatives
           </h1>
         </div>
@@ -127,7 +129,7 @@ export default function AlternativesModal({
               </li>
             </ul>
             <Button
-              className="mt-2"
+              className="mt-2 w-full sm:w-auto"
               onClick={() => {
                 onOpenChange(false);
                 router.push("/pricing");
@@ -178,7 +180,7 @@ export default function AlternativesModal({
                     />
                   ) : (
                     <div className="flex flex-col items-center text-muted-foreground gap-1">
-                      <ImageIcon className="w-6 h-6 opacity-60" />
+                      <ImageIcon className="w-6 h-6 opacity-80" />
                       <span className="text-xs">No image</span>
                     </div>
                   )}
@@ -187,7 +189,7 @@ export default function AlternativesModal({
                 {/* CONTENT */}
                 <div className="flex-1 space-y-3">
                   <div className="flex justify-between items-start">
-                    <h3 className="text-lg font-medium leading-tight">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">
                       {item.name}
                     </h3>
                     <span className="text-xs text-muted-foreground">

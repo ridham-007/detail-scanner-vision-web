@@ -662,7 +662,7 @@ const QuizPage: React.FC = () => {
 
                 {!user && (
                   <div className="bg-accent/10 p-4 rounded-xl border-2 border-accent/20">
-                    <h3 className="font-semibold text-accent mb-2 flex items-center gap-2">
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 flex items-center gap-2">
                       <Trophy className="h-5 w-5" />
                       Save Your Achievement!
                     </h3>
@@ -747,7 +747,7 @@ const QuizPage: React.FC = () => {
       />
       <AnimatedBackground />
 
-      <main className="container mx-auto px-3 sm:px-4 py-4 relative z-10 max-w-4xl">
+      <main className="container mx-auto px-3 sm:px-4 py-4 relative z-10">
         {/* Quiz Header - Compact and Mobile Optimized */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
@@ -919,7 +919,7 @@ const QuizPage: React.FC = () => {
         {/* Lifelines - Gamified Design */}
         <div className="mb-4">
           <div className="text-center mb-2">
-            <h3 className="text-sm font-semibold text-muted-foreground flex items-center justify-center gap-2">
+            <h3 className="text-xl font-semibold tracking-tight text-foreground flex items-center gap-2">
               <Zap className="h-4 w-4" />
               Power-Ups
             </h3>
@@ -933,14 +933,14 @@ const QuizPage: React.FC = () => {
               disabled={!lifelines.fiftyFifty || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.fiftyFifty
-                  ? "opacity-50 bg-muted"
+                  ? "opacity-80 bg-muted"
                   : "bg-primary hover:bg-primary/90 text-primary-foreground"
               }`}
             >
               <Users className="h-4 w-4" />
               <span className="text-xs">50:50</span>
               {!lifelines.fiftyFifty && (
-                <span className="text-[10px] opacity-75">Used</span>
+                <span className="text-xs opacity-75">Used</span>
               )}
             </Button>
             <Button
@@ -951,14 +951,14 @@ const QuizPage: React.FC = () => {
               disabled={!lifelines.skipQuestion || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.skipQuestion
-                  ? "opacity-50 bg-muted"
+                  ? "opacity-80 bg-muted"
                   : "bg-accent hover:bg-accent/90 text-accent-foreground"
               }`}
             >
               <Lightbulb className="h-4 w-4" />
               <span className="text-xs">Skip</span>
               {!lifelines.skipQuestion && (
-                <span className="text-[10px] opacity-75">Used</span>
+                <span className="text-xs opacity-75">Used</span>
               )}
             </Button>
             <Button
@@ -969,14 +969,14 @@ const QuizPage: React.FC = () => {
               disabled={!lifelines.extraTime || answerFeedback.show}
               className={`flex flex-col items-center gap-1 h-auto py-2 ${
                 !lifelines.extraTime
-                  ? "opacity-50 bg-muted"
+                  ? "opacity-80 bg-muted"
                   : "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
               }`}
             >
               <Clock className="h-4 w-4" />
               <span className="text-xs">+15s</span>
               {!lifelines.extraTime && (
-                <span className="text-[10px] opacity-75">Used</span>
+                <span className="text-xs opacity-75">Used</span>
               )}
             </Button>
           </div>
@@ -1014,7 +1014,7 @@ const QuizPage: React.FC = () => {
                 return (
                   <div
                     key={index}
-                    className="h-12 sm:h-14 bg-muted rounded-lg flex items-center justify-center opacity-50 border-2 border-dashed border-border"
+                    className="h-12 sm:h-14 bg-muted rounded-lg flex items-center justify-center opacity-80 border-2 border-dashed border-border"
                   >
                     <span className="text-muted-foreground text-sm flex items-center gap-2">
                       <XCircle className="h-4 w-4" />
@@ -1103,7 +1103,7 @@ const QuizPage: React.FC = () => {
                     />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-primary mb-2">
+                <h3 className="text-xl font-semibold tracking-tight text-primary mb-2">
                   🎉 Correct!
                 </h3>
                 <div className="space-y-2">
@@ -1153,7 +1153,7 @@ const QuizPage: React.FC = () => {
             ) : (
               <div className="text-destructive">
                 <XCircle className="h-20 w-20 mx-auto mb-4 animate-pulse" />
-                <h3 className="text-2xl font-bold text-destructive mb-3">
+                <h3 className="text-xl font-semibold tracking-tight text-destructive mb-3">
                   ❌ Incorrect!
                 </h3>
                 <div className="bg-destructive/10 rounded-lg p-3 mb-2">

@@ -47,6 +47,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const UserSettingsPage = () => {
   const { user, session, loading: userLoading } = useAuth();
@@ -220,12 +221,18 @@ const UserSettingsPage = () => {
       />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto">
+          <Breadcrumbs items={[{ label: 'Settings' }]} />
+          <div className="mx-auto">
+            <div className="mb-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 text-center shadow-product backdrop-blur-sm">
+              <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Settings</h1>
+              <p className="mt-3 text-muted-foreground">Manage your account, subscription, notifications, and privacy in one place.</p>
+            </div>
             <Tabs defaultValue="profile" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-5">
+              <div className="overflow-x-auto pb-1">
+              <TabsList className="grid h-auto min-w-[640px] grid-cols-5 rounded-[24px] bg-orange-50 p-1 shadow-[var(--shadow-soft)]">
                 <TabsTrigger
                   value="profile"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <User className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Profile</span>
@@ -234,7 +241,7 @@ const UserSettingsPage = () => {
 
                 <TabsTrigger
                   value="subscription"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <CreditCard className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Subscription</span>
@@ -243,7 +250,7 @@ const UserSettingsPage = () => {
 
                 <TabsTrigger
                   value="preferences"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <SettingsIcon className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Preferences</span>
@@ -252,7 +259,7 @@ const UserSettingsPage = () => {
 
                 <TabsTrigger
                   value="notifications"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <Bell className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Notifications</span>
@@ -261,19 +268,20 @@ const UserSettingsPage = () => {
 
                 <TabsTrigger
                   value="privacy"
-                  className="flex items-center gap-2"
+                  className="flex min-h-11 items-center gap-2"
                 >
                   <Shield className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">Privacy</span>
                   <span className="sr-only sm:hidden">Privacy</span>
                 </TabsTrigger>
               </TabsList>
+              </div>
 
               <TabsContent value="profile">
-                <Card>
+                <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <User className="h-5 w-5" />
+                      <User className="h-6 w-6" />
                       Profile Settings
                     </CardTitle>
                   </CardHeader>
@@ -296,7 +304,7 @@ const UserSettingsPage = () => {
                             userId={user.id}
                           />
                           <div className="text-center">
-                            <h3 className="text-lg font-semibold">
+                            <h3 className="text-xl font-semibold tracking-tight text-foreground">
                               {profile.full_name || "No name set"}
                             </h3>
                             <p className="text-muted-foreground">
@@ -413,7 +421,7 @@ const UserSettingsPage = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <CreditCard className="h-5 w-5" />
+                      <CreditCard className="h-6 w-6" />
                       Subscription
                     </CardTitle>
                   </CardHeader>
@@ -426,7 +434,7 @@ const UserSettingsPage = () => {
                       <>
                         {/* Current Plan */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Current Plan
                           </h3>
 
@@ -486,7 +494,7 @@ const UserSettingsPage = () => {
 
                               {/* Cancel Subscription */}
                               <div className="space-y-4">
-                                <h3 className="text-lg font-semibold text-foreground">
+                                <h3 className="text-xl font-semibold tracking-tight text-foreground">
                                   Cancel Subscription
                                 </h3>
 
@@ -564,7 +572,7 @@ const UserSettingsPage = () => {
 
                             {/* Already Cancelled */}
                             <div className="space-y-4">
-                              <h3 className="text-lg font-semibold text-foreground">
+                              <h3 className="text-xl font-semibold tracking-tight text-foreground">
                                 Subscription Cancelled
                               </h3>
 
@@ -611,7 +619,7 @@ const UserSettingsPage = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Bell className="h-5 w-5" />
+                      <Bell className="h-6 w-6" />
                       Notification Settings
                     </CardTitle>
                   </CardHeader>
@@ -624,7 +632,7 @@ const UserSettingsPage = () => {
                       <>
                         {/* General Settings */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             General Settings
                           </h3>
 
@@ -687,7 +695,7 @@ const UserSettingsPage = () => {
 
                         {/* Content Preferences */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Content Preferences
                           </h3>
 
@@ -809,7 +817,7 @@ const UserSettingsPage = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Shield className="h-5 w-5" />
+                      <Shield className="h-6 w-6" />
                       Privacy Settings
                     </CardTitle>
                   </CardHeader>
@@ -822,7 +830,7 @@ const UserSettingsPage = () => {
                       <>
                         {/* Profile Visibility */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Profile Visibility
                           </h3>
 
@@ -884,7 +892,7 @@ const UserSettingsPage = () => {
 
                         {/* Data & Privacy */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold tracking-tight text-foreground">
                             Data & Privacy
                           </h3>
 

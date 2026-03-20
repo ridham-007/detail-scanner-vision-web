@@ -244,7 +244,7 @@ const EditQuizModal: React.FC<EditQuizModalProps> = ({
           {/* Questions Section */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Questions</h3>
+              <h3 className="text-xl font-semibold tracking-tight text-foreground">Questions</h3>
               <Button type="button" onClick={addQuestion} size="sm">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Question

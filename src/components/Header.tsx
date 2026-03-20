@@ -11,45 +11,45 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Shield, FileText, Package, Bell, BookOpen } from "lucide-react";
-
+import { Shield, FileText, Package, Bell, BookOpen, ScanLine, Sparkles, Heart, Calculator } from "lucide-react";
+import LogoIcon from "./LogoIcon";
 const Header = () => {
   const pathname = usePathname();
   const { data: isAdmin } = useIsAdmin();
 
   const navigationItems = [
-    { path: "/", label: "Scanner" },
+    { path: "/scanner", label: "Scanner" },
     { path: "/quiz", label: "Quiz" },
     { path: "/blog", label: "Blogs" },
     { path: "/pricing", label: "Pricing" },
   ];
 
   return (
-    <header 
+    <header
       role="banner"
-      className="sticky top-0 z-50 w-full border-b border-primary/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm"
+      className="sticky top-0 z-50 w-full bg-transparent"
     >
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between rounded-[28px] border border-white/60 px-4 py-3 shadow-product bg-white">
           <div className="flex items-center space-x-3">
-            <Link href="/" aria-label="EaterIQ Home">
-              <div className="h-10 w-10 sm:h-20 sm:w-20 rounded-2xl flex items-center justify-center transition-all duration-300">
-                <span className="text-4xl filter" role="img" aria-label="Avocado logo">🥑</span>
-              </div>
+            <Link href="/" aria-label="EaterIQ Home" className="transition-transform duration-300 hover:scale-105">
+              <LogoIcon className="h-12 w-12" />
             </Link>
+
             <Link href={'/'} className="cursor-pointer group" aria-label="EaterIQ - Smart Food Intelligence">
-              <h2
-                // ref={titleRef}
-                className="text-2xl md:text-3xl font-bold text-primary group-hover:text-primary/80 transition-all duration-300"
-              >
-                EaterIQ
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+                Eater
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                  IQ
+                </span>
               </h2>
               <p
-                // ref={subtitleRef}
-                className="text-xs md:text-sm text-muted-foreground/80 group-hover:text-muted-foreground transition-colors duration-300"
+                className="text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/70 md:text-sm"
               >
-                Smart Food Intelligence & Brain Bites
+                Bright scans, smarter food choices
               </p>
+
+
             </Link>
           </div>
 
@@ -62,27 +62,26 @@ const Header = () => {
                   aria-label={item.label}
                   aria-current={pathname === item.path ? "page" : undefined}
                   key={item.path}
-                  className={`font-medium transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
-                    pathname === item.path
-                      ? "text-primary font-bold"
-                      : "text-muted-foreground hover:text-primary"
-                  }`}
+                  className={`font-medium transition-all duration-300 relative group outline-none focus:outline-none focus-visible:outline-none rounded-none ${pathname === item.path
+                    ? "text-primary font-bold"
+                    : "text-muted-foreground hover:text-foreground"
+                    }`}
                 >
                   {item.label}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                    pathname === item.path 
-                      ? "w-full" 
-                      : "w-0 group-hover:w-full"
-                  }`}></span>
+                  <span className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-primary transition-all duration-300 ${pathname === item.path
+                    ? "w-full"
+                    : "w-0 group-hover:w-full"
+                    }`}></span>
                 </Link>
               ))}
 
               {/* Resources Dropdown */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground hover:text-primary transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm">
+                <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground transition-all duration-300 hover:text-foreground outline-none focus:outline-none focus-visible:outline-none">
                   Resources
+                  <Sparkles className="h-3.5 w-3.5 text-primary/70" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuContent align="start" className="w-52 rounded-2xl border-border/80 bg-white/95 shadow-product">
                   <DropdownMenuItem asChild>
                     <Link href="/user-guide" className="flex items-center gap-2 cursor-pointer">
                       <BookOpen className="h-4 w-4" />
@@ -101,17 +100,23 @@ const Header = () => {
                       Support Center
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/calculators" className="flex items-center gap-2 cursor-pointer">
+                      <Calculator className="h-4 w-4" />
+                      Health Calculators
+                    </Link>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
               {/* Admin Dropdown */}
               {isAdmin && (
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground hover:text-primary transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm">
+                  <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground transition-all duration-300 hover:text-foreground outline-none focus:outline-none focus-visible:outline-none">
                     <Shield className="h-4 w-4" />
                     Admin
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
+                  <DropdownMenuContent align="end" className="rounded-2xl border-border/80 bg-white/95 shadow-product">
                     <DropdownMenuItem asChild>
                       <Link href="/admin/blogs" className="flex items-center gap-2 cursor-pointer">
                         <FileText className="h-4 w-4" />
@@ -138,7 +143,7 @@ const Header = () => {
             <div className="flex items-center gap-2 md:gap-4">
               <NotificationBell />
               <AuthButton />
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
             </div>
           </div>
         </div>
