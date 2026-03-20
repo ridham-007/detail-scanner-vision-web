@@ -281,7 +281,7 @@ const UserSettingsPage = () => {
                 <Card className="rounded-[28px] border-white/70 bg-white/88 shadow-product">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <User className="h-5 w-5" />
+                      <User className="h-6 w-6" />
                       Profile Settings
                     </CardTitle>
                   </CardHeader>
@@ -421,7 +421,7 @@ const UserSettingsPage = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <CreditCard className="h-5 w-5" />
+                      <CreditCard className="h-6 w-6" />
                       Subscription
                     </CardTitle>
                   </CardHeader>
@@ -619,7 +619,7 @@ const UserSettingsPage = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Bell className="h-5 w-5" />
+                      <Bell className="h-6 w-6" />
                       Notification Settings
                     </CardTitle>
                   </CardHeader>
@@ -817,7 +817,7 @@ const UserSettingsPage = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Shield className="h-5 w-5" />
+                      <Shield className="h-6 w-6" />
                       Privacy Settings
                     </CardTitle>
                   </CardHeader>

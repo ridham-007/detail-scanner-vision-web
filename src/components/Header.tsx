@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Shield, FileText, Package, Bell, BookOpen, ScanLine, Sparkles, Heart } from "lucide-react";
+import { Shield, FileText, Package, Bell, BookOpen, ScanLine, Sparkles, Heart, Calculator } from "lucide-react";
 
 const Header = () => {
   const pathname = usePathname();
@@ -99,6 +99,12 @@ const Header = () => {
                     <Link href="/support" className="flex items-center gap-2 cursor-pointer">
                       <Shield className="h-4 w-4" />
                       Support Center
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/calculators" className="flex items-center gap-2 cursor-pointer">
+                      <Calculator className="h-4 w-4" />
+                      Health Calculators
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
