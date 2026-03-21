@@ -9,7 +9,7 @@ const LogoIcon: React.FC<LogoProps> = ({ className = "h-12 w-12" }) => {
   return (
     <div className={`relative ${className}`}>
       <Image
-        src="/Logo2.png"
+        src="/LogoIcon.png"
         alt="EaterIQ Logo"
         fill
         className="object-contain"
