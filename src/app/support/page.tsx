@@ -234,7 +234,7 @@ export default function SupportPage() {
                 <CardContent className="space-y-4">
                   <div className="flex items-start gap-3">
                     <Bug
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-500"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
                       aria-hidden="true"
                     />
                     <div>

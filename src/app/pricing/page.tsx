@@ -253,9 +253,9 @@ export default function PricingPage() {
                       <p className="font-semibold text-sm text-gray-900 group-hover:text-primary transition-colors truncate">
                         {title}
                       </p>
-                      <p className="text-xs text-gray-400 truncate">{sub}</p>
+                      <p className="text-xs text-gray-500 truncate">{sub}</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-primary transition-colors flex-shrink-0" aria-hidden="true" />
+                    <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-primary transition-colors flex-shrink-0" aria-hidden="true" />
                   </div>
                 </Link>
               ))}

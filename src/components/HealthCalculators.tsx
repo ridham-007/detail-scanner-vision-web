@@ -58,7 +58,7 @@ export default function HealthCalculators() {
                   <div className="relative z-10 flex flex-col flex-grow">
                     {/* ICON */}
                     <div
-                      className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-orange-300 via-orange-400 to-orange-600 
+                      className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-[#be7e59] via-[#c57e56] to-[#853d14] 
                       shadow-[var(--shadow-warm)] transition-transform duration-300 group-hover:scale-110"
                     >
                       <Icon className="h-8 w-8 text-white" />
@@ -114,7 +114,7 @@ export default function HealthCalculators() {
         {/* FOOTER BUTTON */}
         <div className="text-center pt-8">
           <Link href="/calculators">
-            <button className="group relative inline-flex items-center gap-3 rounded-2xl bg-foreground px-8 py-3 text-base font-semibold text-white shadow-[var(--shadow-warm)] transition-transform hover:-translate-y-0.5">
+            <button className="group relative inline-flex items-center gap-3 rounded-2xl bg-primary px-8 py-3 text-base font-semibold text-white shadow-[var(--shadow-warm)] transition-transform hover:-translate-y-0.5">
               <Calculator className="h-5 w-5" />
               <span>Show All Health Calculators</span>
               <ArrowRight className="h-5 w-5" />

@@ -293,7 +293,7 @@ export default async function BlogPostPage({ params }: Props) {
               {/* Medical Disclaimer - After Content (Detailed) */}
               <div className="mb-8 rounded-[24px] border border-orange-100/80 bg-orange-50/60 p-5">
                 <div className="flex items-start gap-3">
-                  <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-500" aria-hidden="true" />
+                  <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                   <div>
                     <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">
                       Medical & Nutritional Disclaimer
@@ -423,7 +423,7 @@ export default async function BlogPostPage({ params }: Props) {
                             </div>
                           )}
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary line-clamp-2">
+                            <h3 className="text-lg font-semibold tracking-tight group-hover:text-primary line-clamp-2">
                               {relatedPost.title}
                             </h3>
                             {relatedPost.reading_time && (

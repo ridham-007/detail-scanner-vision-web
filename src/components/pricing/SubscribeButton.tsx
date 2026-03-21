@@ -157,9 +157,9 @@ export default function SubscribeButton() {
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      <div className="bg-white rounded-3xl border border-orange-100 overflow-hidden shadow-sm hover:shadow-md transition">
+      <div className="bg-white rounded-3xl border border-primary/20 overflow-hidden shadow-sm hover:shadow-md transition">
         {/* ── Header ───────────────── */}
-        <div className="bg-gradient-to-b from-orange-50 to-white px-6 pt-8 pb-6 text-center border-b border-orange-100">
+        <div className="bg-gradient-to-b from-primary/20 to-white px-6 pt-8 pb-6 text-center border-b border-orange-100">
           <div className="mx-auto mb-4 w-14 h-14 rounded-2xl bg-primary flex items-center justify-center shadow-md">
             <Star className="w-7 h-7 text-white" fill="white" />
           </div>
@@ -219,7 +219,7 @@ export default function SubscribeButton() {
                   SAVE {SAVINGS_PERCENT}%
                 </span>
               </div>
-              <p className="text-xs text-gray-400 text-left">
+              <p className="text-xs text-gray-500 text-left">
                 ${MONTHLY_EQUIV}/month
               </p>
             </div>
@@ -227,7 +227,7 @@ export default function SubscribeButton() {
               <span className="font-bold text-lg text-primary">
                 {NEW_PLANS.yearly.display}
               </span>
-              <p className="text-xs text-gray-400">/year</p>
+              <p className="text-xs text-gray-500">/year</p>
             </div>
           </button>
 
@@ -243,13 +243,13 @@ export default function SubscribeButton() {
           >
             <div className="text-left">
               <span className="font-semibold text-left">Monthly</span>
-              <p className="text-xs text-gray-400">Billed monthly</p>
+              <p className="text-xs text-gray-500">Billed monthly</p>
             </div>
             <div className="text-right">
               <span className="font-bold text-lg text-primary">
                 {NEW_PLANS.monthly.display}
               </span>
-              <p className="text-xs text-gray-400">/month</p>
+              <p className="text-xs text-gray-500">/month</p>
             </div>
           </button>
 
@@ -284,7 +284,7 @@ export default function SubscribeButton() {
             )}
           </div>
 
-          <p className="text-center text-xs text-gray-400">
+          <p className="text-center text-xs text-gray-500">
             Cancel anytime · 7-day money-back guarantee
           </p>
         </div>

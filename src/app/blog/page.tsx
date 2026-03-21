@@ -199,7 +199,7 @@ export default async function BlogListPage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/90 shadow-[var(--shadow-soft)]">
                     <Scan className="h-6 w-6 text-primary" aria-hidden="true" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">Try Our Food Scanner</h2>
+                  <h2 className="text-2xl md:text-2xl font-bold tracking-tight text-foreground mb-2">Try Our Food Scanner</h2>
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any product barcode and get instant health analysis.
                   </p>
@@ -217,7 +217,7 @@ export default async function BlogListPage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 shadow-[var(--shadow-soft)]">
                     <Brain className="h-6 w-6 text-accent-foreground" aria-hidden="true" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">Test Your Knowledge</h2>
+                  <h2 className="text-2xl md:text-2xl font-bold tracking-tight text-foreground mb-2">Test Your Knowledge</h2>
                   <p className="text-sm text-muted-foreground mb-4">
                     Challenge yourself with our nutrition quizzes.
                   </p>

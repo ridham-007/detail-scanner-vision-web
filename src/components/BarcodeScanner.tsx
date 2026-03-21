@@ -169,7 +169,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
           className="absolute inset-4 overflow-hidden rounded-[24px]"
           aria-hidden={!isScanning}
         >
-          <div className="h-1.5 w-full animate-pulse bg-orange-500/90" aria-hidden="true"></div>
+          <div className="h-1.5 w-full animate-pulse bg-primary" aria-hidden="true"></div>
         </div>
 
         <div className="flex flex-col !items-center !justify-center">

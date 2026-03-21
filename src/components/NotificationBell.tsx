@@ -27,7 +27,7 @@ const getNotificationIcon = (type: NotificationType) => {
       return <Brain className="h-4 w-4 text-purple-500" />;
     case 'scan_reminder':
     default:
-      return <Clock className="h-4 w-4 text-orange-500" />;
+      return <Clock className="h-4 w-4 text-primary" />;
   }
 };
 

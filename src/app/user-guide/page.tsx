@@ -61,7 +61,7 @@ const sections = [
   {
     id: "history-profile",
     title: "History & Profile",
-    icon: <User className="h-6 w-6 text-orange-500" />,
+    icon: <User className="h-6 w-6 text-primary" />,
     description: "Manage your scan history, favorite products, and account settings."
   },
   {
@@ -97,10 +97,10 @@ const sections = [
 ];
 
 const scoreLevels = [
-  { label: "Excellent", range: "80–100", score: "100", color: "bg-green-500", textColor: "text-green-700", bgColor: "bg-green-50", borderColor: "border-green-100", description: "Minimal additives, high nutritional value, and clean ingredients." },
-  { label: "Good", range: "60–79", score: "79", color: "bg-yellow-400", textColor: "text-yellow-700", bgColor: "bg-yellow-50", borderColor: "border-yellow-100", description: "Generally healthy with some minor nutritional concerns." },
-  { label: "Fair", range: "40–59", score: "59", color: "bg-orange-400", textColor: "text-orange-700", bgColor: "bg-orange-50", borderColor: "border-orange-100", description: "Contains several concerning ingredients or low nutritional density." },
-  { label: "Poor", range: "0–39", score: "39", color: "bg-red-500", textColor: "text-red-700", bgColor: "bg-red-50", borderColor: "border-red-100", description: "High in harmful additives, sugar, or ultra-processed ingredients." }
+  { label: "Excellent", range: "80–100", score: "100", color: "bg-green-800", textColor: "text-green-700", bgColor: "bg-green-50", borderColor: "border-green-100", description: "Minimal additives, high nutritional value, and clean ingredients." },
+  { label: "Good", range: "60–79", score: "79", color: "bg-yellow-700", textColor: "text-yellow-700", bgColor: "bg-yellow-50", borderColor: "border-yellow-100", description: "Generally healthy with some minor nutritional concerns." },
+  { label: "Fair", range: "40–59", score: "59", color: "bg-orange-800", textColor: "text-orange-700", bgColor: "bg-orange-50", borderColor: "border-orange-100", description: "Contains several concerning ingredients or low nutritional density." },
+  { label: "Poor", range: "0–39", score: "39", color: "bg-red-600", textColor: "text-red-700", bgColor: "bg-red-50", borderColor: "border-red-100", description: "High in harmful additives, sugar, or ultra-processed ingredients." }
 ];
 
 export default function UserGuidePage() {
@@ -112,7 +112,7 @@ export default function UserGuidePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background container">
+    <div className="min-h-screen container">
       <main className="container mx-auto px-4 py-8 relative z-10 ">
 
         {/* Breadcrumb */}
@@ -172,7 +172,7 @@ export default function UserGuidePage() {
 
           {/* Trust row */}
           <div className="flex flex-wrap items-center justify-center gap-5 text-sm text-muted-foreground">
-            <div className="inline-flex items-center gap-1.5 text-emerald-600 font-semibold">
+            <div className="inline-flex items-center gap-1.5 text-emerald-800 font-semibold">
               <CheckCircle2 className="h-4 w-4" />
               10,000+ scans guided
             </div>
@@ -252,9 +252,9 @@ export default function UserGuidePage() {
                         <div className="h-8 w-8 bg-yellow-200 text-yellow-700 rounded-xl flex items-center justify-center shadow-sm">
                           {item.icon}
                         </div>
-                        <h4 className="font-bold text-sm text-yellow-900">{item.title}</h4>
+                        <span className="font-bold text-sm text-yellow-900">{item.title}</span>
                       </div>
-                      <p className="text-sm text-yellow-800/80 leading-relaxed font-medium">{item.desc}</p>
+                      <p className="text-sm text-primary/80 leading-relaxed font-medium">{item.desc}</p>
                       <div className="absolute top-3 right-4 text-lg font-black text-yellow-200">{item.step}</div>
                     </div>
                   ))}
@@ -344,24 +344,24 @@ export default function UserGuidePage() {
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Food Battle</h2>
               </div>
 
-              <div className="bg-blue-50 rounded-3xl p-6 md:p-10 relative overflow-hidden border border-blue-100 mb-6 shadow-sm">
+              <div className="bg-[#F6F8FF] rounded-3xl p-6 md:p-10 relative overflow-hidden border border-blue-100 mb-6 shadow-sm">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/40 rounded-full -mr-32 -mt-32 blur-3xl" />
                 <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   <div className="space-y-4">
                     <Badge className="bg-blue-100 text-blue-700 border-none py-1 px-3 text-xs font-bold uppercase tracking-widest">
                       VS Mode Engaged
                     </Badge>
-                    <h4 className="font-black text-2xl md:text-3xl text-blue-900 leading-tight">Nutrient Duel</h4>
+                    <span className="font-black text-2xl md:text-3xl text-blue-900 leading-tight">Nutrient Duel</span>
                     <p className="text-sm md:text-base text-blue-700 leading-relaxed font-medium">
                       Compare macros and additives head-to-head. Our AI selects the definitive winner.
                     </p>
 
                     <div className="flex items-center gap-6 bg-white/70 backdrop-blur-lg rounded-2xl p-5 border border-blue-200 shadow-inner">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center font-black text-blue-700 text-lg border border-blue-200 shadow-sm">A</div>
-                        <span className="text-2xl font-black text-blue-300 italic uppercase tracking-tight">vs</span>
+                        <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center font-black text-blue-800 text-lg border border-blue-200 shadow-sm">A</div>
+                        <span className="text-2xl font-black text-blue-500 italic uppercase tracking-tight">vs</span>
                         <div className="relative">
-                          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center font-black text-blue-600 text-lg shadow-md">B</div>
+                          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center font-black text-blue-800 text-lg shadow-md">B</div>
                           <div className="absolute -top-3 -right-3 h-5 px-2 bg-yellow-400 text-black text-xs font-black rounded-full flex items-center shadow border-2 border-white">WIN</div>
                         </div>
                       </div>
@@ -383,11 +383,11 @@ export default function UserGuidePage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 shadow-sm">
-                  <h4 className="font-bold flex items-center gap-2 text-sm mb-2 text-blue-900">
+                <div className="p-5 rounded-2xl bg-[#F6F8FF] border border-blue-100 shadow-sm">
+                  <h3 className="font-bold flex items-center gap-2 text-sm mb-2 text-blue-900">
                     <Zap className="h-4 w-4 text-blue-600" />
                     Daily Limits
-                  </h4>
+                  </h3>
                   <p className="text-sm text-blue-700 leading-relaxed">
                     Free users get <strong>3 battles per day</strong>. Upgrade to <strong>Pro</strong> for unlimited comparisons.
                   </p>
@@ -425,7 +425,7 @@ export default function UserGuidePage() {
                       {lifeline.icon}
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm mb-1 text-foreground">{lifeline.title}</h4>
+                      <span className="font-bold text-sm mb-1 text-foreground">{lifeline.title}</span>
                       <p className="text-sm text-muted-foreground leading-snug">{lifeline.desc}</p>
                     </div>
                   </div>
@@ -434,7 +434,7 @@ export default function UserGuidePage() {
 
               {/* Categories */}
               <div className="bg-muted/30 border border-border/50 rounded-3xl p-6 md:p-8">
-                <h4 className="font-bold mb-4 text-base text-foreground tracking-tight">Quiz Categories</h4>
+                <h3 className="font-bold mb-4 text-base text-foreground tracking-tight">Quiz Categories</h3>
                 <div className="flex flex-wrap gap-2.5">
                   {["Nutrition Basics", "Food Safety", "Vitamins & Minerals", "Food Labels", "Superfoods", "Diet Myths"].map((cat) => (
                     <Badge key={cat} variant="outline" className="border-purple-200 text-purple-700 bg-white text-sm py-1.5 px-4 rounded-lg shadow-sm font-medium">
@@ -449,7 +449,7 @@ export default function UserGuidePage() {
             <section id="history-profile" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2.5 bg-orange-50 rounded-2xl shadow-sm border border-orange-100">
-                  <User className="h-6 w-6 text-orange-500" />
+                  <User className="h-6 w-6 text-primary" />
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tight">History & Profile</h2>
               </div>
@@ -490,7 +490,7 @@ export default function UserGuidePage() {
                     <p className="text-sm text-orange-700 leading-relaxed">Unlimited history, deep reports, and ad-free labeling.</p>
                   </div>
                   <Link href="/pricing" className="w-full md:w-auto">
-                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold px-8 h-11">
+                    <Button className="w-full bg-primary hover:bg-orange-700 text-white rounded-xl font-bold px-8 h-11">
                       Upgrade Now
                     </Button>
                   </Link>
@@ -509,7 +509,7 @@ export default function UserGuidePage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
                 <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8 shadow-sm">
-                  <h4 className="font-black text-sm uppercase tracking-widest text-red-600 mb-4">AI Smart Swaps</h4>
+                  <span className="font-black text-sm uppercase tracking-widest text-red-600 mb-4">AI Smart Swaps</span>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-6">
                     Instantly find products in the same category with cleaner labels and better nutritional metrics.
                   </p>
@@ -530,14 +530,14 @@ export default function UserGuidePage() {
                   </ul>
                 </div>
 
-                <div className="bg-red-50 border border-red-100 rounded-[2rem] p-8 flex flex-col justify-between shadow-sm relative overflow-hidden">
+                <div className="bg-[#fff4f4] border border-red-100 rounded-[2rem] p-8 flex flex-col justify-between shadow-sm relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-red-100/50 rounded-full -mr-16 -mt-16 blur-3xl" />
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-4">
                       <Badge className="bg-red-100 text-red-700 border-none text-xs font-bold">Smart Reco</Badge>
                       <Star className="h-5 w-5 fill-red-400 text-red-400" />
                     </div>
-                    <h4 className="text-2xl font-black mb-2 text-red-900">The Winner</h4>
+                    <h3 className="text-2xl font-black mb-2 text-red-900">The Winner</h3>
                     <p className="text-sm text-red-700 leading-relaxed">
                       Tap any alternative to see exactly why it beats your original scan.
                     </p>
@@ -546,7 +546,7 @@ export default function UserGuidePage() {
                     <div className="w-full h-1.5 bg-red-100 rounded-full overflow-hidden">
                       <div className="h-full bg-red-400 w-3/4" />
                     </div>
-                    <p className="text-xs text-red-500 mt-2 uppercase font-bold tracking-widest">Score Accuracy: 99%</p>
+                    <p className="text-xs text-[#B91C1C] mt-2 uppercase font-bold tracking-widest">Score Accuracy: 99%</p>
                   </div>
                 </div>
               </div>
@@ -571,7 +571,7 @@ export default function UserGuidePage() {
                   { name: "Wellness Tips", desc: "Personalised daily health advice." }
                 ].map((calc, i) => (
                   <div key={i} className="p-5 bg-card border border-border/50 rounded-2xl hover:border-teal-300 transition-all shadow-sm group">
-                    <h4 className="font-bold text-sm mb-1.5 group-hover:text-teal-600 text-foreground">{calc.name}</h4>
+                    <h3 className="font-bold text-sm mb-1.5 group-hover:text-teal-600 text-foreground">{calc.name}</h3>
                     <p className="text-sm text-muted-foreground leading-snug">{calc.desc}</p>
                   </div>
                 ))}
@@ -595,7 +595,7 @@ export default function UserGuidePage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
                 <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8">
-                  <h4 className="font-bold text-base mb-5 text-foreground">Submission Pipeline</h4>
+                  <h3 className="font-bold text-base mb-5 text-foreground">Submission Pipeline</h3>
                   <div className="space-y-4">
                     {[
                       { label: "Pending", labelColor: "bg-amber-100 text-amber-800", desc: "Manual verification is in progress." },
@@ -637,7 +637,7 @@ export default function UserGuidePage() {
               <div className="bg-card border border-border/50 rounded-[2rem] p-6 md:p-8 shadow-sm">
                 <div className="flex flex-col lg:flex-row gap-8 items-center">
                   <div className="flex-1 space-y-5">
-                    <h4 className="font-bold text-lg text-foreground">Dynamic Sync</h4>
+                    <h3 className="font-bold text-lg text-foreground">Dynamic Sync</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       Turn scans into action. Organize lists by store, health goal, or diet cycle.
                     </p>
@@ -694,28 +694,28 @@ export default function UserGuidePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {[
                   {
-                    icon: <ListOrdered className="h-6 w-6 text-pink-500" />,
+                    icon: <ListOrdered className="h-6 w-6 text-pink-400" />,
                     title: "Cheat Sheets",
                     desc: "Downloadable guides for Vegan, Keto, and Paleo lifestyles.",
                     href: "/dietary-guides",
                     cta: "Launch Guides"
                   },
                   {
-                    icon: <TrendingUp className="h-6 w-6 text-pink-500" />,
+                    icon: <TrendingUp className="h-6 w-6 text-pink-400" />,
                     title: "Wellness Blog",
                     desc: "Regular articles on gut health, food science, and lifestyle tips.",
                     href: "/blog",
                     cta: "Read Articles"
                   }
                 ].map((card) => (
-                  <div key={card.title} className="p-6 md:p-8 rounded-[2rem] bg-card border border-border shadow-sm hover:border-pink-200 transition-all hover:shadow-md group">
+                  <div key={card.title} className="p-6 md:p-8 rounded-[2rem] bg-[#f8f8f8] border border-border shadow-sm hover:border-pink-200 transition-all hover:shadow-md group">
                     <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
                       {card.icon}
                     </div>
                     <h3 className="text-lg font-bold mb-2 text-foreground">{card.title}</h3>
                     <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{card.desc}</p>
                     <Link href={card.href}>
-                      <Button variant="link" className="p-0 h-auto text-pink-500 hover:text-pink-600 font-bold text-sm">
+                      <Button variant="link" className="p-0 h-auto text-gray-600 hover:text-gray-700 font-bold text-sm">
                         {card.cta} <ArrowRight className="h-3.5 w-3.5 ml-1" />
                       </Button>
                     </Link>
@@ -750,6 +750,7 @@ export default function UserGuidePage() {
         {/* Scroll to top (mobile) */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Up Arrow"
           className="lg:hidden fixed bottom-6 right-6 p-4 bg-primary text-white rounded-2xl shadow-2xl z-50 transition-opacity opacity-80 hover:opacity-100"
         >
           <ChevronUp className="h-6 w-6" />

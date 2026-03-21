@@ -49,7 +49,7 @@ export const AllergenAnalysisCard = ({
     <Card className="border-none shadow-md">
       <CardHeader className="space-y-1">
         <CardTitle className="flex items-center gap-2 text-lg">
-          <AlertTriangle className="w-5 h-5 text-orange-500" />
+          <AlertTriangle className="w-5 h-5 text-primary" />
           Allergen Safety Overview
         </CardTitle>
         <p className="text-sm text-muted-foreground">

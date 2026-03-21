@@ -292,7 +292,7 @@ export default function TermsPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertTriangle
-                    className="h-5 w-5 text-orange-500"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                   Content & Intellectual Property

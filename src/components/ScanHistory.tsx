@@ -52,7 +52,7 @@ const TotalScansStrip = ({ totalScans }: { totalScans: number }) => {
             className="relative h-2 flex-1 overflow-hidden rounded-full bg-orange-100"
           >
             <div
-              className="absolute inset-y-0 left-0 rounded-full bg-orange-500 transition-all duration-700"
+              className="absolute inset-y-0 left-0 rounded-full bg-primary transition-all duration-700"
               style={{
                 width:
                   i < filledSegments
@@ -69,7 +69,7 @@ const TotalScansStrip = ({ totalScans }: { totalScans: number }) => {
         <span className="text-xs font-medium text-muted-foreground">
           {totalScans} scanned
         </span>
-        <span className="text-xs font-semibold text-orange-500">
+        <span className="text-xs font-semibold text-primary">
           Next: {nextMilestone}
         </span>
       </div>
@@ -96,9 +96,9 @@ const WeekCalendarStrip = ({ recentScans }: { recentScans: number }) => {
           <div key={i} className="flex flex-1 flex-col items-center gap-1">
             <div
               className={`w-full rounded-md transition-all duration-300 ${isToday
-                  ? "h-5 bg-orange-500 shadow-sm shadow-orange-200"
+                  ? "h-5 bg-primary shadow-sm shadow-primary/20"
                   : isActive
-                    ? "h-3.5 bg-orange-300"
+                    ? "h-3.5 bg-primary/20"
                     : isFuture
                       ? "h-2 bg-orange-50"
                       : "h-2 bg-orange-100"
@@ -106,7 +106,7 @@ const WeekCalendarStrip = ({ recentScans }: { recentScans: number }) => {
             />
             <span
               className={`text-xs font-semibold leading-none ${isToday
-                  ? "text-orange-500"
+                  ? "text-primary"
                   : isFuture
                     ? "text-muted-foreground/30"
                     : "text-muted-foreground"
@@ -115,7 +115,7 @@ const WeekCalendarStrip = ({ recentScans }: { recentScans: number }) => {
               {day}
             </span>
             {isToday && (
-              <span className="h-1 w-1 animate-pulse rounded-full bg-orange-500" />
+              <span className="h-1 w-1 animate-pulse rounded-full bg-primary" />
             )}
           </div>
         );
@@ -160,7 +160,7 @@ const ScanHistory = () => {
       <Card className="w-full rounded-[28px] border-orange-100 bg-white shadow-product">
         <CardContent className="pt-6">
           <div className="flex items-center justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
             <span className="ml-2">Loading scan history...</span>
           </div>
         </CardContent>
@@ -209,13 +209,13 @@ const ScanHistory = () => {
                   {stats.totalScans}
                 </p>
                 <div className="mt-2">
-                  <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-semibold text-orange-500">
+                  <span className="inline-flex items-center rounded-full border border-primary/20 bg-orange-50 px-2 py-0.5 text-xs font-semibold text-primary">
                     ↑ All time
                   </span>
                 </div>
               </div>
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-orange-200 bg-orange-50 transition-transform duration-300 group-hover:rotate-6">
-                <BarChart3 className="h-6 w-6 text-orange-500" />
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-primary/20 bg-orange-50 transition-transform duration-300 group-hover:rotate-6">
+                <BarChart3 className="h-6 w-6 text-primary" />
               </div>
             </div>
             <TotalScansStrip totalScans={stats.totalScans} />
@@ -235,19 +235,19 @@ const ScanHistory = () => {
                   {stats.averageHealthScore}
                 </p>
                 <div className="mt-2">
-                  <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-semibold text-orange-500">
+                  <span className="inline-flex items-center rounded-full border border-primary/20 bg-orange-50 px-2 py-0.5 text-xs font-semibold text-primary">
                     ↑ Health index
                   </span>
                 </div>
               </div>
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-orange-200 bg-orange-50 transition-transform duration-300 group-hover:rotate-6">
-                <TrendingUp className="h-6 w-6 text-orange-500" />
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-primary/20 bg-orange-50 transition-transform duration-300 group-hover:rotate-6">
+                <TrendingUp className="h-6 w-6 text-primary" />
               </div>
             </div>
             <div className="mt-4 space-y-1.5">
               <div className="relative h-2 w-full overflow-hidden rounded-full bg-orange-100">
                 <div
-                  className="h-full rounded-full bg-orange-500 transition-all duration-700"
+                  className="h-full rounded-full bg-primary transition-all duration-700"
                   style={{
                     width: `${Math.min((stats.averageHealthScore / 100) * 100, 100)}%`,
                   }}
@@ -255,7 +255,7 @@ const ScanHistory = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-xs text-muted-foreground">0</span>
-                <span className="text-xs font-semibold text-orange-500">
+                <span className="text-xs font-semibold text-primary">
                   {stats.averageHealthScore}/100
                 </span>
               </div>
@@ -276,13 +276,13 @@ const ScanHistory = () => {
                   {stats.recentScans}
                 </p>
                 <div className="mt-2">
-                  <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-xs font-semibold text-orange-500">
+                  <span className="inline-flex items-center rounded-full border border-primary/20 bg-orange-50 px-2 py-0.5 text-xs font-semibold text-primary">
                     ↑ Last 7 days
                   </span>
                 </div>
               </div>
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-orange-200 bg-orange-50 transition-transform duration-300 group-hover:rotate-6">
-                <Calendar className="h-6 w-6 text-orange-500" />
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-primary/20 bg-orange-50 transition-transform duration-300 group-hover:rotate-6">
+                <Calendar className="h-6 w-6 text-primary" />
               </div>
             </div>
             <WeekCalendarStrip recentScans={stats.recentScans} />
@@ -292,7 +292,7 @@ const ScanHistory = () => {
       </div>
 
       {/* Scan History */}
-      <Card className="rounded-[28px] border-orange-100 bg-white shadow-product">
+      <Card className="rounded-[28px] border-primary/10 bg-white shadow-product">
         <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <CardTitle className="flex items-center gap-2">
             <History className="h-5 w-5" />
@@ -304,7 +304,7 @@ const ScanHistory = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="rounded-full border-orange-200 bg-white shadow-[var(--shadow-soft)]"
+                  className="rounded-full border-primary/20 bg-white shadow-[var(--shadow-soft)]"
                 >
                   Clear All
                 </Button>
@@ -332,7 +332,7 @@ const ScanHistory = () => {
         </CardHeader>
         <CardContent>
           {tier === "free" && stats.totalScans >= 10 && (
-            <div className="mb-4 flex flex-col gap-3 rounded-[24px] border border-dashed border-orange-200 bg-orange-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mb-4 flex flex-col gap-3 rounded-[24px] border border-dashed border-primary/20 bg-orange-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-semibold">
                   Showing your latest unique scans
@@ -369,7 +369,7 @@ const ScanHistory = () => {
                     >
                       <div className="flex-1 space-y-1">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                          <span className="font-medium text-sm group-hover:text-orange-500 transition-colors">
+                          <span className="font-medium text-sm group-hover:text-primary transition-colors">
                             {item.product_name}
                           </span>
                           <Badge

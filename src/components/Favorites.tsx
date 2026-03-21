@@ -46,13 +46,13 @@ const scoreTierConfig = {
     ring: "ring-emerald-100",
   },
   med: {
-    accentBar: "bg-gradient-to-b from-orange-300 to-orange-500",
-    badge: "bg-orange-50 text-orange-600 border border-orange-200",
-    dot: "bg-orange-400",
+    accentBar: "bg-gradient-to-b from-primary/30 to-primary",
+    badge: "bg-primary/10 text-primary border border-primary/20",
+    dot: "bg-primary",
     label: "Okay",
-    distBar: "bg-gradient-to-r from-orange-300 to-orange-500",
-    countColor: "text-orange-500",
-    miniScore: "bg-orange-50 text-orange-600 border border-orange-100",
+    distBar: "bg-gradient-to-r from-primary/30 to-primary",
+    countColor: "text-primary",
+    miniScore: "bg-primary/10 text-primary border border-primary/10",
     ring: "ring-orange-100",
   },
   low: {
@@ -82,7 +82,7 @@ const scoreTierConfig = {
 const SignInPrompt = () => (
   <div className="w-full flex flex-col items-center justify-center py-28 px-6 text-center">
     <div className="w-16 h-16 rounded-2xl bg-orange-50 flex items-center justify-center mb-5 border border-orange-100">
-      <Heart className="w-7 h-7 text-orange-400" />
+      <Heart className="w-7 h-7 text-primary" />
     </div>
     <h3 className="text-xl font-semibold tracking-tight text-foreground mb-1">
       Sign in to view favorites
@@ -95,7 +95,7 @@ const SignInPrompt = () => (
 
 const LoadingState = () => (
   <div className="w-full flex items-center justify-center py-28 gap-3">
-    <Loader2 className="w-5 h-5 animate-spin text-orange-500" />
+    <Loader2 className="w-5 h-5 animate-spin text-primary" />
     <span className="text-sm text-muted-foreground font-medium">Loading favorites…</span>
   </div>
 );
@@ -103,7 +103,7 @@ const LoadingState = () => (
 const EmptyState = () => (
   <div className="flex flex-col items-center justify-center py-24 text-center bg-white rounded-[28px] border border-orange-100">
     <div className="w-20 h-20 rounded-3xl bg-orange-50 flex items-center justify-center mb-5 border border-orange-100">
-      <Heart className="w-9 h-9 text-orange-200" />
+      <Heart className="w-9 h-9 text-primary/20" />
     </div>
     <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
       No favorites yet
@@ -133,7 +133,7 @@ const FavoriteRow = ({
   const cfg = scoreTierConfig[tier];
 
   return (
-    <div className="group relative flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 bg-white rounded-[22px] border border-orange-100 px-4 sm:px-5 py-4 hover:border-orange-200 hover:shadow-[0_4px_20px_rgba(249,115,22,0.08)] transition-all duration-200">
+    <div className="group relative flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 bg-white rounded-[22px] border border-orange-100 px-4 sm:px-5 py-4 hover:border-primary/20 hover:shadow-[0_4px_20px_rgba(249,115,22,0.08)] transition-all duration-200">
       {/* Left accent bar */}
       <div className={cn("absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full", cfg.accentBar)} />
 
@@ -152,6 +152,7 @@ const FavoriteRow = ({
         <div className="flex sm:hidden">
           <button
             onClick={() => onRemove(favorite.barcode)}
+            aria-label="Delete"
             className="w-8 h-8 flex items-center justify-center rounded-xl text-muted-foreground border border-orange-100 hover:text-rose-500 hover:border-rose-100 hover:bg-rose-50 transition-colors"
           >
             <Trash2 className="w-4 h-4" />
@@ -164,11 +165,11 @@ const FavoriteRow = ({
 
       {/* Product info */}
       <div className="flex-1 min-w-0 w-full">
-        <p className="text-sm font-semibold text-foreground truncate group-hover:text-orange-500 transition-colors">
+        <p className="text-sm font-semibold text-foreground truncate group-hover:text-primary transition-colors">
           {favorite.product_name}
         </p>
         <div className="flex flex-wrap items-center gap-2 mt-1.5">
-          <span className="font-mono text-xs bg-orange-50 text-orange-600 border border-orange-100 px-1.5 py-0.5 rounded-md">
+          <span className="font-mono text-xs bg-orange-50 text-primary border border-orange-100 px-1.5 py-0.5 rounded-md">
             {favorite.barcode}
           </span>
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
@@ -182,6 +183,7 @@ const FavoriteRow = ({
       <div className="hidden sm:flex shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
         <button
           onClick={() => onRemove(favorite.barcode)}
+          aria-label="Delete"
           className="w-8 h-8 flex items-center justify-center rounded-xl text-muted-foreground hover:text-rose-500 hover:bg-rose-50 border border-orange-100 hover:border-rose-100 transition-colors"
         >
           <Trash2 className="w-4 h-4" />
@@ -217,9 +219,9 @@ const ScoreDistributionPanel = ({
     <div className="bg-white rounded-[24px] border border-orange-100 p-5">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center">
-          <BarChart3 className="w-4 h-4 text-orange-500" />
+          <BarChart3 className="w-4 h-4 text-primary" />
         </div>
-        <h3 className="text-xl font-semibold tracking-tight text-foreground">Score breakdown</h3>
+        <span className="text-xl font-semibold tracking-tight text-foreground">Score breakdown</span>
       </div>
       <div className="space-y-4">
         {rows.map((r) => {
@@ -257,9 +259,9 @@ const RecentActivityPanel = ({
     <div className="bg-white rounded-[24px] border border-orange-100 p-5">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center">
-          <Clock className="w-4 h-4 text-orange-500" />
+          <Clock className="w-4 h-4 text-primary" />
         </div>
-        <h3 className="text-xl font-semibold tracking-tight text-foreground">Recently added</h3>
+        <span className="text-xl font-semibold tracking-tight text-foreground">Recently added</span>
       </div>
       <div className="divide-y divide-orange-50">
         {recent.map((f, i) => {
@@ -297,9 +299,9 @@ const TopScorePanel = ({
     <div className="bg-white rounded-[24px] border border-orange-100 p-5">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center">
-          <Star className="w-4 h-4 text-orange-500" />
+          <Star className="w-4 h-4 text-primary" />
         </div>
-        <h3 className="text-xl font-semibold tracking-tight text-foreground">Top picks</h3>
+        <span className="text-xl font-semibold tracking-tight text-foreground">Top picks</span>
       </div>
       {top.length === 0 ? (
         <p className="text-xs text-muted-foreground">No scored products yet.</p>
@@ -307,7 +309,7 @@ const TopScorePanel = ({
         <div className="divide-y divide-orange-50">
           {top.map((f, i) => (
             <div key={i} className="flex items-center gap-3 py-2.5">
-              <span className="text-xs font-bold text-orange-200 w-5 shrink-0">#{i + 1}</span>
+              <span className="text-xs font-bold text-primary w-5 shrink-0">#{i + 1}</span>
               <p className="flex-1 text-xs font-semibold text-foreground truncate">{f.product_name}</p>
               <span className="text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 px-2 py-0.5 rounded-lg shrink-0">
                 {f.health_score}
@@ -323,10 +325,10 @@ const TopScorePanel = ({
 const QuickTipsPanel = () => (
   <div className="bg-orange-50 rounded-[24px] border border-orange-100 p-5">
     <div className="flex items-center gap-2 mb-3">
-      <div className="w-8 h-8 rounded-xl bg-white border border-orange-200 flex items-center justify-center">
-        <AlertCircle className="w-4 h-4 text-orange-500" />
+      <div className="w-8 h-8 rounded-xl bg-white border border-primary/20 flex items-center justify-center">
+        <AlertCircle className="w-4 h-4 text-primary" />
       </div>
-      <h3 className="text-xl font-semibold tracking-tight text-foreground">Quick tips</h3>
+      <span className="text-xl font-semibold tracking-tight text-foreground">Quick tips</span>
     </div>
     <ul className="space-y-2.5">
       {[
@@ -334,8 +336,8 @@ const QuickTipsPanel = () => (
         "Check ingredients on low-score items",
         "Use shopping lists to plan healthy meals",
       ].map((tip, i) => (
-        <li key={i} className="flex items-start gap-2 text-xs text-orange-800 leading-snug">
-          <span className="mt-0.5 w-[18px] h-[18px] rounded-full bg-orange-200 text-orange-700 flex items-center justify-center text-xs font-bold shrink-0">
+        <li key={i} className="flex items-start gap-2 text-xs text-primary leading-snug">
+          <span className="mt-0.5 w-[18px] h-[18px] rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold shrink-0">
             {i + 1}
           </span>
           {tip}
@@ -382,10 +384,10 @@ const Favorites = () => {
       label: "Total saved",
       value: favorites.length,
       sub: isFreeTier ? `of ${MAX_FREE_FAVORITES} free slots` : "unlimited plan",
-      iconBg: "bg-orange-50",
-      iconColor: "text-orange-500",
-      iconBorder: "border-orange-200",
-      accentColor: "text-orange-500",
+      iconBg: "bg-primary/10",
+      iconColor: "text-primary",
+      iconBorder: "border-primary/20",
+      accentColor: "text-primary",
     },
     {
       icon: TrendingUp,
@@ -393,9 +395,9 @@ const Favorites = () => {
       value: avgScore ?? "–",
       sub: avgScore ? (avgScore >= 70 ? "Looking healthy!" : "Room to improve") : "No scores yet",
       iconBg: "bg-emerald-50",
-      iconColor: "text-emerald-500",
-      iconBorder: "border-emerald-200",
-      accentColor: "text-emerald-500",
+      iconColor: "text-emerald-600",
+      iconBorder: "border-emerald-400",
+      accentColor: "text-emerald-700",
     },
     {
       icon: ListChecks,
@@ -403,19 +405,19 @@ const Favorites = () => {
       value: favorites.filter((f) => getScoreTier(f.health_score) === "high").length,
       sub: "scored 80 or above",
       iconBg: "bg-orange-50",
-      iconColor: "text-orange-400",
-      iconBorder: "border-orange-200",
-      accentColor: "text-orange-400",
+      iconColor: "text-primary",
+      iconBorder: "border-primary/20",
+      accentColor: "text-primary",
     },
     {
       icon: Package,
       label: "Needs attention",
       value: favorites.filter((f) => getScoreTier(f.health_score) === "low").length,
       sub: "scored below 60",
-      iconBg: "bg-rose-50",
-      iconColor: "text-rose-500",
-      iconBorder: "border-rose-200",
-      accentColor: "text-rose-500",
+      iconBg: "bg-red-50",
+      iconColor: "text-red-600",
+      iconBorder: "border-red-200",
+      accentColor: "text-red-600",
     },
   ];
 
@@ -425,9 +427,9 @@ const Favorites = () => {
 
       {/* ── Page Header ── */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-100 px-4 py-1.5 mb-4">
-          <Heart className="h-3.5 w-3.5 text-orange-500 fill-orange-400" />
-          <span className="text-xs font-semibold text-orange-500 tracking-wide">Your Saved Products</span>
+        <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/10 px-4 py-1.5 mb-4">
+          <Heart className="h-3.5 w-3.5 text-primary fill-primary" />
+          <span className="text-xs font-semibold text-primary tracking-wide">Your Saved Products</span>
         </div>
         <h1 className="text-[2rem] font-bold leading-[1.02] tracking-tight text-foreground mb-1">
           Your Favourites
@@ -438,7 +440,7 @@ const Favorites = () => {
 
         {/* Free tier usage bar */}
         {isFreeTier && (
-          <div className="inline-flex items-center gap-4 bg-white border border-orange-100 rounded-2xl px-5 py-3 mt-4">
+          <div className="inline-flex items-center gap-4 bg-white border border-primary/10 rounded-2xl px-5 py-3 mt-4">
             <div>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
                 {favorites.length} / {MAX_FREE_FAVORITES} free slots
@@ -447,7 +449,7 @@ const Favorites = () => {
                 <div
                   className={cn(
                     "h-full rounded-full transition-all",
-                    usagePercent >= 100 ? "bg-rose-400" : usagePercent >= 70 ? "bg-orange-400" : "bg-emerald-400",
+                    usagePercent >= 100 ? "bg-rose-400" : usagePercent >= 70 ? "bg-primary" : "bg-emerald-400",
                   )}
                   style={{ width: `${usagePercent}%` }}
                 />
@@ -456,7 +458,8 @@ const Favorites = () => {
             {limitReached && (
               <button
                 onClick={() => router.push("/pricing")}
-                className="flex items-center gap-1.5 text-xs font-semibold text-white bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-xl transition-colors whitespace-nowrap"
+                aria-label="Upgarde"
+                className="flex items-center gap-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary px-4 py-2 rounded-xl transition-colors whitespace-nowrap"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 Upgrade
@@ -471,7 +474,7 @@ const Favorites = () => {
         {stats.map((s) => (
           <div
             key={s.label}
-            className="group bg-white rounded-[24px] border border-orange-100 px-5 py-5 hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(249,115,22,0.1)] transition-all duration-300 flex items-start gap-3.5"
+            className="group bg-white rounded-[24px] border border-primary/10 px-5 py-5 hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(249,115,22,0.1)] transition-all duration-300 flex items-start gap-3.5"
           >
             <div className={cn("w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-6", s.iconBg, s.iconBorder)}>
               <s.icon className={cn("w-5 h-5", s.iconColor)} />
@@ -501,15 +504,16 @@ const Favorites = () => {
                 <div className="relative">
                   <select
                     value={sort}
+                    aria-label="items"
                     onChange={(e) => setSort(e.target.value as SortOption)}
-                    className="appearance-none text-xs font-medium text-foreground bg-white border border-orange-200 rounded-xl pl-3 pr-8 py-1.5 cursor-pointer focus:outline-none focus:border-orange-400"
+                    className="appearance-none text-xs font-medium text-foreground bg-white border border-primary/20 rounded-xl pl-3 pr-8 py-1.5 cursor-pointer focus:outline-none focus:border-primary"
                   >
                     <option value="recent">Most recent</option>
                     <option value="score-high">Highest score</option>
                     <option value="score-low">Lowest score</option>
                     <option value="name">Name A–Z</option>
                   </select>
-                  <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-orange-400 pointer-events-none" />
+                  <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-primary pointer-events-none" />
                 </div>
               </div>
 

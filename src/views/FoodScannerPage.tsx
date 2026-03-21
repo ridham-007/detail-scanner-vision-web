@@ -221,7 +221,7 @@ const FoodScannerPage: React.FC = () => {
                   value={manualBarcode}
                   onChange={(e) => setManualBarcode(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleManualLookup()}
-                  className="rounded-2xl border-2 border-orange-100/80 bg-[rgba(255,250,244,0.94)] py-6 text-base"
+                  className="rounded-2xl border-2 border-primary/20 bg-[rgba(255,250,244,0.94)] py-6 text-base"
                   aria-label="Barcode number"
                 />
                 <Button
@@ -229,7 +229,7 @@ const FoodScannerPage: React.FC = () => {
                   onClick={handleManualLookup}
                   disabled={isLoading || !manualBarcode.trim()}
                   size="lg"
-                  className="rounded-2xl bg-foreground px-6 py-6 text-primary-foreground shadow-[var(--shadow-warm)] hover:bg-foreground/92"
+                  className="rounded-2xl bg-primary px-6 py-6 text-primary-foreground shadow-[var(--shadow-warm)] hover:bg-foreground/92"
                 >
                   <Search className="h-5 w-5" aria-hidden="true" />
                 </Button>

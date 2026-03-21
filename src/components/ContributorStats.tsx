@@ -97,7 +97,7 @@ export function ContributorStats() {
 
   const tierColors = {
     guest: "border border-[rgb(var(--accent))]/15 bg-[rgb(var(--accent-soft))]/55 text-muted-foreground",
-    logged_in: "border border-[rgb(var(--accent))]/20 bg-[rgb(var(--accent))]/10 text-[rgb(var(--accent-foreground))]",
+    logged_in: "border border-[rgb(var(--accent))]/10 bg-[rgb(var(--accent))]/10 text-[rgb(var(--accent-foreground))]/70",
     verified: "border border-amber-200 bg-amber-50 text-amber-800",
   };
 

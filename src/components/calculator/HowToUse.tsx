@@ -209,7 +209,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
         {limitations && limitations.length > 0 && (
           <div className="space-y-4">
             <h3 className="text-xl font-semibold tracking-tight text-foreground flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-orange-500" />
+              <AlertTriangle className="w-5 h-5 text-primary" />
               Limitations
             </h3>
 
@@ -219,7 +219,7 @@ const HowToUse: React.FC<HowToUseProps> = ({
                   key={index}
                   className="flex gap-2 text-sm text-muted-foreground"
                 >
-                  <span className="w-1.5 h-1.5 bg-orange-400 rounded-full mt-2 flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 bg-primary/80 rounded-full mt-2 flex-shrink-0" />
                   {limit}
                 </li>
               ))}

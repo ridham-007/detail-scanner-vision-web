@@ -129,7 +129,7 @@ const ScanStreak: React.FC<ScanStreakProps> = ({ productName }) => {
   if (!user) return null;
 
   return (
-    <Card className={`w-full animate-fade-in ${isNewStreak ? 'ring-2 ring-orange-400 shadow-lg' : ''} transition-all duration-500`}>
+    <Card className={`w-full animate-fade-in ${isNewStreak ? 'ring-2 ring-primary/80 shadow-lg' : ''} transition-all duration-500`}>
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -176,7 +176,7 @@ const ScanStreak: React.FC<ScanStreakProps> = ({ productName }) => {
             </div>
             <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
               <div 
-                className="bg-orange-500 h-1.5 rounded-full transition-all duration-500"
+                className="bg-primary h-1.5 rounded-full transition-all duration-500"
                 style={{ 
                   width: `${streak < 7 ? (streak / 7) * 100 : ((streak - 7) / 23) * 100}%` 
                 }}

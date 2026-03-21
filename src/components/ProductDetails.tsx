@@ -386,7 +386,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       </div>
                       <div className="rounded-[22px] border border-orange-100/80 bg-orange-50/90 p-4 text-center lg:text-left">
                         <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
-                          <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                          <div className="w-2 h-2 rounded-full bg-primary/70"></div>
                           <span className="text-xs font-medium text-orange-700 dark:text-orange-300 uppercase tracking-wide">
                             Concerns
                           </span>
