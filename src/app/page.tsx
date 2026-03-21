@@ -291,7 +291,7 @@ export default async function HomePage() {
       />
       {/* Hero Section */}
       <section
-        className="relative overflow-hidden py-10"
+        className="relative overflow-hidden py-10 lg:py-16"
         aria-labelledby="hero-heading"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[32rem]" />
