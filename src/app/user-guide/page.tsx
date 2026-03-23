@@ -736,11 +736,6 @@ export default function UserGuidePage() {
                     Contact Support
                   </Button>
                 </Link>
-                <Link href="/faq" className="w-full md:w-auto">
-                  <Button variant="outline" size="lg" className="h-12 md:h-14 w-full md:w-auto rounded-xl px-10 font-bold hover:bg-white">
-                    FAQ Center
-                  </Button>
-                </Link>
               </div>
             </section>
 
