@@ -223,7 +223,7 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
         <div className="container mx-auto px-4">
           <Breadcrumbs
             items={[
-              { label: "All Calculators", path: "/calculators" },
+              { label: "All Calculators", path: "/calculator" },
               { label: title },
             ]}
           />
@@ -369,30 +369,35 @@ const ModernCalculatorLayout: React.FC<ModernCalculatorLayoutProps> = ({
       {/* FAQ */}
       {faq && faq.length > 0 && (
         <section className="py-16 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] dark:bg-gray-900">
-          <div className="mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground text-center mb-8">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground text-center mb-10">
               Frequently Asked Questions
             </h2>
-
             <div className="space-y-4">
               {faq.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-white dark:bg-gray-800 rounded-2xl border dark:border-gray-700"
+                  className="bg-white dark:bg-gray-800 rounded-[24px] border border-white/60 shadow-product transition-all hover:shadow-[var(--shadow-soft)] overflow-hidden"
                 >
                   <button
                     onClick={() =>
                       setExpandedFaq(expandedFaq === index ? null : index)
                     }
-                    className="w-full p-6 text-left flex justify-between dark:text-white"
+                    className="w-full p-6 text-left flex justify-between items-center group"
                   >
-                    <span>{item.question}</span>
-                    <span className="text-primary">↓</span>
+                    <span className="font-semibold text-foreground dark:text-white group-hover:text-primary transition-colors">
+                      {item.question}
+                    </span>
+                    <span className={`text-primary transition-transform duration-300 ${expandedFaq === index ? 'rotate-180' : ''}`}>
+                      ↓
+                    </span>
                   </button>
 
                   {expandedFaq === index && (
-                    <div className="px-6 pb-6 text-gray-600 dark:text-gray-300">
-                      {item.answer}
+                    <div className="px-6 pb-6 text-muted-foreground dark:text-gray-300 animate-in fade-in slide-in-from-top-2">
+                      <div className="pt-2 border-t border-orange-50">
+                        {item.answer}
+                      </div>
                     </div>
                   )}
                 </div>

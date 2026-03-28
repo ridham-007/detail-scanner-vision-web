@@ -2,10 +2,10 @@ import React, { Suspense } from "react";
 import { generateCalculatorMetadata } from "@/utils/seo";
 import { calculatorConfig } from "@/data/calculatorConfig";
 import CalculatorLayoutWrapper from "@/components/calculator/CalculatorLayoutWrapper";
-import PregnancyCalculator from "@/components/calculators/PregnancyCalculator";
+import CalorieCalculator from "@/components/calculator/CalorieCalculator";
 
 export const generateMetadata = () => {
-    const config = calculatorConfig.pregnancy;
+    const config = calculatorConfig.calorie;
     return generateCalculatorMetadata({
         title: config.title,
         description: config.description,
@@ -15,11 +15,11 @@ export const generateMetadata = () => {
     });
 };
 
-export default function PregnancyCalculatorPage() {
+export default function CalorieCalculatorPage() {
     return (
         <Suspense>
-        <CalculatorLayoutWrapper calculatorId="pregnancy">
-            <PregnancyCalculator />
+        <CalculatorLayoutWrapper calculatorId="calorie">
+            <CalorieCalculator />
         </CalculatorLayoutWrapper>
         </Suspense>
     );

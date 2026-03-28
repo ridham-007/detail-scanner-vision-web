@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { generateCalculatorMetadata } from "@/utils/seo";
 import { calculatorConfig } from "@/data/calculatorConfig";
 import CalculatorLayoutWrapper from "@/components/calculator/CalculatorLayoutWrapper";
-import ProteinCalculator from "@/components/calculators/ProteinCalculator";
+import ProteinCalculator from "@/components/calculator/ProteinCalculator";
 
 export const generateMetadata = () => {
     const config = calculatorConfig.protein;

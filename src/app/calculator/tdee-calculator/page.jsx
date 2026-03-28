@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { generateCalculatorMetadata } from "@/utils/seo";
 import { calculatorConfig } from "@/data/calculatorConfig";
 import CalculatorLayoutWrapper from "@/components/calculator/CalculatorLayoutWrapper";
-import TdeeCalculator from "@/components/calculators/TDEECalculator";
+import TdeeCalculator from "@/components/calculator/TDEECalculator";
 
 export const generateMetadata = () => {
   const config = calculatorConfig.tdee;

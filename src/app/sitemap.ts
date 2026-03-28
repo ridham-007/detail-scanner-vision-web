@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .eq('is_published', true)
 
   const blogEntries: MetadataRoute.Sitemap = (blogs || []).map((blog) => ({
-    url: `${baseUrl}/blog/${blog.slug}`,
+    url: `${baseUrl}/blog/${blog.slug}/`,
     lastModified: new Date(blog.updated_at),
     changeFrequency: 'daily',
   }))
@@ -35,91 +35,91 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/scanner`,
+      url: `${baseUrl}/scanner/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/quiz`,
+      url: `${baseUrl}/quiz/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/blog`,
+      url: `${baseUrl}/blog/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${baseUrl}/about/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/categories`,
+      url: `${baseUrl}/categories/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/compare`,
+      url: `${baseUrl}/compare/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/dietary-guides`,
+      url: `${baseUrl}/dietary-guides/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/pricing`,
+      url: `${baseUrl}/pricing/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/privacy`,
+      url: `${baseUrl}/privacy/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/support`,
+      url: `${baseUrl}/support/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/terms`,
+      url: `${baseUrl}/terms/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/calculators`,
+      url: `${baseUrl}/calculator/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },
     {
-    url: `${baseUrl}/calculators/bmi-calculator`,
+    url: `${baseUrl}/calculator/bmi-calculator/`,
     lastModified: new Date(),
     changeFrequency: 'daily',
   },
   {
-    url: `${baseUrl}/calculators/calorie-calculator`,
+    url: `${baseUrl}/calculator/calorie-calculator/`,
     lastModified: new Date(),
     changeFrequency: 'daily',
   },
   {
-    url: `${baseUrl}/calculators/water-intake-calculator`,
+    url: `${baseUrl}/calculator/water-intake-calculator/`,
     lastModified: new Date(),
     changeFrequency: 'daily',
   },{
-    url: `${baseUrl}/calculators/tdee-calculator`,
+    url: `${baseUrl}/calculator/tdee-calculator/`,
     lastModified: new Date(),
     changeFrequency: 'daily',
   },
   {
-    url: `${baseUrl}/calculators/pregnancy-calculator`,
+    url: `${baseUrl}/calculator/pregnancy-calculator/`,
     lastModified: new Date(),
     changeFrequency: 'daily',
   },
   {
-    url: `${baseUrl}/calculators/protein-calculator`,
+    url: `${baseUrl}/calculator/protein-calculator/`,
     lastModified: new Date(),
     changeFrequency: 'daily',
   },

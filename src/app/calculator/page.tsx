@@ -47,7 +47,7 @@ export default function AllCalculatorsPage() {
                 <article
                   className="group relative h-full cursor-pointer overflow-hidden rounded-[30px] border border-white/70
                   bg-white/90 p-8 shadow-product transition-all duration-300 hover:border-orange-200/80 hover:shadow-[var(--shadow-warm)]
-                  cursor-pointer overflow-hidden h-full flex flex-col"
+                   flex flex-col"
                 >
                   <div
                     className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent 

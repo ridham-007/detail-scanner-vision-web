@@ -577,7 +577,7 @@ export default function UserGuidePage() {
                 ))}
               </div>
 
-              <Link href="/calculators" className="block text-center mt-4">
+              <Link href="/calculator" className="block text-center mt-4">
                 <Button variant="outline" className="w-full md:w-auto h-12 rounded-xl border-teal-200 text-teal-700 bg-teal-50 hover:bg-teal-100 font-bold text-sm px-8">
                   Launch All Tools <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>

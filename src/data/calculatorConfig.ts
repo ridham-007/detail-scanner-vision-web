@@ -963,7 +963,7 @@ export const calculatorConfig: Record<string, CalculatorConfig> = {
     title: "BMI Calculator",
     description:
       "Calculate your Body Mass Index (BMI) and track your progress with instant results.",
-    path: "/calculators/bmi-calculator",
+    path: "/calculator/bmi-calculator",
     icon: Scale,
     category: "health",
     howToUse: bmiHowToUse,
@@ -1012,7 +1012,7 @@ export const calculatorConfig: Record<string, CalculatorConfig> = {
     title: "Calorie Calculator",
     description:
       "Calculate your daily caloric needs for weight maintenance, loss, or gain.",
-    path: "/calculators/calorie-calculator",
+    path: "/calculator/calorie-calculator",
     icon: Flame,
     category: "health",
     howToUse: calorieHowToUse,
@@ -1059,7 +1059,7 @@ export const calculatorConfig: Record<string, CalculatorConfig> = {
     title: "Water Intake Calculator",
     description:
       "Calculate your daily water intake based on your activity and weight.",
-    path: "/calculators/water-intake-calculator",
+    path: "/calculator/water-intake-calculator",
     icon: Droplets,
     category: "health",
     howToUse: waterIntakeHowToUse,
@@ -1105,7 +1105,7 @@ Yes. Many fruits and vegetables contain significant amounts of water and contrib
     title: "TDEE Calculator",
     description:
       "Calculate your Total Daily Energy Expenditure (TDEE) to understand your daily caloric needs for weight management, including detailed breakdowns and historical tracking.",
-    path: "/calculators/tdee-calculator",
+    path: "/calculator/tdee-calculator",
     category: "health",
     icon: Target,
     howToUse: tdeeHowToUse,
@@ -1154,7 +1154,7 @@ Yes. Many fruits and vegetables contain significant amounts of water and contrib
     title: "Protein Calculator",
     description:
       "Calculate your daily protein requirements with progress tracking to optimize muscle growth, weight management, and overall health based on your activity level.",
-    path: "/calculators/protein-calculator",
+    path: "/calculator/protein-calculator",
     icon: Zap,
     category: "health",
     howToUse: proteinHowToUse,
@@ -1204,7 +1204,7 @@ Yes. Many fruits and vegetables contain significant amounts of water and contrib
     title: "Pregnancy Calculator",
     description:
       "Estimate due dates and pregnancy milestones based on LMP, conception, ultrasound, or IVF data.",
-    path: "/calculators/pregnancy-calculator",
+    path: "/calculator/pregnancy-calculator",
     icon: Baby,
     category: "health",
     howToUse: pregnancyHowToUse,

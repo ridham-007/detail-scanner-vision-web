@@ -34,12 +34,12 @@ const Header = () => {
           <Link href="/" aria-label="EaterIQ Home" className="flex items-center space-x-3 transition-transform duration-300 hover:scale-105 group">
             <LogoIcon className="h-12 w-12" />
             <div className="flex flex-col">
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground leading-none">
+              <p className="text-2xl md:text-3xl font-bold tracking-tight text-foreground leading-none">
                 Eater
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                   IQ
                 </span>
-              </h2>
+              </p>
               <span className="text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/70 md:text-sm">
                 Bright scans, smarter food choices
               </span>
@@ -93,7 +93,7 @@ const Header = () => {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/calculators" className="flex items-center gap-2 cursor-pointer">
+                    <Link href="/calculator" className="flex items-center gap-2 cursor-pointer">
                       <Calculator className="h-4 w-4" />
                       Health Calculators
                     </Link>

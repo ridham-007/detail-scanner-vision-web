@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { calculatorConfig } from "../data/calculatorConfig";
-// import BMI from "../app/calculators/bmi"
 // import { useRouter } from "next/navigation";
 
 export default function HealthCalculators() {
@@ -113,7 +112,7 @@ export default function HealthCalculators() {
 
         {/* FOOTER BUTTON */}
         <div className="text-center pt-8">
-          <Link href="/calculators">
+          <Link href="/calculator">
             <button className="group relative inline-flex items-center gap-3 rounded-2xl bg-primary px-8 py-3 text-base font-semibold text-white shadow-[var(--shadow-warm)] transition-transform hover:-translate-y-0.5">
               <Calculator className="h-5 w-5" />
               <span>Show All Health Calculators</span>
