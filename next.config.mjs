@@ -9,7 +9,7 @@ const nextConfig = {
             {
                 source: '/calculators/:path*',
                 destination: '/calculator/:path*',
-                permanent: true,
+                statusCode: 301,
             },
         ]
     },
