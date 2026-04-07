@@ -462,9 +462,9 @@ export default async function BlogPostPage({ params }: Props) {
         {relatedPosts.length > 0 && (
           <section className="mt-16 pt-8 border-t" aria-labelledby="more-articles-heading">
             <div className="flex items-center justify-between mb-8">
-              <h2 id="more-articles-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+              <span id="more-articles-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 More Articles
-              </h2>
+              </span>
               <Link href="/blog/">
                 <Button variant="outline" size="sm" className="rounded-full border-orange-200/80 bg-white/90">
                   View All

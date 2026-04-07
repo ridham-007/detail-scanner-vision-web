@@ -48,13 +48,13 @@ export default function Footer() {
               aria-label="EaterIQ - Go to homepage"
             >
               <LogoIcon className="h-11 w-11" />
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+              <span className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 Eater
 
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                   IQ
                 </span>
-              </h2>
+              </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
               Scan, understand, and choose better food with the same warm, helpful experience as the app.
@@ -99,9 +99,9 @@ export default function Footer() {
 
           {/* Product Links */}
           <nav aria-label="Product navigation">
-            <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
+            <p className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
               Product
-            </h3>
+            </p>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -144,9 +144,9 @@ export default function Footer() {
 
           {/* Support Links */}
           <nav aria-label="Support navigation">
-            <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
+            <p className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
               Resources
-            </h3>
+            </p>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -200,9 +200,9 @@ export default function Footer() {
           <address className="not-italic">
 
 
-            <h3 className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
+            <p className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
               Contact
-            </h3>
+            </p>
             <ul className="space-y-3">
               <li>
                 <a
