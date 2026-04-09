@@ -423,9 +423,9 @@ export default async function BlogPostPage({ params }: Props) {
                             </div>
                           )}
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-lg font-semibold tracking-tight group-hover:text-primary line-clamp-2">
+                            <span className="text-lg font-semibold tracking-tight group-hover:text-primary line-clamp-2">
                               {relatedPost.title}
-                            </h3>
+                            </span>
                             {relatedPost.reading_time && (
                               <p className="text-xs text-muted-foreground mt-1">
                                 {relatedPost.reading_time} min read
@@ -442,7 +442,7 @@ export default async function BlogPostPage({ params }: Props) {
               {/* CTA Card */}
               <Card className="rounded-[28px] border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] shadow-product">
                 <CardContent className="pt-6">
-                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">Try EaterIQ Free</h3>
+                  <span className="text-xl font-semibold tracking-tight text-foreground mb-4">Try EaterIQ Free</span>
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any food product and get instant health insights.
                   </p>
@@ -496,11 +496,11 @@ export default async function BlogPostPage({ params }: Props) {
                         </>
                       )}
                     </div>
-                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 line-clamp-2">
+                    <span className="text-xl font-semibold tracking-tight text-foreground mb-2 line-clamp-2">
                       <Link href={`/blog/${relatedPost.slug}/`} className="hover:text-primary">
                         {relatedPost.title}
                       </Link>
-                    </h3>
+                    </span>
                     {relatedPost.excerpt && (
                       <p className="text-sm text-muted-foreground line-clamp-2">
                         {relatedPost.excerpt}

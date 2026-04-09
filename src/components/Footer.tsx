@@ -225,10 +225,10 @@ export default function Footer() {
               </li>
             </ul>
 
-            <div className="mt-3  ">
-              <h3 className="text-xl font-semibold tracking-tight text-foreground mb-3 uppercase">
+            <div className="mt-3 flex flex-col gap-2">
+              <span className="text-xl font-semibold tracking-tight text-foreground mb-2 uppercase">
                 Social
-              </h3>
+              </span>
               <div className="flex items-center gap-3">
                 <a
                   href="https://www.facebook.com/profile.php?id=61587144212003"
