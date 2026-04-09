@@ -293,11 +293,11 @@ export default async function BlogPostPage({ params }: Props) {
               {/* Medical Disclaimer - After Content (Detailed) */}
               <div className="mb-8 rounded-[24px] border border-orange-100/80 bg-orange-50/60 p-5">
                 <div className="flex items-start gap-3">
-                  <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
-                  <div>
-                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">
+                  <AlertTriangle className="mt-1 h-7 w-7 flex-shrink-0 text-primary" aria-hidden="true" />
+                  <div className='flex flex-col gap-1'>
+                    <span className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">
                       Medical & Nutritional Disclaimer
-                    </h2>
+                    </span>
                     <div className="space-y-2 text-xs leading-relaxed text-muted-foreground">
                       <p>
                         The information provided in this article is for general informational and educational purposes only. 
@@ -319,10 +319,10 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
 
               {/* CTA Section */}
-              <div className="rounded-[28px] border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-6 shadow-product">
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-3">
+              <div className="rounded-[28px] flex flex-col border border-orange-200/80 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] p-6 shadow-product">
+                <span className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">
                   Ready to make healthier food choices?
-                </h2>
+                </span>
                 <p className="text-muted-foreground text-sm mb-4">
                   Use our free food scanner to analyze any product instantly and get personalized health insights.
                 </p>

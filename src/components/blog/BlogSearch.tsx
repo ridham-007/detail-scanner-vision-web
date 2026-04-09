@@ -59,7 +59,7 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
       ) : (
         <div className="text-center py-12">
           <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" aria-hidden="true" />
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">No articles found</h2>
+          <span className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">No articles found</span>
           <p className="text-muted-foreground">
             {searchTerm ? 'Try adjusting your search terms' : 'Check back later for new content!'}
           </p>

@@ -66,14 +66,14 @@ export default function BlogCard({ post }: BlogCardProps) {
             )}
           </div>
           
-          <h2 className="text-2xl md:text-2xl font-bold tracking-tight text-foreground mb-2">
+          <span className="text-2xl md:text-2xl font-bold tracking-tight text-foreground mb-2">
             <Link 
               href={`/blog/${post.slug}/`} 
               className="hover:text-primary transition-colors"
             >
               {post.title}
             </Link>
-          </h2>
+          </span>
           
           {post.excerpt && (
             <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
