@@ -62,78 +62,78 @@ export const metadata: Metadata = {
 };
 
 // ── Structured data ───────────────────────────────────────────────────────────
-const pricingSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'EaterIQ Pricing',
-  description: 'Choose the perfect EaterIQ plan for your health journey',
-  url: 'https://www.eateriq.com/pricing/',
-  mainEntity: {
-    '@type': 'ItemList',
-    itemListElement: [
-      {
-        '@type': 'ListItem', position: 1,
-        item: {
-          '@type': 'Product', name: 'EaterIQ Pro Monthly',
-          description: 'Unlimited scans, personalized insights, and ad-free experience',
-          offers: { '@type': 'Offer', price: SUBSCRIPTION_PLANS.pro_monthly.amount, priceCurrency: 'INR', billingIncrement: 'P1M', availability: 'https://schema.org/InStock' },
-        },
-      },
-      {
-        '@type': 'ListItem', position: 2,
-        item: {
-          '@type': 'Product', name: 'EaterIQ Pro Yearly',
-          description: 'Unlimited scans, personalized insights, and ad-free experience',
-          offers: { '@type': 'Offer', price: SUBSCRIPTION_PLANS.pro_yearly.amount, priceCurrency: 'INR', billingIncrement: 'P1Y', availability: 'https://schema.org/InStock' },
-        },
-      },
-    ],
-  },
-};
+// const pricingSchema = {
+//   '@context': 'https://schema.org',
+//   '@type': 'WebPage',
+//   name: 'EaterIQ Pricing',
+//   description: 'Choose the perfect EaterIQ plan for your health journey',
+//   url: 'https://www.eateriq.com/pricing/',
+//   mainEntity: {
+//     '@type': 'ItemList',
+//     itemListElement: [
+//       {
+//         '@type': 'ListItem', position: 1,
+//         item: {
+//           '@type': 'Product', name: 'EaterIQ Pro Monthly',
+//           description: 'Unlimited scans, personalized insights, and ad-free experience',
+//           offers: { '@type': 'Offer', price: SUBSCRIPTION_PLANS.pro_monthly.amount, priceCurrency: 'INR', billingIncrement: 'P1M', availability: 'https://schema.org/InStock' },
+//         },
+//       },
+//       {
+//         '@type': 'ListItem', position: 2,
+//         item: {
+//           '@type': 'Product', name: 'EaterIQ Pro Yearly',
+//           description: 'Unlimited scans, personalized insights, and ad-free experience',
+//           offers: { '@type': 'Offer', price: SUBSCRIPTION_PLANS.pro_yearly.amount, priceCurrency: 'INR', billingIncrement: 'P1Y', availability: 'https://schema.org/InStock' },
+//         },
+//       },
+//     ],
+//   },
+// };
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home',    item: 'https://www.eateriq.com/' },
-    { '@type': 'ListItem', position: 2, name: 'Pricing', item: 'https://www.eateriq.com/pricing/' },
-  ],
-};
+// const breadcrumbSchema = {
+//   '@context': 'https://schema.org',
+//   '@type': 'BreadcrumbList',
+//   itemListElement: [
+//     { '@type': 'ListItem', position: 1, name: 'Home',    item: 'https://www.eateriq.com/' },
+//     { '@type': 'ListItem', position: 2, name: 'Pricing', item: 'https://www.eateriq.com/pricing/' },
+//   ],
+// };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question', name: 'Can I cancel my EaterIQ subscription anytime?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Yes! You can cancel your subscription anytime. Your access continues until the end of your billing period.' },
-    },
-    {
-      '@type': 'Question', name: 'What happens to my data if I downgrade?',
-      acceptedAnswer: { '@type': 'Answer', text: "Your scan history is preserved, but you'll only be able to view the most recent 7 days on the free plan." },
-    },
-    {
-      '@type': 'Question', name: 'Do you offer refunds?',
-      acceptedAnswer: { '@type': 'Answer', text: "We offer a 7-day money-back guarantee for new subscribers. Contact support if you're not satisfied." },
-    },
-    {
-      '@type': 'Question', name: 'How do family accounts work?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Premium subscribers can invite up to 5 family members. Each member gets their own profile with personalized insights.' },
-    },
-    {
-      '@type': 'Question', name: 'What payment methods do you accept?',
-      acceptedAnswer: { '@type': 'Answer', text: 'We accept all major credit cards, debit cards, and UPI payments through our secure payment processor.' },
-    },
-  ],
-};
+// const faqSchema = {
+//   '@context': 'https://schema.org',
+//   '@type': 'FAQPage',
+//   mainEntity: [
+//     {
+//       '@type': 'Question', name: 'Can I cancel my EaterIQ subscription anytime?',
+//       acceptedAnswer: { '@type': 'Answer', text: 'Yes! You can cancel your subscription anytime. Your access continues until the end of your billing period.' },
+//     },
+//     {
+//       '@type': 'Question', name: 'What happens to my data if I downgrade?',
+//       acceptedAnswer: { '@type': 'Answer', text: "Your scan history is preserved, but you'll only be able to view the most recent 7 days on the free plan." },
+//     },
+//     {
+//       '@type': 'Question', name: 'Do you offer refunds?',
+//       acceptedAnswer: { '@type': 'Answer', text: "We offer a 7-day money-back guarantee for new subscribers. Contact support if you're not satisfied." },
+//     },
+//     {
+//       '@type': 'Question', name: 'How do family accounts work?',
+//       acceptedAnswer: { '@type': 'Answer', text: 'Premium subscribers can invite up to 5 family members. Each member gets their own profile with personalized insights.' },
+//     },
+//     {
+//       '@type': 'Question', name: 'What payment methods do you accept?',
+//       acceptedAnswer: { '@type': 'Answer', text: 'We accept all major credit cards, debit cards, and UPI payments through our secure payment processor.' },
+//     },
+//   ],
+// };
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function PricingPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }} />
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /> */}
 
       <div className="min-h-screen bg-white">
         <div className="container mx-auto px-4 py-8 sm:py-12">
