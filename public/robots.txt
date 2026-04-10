@@ -1,39 +1,7 @@
 User-agent: *
-Allow: /
-Allow: /quizzes
-Allow: /quiz/*
-Allow: /profile/*
-Allow: /blog
-Allow: /blog/*
-Allow: /history
-Allow: /pricing
-
-# Block sensitive areas
 Disallow: /settings
 Disallow: /api/
 Disallow: /admin/
-Disallow: /_next/
-Disallow: /static/
-
-# Allow specific bots
-User-agent: Googlebot
 Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: Google-adstxt
-Allow: /app-ads.txt
-
-User-agent: AdsBot-Google
-Allow: /
-
-# Sitemap location
+ 
 Sitemap: https://www.eateriq.com/sitemap.xml
-
