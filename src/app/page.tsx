@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     siteName: "EaterIQ",
     images: [
       {
-        url: "/og-home.png",
+        url: "/og-home.webp",
         width: 1200,
         height: 630,
         alt: "EaterIQ Food Scanner",
@@ -95,7 +95,7 @@ export const metadata: Metadata = {
     title: "EaterIQ - Make Smarter Food Choices",
     description:
       "Free food scanner. Analyze nutrition, detect harmful additives, and find healthier alternatives instantly.",
-    images: ["/og-home.png"],
+    images: ["/og-home.webp"],
   },
   robots: {
     index: true,
@@ -210,7 +210,7 @@ export default async function HomePage() {
     operatingSystem: "Web Browser, iOS, Android",
     description:
       "Food scanner that analyzes nutrition, ingredients, and additives to help you make healthier food choices.",
-    url: "https://www.eateriq.com",
+    url: "https://www.eateriq.com/",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -225,7 +225,7 @@ export default async function HomePage() {
     publisher: {
       "@type": "Organization",
       name: "EaterIQ",
-      url: "https://www.eateriq.com",
+      url: "https://www.eateriq.com/",
     },
   };
 
@@ -233,8 +233,8 @@ export default async function HomePage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "EaterIQ",
-    url: "https://www.eateriq.com",
-    logo: "https://www.eateriq.com/eater-iq.png",
+    url: "https://www.eateriq.com/",
+    logo: "https://www.eateriq.com/eater-iq.png/",
     sameAs: [
       "https://apps.apple.com/sg/app/eateriq/id6757137222",
       "https://play.google.com/store/apps/details?id=com.eateriq",

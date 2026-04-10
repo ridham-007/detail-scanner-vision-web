@@ -21,13 +21,13 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://eateriq.com",
+        item: "https://eateriq.com/",
       },
       ...items.map((item, index) => ({
         "@type": "ListItem",
         position: index + 2,
         name: item.label,
-        ...(item.path && { item: `https://eateriq.com${item.path}` }),
+        ...(item.path && { item: `https://eateriq.com${item.path}/` }),
       })),
     ],
   };

@@ -143,13 +143,13 @@ export const generateQuizStructuredData = (quiz: {
   "provider": {
     "@type": "Organization",
     "name": "EaterIQ",
-    "url": "https://www.eateriq.com"
+    "url": "https://www.eateriq.com/"
   },
-  "url": `https://www.eateriq.com/quiz/${quiz.id}`,
+  "url": `https://www.eateriq.com/quiz/${quiz.id}/`,
   "isPartOf": {
     "@type": "WebSite",
     "name": "EaterIQ",
-    "url": "https://www.eateriq.com"
+    "url": "https://www.eateriq.com/"
   }
 });
 
@@ -163,7 +163,7 @@ export const generateBreadcrumbStructuredData = (breadcrumbs: Array<{ name: stri
     "item": crumb.url
   }))
 });
-export const BASE_URL = "https://www.eateriq.com";
+export const BASE_URL = "https://www.eateriq.com/";
 
 export function generateCalculatorKeywords(title: string): string[] {
   const baseKeywords = [

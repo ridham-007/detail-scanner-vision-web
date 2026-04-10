@@ -160,7 +160,7 @@ const contactPageSchema = {
   mainEntity: {
     "@type": "Organization",
     name: "EaterIQ",
-    url: "https://www.eateriq.com",
+    url: "https://www.eateriq.com/",
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",

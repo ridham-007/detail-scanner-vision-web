@@ -471,7 +471,7 @@ export default function FoodScannerClient() {
         <div className="max-w-2xl mx-auto space-y-4">
           <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
             <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              How does the food scanner work?
+              <h3>How does the food scanner work?</h3>
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">
                 ▼
               </span>
@@ -485,7 +485,7 @@ export default function FoodScannerClient() {
           </details>
           <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
             <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              Is the food scanner free to use?
+              <h3>Is the food scanner safe to use?</h3>
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">
                 ▼
               </span>
@@ -497,7 +497,7 @@ export default function FoodScannerClient() {
           </details>
           <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
             <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              What information does the scanner provide?
+              <h3>What information does the scanner provide?</h3>
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">
                 ▼
               </span>

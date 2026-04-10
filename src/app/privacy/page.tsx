@@ -98,7 +98,7 @@ const webPageSchema = {
   publisher: {
     "@type": "Organization",
     name: "EaterIQ",
-    url: "https://www.eateriq.com",
+    url: "https://www.eateriq.com/",
   },
 };
 

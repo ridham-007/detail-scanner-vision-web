@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'EaterIQ',
     images: [
       {
-        url: '/og-scanner.png',
+        url: '/og-scanner.webp',
         width: 1200,
         height: 630,
         alt: 'EaterIQ Food Scanner',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Food Scanner - Instant Nutrition Analysis | EaterIQ',
     description: 'Scan any food barcode to get instant nutrition insights and health scores.',
-    images: ['/og-scanner.png'],
+    images: ['/og-scanner.webp'],
   },
   robots: {
     index: true,
@@ -59,11 +59,11 @@ const structuredData = {
     "Ingredient breakdown",
     "Personalized recommendations"
   ],
-  "screenshot": "https://www.eateriq.com/scanner-screenshot.png",
+  "screenshot": "https://www.eateriq.com/scanner-screenshot.png/",
   "author": {
     "@type": "Organization",
     "name": "EaterIQ",
-    "url": "https://www.eateriq.com"
+    "url": "https://www.eateriq.com/"
   }
 };
 

@@ -122,7 +122,7 @@ export default async function QuizPlayPage({ params }: Props) {
     "provider": {
       "@type": "Organization",
       "name": "EaterIQ",
-      "url": "https://www.eateriq.com"
+      "url": "https://www.eateriq.com/"
     },
     "hasPart": questions.slice(0, 5).map((q, index) => ({
       "@type": "Question",

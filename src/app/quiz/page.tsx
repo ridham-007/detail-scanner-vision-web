@@ -142,10 +142,10 @@ export default async function QuizPage() {
     "publisher": {
       "@type": "Organization",
       "name": "EaterIQ",
-      "url": "https://www.eateriq.com",
+      "url": "https://www.eateriq.com/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.eateriq.com/eater-iq.png"
+        "url": "https://www.eateriq.com/eater-iq.png/"
       }
     },
     "mainEntity": {
@@ -496,7 +496,7 @@ export default async function QuizPage() {
             <div className="max-w-3xl mx-auto space-y-4">
               <details className="group border rounded-lg" open>
                 <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                  What topics do the nutrition quizzes cover?
+                  <h3>What topics do the nutrition quizzes cover?</h3>
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
@@ -508,7 +508,7 @@ export default async function QuizPage() {
 
               <details className="group border rounded-lg">
                 <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                  Can I create my own quiz?
+                  <h3>Can I create my own quiz?</h3>
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
@@ -519,7 +519,7 @@ export default async function QuizPage() {
 
               <details className="group border rounded-lg">
                 <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                  Are the quizzes free to play?
+                  <h3>Are the quizzes free to play?</h3>
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
@@ -531,7 +531,7 @@ export default async function QuizPage() {
 
               <details className="group border rounded-lg">
                 <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                  How do I track my quiz progress?
+                  <h3>How do I track my quiz progress?</h3>
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
@@ -543,7 +543,7 @@ export default async function QuizPage() {
 
               <details className="group border rounded-lg">
                 <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                  What difficulty levels are available?
+                  <h3>What difficulty levels are available?</h3>
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
@@ -555,7 +555,7 @@ export default async function QuizPage() {
 
               <details className="group border rounded-lg">
                 <summary className="p-4 cursor-pointer font-semibold flex items-center justify-between">
-                  How many questions are in each quiz?
+                  <h3>How many questions are in each quiz?</h3>
                   <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <div className="px-4 pb-4 text-muted-foreground">
