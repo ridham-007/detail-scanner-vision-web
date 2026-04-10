@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'EaterIQ',
       images: [
         {
-          url: '/og-quiz.png',
+          url: '/og-quiz.webp',
           width: 1200,
           height: 630,
           alt: `${quiz.title} Quiz`,
@@ -72,7 +72,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: `${quiz.title} - Nutrition Quiz | EaterIQ`,
       description: quiz.description || `Challenge yourself with this ${quiz.difficulty} nutrition quiz!`,
-      images: ['/og-quiz.png'],
+      images: ['/og-quiz.webp'],
     },
     robots: {
       index: true,

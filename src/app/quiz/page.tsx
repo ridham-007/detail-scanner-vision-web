@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: 'EaterIQ',
     images: [
       {
-        url: '/og-quiz.png',
+        url: '/og-quiz.webp',
         width: 1200,
         height: 630,
         alt: 'EaterIQ Nutrition Quizzes',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Nutrition Quizzes - Test Your Food Knowledge | EaterIQ',
     description: 'Challenge yourself with fun quizzes about nutrition and healthy eating.',
-    images: ['/og-quiz.png'],
+    images: ['/og-quiz.webp'],
   },
   robots: {
     index: true,
