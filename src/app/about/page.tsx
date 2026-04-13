@@ -56,7 +56,7 @@ const organizationSchema = {
   "@type": "Organization",
   "name": "EaterIQ",
   "url": "https://www.eateriq.com/",
-  "logo": "https://www.eateriq.com/eater-iq.png/",
+  "logo": "https://www.eateriq.com/eater-iq.png",
   "description": "EaterIQ is a food intelligence platform that helps consumers make healthier food choices through barcode scanning, nutritional analysis, and health scoring.",
   "foundingDate": "2024",
   "sameAs": [

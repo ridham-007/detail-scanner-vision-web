@@ -59,7 +59,7 @@ const structuredData = {
     "Ingredient breakdown",
     "Personalized recommendations"
   ],
-  "screenshot": "https://www.eateriq.com/scanner-screenshot.png/",
+  "screenshot": "https://www.eateriq.com/scanner-screenshot.png",
   "author": {
     "@type": "Organization",
     "name": "EaterIQ",

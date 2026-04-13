@@ -88,7 +88,7 @@ export default async function BlogListPage() {
       "url": "https://www.eateriq.com/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.eateriq.com/eater-iq.png/"
+        "url": "https://www.eateriq.com/eater-iq.png"
       }
     },
     "blogPost": posts.slice(0, 10).map(post => ({

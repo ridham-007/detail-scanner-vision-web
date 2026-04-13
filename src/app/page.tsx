@@ -234,7 +234,7 @@ export default async function HomePage() {
     "@type": "Organization",
     name: "EaterIQ",
     url: "https://www.eateriq.com/",
-    logo: "https://www.eateriq.com/eater-iq.png/",
+    logo: "https://www.eateriq.com/eater-iq.png",
     sameAs: [
       "https://apps.apple.com/sg/app/eateriq/id6757137222",
       "https://play.google.com/store/apps/details?id=com.eateriq",

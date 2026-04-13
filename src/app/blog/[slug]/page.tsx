@@ -160,7 +160,7 @@ export default async function BlogPostPage({ params }: Props) {
       "name": "EaterIQ",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.eateriq.com/eater-iq.png/",
+        "url": "https://www.eateriq.com/eater-iq.png",
       },
     },
     "datePublished": post.published_at,

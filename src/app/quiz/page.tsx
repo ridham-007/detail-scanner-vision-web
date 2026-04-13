@@ -145,7 +145,7 @@ export default async function QuizPage() {
       "url": "https://www.eateriq.com/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.eateriq.com/eater-iq.png/"
+        "url": "https://www.eateriq.com/eater-iq.png"
       }
     },
     "mainEntity": {
