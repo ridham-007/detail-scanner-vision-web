@@ -177,12 +177,12 @@ const FoodScannerPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid gap-6 lg:grid-cols-2">
           {/* Scanner Section - Enhanced */}
-          <Card className="overflow-hidden rounded-[30px] border border-white/60 bg-[linear-gradient(180deg,rgba(255,250,244,0.9),rgba(255,237,213,0.4))] shadow-product">
+          <Card className="overflow-hidden rounded-[30px] border border-border/60 bg-card/95 shadow-sm">
             <CardHeader className="pb-6">
               <CardTitle className="flex items-center gap-3 text-2xl font-bold">
-                <div className="p-3 rounded-full bg-primary/10">
+                <div className="rounded-full border border-border/70 bg-muted/40 p-3">
                   <Scan className="h-6 w-6 text-primary" />
                 </div>
                 Instant Scan
@@ -201,10 +201,10 @@ const FoodScannerPage: React.FC = () => {
           </Card>
 
           {/* Manual Entry Section - Enhanced */}
-          <Card className="overflow-hidden rounded-[30px] border border-white/60 bg-white/84 shadow-product">
+          <Card className="overflow-hidden rounded-[30px] border border-border/60 bg-card/95 shadow-sm">
             <CardHeader className="pb-6">
               <CardTitle className="flex items-center gap-3 text-2xl font-bold">
-                <div className="rounded-2xl bg-orange-50 p-3 shadow-[var(--shadow-soft)]">
+                <div className="rounded-2xl border border-border/70 bg-muted/40 p-3">
                   <Search className="h-6 w-6 text-primary" aria-hidden="true" />
                 </div>
                 Manual Entry
@@ -221,7 +221,7 @@ const FoodScannerPage: React.FC = () => {
                   value={manualBarcode}
                   onChange={(e) => setManualBarcode(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleManualLookup()}
-                  className="rounded-2xl border-2 border-primary/20 bg-[rgba(255,250,244,0.94)] py-6 text-base"
+                  className="rounded-2xl border-border/70 bg-background py-6 text-base"
                   aria-label="Barcode number"
                 />
                 <Button
@@ -229,12 +229,12 @@ const FoodScannerPage: React.FC = () => {
                   onClick={handleManualLookup}
                   disabled={isLoading || !manualBarcode.trim()}
                   size="lg"
-                  className="rounded-2xl bg-primary px-6 py-6 text-primary-foreground shadow-[var(--shadow-warm)] hover:bg-foreground/92"
+                  className="rounded-2xl px-6 py-6"
                 >
                   <Search className="h-5 w-5" aria-hidden="true" />
                 </Button>
               </div>
-              <div className="rounded-[22px] border border-orange-100/80 bg-orange-50/60 p-4">
+              {/* <div className="rounded-[22px] border border-border/70 bg-muted/20 p-4">
                 <p className="text-sm text-muted-foreground">
                   <span className="font-bold text-foreground">
                     Try these samples:
@@ -254,9 +254,9 @@ const FoodScannerPage: React.FC = () => {
                     8906019779840 (Mix Dry Fruits)
                   </button>
                 </div>
-              </div>
-              <div className="flex items-start gap-3 rounded-[22px] border border-orange-100/80 bg-white/80 p-4">
-                <div className="mt-0.5 rounded-full bg-orange-50 p-2">
+              </div> */}
+              <div className="flex items-start gap-3 rounded-[22px] border border-border/70 bg-muted/10 p-4">
+                <div className="mt-0.5 rounded-full bg-muted/40 p-2">
                   <ShieldCheck className="h-4 w-4 text-primary" />
                 </div>
                 <p className="text-sm leading-6 text-muted-foreground">

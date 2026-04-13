@@ -282,7 +282,7 @@ export default function FoodScannerClient() {
                 <Search className="h-5 w-5" aria-hidden="true" />
               </Button>
             </div>
-            <div className="rounded-[22px] border border-orange-100/80 bg-orange-50/60 p-4">
+            {/* <div className="rounded-[22px] border border-orange-100/80 bg-orange-50/60 p-4">
               <p className="text-sm text-muted-foreground">
                 <span className="font-bold text-foreground">
                   Try these samples:
@@ -302,7 +302,7 @@ export default function FoodScannerClient() {
                   8906019779840 (Mix Dry Fruits)
                 </button>
               </div>
-            </div>
+            </div> */}
             <div className="flex items-start gap-3 rounded-[22px] border border-orange-100/80 bg-white/80 p-4">
               <div className="mt-0.5 rounded-full bg-orange-50 p-2">
                 <ShieldCheck className="h-4 w-4 text-primary" />

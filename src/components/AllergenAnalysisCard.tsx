@@ -46,7 +46,7 @@ export const AllergenAnalysisCard = ({
   if (!allergens?.length) return null;
 
   return (
-    <Card className="border-none shadow-md">
+    <Card className="border border-border/60 shadow-sm">
       <CardHeader className="space-y-1">
         <CardTitle className="flex items-center gap-2 text-lg">
           <AlertTriangle className="w-5 h-5 text-primary" />
@@ -63,7 +63,7 @@ export const AllergenAnalysisCard = ({
 
           return (
             <div key={index} className="w-full md:w-1/2 px-2 mb-4">
-              <div className="rounded-2xl border bg-gradient-to-br from-background to-muted/40 p-5 transition hover:shadow-lg h-full">
+              <div className="h-full rounded-2xl border border-border/70 bg-background p-5 transition-colors hover:bg-muted/20">
                 {/* Top row */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">

@@ -33,13 +33,13 @@ const ProductImageCarousel: React.FC<ProductImageCarouselProps> = ({
   return (
     <div className="relative group">
       {/* Main Image Container */}
-      <div className="w-64 h-64 bg-gray-50 dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700 group-hover:shadow-3xl transition-all duration-500">
+      <div className="w-64 h-64 bg-gray-50 dark:bg-gray-800 rounded-3xl overflow-hidden transition-all duration-500">
         <div className="relative w-full h-full">
           <img 
             src={images[currentImageIndex]} 
             alt={`${productName} - Image ${currentImageIndex + 1}`}
             loading="lazy"
-            className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-700"
+            className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
             onError={(e) => {
               e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iI0Q1RDVENSIvPgo8L3N2Zz4K';
             }}

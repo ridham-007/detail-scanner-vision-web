@@ -62,11 +62,11 @@ export const AdditiveAnalysisCard = ({
   if (!additives?.length) return null;
 
   return (
-    <Card className="overflow-hidden border-green-200 dark:border-green-800">
+    <Card className="overflow-hidden border border-border/60 shadow-sm">
       {/* ---------- Header ---------- */}
-      <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 pb-4">
-        <CardTitle className="flex items-center gap-2.5 text-lg font-semibold text-green-700 dark:text-green-300">
-          <div className="rounded-lg bg-green-100 dark:bg-green-900/50 p-2">
+      <CardHeader className="bg-muted/20 pb-4">
+        <CardTitle className="flex items-center gap-2.5 text-lg font-semibold text-foreground">
+          <div className="rounded-lg border border-border/70 bg-background p-2">
             <FlaskConical className="h-5 w-5" />
           </div>
           Additive Analysis
@@ -86,7 +86,7 @@ export const AdditiveAnalysisCard = ({
           return (
             <div
               key={index}
-              className="group relative h-full overflow-hidden rounded-xl border border-border bg-card p-4 sm:p-5 shadow-sm transition-all hover:shadow-md hover:border-green-300 dark:hover:border-green-700"
+              className="group relative h-full overflow-hidden rounded-xl border border-border/70 bg-background p-4 transition-colors hover:bg-muted/20 sm:p-5"
             >
               {/* ---------- Row 1 ---------- */}
               <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -150,12 +150,6 @@ export const AdditiveAnalysisCard = ({
                 </p>
               </div>
 
-              {/* ---------- Decorative Accent ---------- */}
-              <div
-                className={`absolute left-0 top-0 h-full w-1 bg-gradient-to-b ${getScoreGradient(
-                  additive.score
-                )} opacity-0 transition-opacity group-hover:opacity-100`}
-              />
             </div>
           );
         })}

@@ -80,32 +80,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
   if (isLoading) {
     return (
-      <Card className="w-full overflow-hidden rounded-[32px] border-white/70 bg-white/88 shadow-product">
+      <Card className="w-full overflow-hidden rounded-[32px] border border-border/60 bg-card/95 shadow-sm">
         <CardContent className="p-0">
-          <div className="relative bg-[linear-gradient(180deg,rgba(255,237,213,0.62),rgba(255,250,244,0.98))]">
+          <div className="relative bg-muted/20">
             <div className="mx-auto px-8 py-16">
-              {/* Animated background elements */}
-              <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-10 -left-10 w-20 h-20 bg-blue-200 dark:bg-blue-800 rounded-full animate-pulse opacity-30"></div>
-                <div
-                  className="absolute top-20 -right-5 w-16 h-16 bg-purple-200 dark:bg-purple-800 rounded-full animate-pulse opacity-20"
-                  style={{ animationDelay: "0.5s" }}
-                ></div>
-                <div
-                  className="absolute bottom-10 left-1/4 w-12 h-12 bg-pink-200 dark:bg-pink-800 rounded-full animate-pulse opacity-25"
-                  style={{ animationDelay: "1s" }}
-                ></div>
-                <div
-                  className="absolute bottom-20 right-1/3 w-8 h-8 bg-indigo-200 dark:bg-indigo-800 rounded-full animate-pulse opacity-30"
-                  style={{ animationDelay: "1.5s" }}
-                ></div>
-              </div>
-
               <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 {/* Product Image Skeleton */}
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="relative">
-                    <div className="h-64 w-64 overflow-hidden rounded-[28px] border border-white/70 bg-white/90 shadow-product">
+                    <div className="h-64 w-64 overflow-hidden rounded-[28px] border border-border/70 bg-background">
                       <div className="w-full h-full bg-muted animate-pulse relative">
                         {/* Scanning line effect */}
                         <div
@@ -116,12 +99,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                         ></div>
                       </div>
                     </div>
-                    {/* Floating dots */}
-                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-400 rounded-full animate-bounce"></div>
-                    <div
-                      className="absolute -bottom-2 -left-2 w-3 h-3 bg-purple-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.5s" }}
-                    ></div>
                   </div>
                 </div>
 
@@ -180,13 +157,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
               <div className="mt-12 text-center">
                 <div className="flex items-center justify-center gap-3 text-muted-foreground">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-primary/70 rounded-full animate-bounce"></div>
                     <div
-                      className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"
+                      className="w-2 h-2 bg-primary/60 rounded-full animate-bounce"
                       style={{ animationDelay: "0.1s" }}
                     ></div>
                     <div
-                      className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"
+                      className="w-2 h-2 bg-primary/50 rounded-full animate-bounce"
                       style={{ animationDelay: "0.2s" }}
                     ></div>
                   </div>
@@ -211,7 +188,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
   if (!product) {
     return (
-      <Card className="w-full rounded-[28px] border-white/70 bg-white/88 shadow-product">
+      <Card className="w-full rounded-[28px] border border-border/60 bg-card/95 shadow-sm">
         <CardContent className="flex items-center justify-center h-48">
           <div className="text-center space-y-2">
             <ImageIcon size={48} className="mx-auto text-muted-foreground" />
@@ -237,24 +214,16 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   return (
     <div className="space-y-8">
       {/* Main Product Card - Completely Redesigned */}
-      <Card className="w-full animate-fade-in overflow-hidden rounded-[32px] border-white/70 bg-white/90 shadow-product">
+      <Card className="w-full animate-fade-in overflow-hidden rounded-[32px] border border-border/60 bg-card/95 shadow-sm">
         <CardContent className="p-0">
           {/* Hero Section with Enhanced Visual Design */}
-          <div className="relative bg-[linear-gradient(180deg,rgba(255,237,213,0.62),rgba(255,250,244,0.98))]">
-            {/* Decorative Background Elements */}
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-8 right-8 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
-              <div className="absolute bottom-8 left-8 w-24 h-24 bg-accent/10 rounded-full blur-2xl"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
-            </div>
-
+          <div className="relative bg-muted/20">
             <div className="relative mx-auto px-6 py-12">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
                 {/* Product Image - Enhanced with Better Styling */}
                 <div className="flex justify-center">
-                  <div className="relative group">
-                    <div className="absolute -inset-4 rounded-[32px] bg-orange-200/40 blur-xl opacity-70 transition-opacity group-hover:opacity-100"></div>
-                    <div className="relative rounded-[28px] border border-white/70 bg-white/92 p-4 shadow-product">
+                  <div className="relative">
+                    <div className="relative rounded-[28px] border border-border/70 bg-background p-4">
                       {imageLoading ? (
                         // ===== SHIMMER FRAME =====
                         <div className="w-64 h-64 bg-muted rounded-2xl animate-pulse flex items-center justify-center">
@@ -276,7 +245,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 <div className="text-center lg:text-left space-y-6">
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Badge variant="secondary" className="mb-4 rounded-full border border-orange-200/70 bg-orange-50 px-3 py-1 text-orange-800">
+                      <Badge variant="secondary" className="mb-4 rounded-full border border-border/70 bg-background px-3 py-1 text-foreground">
                         Product Analysis
                       </Badge>
                       <h1 className="text-2xl lg:text-3xl font-bold text-foreground leading-tight tracking-tight">
@@ -286,7 +255,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                         <span className="text-xs uppercase tracking-wider text-muted-foreground">
                           Barcode
                         </span>
-                        <span className="rounded-full border border-orange-100/80 bg-white/90 px-3 py-1 font-mono text-sm shadow-[var(--shadow-soft)]">
+                        <span className="rounded-full border border-border/70 bg-background px-3 py-1 font-mono text-sm">
                           {product.barcode}
                         </span>
                       </div>
@@ -309,11 +278,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       {/* Alternatives – primary CTA */}
                       <Button
                         onClick={handleAlternativesClick}
-                        className="
-      flex items-center justify-center gap-2
-      w-full sm:w-auto
-      hover:scale-105 transition-transform
-    "
+                        className="flex w-full items-center justify-center gap-2 sm:w-auto"
                       >
                         Alternatives
                       </Button>
@@ -338,7 +303,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                         className="
       flex items-center justify-center gap-2
       w-full sm:w-auto
-      hover:scale-105 transition-transform
     "
                       >
                         <Heart
@@ -360,7 +324,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                           className="
         flex items-center justify-center gap-2
         w-full sm:w-auto
-        hover:scale-105 transition-transform
       "
                         >
                           <ShoppingCart className="w-4 h-4" />
@@ -373,7 +336,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   {/* Enhanced Quick Stats */}
                   {product.is_health_related_product && (
                     <div className="grid grid-cols-2 gap-4 pt-6">
-                      <div className="rounded-[22px] border border-emerald-100/80 bg-emerald-50/90 p-4 text-center lg:text-left">
+                      <div className="rounded-[22px] border border-emerald-200/70 bg-emerald-50/70 p-4 text-center lg:text-left">
                         <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
                           <div className="w-2 h-2 rounded-full bg-green-500"></div>
                           <span className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wide">
@@ -384,7 +347,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                           {product.positives?.length || 0}
                         </div>
                       </div>
-                      <div className="rounded-[22px] border border-orange-100/80 bg-orange-50/90 p-4 text-center lg:text-left">
+                      <div className="rounded-[22px] border border-orange-200/70 bg-orange-50/70 p-4 text-center lg:text-left">
                         <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
                           <div className="w-2 h-2 rounded-full bg-primary/70"></div>
                           <span className="text-xs font-medium text-orange-700 dark:text-orange-300 uppercase tracking-wide">
@@ -402,16 +365,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 {/* Health Score - Enhanced Design */}
                 {product.is_health_related_product && (
                   <div className="flex justify-center">
-                    <div className="relative">
-                      <div className="absolute -inset-8 bg-primary/10 rounded-full blur-2xl"></div>
-                      <div className="relative rounded-[26px] border border-white/70 bg-white/88 p-6 shadow-[var(--shadow-soft)] backdrop-blur-sm">
+                    <div className="relative rounded-[26px] border border-border/70 bg-background p-6">
                         <AnimatedHealthScore
                           score={product.health_score}
                           size={140}
                           categoryRank={12}
                           categoryTotal={47}
                         />
-                      </div>
                     </div>
                   </div>
                 )}
@@ -430,7 +390,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
       {/* Nutrition Score Grade */}
       {product.nutrition_score_grade && (
-        <Card className="w-full animate-fade-in rounded-[28px] border-white/70 bg-white/88 shadow-product">
+        <Card className="w-full animate-fade-in rounded-[28px] border border-border/60 bg-card/95 shadow-sm">
           <CardContent className="p-6">
             <NutritionScoreGrade grade={product.nutrition_score_grade} />
           </CardContent>
@@ -490,12 +450,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
       {/* Recommendations - Enhanced Design */}
       {product.recommendations && product.recommendations.length > 0 && (
-        <Card className="w-full animate-fade-in rounded-[28px] border-white/70 bg-white/88 shadow-product">
+        <Card className="w-full animate-fade-in rounded-[28px] border border-border/60 bg-card/95 shadow-sm">
           <CardContent className="p-8 space-y-6">
             <div className="text-center space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-orange-800">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-muted/30 px-4 py-2 text-foreground">
                 <Lightbulb size={18} className="text-primary" />
-                <h4 className="font-semibold text-orange-800">
+                <h4 className="font-semibold text-foreground">
                   Smart Recommendations
                 </h4>
               </div>
@@ -505,9 +465,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             </div>
             <div className="grid gap-4">
               {product.recommendations.map((recommendation, index) => (
-                <div key={index} className="relative overflow-hidden">
-                  <div className="absolute inset-0 bg-orange-100/20"></div>
-                  <div className="relative flex items-start gap-4 rounded-[24px] border border-orange-100/80 bg-white/82 p-5 backdrop-blur-sm">
+                <div key={index}>
+                  <div className="flex items-start gap-4 rounded-[24px] border border-border/70 bg-background p-5">
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-100">
                       <span className="text-sm font-semibold text-primary">
                         {index + 1}

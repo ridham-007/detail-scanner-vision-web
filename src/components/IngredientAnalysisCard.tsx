@@ -50,10 +50,10 @@ export const IngredientAnalysisCard = ({ ingredients }: IngredientAnalysisCardPr
   if (!ingredients || ingredients.length === 0) return null;
 
   return (
-    <Card className="shadow-sm">
+    <Card className="border border-border/60 shadow-sm">
       <CardHeader className="pb-4 border-b">
         <CardTitle className="flex items-center gap-2 text-xl">
-          <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
+          <div className="rounded-lg border border-border/70 bg-muted/30 p-2">
             <Leaf className="w-5 h-5 text-green-600 dark:text-green-400" />
           </div>
           Ingredient Analysis
@@ -67,7 +67,7 @@ export const IngredientAnalysisCard = ({ ingredients }: IngredientAnalysisCardPr
           {ingredients.map((ingredient, index) => (
             <div
               key={index}
-              className={`group relative overflow-hidden rounded-xl bg-card border transition-all duration-200 hover:shadow-md ${getCardBorderColor(
+              className={`group relative overflow-hidden rounded-xl bg-background border transition-colors duration-200 hover:bg-muted/20 ${getCardBorderColor(
                 ingredient.impact
               )}`}
             >
@@ -105,9 +105,6 @@ export const IngredientAnalysisCard = ({ ingredients }: IngredientAnalysisCardPr
                   </div>
                 </div>
               </div>
-
-              {/* Decorative gradient overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-muted/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             </div>
           ))}
         </div>
