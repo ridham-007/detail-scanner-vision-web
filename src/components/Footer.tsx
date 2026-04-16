@@ -47,7 +47,7 @@ export default function Footer() {
               className="inline-flex items-center gap-2.5 mb-4 group transition-transform hover:scale-105"
               aria-label="EaterIQ - Go to homepage"
             >
-              <LogoIcon className="h-11 w-11" />
+              <LogoIcon className="h-11 w-11" size={44}/>
               <span className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 Eater
 
