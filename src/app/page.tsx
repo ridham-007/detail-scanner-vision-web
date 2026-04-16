@@ -361,7 +361,7 @@ export default async function HomePage() {
                     width={160}
                     height={50}
                     className="h-auto w-[150px] sm:w-[160px]"
-                    priority
+                    loading="lazy"
                   />
                 </a>
 
@@ -377,7 +377,7 @@ export default async function HomePage() {
                     width={160}
                     height={50}
                     className="h-auto w-[150px] sm:w-[160px]"
-                    priority
+                    loading="lazy"
                   />
                 </a>
               </div>
