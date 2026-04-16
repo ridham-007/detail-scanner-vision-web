@@ -13,7 +13,7 @@ const LogoIcon: React.FC<LogoProps> = ({ className = "h-12 w-12" }) => {
         alt="EaterIQ Logo"
         fill
         className="object-contain"
-        priority
+        loading="lazy"
       />
     </div>
   );
