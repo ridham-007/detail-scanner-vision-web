@@ -23,6 +23,9 @@ import {
   ListChecks,
   Search,
   Sparkles,
+  Info,
+  Activity,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -56,8 +59,7 @@ const ScrollToScannerButton = dynamic(
 
 // Static metadata for SEO
 export const metadata: Metadata = {
-  title:
-    "EaterIQ - Smart Food Insights for Better Everyday Choices",
+  title: "EaterIQ - Smart Food Insights for Better Everyday Choices",
   description:
     "EaterIQ helps you decode food labels, understand ingredients, and make confident decisions with simple, easy-to-read insights.",
   keywords: [
@@ -274,6 +276,29 @@ export default async function HomePage() {
     ],
   };
 
+   const features = [
+    {
+      icon: <Info className="w-6 h-6 text-primary" />,
+      title: "Clear Ingredient Insights",
+      desc: "Understand what goes into your food without needing expert knowledge.",
+    },
+    {
+      icon: <Activity className="w-6 h-6 text-primary" />,
+      title: "Simplified Nutrition Information",
+      desc: "Quickly see the most important nutritional details that matter to you.",
+    },
+    {
+      icon: <AlertTriangle className="w-6 h-6 text-primary" />,
+      title: "Smart Warnings",
+      desc: "Get notified about things you may want to avoid.",
+    },
+    {
+      icon: <Star className="w-6 h-6 text-primary" />,
+      title: "Easy-to-Understand Ratings",
+      desc: "Know at a glance whether a product fits your lifestyle.",
+    },
+  ];
+
   return (
     <>
       {/* Structured Data */}
@@ -319,7 +344,9 @@ export default async function HomePage() {
               </h1>
 
               <p className="mx-auto mb-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg lg:mx-0">
-                EaterIQ transforms complex food labels into simple, actionable guidance so you can understand ingredients, nutrition, and make better choices in seconds. 
+                EaterIQ transforms complex food labels into simple, actionable
+                guidance so you can understand ingredients, nutrition, and make
+                better choices in seconds.
               </p>
 
               {/* CTA - Client Component for scroll */}
@@ -388,8 +415,8 @@ export default async function HomePage() {
 
               <div className="relative z-10 rounded-[32px] border border-white/60 bg-white/45 p-3 shadow-product backdrop-blur-sm sm:rounded-[36px] sm:p-6">
                 {/* Phone Mockup */}
-<div
-  className="
+                <div
+                  className="
     relative 
     w-[210px] 
     xs:w-[240px]
@@ -398,15 +425,15 @@ export default async function HomePage() {
     max-w-full
     aspect-[9/16]
   "
->
-  <Image
-    src="/hero-image.webp"
-    alt="App preview"
-    fill
-    className="object-contain scale-[1.35]"
-    unoptimized
-  />
-</div>
+                >
+                  <Image
+                    src="/hero-image.webp"
+                    alt="App preview"
+                    fill
+                    className="object-contain scale-[1.35]"
+                    unoptimized
+                  />
+                </div>
 
                 {/* Floating Stats Badges */}
                 <div
@@ -468,6 +495,95 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="w-full py-12">
+      <div className="max-w-4xl mx-auto px-6 text-center">
+        
+        {/* Heading */}
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <span className="text-primary">What is </span>
+          <span className="bg-primary bg-clip-text text-transparent">
+            EaterIQ?
+          </span>
+        </h2>
+
+        {/* Subtitle */}
+        <p className="text-gray-500 mb-12 max-w-2xl mx-auto">
+          Understand your food better with smart insights and make healthier choices effortlessly.
+        </p>
+
+        {/* Card */}
+        <div className="bg-white rounded-2xl shadow-md p-8 md:p-10 relative">
+          
+          {/* Decorative Quotes */}
+          <span className="absolute top-4 left-6 text-4xl text-primary/30 font-serif">
+            “
+          </span>
+          <span className="absolute bottom-4 right-6 text-4xl text-primary/30 font-serif">
+            ”
+          </span>
+
+          {/* Content */}
+          <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
+            <p>
+              EaterIQ is a smart food barcode scanner platform designed to simplify how you understand packaged food.
+            </p>
+
+            <p>
+              Instead of relying on confusing labels, EaterIQ gives you clear insights into what’s inside your food helping you make informed decisions whether you're shopping, dieting, or improving your lifestyle.
+            </p>
+
+            <p className="font-medium text-gray-900">
+              It’s built for people who want clarity, not complexity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+      <section className="w-full py-20">
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* Top Section */}
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          
+          {/* Left Content */}
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Why <span className="text-primary">EaterIQ</span> Exists?
+            </h2>
+
+            <p className="text-gray-600 text-lg leading-relaxed">
+              Most food labels are hard to understand.
+            </p>
+          </div>
+
+          {/* Right Cards */}
+          <div className="grid gap-5">
+            
+            <div className="bg-[#f9fafc] border border-gray-100 p-5 rounded-xl shadow-sm hover:shadow-md transition">
+              <p className="text-gray-700">
+                Long ingredient lists, hidden additives, and misleading claims make it difficult to know what you're actually consuming.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-primary to-orange-300 text-white p-5 rounded-xl shadow-md">
+              <p className="font-medium">
+                EaterIQ solves this by turning complex information into simple, useful insights so you can decide faster and with confidence.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Bottom Highlight Line */}
+        <div className="mt-12 text-center">
+          <div className="inline-block bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-medium">
+            Making food choices simpler, smarter, and stress-free
+          </div>
+        </div>
+
+      </div>
+    </section>
       {/* How It Works Section */}
       <section
         id="how-it-works"
@@ -553,6 +669,48 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="w-full py-16">
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* Heading */}
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-4xl font-bold">
+            What <span className="bg-primary bg-clip-text text-transparent">You Get</span>
+          </h2>
+          <p className="text-gray-500 mt-4">
+            Everything you need to make smarter food decisions, effortlessly.
+          </p>
+        </div>
+
+        {/* Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          {features.map((item, i) => (
+            <div
+              key={i}
+              className="group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            >
+              {/* Icon */}
+              <div className="mb-4 w-12 h-12 flex items-center justify-center rounded-xl bg-gray-50 group-hover:bg-purple-50 transition">
+                {item.icon}
+              </div>
+
+              {/* Title */}
+              <h3 className="font-semibold text-lg mb-2 text-gray-900">
+                {item.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
+          ))}
+
+        </div>
+      </div>
+    </section>
+
       <HealthCalculators />
 
       {/* Key Features Section */}
@@ -586,11 +744,12 @@ export default async function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Science-Based Analysis
+                    Clear & Simple Insights
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Our health scores are calculated using peer-reviewed
-                    nutritional science and WHO dietary guidelines.
+                    Understand your food without confusion. EaterIQ turns
+                    complex ingredient lists and nutrition data into
+                    easy-to-read, meaningful information.
                   </p>
                 </div>
               </div>
@@ -604,11 +763,11 @@ export default async function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Instant Results
+                    Make Faster Decisions
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Get comprehensive nutritional analysis in seconds. No
-                    waiting, no complicated processes.
+                    No more standing in aisles comparing labels. Get the
+                    information you need instantly and choose with confidence.
                   </p>
                 </div>
               </div>
@@ -622,11 +781,11 @@ export default async function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Personalized Insights
+                    Built for Everyday Use
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Receive recommendations based on your dietary preferences,
-                    allergies, and health goals.
+                    Whether you're shopping, dieting, or just being mindful,
+                    EaterIQ fits naturally into your daily routine.
                   </p>
                 </div>
               </div>
@@ -640,11 +799,11 @@ export default async function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Transparency First
+                    Focus on What Matters
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    We decode confusing ingredient lists and reveal what&apos;s
-                    really in your food.
+                    We highlight the most important details—so you don’t waste
+                    time digging through unnecessary information.
                   </p>
                 </div>
               </div>
@@ -658,11 +817,12 @@ export default async function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Trusted by Thousands
+                    Designed for Everyone
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Join our growing community of health-conscious consumers
-                    making informed choices.
+                    From fitness enthusiasts to families, EaterIQ is made for
+                    anyone who wants to make better food choices without needing
+                    expert knowledge.
                   </p>
                 </div>
               </div>
@@ -679,11 +839,11 @@ export default async function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Free to Start
+                    Always Improving
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Start scanning for free with no sign-up required. Upgrade
-                    anytime for unlimited scans and premium features.
+                    We continuously enhance our data and experience to give you
+                    more accurate, helpful, and reliable insights over time.
                   </p>
                 </div>
               </div>
