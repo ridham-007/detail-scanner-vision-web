@@ -46,7 +46,7 @@ const AuthButton = () => {
   };
 
   const navigationItems = [
-    { path: '/scanner', label: 'Scanner', icon: Scan },
+    { path: '/food-scanner', label: 'Scanner', icon: Scan },
     { path: '/quiz', label: 'Quiz', icon: Trophy },
     { path: '/blog', label: 'Blog', icon: BookOpen },
     { path: '/pricing', label: 'Pricing', icon: CreditCard },

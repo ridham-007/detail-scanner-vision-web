@@ -57,9 +57,9 @@ const ScrollToScannerButton = dynamic(
 // Static metadata for SEO
 export const metadata: Metadata = {
   title:
-    "EaterIQ - Food Scanner for Healthier Choices | Free Nutrition Analysis",
+    "EaterIQ - Smart Food Insights for Better Everyday Choices",
   description:
-    "Scan any food product barcode and instantly get nutrition analysis, health scores, ingredient warnings, and healthier alternatives. Free to start, no sign-up required.",
+    "EaterIQ helps you decode food labels, understand ingredients, and make confident decisions with simple, easy-to-read insights.",
   keywords: [
     "food scanner",
     "nutrition analysis",
@@ -315,13 +315,11 @@ export default async function HomePage() {
                 id="hero-heading"
                 className="mb-4 text-2xl font-bold leading-[1.02] tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl"
               >
-                Bright health guidance for every barcode in your kitchen.
+                Smart health insights for every barcode scan
               </h1>
 
               <p className="mx-auto mb-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg lg:mx-0">
-                EaterIQ turns food labels into warm, practical guidance with
-                health scores, ingredient analysis, and healthier alternatives
-                in seconds.
+                EaterIQ transforms complex food labels into simple, actionable guidance so you can understand ingredients, nutrition, and make better choices in seconds. 
               </p>
 
               {/* CTA - Client Component for scroll */}
@@ -332,18 +330,13 @@ export default async function HomePage() {
               {/* Trust Badges */}
               <div className="mb-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
                 <div className="flex items-center gap-1.5 rounded-full border border-orange-200/70 bg-orange-50 px-3 py-1.5 text-sm text-orange-900">
-                  <CheckCircle
-                    className="h-3.5 w-3.5 text-primary"
-                    aria-hidden="true"
-                  />
-                  <span>Free to Start</span>
+                  <span>Simple</span>
                 </div>
                 <div className="flex items-center gap-1.5 rounded-full border border-orange-200/70 bg-orange-50 px-3 py-1.5 text-sm text-orange-900">
-                  <Shield
-                    className="h-3.5 w-3.5 text-primary"
-                    aria-hidden="true"
-                  />
-                  <span>No Sign-up Required</span>
+                  <span>Fast</span>
+                </div>
+                <div className="flex items-center gap-1.5 rounded-full border border-orange-200/70 bg-orange-50 px-3 py-1.5 text-sm text-orange-900">
+                  <span>Built for everyday decisions</span>
                 </div>
               </div>
 

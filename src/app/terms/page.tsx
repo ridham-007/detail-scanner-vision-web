@@ -606,7 +606,7 @@ export default function TermsPage() {
               Explore EaterIQ
             </h2>
             <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-              <Link href="/scanner/" className="group">
+              <Link href="/food-scanner/" className="group">
                 <Card className="h-full hover:shadow-md transition-shadow">
                   <CardContent className="p-4 flex items-center gap-3">
                     <div className="p-2 rounded-full bg-primary/10">

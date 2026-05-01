@@ -177,7 +177,7 @@ export default function FoodScannerClient() {
 
   return (
     <div className="space-y-8 pt-4 container mx-auto px-4">
-        <Breadcrumbs items={[{ label: 'Food Scanner' }]} />
+      <Breadcrumbs items={[{ label: "Food Scanner" }]} />
 
       {!isUnlimited && (
         <UpgradeBanner
@@ -203,8 +203,13 @@ export default function FoodScannerClient() {
             </span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Decode product quality in seconds with the same bright, practical
-            guidance you see in the app.
+            Scan Any Food Product & Instantly Know What You’re Eating
+          </p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Use EaterIQ’s powerful food barcode scanner to check ingredients, nutrition facts, and health scores instantly. This smart food scanner app helps you make better food choices in seconds.
+          </p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            No signup required • Instant results • Trusted product scanner app
           </p>
         </div>
 
@@ -326,6 +331,46 @@ export default function FoodScannerClient() {
         />
       </div>
 
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            {/* Left Content */}
+            <div>
+              <h2 className="text-3xl font-bold mb-4">
+                What is the EaterIQ Scanner?
+              </h2>
+
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                EaterIQ is an advanced food scanning app designed to help you
+                understand what’s inside your packaged food. With just a quick
+                scan, this intelligent food scanner reveals detailed insights
+                about ingredients, nutrition values, and overall product
+                quality.
+              </p>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Whether you call it a product scanner, ingredient checker, or
+                food barcode scanner, EaterIQ gives you all the information you
+                need in one place, fast, simple, and easy to understand.
+              </p>
+            </div>
+
+            {/* Right Highlight Card */}
+            <div className="rounded-[28px] bg-gradient-to-br from-orange-50 to-white border shadow-product p-6">
+              <p className="font-semibold text-lg mb-3">Why it matters</p>
+
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>✔ Understand what you eat</li>
+                <li>✔ Decode ingredients instantly</li>
+                <li>✔ Make smarter food decisions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+
       {/* SEO-friendly content section (visible) */}
       <section className="border-t border-border/70 py-12">
         <div className="max-w-4xl mx-auto">
@@ -340,21 +385,45 @@ export default function FoodScannerClient() {
             {[
               {
                 step: "1",
-                title: "Scan the Barcode",
-                desc: "Point your camera at any food product barcode or enter it manually.",
+                title: "Open the Food Scanner",
+                desc: "Launch the EaterIQ food scanner app directly from your browser.",
                 icon: (
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2v18H3V3zm4 0h1v18H7V3zm3 0h2v18h-2V3zm4 0h1v18h-1V3zm3 0h2v18h-2V3z" />
-                    <rect x="2" y="2" width="20" height="20" rx="3" strokeWidth={1.5} fill="none" />
+                  <svg
+                    className="w-6 h-6 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 3h2v18H3V3zm4 0h1v18H7V3zm3 0h2v18h-2V3zm4 0h1v18h-1V3zm3 0h2v18h-2V3z"
+                    />
+                    <rect
+                      x="2"
+                      y="2"
+                      width="20"
+                      height="20"
+                      rx="3"
+                      strokeWidth={1.5}
+                      fill="none"
+                    />
                   </svg>
                 ),
               },
               {
                 step: "2",
-                title: "Instant Analysis",
-                desc: "EaterIQ analyzes ingredients, nutrition facts, and additives in seconds.",
+                title: "Scan the Barcode",
+                desc: "Use your camera to scan any packaged product barcode.",
                 icon: (
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <svg
+                    className="w-6 h-6 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
                     <circle cx="12" cy="12" r="9" />
                     <path strokeLinecap="round" d="M12 7v5l3 3" />
                   </svg>
@@ -362,16 +431,29 @@ export default function FoodScannerClient() {
               },
               {
                 step: "3",
-                title: "Get Insights",
-                desc: "Receive health scores, warnings, and personalized recommendations.",
+                title: "Analyze Instantly",
+                desc: "Get a complete breakdown using our smart ingredient checker food system.",
                 icon: (
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M12 3a9 9 0 100 18A9 9 0 0012 3z" />
+                  <svg
+                    className="w-6 h-6 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12l2 2 4-4M12 3a9 9 0 100 18A9 9 0 0012 3z"
+                    />
                   </svg>
                 ),
               },
             ].map((item, i) => (
-              <div key={i} className="relative z-10 flex-1 flex flex-col items-center group">
+              <div
+                key={i}
+                className="relative z-10 flex-1 flex flex-col items-center group"
+              >
                 {/* Mobile connector */}
                 {i < 2 && (
                   <div className="md:hidden w-px h-8 bg-gradient-to-b from-orange-300 to-orange-100 my-1" />
@@ -391,8 +473,12 @@ export default function FoodScannerClient() {
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {item.desc}
+                  </p>
 
                   {/* Bottom progress bar */}
                   <div className="mt-5 h-1 w-full rounded-full bg-orange-50 overflow-hidden">
@@ -408,9 +494,194 @@ export default function FoodScannerClient() {
         </div>
       </section>
 
+      <section className="py-14">
+        <h2 className="text-3xl font-bold text-center mb-10">
+          What You’ll Discover
+        </h2>
+
+        <div className="space-y-8 max-w-4xl mx-auto">
+          {/* Ingredient Transparency */}
+          <div className="p-6 rounded-2xl bg-white shadow-product">
+            <h3 className="text-xl font-semibold mb-3">
+              Ingredient Transparency (Ingredient Checker)
+            </h3>
+            <p className="text-muted-foreground mb-3">
+              Our advanced ingredient checker breaks down every ingredient into
+              simple terms.
+            </p>
+            <ul className="list-disc pl-5 text-muted-foreground space-y-1">
+              <li>Understand complex names and hidden additives</li>
+              <li>Identify artificial preservatives, colors, and chemicals</li>
+              <li>Know exactly what you’re consuming</li>
+            </ul>
+            <p className="text-muted-foreground mt-3">
+              This makes EaterIQ one of the most powerful tools for ingredient
+              checker food analysis.
+            </p>
+          </div>
+
+          {/* Harmful Ingredients */}
+          <div className="p-6 rounded-2xl bg-white shadow-product">
+            <h3 className="text-xl font-semibold mb-3">
+              Harmful Ingredients & Alerts
+            </h3>
+            <p className="text-muted-foreground mb-3">
+              Not all ingredients are created equal. Our food scanner
+              highlights:
+            </p>
+            <ul className="list-disc pl-5 text-muted-foreground space-y-1">
+              <li>High-risk additives and controversial ingredients</li>
+              <li>Excess sugar, sodium, or unhealthy fats</li>
+              <li>Allergens like gluten, dairy, or nuts</li>
+            </ul>
+            <p className="text-muted-foreground mt-3">
+              Get instant alerts so you can avoid products that don’t align with
+              your health goals.
+            </p>
+          </div>
+
+          {/* Nutrition */}
+          <div className="p-6 rounded-2xl bg-white shadow-product">
+            <h3 className="text-xl font-semibold mb-3">
+              Complete Nutrition Breakdown
+            </h3>
+            <p className="text-muted-foreground mb-3">
+              Go beyond basic labels with detailed insights from our food
+              scanning app:
+            </p>
+            <ul className="list-disc pl-5 text-muted-foreground space-y-1">
+              <li>Calories per serving</li>
+              <li>Protein, carbs, fats, and fiber</li>
+              <li>Sugar and sodium levels</li>
+              <li>Daily value percentages</li>
+            </ul>
+            <p className="text-muted-foreground mt-3">
+              Everything is presented in a clean, easy-to-read format.
+            </p>
+          </div>
+
+          {/* Health Score */}
+          <div className="p-6 rounded-2xl bg-white shadow-product">
+            <h3 className="text-xl font-semibold mb-3">Smart Health Score</h3>
+            <p className="text-muted-foreground">
+              Each product is given a simple health rating based on its
+              ingredients and nutrition. This feature of our product scanner app
+              helps you quickly decide whether a product is a good or bad
+              choice.
+            </p>
+          </div>
+
+          {/* Alternatives */}
+          <div className="p-6 rounded-2xl bg-white shadow-product">
+            <h3 className="text-xl font-semibold mb-3">
+              Better Alternatives (Future-Ready)
+            </h3>
+            <p className="text-muted-foreground">
+              Our system can suggest healthier alternatives to scanned products,
+              helping you upgrade your diet effortlessly using the food scanner
+              app.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto rounded-[30px] bg-orange-50/50 border p-8">
+          <h2 className="text-3xl font-bold text-center mb-8">
+            Why Use EaterIQ Food Scanner?
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+            <div>✔ Make smarter food decisions instantly</div>
+            <div>✔ Save time reading complex labels</div>
+            <div>✔ Avoid harmful ingredients using our ingredient checker</div>
+            <div>✔ Ideal for fitness, dieting, and clean eating</div>
+            <div>✔ Works as a complete product scanner for daily use</div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Key Features of EaterIQ Scanner
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                title: "Instant Barcode Scanning",
+                desc: "Scan any packaged product within seconds using our fast and accurate food scanner app.",
+              },
+              {
+                title: "Advanced Ingredient Checker",
+                desc: "Our AI-powered ingredient checker food system analyzes every ingredient in detail, helping you make informed decisions.",
+              },
+              {
+                title: "Deep Nutrition Insights",
+                desc: "Get a complete nutritional profile with easy-to-understand visuals—powered by our smart food scanning app.",
+              },
+              {
+                title: "Smart Warnings & Alerts",
+                desc: "Receive real-time alerts about harmful ingredients, allergens, and unhealthy components using our product scanner app.",
+              },
+              {
+                title: "Simple Health Score System",
+                desc: "Understand product quality at a glance with an easy health rating generated by our food barcode scanner.",
+              },
+              {
+                title: "Mobile-Friendly Experience",
+                desc: "Use EaterIQ seamlessly on any device—no download required. It works like a powerful food scanner app directly in your browser.",
+              },
+              {
+                title: "Privacy First",
+                desc: "Your scans are private and secure. We don’t store personal data, making it a safe and reliable product scanner.",
+              },
+              {
+                title: "Continuous Database Updates",
+                desc: "Our food scanning app constantly updates its database to support more products and provide accurate results.",
+              },
+            ].map((f, i) => (
+              <div
+                key={i}
+                className="rounded-[24px] bg-white border p-5 shadow-product"
+              >
+                <h3 className="font-semibold mb-1">{f.title}</h3>
+                <p className="text-sm text-muted-foreground">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8">Who Is It For?</h2>
+
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              "Health-conscious individuals",
+              "Fitness enthusiasts and athletes",
+              "People with dietary restrictions (vegan, gluten-free, etc.)",
+              "Parents checking food quality for kids",
+              "Anyone looking for a reliable food scanner",
+            ].map((item, i) => (
+              <span
+                key={i}
+                className="px-4 py-2 rounded-full bg-white border text-sm shadow-product"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Related Links for Internal Linking */}
       <section className="border-t border-border/70 py-8">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">Explore More</h2>
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
+          Explore More
+        </h2>
         <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
           <Link href="/blog/" className="group">
             <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
@@ -471,42 +742,46 @@ export default function FoodScannerClient() {
         <div className="max-w-2xl mx-auto space-y-4">
           <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
             <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              <h3>How does the food scanner work?</h3>
+              <h3>Is this food scanner free to use?</h3>
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">
                 ▼
               </span>
             </summary>
             <div className="px-4 pb-4 text-muted-foreground">
-              Simply point your camera at any food product barcode. EaterIQ
-              analyzes the product's ingredients, nutritional information, and
-              additives to provide you with a comprehensive health score and
-              detailed breakdown.
+              Yes, EaterIQ’s food barcode scanner is completely free.
             </div>
           </details>
           <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
             <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              <h3>Is the food scanner safe to use?</h3>
+              <h3>Do I need to install an app?</h3>
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">
                 ▼
               </span>
             </summary>
             <div className="px-4 pb-4 text-muted-foreground">
-              Yes! EaterIQ's food scanner is free to use. You can scan products
-              and get instant nutrition insights without any cost.
+              No, it works directly in your browser as a food scanning app.
             </div>
           </details>
           <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
             <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              <h3>What information does the scanner provide?</h3>
+              <h3>How accurate is the ingredient checker?</h3>
               <span className="text-muted-foreground group-open:rotate-180 transition-transform">
                 ▼
               </span>
             </summary>
             <div className="px-4 pb-4 text-muted-foreground">
-              The scanner provides health scores, ingredient analysis,
-              nutritional breakdown, additive warnings, allergen information,
-              and personalized recommendations based on your dietary
-              preferences.
+              Our ingredient checker food system uses a continuously updated database for high accuracy.
+            </div>
+          </details>
+          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
+            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
+              <h3>Can I scan any product?</h3>
+              <span className="text-muted-foreground group-open:rotate-180 transition-transform">
+                ▼
+              </span>
+            </summary>
+            <div className="px-4 pb-4 text-muted-foreground">
+              Yes, our product scanner app supports a wide range of packaged food items.
             </div>
           </details>
         </div>

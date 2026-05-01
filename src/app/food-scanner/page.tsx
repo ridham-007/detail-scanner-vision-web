@@ -5,17 +5,17 @@ import FoodScannerClient from '@/components/scanner/FoodScannerClient';
 
 // Static metadata for SEO
 export const metadata: Metadata = {
-  title: 'Food Scanner - Instant Barcode Nutrition Analysis | EaterIQ',
-  description: 'Scan any food barcode to get instant nutrition insights, health scores, ingredient analysis, and personalized recommendations. Free to use.',
+  title: 'Food Barcode Scanner – Ingredient Checker & Nutrition Facts',
+  description: 'Use EaterIQ food scanner to scan barcodes, check ingredients, and analyze nutrition now. Ultimate food barcode scanner and ingredient checker for smarter eating.',
   keywords: ['food scanner', 'barcode scanner', 'nutrition analysis', 'health score', 'food insights', 'ingredient checker', 'calorie scanner', 'food label scanner'],
   alternates: {
-    canonical: 'https://www.eateriq.com/scanner',
+    canonical: 'https://www.eateriq.com/food-scanner/',
   },
   openGraph: {
     type: 'website',
     title: 'Food Scanner - Instant Nutrition Analysis | EaterIQ',
     description: 'Scan any food barcode to get instant nutrition insights, health scores, and personalized recommendations.',
-    url: 'https://www.eateriq.com/scanner/',
+    url: 'https://www.eateriq.com/food-scanner/',
     siteName: 'EaterIQ',
     images: [
       {
@@ -44,7 +44,7 @@ const structuredData = {
   "@type": "WebApplication",
   "name": "EaterIQ Food Scanner",
   "description": "Scan any food barcode to get instant nutrition insights, health scores, ingredient analysis, and personalized recommendations.",
-  "url": "https://www.eateriq.com/scanner/",
+  "url": "https://www.eateriq.com/food-scanner/",
   "applicationCategory": "HealthApplication",
   "operatingSystem": "Web Browser",
   "offers": {
@@ -81,7 +81,7 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 2,
       "name": "Food Scanner",
-      "item": "https://www.eateriq.com/scanner/"
+      "item": "https://www.eateriq.com/food-scanner/"
     }
   ]
 };

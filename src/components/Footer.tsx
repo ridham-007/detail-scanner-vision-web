@@ -105,7 +105,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="/scanner/"
+                  href="/food-scanner/"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                 >
                   <Smartphone className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />

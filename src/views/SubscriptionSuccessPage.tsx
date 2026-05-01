@@ -62,7 +62,7 @@ const SubscriptionSuccessPage = () => {
                 <div className="flex flex-col gap-3">
                   <Button 
                     className="w-full rounded-full" 
-                    onClick={() => router.push('/scanner')}
+                    onClick={() => router.push('/food-scanner')}
                   >
                     Start Scanning
                     <ArrowRight className="w-4 h-4 ml-2" />

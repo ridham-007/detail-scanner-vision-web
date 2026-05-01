@@ -298,7 +298,7 @@ const AdminNotificationsPage = () => {
                   id="action_url"
                   value={form.action_url}
                   onChange={(e) => setForm({ ...form, action_url: e.target.value })}
-                  placeholder="/scanner or https://example.com"
+                  placeholder="/food-scanner or https://example.com"
                   className="rounded-2xl border-[rgb(var(--accent))]/15 bg-white"
                 />
               </div>

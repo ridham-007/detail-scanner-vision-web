@@ -51,6 +51,11 @@ const nextConfig = {
         destination: "/",
         permanent: false,
       },
+      {
+        source: "/scanner",
+        destination: "/food-scanner",
+        permanent: false,
+      }
     ];
   },
 };
