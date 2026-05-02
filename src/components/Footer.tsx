@@ -1,33 +1,44 @@
 "use client";
 
 // components/Footer.tsx
-import { Mail, Smartphone, BookOpen, Shield, HelpCircle, FileText, Facebook, Twitter, TrendingUp } from "lucide-react";
+import {
+  Mail,
+  Smartphone,
+  BookOpen,
+  Shield,
+  HelpCircle,
+  FileText,
+  Facebook,
+  Twitter,
+  TrendingUp,
+} from "lucide-react";
 import LogoIcon from "./LogoIcon";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Footer() {
-
   const currentYear = new Date().getFullYear();
   const { toast } = useToast();
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
     const email = "hello@eateriq.com";
-    navigator.clipboard.writeText(email).then(() => {
-      toast({
-        title: "Email Copied",
-        description: "Email address copied to clipboard!",
+    navigator.clipboard
+      .writeText(email)
+      .then(() => {
+        toast({
+          title: "Email Copied",
+          description: "Email address copied to clipboard!",
+        });
+      })
+      .catch(() => {
+        toast({
+          title: "Error",
+          description: "Failed to copy email.",
+          variant: "destructive",
+        });
       });
-    }).catch(() => {
-      toast({
-        title: "Error",
-        description: "Failed to copy email.",
-        variant: "destructive",
-      });
-    });
   };
-
 
   return (
     <footer
@@ -37,9 +48,8 @@ export default function Footer() {
       itemType="https://schema.org/WPFooter"
       className="mt-10 border-t border-border/70 backdrop-blur-xl"
     >
-      <div className="container mx-auto px-4 py-10 md:py-12">
-        <div className="grid grid-cols-1 items-start gap-8 rounded-[32px] border border-white/60 bg-white/82 px-6 py-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
-
+      <div className="container mx-auto px-1 py-8 md:py-12">
+        <div className="grid grid-cols-1 items-start gap-8 rounded-[32px] border border-white/60 bg-white/82 px-4 py-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link
@@ -47,21 +57,21 @@ export default function Footer() {
               className="inline-flex items-center gap-2.5 mb-4 group transition-transform hover:scale-105"
               aria-label="EaterIQ - Go to homepage"
             >
-              <LogoIcon className="h-11 w-11" size={44}/>
+              <LogoIcon className="h-11 w-11" size={44} />
               <span className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 Eater
-
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
                   IQ
                 </span>
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
-              Scan, understand, and choose better food with the same warm, helpful experience as the app.
+              Scan, understand, and choose better food with the same warm,
+              helpful experience as the app.
             </p>
 
             {/* App Store Badges */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-3 sm:flex-row sm:gap-4 sm:justify-start lg:justify-start">
               <a
                 href="https://apps.apple.com/sg/app/eateriq/id6757137222"
                 target="_blank"
@@ -97,164 +107,204 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Product Links */}
-          <nav aria-label="Product navigation">
-            <p className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
-              Product
-            </p>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/food-scanner/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <Smartphone className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  Food Scanner
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categories/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <BookOpen className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  Browse Categories
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/quiz/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <FileText className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  Health Quizzes
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/compare/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <TrendingUp className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  Food Battle
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          <div className="sm:col-span-2 lg:col-span-3">
+            <div className="
+    grid 
+    grid-cols-2 
+    gap-x-6 gap-y-10
+    lg:grid-cols-4
+  ">
 
-          {/* Support Links */}
-          <nav aria-label="Support navigation">
-            <p className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
-              Resources
-            </p>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/support/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <HelpCircle className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contributions/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <BookOpen className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  Contribute Data
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <FileText className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  Health Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/user-guide/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <BookOpen className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  User Guide
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dietary-guides/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <FileText className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  Dietary Cheat Sheets
-                </Link>
-              </li>
-            </ul>
-          </nav>
+              <nav aria-label="Product navigation" className="order-1 w-full">
+                <p className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
+                  Product
+                </p>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      href="/food-scanner/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <Smartphone
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      Food Scanner
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/categories/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <BookOpen
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      Browse Categories
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/quiz/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <FileText
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      Health Quizzes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/compare/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <TrendingUp
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      Food Battle
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
 
-          {/* Contact Section */}
-          <address className="not-italic">
+              {/* Support Links */}
+              <nav aria-label="Support navigation" className="order-2 w-full">
+                <p className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
+                  Resources
+                </p>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      href="/support/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <HelpCircle
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      Help Center
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contributions/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <BookOpen
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      Contribute Data
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/blog/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <FileText
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      Health Blog
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/user-guide/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <BookOpen
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      User Guide
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/dietary-guides/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <FileText
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      Dietary Cheat Sheets
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
 
+              {/* Contact Section */}
+              <address className="not-italic order-3 w-full">
+                <p className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
+                  Contact
+                </p>
+                <ul className="space-y-3">
+                  <li>
+                    <a
+                      href="mailto:hello@eateriq.com"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                      itemProp="email"
+                    >
+                      <Mail
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      hello@eateriq.com
+                    </a>
+                  </li>
+                  <li>
+                    <Link
+                      href="/about/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <Shield
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      About Us
+                    </Link>
+                  </li>
+                </ul>
+              </address>
 
-            <p className="text-xl font-semibold tracking-tight text-foreground mb-4 uppercase">
-              Contact
-            </p>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href="mailto:hello@eateriq.com"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                  itemProp="email"
-                >
-                  <Mail className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  hello@eateriq.com
-                </a>
-              </li>
-              <li>
-                <Link
-                  href="/about/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                >
-                  <Shield className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" aria-hidden="true" />
-                  About Us
-                </Link>
-              </li>
-            </ul>
-
-            <div className="mt-3 flex flex-col gap-2">
-              <span className="text-xl font-semibold tracking-tight text-foreground mb-2 uppercase">
-                Social
-              </span>
-              <div className="flex items-center gap-3">
-                <a
-                  href="https://www.facebook.com/profile.php?id=61587144212003"
-                  className="rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
-                  aria-label="Facebook"
-                >
-                  <Facebook className="h-4 w-4" />
-                </a>
-                <a
-                  href="https://x.com/Eaateriq"
-                  className="rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="h-4 w-4" />
-                </a>
-                <a
-                  href="mailto:hello@eateriq.com"
-                  onClick={handleCopyEmail}
-                  className="cursor-pointer rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
-                  aria-label="Copy Email"
-                >
-                  <Mail className="h-4 w-4" />
-                </a>
+              <div className="mt-3 flex flex-col gap-2 order-4 w-full">
+                <span className="text-xl font-semibold tracking-tight text-foreground mb-2 uppercase">
+                  Social
+                </span>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61587144212003"
+                    className="rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
+                    aria-label="Facebook"
+                  >
+                    <Facebook className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="https://x.com/Eaateriq"
+                    className="rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
+                    aria-label="Twitter"
+                  >
+                    <Twitter className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="mailto:hello@eateriq.com"
+                    onClick={handleCopyEmail}
+                    className="cursor-pointer rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
+                    aria-label="Copy Email"
+                  >
+                    <Mail className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
             </div>
-          </address>
+          </div>
         </div>
 
         {/* Bottom Bar */}

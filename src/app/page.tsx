@@ -368,7 +368,7 @@ export default async function HomePage() {
               </div>
 
               {/* App Store Badges */}
-              <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4 sm:justify-center lg:justify-start">
+              <div className="flex items-center gap-3 sm:flex-row sm:gap-4 sm:justify-center lg:justify-start">
                 <a
                   href="https://apps.apple.com/sg/app/eateriq/id6757137222"
                   target="_blank"
