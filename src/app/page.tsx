@@ -717,7 +717,7 @@ export default async function HomePage() {
       {/* Why Choose EaterIQ Section */}
       <section
         id="why-eateriq"
-        className="py-6 sm:py-20"
+        className="py-6 sm:py-8"
         aria-labelledby="why-heading"
       >
         <div className="container mx-auto px-4">
