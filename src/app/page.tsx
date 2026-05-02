@@ -276,7 +276,7 @@ export default async function HomePage() {
     ],
   };
 
-   const features = [
+  const features = [
     {
       icon: <Info className="w-6 h-6 text-primary" />,
       title: "Clear Ingredient Insights",
@@ -487,7 +487,7 @@ export default async function HomePage() {
       {/* Scanner Section - Client Component */}
       <section
         id="scanner"
-        className="container mx-auto scroll-mt-20 px-4  sm:py-12"
+        className="container mx-auto scroll-mt-20 px-4 sm:py-8"
         aria-labelledby="scanner-heading"
       >
         <div className="mx-auto rounded-[32px] border border-white/60 bg-white/78 p-2 sm:p-3 md:p-5">
@@ -496,98 +496,99 @@ export default async function HomePage() {
       </section>
 
       <section className="w-full">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        
-        {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          <span className="text-primary">What is </span>
-          <span className="bg-primary bg-clip-text text-transparent">
-            EaterIQ?
-          </span>
-        </h2>
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          {/* Heading */}
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="text-primary">What is </span>
+            <span className="bg-primary bg-clip-text text-transparent">
+              EaterIQ?
+            </span>
+          </h2>
 
-        {/* Subtitle */}
-        <p className="text-gray-500 mb-12 max-w-2xl mx-auto">
-          Understand your food better with smart insights and make healthier choices effortlessly.
-        </p>
+          {/* Subtitle */}
+          <p className="text-gray-500 mb-12 max-w-2xl mx-auto">
+            Understand your food better with smart insights and make healthier
+            choices effortlessly.
+          </p>
 
-        {/* Card */}
-        <div className="bg-white rounded-2xl shadow-md p-8 md:p-10 relative">
-          
-          {/* Decorative Quotes */}
-          <span className="absolute top-4 left-6 text-4xl text-primary/30 font-serif">
-            “
-          </span>
-          <span className="absolute bottom-4 right-6 text-4xl text-primary/30 font-serif">
-            ”
-          </span>
+          {/* Card */}
+          <div className="bg-white rounded-2xl shadow-md p-8 md:p-10 relative">
+            {/* Decorative Quotes */}
+            <span className="absolute top-4 left-6 text-4xl text-primary/30 font-serif">
+              “
+            </span>
+            <span className="absolute bottom-4 right-6 text-4xl text-primary/30 font-serif">
+              ”
+            </span>
 
-          {/* Content */}
-          <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
-            <p>
-              EaterIQ is a smart food barcode scanner platform designed to simplify how you understand packaged food.
-            </p>
+            {/* Content */}
+            <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
+              <p>
+                EaterIQ is a smart food barcode scanner platform designed to
+                simplify how you understand packaged food.
+              </p>
 
-            <p>
-              Instead of relying on confusing labels, EaterIQ gives you clear insights into what’s inside your food helping you make informed decisions whether you're shopping, dieting, or improving your lifestyle.
-            </p>
+              <p>
+                Instead of relying on confusing labels, EaterIQ gives you clear
+                insights into what’s inside your food helping you make informed
+                decisions whether you're shopping, dieting, or improving your
+                lifestyle.
+              </p>
 
-            <p className="font-medium text-gray-900">
-              It’s built for people who want clarity, not complexity.
-            </p>
+              <p className="font-medium text-gray-900">
+                It’s built for people who want clarity, not complexity.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-      <section className="w-full py-20">
-      <div className="max-w-6xl mx-auto px-6">
+      <section className="w-full py-12">
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Top Section */}
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="text-center md:text-left">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Why <span className="text-primary">EaterIQ</span> Exists?
+              </h2>
 
-        {/* Top Section */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          
-          {/* Left Content */}
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Why <span className="text-primary">EaterIQ</span> Exists?
-            </h2>
-
-            <p className="text-gray-600 text-lg leading-relaxed">
-              Most food labels are hard to understand.
-            </p>
-          </div>
-
-          {/* Right Cards */}
-          <div className="grid gap-5">
-            
-            <div className="bg-[#f9fafc] border border-gray-100 p-5 rounded-xl shadow-sm hover:shadow-md transition">
-              <p className="text-gray-700">
-                Long ingredient lists, hidden additives, and misleading claims make it difficult to know what you're actually consuming.
+              <p className="text-gray-600 text-lg leading-relaxed">
+                Most food labels are hard to understand.
               </p>
             </div>
 
-            <div className="bg-gradient-to-r from-primary to-orange-300 text-white p-5 rounded-xl shadow-md">
-              <p className="font-medium">
-                EaterIQ solves this by turning complex information into simple, useful insights so you can decide faster and with confidence.
-              </p>
+            {/* Right Cards */}
+            <div className="grid gap-5">
+              <div className="bg-[#f9fafc] border border-gray-100 p-5 rounded-xl shadow-sm hover:shadow-md transition">
+                <p className="text-gray-700">
+                  Long ingredient lists, hidden additives, and misleading claims
+                  make it difficult to know what you're actually consuming.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-r from-primary to-orange-300 text-white p-5 rounded-xl shadow-md">
+                <p className="font-medium">
+                  EaterIQ solves this by turning complex information into
+                  simple, useful insights so you can decide faster and with
+                  confidence.
+                </p>
+              </div>
             </div>
+          </div>
 
+          {/* Bottom Highlight Line */}
+          <div className="mt-12 text-center">
+            <div className="inline-block bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-medium">
+              Making food choices simpler, smarter, and stress-free
+            </div>
           </div>
         </div>
-
-        {/* Bottom Highlight Line */}
-        <div className="mt-12 text-center">
-          <div className="inline-block bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-medium">
-            Making food choices simpler, smarter, and stress-free
-          </div>
-        </div>
-
-      </div>
-    </section>
+      </section>
       {/* How It Works Section */}
       <section
         id="how-it-works"
-        className="py-14"
+        className="py-8"
         aria-labelledby="how-it-works-heading"
       >
         <div className="container mx-auto px-4">
@@ -669,56 +670,54 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="w-full py-16">
-      <div className="max-w-6xl mx-auto px-6">
+      <section className="w-full py-8">
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Heading */}
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              What{" "}
+              <span className="bg-primary bg-clip-text text-transparent">
+                You Get
+              </span>
+            </h2>
+            <p className="text-gray-500 mt-4">
+              Everything you need to make smarter food decisions, effortlessly.
+            </p>
+          </div>
 
-        {/* Heading */}
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            What <span className="bg-primary bg-clip-text text-transparent">You Get</span>
-          </h2>
-          <p className="text-gray-500 mt-4">
-            Everything you need to make smarter food decisions, effortlessly.
-          </p>
-        </div>
+          {/* Grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((item, i) => (
+              <div
+                key={i}
+                className="group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                {/* Icon */}
+                <div className="mb-4 w-12 h-12 flex items-center justify-center  rounded-xl bg-gray-50 group-hover:bg-purple-50 transition">
+                  {item.icon}
+                </div>
 
-        {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Title */}
+                <h3 className="font-semibold text-lg mb-2 text-gray-900">
+                  {item.title}
+                </h3>
 
-          {features.map((item, i) => (
-            <div
-              key={i}
-              className="group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-            >
-              {/* Icon */}
-              <div className="mb-4 w-12 h-12 flex items-center justify-center  rounded-xl bg-gray-50 group-hover:bg-purple-50 transition">
-                {item.icon}
+                {/* Description */}
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
-
-              {/* Title */}
-              <h3 className="font-semibold text-lg mb-2 text-gray-900">
-                {item.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-
-      
+      </section>
 
       {/* Key Features Section */}
 
       {/* Why Choose EaterIQ Section */}
       <section
         id="why-eateriq"
-        className="py-14 sm:py-20"
+        className="py-6 sm:py-20"
         aria-labelledby="why-heading"
       >
         <div className="container mx-auto px-4">
@@ -858,7 +857,7 @@ export default async function HomePage() {
       {recentQuizzes && recentQuizzes.length > 0 && (
         <section
           id="quizzes"
-          className="py-16"
+          className="py-12"
           aria-labelledby="quizzes-heading"
         >
           <div className="container mx-auto px-4">
@@ -949,7 +948,7 @@ export default async function HomePage() {
       {recentBlogs && recentBlogs.length > 0 && (
         <section
           id="blog"
-          className="py-14 sm:py-20"
+          className="py-4 sm:py-12"
           aria-labelledby="blog-heading"
         >
           <div className="container mx-auto px-4">

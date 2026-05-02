@@ -15,7 +15,7 @@ export default function HealthCalculators() {
   return (
     <section
       id="health-calculators"
-      className="py-14 sm:py-20"
+      className="py-6 sm:py-4"
       aria-labelledby="calculators-heading"
     >
       <div className="container mx-auto px-4">
