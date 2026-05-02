@@ -333,12 +333,12 @@ export default function FoodScannerClient() {
         />
       </div>
 
-      <section className="py-16">
+      <section className="py-8">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             {/* Left Content */}
             <div>
-              <h2 className="text-3xl font-bold mb-4">
+              <h2 className="text-3xl font-bold mb-4 text-center md:text-left">
                 What is the EaterIQ Scanner?
               </h2>
 
@@ -372,7 +372,7 @@ export default function FoodScannerClient() {
       </section>
 
       {/* SEO-friendly content section (visible) */}
-      <section className="border-t border-border/70 py-12">
+      <section className="border-t border-border/70 py-8">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-10 text-center">
             How the Food Scanner Works
@@ -494,7 +494,7 @@ export default function FoodScannerClient() {
         </div>
       </section>
 
-      <section className="py-14">
+      <section className="py-2">
         <h2 className="text-3xl font-bold text-center mb-10">
           What You’ll Discover
         </h2>
@@ -585,7 +585,7 @@ export default function FoodScannerClient() {
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-8">
         <div className="max-w-4xl mx-auto rounded-[30px] bg-orange-50/50 border p-8">
           <h2 className="text-3xl font-bold text-center mb-8">
             Why Use EaterIQ Food Scanner?
@@ -601,7 +601,7 @@ export default function FoodScannerClient() {
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">
             Key Features of EaterIQ Scanner
@@ -654,7 +654,7 @@ export default function FoodScannerClient() {
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-6">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">Who Is It For?</h2>
 
@@ -680,7 +680,7 @@ export default function FoodScannerClient() {
       {/* Related Links for Internal Linking */}
 
       {/* FAQ Section (Visible, matches schema) */}
-      <section className="border-t border-border/70 py-8">
+      <section className="border-t border-border/70 py-6">
         <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
           Frequently Asked Questions
         </h2>
@@ -734,7 +734,7 @@ export default function FoodScannerClient() {
         </div>
       </section>
 
-      <section className="border-t border-border/70 py-8">
+      <section className="border-t border-border/70 py-6">
         <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
           Explore More
         </h2>
