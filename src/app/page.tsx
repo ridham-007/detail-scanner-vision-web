@@ -487,7 +487,7 @@ export default async function HomePage() {
       {/* Scanner Section - Client Component */}
       <section
         id="scanner"
-        className="container mx-auto scroll-mt-20 px-4 py-8 sm:py-16"
+        className="container mx-auto scroll-mt-20 px-4  sm:py-12"
         aria-labelledby="scanner-heading"
       >
         <div className="mx-auto rounded-[32px] border border-white/60 bg-white/78 p-2 sm:p-3 md:p-5">
