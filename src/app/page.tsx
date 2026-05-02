@@ -487,7 +487,7 @@ export default async function HomePage() {
       {/* Scanner Section - Client Component */}
       <section
         id="scanner"
-        className="container mx-auto scroll-mt-20 px-4 py-12 sm:py-16"
+        className="container mx-auto scroll-mt-20 px-4 py-8 sm:py-16"
         aria-labelledby="scanner-heading"
       >
         <div className="mx-auto rounded-[32px] border border-white/60 bg-white/78 p-2 sm:p-3 md:p-5">
@@ -495,7 +495,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="w-full py-12">
+      <section className="w-full">
       <div className="max-w-4xl mx-auto px-6 text-center">
         
         {/* Heading */}
@@ -691,7 +691,7 @@ export default async function HomePage() {
               className="group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
               {/* Icon */}
-              <div className="mb-4 w-12 h-12 flex items-center justify-center rounded-xl bg-gray-50 group-hover:bg-purple-50 transition">
+              <div className="mb-4 w-12 h-12 flex items-center justify-center  rounded-xl bg-gray-50 group-hover:bg-purple-50 transition">
                 {item.icon}
               </div>
 
@@ -711,7 +711,7 @@ export default async function HomePage() {
       </div>
     </section>
 
-      <HealthCalculators />
+      
 
       {/* Key Features Section */}
 
@@ -851,6 +851,8 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <HealthCalculators />
 
       {/* Recent Quizzes Section */}
       {recentQuizzes && recentQuizzes.length > 0 && (

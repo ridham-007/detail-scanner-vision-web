@@ -206,7 +206,9 @@ export default function FoodScannerClient() {
             Scan Any Food Product & Instantly Know What You’re Eating
           </p>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Use EaterIQ’s powerful food barcode scanner to check ingredients, nutrition facts, and health scores instantly. This smart food scanner app helps you make better food choices in seconds.
+            Use EaterIQ’s powerful food barcode scanner to check ingredients,
+            nutrition facts, and health scores instantly. This smart food
+            scanner app helps you make better food choices in seconds.
           </p>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             No signup required • Instant results • Trusted product scanner app
@@ -368,8 +370,6 @@ export default function FoodScannerClient() {
           </div>
         </div>
       </section>
-
-      
 
       {/* SEO-friendly content section (visible) */}
       <section className="border-t border-border/70 py-12">
@@ -678,6 +678,62 @@ export default function FoodScannerClient() {
       </section>
 
       {/* Related Links for Internal Linking */}
+
+      {/* FAQ Section (Visible, matches schema) */}
+      <section className="border-t border-border/70 py-8">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
+          Frequently Asked Questions
+        </h2>
+        <div className="max-w-2xl mx-auto space-y-4">
+          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
+            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
+              <h3>Is this food scanner free to use?</h3>
+              <span className="text-muted-foreground group-open:rotate-180 transition-transform">
+                ▼
+              </span>
+            </summary>
+            <div className="px-4 pb-4 text-muted-foreground">
+              Yes, EaterIQ’s food barcode scanner is completely free.
+            </div>
+          </details>
+          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
+            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
+              <h3>Do I need to install an app?</h3>
+              <span className="text-muted-foreground group-open:rotate-180 transition-transform">
+                ▼
+              </span>
+            </summary>
+            <div className="px-4 pb-4 text-muted-foreground">
+              No, it works directly in your browser as a food scanning app.
+            </div>
+          </details>
+          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
+            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
+              <h3>How accurate is the ingredient checker?</h3>
+              <span className="text-muted-foreground group-open:rotate-180 transition-transform">
+                ▼
+              </span>
+            </summary>
+            <div className="px-4 pb-4 text-muted-foreground">
+              Our ingredient checker food system uses a continuously updated
+              database for high accuracy.
+            </div>
+          </details>
+          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
+            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
+              <h3>Can I scan any product?</h3>
+              <span className="text-muted-foreground group-open:rotate-180 transition-transform">
+                ▼
+              </span>
+            </summary>
+            <div className="px-4 pb-4 text-muted-foreground">
+              Yes, our product scanner app supports a wide range of packaged
+              food items.
+            </div>
+          </details>
+        </div>
+      </section>
+
       <section className="border-t border-border/70 py-8">
         <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
           Explore More
@@ -731,59 +787,6 @@ export default function FoodScannerClient() {
               </CardContent>
             </Card>
           </Link>
-        </div>
-      </section>
-
-      {/* FAQ Section (Visible, matches schema) */}
-      <section className="border-t border-border/70 py-8">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
-          Frequently Asked Questions
-        </h2>
-        <div className="max-w-2xl mx-auto space-y-4">
-          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
-            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              <h3>Is this food scanner free to use?</h3>
-              <span className="text-muted-foreground group-open:rotate-180 transition-transform">
-                ▼
-              </span>
-            </summary>
-            <div className="px-4 pb-4 text-muted-foreground">
-              Yes, EaterIQ’s food barcode scanner is completely free.
-            </div>
-          </details>
-          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
-            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              <h3>Do I need to install an app?</h3>
-              <span className="text-muted-foreground group-open:rotate-180 transition-transform">
-                ▼
-              </span>
-            </summary>
-            <div className="px-4 pb-4 text-muted-foreground">
-              No, it works directly in your browser as a food scanning app.
-            </div>
-          </details>
-          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
-            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              <h3>How accurate is the ingredient checker?</h3>
-              <span className="text-muted-foreground group-open:rotate-180 transition-transform">
-                ▼
-              </span>
-            </summary>
-            <div className="px-4 pb-4 text-muted-foreground">
-              Our ingredient checker food system uses a continuously updated database for high accuracy.
-            </div>
-          </details>
-          <details className="group rounded-[22px] border border-white/65 bg-white/82 shadow-product">
-            <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
-              <h3>Can I scan any product?</h3>
-              <span className="text-muted-foreground group-open:rotate-180 transition-transform">
-                ▼
-              </span>
-            </summary>
-            <div className="px-4 pb-4 text-muted-foreground">
-              Yes, our product scanner app supports a wide range of packaged food items.
-            </div>
-          </details>
         </div>
       </section>
 
