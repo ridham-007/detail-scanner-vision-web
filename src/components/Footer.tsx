@@ -45,7 +45,6 @@ export default function Footer() {
       role="contentinfo"
       aria-label="Site footer"
       itemScope
-      itemType="https://schema.org/WPFooter"
       className="mt-10 border-t border-border/70 backdrop-blur-xl"
     >
       <div className="container mx-auto px-1 py-8 md:py-12">
