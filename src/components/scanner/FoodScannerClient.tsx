@@ -177,7 +177,7 @@ export default function FoodScannerClient() {
 
   return (
     <div className="space-y-8 pt-4 container mx-auto px-4">
-      <Breadcrumbs items={[{ label: "Food Scanner" }]} />
+      {/* <Breadcrumbs items={[{ label: "Food Scanner" }]} /> */}
 
       {!isUnlimited && (
         <UpgradeBanner
