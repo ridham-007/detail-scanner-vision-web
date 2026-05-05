@@ -204,77 +204,77 @@ export default async function HomePage() {
     ]);
 
   // Structured data schemas
-  const webAppSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "EaterIQ",
-    applicationCategory: "HealthApplication",
-    operatingSystem: "Web Browser, iOS, Android",
-    description:
-      "Food scanner that analyzes nutrition, ingredients, and additives to help you make healthier food choices.",
-    url: "https://www.eateriq.com/",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-      description: "Free tier with optional premium upgrades",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: userCount,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "EaterIQ",
-      url: "https://www.eateriq.com/",
-    },
-  };
+  // const webAppSchema = {
+  //   "@context": "https://schema.org",
+  //   "@type": "WebApplication",
+  //   name: "EaterIQ",
+  //   applicationCategory: "HealthApplication",
+  //   operatingSystem: "Web Browser, iOS, Android",
+  //   description:
+  //     "Food scanner that analyzes nutrition, ingredients, and additives to help you make healthier food choices.",
+  //   url: "https://www.eateriq.com/",
+  //   offers: {
+  //     "@type": "Offer",
+  //     price: "0",
+  //     priceCurrency: "USD",
+  //     description: "Free tier with optional premium upgrades",
+  //   },
+  //   aggregateRating: {
+  //     "@type": "AggregateRating",
+  //     ratingValue: "4.8",
+  //     ratingCount: userCount,
+  //   },
+  //   publisher: {
+  //     "@type": "Organization",
+  //     name: "EaterIQ",
+  //     url: "https://www.eateriq.com/",
+  //   },
+  // };
 
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "EaterIQ",
-    url: "https://www.eateriq.com/",
-    logo: "https://www.eateriq.com/eater-iq.png",
-    sameAs: [
-      "https://apps.apple.com/sg/app/eateriq/id6757137222",
-      "https://play.google.com/store/apps/details?id=com.eateriq",
-    ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer service",
-      email: "hello@eateriq.com",
-    },
-  };
+  // const organizationSchema = {
+  //   "@context": "https://schema.org",
+  //   "@type": "Organization",
+  //   name: "EaterIQ",
+  //   url: "https://www.eateriq.com/",
+  //   logo: "https://www.eateriq.com/eater-iq.png",
+  //   sameAs: [
+  //     "https://apps.apple.com/sg/app/eateriq/id6757137222",
+  //     "https://play.google.com/store/apps/details?id=com.eateriq",
+  //   ],
+  //   contactPoint: {
+  //     "@type": "ContactPoint",
+  //     contactType: "customer service",
+  //     email: "hello@eateriq.com",
+  //   },
+  // };
 
-  const howToSchema = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: "How to Use EaterIQ Food Scanner",
-    description:
-      "Three simple steps to make informed food choices with EaterIQ",
-    step: [
-      {
-        "@type": "HowToStep",
-        position: 1,
-        name: "Scan Barcode",
-        text: "Use your camera to scan any product barcode, or search by name in our database of millions of products.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 2,
-        name: "Get Analysis",
-        text: "Our system analyzes ingredients, nutrition facts, additives, and allergens to calculate a comprehensive health score.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 3,
-        name: "Get Insights",
-        text: "Receive personalized health insights, ingredient warnings, and recommendations for healthier alternatives.",
-      },
-    ],
-  };
+  // const howToSchema = {
+  //   "@context": "https://schema.org",
+  //   "@type": "HowTo",
+  //   name: "How to Use EaterIQ Food Scanner",
+  //   description:
+  //     "Three simple steps to make informed food choices with EaterIQ",
+  //   step: [
+  //     {
+  //       "@type": "HowToStep",
+  //       position: 1,
+  //       name: "Scan Barcode",
+  //       text: "Use your camera to scan any product barcode, or search by name in our database of millions of products.",
+  //     },
+  //     {
+  //       "@type": "HowToStep",
+  //       position: 2,
+  //       name: "Get Analysis",
+  //       text: "Our system analyzes ingredients, nutrition facts, additives, and allergens to calculate a comprehensive health score.",
+  //     },
+  //     {
+  //       "@type": "HowToStep",
+  //       position: 3,
+  //       name: "Get Insights",
+  //       text: "Receive personalized health insights, ingredient warnings, and recommendations for healthier alternatives.",
+  //     },
+  //   ],
+  // };
 
   const features = [
     {
@@ -302,7 +302,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Structured Data */}
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
       />
@@ -313,7 +313,7 @@ export default async function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
+      /> */}
       {/* Hero Section */}
       <section
         className="relative overflow-hidden py-10 lg:py-16"
@@ -382,6 +382,7 @@ export default async function HomePage() {
                     height={50}
                     className="h-auto w-[150px] sm:w-[160px]"
                     loading="lazy"
+                    unoptimized
                   />
                 </a>
 
@@ -398,6 +399,7 @@ export default async function HomePage() {
                     height={50}
                     className="h-auto w-[150px] sm:w-[160px]"
                     loading="lazy"
+                    unoptimized
                   />
                 </a>
               </div>

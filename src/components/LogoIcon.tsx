@@ -5,8 +5,10 @@ interface LogoProps {
   className?: string;
   size?: number;
 }
-
-const LogoIcon: React.FC<LogoProps> = ({ className = "h-12 w-12", size = 48 }) => {
+const LogoIcon: React.FC<LogoProps> = ({
+  className = "h-12 w-12",
+  size = 48,
+}) => {
   return (
     <div className={`relative ${className}`}>
       <Image
@@ -16,6 +18,7 @@ const LogoIcon: React.FC<LogoProps> = ({ className = "h-12 w-12", size = 48 }) =
         height={size}
         className="object-contain"
         loading="lazy"
+        unoptimized
       />
     </div>
   );
