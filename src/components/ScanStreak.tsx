@@ -133,7 +133,7 @@ const ScanStreak: React.FC<ScanStreakProps> = ({ productName }) => {
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className={`p-2 rounded-full ${streak > 0 ? 'bg-orange-100 dark:bg-orange-900' : 'bg-gray-100 dark:bg-gray-800'}`}>
+            <div className={`p-2 rounded-full ${streak > 0 ? 'bg-orange-100' : 'bg-gray-100'}`}>
               <Flame className={`w-5 h-5 ${streak > 0 ? 'text-orange-600' : 'text-gray-500'}`} />
             </div>
             
@@ -174,7 +174,7 @@ const ScanStreak: React.FC<ScanStreakProps> = ({ productName }) => {
               <span>Next milestone</span>
               <span>{streak < 7 ? '7 days' : '30 days'}</span>
             </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+            <div className="w-full bg-gray-200 rounded-full h-1.5">
               <div 
                 className="bg-primary h-1.5 rounded-full transition-all duration-500"
                 style={{ 

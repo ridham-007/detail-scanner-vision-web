@@ -52,10 +52,12 @@ export default function RootLayout({
           {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
           gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}', {
-              page_path: window.location.pathname,
-            });
+          gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied'
+          });
         `}
         </Script>
       </body>

@@ -3,11 +3,12 @@ import * as amplitude from "@amplitude/analytics-browser";
 
 declare global {
   interface Window {
-    gtag: (
+    gtag?: (
       command: string,
-      targetId: string,
-      config?: Record<string, unknown>,
+      action: string,
+      params?: Record<string, unknown>,
     ) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dataLayer: (Record<string, unknown> | any[])[];
   }
 }
@@ -17,6 +18,9 @@ export const AMPLITUDE_API_KEY =
   process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY || "";
 
 const COOKIE_CONSENT_KEY = "eateriq_cookie_consent";
+const GTAG_READY_RETRY_MS = 250;
+const GTAG_READY_MAX_RETRIES = 20;
+const ANALYTICS_ENABLED = process.env.NODE_ENV === "production";
 
 // Check if user has given analytics consent
 export const hasAnalyticsConsent = (): boolean => {
@@ -42,30 +46,53 @@ export const hasMarketingConsent = (): boolean => {
   }
 };
 
+const whenGtagReady = (
+  callback: NonNullable<Window["gtag"]> extends infer T
+    ? T extends (...args: never[]) => unknown
+      ? (gtag: T) => void
+      : never
+    : never,
+  retries = GTAG_READY_MAX_RETRIES,
+) => {
+  if (typeof window === "undefined") return;
+  if (!ANALYTICS_ENABLED) return;
+
+  const gtag = window.gtag;
+
+  if (gtag) {
+    callback(gtag);
+    return;
+  }
+
+  if (retries <= 0) return;
+
+  window.setTimeout(() => {
+    whenGtagReady(callback, retries - 1);
+  }, GTAG_READY_RETRY_MS);
+};
+
 // Initialize Google Analytics with consent mode
 export const initGA = () => {
   if (typeof window === "undefined") return;
+  if (!ANALYTICS_ENABLED) return;
 
-  // Set default consent to denied
-  if (window.gtag) {
-    window.gtag("consent", "default", {
+  whenGtagReady((gtag) => {
+    gtag("consent", "default", {
       analytics_storage: hasAnalyticsConsent() ? "granted" : "denied",
       ad_storage: hasMarketingConsent() ? "granted" : "denied",
     });
 
-    // Only configure if consent is granted
-    if (hasAnalyticsConsent()) {
-      window.gtag("config", GA_MEASUREMENT_ID, {
-        page_title: document.title,
-        page_location: window.location.href,
-      });
-    }
-  }
+    gtag("config", GA_MEASUREMENT_ID, {
+      page_title: document.title,
+      page_location: window.location.href,
+    });
+  });
 };
 
 // Initialize Amplitude with consent check
 export const initAmplitude = () => {
   if (typeof window === "undefined") return;
+  if (!ANALYTICS_ENABLED) return;
   if (!AMPLITUDE_API_KEY || !AMPLITUDE_API_KEY.trim()) return;
   if (!hasAnalyticsConsent()) return;
 
@@ -95,6 +122,7 @@ export const updateAnalyticsConsent = (
   marketingConsent: boolean,
 ) => {
   if (typeof window === "undefined") return;
+  if (!ANALYTICS_ENABLED) return;
 
   // Update Google Analytics consent
   if (window.gtag) {
@@ -149,14 +177,16 @@ export const identifyUser = (
   userId: string,
   userProperties?: Record<string, unknown>,
 ) => {
+  if (!ANALYTICS_ENABLED) return;
+  // Never send identifiable user data to GA/Amplitude before analytics consent.
   if (!hasAnalyticsConsent()) return;
 
   // Google Analytics
-  if (typeof window !== "undefined" && window.gtag) {
-    window.gtag("config", GA_MEASUREMENT_ID, {
+  whenGtagReady((gtag) => {
+    gtag("config", GA_MEASUREMENT_ID, {
       user_id: userId,
     });
-  }
+  });
 
   // Amplitude
   try {
@@ -175,17 +205,17 @@ export const identifyUser = (
 
 // Track page views (only if consent granted)
 export const trackPageView = (url: string, title?: string) => {
-  if (!hasAnalyticsConsent()) return;
-
-  // Google Analytics
-  if (typeof window !== "undefined" && window.gtag) {
-    window.gtag("config", GA_MEASUREMENT_ID, {
+  if (!ANALYTICS_ENABLED) return;
+  // Google Analytics can send cookieless pings before consent via Consent Mode.
+  whenGtagReady((gtag) => {
+    gtag("config", GA_MEASUREMENT_ID, {
       page_path: url,
       page_title: title || document.title,
     });
-  }
+  });
 
-  // Amplitude (handled automatically by defaultTracking.pageViews)
+  // Amplitude stays behind analytics consent.
+  if (!hasAnalyticsConsent()) return;
 };
 
 // Track custom events (only if consent granted)
@@ -193,16 +223,17 @@ export const trackEvent = (
   eventName: string,
   parameters?: Record<string, unknown>,
 ) => {
-  if (!hasAnalyticsConsent()) return;
-
-  // Google Analytics
-  if (typeof window !== "undefined" && window.gtag) {
-    window.gtag("event", eventName, {
+  if (!ANALYTICS_ENABLED) return;
+  // Google Analytics can send cookieless pings before consent via Consent Mode.
+  whenGtagReady((gtag) => {
+    gtag("event", eventName, {
       ...parameters,
     });
-  }
+  });
 
-  // Amplitude
+  // Amplitude stays behind analytics consent.
+  if (!hasAnalyticsConsent()) return;
+
   try {
     amplitude.track(eventName, parameters);
   } catch (error) {

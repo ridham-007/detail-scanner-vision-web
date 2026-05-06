@@ -21,18 +21,18 @@ const getImpactIcon = (impact: string) => {
 const getImpactColor = (impact: string) => {
   switch (impact) {
     case 'positive':
-      return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800';
+      return 'bg-green-100 text-green-800 border-green-200';
     case 'negative':
-      return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border-red-200 dark:border-red-800';
+      return 'bg-red-100 text-red-800 border-red-200';
     default:
-      return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800';
+      return 'bg-yellow-100 text-yellow-800 border-yellow-200';
   }
 };
 
 const getScoreColor = (score: number) => {
-  if (score >= 60) return 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-950/50';
-  if (score >= 30) return 'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-950/50';
-  return 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50';
+  if (score >= 60) return 'text-green-600 bg-green-50';
+  if (score >= 30) return 'text-yellow-600 bg-yellow-50';
+  return 'text-red-600 bg-red-50';
 };
 
 const getCardBorderColor = (impact: string) => {
@@ -54,7 +54,7 @@ export const IngredientAnalysisCard = ({ ingredients }: IngredientAnalysisCardPr
       <CardHeader className="pb-4 border-b">
         <CardTitle className="flex items-center gap-2 text-xl">
           <div className="rounded-lg border border-border/70 bg-muted/30 p-2">
-            <Leaf className="w-5 h-5 text-green-600 dark:text-green-400" />
+            <Leaf className="w-5 h-5 text-green-600" />
           </div>
           Ingredient Analysis
         </CardTitle>

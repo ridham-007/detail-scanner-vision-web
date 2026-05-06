@@ -116,13 +116,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       <div className="text-center lg:text-left">
                         <div className="flex items-center justify-center lg:justify-start gap-2">
                           <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
-                          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16 animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 rounded w-16 animate-pulse"></div>
                         </div>
                       </div>
                       <div className="text-center lg:text-left">
                         <div className="flex items-center justify-center lg:justify-start gap-2">
                           <div className="w-3 h-3 rounded-full bg-orange-400 animate-pulse"></div>
-                          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20 animate-pulse"></div>
+                          <div className="h-4 bg-gray-200 rounded w-20 animate-pulse"></div>
                         </div>
                       </div>
                     </div>
@@ -134,10 +134,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   <div className="text-center space-y-4">
                     {/* Circular progress skeleton */}
                     <div className="relative w-40 h-40">
-                      <div className="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
-                      <div className="absolute inset-4 rounded-full bg-white dark:bg-gray-800"></div>
+                      <div className="w-full h-full rounded-full bg-gray-200 animate-pulse"></div>
+                      <div className="absolute inset-4 rounded-full bg-white"></div>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-12 h-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+                        <div className="w-12 h-8 bg-gray-300 rounded animate-pulse"></div>
                       </div>
                       {/* Rotating ring */}
                       <div
@@ -146,8 +146,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       ></div>
                     </div>
                     <div className="space-y-2">
-                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24 mx-auto animate-pulse"></div>
-                      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-32 mx-auto animate-pulse"></div>
+                      <div className="h-4 bg-gray-200 rounded w-24 mx-auto animate-pulse"></div>
+                      <div className="h-3 bg-gray-200 rounded w-32 mx-auto animate-pulse"></div>
                     </div>
                   </div>
                 </div>
@@ -339,22 +339,22 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                       <div className="rounded-[22px] border border-emerald-200/70 bg-emerald-50/70 p-4 text-center lg:text-left">
                         <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
                           <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                          <span className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wide">
+                          <span className="text-xs font-medium text-green-700 uppercase tracking-wide">
                             Benefits
                           </span>
                         </div>
-                        <div className="text-lg font-bold text-green-600 dark:text-green-400">
+                        <div className="text-lg font-bold text-green-600">
                           {product.positives?.length || 0}
                         </div>
                       </div>
                       <div className="rounded-[22px] border border-orange-200/70 bg-orange-50/70 p-4 text-center lg:text-left">
                         <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
                           <div className="w-2 h-2 rounded-full bg-primary/70"></div>
-                          <span className="text-xs font-medium text-orange-700 dark:text-orange-300 uppercase tracking-wide">
+                          <span className="text-xs font-medium text-orange-700 uppercase tracking-wide">
                             Concerns
                           </span>
                         </div>
-                        <div className="text-lg font-bold text-orange-600 dark:text-orange-400">
+                        <div className="text-lg font-bold text-orange-600">
                           {product.concerns?.length || 0}
                         </div>
                       </div>

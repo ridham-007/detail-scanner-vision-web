@@ -16,7 +16,7 @@ const getSeverityMeta = (score: number) => {
     return {
       label: "High Risk",
       icon: <ShieldAlert className="w-5 h-5 text-red-500" />,
-      badge: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+      badge: "bg-red-100 text-red-700",
       bar: "bg-red-500",
     };
 
@@ -25,7 +25,7 @@ const getSeverityMeta = (score: number) => {
       label: "Moderate Risk",
       icon: <AlertTriangle className="w-5 h-5 text-yellow-500" />,
       badge:
-        "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+        "bg-yellow-100 text-yellow-700",
       bar: "bg-yellow-500",
     };
 
@@ -33,7 +33,7 @@ const getSeverityMeta = (score: number) => {
     label: "Low Risk",
     icon: <ShieldCheck className="w-5 h-5 text-green-500" />,
     badge:
-      "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+      "bg-green-100 text-green-700",
     bar: "bg-green-500",
   };
 };

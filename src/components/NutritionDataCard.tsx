@@ -124,7 +124,7 @@ const ItemCard = ({
   const marker = (item.score / 100) * 100;
 
   return (
-    <div className="border border-gray-100 dark:border-gray-500 rounded-xl bg-white dark:bg-black p-5">
+    <div className="border border-gray-100 rounded-xl bg-white p-5">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex gap-3">
@@ -147,7 +147,7 @@ const ItemCard = ({
           />
           <button
             onClick={() => toggle(item.nutrient)}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+            className="p-1 hover:bg-gray-100 rounded"
           >
             {isOpen ? (
               <ChevronUp className="w-5 h-5" />
@@ -191,7 +191,7 @@ const ItemCard = ({
             ))}
           </div>
 
-          <p className="text-sm text-gray-600 dark:text-gray-400">{item.short_reason}</p>
+          <p className="text-sm text-gray-600">{item.short_reason}</p>
         </div>
       )}
     </div>

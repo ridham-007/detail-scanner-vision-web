@@ -196,11 +196,11 @@ const QuizLeaderboardModal: React.FC<QuizLeaderboardModalProps> = ({
                   key={attempt.id}
                   className={`${
                     index === 0
-                      ? "border-yellow-200 bg-yellow-50 dark:bg-yellow-950/20"
+                      ? "border-yellow-200 bg-yellow-50"
                       : index === 1
-                        ? "border-gray-200 bg-gray-50 dark:bg-gray-950/20"
+                        ? "border-gray-200 bg-gray-50"
                         : index === 2
-                          ? "border-amber-200 bg-amber-50 dark:bg-amber-950/20"
+                          ? "border-amber-200 bg-amber-50"
                           : "border-muted"
                   }`}
                 >

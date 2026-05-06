@@ -26,25 +26,25 @@ const impactStyles = {
     label: "Safe",
     icon: CheckCircle2,
     iconColor: "text-green-500",
-    ring: "ring-green-200 dark:ring-green-800",
+    ring: "ring-green-200",
     badgeClass:
-      "bg-green-50 text-green-700 border-green-200 dark:bg-green-950 dark:text-green-400 dark:border-green-800",
+      "bg-green-50 text-green-700 border-green-200",
   },
   negative: {
     label: "Risky",
     icon: AlertTriangle,
     iconColor: "text-red-500",
-    ring: "ring-red-200 dark:ring-red-800",
+    ring: "ring-red-200",
     badgeClass:
-      "bg-red-50 text-red-700 border-red-200 dark:bg-red-950 dark:text-red-400 dark:border-red-800",
+      "bg-red-50 text-red-700 border-red-200",
   },
   neutral: {
     label: "Moderate",
     icon: Minus,
     iconColor: "text-yellow-500",
-    ring: "ring-yellow-200 dark:ring-yellow-800",
+    ring: "ring-yellow-200",
     badgeClass:
-      "bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-950 dark:text-yellow-400 dark:border-yellow-800",
+      "bg-yellow-50 text-yellow-700 border-yellow-200",
   },
 };
 

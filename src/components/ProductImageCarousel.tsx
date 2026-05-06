@@ -16,7 +16,7 @@ const ProductImageCarousel: React.FC<ProductImageCarouselProps> = ({
 
   if (!images || images.length === 0) {
     return (
-      <div className="w-64 h-64 bg-gray-50 dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700 flex items-center justify-center">
+      <div className="w-64 h-64 bg-gray-50 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 flex items-center justify-center">
         <ImageIcon size={80} className="text-gray-300" />
       </div>
     );
@@ -33,7 +33,7 @@ const ProductImageCarousel: React.FC<ProductImageCarouselProps> = ({
   return (
     <div className="relative group">
       {/* Main Image Container */}
-      <div className="w-64 h-64 bg-gray-50 dark:bg-gray-800 rounded-3xl overflow-hidden transition-all duration-500">
+      <div className="w-64 h-64 bg-gray-50 rounded-3xl overflow-hidden transition-all duration-500">
         <div className="relative w-full h-full">
           <img 
             src={images[currentImageIndex]} 
@@ -101,7 +101,7 @@ const ProductImageCarousel: React.FC<ProductImageCarouselProps> = ({
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 index === currentImageIndex 
                   ? 'bg-blue-600 scale-125' 
-                  : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'
+                  : 'bg-gray-300 hover:bg-gray-400'
               }`}
             />
           ))}

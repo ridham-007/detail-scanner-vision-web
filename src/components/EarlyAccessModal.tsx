@@ -84,7 +84,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md rounded-2xl border-0 shadow-2xl bg-white dark:bg-gray-900 overflow-hidden">
+      <DialogContent className="sm:max-w-md rounded-2xl border-0 shadow-2xl bg-white overflow-hidden">
         <div className="absolute inset-0 bg-muted/50" />
         
         <div className="relative z-10">
@@ -103,7 +103,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
 
           {isSuccess ? (
             <div className="text-center py-4 animate-fade-in">
-              <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+              <p className="text-gray-600 mb-6 leading-relaxed">
                 Perfect! You're now on our exclusive early access list. We'll send you a personal invitation when these amazing features go live.
               </p>
               <Button
@@ -117,14 +117,14 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in">
               <div className="text-center mb-6">
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed">
                   Be the first to experience our game-changing features: AI Meal Planner, Food Community, and Smart Reminders.
                 </p>
               </div>
 
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <Label htmlFor="name" className="text-sm font-medium text-gray-700">
                     Name (Optional)
                   </Label>
                   <Input
@@ -133,12 +133,12 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                     placeholder="Your name"
                     value={formData.name}
                     onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    className="h-12 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 transition-all duration-300 "
+                    className="h-12 border-2 border-gray-200 rounded-xl focus:border-emerald-500 transition-all duration-300 "
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <Label htmlFor="email" className="text-sm font-medium text-gray-700">
                     Email Address *
                   </Label>
                   <Input
@@ -147,7 +147,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                     placeholder="your@email.com"
                     value={formData.email}
                     onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                    className="h-12 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 transition-all duration-300"
+                    className="h-12 border-2 border-gray-200 rounded-xl focus:border-emerald-500 transition-all duration-300"
                     required
                   />
                 </div>
@@ -159,7 +159,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                   type="button"
                   variant="outline"
                   onClick={handleClose}
-                  className="flex-1 h-12 rounded-xl border-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300"
+                  className="flex-1 h-12 rounded-xl border-2 hover:bg-gray-50 transition-all duration-300"
                   disabled={isSubmitting}
                 >
                   Maybe Later
@@ -184,7 +184,7 @@ const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({ open, onOpenChange 
                 </Button>
               </div>
 
-              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+              <p className="text-xs text-gray-500 text-center">
                 We respect your privacy. No spam, just exclusive early access to amazing features.
               </p>
             </form>

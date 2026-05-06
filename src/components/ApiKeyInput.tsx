@@ -29,9 +29,9 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ apiKey, onApiKeyChange, ampli
         <CardContent>
           <div className="space-y-4">
             {hasEnvKey ? (
-              <div className="flex items-start gap-2 p-3 bg-green-50 dark:bg-green-950 rounded-lg">
+              <div className="flex items-start gap-2 p-3 bg-green-50 rounded-lg">
                 <CheckCircle size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
-                <div className="text-sm text-green-700 dark:text-green-300">
+                <div className="text-sm text-green-700">
                   <p className="font-medium mb-1">API Key Configured via Environment Variables</p>
                   <p className="text-xs">Your OpenAI API key is securely loaded from environment variables.</p>
                 </div>
@@ -50,9 +50,9 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ apiKey, onApiKeyChange, ampli
                   />
                 </div>
                 
-                <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
+                <div className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
                   <Info size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
-                  <div className="text-sm text-blue-700 dark:text-blue-300">
+                  <div className="text-sm text-blue-700">
                     <p className="font-medium mb-1">Enhanced Features with OpenAI API:</p>
                     <ul className="space-y-1 text-xs">
                       <li>• AI-powered product ratings and reviews</li>
@@ -91,9 +91,9 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ apiKey, onApiKeyChange, ampli
               />
             </div>
             
-            <div className="flex items-start gap-2 p-3 bg-purple-50 dark:bg-purple-950 rounded-lg">
+            <div className="flex items-start gap-2 p-3 bg-purple-50 rounded-lg">
               <Info size={16} className="text-purple-600 mt-0.5 flex-shrink-0" />
-              <div className="text-sm text-purple-700 dark:text-purple-300">
+              <div className="text-sm text-purple-700">
                 <p className="font-medium mb-1">Analytics Features with Amplitude:</p>
                 <ul className="space-y-1 text-xs">
                   <li>• Track user behavior and engagement patterns</li>

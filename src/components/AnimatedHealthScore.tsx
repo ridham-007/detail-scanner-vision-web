@@ -68,7 +68,7 @@ const AnimatedHealthScore: React.FC<AnimatedHealthScoreProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4 relative p-6 rounded-3xl bg-white dark:bg-card shadow-[var(--shadow-health-score)] border border-border/20">
+    <div className="flex flex-col items-center space-y-4 relative p-6 rounded-3xl bg-white shadow-[var(--shadow-health-score)] border border-border/20">
       {/* Confetti Effect for High Scores */}
       {showConfetti && (
         <div className="absolute -inset-8 pointer-events-none overflow-hidden">
@@ -123,7 +123,6 @@ const AnimatedHealthScore: React.FC<AnimatedHealthScoreProps> = ({
             stroke="#e5e7eb"
             strokeWidth="8"
             fill="transparent"
-            className="dark:stroke-gray-700"
           />
           
           {/* Animated progress circle */}

@@ -461,7 +461,7 @@ const UserSettingsPage = () => {
                               </div>
                               <div
                                 className={`px-3 py-1 rounded-full text-sm font-medium ${cancelAtPeriodEnd
-                                  ? "bg-primary/20 text-primary dark:text-orange-400"
+                                  ? "bg-primary/20 text-primary"
                                   : subscribed
                                     ? "bg-primary/20 text-primary"
                                     : "bg-muted text-muted-foreground"
@@ -578,7 +578,7 @@ const UserSettingsPage = () => {
 
                               <Alert className="bg-primary/10 border-primary/30">
                                 <AlertTriangle className="h-4 w-4 text-primary" />
-                                <AlertTitle className="text-primary dark:text-orange-400">
+                                <AlertTitle className="text-primary">
                                   Your subscription has been cancelled
                                 </AlertTitle>
                                 <AlertDescription>

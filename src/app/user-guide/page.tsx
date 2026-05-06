@@ -212,7 +212,7 @@ export default function UserGuidePage() {
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all hover:bg-white dark:hover:bg-background hover:shadow-sm text-muted-foreground hover:text-primary group text-left"
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all hover:bg-white hover:shadow-sm text-muted-foreground hover:text-primary group text-left"
                 >
                   <div className="transition-transform group-hover:scale-110 shrink-0">
                     {React.cloneElement(section.icon as React.ReactElement, { className: "h-4 w-4" })}

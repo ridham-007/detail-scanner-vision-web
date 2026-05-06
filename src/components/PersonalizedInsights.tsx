@@ -188,7 +188,7 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
   }
 
   return (
-    <Card className="w-full animate-fade-in border-blue-200 bg-blue-50 dark:bg-blue-950 dark:border-blue-800">
+    <Card className="w-full animate-fade-in border-blue-200 bg-blue-50">
       <CardContent className="p-6 space-y-4">
         <div className="flex items-center gap-2 mb-4">
           <User className="w-5 h-5 text-blue-600" />
@@ -197,11 +197,11 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
 
         {/* Allergen Warnings - Most Important */}
         {allergenWarnings.length > 0 && (
-          <Alert className="border-red-300 bg-red-50 dark:bg-red-950">
+          <Alert className="border-red-300 bg-red-50">
             <AlertTriangle className="h-4 w-4 text-red-600" />
             <AlertDescription className="space-y-1">
               {allergenWarnings.map((warning, index) => (
-                <div key={index} className="text-red-800 dark:text-red-200 font-medium">
+                <div key={index} className="text-red-800 font-medium">
                   {warning}
                 </div>
               ))}
@@ -212,9 +212,9 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
         {/* Comparison with Last Scan */}
         {comparisonInsight && (
           <div className={`p-3 rounded-lg border ${
-            comparisonInsight.type === 'positive' ? 'bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800' :
-            comparisonInsight.type === 'negative' ? 'bg-orange-50 border-orange-200 dark:bg-orange-950 dark:border-orange-800' :
-            'bg-gray-50 border-gray-200 dark:bg-gray-900 dark:border-gray-700'
+            comparisonInsight.type === 'positive' ? 'bg-green-50 border-green-200' :
+            comparisonInsight.type === 'negative' ? 'bg-orange-50 border-orange-200' :
+            'bg-gray-50 border-gray-200'
           }`}>
             <div className="flex items-center gap-2">
               <comparisonInsight.icon className={`w-4 h-4 ${
@@ -223,9 +223,9 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
                 'text-gray-600'
               }`} />
               <span className={`text-sm font-medium ${
-                comparisonInsight.type === 'positive' ? 'text-green-800 dark:text-green-200' :
-                comparisonInsight.type === 'negative' ? 'text-orange-800 dark:text-orange-200' :
-                'text-gray-800 dark:text-gray-200'
+                comparisonInsight.type === 'positive' ? 'text-green-800' :
+                comparisonInsight.type === 'negative' ? 'text-orange-800' :
+                'text-gray-800'
               }`}>
                 {comparisonInsight.message}
               </span>
@@ -236,7 +236,7 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
         {/* Dietary Restrictions */}
         {dietaryCheck.alerts.length > 0 && (
           <div className="space-y-2">
-            <h4 className="text-sm font-medium text-orange-700 dark:text-orange-300">Dietary Alerts</h4>
+            <h4 className="text-sm font-medium text-orange-700">Dietary Alerts</h4>
             {dietaryCheck.alerts.map((alert, index) => (
               <Badge key={index} variant="destructive" className="mr-2 mb-1">
                 <AlertTriangle className="w-3 h-3 mr-1" />
@@ -248,9 +248,9 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
 
         {dietaryCheck.compatible.length > 0 && (
           <div className="space-y-2">
-            <h4 className="text-sm font-medium text-green-700 dark:text-green-300">Dietary Compatible</h4>
+            <h4 className="text-sm font-medium text-green-700">Dietary Compatible</h4>
             {dietaryCheck.compatible.map((item, index) => (
-              <Badge key={index} variant="secondary" className="mr-2 mb-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+              <Badge key={index} variant="secondary" className="mr-2 mb-1 bg-green-100 text-green-800">
                 ✓ {item}
               </Badge>
             ))}
@@ -260,7 +260,7 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
         {/* Health Goals */}
         {healthGoalCheck.aligned.length > 0 && (
           <div className="space-y-2">
-            <h4 className="text-sm font-medium text-blue-700 dark:text-blue-300">Supports Your Goals</h4>
+            <h4 className="text-sm font-medium text-blue-700">Supports Your Goals</h4>
             {healthGoalCheck.aligned.map((item, index) => (
               <Badge key={index} variant="default" className="mr-2 mb-1">
                 🎯 {item}
@@ -271,7 +271,7 @@ const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
 
         {healthGoalCheck.conflicting.length > 0 && (
           <div className="space-y-2">
-            <h4 className="text-sm font-medium text-orange-700 dark:text-orange-300">May Conflict With Goals</h4>
+            <h4 className="text-sm font-medium text-orange-700">May Conflict With Goals</h4>
             {healthGoalCheck.conflicting.map((item, index) => (
               <Badge key={index} variant="outline" className="mr-2 mb-1 border-orange-300 text-orange-700">
                 ⚠️ {item}

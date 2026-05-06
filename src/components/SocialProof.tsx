@@ -79,9 +79,9 @@ const SocialProof: React.FC<SocialProofProps> = ({ barcode, productName }) => {
       <Card className="w-full animate-fade-in">
         <CardContent className="p-4">
           <div className="animate-pulse space-y-3">
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/3"></div>
-            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
-            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+            <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+            <div className="h-3 bg-gray-200 rounded w-1/2"></div>
           </div>
         </CardContent>
       </Card>
@@ -129,19 +129,19 @@ const SocialProof: React.FC<SocialProofProps> = ({ barcode, productName }) => {
                   </Avatar>
                 ))}
                 {socialData.totalScans > 3 && (
-                  <div className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-white flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center">
                     <span className="text-xs text-gray-600">+{socialData.totalScans - 3}</span>
                   </div>
                 )}
               </div>
-              <span className="text-sm text-gray-700 dark:text-gray-300">
+              <span className="text-sm text-gray-700">
                 {socialData.totalScans} users scanned this
               </span>
             </div>
             
             <div className="flex items-center gap-1">
               {getTrendIcon()}
-              <span className="text-xs text-gray-600 dark:text-gray-400">
+              <span className="text-xs text-gray-600">
                 {getTrendMessage()}
               </span>
             </div>
@@ -150,7 +150,7 @@ const SocialProof: React.FC<SocialProofProps> = ({ barcode, productName }) => {
           {/* Recent Activity */}
           {socialData.recentScans > 0 && (
             <div className="flex items-center gap-2">
-              <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+              <Badge variant="secondary" className="bg-blue-100 text-blue-800">
                 🔥 {socialData.recentScans} scanned this week
               </Badge>
             </div>
@@ -168,16 +168,16 @@ const SocialProof: React.FC<SocialProofProps> = ({ barcode, productName }) => {
 
           {/* Alternative Choices */}
           {socialData.alternativeChoices > 0 && (
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-600">
               <ShoppingCart className="w-4 h-4 inline mr-1" />
               {socialData.alternativeChoices} users chose a healthier alternative to this product
             </div>
           )}
 
           {/* Social Actions */}
-          <div className="pt-2 border-t border-purple-200 dark:border-purple-800">
+          <div className="pt-2 border-t border-purple-200">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-purple-600 dark:text-purple-400">
+              <span className="text-xs text-purple-600">
                 Join the community conversation
               </span>
               <Badge variant="outline" className="text-xs border-purple-300 text-purple-700">

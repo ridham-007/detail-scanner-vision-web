@@ -39,8 +39,8 @@ export const HealthierAlternatives = ({ barcode, currentHealthScore }: Healthier
     <Card className="w-full animate-fade-in border-0 shadow-lg bg-card">
       <CardContent className="p-8 space-y-8">
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-4 py-2 rounded-full">
-            <Star size={18} className="text-green-600 dark:text-green-400" />
+          <div className="inline-flex items-center gap-2 bg-green-100 px-4 py-2 rounded-full">
+            <Star size={18} className="text-green-600" />
             <h3 className="text-xl font-semibold tracking-tight text-green-700">
               Healthier Alternatives
             </h3>
@@ -59,7 +59,7 @@ export const HealthierAlternatives = ({ barcode, currentHealthScore }: Healthier
             return (
               <div key={product.barcode} className="group relative overflow-hidden">
                 <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="relative bg-white dark:bg-gray-900 border border-green-200/50 dark:border-green-800/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <div className="relative bg-white border border-green-200/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <div className="space-y-4">
                     {/* Product Image */}
                     {product.images && product.images.length > 0 && (
@@ -78,19 +78,19 @@ export const HealthierAlternatives = ({ barcode, currentHealthScore }: Healthier
                           {product.name}
                         </h4>
                       </div>
-                      <div className="flex-shrink-0 w-8 h-8 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center ml-2">
-                        <ArrowRight size={14} className="text-green-600 dark:text-green-400" />
+                      <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center ml-2">
+                        <ArrowRight size={14} className="text-green-600" />
                       </div>
                     </div>
                     
                     {/* Health Score Comparison */}
                     <div className="relative overflow-hidden">
                       <div className="absolute inset-0 bg-primary/10"></div>
-                      <div className="relative p-4 bg-green-50/50 dark:bg-green-950/30 rounded-lg border border-green-200/30 dark:border-green-800/30">
+                      <div className="relative p-4 bg-green-50/50 rounded-lg border border-green-200/30">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <TrendingUp size={16} className="text-green-600 dark:text-green-400" />
-                            <span className="text-sm font-medium text-green-700 dark:text-green-300">
+                            <TrendingUp size={16} className="text-green-600" />
+                            <span className="text-sm font-medium text-green-700">
                               Health Score
                             </span>
                           </div>
@@ -99,7 +99,7 @@ export const HealthierAlternatives = ({ barcode, currentHealthScore }: Healthier
                           </Badge>
                         </div>
                         {scoreDiff > 0 && (
-                          <p className="text-xs text-green-600 dark:text-green-400 mt-2">
+                          <p className="text-xs text-green-600 mt-2">
                             +{scoreDiff} points better than current product
                           </p>
                         )}
