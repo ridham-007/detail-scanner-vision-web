@@ -20,9 +20,10 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
-          gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
           gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}');
+          gtag('config', '${GA_MEASUREMENT_ID}', {
+              page_path: window.location.pathname,
+            });
         `}
       </Script>
       {children}
