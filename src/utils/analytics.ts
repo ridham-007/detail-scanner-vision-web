@@ -21,6 +21,7 @@ const COOKIE_CONSENT_KEY = "eateriq_cookie_consent";
 const GTAG_READY_RETRY_MS = 250;
 const GTAG_READY_MAX_RETRIES = 20;
 const ANALYTICS_ENABLED = process.env.NODE_ENV === "production";
+const GA_ANALYTICS_STORAGE_MODE = "granted";
 
 // Check if user has given analytics consent
 export const hasAnalyticsConsent = (): boolean => {
@@ -78,7 +79,8 @@ export const initGA = () => {
 
   whenGtagReady((gtag) => {
     gtag("consent", "default", {
-      analytics_storage: hasAnalyticsConsent() ? "granted" : "denied",
+      // GA should start collecting immediately even before the cookie banner is accepted.
+      analytics_storage: GA_ANALYTICS_STORAGE_MODE,
       ad_storage: hasMarketingConsent() ? "granted" : "denied",
     });
 
@@ -127,17 +129,15 @@ export const updateAnalyticsConsent = (
   // Update Google Analytics consent
   if (window.gtag) {
     window.gtag("consent", "update", {
-      analytics_storage: analyticsConsent ? "granted" : "denied",
+      // Keep GA available regardless of cookie banner choice.
+      analytics_storage: GA_ANALYTICS_STORAGE_MODE,
       ad_storage: marketingConsent ? "granted" : "denied",
     });
 
-    // Initialize GA if consent just granted
-    if (analyticsConsent) {
-      window.gtag("config", GA_MEASUREMENT_ID, {
-        page_title: document.title,
-        page_location: window.location.href,
-      });
-    }
+    window.gtag("config", GA_MEASUREMENT_ID, {
+      page_title: document.title,
+      page_location: window.location.href,
+    });
   }
 
   // Initialize Amplitude if consent just granted

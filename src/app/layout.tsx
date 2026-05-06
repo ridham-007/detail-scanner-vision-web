@@ -55,7 +55,7 @@ export default function RootLayout({
           window.gtag = gtag;
           gtag('js', new Date());
           gtag('consent', 'default', {
-            analytics_storage: 'denied',
+            analytics_storage: 'granted',
             ad_storage: 'denied'
           });
         `}
