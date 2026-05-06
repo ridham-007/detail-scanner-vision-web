@@ -6,15 +6,6 @@ import { initAnalytics, GA_MEASUREMENT_ID } from "@/utils/analytics";
 
 export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Ensure gtag is defined before initializing (for safety)
-    if (typeof window !== "undefined" && !window.gtag) {
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function (...args: any[]) {
-        window.dataLayer.push(args);
-      };
-    }
-    
-    // Initialize analytics on mount
     initAnalytics();
   }, []);
 
@@ -29,9 +20,9 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
           gtag('js', new Date());
-          gtag('config', ${GA_MEASUREMENT_ID});
-          // Default consent is handled in initAnalytics
+          gtag('config', '${GA_MEASUREMENT_ID}');
         `}
       </Script>
       {children}
