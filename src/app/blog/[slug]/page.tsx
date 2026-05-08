@@ -327,7 +327,7 @@ export default async function BlogPostPage({ params }: Props) {
                   Use our free food scanner to analyze any product instantly and get personalized health insights.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <Link href="/#scanner">
+                  <Link href="/food-scanner/">
                     <Button size="sm" className="rounded-full bg-primary shadow-[var(--shadow-warm)] hover:bg-primary/90">
                       <Scan className="h-4 w-4 mr-2" aria-hidden="true" />
                       Try Food Scanner
@@ -385,7 +385,7 @@ export default async function BlogPostPage({ params }: Props) {
                   <Link href="/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Home
                   </Link>
-                  <Link href="/#scanner" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/food-scanner/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Food Scanner
                   </Link>
                   <Link href="/quiz/" className="block text-sm text-muted-foreground hover:text-primary">
@@ -446,7 +446,7 @@ export default async function BlogPostPage({ params }: Props) {
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any food product and get instant health insights.
                   </p>
-                  <Link href="/#scanner">
+                  <Link href="/food-scanner/">
                     <Button size="sm" className="w-full rounded-full bg-primary shadow-[var(--shadow-warm)] hover:bg-primary/90">
                       <Scan className="h-4 w-4 mr-2" aria-hidden="true" />
                       Start Scanning

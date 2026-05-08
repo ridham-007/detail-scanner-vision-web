@@ -196,7 +196,7 @@ export default function PricingPage() {
               features and take control of your nutrition.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
-              <Link href="/#scanner" className="w-full sm:w-auto">
+              <Link href="/food-scanner/" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   className="w-full rounded-full bg-primary hover:bg-primary/90 text-white font-semibold shadow-sm"
@@ -226,7 +226,7 @@ export default function PricingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
                 {
-                  href:    '/#scanner',
+                  href:    '/food-scanner/',
                   icon:    Scan,
                   title:   'Food Scanner',
                   sub:     'Scan any product',

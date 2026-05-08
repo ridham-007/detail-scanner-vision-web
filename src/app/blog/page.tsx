@@ -203,7 +203,7 @@ export default async function BlogListPage() {
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any product barcode and get instant health analysis.
                   </p>
-                  <Link href="/#scanner">
+                  <Link href="/food-scanner">
                     <Button size="sm" className="w-full rounded-full bg-primary shadow-[var(--shadow-warm)] hover:bg-primary/90">
                       Start Scanning Free
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
