@@ -182,7 +182,7 @@ export default async function BlogListPage() {
                   <Link href="/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Home
                   </Link>
-                  <Link href="/#scanner" className="block text-sm text-muted-foreground hover:text-primary">
+                  <Link href="/food-scanner/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Food Scanner
                   </Link>
                   <Link href="/quiz/" className="block text-sm text-muted-foreground hover:text-primary">

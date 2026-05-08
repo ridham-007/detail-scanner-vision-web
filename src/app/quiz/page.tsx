@@ -574,7 +574,7 @@ export default async function QuizPage() {
               Start with any quiz above or try our food scanner to learn more about the products you eat every day.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/#scanner">
+              <Link href="/food-scanner/">
                 <Button size="lg" className="bg-primary hover:bg-primary/90">
                   <Scan className="w-4 h-4 mr-2" aria-hidden="true" />
                   Try Food Scanner
