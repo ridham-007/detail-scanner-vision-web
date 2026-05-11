@@ -37,11 +37,11 @@ const Header = () => {
   return (
     <header
       role="banner"
-      className="sticky top-0 z-50 w-full bg-transparent pt-0 md:pt-0"
+      className="sticky top-0 left-0 z-[9999] w-full bg-white/95 backdrop-blur-md border-b border-border/40"
       style={{ marginTop: "env(safe-area-inset-top)" }}
     >
-      <div className="container mx-auto px-2 md:py-3">
-        <div className="flex items-center justify-between rounded-[28px] border border-white/60 px-4 py-3 shadow-product bg-white">
+      <div className="container mx-auto px-2 py-2 md:py-3">
+        <div className="flex items-center justify-between rounded-[28px] border border-white/60 px-4 py-3 shadow-product bg-white/95 backdrop-blur-md">
           <Link
             href="/"
             aria-label="EaterIQ Home"

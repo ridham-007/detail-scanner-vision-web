@@ -133,18 +133,6 @@ export default function Footer() {
                   </li>
                   <li>
                     <Link
-                      href="/categories/"
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
-                    >
-                      <BookOpen
-                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
-                        aria-hidden="true"
-                      />
-                      Browse Categories
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       href="/quiz/"
                       className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                     >
