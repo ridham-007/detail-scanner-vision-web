@@ -98,7 +98,8 @@ const Header = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="start"
-                  className="w-52 rounded-2xl border-border/80 bg-white/95 shadow-product"
+                  sideOffset={10}
+                  className="z-[99999] w-52 rounded-2xl border border-border/80 bg-white shadow-2xl"
                 >
                   <DropdownMenuItem asChild>
                     <Link
