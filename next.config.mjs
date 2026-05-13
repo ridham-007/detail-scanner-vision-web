@@ -12,6 +12,21 @@ const nextConfig = {
         statusCode: 301,
       },
       {
+        source: "/blog/immuneboosting-foods-you-should-eat-daily/",
+        destination: "/blog/immune-boosting-foods-you-should-eat-daily/",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/immuneboosting-foods-for-every-season-/",
+        destination: "/blog/immune-boosting-foods-for-every-season-/",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/-coffee-vs-tea-is-one-better-for-your-health/",
+        destination: "/blog/coffee-vs-tea-is-one-better-for-your-health/",
+        statusCode: 301,
+      },
+      {
         source: "/quiz/dc66adc8-f4ae-44b2-a7e7-237dce3e910f",
         destination: "/",
         permanent: false,
