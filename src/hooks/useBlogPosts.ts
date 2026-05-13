@@ -75,8 +75,13 @@ export const useCreateBlogPost = () => {
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: async (postData: CreateBlogPost) => {
+    mutationFn: async (rawPostData: CreateBlogPost) => {
       if (!user) throw new Error('User not authenticated');
+
+      // Sanitize empty strings to null for optional fields
+      const postData = Object.fromEntries(
+        Object.entries(rawPostData).map(([k, v]) => [k, v === '' ? null : v])
+      ) as CreateBlogPost;
 
       // Generate slug from title
       const slug = postData.title
@@ -127,8 +132,13 @@ export const useUpdateBlogPost = () => {
 
   return useMutation({
     mutationFn: async ({ id, postData }: { id: string; postData: Partial<CreateBlogPost> }) => {
+      // Sanitize empty strings to null for optional fields
+      const sanitized = Object.fromEntries(
+        Object.entries(postData).map(([k, v]) => [k, v === '' ? null : v])
+      ) as Partial<CreateBlogPost>;
+
       // Calculate reading time if content is updated
-      let updateData = { ...postData };
+      let updateData = { ...sanitized };
       if (postData.content) {
         const wordCount = postData.content.split(/\s+/).length;
         const readingTime = Math.ceil(wordCount / 200);
