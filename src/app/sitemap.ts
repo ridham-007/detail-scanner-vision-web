@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .eq('is_published', true)
 
   const quizEntries: MetadataRoute.Sitemap = (quizzes || []).map((quiz) => ({
-    url: `${baseUrl}/quiz/${quiz.slug}`,
+    url: `${baseUrl}/quiz/${quiz.slug}/`,
     lastModified: quiz.created_at ? new Date(quiz.created_at) : new Date(),
     changeFrequency: 'daily',
   }))

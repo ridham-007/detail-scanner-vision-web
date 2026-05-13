@@ -61,7 +61,7 @@ const Header = () => {
             </div>
           </Link>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 min-w-0">
             {/* Desktop Navigation */}
             <nav
               className="hidden md:flex items-center gap-6"
@@ -143,13 +143,26 @@ const Header = () => {
               {/* Admin Dropdown */}
               {isAdmin && (
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-1 font-medium text-muted-foreground transition-all duration-300 hover:text-foreground outline-none focus:outline-none focus-visible:outline-none">
+                  <DropdownMenuTrigger className="flex items-center gap-1 whitespace-nowrap font-medium text-muted-foreground transition-all duration-300 hover:text-foreground outline-none focus:outline-none focus-visible:outline-none">
                     <Shield className="h-4 w-4" />
                     Admin
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="end"
-                    className="rounded-2xl border-border/80 bg-white/95 shadow-product"
+                    side="bottom"
+                    sideOffset={12}
+                    collisionPadding={20}
+                    className="
+    z-[99999]
+    w-64
+    rounded-2xl
+    border
+    border-border/80
+    bg-white/95
+    p-2
+    shadow-2xl
+    backdrop-blur-md
+  "
                   >
                     <DropdownMenuItem asChild>
                       <Link
@@ -183,7 +196,7 @@ const Header = () => {
               )}
             </nav>
 
-            <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-2 md:gap-4 shrink-0">
               <NotificationBell />
               <AuthButton />
               {/* <ThemeToggle /> */}

@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const { quiz } = data;
-  const canonicalUrl = `https://www.eateriq.com/quiz/${slug}`;
+  const canonicalUrl = `https://www.eateriq.com/quiz/${slug}/`;
 
   return {
     title: `${quiz.title} - Nutrition Quiz | EaterIQ`,
@@ -103,7 +103,7 @@ export default async function QuizPlayPage({ params }: Props) {
   }
 
   const { quiz, questions } = data;
-  const canonicalUrl = `https://www.eateriq.com/quiz/${slug}`;
+  const canonicalUrl = `https://www.eateriq.com/quiz/${slug}/`;
 
   // Quiz structured data
   const quizSchema = {
@@ -164,10 +164,10 @@ export default async function QuizPlayPage({ params }: Props) {
   return (
     <>
       {/* Structured Data */}
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(quizSchema) }}
-      />
+      /> */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

@@ -1,31 +1,43 @@
-import React, { useState } from 'react';
-import { Bell, Check, CheckCheck, Trash2, X, Trophy, AlertTriangle, Calendar, Lightbulb, Brain, Clock } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNotifications, NotificationType } from '@/hooks/useNotifications';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import React, { useState } from "react";
+import {
+  Bell,
+  Check,
+  CheckCheck,
+  Trash2,
+  X,
+  Trophy,
+  AlertTriangle,
+  Calendar,
+  Lightbulb,
+  Brain,
+  Clock,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNotifications, NotificationType } from "@/hooks/useNotifications";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { formatDistanceToNow } from 'date-fns';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/popover";
+import { formatDistanceToNow } from "date-fns";
+import { cn } from "@/lib/utils";
 
 const getNotificationIcon = (type: NotificationType) => {
   switch (type) {
-    case 'achievement':
+    case "achievement":
       return <Trophy className="h-4 w-4 text-yellow-500" />;
-    case 'health_alert':
+    case "health_alert":
       return <AlertTriangle className="h-4 w-4 text-red-500" />;
-    case 'weekly_summary':
+    case "weekly_summary":
       return <Calendar className="h-4 w-4 text-blue-500" />;
-    case 'product_suggestion':
+    case "product_suggestion":
       return <Lightbulb className="h-4 w-4 text-green-500" />;
-    case 'quiz_challenge':
+    case "quiz_challenge":
       return <Brain className="h-4 w-4 text-purple-500" />;
-    case 'scan_reminder':
+    case "scan_reminder":
     default:
       return <Clock className="h-4 w-4 text-primary" />;
   }
@@ -42,12 +54,12 @@ const NotificationBell: React.FC = () => {
     markAsRead,
     markAllAsRead,
     deleteNotification,
-    clearAllNotifications
+    clearAllNotifications,
   } = useNotifications();
 
   if (!user) return null;
 
-  const handleNotificationClick = (notification: typeof notifications[0]) => {
+  const handleNotificationClick = (notification: (typeof notifications)[0]) => {
     markAsRead(notification.id);
     if (notification.action_url) {
       setOpen(false);
@@ -62,23 +74,36 @@ const NotificationBell: React.FC = () => {
           variant="ghost"
           size="icon"
           className="relative"
-          aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} unread)` : ''}`}
+          aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
         >
           <Bell className="h-5 w-5" />
           {unreadCount > 0 && (
             <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-destructive text-destructive-foreground text-xs flex items-center justify-center font-medium animate-pulse">
-              {unreadCount > 9 ? '9+' : unreadCount}
+              {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent 
-        className="w-80 p-0" 
+      <PopoverContent
         align="end"
-        sideOffset={8}
+        side="bottom"
+        sideOffset={12}
+        collisionPadding={20}
+        className="
+    w-[360px]
+    max-w-[calc(100vw-24px)]
+    p-0
+    rounded-2xl
+    shadow-2xl
+    border
+    bg-background
+    z-[99999]
+  "
       >
         <div className="flex items-center justify-between p-4 border-b">
-          <h3 className="text-xl font-semibold tracking-tight text-foreground">Notifications</h3>
+          <h3 className="text-xl font-semibold tracking-tight text-foreground">
+            Notifications
+          </h3>
           <div className="flex items-center gap-1">
             {unreadCount > 0 && (
               <Button
@@ -103,7 +128,9 @@ const NotificationBell: React.FC = () => {
             <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
               <Bell className="h-12 w-12 mb-4 opacity-20" />
               <p className="text-sm">No notifications yet</p>
-              <p className="text-xs mt-1">We'll notify you when something happens</p>
+              <p className="text-xs mt-1">
+                We'll notify you when something happens
+              </p>
             </div>
           ) : (
             <div className="divide-y">
@@ -112,7 +139,7 @@ const NotificationBell: React.FC = () => {
                   key={notification.id}
                   className={cn(
                     "p-4 hover:bg-muted/50 cursor-pointer transition-colors relative group",
-                    !notification.is_read && "bg-primary/5"
+                    !notification.is_read && "bg-primary/5",
                   )}
                   onClick={() => handleNotificationClick(notification)}
                 >
@@ -122,10 +149,12 @@ const NotificationBell: React.FC = () => {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
-                        <p className={cn(
-                          "text-sm line-clamp-1",
-                          !notification.is_read && "font-semibold"
-                        )}>
+                        <p
+                          className={cn(
+                            "text-sm line-clamp-1",
+                            !notification.is_read && "font-semibold",
+                          )}
+                        >
                           {notification.title}
                         </p>
                         {!notification.is_read && (
@@ -136,7 +165,10 @@ const NotificationBell: React.FC = () => {
                         {notification.body}
                       </p>
                       <p className="text-xs text-muted-foreground/80 mt-2">
-                        {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
+                        {formatDistanceToNow(
+                          new Date(notification.created_at),
+                          { addSuffix: true },
+                        )}
                       </p>
                     </div>
                     <Button

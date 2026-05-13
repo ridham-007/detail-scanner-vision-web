@@ -134,80 +134,80 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const canonicalUrl = `https://www.eateriq.com/blog/${slug}`;
+  const canonicalUrl = `https://www.eateriq.com/blog/${slug}/`;
   const authorName = post.author?.full_name || post.author?.username || 'EaterIQ Team';
   const authorDisplayName = `${authorName} from EaterIQ`;
 
   // JSON-LD Schema
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.title,
-    "description": post.excerpt,
-    "image": post.featured_image_url,
-    "author": {
-      "@type": "Person",
-      "name": authorName,
-      "url": "https://www.eateriq.com/about/",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "EaterIQ",
-        "url": "https://www.eateriq.com/"
-      }
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "EaterIQ",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.eateriq.com/eater-iq.png",
-      },
-    },
-    "datePublished": post.published_at,
-    "dateModified": post.updated_at,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": canonicalUrl,
-    },
-  };
+  // const schemaData = {
+  //   "@context": "https://schema.org",
+  //   "@type": "BlogPosting",
+  //   "headline": post.title,
+  //   "description": post.excerpt,
+  //   "image": post.featured_image_url,
+  //   "author": {
+  //     "@type": "Person",
+  //     "name": authorName,
+  //     "url": "https://www.eateriq.com/about/",
+  //     "worksFor": {
+  //       "@type": "Organization",
+  //       "name": "EaterIQ",
+  //       "url": "https://www.eateriq.com/"
+  //     }
+  //   },
+  //   "publisher": {
+  //     "@type": "Organization",
+  //     "name": "EaterIQ",
+  //     "logo": {
+  //       "@type": "ImageObject",
+  //       "url": "https://www.eateriq.com/eater-iq.png",
+  //     },
+  //   },
+  //   "datePublished": post.published_at,
+  //   "dateModified": post.updated_at,
+  //   "mainEntityOfPage": {
+  //     "@type": "WebPage",
+  //     "@id": canonicalUrl,
+  //   },
+  // };
 
   // Breadcrumb Schema
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://www.eateriq.com/",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Blog",
-        "item": "https://www.eateriq.com/blog/",
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": post.title,
-        "item": canonicalUrl,
-      },
-    ],
-  };
+  // const breadcrumbSchema = {
+  //   "@context": "https://schema.org",
+  //   "@type": "BreadcrumbList",
+  //   "itemListElement": [
+  //     {
+  //       "@type": "ListItem",
+  //       "position": 1,
+  //       "name": "Home",
+  //       "item": "https://www.eateriq.com/",
+  //     },
+  //     {
+  //       "@type": "ListItem",
+  //       "position": 2,
+  //       "name": "Blog",
+  //       "item": "https://www.eateriq.com/blog/",
+  //     },
+  //     {
+  //       "@type": "ListItem",
+  //       "position": 3,
+  //       "name": post.title,
+  //       "item": canonicalUrl,
+  //     },
+  //   ],
+  // };
 
   return (
     <>
       {/* JSON-LD Structured Data */}
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-      />
-      <script
+      /> */}
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      /> */}
 
       <div className="container mx-auto px-4 py-8">
         <Breadcrumbs 
