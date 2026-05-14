@@ -117,17 +117,22 @@ const AuthButton = () => {
           aria-label="Loading"
           disabled
           className="
-            hidden
-            md:flex
-            items-center
-            justify-center
-            rounded-full
-            shadow-[var(--shadow-warm)]
-          "
+    hidden
+    md:flex
+    items-center
+    justify-center
+    rounded-full
+    shadow-[var(--shadow-warm)]
+    min-w-[120px]
+
+    bg-transparent
+    hover:bg-transparent
+    border-0
+    text-foreground
+  "
         >
-          <div className="flex gap-2">
-            <LogIn className="h-2 w-2" />
-            Loading..
+          <div className="flex items-center gap-2">
+            Loading....
           </div>
         </Button>
       </>
