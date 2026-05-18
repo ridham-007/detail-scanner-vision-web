@@ -331,7 +331,7 @@ export default async function HomePage() {
 "
           >
             {/* Left Column - Content */}
-            <div className="order-1 flex flex-col justify-center rounded-[32px] border border-white/60 bg-white/78 px-5 py-7 text-center sm:px-6 md:px-8 md:py-10 lg:text-left">
+            <div className="order-1 flex flex-col justify-center rounded-[32px] border border-white/60 bg-white/78 px-5 py-7 text-center sm:px-6 md:px-8 md:py-10 lg:text-left min-h-[520px]">
               <div className="mb-5 inline-flex items-center gap-2 self-center rounded-full border border-orange-200/70 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-800 lg:self-start">
                 <Sparkles className="h-4 w-4" />
                 Fresh scans, smarter food choices
@@ -380,8 +380,8 @@ export default async function HomePage() {
                     alt="Download on the App Store"
                     width={160}
                     height={50}
+                    priority
                     className="h-auto w-[150px] sm:w-[160px]"
-                    loading="lazy"
                     unoptimized
                   />
                 </a>
@@ -397,8 +397,8 @@ export default async function HomePage() {
                     alt="Get it on Google Play"
                     width={160}
                     height={50}
+                    priority
                     className="h-auto w-[150px] sm:w-[160px]"
-                    loading="lazy"
                     unoptimized
                   />
                 </a>
@@ -432,7 +432,9 @@ export default async function HomePage() {
                     src="/hero-image.webp"
                     alt="App preview"
                     fill
+                    priority
                     className="object-contain scale-[1.35]"
+                    sizes="(max-width: 768px) 260px, 290px"
                     unoptimized
                   />
                 </div>
@@ -453,7 +455,7 @@ export default async function HomePage() {
                       />
                     </div>
                     <div>
-                      <span className="text-sm font-bold text-foreground block">
+                      <span className="text-sm font-bold text-foreground block min-w-[60px]">
                         {formatNumber(productCount)}
                       </span>
                       <span className="text-xs text-muted-foreground">
@@ -471,7 +473,7 @@ export default async function HomePage() {
                       />
                     </div>
                     <div>
-                      <span className="text-sm font-bold text-foreground block">
+                      <span className="text-sm font-bold text-foreground block min-w-[60px]">
                         {formatNumber(userCount)}
                       </span>
                       <span className="text-xs text-muted-foreground">
@@ -885,7 +887,7 @@ export default async function HomePage() {
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between mb-2">
                       <Badge
-                        className={`${getDifficultyColor(quiz.difficulty)} text-xs`}
+                        className={`${getDifficultyColor(quiz.difficulty)} text-xs hover:text-gray-200`}
                       >
                         {quiz.difficulty.toUpperCase()}
                       </Badge>
