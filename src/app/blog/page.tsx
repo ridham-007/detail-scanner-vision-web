@@ -188,9 +188,6 @@ export default async function BlogListPage() {
                   <Link href="/quiz/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Nutrition Quizzes
                   </Link>
-                  <Link href="/categories/" className="block text-sm text-muted-foreground hover:text-primary">
-                    → Browse Categories
-                  </Link>
                 </CardContent>
               </Card>
 
