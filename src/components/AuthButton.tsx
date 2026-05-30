@@ -90,54 +90,9 @@ const AuthButton = () => {
   // =========================
   // LOADING STATE
   // =========================
-  if (loading && !user) {
-    return (
-      <>
-        {/* Mobile Loading Button */}
-        <div className="md:hidden">
-          <Button
-            aria-label="Loading"
-            variant="outline"
-            size="sm"
-            disabled
-            className="
-              rounded-full
-              border-white/70
-              bg-white/85
-              shadow-[var(--shadow-soft)]
-              shrink-0
-            "
-          >
-            <Menu className="h-4 w-4" />
-          </Button>
-        </div>
-
-        {/* Desktop Loading Button */}
-        <Button
-          aria-label="Loading"
-          disabled
-          className="
-    hidden
-    md:flex
-    items-center
-    justify-center
-    rounded-full
-    shadow-[var(--shadow-warm)]
-    min-w-[120px]
-
-    bg-transparent
-    hover:bg-transparent
-    border-0
-    text-foreground
-  "
-        >
-          <div className="flex items-center gap-2">
-            Loading....
-          </div>
-        </Button>
-      </>
-    );
-  }
+  if (loading && user) {
+  return null;
+} 
 
   // =========================
   // USER LOGGED IN
