@@ -2,7 +2,7 @@ const nextConfig = {
   trailingSlash: true,
 
   images: {
-    domains: ["tzxvlfemmamhrxtcqfhz.supabase.co"],
+    domains: ["tzxvlfemmamhrxtcqfhz.supabase.co", "images.eateriq.com"],
   },
   async redirects() {
     return [
