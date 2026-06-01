@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Bell,
-  Check,
   CheckCheck,
   Trash2,
   X,
@@ -44,12 +43,12 @@ const getNotificationIcon = (type: NotificationType) => {
 };
 
 const NotificationBell: React.FC = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const {
     notifications,
-    loading,
+    loading: notificationsLoading,
     unreadCount,
     markAsRead,
     markAllAsRead,
@@ -57,7 +56,20 @@ const NotificationBell: React.FC = () => {
     clearAllNotifications,
   } = useNotifications();
 
-  if (!user) return null;
+  // Always occupy the same space; hide visually when not applicable to prevent CLS
+  if (authLoading || !user) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="relative invisible pointer-events-none"
+        aria-hidden="true"
+        tabIndex={-1}
+      >
+        <Bell className="h-5 w-5" />
+      </Button>
+    );
+  }
 
   const handleNotificationClick = (notification: (typeof notifications)[0]) => {
     markAsRead(notification.id);
@@ -120,7 +132,7 @@ const NotificationBell: React.FC = () => {
         </div>
 
         <ScrollArea className="h-[400px]">
-          {loading ? (
+          {notificationsLoading ? (
             <div className="flex items-center justify-center py-8">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
             </div>

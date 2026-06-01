@@ -90,9 +90,14 @@ const AuthButton = () => {
   // =========================
   // LOADING STATE
   // =========================
-  if (loading && user) {
-  return null;
-} 
+  if (loading) {
+    return (
+      <>
+        <div className="hidden md:block min-w-[120px] h-8 rounded-full bg-muted/40 animate-pulse" />
+        <div className="md:hidden h-8 w-8 rounded-full bg-muted/40 animate-pulse" />
+      </>
+    );
+  }
 
   // =========================
   // USER LOGGED IN

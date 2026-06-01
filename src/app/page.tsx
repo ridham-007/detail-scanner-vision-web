@@ -33,6 +33,7 @@ import { Badge } from "@/components/ui/badge";
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import ScrollToScannerButton from "@/components/home/ScrollToScannerButton";
 
 const FoodScannerPage = dynamic(() => import("@/views/FoodScannerPage"), {
   loading: () => (
@@ -51,10 +52,6 @@ const HealthCalculators = dynamic(
       </div>
     ),
   },
-);
-
-const ScrollToScannerButton = dynamic(
-  () => import("@/components/home/ScrollToScannerButton"),
 );
 
 // Static metadata for SEO

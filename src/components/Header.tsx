@@ -196,7 +196,7 @@ const Header = () => {
               )}
             </nav>
 
-            <div className="flex items-center gap-2 md:gap-4 shrink-0">
+            <div className="flex items-center gap-2 md:gap-4 shrink-0 min-w-[44px] md:min-w-[172px]">
               <NotificationBell />
               <AuthButton />
               {/* <ThemeToggle /> */}
