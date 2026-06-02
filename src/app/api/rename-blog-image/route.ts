@@ -30,24 +30,37 @@ export async function POST(request: NextRequest) {
     const oldUrl = `${CDN_BASE}/${oldName}`;
     const newUrl = `${CDN_BASE}/${newFileName}`;
 
-    // Update featured_image_url in blog_posts
-    await supabaseAdmin
-      .from('blog_posts')
-      .update({ featured_image_url: newUrl })
-      .eq('featured_image_url', oldUrl);
+    // Update all exact-match URL columns in one pass
+    const urlColumns = ['featured_image_url', 'og_image', 'twitter_image'] as const;
+    await Promise.all(
+      urlColumns.map((col) =>
+        supabaseAdmin
+          .from('blog_posts')
+          .update({ [col]: newUrl })
+          .eq(col, oldUrl),
+      ),
+    );
 
-    // Update og_image / twitter_image if they reference the same file
-    await supabaseAdmin
+    // Update the old URL inside rich-text content (embedded <img> tags etc.)
+    const { data: postsWithOldUrl } = await supabaseAdmin
       .from('blog_posts')
-      .update({ og_image: newUrl })
-      .eq('og_image', oldUrl);
+      .select('id, content')
+      .ilike('content', `%${oldUrl}%`);
 
-    await supabaseAdmin
-      .from('blog_posts')
-      .update({ twitter_image: newUrl })
-      .eq('twitter_image', oldUrl);
+    if (postsWithOldUrl && postsWithOldUrl.length > 0) {
+      await Promise.all(
+        postsWithOldUrl
+          .filter((post) => post.content)
+          .map((post) =>
+            supabaseAdmin
+              .from('blog_posts')
+              .update({ content: (post.content as string).replaceAll(oldUrl, newUrl) })
+              .eq('id', post.id),
+          ),
+      );
+    }
 
-    return NextResponse.json({ success: true, newUrl });
+    return NextResponse.json({ success: true, newUrl, updatedPosts: postsWithOldUrl?.length ?? 0 });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Rename failed';
     return NextResponse.json({ error: message }, { status: 500 });
