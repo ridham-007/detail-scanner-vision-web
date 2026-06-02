@@ -12,6 +12,7 @@ import { Save, Eye, Globe, Wand2 } from 'lucide-react';
 import RichTextEditor from './RichTextEditor';
 import AIContentGenerator from './AIContentGenerator';
 import ImageUpload from './ImageUpload';
+import ImageManager from './ImageManager';
 
 interface BlogEditorProps {
   initialData?: Partial<CreateBlogPost>;
@@ -149,6 +150,7 @@ const BlogEditor: React.FC<BlogEditorProps> = ({ initialData, onSave, isLoading 
           defaultName={formData.title}
           onImageUploaded={() => {}}
         />
+        <ImageManager />
 
         <Tabs defaultValue="basic" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
