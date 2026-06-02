@@ -146,9 +146,8 @@ const BlogEditor: React.FC<BlogEditorProps> = ({ initialData, onSave, isLoading 
         </Card>
 
         <ImageUpload
-          onImageUploaded={() => {
-            // Image uploaded, can be used in image fields
-          }}
+          defaultName={formData.title}
+          onImageUploaded={() => {}}
         />
 
         <Tabs defaultValue="basic" className="w-full">
