@@ -2,7 +2,16 @@ const nextConfig = {
   trailingSlash: true,
 
   images: {
-    domains: ["tzxvlfemmamhrxtcqfhz.supabase.co", "images.eateriq.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "tzxvlfemmamhrxtcqfhz.supabase.co",
+      },
+      {
+        protocol: "https",
+        hostname: "images.eateriq.com",
+      },
+    ],
   },
   async redirects() {
     return [
