@@ -45,6 +45,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 // Fetch all published blog posts
 async function getBlogPosts() {
   const { data, error } = await supabase

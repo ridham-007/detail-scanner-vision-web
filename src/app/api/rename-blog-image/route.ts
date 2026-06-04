@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { revalidatePath } from 'next/cache';
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://tzxvlfemmamhrxtcqfhz.supabase.co',
@@ -59,6 +60,10 @@ export async function POST(request: NextRequest) {
           ),
       );
     }
+
+    revalidatePath('/blog', 'page');
+    revalidatePath('/blog/[slug]', 'page');
+    revalidatePath('/', 'page');
 
     return NextResponse.json({ success: true, newUrl, updatedPosts: postsWithOldUrl?.length ?? 0 });
   } catch (err) {
