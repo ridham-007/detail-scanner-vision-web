@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Images, Pencil, Check, X, Copy, RefreshCw } from 'lucide-react';
+import { Images, Pencil, Check, X, Copy, RefreshCw, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface ImageFile {
@@ -26,9 +26,11 @@ function slugify(text: string): string {
 const ImageManager: React.FC = () => {
   const [files, setFiles] = useState<ImageFile[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingName, setEditingName] = useState<string | null>(null); // current filename being edited
+  const [editingName, setEditingName] = useState<string | null>(null);
   const [newName, setNewName] = useState('');
   const [renaming, setRenaming] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const { toast } = useToast();
@@ -96,6 +98,31 @@ const ImageManager: React.FC = () => {
       });
     } finally {
       setRenaming(false);
+    }
+  };
+
+  const handleDelete = async (fileName: string) => {
+    setDeleting(true);
+    try {
+      const res = await fetch('/api/delete-blog-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fileName }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      toast({ title: 'Deleted', description: fileName });
+      setConfirmDelete(null);
+      fetchFiles();
+    } catch (err) {
+      toast({
+        title: 'Delete failed',
+        description: err instanceof Error ? err.message : 'Unknown error',
+        variant: 'destructive',
+      });
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -175,10 +202,10 @@ const ImageManager: React.FC = () => {
 
                 {/* Actions */}
                 {editingName === file.name ? (
+                  // Rename confirm / cancel
                   <>
                     <Button
-                      variant="ghost"
-                      size="icon"
+                      variant="ghost" size="icon"
                       className="h-7 w-7 shrink-0 text-green-600 hover:text-green-700"
                       onClick={() => handleRename(file.name)}
                       disabled={renaming}
@@ -187,8 +214,7 @@ const ImageManager: React.FC = () => {
                       <Check className="h-4 w-4" />
                     </Button>
                     <Button
-                      variant="ghost"
-                      size="icon"
+                      variant="ghost" size="icon"
                       className="h-7 w-7 shrink-0"
                       onClick={cancelEdit}
                       disabled={renaming}
@@ -197,11 +223,34 @@ const ImageManager: React.FC = () => {
                       <X className="h-4 w-4" />
                     </Button>
                   </>
+                ) : confirmDelete === file.name ? (
+                  // Delete confirm / cancel
+                  <div className="flex items-center gap-1 shrink-0">
+                    <span className="text-xs text-destructive font-medium">Delete?</span>
+                    <Button
+                      variant="ghost" size="icon"
+                      className="h-7 w-7 text-destructive hover:text-destructive"
+                      onClick={() => handleDelete(file.name)}
+                      disabled={deleting}
+                      type="button"
+                    >
+                      <Check className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost" size="icon"
+                      className="h-7 w-7"
+                      onClick={() => setConfirmDelete(null)}
+                      disabled={deleting}
+                      type="button"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
                 ) : (
+                  // Normal actions
                   <>
                     <Button
-                      variant="ghost"
-                      size="icon"
+                      variant="ghost" size="icon"
                       className="h-7 w-7 shrink-0"
                       onClick={() => startEdit(file)}
                       type="button"
@@ -209,16 +258,22 @@ const ImageManager: React.FC = () => {
                       <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
-                      variant="ghost"
-                      size="icon"
+                      variant="ghost" size="icon"
                       className="h-7 w-7 shrink-0"
                       onClick={() => copyUrl(file.url)}
                       type="button"
                     >
                       {copiedUrl === file.url
                         ? <Check className="h-4 w-4 text-green-600" />
-                        : <Copy className="h-4 w-4" />
-                      }
+                        : <Copy className="h-4 w-4" />}
+                    </Button>
+                    <Button
+                      variant="ghost" size="icon"
+                      className="h-7 w-7 shrink-0 text-destructive hover:text-destructive"
+                      onClick={() => setConfirmDelete(file.name)}
+                      type="button"
+                    >
+                      <Trash2 className="h-4 w-4" />
                     </Button>
                   </>
                 )}
