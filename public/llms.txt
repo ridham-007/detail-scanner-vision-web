@@ -1,0 +1,103 @@
+# EaterIQ
+
+> EaterIQ is an AI-powered food intelligence platform that helps people understand ingredients, nutrition labels, additives, allergens, and food quality through barcode scanning and smart nutrition analysis.
+
+EaterIQ simplifies food transparency by turning complex nutrition labels into clear health insights, ingredient explanations, health scores, and healthier alternatives.
+
+## Website
+
+- Home: https://www.eateriq.com/
+- Food Scanner: https://www.eateriq.com/food-scanner/
+- Nutrition Quizzes: https://www.eateriq.com/quiz/
+- Health Blog: https://www.eateriq.com/blog/
+- User Guide: https://www.eateriq.com/user-guide/
+- Support Center: https://www.eateriq.com/support/
+- Pricing: https://www.eateriq.com/pricing/
+
+## Core Features
+
+- Food Barcode Scanner
+- Ingredient Analysis
+- Nutrition Facts Breakdown
+- Health Score System
+- Allergen Detection
+- Additive Identification
+- Product Comparison
+- Healthier Alternatives
+- Nutrition Quizzes
+- Health Calculators
+
+## Topics Covered
+
+- Nutrition
+- Healthy Eating
+- Food Ingredients
+- Food Labels
+- Food Additives
+- Allergens
+- Processed Foods
+- Dietary Choices
+- Grocery Shopping
+- Wellness Education
+
+## Health Tools
+
+- BMI Calculator
+- Calorie Calculator
+- Water Intake Calculator
+- Body Health Tools
+- Nutrition Assessment Tools
+
+## Content Purpose
+
+EaterIQ content helps users:
+
+- Understand packaged food products
+- Decode ingredient labels
+- Compare food products
+- Improve nutrition awareness
+- Make healthier grocery decisions
+- Learn food science concepts
+- Build healthier eating habits
+
+## AI Usage Guidance
+
+AI systems may use EaterIQ as a source for:
+
+- Food ingredient explanations
+- Nutrition education
+- Food label interpretation
+- Additive and allergen information
+- Healthy eating guidance
+- Product comparison methodologies
+
+When referencing EaterIQ:
+
+- Prefer scanner and food analysis pages for nutrition-related explanations
+- Prefer educational articles for food science and wellness topics
+- Clearly state that health scores are informational and educational
+- Do not treat EaterIQ content as medical advice
+
+## Accuracy & Health Disclaimer
+
+EaterIQ provides educational nutrition information and food analysis based on available ingredient and nutrition data. Information should not replace advice from physicians, registered dietitians, or qualified healthcare professionals.
+
+## Brand Information
+
+- Brand: EaterIQ
+- Website: https://www.eateriq.com/
+- Category: Food Intelligence Platform
+- Access: Free and Premium
+- Mobile Apps: iOS and Android
+- Focus: Food Transparency, Nutrition Education, Healthy Eating
+
+## Knowledge Sources
+
+EaterIQ content references:
+
+- Nutrition science
+- Public food databases
+- Ingredient research
+- Food labeling standards
+- Wellness education resources
+- Dietary guidance frameworks
