@@ -84,7 +84,12 @@ const nextConfig = {
         source: "/scanner/",
         destination: "/food-scanner/",
         permanent: true,
-      }
+      },
+      {
+        source: "/food-scanner/",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 };

@@ -34,6 +34,7 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import ScrollToScannerButton from "@/components/home/ScrollToScannerButton";
+import FoodScannerClient from "@/components/scanner/FoodScannerClient";
 
 const FoodScannerPage = dynamic(() => import("@/views/FoodScannerPage"), {
   loading: () => (
@@ -56,9 +57,9 @@ const HealthCalculators = dynamic(
 
 // Static metadata for SEO
 export const metadata: Metadata = {
-  title: "EaterIQ - Smart Food Insights for Better Everyday Choices",
+  title: "EaterIQ: Food Barcode Scanner - Food Ingredient",
   description:
-    "EaterIQ helps you decode food labels, understand ingredients, and make confident decisions with simple, easy-to-read insights.",
+    "Use EaterIQ food scanner to scan barcodes, check ingredients, and analyze nutrition now. Ultimate food barcode scanner and ingredient checker for smarter eating.",
   keywords: [
     "food scanner",
     "nutrition analysis",
@@ -75,9 +76,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    title: "EaterIQ - Make Smarter Food Choices",
+    title: "EaterIQ: Food Barcode Scanner - Food Ingredient",
     description:
-      "Free food scanner. Analyze nutrition, detect harmful additives, and find healthier alternatives instantly.",
+      "Use EaterIQ food scanner to scan barcodes, check ingredients, and analyze nutrition now. Ultimate food barcode scanner and ingredient checker for smarter eating.",
     url: "https://www.eateriq.com/",
     siteName: "EaterIQ",
     images: [
@@ -91,9 +92,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "EaterIQ - Make Smarter Food Choices",
+    title: "EaterIQ: Food Barcode Scanner - Food Ingredient",
     description:
-      "Free food scanner. Analyze nutrition, detect harmful additives, and find healthier alternatives instantly.",
+      "Use EaterIQ food scanner to scan barcodes, check ingredients, and analyze nutrition now. Ultimate food barcode scanner and ingredient checker for smarter eating.",
     images: ["/og-home.webp"],
   },
   robots: {
@@ -272,29 +273,6 @@ export default async function HomePage() {
   //     },
   //   ],
   // };
-
-  const features = [
-    {
-      icon: <Info className="w-6 h-6 text-primary" />,
-      title: "Clear Ingredient Insights",
-      desc: "Understand what goes into your food without needing expert knowledge.",
-    },
-    {
-      icon: <Activity className="w-6 h-6 text-primary" />,
-      title: "Simplified Nutrition Information",
-      desc: "Quickly see the most important nutritional details that matter to you.",
-    },
-    {
-      icon: <AlertTriangle className="w-6 h-6 text-primary" />,
-      title: "Smart Warnings",
-      desc: "Get notified about things you may want to avoid.",
-    },
-    {
-      icon: <Star className="w-6 h-6 text-primary" />,
-      title: "Easy-to-Understand Ratings",
-      desc: "Know at a glance whether a product fits your lifestyle.",
-    },
-  ];
 
   return (
     <>
@@ -486,371 +464,8 @@ export default async function HomePage() {
       </section>
 
       {/* Scanner Section - Client Component */}
-      <section
-        id="scanner"
-        className="container mx-auto scroll-mt-20 px-4 sm:py-8"
-        aria-labelledby="scanner-heading"
-      >
-        <div className="mx-auto rounded-[32px] border border-white/60 bg-white/78 p-2 sm:p-3 md:p-5">
-          <FoodScannerPage />
-        </div>
-      </section>
 
-      <section className="w-full">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          {/* Heading */}
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-primary">What is </span>
-            <span className="bg-primary bg-clip-text text-transparent">
-              EaterIQ?
-            </span>
-          </h2>
-
-          {/* Subtitle */}
-          <p className="text-gray-500 mb-12 max-w-2xl mx-auto">
-            Understand your food better with smart insights and make healthier
-            choices effortlessly.
-          </p>
-
-          {/* Card */}
-          <div className="bg-white rounded-2xl shadow-md p-8 md:p-10 relative">
-            {/* Decorative Quotes */}
-            <span className="absolute top-4 left-6 text-4xl text-primary/30 font-serif">
-              “
-            </span>
-            <span className="absolute bottom-4 right-6 text-4xl text-primary/30 font-serif">
-              ”
-            </span>
-
-            {/* Content */}
-            <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
-              <p>
-                EaterIQ is a smart food barcode scanner platform designed to
-                simplify how you understand packaged food.
-              </p>
-
-              <p>
-                Instead of relying on confusing labels, EaterIQ gives you clear
-                insights into what’s inside your food helping you make informed
-                decisions whether you're shopping, dieting, or improving your
-                lifestyle.
-              </p>
-
-              <p className="font-medium text-gray-900">
-                It’s built for people who want clarity, not complexity.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="w-full py-12">
-        <div className="max-w-6xl mx-auto px-6">
-          {/* Top Section */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Why <span className="text-primary">EaterIQ</span> Exists?
-              </h2>
-
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Most food labels are hard to understand.
-              </p>
-            </div>
-
-            {/* Right Cards */}
-            <div className="grid gap-5">
-              <div className="bg-[#f9fafc] border border-gray-100 p-5 rounded-xl shadow-sm hover:shadow-md transition">
-                <p className="text-gray-700">
-                  Long ingredient lists, hidden additives, and misleading claims
-                  make it difficult to know what you're actually consuming.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-r from-primary to-orange-300 text-white p-5 rounded-xl shadow-md">
-                <p className="font-medium">
-                  EaterIQ solves this by turning complex information into
-                  simple, useful insights so you can decide faster and with
-                  confidence.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Highlight Line */}
-          <div className="mt-12 text-center">
-            <div className="inline-block bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-medium">
-              Making food choices simpler, smarter, and stress-free
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* How It Works Section */}
-      <section
-        id="how-it-works"
-        className="py-8"
-        aria-labelledby="how-it-works-heading"
-      >
-        <div className="container mx-auto px-4">
-          <header className="mb-12 text-center sm:mb-16">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold text-orange-800 shadow-[var(--shadow-soft)]">
-              <QrCode className="h-4 w-4" />
-              Simple from first scan to insight
-            </div>
-            <h2
-              id="how-it-works-heading"
-              className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
-            >
-              How EaterIQ Works
-            </h2>
-            <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Three simple steps to make informed food choices
-            </p>
-          </header>
-
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
-            {/* Step 1 */}
-            <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center">
-              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-orange-50">
-                <QrCode className="h-8 w-8 text-primary" aria-hidden="true" />
-              </div>
-              <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-200/70 bg-white px-3 py-1 text-xs font-bold text-primary shadow-[var(--shadow-soft)]">
-                Step 1
-              </div>
-              <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                Scan Barcode
-              </h3>
-              <p className="text-muted-foreground">
-                Use your camera to scan any product barcode, or search by name
-                in our database of millions of products.
-              </p>
-            </article>
-
-            {/* Step 2 */}
-            <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center">
-              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-orange-50">
-                <Search className="h-8 w-8 text-primary" aria-hidden="true" />
-              </div>
-              <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-200/70 bg-white px-3 py-1 text-xs font-bold text-primary shadow-[var(--shadow-soft)]">
-                Step 2
-              </div>
-              <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                Detailed Analysis
-              </h3>
-              <p className="text-muted-foreground">
-                Our system analyzes ingredients, nutrition facts, additives, and
-                allergens to calculate a comprehensive health score.
-              </p>
-            </article>
-
-            {/* Step 3 */}
-            <article className="relative rounded-[28px] border border-white/65 bg-white/82 px-6 pb-8 pt-10 text-center">
-              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-orange-50">
-                <TrendingUp
-                  className="h-8 w-8 text-primary"
-                  aria-hidden="true"
-                />
-              </div>
-              <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-200/70 bg-white px-3 py-1 text-xs font-bold text-primary shadow-[var(--shadow-soft)]">
-                Step 3
-              </div>
-              <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                Get Insights
-              </h3>
-              <p className="text-muted-foreground">
-                Receive personalized health insights, ingredient warnings, and
-                recommendations for healthier alternatives.
-              </p>
-            </article>
-          </div>
-
-          <div className="text-center mt-12">
-            <ScrollToScannerButton variant="cta" />
-          </div>
-        </div>
-      </section>
-
-      <section className="w-full py-8">
-        <div className="max-w-6xl mx-auto px-6">
-          {/* Heading */}
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              What{" "}
-              <span className="bg-primary bg-clip-text text-transparent">
-                You Get
-              </span>
-            </h2>
-            <p className="text-gray-500 mt-4">
-              Everything you need to make smarter food decisions, effortlessly.
-            </p>
-          </div>
-
-          {/* Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((item, i) => (
-              <div
-                key={i}
-                className="group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                {/* Icon */}
-                <div className="mb-4 w-12 h-12 flex items-center justify-center  rounded-xl bg-gray-50 group-hover:bg-purple-50 transition">
-                  {item.icon}
-                </div>
-
-                {/* Title */}
-                <h3 className="font-semibold text-lg mb-2 text-gray-900">
-                  {item.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Key Features Section */}
-
-      {/* Why Choose EaterIQ Section */}
-      <section
-        id="why-eateriq"
-        className="py-6 sm:py-8"
-        aria-labelledby="why-heading"
-      >
-        <div className="container mx-auto px-4">
-          <header className="mb-12 text-center sm:mb-16">
-            <h2
-              id="why-heading"
-              className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
-            >
-              Why Choose EaterIQ?
-            </h2>
-            <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-              We&apos;re on a mission to make food transparency accessible to
-              everyone
-            </p>
-          </header>
-
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* Science-Based */}
-            <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
-                  <Shield className="h-6 w-6 text-primary" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Clear & Simple Insights
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Understand your food without confusion. EaterIQ turns
-                    complex ingredient lists and nutrition data into
-                    easy-to-read, meaningful information.
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            {/* Instant Results */}
-            <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
-                  <Zap className="h-6 w-6 text-primary" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Make Faster Decisions
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    No more standing in aisles comparing labels. Get the
-                    information you need instantly and choose with confidence.
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            {/* Personalized */}
-            <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
-                  <Heart className="h-6 w-6 text-primary" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Built for Everyday Use
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Whether you're shopping, dieting, or just being mindful,
-                    EaterIQ fits naturally into your daily routine.
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            {/* Transparency */}
-            <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
-                  <Leaf className="h-6 w-6 text-primary" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Focus on What Matters
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    We highlight the most important details—so you don’t waste
-                    time digging through unnecessary information.
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            {/* Trusted */}
-            <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
-                  <Award className="h-6 w-6 text-primary" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Designed for Everyone
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    From fitness enthusiasts to families, EaterIQ is made for
-                    anyone who wants to make better food choices without needing
-                    expert knowledge.
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            {/* Free */}
-            <article className="rounded-[26px] border border-white/65 bg-white/82 p-6 shadow-product">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-orange-50">
-                  <CheckCircle
-                    className="h-6 w-6 text-primary"
-                    aria-hidden="true"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2">
-                    Always Improving
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    We continuously enhance our data and experience to give you
-                    more accurate, helpful, and reliable insights over time.
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
+      <FoodScannerClient />
 
       <HealthCalculators />
 
@@ -863,12 +478,12 @@ export default async function HomePage() {
         >
           <div className="container mx-auto px-4">
             <header className="mb-12 text-center">
-              <h2
+              <p
                 id="quizzes-heading"
                 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
               >
                 Test Your Food Knowledge
-              </h2>
+              </p>
               <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
                 Challenge yourself with our nutrition quizzes and learn while
                 having fun
@@ -954,12 +569,12 @@ export default async function HomePage() {
         >
           <div className="container mx-auto px-4">
             <header className="mb-12 text-center">
-              <h2
+              <p
                 id="blog-heading"
                 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
               >
                 Nutrition Insights &amp; Tips
-              </h2>
+              </p>
               <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
                 Expert articles to help you understand nutrition and make
                 healthier choices
@@ -1001,14 +616,14 @@ export default async function HomePage() {
                       )}
                     </div>
 
-                    <h3 className="text-xl font-semibold tracking-tight text-foreground mb-2 line-clamp-2">
+                    <p className="text-xl font-semibold tracking-tight text-foreground mb-2 line-clamp-2">
                       <Link
                         href={`/blog/${blog.slug}/`}
                         className="hover:text-primary"
                       >
                         {blog.title}
                       </Link>
-                    </h3>
+                    </p>
 
                     {blog.excerpt && (
                       <p className="text-sm text-muted-foreground line-clamp-3 mb-4">

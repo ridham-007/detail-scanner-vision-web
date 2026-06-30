@@ -343,17 +343,11 @@ export default function FoodScannerClient() {
               </h2>
 
               <p className="text-muted-foreground leading-relaxed mb-4">
-                EaterIQ is an advanced food scanning app designed to help you
-                understand what’s inside your packaged food. With just a quick
-                scan, this intelligent food scanner reveals detailed insights
-                about ingredients, nutrition values, and overall product
-                quality.
+                EaterIQ is an advanced food scanning app designed to help you understand what’s inside your packaged food. With just a quick scan, this intelligent food scanner reveals detailed insights about ingredients, nutrition values, and overall product quality.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
-                Whether you call it a product scanner, ingredient checker, or
-                food barcode scanner, EaterIQ gives you all the information you
-                need in one place, fast, simple, and easy to understand.
+                Whether you call it a product scanner, ingredient checker, or food barcode scanner, EaterIQ gives you all the information you need in one place, fast, simple, and easy to understand.
               </p>
             </div>
 
@@ -506,8 +500,7 @@ export default function FoodScannerClient() {
               Ingredient Transparency (Ingredient Checker)
             </h3>
             <p className="text-muted-foreground mb-3">
-              Our advanced ingredient checker breaks down every ingredient into
-              simple terms.
+              Our advanced ingredient checker breaks down every ingredient into simple terms.
             </p>
             <ul className="list-disc pl-5 text-muted-foreground space-y-1">
               <li>Understand complex names and hidden additives</li>
@@ -515,8 +508,7 @@ export default function FoodScannerClient() {
               <li>Know exactly what you’re consuming</li>
             </ul>
             <p className="text-muted-foreground mt-3">
-              This makes EaterIQ one of the most powerful tools for ingredient
-              checker food analysis.
+              This makes EaterIQ one of the most powerful tools for ingredient checker food analysis.
             </p>
           </div>
 
@@ -535,8 +527,7 @@ export default function FoodScannerClient() {
               <li>Allergens like gluten, dairy, or nuts</li>
             </ul>
             <p className="text-muted-foreground mt-3">
-              Get instant alerts so you can avoid products that don’t align with
-              your health goals.
+              Get instant alerts so you can avoid products that don’t align with your health goals.
             </p>
           </div>
 
@@ -564,10 +555,7 @@ export default function FoodScannerClient() {
           <div className="p-6 rounded-2xl bg-white shadow-product">
             <h3 className="text-xl font-semibold mb-3">Smart Health Score</h3>
             <p className="text-muted-foreground">
-              Each product is given a simple health rating based on its
-              ingredients and nutrition. This feature of our product scanner app
-              helps you quickly decide whether a product is a good or bad
-              choice.
+              Each product is given a simple health rating based on its ingredients and nutrition. This feature of our product scanner app helps you quickly decide whether a product is a good or bad choice.
             </p>
           </div>
 
@@ -577,9 +565,7 @@ export default function FoodScannerClient() {
               Better Alternatives (Future-Ready)
             </h3>
             <p className="text-muted-foreground">
-              Our system can suggest healthier alternatives to scanned products,
-              helping you upgrade your diet effortlessly using the food scanner
-              app.
+              Our system can suggest healthier alternatives to scanned products, helping you upgrade your diet effortlessly using the food scanner app.
             </p>
           </div>
         </div>

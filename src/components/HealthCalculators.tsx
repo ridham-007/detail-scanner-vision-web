@@ -27,12 +27,12 @@ export default function HealthCalculators() {
             </span>
           </div>
 
-          <h2
+          <p
             id="calculators-heading"
             className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4"
           >
             Free Health Calculators
-          </h2>
+          </p>
 
           <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Track your health metrics with our science-based calculators and get
@@ -64,11 +64,11 @@ export default function HealthCalculators() {
                     </div>
 
                     {/* TITLE */}
-                    <h3
+                    <p
                       className="text-xl font-semibold tracking-tight mb-3 group-hover:text-primary transition-colors"
                     >
                       {calc.title}
-                    </h3>
+                    </p>
 
                     {/* DESCRIPTION - FIXED HEIGHT */}
                     <p
