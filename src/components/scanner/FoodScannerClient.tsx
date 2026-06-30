@@ -196,12 +196,12 @@ export default function FoodScannerClient() {
             <Sparkles className="h-4 w-4" />
             Scanner built for quick, confident choices
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-foreground">
             Food{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
               Scanner
             </span>
-          </h1>
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Scan Any Food Product & Instantly Know What You’re Eating
           </p>
@@ -717,62 +717,6 @@ export default function FoodScannerClient() {
               food items.
             </div>
           </details>
-        </div>
-      </section>
-
-      <section className="border-t border-border/70 py-6">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6 text-center">
-          Explore More
-        </h2>
-        <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-          <Link href="/blog/" className="group">
-            <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
-              <CardContent className="p-4 flex items-center gap-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <BookOpen
-                    className="h-5 w-5 text-primary"
-                    aria-hidden="true"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
-                    Nutrition Blog
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Expert articles on healthy eating
-                  </p>
-                </div>
-                <ArrowRight
-                  className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors"
-                  aria-hidden="true"
-                />
-              </CardContent>
-            </Card>
-          </Link>
-          <Link href="/quiz/" className="group">
-            <Card className="h-full rounded-[24px] border-white/65 bg-white/82 shadow-product transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-warm)]">
-              <CardContent className="p-4 flex items-center gap-4">
-                <div className="p-3 rounded-full bg-accent/20">
-                  <Brain
-                    className="h-5 w-5 text-accent-foreground"
-                    aria-hidden="true"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
-                    Nutrition Quizzes
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Test your food knowledge
-                  </p>
-                </div>
-                <ArrowRight
-                  className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors"
-                  aria-hidden="true"
-                />
-              </CardContent>
-            </Card>
-          </Link>
         </div>
       </section>
 

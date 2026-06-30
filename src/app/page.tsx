@@ -315,7 +315,7 @@ export default async function HomePage() {
                 id="hero-heading"
                 className="mb-4 text-2xl font-bold leading-[1.02] tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl"
               >
-                Smart health insights for every barcode scan
+                Smart Health Insights for Every Food Barcode Scan
               </h1>
 
               <p className="mx-auto mb-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg lg:mx-0">
