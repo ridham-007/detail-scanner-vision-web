@@ -57,7 +57,7 @@ const HealthCalculators = dynamic(
 
 // Static metadata for SEO
 export const metadata: Metadata = {
-  title: "EaterIQ: Food Barcode Scanner - Food Ingredient",
+  title: "EaterIQ: Food Barcode Scanner - Food Ingredient Checker",
   description:
     "Use EaterIQ food scanner to scan barcodes, check ingredients, and analyze nutrition now. Ultimate food barcode scanner and ingredient checker for smarter eating.",
   keywords: [
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    title: "EaterIQ: Food Barcode Scanner - Food Ingredient",
+    title: "EaterIQ: Food Barcode Scanner - Food Ingredient Checker",
     description:
       "Use EaterIQ food scanner to scan barcodes, check ingredients, and analyze nutrition now. Ultimate food barcode scanner and ingredient checker for smarter eating.",
     url: "https://www.eateriq.com/",
@@ -92,7 +92,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "EaterIQ: Food Barcode Scanner - Food Ingredient",
+    title: "EaterIQ: Food Barcode Scanner - Food Ingredient Checker",
     description:
       "Use EaterIQ food scanner to scan barcodes, check ingredients, and analyze nutrition now. Ultimate food barcode scanner and ingredient checker for smarter eating.",
     images: ["/og-home.webp"],
