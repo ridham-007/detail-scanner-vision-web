@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.eateriq",
+      "sha256_cert_fingerprints": [
+        "73:F5:FF:44:2E:10:FD:3D:66:FB:70:66:4C:56:12:FA:CD:0B:03:9C:ED:2E:F2:68:6D:71:D1:49:F8:C5:E2:02"
+      ]
+    }
+  }
+]

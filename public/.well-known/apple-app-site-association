@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "B39NS57NS4.com.eateriq.app",
+        "paths": [
+          "/auth/reset-password",
+          "/auth/reset-password/*"
+        ]
+      }
+    ]
+  }
+}
