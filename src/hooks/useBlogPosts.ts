@@ -5,6 +5,15 @@ import { BlogPost, CreateBlogPost } from '@/types/Blog';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
+function slugify(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
 export const useBlogPosts = (includeUnpublished = false) => {
   return useQuery({
     queryKey: ['blog-posts', includeUnpublished],
@@ -83,11 +92,7 @@ export const useCreateBlogPost = () => {
         Object.entries(rawPostData).map(([k, v]) => [k, v === '' ? null : v])
       ) as CreateBlogPost;
 
-      // Generate slug from title
-      const slug = postData.title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]/g, '')
-        .replace(/\s+/g, '-');
+      const slug = slugify(postData.slug || postData.title);
 
       // Calculate reading time (average 200 words per minute)
       const wordCount = postData.content.split(/\s+/).length;
@@ -139,6 +144,9 @@ export const useUpdateBlogPost = () => {
 
       // Calculate reading time if content is updated
       let updateData = { ...sanitized };
+      if (sanitized.title || sanitized.slug) {
+        updateData.slug = slugify((sanitized.slug || sanitized.title || '').toString());
+      }
       if (postData.content) {
         const wordCount = postData.content.split(/\s+/).length;
         const readingTime = Math.ceil(wordCount / 200);
@@ -174,6 +182,8 @@ export const useUpdateBlogPost = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['blog-posts'] });
+      queryClient.invalidateQueries({ queryKey: ['blog-post-by-id'] });
+      queryClient.invalidateQueries({ queryKey: ['blog-post'] });
       toast({
         title: 'Success',
         description: 'Blog post updated successfully!',

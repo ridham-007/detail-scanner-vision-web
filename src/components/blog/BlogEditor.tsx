@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,6 +13,15 @@ import AIContentGenerator from './AIContentGenerator';
 import ImageUpload from './ImageUpload';
 import ImageManager from './ImageManager';
 
+function slugify(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
 interface BlogEditorProps {
   initialData?: Partial<CreateBlogPost>;
   onSave: (data: CreateBlogPost) => void;
@@ -23,6 +31,7 @@ interface BlogEditorProps {
 const BlogEditor: React.FC<BlogEditorProps> = ({ initialData, onSave, isLoading = false }) => {
   const [formData, setFormData] = useState<CreateBlogPost>({
     title: initialData?.title || '',
+    slug: initialData?.slug || slugify(initialData?.title || ''),
     content: initialData?.content || '',
     excerpt: initialData?.excerpt || '',
     featured_image_url: initialData?.featured_image_url || '',
@@ -39,6 +48,7 @@ const BlogEditor: React.FC<BlogEditorProps> = ({ initialData, onSave, isLoading 
   });
 
   const [showAIGenerator, setShowAIGenerator] = useState(false);
+  const slugManuallyEdited = useRef(Boolean(initialData?.slug));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,6 +62,15 @@ const BlogEditor: React.FC<BlogEditorProps> = ({ initialData, onSave, isLoading 
   const handleContentChange = (content: string) => {
     handleInputChange('content', content);
   };
+
+  useEffect(() => {
+    if (!slugManuallyEdited.current) {
+      setFormData(prev => ({
+        ...prev,
+        slug: slugify(prev.title),
+      }));
+    }
+  }, [formData.title]);
 
   const handleAIContentGenerated = (content: string) => {
     // Append to existing content or replace based on user preference
@@ -81,6 +100,23 @@ const BlogEditor: React.FC<BlogEditorProps> = ({ initialData, onSave, isLoading 
                 placeholder="Enter blog post title"
                 required
               />
+            </div>
+
+            <div>
+              <Label htmlFor="slug">Slug *</Label>
+              <Input
+                id="slug"
+                value={formData.slug || ''}
+                onChange={(e) => {
+                  slugManuallyEdited.current = true;
+                  handleInputChange('slug', e.target.value);
+                }}
+                placeholder="enter-blog-post-slug"
+                required
+              />
+              <p className="mt-1 text-xs text-muted-foreground">
+                Used in the blog URL. Keep it short, lowercase, and hyphenated.
+              </p>
             </div>
 
             <div>

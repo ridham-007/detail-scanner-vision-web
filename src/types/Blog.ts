@@ -57,6 +57,7 @@ export interface BlogTag {
 
 export interface CreateBlogPost {
   title: string;
+  slug?: string;
   content: string;
   excerpt?: string;
   featured_image_url?: string;
