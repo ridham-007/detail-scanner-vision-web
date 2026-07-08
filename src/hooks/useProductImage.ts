@@ -10,25 +10,35 @@ export const useProductImage = (
   const [imageLoading, setImageLoading] = useState(false);
   const {session, deviceId} = useAuth();
 
+  const hasValidExistingImage =
+    existingImages?.some(
+      (image) => typeof image === "string" && image.trim().length > 0,
+    ) ?? false;
+
   useEffect(() => {
     const load = async () => {
       if (!barcode) return;
 
-      // If already have images from main API → skip
-      if (existingImages && existingImages.length > 0) {
+      // Skip the API lookup only when we already have a real image URL.
+      if (hasValidExistingImage) {
         return;
       }
-
+      
       setImageLoading(true);
-
-      const image = await fetchProductImage(barcode, deviceId, session?.access_token);
-
-      setApiImage(image);
-      setImageLoading(false);
+      try {
+        const image = await fetchProductImage(
+          barcode,
+          deviceId,
+          session?.access_token,
+        );
+        setApiImage(image);
+      } finally {
+        setImageLoading(false);
+      }
     };
 
     load();
-  }, [barcode, existingImages]);
+  }, [barcode, hasValidExistingImage, deviceId, session?.access_token]);
 
   return { apiImage, imageLoading };
 };
