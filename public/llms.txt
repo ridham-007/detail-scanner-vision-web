@@ -6,13 +6,13 @@ EaterIQ simplifies food transparency by turning complex nutrition labels into cl
 
 ## Website
 
-- Home: <https://www.eateriq.com/>
-- Food Scanner: <https://www.eateriq.com/food-scanner/>
-- Nutrition Quizzes: <https://www.eateriq.com/quiz/>
-- Health Blog: <https://www.eateriq.com/blog/>
-- User Guide: <https://www.eateriq.com/user-guide/>
-- Support Center: <https://www.eateriq.com/support/>
-- Pricing: <https://www.eateriq.com/pricing/>
+- [Home](https://www.eateriq.com/)
+- [Food Scanner](https://www.eateriq.com/food-scanner/)
+- [Nutrition Quizzes](https://www.eateriq.com/quiz/)
+- [Health Blog](https://www.eateriq.com/blog/)
+- [User Guide](https://www.eateriq.com/user-guide/)
+- [Support Center](https://www.eateriq.com/support/)
+- [Pricing](https://www.eateriq.com/pricing/)
 
 ## Core Features
 
@@ -85,7 +85,7 @@ EaterIQ provides educational nutrition information and food analysis based on av
 ## Brand Information
 
 - Brand: EaterIQ
-- Website: <https://www.eateriq.com/>
+- Website: [https://www.eateriq.com/](https://www.eateriq.com/)
 - Category: Food Intelligence Platform
 - Access: Free and Premium
 - Mobile Apps: iOS and Android

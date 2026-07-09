@@ -408,6 +408,7 @@ export default async function HomePage() {
                     alt="App preview"
                     fill
                     priority
+                    fetchPriority="high"
                     className="object-contain scale-[1.35]"
                     sizes="(max-width: 768px) 260px, 290px"
                     unoptimized

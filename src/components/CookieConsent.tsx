@@ -89,8 +89,11 @@ const CookieConsent = () => {
                 size="icon"
                 onClick={rejectNonEssential}
                 className="shrink-0 -mt-2 -mr-2"
+                aria-label="Reject non-essential cookies and close banner"
+                title="Reject non-essential cookies and close banner"
               >
                 <X className="h-4 w-4" />
+                <span className="sr-only">Dismiss cookie preferences banner</span>
               </Button>
             </div>
 
