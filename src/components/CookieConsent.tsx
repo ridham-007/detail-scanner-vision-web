@@ -75,8 +75,12 @@ const CookieConsent = () => {
                 <h3 className="text-xl font-semibold tracking-tight text-foreground">Cookie Preferences</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   We use cookies to enhance your experience. By continuing to visit this site, you agree to our use of cookies.{' '}
-                  <Link href="/privacy" className="text-primary hover:underline">
-                    Learn more
+                  <Link
+                    href="/privacy"
+                    className="font-medium text-primary underline decoration-2 underline-offset-2 hover:text-primary/80"
+                    aria-label="Read our privacy policy"
+                  >
+                    Read our privacy policy
                   </Link>
                 </p>
               </div>

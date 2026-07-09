@@ -61,6 +61,22 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     product?.images,
   );
 
+  const displayImages = (() => {
+    const productImages = (product?.images || []).filter(
+      (image): image is string => typeof image === "string" && image.trim().length > 0,
+    );
+
+    if (productImages.length > 0) {
+      return productImages;
+    }
+
+    if (apiImage) {
+      return [apiImage];
+    }
+
+    return [];
+  })();
+
   const handleAlternativesClick = async () => {
     if (!product) return;
 
@@ -200,16 +216,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     );
   }
 
-  const finalImages = () => {
-    if (product?.images?.length) return product.images;
-
-    if (apiImage) return [apiImage];
-
-    if (imageLoading) return [];
-
-    return [];
-  };
-
   return (
     <div className="space-y-8">
       {/* Main Product Card - Completely Redesigned */}
@@ -232,7 +238,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                         </div>
                       ) : (
                         <ProductImageCarousel
-                          images={finalImages()}
+                          images={displayImages}
                           productName={product.name}
                         />
                       )}

@@ -5,5 +5,3 @@ Disallow: /admin/
 Allow: /
  
 Sitemap: https://www.eateriq.com/sitemap.xml
-
-LLM: https://www.eateriq.com/llms.txt
