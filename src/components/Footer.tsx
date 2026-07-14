@@ -11,6 +11,7 @@ import {
   Facebook,
   Twitter,
   TrendingUp,
+  ScanBarcode,
 } from "lucide-react";
 import LogoIcon from "./LogoIcon";
 import Link from "next/link";
@@ -124,11 +125,23 @@ export default function Footer() {
                       href="/food-scanner/"
                       className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
                     >
-                      <Smartphone
+                      <ScanBarcode
                         className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
                         aria-hidden="true"
                       />
                       Food Scanner
+                    </Link>
+                  </li>
+                  <li>
+                  <Link
+                      href="/download/"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <Smartphone
+                        className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors"
+                        aria-hidden="true"
+                      />
+                      Download App
                     </Link>
                   </li>
                   <li>

@@ -47,7 +47,7 @@ export const SubscriptionGate: React.FC<SubscriptionGateProps> = ({
               </div>
             </div>
             <Button size="sm" onClick={openPaywall} className="whitespace-nowrap">
-              Unlock with Pro
+              Unlock with App
             </Button>
           </CardContent>
         </Card>
@@ -72,10 +72,9 @@ export const SubscriptionGate: React.FC<SubscriptionGateProps> = ({
           </div>
         </div>
         <Button onClick={openPaywall} className="whitespace-nowrap">
-          Unlock with Pro
+          Unlock with App
         </Button>
       </CardContent>
     </Card>
   );
 };
-

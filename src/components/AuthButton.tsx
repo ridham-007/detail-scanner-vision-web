@@ -12,7 +12,6 @@ import {
   Shield,
   ShoppingCart,
   History,
-  CreditCard,
   Heart,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -69,7 +68,6 @@ const AuthButton = () => {
     { path: "/food-scanner", label: "Scanner", icon: Scan },
     { path: "/quiz", label: "Quiz", icon: Trophy },
     { path: "/blog", label: "Blog", icon: BookOpen },
-    { path: "/pricing", label: "Pricing", icon: CreditCard },
     { path: "/history", label: "History", icon: History },
     { path: "/favorites", label: "Favourites", icon: Heart },
     { path: "/shopping-lists", label: "Lists", icon: ShoppingCart },

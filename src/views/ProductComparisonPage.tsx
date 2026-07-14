@@ -48,7 +48,7 @@ const ProductComparisonPage = () => {
         }
 
         // No more free battles: go to paywall
-        router.push('/pricing');
+        router.push('/download');
     };
 
     const handleLookup = async (barcode: string) => {
@@ -349,7 +349,7 @@ const ProductComparisonPage = () => {
                             </div>
                             <Button
                                 className="mt-2 w-full rounded-full shadow-[var(--shadow-warm)] sm:w-auto"
-                                onClick={() => router.push('/pricing')}
+                                onClick={() => router.push('/download')}
                             >
                                 Upgrade to Pro
                             </Button>

@@ -361,10 +361,10 @@ export default function SupportPage() {
                     → Dietary Cheat Sheets
                   </Link>
                   <Link
-                    href="/pricing/"
+                    href="/download/"
                     className="block text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    → Pricing & Plans
+                    → Download App
                   </Link>
                   <Link
                     href="/privacy/"

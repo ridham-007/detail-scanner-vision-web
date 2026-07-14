@@ -48,7 +48,7 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
         <Button 
           size="sm" 
           variant={isEmpty ? "default" : "outline"}
-          onClick={() => router.push('/pricing')}
+          onClick={() => router.push('/download')}
           className="gap-1 rounded-full border-orange-200/80 bg-primary text-white shadow-[var(--shadow-soft)]"
         >
           <Crown className="w-3 h-3" />
@@ -96,7 +96,7 @@ const UpgradeBanner: React.FC<UpgradeBannerProps> = ({
         </div>
 
         <Button 
-          onClick={() => router.push('/pricing')}
+          onClick={() => router.push('/download')}
           className="gap-2 whitespace-nowrap rounded-full shadow-[var(--shadow-warm)]"
           size="lg"
         >

@@ -112,6 +112,11 @@ const nextConfig = {
         destination: "/",
         permanent: true,
       },
+      {
+        source: "/pricing/",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 };

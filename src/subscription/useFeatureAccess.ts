@@ -27,7 +27,7 @@ export const useFeatureAccess = (featureKey: FeatureKey): FeatureAccess => {
   const hasPreview = !!config.freePreview;
 
   const openPaywall = () => {
-    router.push("/pricing");
+    router.push("/download");
   };
 
   return {
@@ -42,4 +42,3 @@ export const useFeatureAccess = (featureKey: FeatureKey): FeatureAccess => {
     openPaywall,
   };
 };
-

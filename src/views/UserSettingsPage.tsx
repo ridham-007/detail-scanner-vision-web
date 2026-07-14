@@ -478,7 +478,7 @@ const UserSettingsPage = () => {
 
                           {!subscribed && (
                             <Button
-                              onClick={() => router.push("/pricing")}
+                              onClick={() => router.push("/download")}
                               className="w-full"
                             >
                               Upgrade to Pro or Premium
@@ -597,7 +597,7 @@ const UserSettingsPage = () => {
                               </Alert>
 
                               <Button
-                                onClick={() => router.push("/pricing")}
+                                onClick={() => router.push("/download")}
                                 className="w-full"
                               >
                                 Resubscribe

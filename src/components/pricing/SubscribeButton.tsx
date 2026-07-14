@@ -2,14 +2,6 @@
 
 import React, { useState } from "react";
 import {
-  Scan,
-  TrendingUp,
-  Swords,
-  AlertTriangle,
-  Trophy,
-  Calculator,
-  Heart,
-  Ban,
   Star,
   Check,
   Zap,
@@ -24,41 +16,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { useRouter } from "next/navigation";
+import {
+  PRICING_FEATURES as PRO_FEATURES,
+  SAVINGS_PERCENT,
+  SUBSCRIPTION_PLANS as NEW_PLANS,
+} from "./pricingData";
 
-// ── Plans ─────────────────────────────────────────────────────────────────────
-const NEW_PLANS = {
-  monthly: {
-    planId: "pro_monthly",
-    razorpayPlanId: "plan_SScmVPb0bTd8vZ",
-    amount: 2.99,
-    display: "$2.99",
-    period: "month",
-  },
-  yearly: {
-    planId: "pro_yearly",
-    razorpayPlanId: "plan_SSclqfflKDBytG",
-    amount: 14.99,
-    display: "$14.99",
-    period: "year",
-  },
-} as const;
-
-const SAVINGS_PERCENT = 58;
 const MONTHLY_EQUIV = (NEW_PLANS.yearly.amount / 12).toFixed(2);
-
-const PRO_FEATURES = [
-  { icon: Scan, label: "Unlimited product scans" },
-  { icon: TrendingUp, label: "Full nutrition breakdown & allergen flags" },
-  { icon: Swords, label: "Food Battle — compare any two products" },
-  {
-    icon: AlertTriangle,
-    label: "Exact ingredient flagging from your preferences",
-  },
-  { icon: Trophy, label: "Unlimited quizzes + create your own" },
-  { icon: Calculator, label: "Detailed health calculator analysis" },
-  { icon: Heart, label: "Unlimited favourites & full scan history" },
-  { icon: Ban, label: "Ad-free experience" },
-];
 
 export default function SubscribeButton() {
   const { user, session } = useAuth();

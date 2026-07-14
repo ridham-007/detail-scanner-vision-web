@@ -36,13 +36,13 @@ import dynamic from "next/dynamic";
 import ScrollToScannerButton from "@/components/home/ScrollToScannerButton";
 import FoodScannerClient from "@/components/scanner/FoodScannerClient";
 
-const FoodScannerPage = dynamic(() => import("@/views/FoodScannerPage"), {
-  loading: () => (
-    <div className="h-[400px] flex items-center justify-center bg-muted/20 rounded-[32px] animate-pulse font-medium text-muted-foreground">
-      Initializing scanner...
-    </div>
-  ),
-});
+// const FoodScannerPage = dynamic(() => import("@/views/FoodScannerPage"), {
+//   loading: () => (
+//     <div className="h-[400px] flex items-center justify-center bg-muted/20 rounded-[32px] animate-pulse font-medium text-muted-foreground">
+//       Initializing scanner...
+//     </div>
+//   ),
+// });
 
 const HealthCalculators = dynamic(
   () => import("@/components/HealthCalculators"),
@@ -136,33 +136,33 @@ async function getRecentBlogs() {
   return data || [];
 }
 
-async function getProductCount() {
-  const { count, error } = await supabase
-    .from("scanned_products")
-    .select("*", { count: "exact", head: true })
-    .eq("is_published", true);
+// async function getProductCount() {
+//   const { count, error } = await supabase
+//     .from("scanned_products")
+//     .select("*", { count: "exact", head: true })
+//     .eq("is_published", true);
 
-  if (error) {
-    console.error(
-      "Error fetching product count:",
-      JSON.stringify(error, null, 2),
-    );
-    return 23000;
-  }
-  return (count || 0) + 23000;
-}
+//   if (error) {
+//     console.error(
+//       "Error fetching product count:",
+//       JSON.stringify(error, null, 2),
+//     );
+//     return 23000;
+//   }
+//   return (count || 0) + 23000;
+// }
 
-async function getUserCount() {
-  const { count, error } = await supabase
-    .from("profiles")
-    .select("*", { count: "exact", head: true });
+// async function getUserCount() {
+//   const { count, error } = await supabase
+//     .from("profiles")
+//     .select("*", { count: "exact", head: true });
 
-  if (error) {
-    console.error("Error fetching user count:", JSON.stringify(error, null, 2));
-    return 14000;
-  }
-  return (count || 0) + 14000;
-}
+//   if (error) {
+//     console.error("Error fetching user count:", JSON.stringify(error, null, 2));
+//     return 14000;
+//   }
+//   return (count || 0) + 14000;
+// }
 
 // Enable ISR
 export const revalidate = 3600;
@@ -193,12 +193,12 @@ function getDifficultyColor(difficulty: string) {
 
 export default async function HomePage() {
   // Fetch all data in parallel on the server
-  const [recentQuizzes, recentBlogs, productCount, userCount] =
+  const [recentQuizzes, recentBlogs] =
     await Promise.all([
       getRecentQuizzes(),
       getRecentBlogs(),
-      getProductCount(),
-      getUserCount(),
+      // getProductCount(),
+      // getUserCount(),
     ]);
 
   // Structured data schemas
@@ -432,7 +432,7 @@ export default async function HomePage() {
                     </div>
                     <div>
                       <span className="text-sm font-bold text-foreground block min-w-[60px]">
-                        {formatNumber(productCount)}
+                        23K
                       </span>
                       <span className="text-xs text-muted-foreground">
                         Products
@@ -450,7 +450,7 @@ export default async function HomePage() {
                     </div>
                     <div>
                       <span className="text-sm font-bold text-foreground block min-w-[60px]">
-                        {formatNumber(userCount)}
+                        14.2K
                       </span>
                       <span className="text-xs text-muted-foreground">
                         Users

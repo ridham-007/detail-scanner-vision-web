@@ -334,15 +334,15 @@ export default function QuizHubClient() {
             </div>
 
             {/* CTA */}
-            <Button
-              className="mt-4"
-              onClick={() => {
-                setShowUpgradeModal(false);
-                router.push("/pricing");
-              }}
-            >
-              ⭐  Upgrade to Pro
-            </Button>
+              <Button
+                className="mt-4"
+                onClick={() => {
+                  setShowUpgradeModal(false);
+                  router.push("/download");
+                }}
+              >
+              ⭐  Unlock with App
+              </Button>
 
           </div>
 

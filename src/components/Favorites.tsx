@@ -457,7 +457,7 @@ const Favorites = () => {
             </div>
             {limitReached && (
               <button
-                onClick={() => router.push("/pricing")}
+                onClick={() => router.push("/download")}
                 aria-label="Upgarde"
                 className="flex items-center gap-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary px-4 py-2 rounded-xl transition-colors whitespace-nowrap"
               >

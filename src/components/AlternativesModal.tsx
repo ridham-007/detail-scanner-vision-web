@@ -132,10 +132,10 @@ export default function AlternativesModal({
               className="mt-2 w-full sm:w-auto"
               onClick={() => {
                 onOpenChange(false);
-                router.push("/pricing");
+                router.push("/download");
               }}
             >
-              Upgrade to Pro
+              Unlock with App
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>

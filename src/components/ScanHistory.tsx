@@ -343,7 +343,7 @@ const ScanHistory = () => {
               </div>
               <Button
                 size="sm"
-                onClick={() => router.push("/pricing")}
+                onClick={() => router.push("/download")}
                 className="rounded-full shadow-[var(--shadow-soft)]"
               >
                 Upgrade to Pro

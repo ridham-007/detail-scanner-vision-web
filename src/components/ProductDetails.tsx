@@ -1,36 +1,26 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Lightbulb,
-  Image as ImageIcon,
-  Heart,
-  ShoppingCart,
-} from "lucide-react";
+import { Lightbulb, Image as ImageIcon } from "lucide-react";
 import NoProductData from "./NoProductData";
 import AnimatedHealthScore from "./AnimatedHealthScore";
 import EnhancedIngredientsDisplay from "./EnhancedIngredientsDisplay";
 import NutritionComparison from "./NutritionComparison";
 import ProductImageCarousel from "./ProductImageCarousel";
-import { AddToShoppingListModal } from "@/components/AddToShoppingListModal";
-import { useFavorites } from "@/hooks/useFavorites";
 import { ProductData } from "@/types/ProductData";
 import { NutritionScoreGrade } from "./NutritionScoreGrade";
 import { AllergenAnalysisCard } from "./AllergenAnalysisCard";
 import { AdditiveAnalysisCard } from "./AdditiveAnalysisCard";
 import { IngredientAnalysisCard } from "./IngredientAnalysisCard";
 import { NutritionDataCard } from "./NutritionDataCard";
-import { fetchAlternatives, AlternativeProduct } from "@/lib/api/alternatives";
-import AlternativesModal from "@/components/AlternativesModal";
 import HealthInsights from "./HealthInsights";
 import { HealthierAlternatives } from "./HealthierAlternatives";
 import { useProductImage } from "@/hooks/useProductImage";
 import { SubscriptionGate } from "@/subscription/SubscriptionGate";
-import { useFeatureAccess } from "@/subscription/useFeatureAccess";
-import { useAuth } from "@/contexts/AuthContext";
 
 interface ProductDetailsProps {
   product: ProductData | null;
@@ -45,17 +35,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   showNoDataState = false,
   scannedBarcode,
 }) => {
-  const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
-  const {session, deviceId} = useAuth()
-  /* -------------------- Alternatives State -------------------- */
-  const [showAlternatives, setShowAlternatives] = useState(false);
-  const [loadingAlternatives, setLoadingAlternatives] = useState(false);
-  const [alternatives, setAlternatives] = useState<AlternativeProduct[]>([]);
-  const [alternativesError, setAlternativesError] = useState<string | null>(
-    null,
-  );
-  const [alternativesOpen, setAlternativesOpen] = useState(false);
-
   const { apiImage, imageLoading } = useProductImage(
     product?.barcode,
     product?.images,
@@ -76,22 +55,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
     return [];
   })();
-
-  const handleAlternativesClick = async () => {
-    if (!product) return;
-
-    setAlternativesOpen(true);
-    setLoadingAlternatives(true);
-
-    try {
-      const data = await fetchAlternatives(product.barcode, deviceId, session?.access_token);
-      setAlternatives(data.alternatives || []);
-    } catch {
-      setAlternatives([]);
-    } finally {
-      setLoadingAlternatives(false);
-    }
-  };
 
   if (isLoading) {
     return (
@@ -282,59 +245,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                     >
                       {/* Alternatives – primary CTA */}
                       <Button
-                        onClick={handleAlternativesClick}
+                        asChild
                         className="flex w-full items-center justify-center gap-2 sm:w-auto"
                       >
-                        Alternatives
+                        <Link href="/download/">Get Alternatives in App</Link>
                       </Button>
-
-                      {/* Favorite */}
-                      <Button
-                        variant={
-                          isFavorite(product.barcode) ? "default" : "outline"
-                        }
-                        size="sm"
-                        onClick={() => {
-                          if (isFavorite(product.barcode)) {
-                            removeFromFavorites(product.barcode);
-                          } else {
-                            addToFavorites(
-                              product.barcode,
-                              product.name,
-                              product.health_score,
-                            );
-                          }
-                        }}
-                        className="
-      flex items-center justify-center gap-2
-      w-full sm:w-auto
-    "
-                      >
-                        <Heart
-                          className={`w-4 h-4 ${
-                            isFavorite(product.barcode) ? "fill-current" : ""
-                          }`}
-                        />
-                        {isFavorite(product.barcode) ? "Favorited" : "Favorite"}
-                      </Button>
-
-                      {/* Add to List */}
-                      <AddToShoppingListModal
-                        barcode={product.barcode}
-                        productName={product.name}
-                      >
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="
-        flex items-center justify-center gap-2
-        w-full sm:w-auto
-      "
-                        >
-                          <ShoppingCart className="w-4 h-4" />
-                          Add to List
-                        </Button>
-                      </AddToShoppingListModal>
                     </div>
                   </div>
 
@@ -385,13 +300,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
           </div>
         </CardContent>
       </Card>
-
-      <AlternativesModal
-        open={alternativesOpen}
-        onOpenChange={setAlternativesOpen}
-        alternatives={alternatives}
-        loading={loadingAlternatives}
-      />
 
       {/* Nutrition Score Grade */}
       {product.nutrition_score_grade && (
@@ -490,10 +398,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
       {/* Healthier Alternatives - Classification-based (Pro) */}
       <SubscriptionGate feature="product_alternatives" mode="block">
-        <HealthierAlternatives
+        <></>
+        {/* <HealthierAlternatives
           barcode={product.barcode}
           currentHealthScore={product.health_score}
-        />
+        /> */}
       </SubscriptionGate>
       {/* Product Categories */}
       {/* <ProductCategories barcode={product.barcode} /> */}

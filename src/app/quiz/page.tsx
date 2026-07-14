@@ -633,7 +633,7 @@ export default async function QuizPage() {
                 </Card>
               </Link>
 
-              <Link href="/pricing/" className="group">
+              <Link href="/download/" className="group">
                 <Card className="h-full hover:shadow-md transition-shadow">
                   <CardContent className="p-4 flex items-center gap-4">
                     <div className="p-3 rounded-full bg-secondary/20">
@@ -641,10 +641,10 @@ export default async function QuizPage() {
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
-                        Pricing Plans
+                        Download App
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        Unlock premium features
+                        Unlock the app experience
                       </p>
                     </div>
                     <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true" />

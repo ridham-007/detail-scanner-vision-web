@@ -70,9 +70,9 @@ const SubscriptionSuccessPage = () => {
                   <Button 
                     variant="outline" 
                     className="rounded-full border-[rgb(var(--accent))]/20 bg-white/80"
-                    onClick={() => router.push('/pricing')}
+                    onClick={() => router.push('/download')}
                   >
-                    View Your Plan
+                    View App Download
                   </Button>
                 </div>
               </CardContent>

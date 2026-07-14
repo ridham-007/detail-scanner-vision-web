@@ -70,7 +70,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/pricing/`,
+      url: `${baseUrl}/download/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
     },

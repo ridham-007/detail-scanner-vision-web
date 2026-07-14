@@ -489,7 +489,7 @@ export default function UserGuidePage() {
                     <h4 className="text-orange-900 font-bold text-base mb-1">Exclusive Pro Tools</h4>
                     <p className="text-sm text-orange-700 leading-relaxed">Unlimited history, deep reports, and ad-free labeling.</p>
                   </div>
-                  <Link href="/pricing" className="w-full md:w-auto">
+                  <Link href="/download" className="w-full md:w-auto">
                     <Button className="w-full bg-primary hover:bg-orange-700 text-white rounded-xl font-bold px-8 h-11">
                       Upgrade Now
                     </Button>
