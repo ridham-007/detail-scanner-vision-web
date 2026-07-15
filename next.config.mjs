@@ -117,6 +117,11 @@ const nextConfig = {
         destination: "/",
         permanent: true,
       },
+      {
+        source: "/auth/",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 };

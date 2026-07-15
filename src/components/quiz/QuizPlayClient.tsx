@@ -625,7 +625,7 @@ export default function QuizPlayClient({
                     </p>
                     <Button
                       aria-label="Sign in with Google"
-                      onClick={signInWithGoogle}
+                      onClick={() => signInWithGoogle()}
                       className="bg-primary hover:bg-primary/90 w-full"
                     >
                       <LogIn className="h-4 w-4 mr-2" aria-hidden="true" />
@@ -904,7 +904,7 @@ export default function QuizPlayClient({
                 </div>
                 <Button
                   aria-label="Sign In"
-                  onClick={signInWithGoogle}
+                  onClick={() => signInWithGoogle()}
                   size="sm"
                   className="bg-primary hover:bg-primary/90 shrink-0"
                 >

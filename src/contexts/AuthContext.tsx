@@ -8,8 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 interface AuthContextType {
   user: User | null;
   session: Session | null;
-  signInWithGoogle: () => Promise<void>;
-  signInWithApple: () => Promise<void>;
+  signInWithGoogle: (redirectTo?: string) => Promise<void>;
+  signInWithApple: (redirectTo?: string) => Promise<void>;
   signOut: () => Promise<void>;
   loading: boolean;
   deviceId: string;
@@ -31,6 +31,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
   const [deviceId, setDeviceId] = useState(typeof localStorage !== "undefined" ? localStorage.getItem("device_id") || "" : "");
 
+  const clearAuthHash = () => {
+    if (typeof window === "undefined") return;
+    if (window.location.hash) {
+      window.history.replaceState(
+        {},
+        document.title,
+        `${window.location.pathname}${window.location.search}`,
+      );
+    }
+  };
+
+  const clearAuthFragment = (delay = 0) => {
+    if (typeof window === "undefined") return;
+    window.setTimeout(() => {
+      if (window.location.hash) {
+        window.history.replaceState(
+          {},
+          document.title,
+          `${window.location.pathname}${window.location.search}`,
+        );
+      }
+    }, delay);
+  };
+
   useEffect(() => {
     if(!deviceId){
       const id = uuidv4();
@@ -47,6 +71,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
+        clearAuthHash();
+        clearAuthFragment(0);
         
         // Track authentication events
         if (event === 'SIGNED_IN' && session?.user) {
@@ -72,6 +98,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+      clearAuthHash();
+      clearAuthFragment(0);
       
       // Identify existing user
       if (session?.user) {
@@ -88,21 +116,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => subscription.unsubscribe();
   }, []);
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (redirectTo = "/") => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/`
+        redirectTo: `${window.location.origin}${redirectTo}`
       }
     });
     if (error) throw error;
   };
 
-  const signInWithApple = async () => {
+  const signInWithApple = async (redirectTo = "/") => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'apple',
       options: {
-        redirectTo: `${window.location.origin}/`
+        redirectTo: `${window.location.origin}${redirectTo}`
       }
     });
     if (error) throw error;

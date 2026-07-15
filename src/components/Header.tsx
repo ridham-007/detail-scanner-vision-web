@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { useAuth } from "@/contexts/AuthContext";
 import ThemeToggle from "./ThemeToggle";
 import AuthButton from "./AuthButton";
 import NotificationBell from "./NotificationBell";
@@ -21,11 +22,13 @@ import {
   Sparkles,
   Heart,
   Calculator,
+  LogOut,
 } from "lucide-react";
 import LogoIcon from "./LogoIcon";
 const Header = () => {
   const pathname = usePathname();
   const { data: isAdmin } = useIsAdmin();
+  const { signOut } = useAuth();
 
   const navigationItems = [
     { path: "/food-scanner", label: "Scanner" },
@@ -190,16 +193,23 @@ const Header = () => {
                         Notifications
                       </Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={signOut}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Logout
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               )}
             </nav>
 
-            <div className="flex items-center gap-2 md:gap-4 shrink-0 min-w-[44px] md:min-w-[172px]">
+            {/* <div className="flex items-center gap-2 md:gap-4 shrink-0 min-w-[44px] md:min-w-[172px]">
               <NotificationBell />
               <AuthButton />
-              {/* <ThemeToggle /> */}
-            </div>
+              <ThemeToggle />
+            </div> */}
           </div>
         </div>
       </div>

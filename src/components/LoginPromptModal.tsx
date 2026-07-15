@@ -33,7 +33,7 @@ const LoginPromptModal: React.FC<LoginPromptModalProps> = ({
         
         <div className="flex flex-col gap-3 pt-4">
           <Button
-            onClick={signInWithGoogle}
+            onClick={() => signInWithGoogle()}
             className="bg-primary text-primary-foreground hover:bg-primary/90"
           >
             <LogIn className="h-4 w-4 mr-2" />

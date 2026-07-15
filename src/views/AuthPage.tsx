@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -19,7 +19,11 @@ const emailSchema = z.string().email('Please enter a valid email address');
 const passwordSchema = z.string().min(8, 'Password must be at least 8 characters');
 const nameSchema = z.string().min(2, 'Name must be at least 2 characters').optional();
 
-const AuthPage = () => {
+interface AuthPageProps {
+  redirectTo?: string;
+}
+
+const AuthPage = ({ redirectTo = "/" }: AuthPageProps) => {
   const router = useRouter();
   const { user, signInWithGoogle, signInWithApple, loading: authLoading } = useAuth();
   
@@ -33,12 +37,43 @@ const AuthPage = () => {
   const [fullName, setFullName] = useState('');
   const [errors, setErrors] = useState<{ email?: string; password?: string; fullName?: string }>({});
 
+  const getPostLoginRedirect = useCallback(async (userId?: string | null) => {
+    if (redirectTo !== "/" && redirectTo !== "/auth") {
+      return redirectTo;
+    }
+
+    if (!userId) {
+      return redirectTo;
+    }
+
+    const { data, error } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId)
+      .eq('role', 'admin')
+      .maybeSingle();
+
+    if (error) {
+      return redirectTo;
+    }
+
+    return data ? '/admin/blogs' : redirectTo;
+  }, [redirectTo]);
+
+  const navigateToRedirect = useCallback(async (userId?: string | null) => {
+    const target = await getPostLoginRedirect(userId);
+    if (typeof window !== "undefined") {
+      window.history.replaceState({}, document.title, target);
+    }
+    router.replace(target);
+  }, [getPostLoginRedirect, router]);
+
   // Redirect if already logged in
   useEffect(() => {
     if (user && !authLoading) {
-      router.push('/');
+      navigateToRedirect(user.id);
     }
-  }, [user, authLoading, router]);
+  }, [user, authLoading, navigateToRedirect]);
 
   const validateForm = (isSignUp: boolean) => {
     const newErrors: { email?: string; password?: string; fullName?: string } = {};
@@ -71,7 +106,7 @@ const AuthPage = () => {
     
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -88,7 +123,7 @@ const AuthPage = () => {
       }
       
       toast.success('Welcome back!');
-      router.push('/');
+      await navigateToRedirect(data.user?.id);
     } catch (error) {
       toast.error('An unexpected error occurred. Please try again.');
     } finally {
@@ -140,7 +175,7 @@ const AuthPage = () => {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
-      await signInWithGoogle();
+      await signInWithGoogle(redirectTo);
     } catch (error) {
       toast.error('Failed to sign in with Google. Please try again.');
       setIsLoading(false);
@@ -150,7 +185,7 @@ const AuthPage = () => {
   const handleAppleSignIn = async () => {
     setIsLoading(true);
     try {
-      await signInWithApple();
+      await signInWithApple(redirectTo);
     } catch (error) {
       toast.error('Failed to sign in with Apple. Please try again.');
       setIsLoading(false);

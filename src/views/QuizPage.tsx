@@ -671,7 +671,7 @@ const QuizPage: React.FC = () => {
                     </p>
                     <Button
                       aria-label="Sign in with Google"
-                      onClick={signInWithGoogle}
+                      onClick={() => signInWithGoogle()}
                       className="bg-primary hover:bg-primary/90 w-full"
                     >
                       <LogIn className="h-4 w-4 mr-2" />
@@ -905,7 +905,7 @@ const QuizPage: React.FC = () => {
                 </div>
                 <Button
                   aria-label="Sign In"
-                  onClick={signInWithGoogle}
+                  onClick={() => signInWithGoogle()}
                   size="sm"
                   className="bg-primary hover:bg-primary/90 shrink-0"
                 >
