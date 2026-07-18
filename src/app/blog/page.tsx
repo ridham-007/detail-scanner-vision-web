@@ -102,7 +102,7 @@ export default async function BlogListPage() {
       "datePublished": post.published_at,
       "author": {
         "@type": "Person",
-        "name": post.author?.full_name || post.author?.username || "EaterIQ Team"
+        "name": "EaterIQ Team"
       }
     }))
   };
