@@ -14,6 +14,18 @@ function slugify(text: string): string {
     .replace(/-+/g, '-');
 }
 
+async function revalidateBlog(slug?: string | null): Promise<void> {
+  try {
+    await fetch('/api/revalidate-blog', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: slug ?? undefined }),
+    });
+  } catch (err) {
+    console.error('Failed to revalidate blog pages:', err);
+  }
+}
+
 export const useBlogPosts = (includeUnpublished = false) => {
   return useQuery({
     queryKey: ['blog-posts', includeUnpublished],
@@ -114,8 +126,9 @@ export const useCreateBlogPost = () => {
       if (error) throw error;
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['blog-posts'] });
+      void revalidateBlog(data?.slug);
       toast({
         title: 'Success',
         description: 'Blog post created successfully!',
@@ -180,10 +193,11 @@ export const useUpdateBlogPost = () => {
       if (error) throw error;
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['blog-posts'] });
       queryClient.invalidateQueries({ queryKey: ['blog-post-by-id'] });
       queryClient.invalidateQueries({ queryKey: ['blog-post'] });
+      void revalidateBlog(data?.slug);
       toast({
         title: 'Success',
         description: 'Blog post updated successfully!',
@@ -214,6 +228,7 @@ export const useDeleteBlogPost = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['blog-posts'] });
+      void revalidateBlog();
       toast({
         title: 'Success',
         description: 'Blog post deleted successfully!',

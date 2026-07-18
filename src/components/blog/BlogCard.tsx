@@ -34,7 +34,7 @@ function formatDate(dateString: string) {
 }
 
 export default function BlogCard({ post }: BlogCardProps) {
-  const authorName = post.author?.full_name || post.author?.username || 'EaterIQ Team';
+  const authorName = 'EaterIQ Team';
   const publishDate = post.published_at || post.created_at;
 
   return (

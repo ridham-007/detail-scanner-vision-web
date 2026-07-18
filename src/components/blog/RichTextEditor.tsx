@@ -74,14 +74,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           keepMarks: true,
           keepAttributes: false,
           HTMLAttributes: {
-            class: 'list-disc list-inside',
+            class: 'list-disc list-outside',
           },
         },
         orderedList: {
           keepMarks: true,
           keepAttributes: false,
           HTMLAttributes: {
-            class: 'list-decimal list-inside',
+            class: 'list-decimal list-outside',
           },
         },
         listItem: {
