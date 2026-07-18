@@ -136,7 +136,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   const canonicalUrl = `https://www.eateriq.com/blog/${slug}/`;
   const authorName = post.author?.full_name || post.author?.username || 'EaterIQ Team';
-  const authorDisplayName = `${authorName} from EaterIQ`;
+  const authorDisplayName = `EaterIQ Team`;
 
   // JSON-LD Schema
   // const schemaData = {
