@@ -678,7 +678,7 @@ export default function QuizPlayClient({
                     Continue Learning
                   </p>
                   <div className="grid grid-cols-2 gap-2">
-                    <Link href="/food-scanner/" className="group">
+                    <Link href="/" className="group">
                       <div className="p-3 rounded-lg border hover:border-primary transition-colors flex items-center gap-2">
                         <Scan
                           className="h-4 w-4 text-primary"

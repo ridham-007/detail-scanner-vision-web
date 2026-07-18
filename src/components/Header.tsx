@@ -31,7 +31,7 @@ const Header = () => {
   const { signOut } = useAuth();
 
   const navigationItems = [
-    { path: "/food-scanner", label: "Scanner" },
+    { path: "/", label: "Scanner" },
     { path: "/quiz", label: "Quiz" },
     { path: "/blog", label: "Blogs" },
   ];

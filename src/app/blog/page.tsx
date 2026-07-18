@@ -182,9 +182,6 @@ export default async function BlogListPage() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <Link href="/" className="block text-sm text-muted-foreground hover:text-primary">
-                    → Home
-                  </Link>
-                  <Link href="/food-scanner/" className="block text-sm text-muted-foreground hover:text-primary">
                     → Food Scanner
                   </Link>
                   <Link href="/quiz/" className="block text-sm text-muted-foreground hover:text-primary">
@@ -202,7 +199,7 @@ export default async function BlogListPage() {
                   <p className="text-sm text-muted-foreground mb-4">
                     Scan any product barcode and get instant health analysis.
                   </p>
-                  <Link href="/food-scanner">
+                  <Link href="/">
                     <Button size="sm" className="w-full rounded-full bg-primary shadow-[var(--shadow-warm)] hover:bg-primary/90">
                       Start Scanning Free
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />

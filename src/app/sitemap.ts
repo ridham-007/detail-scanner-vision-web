@@ -35,11 +35,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
     },
     {
-      url: `${baseUrl}/food-scanner/`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-    },
-    {
       url: `${baseUrl}/quiz/`,
       lastModified: new Date(),
       changeFrequency: 'daily',

@@ -6,8 +6,7 @@ EaterIQ simplifies food transparency by turning complex nutrition labels into cl
 
 ## Website
 
-- [Home](https://www.eateriq.com/)
-- [Food Scanner](https://www.eateriq.com/food-scanner/)
+- [Food Scanner](https://www.eateriq.com/)
 - [Nutrition Quizzes](https://www.eateriq.com/quiz/)
 - [Health Blog](https://www.eateriq.com/blog/)
 - [User Guide](https://www.eateriq.com/user-guide/)
